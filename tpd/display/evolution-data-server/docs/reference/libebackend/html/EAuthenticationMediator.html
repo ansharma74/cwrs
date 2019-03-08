@@ -1,0 +1,419 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EAuthenticationMediator</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Backend Utilities (libebackend)">
+<link rel="up" href="ch02.html" title="Registry Service Classes">
+<link rel="prev" href="ch02.html" title="Registry Service Classes">
+<link rel="next" href="EAuthenticationSession.html" title="EAuthenticationSession">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch02.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Backend Utilities (libebackend)</th>
+<td><a accesskey="n" href="EAuthenticationSession.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#EAuthenticationMediator.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#EAuthenticationMediator.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#EAuthenticationMediator.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#EAuthenticationMediator.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#EAuthenticationMediator.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="EAuthenticationMediator"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="EAuthenticationMediator.top_of_page"></a>EAuthenticationMediator</span></h2>
+<p>EAuthenticationMediator — Authenticator proxy for remote clients</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="EAuthenticationMediator.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;libebackend/libebackend.h&gt;
+
+struct              <a class="link" href="EAuthenticationMediator.html#EAuthenticationMediator-struct" title="struct EAuthenticationMediator">EAuthenticationMediator</a>;
+<a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="returnvalue">ESourceAuthenticator</span></a> * <a class="link" href="EAuthenticationMediator.html#e-authentication-mediator-new" title="e_authentication_mediator_new ()">e_authentication_mediator_new</a>    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *sender</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/gio/unstable/GDBusConnection.html"><span class="returnvalue">GDBusConnection</span></a> *   <a class="link" href="EAuthenticationMediator.html#e-authentication-mediator-get-connection" title="e_authentication_mediator_get_connection ()">e_authentication_mediator_get_connection</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> *mediator</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="EAuthenticationMediator.html#e-authentication-mediator-get-object-path" title="e_authentication_mediator_get_object_path ()">e_authentication_mediator_get_object_path</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> *mediator</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="EAuthenticationMediator.html#e-authentication-mediator-get-sender" title="e_authentication_mediator_get_sender ()">e_authentication_mediator_get_sender</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> *mediator</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EAuthenticationMediator.html#e-authentication-mediator-wait-for-client-sync" title="e_authentication_mediator_wait_for_client_sync ()">e_authentication_mediator_wait_for_client_sync</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> *mediator</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EAuthenticationMediator.html#e-authentication-mediator-wait-for-client" title="e_authentication_mediator_wait_for_client ()">e_authentication_mediator_wait_for_client</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> *mediator</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EAuthenticationMediator.html#e-authentication-mediator-wait-for-client-finish" title="e_authentication_mediator_wait_for_client_finish ()">e_authentication_mediator_wait_for_client_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> *mediator</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EAuthenticationMediator.html#e-authentication-mediator-dismiss" title="e_authentication_mediator_dismiss ()">e_authentication_mediator_dismiss</a>   (<em class="parameter"><code><a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> *mediator</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="EAuthenticationMediator.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----EAuthenticationMediator
+</pre>
+</div>
+<div class="refsect1">
+<a name="EAuthenticationMediator.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+EAuthenticationMediator implements
+ <a href="http://library.gnome.org/devel/gio/unstable/GInitable.html">GInitable</a> and  <a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html">ESourceAuthenticator</a>.</p>
+</div>
+<div class="refsect1">
+<a name="EAuthenticationMediator.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="EAuthenticationMediator.html#EAuthenticationMediator--connection" title='The "connection" property'>connection</a>"               <a href="http://library.gnome.org/devel/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a>*      : Read / Write / Construct Only
+  "<a class="link" href="EAuthenticationMediator.html#EAuthenticationMediator--object-path" title='The "object-path" property'>object-path</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only
+  "<a class="link" href="EAuthenticationMediator.html#EAuthenticationMediator--sender" title='The "sender" property'>sender</a>"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1">
+<a name="EAuthenticationMediator.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> runs on the registry D-Bus service.  It mediates
+authentication attempts between the client requesting authentication and
+the server-side <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> interacting with the user and/or
+secret service.  It implements the <a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a> interface and
+securely transmits passwords to a remote <a href="/usr/share/gtk-doc/html/libedataserver/ESourceRegistry.html"><span class="type">ESourceRegistry</span></a> over D-Bus.
+</p>
+</div>
+<div class="refsect1">
+<a name="EAuthenticationMediator.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="EAuthenticationMediator-struct"></a><h3>struct EAuthenticationMediator</h3>
+<pre class="programlisting">struct EAuthenticationMediator;</pre>
+<p>
+Contains only private data that should be read and manipulated using the
+functions below.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-mediator-new"></a><h3>e_authentication_mediator_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="returnvalue">ESourceAuthenticator</span></a> * e_authentication_mediator_new    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *sender</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> and exports the Authenticator
+D-Bus interface on <em class="parameter"><code>connection</code></em> at <em class="parameter"><code>object_path</code></em>.  If the Authenticator
+interface fails to export, the function sets <em class="parameter"><code>error</code></em> and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p>
+<a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> watches the bus name of the client requesting
+authentication, given by <em class="parameter"><code>sender</code></em>.  If it sees the bus name vanish, it
+cancels the authentication session so the next authentication session
+can begin without delay.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object_path</code></em> :</span></p></td>
+<td>object path of the authentication session</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sender</code></em> :</span></p></td>
+<td>bus name of the client requesting authentication</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on error</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-mediator-get-connection"></a><h3>e_authentication_mediator_get_connection ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gio/unstable/GDBusConnection.html"><span class="returnvalue">GDBusConnection</span></a> *   e_authentication_mediator_get_connection
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> *mediator</code></em>);</pre>
+<p>
+Returns the <a href="http://library.gnome.org/devel/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a> on which the Authenticator D-Bus interface
+is exported.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mediator</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a href="http://library.gnome.org/devel/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-mediator-get-object-path"></a><h3>e_authentication_mediator_get_object_path ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_authentication_mediator_get_object_path
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> *mediator</code></em>);</pre>
+<p>
+Returns the object path at which the Authenticator D-Bus interface is
+exported.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mediator</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the object path</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-mediator-get-sender"></a><h3>e_authentication_mediator_get_sender ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_authentication_mediator_get_sender
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> *mediator</code></em>);</pre>
+<p>
+Returns the authentication client's unique bus name.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mediator</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the client's bus name</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-mediator-wait-for-client-sync"></a><h3>e_authentication_mediator_wait_for_client_sync ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_authentication_mediator_wait_for_client_sync
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> *mediator</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Waits for the authentication client to indicate it is ready to begin
+authentication attempts.  Call this function to synchronize with the
+client before initiating any authentication attempts through <em class="parameter"><code>mediator</code></em>.
+</p>
+<p>
+If the authentication client's bus name vanishes or the client fails
+to signal it is ready before a timer expires, the function sets <em class="parameter"><code>error</code></em>
+and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mediator</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the client is ready, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if an error occurred</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-mediator-wait-for-client"></a><h3>e_authentication_mediator_wait_for_client ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_authentication_mediator_wait_for_client
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> *mediator</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Asynchronously waits for the authentication client to indicate it
+is ready to being authentication attempts.  Call this function to
+synchronize with the client before initiating any authentication
+attempts through <em class="parameter"><code>mediator</code></em>.
+</p>
+<p>
+When the operation is finished, <em class="parameter"><code>callback</code></em> will be called.  You can then
+call <code class="function">e_authentication_mediator_wait_for_client_finished()</code> to get the
+result of the operation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mediator</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to the callback function</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-mediator-wait-for-client-finish"></a><h3>e_authentication_mediator_wait_for_client_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_authentication_mediator_wait_for_client_finish
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> *mediator</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes the operation started with
+<a class="link" href="EAuthenticationMediator.html#e-authentication-mediator-wait-for-client" title="e_authentication_mediator_wait_for_client ()"><code class="function">e_authentication_mediator_wait_for_client()</code></a>.
+</p>
+<p>
+If the authentication client's bus name vanishes or the client fails
+to signal it is ready before a timer expires, the function sets <em class="parameter"><code>error</code></em>
+and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mediator</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the client is ready, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if an error occurred</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-mediator-dismiss"></a><h3>e_authentication_mediator_dismiss ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_authentication_mediator_dismiss   (<em class="parameter"><code><a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> *mediator</code></em>);</pre>
+<p>
+Signals to the authentication client that the user declined to provide a
+password when prompted and that the authentication session has terminated.
+This is also called when a server-side error has occurred, but the client
+doesn't need to know the difference.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mediator</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="EAuthenticationMediator.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="EAuthenticationMediator--connection"></a><h3>The <code class="literal">"connection"</code> property</h3>
+<pre class="programlisting">  "connection"               <a href="http://library.gnome.org/devel/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a>*      : Read / Write / Construct Only</pre>
+<p>The GDBusConnection on which to export the authenticator interface.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EAuthenticationMediator--object-path"></a><h3>The <code class="literal">"object-path"</code> property</h3>
+<pre class="programlisting">  "object-path"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only</pre>
+<p>The object path at which to export the authenticator interface.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EAuthenticationMediator--sender"></a><h3>The <code class="literal">"sender"</code> property</h3>
+<pre class="programlisting">  "sender"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only</pre>
+<p>Unique bus name of the process that initiated the authentication session.</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

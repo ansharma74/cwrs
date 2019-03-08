@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Place yourself outside of the fontconfig source tree.  In
+# this example, the environment variable FONTCONFIG_SOURCE
+# is assumed to contain the absolute fontconfig source directory.
+
+(cd $FONTCONFIG_SOURCE; find . -type f) | while read F; do
+	mkdir -p `dirname $F`
+	ln -s $FONTCONFIG_SOURCE/$F $F
+done
+

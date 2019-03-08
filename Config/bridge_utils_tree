@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Place yourself outside of the BRIDGE-UTILS source tree.  In
+# this example, the environment variable BRIDGE_UTILS_SOURCE
+# is assumed to contain the absolute BRIDGE-UTILS source directory.
+
+(cd $BRIDGE_UTILS_SOURCE; find . -type f) | while read F; do
+	mkdir -p `dirname $F`
+	ln -s $BRIDGE_UTILS_SOURCE/$F $F
+done
+

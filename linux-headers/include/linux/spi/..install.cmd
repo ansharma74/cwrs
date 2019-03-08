@@ -1,0 +1,1 @@
+cmd_/home/anil/cwrs/linux-headers/include/linux/spi/.install := perl scripts/headers_install.pl /home/anil/cwrs/linux-headers/include/linux/spi x86  /home/anil/cwrs/linux/include/uapi/linux/spi/spidev.h ; for F in ; do echo "\#include <asm-generic/$$F>" > /home/anil/cwrs/linux-headers/include/linux/spi/$$F; done; touch /home/anil/cwrs/linux-headers/include/linux/spi/.install

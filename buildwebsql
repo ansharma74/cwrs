@@ -1,0 +1,163 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+MINPARAMS=1
+if [ $# -lt "$MINPARAMS" ]
+then
+    echo usage:
+    echo   buildwebsql "package_type"
+    echo   
+    echo i.e.:
+    echo   buildwebsql webserver
+    echo    
+    exit 1
+fi
+
+BUILDTYPE=$1
+
+TOP=`pwd`
+echo Source Base=$TOP
+
+echo "--------------Testing Build Tools--------------"
+
+$TOP/Config/buildpackageversion
+
+echo "----------Print Default Config----------------"
+
+$TOP/Config/envtest
+
+echo "----------Export Environment Variables-------"
+
+export PREFIX=$TOP/images/$BUILDTYPE
+
+LNX_P=$TOP/images/linux
+
+export PATH=$LNX_P/bin:$PREFIX/bin:$PREFIX/lib:$PREFIX/include:$PREFIX/usr/lib:$PREFIX/usr/include:$PREFIX/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+
+export PKG_CONFIG_PATH=$LNX_P/lib64/pkgconfig:$LNX_P/lib/pkgconfig:$PREFIX/lib/pkgconfig:$PREFIX/lib64/pkgconfig
+
+export LDFLAGS="-L$LNX_P/lib64 -L$LNX_P/lib -L$PREFIX/lib -L$PREFIX/lib64"
+
+export CFLAGS="-fPIC -I$LNX_P/include -I$LNX_P/usr/include -I$PREFIX/include -I$PREFIX/usr/include"
+
+export CPPFLAGS="-fPIC -I$LNX_P/include -I$LNX_P/usr/include -I$PREFIX/include -I$PREFIX/usr/include"
+
+export LD_LIBRARY_PATH=$LNX_P/lib:$LNX_P/lib64:$PREFIX/lib:$PREFIX/lib64
+
+export LIBRARY_PATH=$LNX_P/lib:$LNX_P/lib64:$PREFIX/lib:$PREFIX/lib64
+
+export C_INCLUDE_PATH=$LNX_P/include:$LNX_P/usr/include:$PREFIX/include:$PREFIX/usr/include
+
+export CPP_INCLUDE_PATH=$LNX_P/include:$LNX_P/usr/include:$PREFIX/include:$PREFIX/usr/include
+
+
+echo "----------Print Build Config----------------"
+
+$TOP/Config/envtest
+
+function make_webserverpack {
+
+    echo "-----------------------------------------------"
+    echo "-------------- Building webserver -------------"
+    echo "-----------------------------------------------"
+
+    cd $TOP/buildoutput/webserver
+    ../../apache/httpd/configure \
+        --prefix=/usr/local/apache2 --with-pic
+    make
+    make DESTDIR=$PREFIX install
+    make distclean
+
+
+    echo "--------- Making Webserver Pack ---------------"
+
+    rm -rf $PREFIX/DEBIAN
+    mkdir $PREFIX/DEBIAN
+    echo "Package: cbirwebserver
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: all
+Maintainer: CBIR (info@cbir.in)
+Description: CBIR Webserver Package
+    CBIR Webserver" > $PREFIX/DEBIAN/control
+
+    cd $PREFIX/..
+    find ./webserver -type d | xargs chmod 755
+    dpkg-deb --build webserver
+    if [ ! -d /tmp/build ]
+    then
+        mkdir /tmp/build
+    fi
+    mv webserver.deb /tmp/builds/cbirwebserver.deb
+}
+
+function make_mysqlpack {
+
+    echo "--------- Making MySQL Install ---------------"
+
+    cd $TOP/mysql
+    if [ -f Makefile ]
+    then
+        make clean
+    fi
+    if [ -f CMakeCache.txt ]
+    then
+        rm CMakeCache.txt
+    fi
+    CURSES_P=$TOP/images/linux
+    cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DWITH_PIC=ON \
+    -DBUILD_TYPE=MINSIZEREL -DWITH_UNIT_TESTS=OFF -DWITH_DEBUG=OFF \
+    -DCMAKE_BUILD_TYPE=MinSizeRel -DCURSES_LIBRARY=$CURSES_P/lib \
+    -DFEATURE_SET=small -DCURSES_INCLUDE_PATH=$CURSES_P/include \
+    -DWITH_EMBEDDED_SERVER=OFF -DWITH_EXTRA_CHARSETS=none \
+    -DENABLED_PROFILING=OFF -DINSTALL_LAYOUT=DEB \
+    -DINSTALL_MYSQLTESTDIR=OFF
+    make
+    make DESTDIR=$PREFIX install
+    make clean
+
+    rm -rf $PREFIX/DEBIAN
+    mkdir $PREFIX/DEBIAN
+    echo "Package: cbirmysql
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: all
+Maintainer: CBIR (info@cbir.in)
+Description: CBIR MySQL 
+    MySQL install " > $PREFIX/DEBIAN/control
+
+    cd $PREFIX/..
+    find ./mysql -type d | xargs chmod 755
+    dpkg-deb --build mysql
+    if [ ! -d /tmp/build ]
+    then
+        mkdir /tmp/build
+    fi
+    mv mysql.deb /tmp/builds/cbirmysql.deb
+}
+
+case "$BUILDTYPE" in
+    webserver)
+        rm -rf $TOP/buildoutput/webserver
+        rm -rf $TOP/images/webserver
+        mkdir $TOP/buildoutput/webserver
+        mkdir $TOP/images/webserver
+        make_webserverpack
+        ;;
+    mysql)
+        rm -rf $TOP/buildoutput/mysql
+        rm -rf $TOP/images/mysql
+        mkdir $TOP/buildoutput/mysql
+        mkdir $TOP/images/mysql
+        make_mysqlpack
+        ;;
+    *)   
+        echo "Choices are as follows: webserver | mysql"
+        exit 1
+        ;;
+esac
+

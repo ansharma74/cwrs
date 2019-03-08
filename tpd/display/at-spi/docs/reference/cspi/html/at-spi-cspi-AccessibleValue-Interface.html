@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>AccessibleValue Interface</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="AT-SPI C Bindings Reference Manual">
+<link rel="up" href="spi-component.html" title="Subinterface Methods">
+<link rel="prev" href="at-spi-cspi-AccessibleText-Interface.html" title="AccessibleText Interface">
+<link rel="next" href="ch05.html" title="Auxiliary Types">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="at-spi-cspi-AccessibleText-Interface.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="spi-component.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">AT-SPI C Bindings Reference Manual</th>
+<td><a accesskey="n" href="ch05.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#at-spi-cspi-AccessibleValue-Interface.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#at-spi-cspi-AccessibleValue-Interface.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="AccessibleValue Interface">
+<a name="at-spi-cspi-AccessibleValue-Interface"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="at-spi-cspi-AccessibleValue-Interface.top_of_page"></a>AccessibleValue Interface</span></h2>
+<p>AccessibleValue Interface — An interface implemented by valuators, sliders, and other onscren components
+which allow discrete or continuous values to be manipulated.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="at-spi-cspi-AccessibleValue-Interface.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis"><span class="returnvalue">void</span>                <a class="link" href="at-spi-cspi-AccessibleValue-Interface.html#AccessibleValue-ref" title="AccessibleValue_ref ()">AccessibleValue_ref</a>                 (<em class="parameter"><code><span class="type">AccessibleValue</span> *obj</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="at-spi-cspi-AccessibleValue-Interface.html#AccessibleValue-unref" title="AccessibleValue_unref ()">AccessibleValue_unref</a>               (<em class="parameter"><code><span class="type">AccessibleValue</span> *obj</code></em>);
+<span class="returnvalue">double</span>              <a class="link" href="at-spi-cspi-AccessibleValue-Interface.html#AccessibleValue-getCurrentValue" title="AccessibleValue_getCurrentValue ()">AccessibleValue_getCurrentValue</a>     (<em class="parameter"><code><span class="type">AccessibleValue</span> *obj</code></em>);
+<span class="returnvalue">double</span>              <a class="link" href="at-spi-cspi-AccessibleValue-Interface.html#AccessibleValue-getMaximumValue" title="AccessibleValue_getMaximumValue ()">AccessibleValue_getMaximumValue</a>     (<em class="parameter"><code><span class="type">AccessibleValue</span> *obj</code></em>);
+<span class="returnvalue">double</span>              <a class="link" href="at-spi-cspi-AccessibleValue-Interface.html#AccessibleValue-getMinimumValue" title="AccessibleValue_getMinimumValue ()">AccessibleValue_getMinimumValue</a>     (<em class="parameter"><code><span class="type">AccessibleValue</span> *obj</code></em>);
+<span class="returnvalue">SPIBoolean</span>          <a class="link" href="at-spi-cspi-AccessibleValue-Interface.html#AccessibleValue-setCurrentValue" title="AccessibleValue_setCurrentValue ()">AccessibleValue_setCurrentValue</a>     (<em class="parameter"><code><span class="type">AccessibleValue</span> *obj</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> newValue</code></em>);
+<span class="returnvalue">double</span>              <a class="link" href="at-spi-cspi-AccessibleValue-Interface.html#AccessibleValue-getMinimumIncrement" title="AccessibleValue_getMinimumIncrement ()">AccessibleValue_getMinimumIncrement</a> (<em class="parameter"><code><span class="type">AccessibleValue</span> *obj</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="at-spi-cspi-AccessibleValue-Interface.description"></a><h2>Description</h2>
+<p>
+The Value interface is exposed by sliders, scrollbars, dials, and other
+components which are used to change scalar values in an application.  The
+interface may be used to change a value in an "approximately continuous"
+fashion, or in integer increments - the interface allows the client to
+determine the incremental granularity of the adjustments possible, the
+possible range of values, and the current value.  It also allows the value to
+be programmatically set, if the implementor's state does not include READONLY.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="at-spi-cspi-AccessibleValue-Interface.details"></a><h2>Details</h2>
+<div class="refsect2" title="AccessibleValue_ref ()">
+<a name="AccessibleValue-ref"></a><h3>AccessibleValue_ref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                AccessibleValue_ref                 (<em class="parameter"><code><span class="type">AccessibleValue</span> *obj</code></em>);</pre>
+<p>
+Increment the reference count for an <span class="type">AccessibleValue</span> object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a pointer to the <span class="type">AccessibleValue</span> implementor on which to operate.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="AccessibleValue_unref ()">
+<a name="AccessibleValue-unref"></a><h3>AccessibleValue_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                AccessibleValue_unref               (<em class="parameter"><code><span class="type">AccessibleValue</span> *obj</code></em>);</pre>
+<p>
+Decrement the reference count for an <span class="type">AccessibleValue</span> object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a pointer to the <span class="type">AccessibleValue</span> implementor on which to operate. 
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="AccessibleValue_getCurrentValue ()">
+<a name="AccessibleValue-getCurrentValue"></a><h3>AccessibleValue_getCurrentValue ()</h3>
+<pre class="programlisting"><span class="returnvalue">double</span>              AccessibleValue_getCurrentValue     (<em class="parameter"><code><span class="type">AccessibleValue</span> *obj</code></em>);</pre>
+<p>
+Get the current value for an <span class="type">AccessibleValue</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a pointer to the <span class="type">AccessibleValue</span> implementor on which to operate. 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the current value for this object.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="AccessibleValue_getMaximumValue ()">
+<a name="AccessibleValue-getMaximumValue"></a><h3>AccessibleValue_getMaximumValue ()</h3>
+<pre class="programlisting"><span class="returnvalue">double</span>              AccessibleValue_getMaximumValue     (<em class="parameter"><code><span class="type">AccessibleValue</span> *obj</code></em>);</pre>
+<p>
+Get the maximum allowed value for an <span class="type">AccessibleValue</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a pointer to the <span class="type">AccessibleValue</span> implementor on which to operate. 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the maximum allowed value for this object.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="AccessibleValue_getMinimumValue ()">
+<a name="AccessibleValue-getMinimumValue"></a><h3>AccessibleValue_getMinimumValue ()</h3>
+<pre class="programlisting"><span class="returnvalue">double</span>              AccessibleValue_getMinimumValue     (<em class="parameter"><code><span class="type">AccessibleValue</span> *obj</code></em>);</pre>
+<p>
+Get the minimum allowed value for an <span class="type">AccessibleValue</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a pointer to the <span class="type">AccessibleValue</span> implementor on which to operate. 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the minimum allowed value for this object.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="AccessibleValue_setCurrentValue ()">
+<a name="AccessibleValue-setCurrentValue"></a><h3>AccessibleValue_setCurrentValue ()</h3>
+<pre class="programlisting"><span class="returnvalue">SPIBoolean</span>          AccessibleValue_setCurrentValue     (<em class="parameter"><code><span class="type">AccessibleValue</span> *obj</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> newValue</code></em>);</pre>
+<p>
+Set the current value of an <span class="type">AccessibleValue</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a pointer to the <span class="type">AccessibleValue</span> implementor on which to operate.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>newValue</code></em> :</span></p></td>
+<td>a <span class="type">float</span> value which is the desired new value of the object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <span class="type">TRUE</span> if the value could be assigned the specified value,
+         <span class="type">FALSE</span> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="AccessibleValue_getMinimumIncrement ()">
+<a name="AccessibleValue-getMinimumIncrement"></a><h3>AccessibleValue_getMinimumIncrement ()</h3>
+<pre class="programlisting"><span class="returnvalue">double</span>              AccessibleValue_getMinimumIncrement (<em class="parameter"><code><span class="type">AccessibleValue</span> *obj</code></em>);</pre>
+<p>
+Get the minimum increment by which an <span class="type">AccessibleValue</span> can be adjusted.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a pointer to the <span class="type">AccessibleValue</span> implementor on which to operate. 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the minimum increment by which the value may be changed, or
+zero if the minimum increment cannot be determined.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

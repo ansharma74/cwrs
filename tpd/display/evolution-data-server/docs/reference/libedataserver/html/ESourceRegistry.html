@@ -1,0 +1,1862 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESourceRegistry</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
+<link rel="up" href="ch01.html" title="Data Sources">
+<link rel="prev" href="ESource.html" title="ESource">
+<link rel="next" href="ESourceAuthenticator.html" title="ESourceAuthenticator">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ESource.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Utilities (libedataserver)</th>
+<td><a accesskey="n" href="ESourceAuthenticator.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ESourceRegistry.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#ESourceRegistry.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#ESourceRegistry.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#ESourceRegistry.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#ESourceRegistry.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#ESourceRegistry.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="ESourceRegistry"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESourceRegistry.top_of_page"></a>ESourceRegistry</span></h2>
+<p>ESourceRegistry — A central repository for data sources</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ESourceRegistry.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;libedataserver/libedataserver.h&gt;
+
+struct              <a class="link" href="ESourceRegistry.html#ESourceRegistry-struct" title="struct ESourceRegistry">ESourceRegistry</a>;
+<a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="returnvalue">ESourceRegistry</span></a> *   <a class="link" href="ESourceRegistry.html#e-source-registry-new-sync" title="e_source_registry_new_sync ()">e_source_registry_new_sync</a>          (<em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistry.html#e-source-registry-new" title="e_source_registry_new ()">e_source_registry_new</a>               (<em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="returnvalue">ESourceRegistry</span></a> *   <a class="link" href="ESourceRegistry.html#e-source-registry-new-finish" title="e_source_registry_new_finish ()">e_source_registry_new_finish</a>        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceRegistry.html#e-source-registry-authenticate-sync" title="e_source_registry_authenticate_sync ()">e_source_registry_authenticate_sync</a> (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistry.html#e-source-registry-authenticate" title="e_source_registry_authenticate ()">e_source_registry_authenticate</a>      (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceRegistry.html#e-source-registry-authenticate-finish" title="e_source_registry_authenticate_finish ()">e_source_registry_authenticate_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceRegistry.html#e-source-registry-commit-source-sync" title="e_source_registry_commit_source_sync ()">e_source_registry_commit_source_sync</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistry.html#e-source-registry-commit-source" title="e_source_registry_commit_source ()">e_source_registry_commit_source</a>     (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceRegistry.html#e-source-registry-commit-source-finish" title="e_source_registry_commit_source_finish ()">e_source_registry_commit_source_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceRegistry.html#e-source-registry-create-sources-sync" title="e_source_registry_create_sources_sync ()">e_source_registry_create_sources_sync</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *list_of_sources</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistry.html#e-source-registry-create-sources" title="e_source_registry_create_sources ()">e_source_registry_create_sources</a>    (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *list_of_sources</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceRegistry.html#e-source-registry-create-sources-finish" title="e_source_registry_create_sources_finish ()">e_source_registry_create_sources_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistry.html#e-source-registry-ref-source" title="e_source_registry_ref_source ()">e_source_registry_ref_source</a>        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="ESourceRegistry.html#e-source-registry-list-sources" title="e_source_registry_list_sources ()">e_source_registry_list_sources</a>      (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistry.html#e-source-registry-find-extension" title="e_source_registry_find_extension ()">e_source_registry_find_extension</a>    (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-N-ary-Trees.html#GNode"><span class="returnvalue">GNode</span></a> *             <a class="link" href="ESourceRegistry.html#e-source-registry-build-display-tree" title="e_source_registry_build_display_tree ()">e_source_registry_build_display_tree</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistry.html#e-source-registry-free-display-tree" title="e_source_registry_free_display_tree ()">e_source_registry_free_display_tree</a> (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-N-ary-Trees.html#GNode"><span class="type">GNode</span></a> *display_tree</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistry.html#e-source-registry-debug-dump" title="e_source_registry_debug_dump ()">e_source_registry_debug_dump</a>        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistry.html#e-source-registry-ref-builtin-address-book" title="e_source_registry_ref_builtin_address_book ()">e_source_registry_ref_builtin_address_book</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistry.html#e-source-registry-ref-default-address-book" title="e_source_registry_ref_default_address_book ()">e_source_registry_ref_default_address_book</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistry.html#e-source-registry-set-default-address-book" title="e_source_registry_set_default_address_book ()">e_source_registry_set_default_address_book</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *default_source</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistry.html#e-source-registry-ref-builtin-calendar" title="e_source_registry_ref_builtin_calendar ()">e_source_registry_ref_builtin_calendar</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistry.html#e-source-registry-ref-default-calendar" title="e_source_registry_ref_default_calendar ()">e_source_registry_ref_default_calendar</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistry.html#e-source-registry-set-default-calendar" title="e_source_registry_set_default_calendar ()">e_source_registry_set_default_calendar</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *default_source</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistry.html#e-source-registry-ref-builtin-mail-account" title="e_source_registry_ref_builtin_mail_account ()">e_source_registry_ref_builtin_mail_account</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistry.html#e-source-registry-ref-default-mail-account" title="e_source_registry_ref_default_mail_account ()">e_source_registry_ref_default_mail_account</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistry.html#e-source-registry-set-default-mail-account" title="e_source_registry_set_default_mail_account ()">e_source_registry_set_default_mail_account</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *default_source</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistry.html#e-source-registry-ref-default-mail-identity" title="e_source_registry_ref_default_mail_identity ()">e_source_registry_ref_default_mail_identity</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistry.html#e-source-registry-set-default-mail-identity" title="e_source_registry_set_default_mail_identity ()">e_source_registry_set_default_mail_identity</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *default_source</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistry.html#e-source-registry-ref-builtin-memo-list" title="e_source_registry_ref_builtin_memo_list ()">e_source_registry_ref_builtin_memo_list</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistry.html#e-source-registry-ref-default-memo-list" title="e_source_registry_ref_default_memo_list ()">e_source_registry_ref_default_memo_list</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistry.html#e-source-registry-set-default-memo-list" title="e_source_registry_set_default_memo_list ()">e_source_registry_set_default_memo_list</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *default_source</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistry.html#e-source-registry-ref-builtin-task-list" title="e_source_registry_ref_builtin_task_list ()">e_source_registry_ref_builtin_task_list</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistry.html#e-source-registry-ref-default-task-list" title="e_source_registry_ref_default_task_list ()">e_source_registry_ref_default_task_list</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistry.html#e-source-registry-set-default-task-list" title="e_source_registry_set_default_task_list ()">e_source_registry_set_default_task_list</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *default_source</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistry.html#e-source-registry-ref-default-for-extension-name" title="e_source_registry_ref_default_for_extension_name ()">e_source_registry_ref_default_for_extension_name</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistry.html#e-source-registry-set-default-for-extension-name" title="e_source_registry_set_default_for_extension_name ()">e_source_registry_set_default_for_extension_name</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *default_source</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceRegistry.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----ESourceRegistry
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceRegistry.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+ESourceRegistry implements
+ <a href="http://library.gnome.org/devel/gio/unstable/GInitable.html">GInitable</a> and  <a href="http://library.gnome.org/devel/gio/unstable/GAsyncInitable.html">GAsyncInitable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="ESourceRegistry.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="ESourceRegistry.html#ESourceRegistry--default-address-book" title='The "default-address-book" property'>default-address-book</a>"     <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>*              : Read / Write
+  "<a class="link" href="ESourceRegistry.html#ESourceRegistry--default-calendar" title='The "default-calendar" property'>default-calendar</a>"         <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>*              : Read / Write
+  "<a class="link" href="ESourceRegistry.html#ESourceRegistry--default-mail-account" title='The "default-mail-account" property'>default-mail-account</a>"     <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>*              : Read / Write
+  "<a class="link" href="ESourceRegistry.html#ESourceRegistry--default-mail-identity" title='The "default-mail-identity" property'>default-mail-identity</a>"    <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>*              : Read / Write
+  "<a class="link" href="ESourceRegistry.html#ESourceRegistry--default-memo-list" title='The "default-memo-list" property'>default-memo-list</a>"        <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>*              : Read / Write
+  "<a class="link" href="ESourceRegistry.html#ESourceRegistry--default-task-list" title='The "default-task-list" property'>default-task-list</a>"        <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>*              : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceRegistry.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="ESourceRegistry.html#ESourceRegistry-source-added" title='The "source-added" signal'>source-added</a>"                                   : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="ESourceRegistry.html#ESourceRegistry-source-changed" title='The "source-changed" signal'>source-changed</a>"                                 : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="ESourceRegistry.html#ESourceRegistry-source-disabled" title='The "source-disabled" signal'>source-disabled</a>"                                : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="ESourceRegistry.html#ESourceRegistry-source-enabled" title='The "source-enabled" signal'>source-enabled</a>"                                 : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="ESourceRegistry.html#ESourceRegistry-source-removed" title='The "source-removed" signal'>source-removed</a>"                                 : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceRegistry.description"></a><h2>Description</h2>
+<p>
+The <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> is a global singleton store for all <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+instances.  It uses file monitors to react to key file creation and
+deletion events, either constructing an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> instance from the
+newly created key file, or removing from the logical <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+hierarchy the instance corresponding to the deleted key file.
+</p>
+<p>
+The <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> can be queried for individual <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> instances
+by their unique identifier string or key file path, for collections of
+<a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> instances having a particular extension, or for all available
+<a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> instances.
+</p>
+<p>
+The <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> API also provides a front-end for the
+"org.gnome.Evolution.DefaultSources" <a href="http://library.gnome.org/devel/gio/unstable/GSettings.html"><span class="type">GSettings</span></a> schema which tracks
+which <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> instances are designated to be the user's default address
+book, calendar, memo list and task list for desktop integration.
+</p>
+</div>
+<div class="refsect1">
+<a name="ESourceRegistry.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="ESourceRegistry-struct"></a><h3>struct ESourceRegistry</h3>
+<pre class="programlisting">struct ESourceRegistry;</pre>
+<p>
+Contains only private data that should be read and manipulated using the
+functions below.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-new-sync"></a><h3>e_source_registry_new_sync ()</h3>
+<pre class="programlisting"><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="returnvalue">ESourceRegistry</span></a> *   e_source_registry_new_sync          (<em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> front-end for the registry D-Bus service.
+If an error occurs in connecting to the D-Bus service, the function sets
+<em class="parameter"><code>error</code></em> and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-new"></a><h3>e_source_registry_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_new               (<em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Asynchronously creates a new <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> front-end for the registry
+D-Bus service.
+</p>
+<p>
+When the operation is finished, <em class="parameter"><code>callback</code></em> will be called.  You can then
+call <a class="link" href="ESourceRegistry.html#e-source-registry-new-finish" title="e_source_registry_new_finish ()"><code class="function">e_source_registry_new_finish()</code></a> to get the result of the operation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request
+is satisfied. <span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to the callback function. <span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-new-finish"></a><h3>e_source_registry_new_finish ()</h3>
+<pre class="programlisting"><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="returnvalue">ESourceRegistry</span></a> *   e_source_registry_new_finish        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes the operation started with <a class="link" href="ESourceRegistry.html#e-source-registry-new-finish" title="e_source_registry_new_finish ()"><code class="function">e_source_registry_new_finish()</code></a>.
+If an error occurs in connecting to the D-Bus service, the function
+sets <em class="parameter"><code>error</code></em> and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-authenticate-sync"></a><h3>e_source_registry_authenticate_sync ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_registry_authenticate_sync (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Authenticates <em class="parameter"><code>source</code></em>, using <em class="parameter"><code>auth</code></em> to handle the authentication
+attempts.  The operation loops until authentication is successful or
+the user aborts further authentication attempts.  If an error occurs,
+the function will set <em class="parameter"><code>error</code></em> and return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<p>
+Note that <em class="parameter"><code>source</code></em> need not have a <a href="http://library.gnome.org/devel/gio/unstable/GDBusObject.html"><span class="type">GDBusObject</span></a>, which means this
+function can test authentication on a scratch <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>.
+</p>
+<p>
+Only backend implementations and data source editors should call this
+function.  The intent is for basic client applications to not have to
+deal with authentication at all.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>auth</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-authenticate"></a><h3>e_source_registry_authenticate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_authenticate      (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Asynchronously authenticates <em class="parameter"><code>source</code></em>, using <em class="parameter"><code>auth</code></em> to handle the
+authentication attempts.  The operation loops until authentication
+is successful or the user aborts further authentication attempts.
+</p>
+<p>
+Note that <em class="parameter"><code>source</code></em> need not have a <a href="http://library.gnome.org/devel/gio/unstable/GDBusObject.html"><span class="type">GDBusObject</span></a>, which means this
+function can test authentication on a scratch <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>.
+</p>
+<p>
+When the operation is finished, <em class="parameter"><code>callback</code></em> will be called.  You can then
+call <a class="link" href="ESourceRegistry.html#e-source-registry-authenticate-finish" title="e_source_registry_authenticate_finish ()"><code class="function">e_source_registry_authenticate_finish()</code></a> to get the result of the
+operation.
+</p>
+<p>
+Only backend implementations and data source editors should call this
+function.  The intent is for basic client applications to not have to
+deal with authentication at all.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>auth</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request
+is satisfied. <span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to the callback function. <span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-authenticate-finish"></a><h3>e_source_registry_authenticate_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_registry_authenticate_finish
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes the operation started with <a class="link" href="ESourceRegistry.html#e-source-registry-authenticate" title="e_source_registry_authenticate ()"><code class="function">e_source_registry_authenticate()</code></a>.
+If an error occurred, the function will set <em class="parameter"><code>error</code></em> and return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-commit-source-sync"></a><h3>e_source_registry_commit_source_sync ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_registry_commit_source_sync
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+This is a convenience function intended for use with graphical
+<a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> editors.  Call this function when the user is finished
+making changes to <em class="parameter"><code>source</code></em>.
+</p>
+<p>
+If <em class="parameter"><code>source</code></em> has a <a href="http://library.gnome.org/devel/gio/unstable/GDBusObject.html"><span class="type">GDBusObject</span></a>, its contents are submitted to the D-Bus
+service through <a class="link" href="ESource.html#e-source-write-sync" title="e_source_write_sync ()"><code class="function">e_source_write_sync()</code></a>.
+</p>
+<p>
+If <em class="parameter"><code>source</code></em> does NOT have a <a href="http://library.gnome.org/devel/gio/unstable/GDBusObject.html"><span class="type">GDBusObject</span></a> (implying it's a scratch
+<a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>), its contents are submitted to the D-Bus service through
+either <a class="link" href="ESource.html#e-source-remote-create-sync" title="e_source_remote_create_sync ()"><code class="function">e_source_remote_create_sync()</code></a> if <em class="parameter"><code>source</code></em> is to be a collection
+member, or <a class="link" href="ESourceRegistry.html#e-source-registry-create-sources-sync" title="e_source_registry_create_sources_sync ()"><code class="function">e_source_registry_create_sources_sync()</code></a> if <em class="parameter"><code>source</code></em> to be an
+independent data source.
+</p>
+<p>
+If an error occurs, the function will set <em class="parameter"><code>error</code></em> and return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> with changes to commit</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-commit-source"></a><h3>e_source_registry_commit_source ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_commit_source     (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+See <a class="link" href="ESourceRegistry.html#e-source-registry-commit-source-sync" title="e_source_registry_commit_source_sync ()"><code class="function">e_source_registry_commit_source_sync()</code></a> for details.
+</p>
+<p>
+When the operation is finished, <em class="parameter"><code>callback</code></em> will be called.  You can then
+call <a class="link" href="ESourceRegistry.html#e-source-registry-commit-source-finish" title="e_source_registry_commit_source_finish ()"><code class="function">e_source_registry_commit_source_finish()</code></a> to get the result of the
+operation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> with changes to commit</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request
+is satisfied. <span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to the callback function. <span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-commit-source-finish"></a><h3>e_source_registry_commit_source_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_registry_commit_source_finish
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes the operation started with <a class="link" href="ESourceRegistry.html#e-source-registry-commit-source" title="e_source_registry_commit_source ()"><code class="function">e_source_registry_commit_source()</code></a>.
+</p>
+<p>
+If an error occurred, the function will set <em class="parameter"><code>error</code></em> and return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-create-sources-sync"></a><h3>e_source_registry_create_sources_sync ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_registry_create_sources_sync
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *list_of_sources</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Requests the D-Bus service create new key files for each <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> in
+<em class="parameter"><code>list_of_sources</code></em>.  Each list element must be a scratch <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> with
+no <a href="http://library.gnome.org/devel/gio/unstable/GDBusObject.html"><span class="type">GDBusObject</span></a>.
+</p>
+<p>
+If an error occurs, the function will set <em class="parameter"><code>error</code></em> and return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list_of_sources</code></em> :</span></p></td>
+<td>a list of <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> instances with
+no <a href="http://library.gnome.org/devel/gio/unstable/GDBusObject.html"><span class="type">GDBusObject</span></a>. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> ESource]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-create-sources"></a><h3>e_source_registry_create_sources ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_create_sources    (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *list_of_sources</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Asynchronously requests the D-Bus service create new key files for each
+<a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> in <em class="parameter"><code>list_of_sources</code></em>.  Each list element must be a scratch
+<a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> with no <a href="http://library.gnome.org/devel/gio/unstable/GDBusObject.html"><span class="type">GDBusObject</span></a>.
+</p>
+<p>
+When the operation is finished, <em class="parameter"><code>callback</code></em> will be called.  You can then
+call <a class="link" href="ESourceRegistry.html#e-source-registry-create-sources-finish" title="e_source_registry_create_sources_finish ()"><code class="function">e_source_registry_create_sources_finish()</code></a> to get the result of the
+operation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list_of_sources</code></em> :</span></p></td>
+<td>a list of <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> instances with
+no <a href="http://library.gnome.org/devel/gio/unstable/GDBusObject.html"><span class="type">GDBusObject</span></a>. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> ESource]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request
+is satisfied. <span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to the callback function. <span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-create-sources-finish"></a><h3>e_source_registry_create_sources_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_registry_create_sources_finish
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes the operation started with <a class="link" href="ESourceRegistry.html#e-source-registry-create-sources" title="e_source_registry_create_sources ()"><code class="function">e_source_registry_create_sources()</code></a>.
+</p>
+<p>
+If an error occurred, the function will set <em class="parameter"><code>error</code></em> and return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-ref-source"></a><h3>e_source_registry_ref_source ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_registry_ref_source        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
+<p>
+Looks up an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> in <em class="parameter"><code>registry</code></em> by its unique identifier string.
+</p>
+<p>
+The returned <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uid</code></em> :</span></p></td>
+<td>a unique identifier string</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if no match was found. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-list-sources"></a><h3>e_source_registry_list_sources ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             e_source_registry_list_sources      (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>);</pre>
+<p>
+Returns a list of registered sources, sorted by display name.  If
+<em class="parameter"><code>extension_name</code></em> is given, restrict the list to sources having that
+extension name.
+</p>
+<p>
+The sources returned in the list are referenced for thread-safety.
+They must each be unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished
+when them.  Free the returned list itself with <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#g-list-free"><code class="function">g_list_free()</code></a>.
+</p>
+<p>
+An easy way to free the list properly in one step is as follows:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#g-list-free-full">g_list_free_full</a></span> <span class="gtkdoc opt">(</span>list<span class="gtkdoc opt">,</span> g_object_unref<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension_name</code></em> :</span></p></td>
+<td>an extension name, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a sorted list of sources. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> ESource][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-find-extension"></a><h3>e_source_registry_find_extension ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_registry_find_extension    (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>);</pre>
+<p>
+Examines <em class="parameter"><code>source</code></em> and its ancestors and returns the "deepest" <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+having an <a class="link" href="ESourceExtension.html" title="ESourceExtension"><span class="type">ESourceExtension</span></a> with the given <em class="parameter"><code>extension_name</code></em>.  If neither
+<em class="parameter"><code>source</code></em> nor any of its ancestors have such an extension, the function
+returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p>
+This function is useful in cases when an <a class="link" href="ESourceExtension.html" title="ESourceExtension"><span class="type">ESourceExtension</span></a> is meant to
+apply to both the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> it belongs to and the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>'s descendants.
+</p>
+<p>
+A common example is the <a class="link" href="ESourceCollection.html" title="ESourceCollection"><span class="type">ESourceCollection</span></a> extension, where descendants
+of an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> having an <a class="link" href="ESourceCollection.html" title="ESourceCollection"><span class="type">ESourceCollection</span></a> extension are implied to be
+members of that collection.  In that example, this function can be used
+to test whether <em class="parameter"><code>source</code></em> is a member of a collection.
+</p>
+<p>
+The returned <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<p>
+Note the function returns the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> containing the <a class="link" href="ESourceExtension.html" title="ESourceExtension"><span class="type">ESourceExtension</span></a>
+instead of the <a class="link" href="ESourceExtension.html" title="ESourceExtension"><span class="type">ESourceExtension</span></a> itself because extension instances are
+not to be referenced directly (see <a class="link" href="ESource.html#e-source-get-extension" title="e_source_get_extension ()"><code class="function">e_source_get_extension()</code></a>).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension_name</code></em> :</span></p></td>
+<td>the extension name to find</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if no match was found. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-build-display-tree"></a><h3>e_source_registry_build_display_tree ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-N-ary-Trees.html#GNode"><span class="returnvalue">GNode</span></a> *             e_source_registry_build_display_tree
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>);</pre>
+<p>
+Returns a single <a href="http://library.gnome.org/devel/glib/unstable/glib-N-ary-Trees.html#GNode"><span class="type">GNode</span></a> tree of registered sources that can be used to
+populate a <a href="http://developer.gnome.org/devel/gtk/GtkTreeModel.html"><span class="type">GtkTreeModel</span></a>.  (The root <a href="http://library.gnome.org/devel/glib/unstable/glib-N-ary-Trees.html#GNode"><span class="type">GNode</span></a> is just an empty placeholder.)
+</p>
+<p>
+Similar to <a class="link" href="ESourceRegistry.html#e-source-registry-list-sources" title="e_source_registry_list_sources ()"><code class="function">e_source_registry_list_sources()</code></a>, an <em class="parameter"><code>extension_name</code></em> can be
+given to restrict the tree to sources having that extension name.  Parents
+of matched sources are included in the tree regardless of whether they have
+an extension named <em class="parameter"><code>extension_name</code></em>.
+</p>
+<p>
+Disabled leaf nodes are automatically excluded from the <a href="http://library.gnome.org/devel/glib/unstable/glib-N-ary-Trees.html#GNode"><span class="type">GNode</span></a> tree.
+</p>
+<p>
+The sources returned in the tree are referenced for thread-safety.
+They must each be unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished
+with them.  Free the returned tree itself with <a href="http://library.gnome.org/devel/glib/unstable/glib-N-ary-Trees.html#g-node-destroy"><code class="function">g_node_destroy()</code></a>.
+For convenience, <a class="link" href="ESourceRegistry.html#e-source-registry-free-display-tree" title="e_source_registry_free_display_tree ()"><code class="function">e_source_registry_free_display_tree()</code></a> does all
+that in one step.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension_name</code></em> :</span></p></td>
+<td>an extension name, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a tree of sources,
+arranged for display. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> ESource][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-free-display-tree"></a><h3>e_source_registry_free_display_tree ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_free_display_tree (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-N-ary-Trees.html#GNode"><span class="type">GNode</span></a> *display_tree</code></em>);</pre>
+<p>
+Convenience function to free a <a href="http://library.gnome.org/devel/glib/unstable/glib-N-ary-Trees.html#GNode"><span class="type">GNode</span></a> tree of registered
+sources created by <a class="link" href="ESourceRegistry.html#e-source-registry-build-display-tree" title="e_source_registry_build_display_tree ()"><code class="function">e_source_registry_build_display_tree()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>display_tree</code></em> :</span></p></td>
+<td>a tree of sources, arranged for display</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-debug-dump"></a><h3>e_source_registry_debug_dump ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_debug_dump        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>);</pre>
+<p>
+Handy debugging function that uses <a class="link" href="ESourceRegistry.html#e-source-registry-build-display-tree" title="e_source_registry_build_display_tree ()"><code class="function">e_source_registry_build_display_tree()</code></a>
+to print a tree of registered sources to standard output.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension_name</code></em> :</span></p></td>
+<td>an extension name, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-ref-builtin-address-book"></a><h3>e_source_registry_ref_builtin_address_book ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_registry_ref_builtin_address_book
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);</pre>
+<p>
+Returns the built-in address book <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>.
+</p>
+<p>
+This <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is always present and makes for a safe fallback.
+</p>
+<p>
+The returned <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the built-in address book <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-ref-default-address-book"></a><h3>e_source_registry_ref_default_address_book ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_registry_ref_default_address_book
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);</pre>
+<p>
+Returns the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> most recently passed to
+<a class="link" href="ESourceRegistry.html#e-source-registry-set-default-address-book" title="e_source_registry_set_default_address_book ()"><code class="function">e_source_registry_set_default_address_book()</code></a> either in this session
+or a previous session, or else falls back to the built-in address book.
+</p>
+<p>
+The returned <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the default address book <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-set-default-address-book"></a><h3>e_source_registry_set_default_address_book ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_set_default_address_book
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *default_source</code></em>);</pre>
+<p>
+Sets <em class="parameter"><code>default_source</code></em> as the default address book.  If <em class="parameter"><code>default_source</code></em>
+is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, the default address book is reset to the built-in address book.
+This setting will persist across sessions until changed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>default_source</code></em> :</span></p></td>
+<td>an address book <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-ref-builtin-calendar"></a><h3>e_source_registry_ref_builtin_calendar ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_registry_ref_builtin_calendar
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);</pre>
+<p>
+Returns the built-in calendar <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>.
+</p>
+<p>
+This <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is always present and makes for a safe fallback.
+</p>
+<p>
+The returned <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the built-in calendar <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-ref-default-calendar"></a><h3>e_source_registry_ref_default_calendar ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_registry_ref_default_calendar
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);</pre>
+<p>
+Returns the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> most recently passed to
+<a class="link" href="ESourceRegistry.html#e-source-registry-set-default-calendar" title="e_source_registry_set_default_calendar ()"><code class="function">e_source_registry_set_default_calendar()</code></a> either in this session
+or a previous session, or else falls back to the built-in calendar.
+</p>
+<p>
+The returned <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the default calendar <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-set-default-calendar"></a><h3>e_source_registry_set_default_calendar ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_set_default_calendar
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *default_source</code></em>);</pre>
+<p>
+Sets <em class="parameter"><code>default_source</code></em> as the default calendar.  If <em class="parameter"><code>default_source</code></em>
+is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, the default calendar is reset to the built-in calendar.
+This setting will persist across sessions until changed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>default_source</code></em> :</span></p></td>
+<td>a calendar <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-ref-builtin-mail-account"></a><h3>e_source_registry_ref_builtin_mail_account ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_registry_ref_builtin_mail_account
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);</pre>
+<p>
+Returns the built-in mail account <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>.
+</p>
+<p>
+This <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is always present and makes for a safe fallback.
+</p>
+<p>
+The returned <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the built-in mail account <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-ref-default-mail-account"></a><h3>e_source_registry_ref_default_mail_account ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_registry_ref_default_mail_account
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);</pre>
+<p>
+Returns the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> most recently passed to
+<a class="link" href="ESourceRegistry.html#e-source-registry-set-default-mail-account" title="e_source_registry_set_default_mail_account ()"><code class="function">e_source_registry_set_default_mail_account()</code></a> either in this session
+or a previous session, or else falls back to the built-in mail account.
+</p>
+<p>
+The returned <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the default mail account <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-set-default-mail-account"></a><h3>e_source_registry_set_default_mail_account ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_set_default_mail_account
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *default_source</code></em>);</pre>
+<p>
+Sets <em class="parameter"><code>default_source</code></em> as the default mail account.  If <em class="parameter"><code>default_source</code></em>
+is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, the default mail account is reset to the built-in mail account.
+This setting will persist across sessions until changed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>default_source</code></em> :</span></p></td>
+<td>a mail account <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-ref-default-mail-identity"></a><h3>e_source_registry_ref_default_mail_identity ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_registry_ref_default_mail_identity
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);</pre>
+<p>
+Returns the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> most recently passed to
+<a class="link" href="ESourceRegistry.html#e-source-registry-set-default-mail-identity" title="e_source_registry_set_default_mail_identity ()"><code class="function">e_source_registry_set_default_mail_identity()</code></a> either in this session
+or a previous session, or else falls back to the mail identity named
+by the default mail account.  If even that fails it returns any mail
+identity from <em class="parameter"><code>registry</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if there are none.
+</p>
+<p>
+The returned <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the default mail identity <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-set-default-mail-identity"></a><h3>e_source_registry_set_default_mail_identity ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_set_default_mail_identity
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *default_source</code></em>);</pre>
+<p>
+Sets <em class="parameter"><code>default_source</code></em> as the default mail identity.  If <em class="parameter"><code>default_source</code></em>
+is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, the next request for the default mail identity will use the
+fallbacks described in <code class="function">e_source_registry_get_default_mail_identity()</code>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>default_source</code></em> :</span></p></td>
+<td>a mail identity <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-ref-builtin-memo-list"></a><h3>e_source_registry_ref_builtin_memo_list ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_registry_ref_builtin_memo_list
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);</pre>
+<p>
+Returns the built-in memo list <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>.
+</p>
+<p>
+This <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is always present and makes for a safe fallback.
+</p>
+<p>
+The returned <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the built-in memo list <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-ref-default-memo-list"></a><h3>e_source_registry_ref_default_memo_list ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_registry_ref_default_memo_list
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);</pre>
+<p>
+Returns the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> most recently passed to
+<a class="link" href="ESourceRegistry.html#e-source-registry-set-default-memo-list" title="e_source_registry_set_default_memo_list ()"><code class="function">e_source_registry_set_default_memo_list()</code></a> either in this session
+or a previous session, or else falls back to the built-in memo list.
+</p>
+<p>
+The returned <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the default memo list <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-set-default-memo-list"></a><h3>e_source_registry_set_default_memo_list ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_set_default_memo_list
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *default_source</code></em>);</pre>
+<p>
+Sets <em class="parameter"><code>default_source</code></em> as the default memo list.  If <em class="parameter"><code>default_source</code></em>
+is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, the default memo list is reset to the built-in memo list.
+This setting will persist across sessions until changed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>default_source</code></em> :</span></p></td>
+<td>a memo list <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-ref-builtin-task-list"></a><h3>e_source_registry_ref_builtin_task_list ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_registry_ref_builtin_task_list
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);</pre>
+<p>
+Returns the built-in task list <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>.
+</p>
+<p>
+This <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is always present and makes for a safe fallback.
+</p>
+<p>
+The returned <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the built-in task list <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-ref-default-task-list"></a><h3>e_source_registry_ref_default_task_list ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_registry_ref_default_task_list
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>);</pre>
+<p>
+Returns the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> most recently passed to
+<a class="link" href="ESourceRegistry.html#e-source-registry-set-default-task-list" title="e_source_registry_set_default_task_list ()"><code class="function">e_source_registry_set_default_task_list()</code></a> either in this session
+or a previous session, or else falls back to the built-in task list.
+</p>
+<p>
+The returned <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the default task list <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-set-default-task-list"></a><h3>e_source_registry_set_default_task_list ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_set_default_task_list
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *default_source</code></em>);</pre>
+<p>
+Sets <em class="parameter"><code>default_source</code></em> as the default task list.  If <em class="parameter"><code>default_source</code></em>
+is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, the default task list is reset to the built-in task list.
+This setting will persist across sessions until changed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>default_source</code></em> :</span></p></td>
+<td>a task list <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-ref-default-for-extension-name"></a><h3>e_source_registry_ref_default_for_extension_name ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_registry_ref_default_for_extension_name
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>);</pre>
+<p>
+This is a convenience function to return a default <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> based on
+<em class="parameter"><code>extension_name</code></em>.  This only works with a subset of extension names.
+</p>
+<p>
+If <em class="parameter"><code>extension_name</code></em> is <a class="link" href="ESourceAddressBook.html#E-SOURCE-EXTENSION-ADDRESS-BOOK:CAPS" title="E_SOURCE_EXTENSION_ADDRESS_BOOK"><span class="type">E_SOURCE_EXTENSION_ADDRESS_BOOK</span></a>, the function
+returns the current default address book, or else falls back to the
+built-in address book.
+</p>
+<p>
+If <em class="parameter"><code>extension_name</code></em> is <a class="link" href="ESourceCalendar.html#E-SOURCE-EXTENSION-CALENDAR:CAPS" title="E_SOURCE_EXTENSION_CALENDAR"><span class="type">E_SOURCE_EXTENSION_CALENDAR</span></a>, the function returns
+the current default calendar, or else falls back to the built-in calendar.
+</p>
+<p>
+If <em class="parameter"><code>extension_name</code></em> is <a class="link" href="ESourceMailAccount.html#E-SOURCE-EXTENSION-MAIL-ACCOUNT:CAPS" title="E_SOURCE_EXTENSION_MAIL_ACCOUNT"><span class="type">E_SOURCE_EXTENSION_MAIL_ACCOUNT</span></a>, the function
+returns the current default mail account, or else falls back to the
+built-in mail account.
+</p>
+<p>
+If <em class="parameter"><code>extension_name</code></em> is <a class="link" href="ESourceMailIdentity.html#E-SOURCE-EXTENSION-MAIL-IDENTITY:CAPS" title="E_SOURCE_EXTENSION_MAIL_IDENTITY"><span class="type">E_SOURCE_EXTENSION_MAIL_IDENTITY</span></a>, the function
+returns the current default mail identity, or else falls back to the
+mail identity named by the current default mail account.
+</p>
+<p>
+If <em class="parameter"><code>extension_name</code></em> is <a class="link" href="ESourceMemoList.html#E-SOURCE-EXTENSION-MEMO-LIST:CAPS" title="E_SOURCE_EXTENSION_MEMO_LIST"><span class="type">E_SOURCE_EXTENSION_MEMO_LIST</span></a>, the function returns
+the current default memo list, or else falls back to the built-in memo list.
+</p>
+<p>
+If <em class="parameter"><code>extension_name</code></em> is <a class="link" href="ESourceTaskList.html#E-SOURCE-EXTENSION-TASK-LIST:CAPS" title="E_SOURCE_EXTENSION_TASK_LIST"><span class="type">E_SOURCE_EXTENSION_TASK_LIST</span></a>, the function returns
+the current default task list, or else falls back to the built-in task list.
+</p>
+<p>
+For all other values of <em class="parameter"><code>extension_name</code></em>, the function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p>
+The returned <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension_name</code></em> :</span></p></td>
+<td>an extension_name</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the default <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> based on <em class="parameter"><code>extension_name</code></em>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-set-default-for-extension-name"></a><h3>e_source_registry_set_default_for_extension_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_set_default_for_extension_name
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *default_source</code></em>);</pre>
+<p>
+This is a convenience function to set a default <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> based on
+<em class="parameter"><code>extension_name</code></em>.  This only works with a subset of extension names.
+</p>
+<p>
+If <em class="parameter"><code>extension_name</code></em> is <a class="link" href="ESourceAddressBook.html#E-SOURCE-EXTENSION-ADDRESS-BOOK:CAPS" title="E_SOURCE_EXTENSION_ADDRESS_BOOK"><span class="type">E_SOURCE_EXTENSION_ADDRESS_BOOK</span></a>, the function
+sets <em class="parameter"><code>default_source</code></em> as the default address book.  If <em class="parameter"><code>default_source</code></em>
+is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, the default address book is reset to the built-in address book.
+</p>
+<p>
+If <em class="parameter"><code>extension_name</code></em> is <a class="link" href="ESourceCalendar.html#E-SOURCE-EXTENSION-CALENDAR:CAPS" title="E_SOURCE_EXTENSION_CALENDAR"><span class="type">E_SOURCE_EXTENSION_CALENDAR</span></a>, the function sets
+<em class="parameter"><code>default_source</code></em> as the default calendar.  If <em class="parameter"><code>default_source</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>,
+the default calendar is reset to the built-in calendar.
+</p>
+<p>
+If <em class="parameter"><code>extension_name</code></em> is <a class="link" href="ESourceMailAccount.html#E-SOURCE-EXTENSION-MAIL-ACCOUNT:CAPS" title="E_SOURCE_EXTENSION_MAIL_ACCOUNT"><span class="type">E_SOURCE_EXTENSION_MAIL_ACCOUNT</span></a>, the function
+sets <em class="parameter"><code>default_source</code></em> as the default mail account.  If <em class="parameter"><code>default_source</code></em>
+is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, the default mail account is reset to the built-in mail account.
+</p>
+<p>
+If <em class="parameter"><code>extension_name</code></em> is <a class="link" href="ESourceMailIdentity.html#E-SOURCE-EXTENSION-MAIL-IDENTITY:CAPS" title="E_SOURCE_EXTENSION_MAIL_IDENTITY"><span class="type">E_SOURCE_EXTENSION_MAIL_IDENTITY</span></a>, the function
+sets <em class="parameter"><code>default_source</code></em> as the default mail identity.  If <em class="parameter"><code>default_source</code></em>
+is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, the next request for the default mail identity will return
+the mail identity named by the default mail account.
+</p>
+<p>
+If <em class="parameter"><code>extension_name</code></em> is <a class="link" href="ESourceMemoList.html#E-SOURCE-EXTENSION-MEMO-LIST:CAPS" title="E_SOURCE_EXTENSION_MEMO_LIST"><span class="type">E_SOURCE_EXTENSION_MEMO_LIST</span></a>, the function sets
+<em class="parameter"><code>default_source</code></em> as the default memo list.  If <em class="parameter"><code>default_source</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>,
+the default memo list is reset to the built-in memo list.
+</p>
+<p>
+If <em class="parameter"><code>extension_name</code></em> is <a class="link" href="ESourceTaskList.html#E-SOURCE-EXTENSION-TASK-LIST:CAPS" title="E_SOURCE_EXTENSION_TASK_LIST"><span class="type">E_SOURCE_EXTENSION_TASK_LIST</span></a>, the function sets
+<em class="parameter"><code>default_source</code></em> as the default task list.  If <em class="parameter"><code>default_source</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>,
+the default task list is reset to the built-in task list.
+</p>
+<p>
+For all other values of <em class="parameter"><code>extension_name</code></em>, the function does nothing.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension_name</code></em> :</span></p></td>
+<td>an extension name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>default_source</code></em> :</span></p></td>
+<td>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ESourceRegistry.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="ESourceRegistry--default-address-book"></a><h3>The <code class="literal">"default-address-book"</code> property</h3>
+<pre class="programlisting">  "default-address-book"     <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>*              : Read / Write</pre>
+<p>
+The default address book <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRegistry--default-calendar"></a><h3>The <code class="literal">"default-calendar"</code> property</h3>
+<pre class="programlisting">  "default-calendar"         <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>*              : Read / Write</pre>
+<p>
+The default calendar <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRegistry--default-mail-account"></a><h3>The <code class="literal">"default-mail-account"</code> property</h3>
+<pre class="programlisting">  "default-mail-account"     <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>*              : Read / Write</pre>
+<p>
+The default mail account <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRegistry--default-mail-identity"></a><h3>The <code class="literal">"default-mail-identity"</code> property</h3>
+<pre class="programlisting">  "default-mail-identity"    <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>*              : Read / Write</pre>
+<p>
+The default mail identity <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRegistry--default-memo-list"></a><h3>The <code class="literal">"default-memo-list"</code> property</h3>
+<pre class="programlisting">  "default-memo-list"        <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>*              : Read / Write</pre>
+<p>
+The default memo list <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRegistry--default-task-list"></a><h3>The <code class="literal">"default-task-list"</code> property</h3>
+<pre class="programlisting">  "default-task-list"        <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>*              : Read / Write</pre>
+<p>
+The default task list <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>.
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ESourceRegistry.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="ESourceRegistry-source-added"></a><h3>The <code class="literal">"source-added"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry,
+                                                        <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>         *source,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>         user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted when an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is added to <em class="parameter"><code>registry</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> which emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>the newly-added <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRegistry-source-changed"></a><h3>The <code class="literal">"source-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry,
+                                                        <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>         *source,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>         user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted when an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> registered with <em class="parameter"><code>registry</code></em> emits
+its <a class="link" href="ESource.html#ESource-changed" title='The "changed" signal'><span class="type">"changed"</span></a> signal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> which emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> that changed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRegistry-source-disabled"></a><h3>The <code class="literal">"source-disabled"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry,
+                                                        <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>         *source,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>         user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted when an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> <a class="link" href="ESource.html#ESource--enabled" title='The "enabled" property'><span class="type">"enabled"</span></a> property becomes <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> which emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> that got disabled</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRegistry-source-enabled"></a><h3>The <code class="literal">"source-enabled"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry,
+                                                        <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>         *source,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>         user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted when an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> <a class="link" href="ESource.html#ESource--enabled" title='The "enabled" property'><span class="type">"enabled"</span></a> property becomes <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> which emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> that got enabled</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRegistry-source-removed"></a><h3>The <code class="literal">"source-removed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *registry,
+                                                        <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>         *source,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>         user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted when an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> is removed from <em class="parameter"><code>registry</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> which emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> that got removed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

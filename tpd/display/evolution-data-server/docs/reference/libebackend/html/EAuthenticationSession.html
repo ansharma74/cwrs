@@ -1,0 +1,1222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EAuthenticationSession</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Backend Utilities (libebackend)">
+<link rel="up" href="ch02.html" title="Registry Service Classes">
+<link rel="prev" href="EAuthenticationMediator.html" title="EAuthenticationMediator">
+<link rel="next" href="ECollectionBackend.html" title="ECollectionBackend">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="EAuthenticationMediator.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Backend Utilities (libebackend)</th>
+<td><a accesskey="n" href="ECollectionBackend.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#EAuthenticationSession.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#EAuthenticationSession.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#EAuthenticationSession.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#EAuthenticationSession.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="EAuthenticationSession"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="EAuthenticationSession.top_of_page"></a>EAuthenticationSession</span></h2>
+<p>EAuthenticationSession — Centralized authentication management</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="EAuthenticationSession.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;libebackend/libebackend.h&gt;
+
+#define             <a class="link" href="EAuthenticationSession.html#E-AUTHENTICATION-SESSION-KEYRING-ERROR:CAPS" title="E_AUTHENTICATION_SESSION_KEYRING_ERROR">E_AUTHENTICATION_SESSION_KEYRING_ERROR</a>
+struct              <a class="link" href="EAuthenticationSession.html#EAuthenticationSession-struct" title="struct EAuthenticationSession">EAuthenticationSession</a>;
+enum                <a class="link" href="EAuthenticationSession.html#EAuthenticationSessionResult" title="enum EAuthenticationSessionResult">EAuthenticationSessionResult</a>;
+<a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="returnvalue">EAuthenticationSession</span></a> * <a class="link" href="EAuthenticationSession.html#e-authentication-session-new" title="e_authentication_session_new ()">e_authentication_session_new</a>   (<em class="parameter"><code><span class="type">struct _ESourceRegistryServer</span> *server</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a> *authenticator</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *source_uid</code></em>);
+struct <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="returnvalue">_ESourceRegistryServer</span></a> * <a class="link" href="EAuthenticationSession.html#e-authentication-session-get-server" title="e_authentication_session_get_server ()">e_authentication_session_get_server</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);
+<a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="returnvalue">ESourceAuthenticator</span></a> * <a class="link" href="EAuthenticationSession.html#e-authentication-session-get-authenticator" title="e_authentication_session_get_authenticator ()">e_authentication_session_get_authenticator</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="EAuthenticationSession.html#e-authentication-session-get-source-uid" title="e_authentication_session_get_source_uid ()">e_authentication_session_get_source_uid</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="EAuthenticationSession.html#e-authentication-session-get-prompt-title" title="e_authentication_session_get_prompt_title ()">e_authentication_session_get_prompt_title</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="EAuthenticationSession.html#e-authentication-session-dup-prompt-title" title="e_authentication_session_dup_prompt_title ()">e_authentication_session_dup_prompt_title</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EAuthenticationSession.html#e-authentication-session-set-prompt-title" title="e_authentication_session_set_prompt_title ()">e_authentication_session_set_prompt_title</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prompt_title</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="EAuthenticationSession.html#e-authentication-session-get-prompt-message" title="e_authentication_session_get_prompt_message ()">e_authentication_session_get_prompt_message</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="EAuthenticationSession.html#e-authentication-session-dup-prompt-message" title="e_authentication_session_dup_prompt_message ()">e_authentication_session_dup_prompt_message</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EAuthenticationSession.html#e-authentication-session-set-prompt-message" title="e_authentication_session_set_prompt_message ()">e_authentication_session_set_prompt_message</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prompt_message</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="EAuthenticationSession.html#e-authentication-session-get-prompt-description" title="e_authentication_session_get_prompt_description ()">e_authentication_session_get_prompt_description</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="EAuthenticationSession.html#e-authentication-session-dup-prompt-description" title="e_authentication_session_dup_prompt_description ()">e_authentication_session_dup_prompt_description</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EAuthenticationSession.html#e-authentication-session-set-prompt-description" title="e_authentication_session_set_prompt_description ()">e_authentication_session_set_prompt_description</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prompt_description</code></em>);
+<a class="link" href="EAuthenticationSession.html#EAuthenticationSessionResult" title="enum EAuthenticationSessionResult"><span class="returnvalue">EAuthenticationSessionResult</span></a> <a class="link" href="EAuthenticationSession.html#e-authentication-session-execute-sync" title="e_authentication_session_execute_sync ()">e_authentication_session_execute_sync</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EAuthenticationSession.html#e-authentication-session-execute" title="e_authentication_session_execute ()">e_authentication_session_execute</a>    (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> io_priority</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a class="link" href="EAuthenticationSession.html#EAuthenticationSessionResult" title="enum EAuthenticationSessionResult"><span class="returnvalue">EAuthenticationSessionResult</span></a> <a class="link" href="EAuthenticationSession.html#e-authentication-session-execute-finish" title="e_authentication_session_execute_finish ()">e_authentication_session_execute_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EAuthenticationSession.html#e-authentication-session-store-password-sync" title="e_authentication_session_store_password_sync ()">e_authentication_session_store_password_sync</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *password</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> permanently</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EAuthenticationSession.html#e-authentication-session-store-password" title="e_authentication_session_store_password ()">e_authentication_session_store_password</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *password</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> permanently</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> io_priority</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EAuthenticationSession.html#e-authentication-session-store-password-finish" title="e_authentication_session_store_password_finish ()">e_authentication_session_store_password_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EAuthenticationSession.html#e-authentication-session-lookup-password-sync" title="e_authentication_session_lookup_password_sync ()">e_authentication_session_lookup_password_sync</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **password</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EAuthenticationSession.html#e-authentication-session-lookup-password" title="e_authentication_session_lookup_password ()">e_authentication_session_lookup_password</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> io_priority</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EAuthenticationSession.html#e-authentication-session-lookup-password-finish" title="e_authentication_session_lookup_password_finish ()">e_authentication_session_lookup_password_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **password</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EAuthenticationSession.html#e-authentication-session-delete-password-sync" title="e_authentication_session_delete_password_sync ()">e_authentication_session_delete_password_sync</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EAuthenticationSession.html#e-authentication-session-delete-password" title="e_authentication_session_delete_password ()">e_authentication_session_delete_password</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> io_priority</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EAuthenticationSession.html#e-authentication-session-delete-password-finish" title="e_authentication_session_delete_password_finish ()">e_authentication_session_delete_password_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="EAuthenticationSession.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----EAuthenticationSession
+</pre>
+</div>
+<div class="refsect1">
+<a name="EAuthenticationSession.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="EAuthenticationSession.html#EAuthenticationSession--authenticator" title='The "authenticator" property'>authenticator</a>"            <a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a>*  : Read / Write / Construct Only
+  "<a class="link" href="EAuthenticationSession.html#EAuthenticationSession--prompt-description" title='The "prompt-description" property'>prompt-description</a>"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="EAuthenticationSession.html#EAuthenticationSession--prompt-message" title='The "prompt-message" property'>prompt-message</a>"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="EAuthenticationSession.html#EAuthenticationSession--prompt-title" title='The "prompt-title" property'>prompt-title</a>"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="EAuthenticationSession.html#EAuthenticationSession--server" title='The "server" property'>server</a>"                   <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>*  : Read / Write / Construct Only
+  "<a class="link" href="EAuthenticationSession.html#EAuthenticationSession--source-uid" title='The "source-uid" property'>source-uid</a>"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1">
+<a name="EAuthenticationSession.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> provides centralized password management and
+password prompting for all clients of the registry D-Bus service.
+</p>
+<p>
+An <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> is created within the registry D-Bus service
+when the service receives a request to authenticate some data source.
+Clients can issue requests by calling <a href="/usr/share/gtk-doc/html/libedataserver/ESourceRegistry.html#e-source-registry-authenticate"><code class="function">e_source_registry_authenticate()</code></a>.
+Requests can also come from any <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> running within the
+service itself.
+</p>
+<p>
+An <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> requires some object implementing the
+<a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a> interface to verify stored or user-provided
+passwords.  <a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> is used for client-issued
+authentication requests.  Custom collection backends derived from
+<a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> usually implement the <a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a>
+interface themselves.
+</p>
+<p>
+The <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> is then handed to <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+through <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-authenticate" title="e_source_registry_server_authenticate ()"><code class="function">e_source_registry_server_authenticate()</code></a> where it waits in line
+behind other previously added authentication sessions.  When its turn
+comes, the server calls <a class="link" href="EAuthenticationSession.html#e-authentication-session-execute" title="e_authentication_session_execute ()"><code class="function">e_authentication_session_execute()</code></a> to begin
+the interactive authentication session.
+</p>
+</div>
+<div class="refsect1">
+<a name="EAuthenticationSession.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="E-AUTHENTICATION-SESSION-KEYRING-ERROR:CAPS"></a><h3>E_AUTHENTICATION_SESSION_KEYRING_ERROR</h3>
+<pre class="programlisting">#define             E_AUTHENTICATION_SESSION_KEYRING_ERROR</pre>
+<p>
+Error domain for password storage and retrieval.  Error codes in this
+domain are defined by the <a href="/usr/share/gtk-doc/html/gnome-keyring/gnome-keyring-Result-Codes.html#GnomeKeyringResult"><span class="type">GnomeKeyringResult</span></a> enumeration.  See <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>
+for information on error domains.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EAuthenticationSession-struct"></a><h3>struct EAuthenticationSession</h3>
+<pre class="programlisting">struct EAuthenticationSession;</pre>
+<p>
+Contains only private data that should be read and manipulated using the
+functions below.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EAuthenticationSessionResult"></a><h3>enum EAuthenticationSessionResult</h3>
+<pre class="programlisting">typedef enum {
+	E_AUTHENTICATION_SESSION_ERROR,
+	E_AUTHENTICATION_SESSION_SUCCESS,
+	E_AUTHENTICATION_SESSION_DISMISSED
+} EAuthenticationSessionResult;
+</pre>
+<p>
+Completion codes used by <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="E-AUTHENTICATION-SESSION-ERROR:CAPS"></a><span class="term"><code class="literal">E_AUTHENTICATION_SESSION_ERROR</code></span></p></td>
+<td>  An error occurred while authenticating.
+</td>
+</tr>
+<tr>
+<td><p><a name="E-AUTHENTICATION-SESSION-SUCCESS:CAPS"></a><span class="term"><code class="literal">E_AUTHENTICATION_SESSION_SUCCESS</code></span></p></td>
+<td>  Client reported successful authentication.
+</td>
+</tr>
+<tr>
+<td><p><a name="E-AUTHENTICATION-SESSION-DISMISSED:CAPS"></a><span class="term"><code class="literal">E_AUTHENTICATION_SESSION_DISMISSED</code></span></p></td>
+<td>  User dismissed the authentication prompt.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-new"></a><h3>e_authentication_session_new ()</h3>
+<pre class="programlisting"><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="returnvalue">EAuthenticationSession</span></a> * e_authentication_session_new   (<em class="parameter"><code><span class="type">struct _ESourceRegistryServer</span> *server</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a> *authenticator</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *source_uid</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> instance for <em class="parameter"><code>server</code></em> using
+<em class="parameter"><code>authenticator</code></em> to handle authentication attempts.
+</p>
+<p>
+Note that <em class="parameter"><code>source_uid</code></em> does not necessarily have to be known to the
+<em class="parameter"><code>server</code></em>, as in the case when configuring a new data source, but it
+still has to be unique.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>authenticator</code></em> :</span></p></td>
+<td>an <a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source_uid</code></em> :</span></p></td>
+<td>a data source identifier</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-created <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-get-server"></a><h3>e_authentication_session_get_server ()</h3>
+<pre class="programlisting">struct <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="returnvalue">_ESourceRegistryServer</span></a> * e_authentication_session_get_server
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);</pre>
+<p>
+Returns the <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> to which <em class="parameter"><code>session</code></em> belongs.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> for <em class="parameter"><code>session</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-get-authenticator"></a><h3>e_authentication_session_get_authenticator ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="returnvalue">ESourceAuthenticator</span></a> * e_authentication_session_get_authenticator
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);</pre>
+<p>
+Returns the <a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a> handling authentication attempts for
+<em class="parameter"><code>session</code></em>.  This is usually an <a class="link" href="EAuthenticationMediator.html" title="EAuthenticationMediator"><span class="type">EAuthenticationMediator</span></a> but can also be
+a custom collection backend derived from <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a> for <em class="parameter"><code>session</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-get-source-uid"></a><h3>e_authentication_session_get_source_uid ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_authentication_session_get_source_uid
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);</pre>
+<p>
+Returns the <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html#ESource--uid"><span class="type">"uid"</span></a> of the authenticating data source.  The data
+source may or may not be known to the <a class="link" href="EAuthenticationSession.html#EAuthenticationSession--server" title='The "server" property'><span class="type">"server"</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the UID of the authenticating data source</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-get-prompt-title"></a><h3>e_authentication_session_get_prompt_title ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_authentication_session_get_prompt_title
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);</pre>
+<p>
+Returns the text used for the password prompt title should prompting
+be necessary.  See <a href="/usr/share/gtk-doc/html/gcr/GcrPrompt.html"><span class="type">GcrPrompt</span></a> for more details about password prompts.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the password prompt title</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-dup-prompt-title"></a><h3>e_authentication_session_dup_prompt_title ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_authentication_session_dup_prompt_title
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);</pre>
+<p>
+Thread-safe variation of <a class="link" href="EAuthenticationSession.html#e-authentication-session-get-prompt-title" title="e_authentication_session_get_prompt_title ()"><code class="function">e_authentication_session_get_prompt_title()</code></a>.
+Use this function when accessing <em class="parameter"><code>session</code></em> from multiple threads.
+</p>
+<p>
+The returned string should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-allocated copy of <a class="link" href="EAuthenticationSession.html#EAuthenticationSession--prompt-title" title='The "prompt-title" property'><span class="type">"prompt-title"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-set-prompt-title"></a><h3>e_authentication_session_set_prompt_title ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_authentication_session_set_prompt_title
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prompt_title</code></em>);</pre>
+<p>
+Sets the text used for the password prompt title should prompting be
+necessary.  See <a href="/usr/share/gtk-doc/html/gcr/GcrPrompt.html"><span class="type">GcrPrompt</span></a> for more details about password prompts.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>prompt_title</code></em> :</span></p></td>
+<td>the password prompt title, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-get-prompt-message"></a><h3>e_authentication_session_get_prompt_message ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_authentication_session_get_prompt_message
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);</pre>
+<p>
+Returns the text used for the password prompt message should prompting
+be necessary.  See <a href="/usr/share/gtk-doc/html/gcr/GcrPrompt.html"><span class="type">GcrPrompt</span></a> for more details about password prompts.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the password prompt message</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-dup-prompt-message"></a><h3>e_authentication_session_dup_prompt_message ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_authentication_session_dup_prompt_message
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);</pre>
+<p>
+Thread-safe variation of <a class="link" href="EAuthenticationSession.html#e-authentication-session-get-prompt-message" title="e_authentication_session_get_prompt_message ()"><code class="function">e_authentication_session_get_prompt_message()</code></a>.
+Use this function when accessing <em class="parameter"><code>session</code></em> from multiple threads.
+</p>
+<p>
+The returned string should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-allocated copy of <a class="link" href="EAuthenticationSession.html#EAuthenticationSession--prompt-message" title='The "prompt-message" property'><span class="type">"prompt-message"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-set-prompt-message"></a><h3>e_authentication_session_set_prompt_message ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_authentication_session_set_prompt_message
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prompt_message</code></em>);</pre>
+<p>
+Sets the text used for the password prompt message should prompting be
+necessary.  See <a href="/usr/share/gtk-doc/html/gcr/GcrPrompt.html"><span class="type">GcrPrompt</span></a> for more details about password prompts.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>prompt_message</code></em> :</span></p></td>
+<td>the password prompt message, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-get-prompt-description"></a><h3>e_authentication_session_get_prompt_description ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_authentication_session_get_prompt_description
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);</pre>
+<p>
+Returns the text used for the password prompt description should prompting
+be necessary.  See <a href="/usr/share/gtk-doc/html/gcr/GcrPrompt.html"><span class="type">GcrPrompt</span></a> for more details about password prompts.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the password prompt description</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-dup-prompt-description"></a><h3>e_authentication_session_dup_prompt_description ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_authentication_session_dup_prompt_description
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>);</pre>
+<p>
+Thread-safe variation of <a class="link" href="EAuthenticationSession.html#e-authentication-session-get-prompt-description" title="e_authentication_session_get_prompt_description ()"><code class="function">e_authentication_session_get_prompt_description()</code></a>.
+Use this function when accessing <em class="parameter"><code>session</code></em> from multiple threads.
+</p>
+<p>
+The returned string should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-allocated copy of
+<a class="link" href="EAuthenticationSession.html#EAuthenticationSession--prompt-description" title='The "prompt-description" property'><span class="type">"prompt-description"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-set-prompt-description"></a><h3>e_authentication_session_set_prompt_description ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_authentication_session_set_prompt_description
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prompt_description</code></em>);</pre>
+<p>
+Sets the text used for the password prompt description should prompting
+be necessary.  See <a href="/usr/share/gtk-doc/html/gcr/GcrPrompt.html"><span class="type">GcrPrompt</span></a> for more details about password prompts.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>prompt_description</code></em> :</span></p></td>
+<td>the password prompt description</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-execute-sync"></a><h3>e_authentication_session_execute_sync ()</h3>
+<pre class="programlisting"><a class="link" href="EAuthenticationSession.html#EAuthenticationSessionResult" title="enum EAuthenticationSessionResult"><span class="returnvalue">EAuthenticationSessionResult</span></a> e_authentication_session_execute_sync
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Executes an authentication session.
+</p>
+<p>
+First the secret service is queried for a stored password.  If found,
+an authentication attempt is made without disturbing the user.  If no
+stored password is found, or if the stored password is rejected, the
+user is shown a system-modal dialog requesting a password.  Further
+authentication attempts are repeated with user-provided passwords
+until authentication is verified or the user dismisses the prompt.
+The returned <a class="link" href="EAuthenticationSession.html#EAuthenticationSessionResult" title="enum EAuthenticationSessionResult"><span class="type">EAuthenticationSessionResult</span></a> indicates the outcome.
+</p>
+<p>
+If an error occurs while interacting with the secret service, or while
+prompting the user for a password, or while attempting authentication,
+the function sets <em class="parameter"><code>error</code></em> and returns <a class="link" href="EAuthenticationSession.html#E-AUTHENTICATION-SESSION-ERROR:CAPS"><span class="type">E_AUTHENTICATION_SESSION_ERROR</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the result of the authentication session</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-execute"></a><h3>e_authentication_session_execute ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_authentication_session_execute    (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> io_priority</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+See <a class="link" href="EAuthenticationSession.html#e-authentication-session-execute-sync" title="e_authentication_session_execute_sync ()"><code class="function">e_authentication_session_execute_sync()</code></a> for details.
+</p>
+<p>
+When the operation is finished, <em class="parameter"><code>callback</code></em> will be called.  You can then
+call <a class="link" href="EAuthenticationSession.html#e-authentication-session-execute-finish" title="e_authentication_session_execute_finish ()"><code class="function">e_authentication_session_execute_finish()</code></a> to get the result of the
+operation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>io_priority</code></em> :</span></p></td>
+<td>the I/O priority of the request</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to the callback function</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-execute-finish"></a><h3>e_authentication_session_execute_finish ()</h3>
+<pre class="programlisting"><a class="link" href="EAuthenticationSession.html#EAuthenticationSessionResult" title="enum EAuthenticationSessionResult"><span class="returnvalue">EAuthenticationSessionResult</span></a> e_authentication_session_execute_finish
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes the operation started with <a class="link" href="EAuthenticationSession.html#e-authentication-session-execute" title="e_authentication_session_execute ()"><code class="function">e_authentication_session_execute()</code></a>.
+</p>
+<p>
+If an error occurs while interacting with the secret service, or while
+prompting the user for a password, or while attempting authentication,
+the function sets <em class="parameter"><code>error</code></em> and returns <a class="link" href="EAuthenticationSession.html#E-AUTHENTICATION-SESSION-ERROR:CAPS"><span class="type">E_AUTHENTICATION_SESSION_ERROR</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the result of the authentication session</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-store-password-sync"></a><h3>e_authentication_session_store_password_sync ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_authentication_session_store_password_sync
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *password</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> permanently</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Store a password for the data source that <em class="parameter"><code>session</code></em> is representing.
+If <em class="parameter"><code>permanently</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the password is stored in the default keyring.
+Otherwise the password is stored in the memory-only session keyring.  If
+an error occurs, the function sets <em class="parameter"><code>error</code></em> and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>password</code></em> :</span></p></td>
+<td>the password to store</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>permanently</code></em> :</span></p></td>
+<td>store permanently or just for the session</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on error</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-store-password"></a><h3>e_authentication_session_store_password ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_authentication_session_store_password
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *password</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> permanently</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> io_priority</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Asynchronously stores a password for the data source that <em class="parameter"><code>session</code></em>
+is representing.  If <em class="parameter"><code>permanently</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the password is stored in the
+default keyring.  Otherwise the password is stored in the memory-only
+session keyring.
+</p>
+<p>
+When the operation is finished, <em class="parameter"><code>callback</code></em> will be called.  You can then
+call <a class="link" href="EAuthenticationSession.html#e-authentication-session-store-password-finish" title="e_authentication_session_store_password_finish ()"><code class="function">e_authentication_session_store_password_finish()</code></a> to get the result
+of the operation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>password</code></em> :</span></p></td>
+<td>the password to store</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>permanently</code></em> :</span></p></td>
+<td>store permanently or just for the session</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>io_priority</code></em> :</span></p></td>
+<td>the I/O priority of the request</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to the callback function</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-store-password-finish"></a><h3>e_authentication_session_store_password_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_authentication_session_store_password_finish
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finished the operation started with
+<a class="link" href="EAuthenticationSession.html#e-authentication-session-store-password" title="e_authentication_session_store_password ()"><code class="function">e_authentication_session_store_password()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on error</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-lookup-password-sync"></a><h3>e_authentication_session_lookup_password_sync ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_authentication_session_lookup_password_sync
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **password</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Looks up a password for the data source that <em class="parameter"><code>session</code></em> is
+representing.  Both the default and session keyrings are queried.
+</p>
+<p>
+Note the boolean return value indicates whether the lookup operation
+itself completed successfully, not whether a password was found.  If
+no password was found, the function will set <em class="parameter"><code>password</code></em> to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> but
+still return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.  If an error occurs, the function sets <em class="parameter"><code>error</code></em>
+and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>password</code></em> :</span></p></td>
+<td>return location for the password, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on error</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-lookup-password"></a><h3>e_authentication_session_lookup_password ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_authentication_session_lookup_password
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> io_priority</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Asynchronously looks up a password for the data source that <em class="parameter"><code>session</code></em>
+is representing.  Both the default and session keyrings are queried.
+</p>
+<p>
+When the operation is finished, <em class="parameter"><code>callback</code></em> will be called.  You can then
+call <a class="link" href="EAuthenticationSession.html#e-authentication-session-lookup-password-finish" title="e_authentication_session_lookup_password_finish ()"><code class="function">e_authentication_session_lookup_password_finish()</code></a> to get the
+result of the operation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>io_priority</code></em> :</span></p></td>
+<td>the I/O priority of the request</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to the callback function</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-lookup-password-finish"></a><h3>e_authentication_session_lookup_password_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_authentication_session_lookup_password_finish
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **password</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes the operation started with
+<a class="link" href="EAuthenticationSession.html#e-authentication-session-lookup-password" title="e_authentication_session_lookup_password ()"><code class="function">e_authentication_session_lookup_password()</code></a>.
+</p>
+<p>
+Note the boolean return value indicates whether the lookup operation
+itself completed successfully, not whether a password was found.  If
+no password was found, the function will set <em class="parameter"><code>password</code></em> to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> but
+still return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.  If an error occurs, the function sets <em class="parameter"><code>error</code></em>
+and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>password</code></em> :</span></p></td>
+<td>return location for the password, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on error</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-delete-password-sync"></a><h3>e_authentication_session_delete_password_sync ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_authentication_session_delete_password_sync
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Deletes the password for the data source that <em class="parameter"><code>session</code></em> is
+representing from either the default keyring or session keyring.
+</p>
+<p>
+Note the boolean return value indicates whether the delete operation
+itself completed successfully, not whether a password was found and
+deleted.  If no password was found, the function will still return
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.  If an error occurs, the function sets <em class="parameter"><code>error</code></em> and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on error</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-delete-password"></a><h3>e_authentication_session_delete_password ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_authentication_session_delete_password
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> io_priority</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Asyncronously deletes the password for the data source that <em class="parameter"><code>session</code></em>
+is representing from either the default keyring or session keyring.
+</p>
+<p>
+When the operation is finished, <em class="parameter"><code>callback</code></em> will be called.  You can then
+call <a class="link" href="EAuthenticationSession.html#e-authentication-session-delete-password-finish" title="e_authentication_session_delete_password_finish ()"><code class="function">e_authentication_session_delete_password_finish()</code></a> to get the result
+of the operation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>io_priority</code></em> :</span></p></td>
+<td>the I/O priority of the request</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to the callback function</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-authentication-session-delete-password-finish"></a><h3>e_authentication_session_delete_password_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_authentication_session_delete_password_finish
+                                                        (<em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes the operation started with
+<a class="link" href="EAuthenticationSession.html#e-authentication-session-delete-password" title="e_authentication_session_delete_password ()"><code class="function">e_authentication_session_delete_password()</code></a>.
+</p>
+<p>
+Note the boolean return value indicates whether the delete operation
+itself completed successfully, not whether a password was found and
+deleted.  If no password was found, the function will still return
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.  If an error occurs, the function sets <em class="parameter"><code>error</code></em> and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on error</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="EAuthenticationSession.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="EAuthenticationSession--authenticator"></a><h3>The <code class="literal">"authenticator"</code> property</h3>
+<pre class="programlisting">  "authenticator"            <a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a>*  : Read / Write / Construct Only</pre>
+<p>Handles authentication attempts.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EAuthenticationSession--prompt-description"></a><h3>The <code class="literal">"prompt-description"</code> property</h3>
+<pre class="programlisting">  "prompt-description"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>The detailed description of the prompt.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EAuthenticationSession--prompt-message"></a><h3>The <code class="literal">"prompt-message"</code> property</h3>
+<pre class="programlisting">  "prompt-message"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>The prompt message for the user.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EAuthenticationSession--prompt-title"></a><h3>The <code class="literal">"prompt-title"</code> property</h3>
+<pre class="programlisting">  "prompt-title"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>The title of the prompt.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EAuthenticationSession--server"></a><h3>The <code class="literal">"server"</code> property</h3>
+<pre class="programlisting">  "server"                   <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>*  : Read / Write / Construct Only</pre>
+<p>The server to which the session belongs.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EAuthenticationSession--source-uid"></a><h3>The <code class="literal">"source-uid"</code> property</h3>
+<pre class="programlisting">  "source-uid"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only</pre>
+<p>Unique ID of the data source being authenticated.</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

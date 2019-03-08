@@ -1,0 +1,54 @@
+#!/usr/bin/env python
+#
+# Test opening a new session
+#
+
+import os
+import gobject
+import dbus
+import dbus.glib
+
+bus = dbus.SystemBus ()
+
+manager_obj = bus.get_object ('org.freedesktop.ConsoleKit', '/org/freedesktop/ConsoleKit/Manager')
+
+manager = dbus.Interface (manager_obj, 'org.freedesktop.ConsoleKit.Manager')
+
+params = dbus.Array ([], signature = "(sv)")
+params.append (("unix-user", dbus.Int32 (730, variant_level=1)))
+params.append (("session-type", dbus.String ("Unknown", variant_level=1)))
+#params.append (("x11-display", dbus.String (":0.0", variant_level=1)))
+params.append (("display-device", dbus.String ("/dev/tty8", variant_level=1)))
+params.append (("is-local", dbus.Boolean (True, variant_level=1)))
+params.append (("bogus-property", dbus.String ("Something bogus", variant_level=1)))
+params.append (("cookie", dbus.String ("This should be ignored", variant_level=1)))
+params.append (("id", dbus.String  ("This should be ignored too", variant_level=1)))
+
+cookie = manager.OpenSessionWithParameters (params)
+os.environ['XDG_SESSION_COOKIE'] = cookie
+print "Got cookie: %s" % cookie
+
+seats = manager.GetSeats ()
+for sid in seats:
+    seat_obj = bus.get_object ('org.freedesktop.ConsoleKit', sid)
+    seat = dbus.Interface (seat_obj, 'org.freedesktop.ConsoleKit.Seat')
+    sessions = seat.GetSessions ()
+    for ssid in sessions:
+            session_obj = bus.get_object ('org.freedesktop.ConsoleKit', ssid)
+            session = dbus.Interface (session_obj, 'org.freedesktop.ConsoleKit.Session')
+            uid = session.GetUser ()
+
+# The proc environment doesn't get updated when
+# os.environ is set.  So, we won't use GetCurrentSession.
+#current_session = manager.GetCurrentSession ()
+current_session = manager.GetSessionForCookie (cookie)
+print "Current session: %s" % current_session
+
+session_obj = bus.get_object ('org.freedesktop.ConsoleKit', ssid)
+session = dbus.Interface (session_obj, 'org.freedesktop.ConsoleKit.Session')
+
+mainloop = gobject.MainLoop ()
+
+gobject.timeout_add (30000, mainloop.quit)
+
+mainloop.run()

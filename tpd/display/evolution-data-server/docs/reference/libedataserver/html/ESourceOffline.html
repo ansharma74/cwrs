@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESourceOffline</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
+<link rel="up" href="ch02.html" title="Data Source Extensions">
+<link rel="prev" href="ESourceMemoList.html" title="ESourceMemoList">
+<link rel="next" href="ESourceOpenPGP.html" title="ESourceOpenPGP">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ESourceMemoList.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Utilities (libedataserver)</th>
+<td><a accesskey="n" href="ESourceOpenPGP.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ESourceOffline.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#ESourceOffline.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#ESourceOffline.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#ESourceOffline.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="ESourceOffline"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESourceOffline.top_of_page"></a>ESourceOffline</span></h2>
+<p>ESourceOffline — <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> extension for offline settings</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ESourceOffline.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;libedataserver/libedataserver.h&gt;
+
+struct              <a class="link" href="ESourceOffline.html#ESourceOffline-struct" title="struct ESourceOffline">ESourceOffline</a>;
+#define             <a class="link" href="ESourceOffline.html#E-SOURCE-EXTENSION-OFFLINE:CAPS" title="E_SOURCE_EXTENSION_OFFLINE">E_SOURCE_EXTENSION_OFFLINE</a>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceOffline.html#e-source-offline-get-stay-synchronized" title="e_source_offline_get_stay_synchronized ()">e_source_offline_get_stay_synchronized</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOffline.html" title="ESourceOffline"><span class="type">ESourceOffline</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceOffline.html#e-source-offline-set-stay-synchronized" title="e_source_offline_set_stay_synchronized ()">e_source_offline_set_stay_synchronized</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOffline.html" title="ESourceOffline"><span class="type">ESourceOffline</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> stay_synchronized</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceOffline.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="ESourceExtension.html" title="ESourceExtension">ESourceExtension</a>
+         +----ESourceOffline
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceOffline.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="ESourceOffline.html#ESourceOffline--stay-synchronized" title='The "stay-synchronized" property'>stay-synchronized</a>"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceOffline.description"></a><h2>Description</h2>
+<p>
+The <a class="link" href="ESourceOffline.html" title="ESourceOffline"><span class="type">ESourceOffline</span></a> extension tracks whether data from a remote
+server should be cached locally for viewing while offline.
+</p>
+<p>
+Access the extension as follows:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc ppc">#include &lt;libedataserver/libedataserver.h&gt;</span>
+
+ESourceOffline <span class="gtkdoc opt">*</span>extension<span class="gtkdoc opt">;</span>
+
+extension <span class="gtkdoc opt">=</span> <span class="function"><a href="ESource.html#e-source-get-extension">e_source_get_extension</a></span> <span class="gtkdoc opt">(</span>source<span class="gtkdoc opt">,</span> E_SOURCE_EXTENSION_OFFLINE<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="ESourceOffline.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="ESourceOffline-struct"></a><h3>struct ESourceOffline</h3>
+<pre class="programlisting">struct ESourceOffline;</pre>
+<p>
+Contains only private data that should be read and manipulated using the
+functions below.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="E-SOURCE-EXTENSION-OFFLINE:CAPS"></a><h3>E_SOURCE_EXTENSION_OFFLINE</h3>
+<pre class="programlisting">#define E_SOURCE_EXTENSION_OFFLINE "Offline"
+</pre>
+<p>
+Pass this extension name to <a class="link" href="ESource.html#e-source-get-extension" title="e_source_get_extension ()"><code class="function">e_source_get_extension()</code></a> to access
+<a class="link" href="ESourceOffline.html" title="ESourceOffline"><span class="type">ESourceOffline</span></a>.  This is also used as a group name in key files.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-offline-get-stay-synchronized"></a><h3>e_source_offline_get_stay_synchronized ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_offline_get_stay_synchronized
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOffline.html" title="ESourceOffline"><span class="type">ESourceOffline</span></a> *extension</code></em>);</pre>
+<p>
+Returns whether data from a remote server should be cached locally
+for viewing while offline.  Backends are responsible for implementing
+such caching.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOffline.html" title="ESourceOffline"><span class="type">ESourceOffline</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether data should be cached for offline</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-offline-set-stay-synchronized"></a><h3>e_source_offline_set_stay_synchronized ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_offline_set_stay_synchronized
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOffline.html" title="ESourceOffline"><span class="type">ESourceOffline</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> stay_synchronized</code></em>);</pre>
+<p>
+Sets whether data from a remote server should be cached locally for
+viewing while offline.  Backends are responsible for implementing
+such caching.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOffline.html" title="ESourceOffline"><span class="type">ESourceOffline</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stay_synchronized</code></em> :</span></p></td>
+<td>whether data should be cached for offline</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ESourceOffline.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="ESourceOffline--stay-synchronized"></a><h3>The <code class="literal">"stay-synchronized"</code> property</h3>
+<pre class="programlisting">  "stay-synchronized"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct</pre>
+<p>Keep remote content synchronized locally.</p>
+<p>Default value: FALSE</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

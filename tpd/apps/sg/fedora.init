@@ -1,0 +1,101 @@
+#!/bin/sh
+#
+# Init file for the Firestarter firewall
+#
+# chkconfig: 2345 11 92
+#
+# description: Starts, stops, and lock the firewall
+#
+# Script Authors:
+#	Tomas Junnonen <majix@sci.fi>
+#	Paul Drain <pd@cipherfunk.org>
+#
+# config: /etc/firestarter/configuration
+
+# Source function library.
+. /etc/init.d/functions
+
+# Source networking configuration
+. /etc/sysconfig/network
+
+# Check that networking is up.
+[ ${NETWORKING} = "no" ] && exit 0
+
+FS_CONTROL="/etc/firestarter/firestarter.sh"
+
+[ -x $FS_CONTROL ] || exit 0
+[ -s /etc/firestarter/configuration ] || exit 0
+
+RETVAL=0
+
+start() {
+	echo -n "Starting the Firestarter firewall: "
+	$FS_CONTROL start > /dev/null
+	RETVAL=$?
+	if [ $RETVAL -eq 0 ]; then
+		success
+	else
+		failure
+	fi
+	echo
+	return $RETVAL
+}
+
+stop() {
+	echo -n "Stopping the Firestarter firewall:"
+	$FS_CONTROL stop > /dev/null
+	RETVAL=$?
+	if [ $RETVAL -eq 0 ]; then
+		success
+	else
+		failure
+	fi
+	echo
+	return $RETVAL
+}
+
+lock() {
+	echo -n "Locking the Firestarter firewall:"
+	$FS_CONTROL lock > /dev/null
+	RETVAL=$?
+	if [ $RETVAL -eq 0 ]; then
+		success
+	else
+		failure
+	fi
+	echo
+	return $RETVAL
+}
+
+# See how we were called.
+case "$1" in
+  start)
+	start
+	RETVAL=$?
+	;;
+  stop)
+	stop
+	RETVAL=$?
+	;;
+  restart)
+	stop
+	start
+	RETVAL=$?
+	;;
+  lock)
+	lock
+	RETVAL=$?
+	;;
+  status)
+	if [ -e /var/lock/subsys/firestarter -o -e /var/lock/firestarter ]; then
+		echo "Firestarter is running..."
+	else
+		echo "Firestarter is stopped"
+	fi
+	RETVAL=$?
+	;;
+  *)
+	echo "Usage: firestarter {start|stop|restart|lock|status}"
+	exit 1
+esac
+exit $RETVAL

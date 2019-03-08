@@ -1,0 +1,781 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Service-side Client interfaces</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-dbus.html" title="Service-side D-Bus interfaces">
+<link rel="prev" href="telepathy-glib-svc-channel-request.html" title="Service-side Channel Request interface">
+<link rel="next" href="telepathy-glib-svc-tls.html" title="Service-side TLS interfaces">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-svc-channel-request.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-dbus.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-svc-tls.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-svc-client.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-svc-client.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-svc-client.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-svc-client.implementations" class="shortcut">Known Implementations</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-svc-client"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-svc-client.top_of_page"></a>Service-side Client interfaces</span></h2>
+<p>Service-side Client interfaces — interfaces used to be an Observer, Approver and Handler</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-svc-client.synopsis"></a><h2>Synopsis</h2>
+<a name="TpSvcClient"></a><a name="TpSvcClientApprover"></a><a name="TpSvcClientHandler"></a><a name="TpSvcClientInterfaceRequests"></a><a name="TpSvcClientObserver"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib-dbus.h&gt;
+
+                    <a class="link" href="telepathy-glib-svc-client.html#TpSvcClient-struct" title="TpSvcClient">TpSvcClient</a>;
+                    <a class="link" href="telepathy-glib-svc-client.html#TpSvcClientClass" title="TpSvcClientClass">TpSvcClientClass</a>;
+
+                    <a class="link" href="telepathy-glib-svc-client.html#TpSvcClientApprover-struct" title="TpSvcClientApprover">TpSvcClientApprover</a>;
+                    <a class="link" href="telepathy-glib-svc-client.html#TpSvcClientApproverClass" title="TpSvcClientApproverClass">TpSvcClientApproverClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-approver-return-from-add-dispatch-operation" title="tp_svc_client_approver_return_from_add_dispatch_operation ()">tp_svc_client_approver_return_from_add_dispatch_operation</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-approver-add-dispatch-operation-impl" title="tp_svc_client_approver_add_dispatch_operation_impl ()">*tp_svc_client_approver_add_dispatch_operation_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientApprover"><span class="type">TpSvcClientApprover</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Channels</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_DispatchOperation</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-approver-implement-add-dispatch-operation" title="tp_svc_client_approver_implement_add_dispatch_operation ()">tp_svc_client_approver_implement_add_dispatch_operation</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientApproverClass" title="TpSvcClientApproverClass"><span class="type">TpSvcClientApproverClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-approver-add-dispatch-operation-impl" title="tp_svc_client_approver_add_dispatch_operation_impl ()"><span class="type">tp_svc_client_approver_add_dispatch_operation_impl</span></a> impl</code></em>);
+
+                    <a class="link" href="telepathy-glib-svc-client.html#TpSvcClientHandler-struct" title="TpSvcClientHandler">TpSvcClientHandler</a>;
+                    <a class="link" href="telepathy-glib-svc-client.html#TpSvcClientHandlerClass" title="TpSvcClientHandlerClass">TpSvcClientHandlerClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-handler-return-from-handle-channels" title="tp_svc_client_handler_return_from_handle_channels ()">tp_svc_client_handler_return_from_handle_channels</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-handler-handle-channels-impl" title="tp_svc_client_handler_handle_channels_impl ()">*tp_svc_client_handler_handle_channels_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientHandler"><span class="type">TpSvcClientHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Account</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Connection</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Channels</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Requests_Satisfied</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> in_User_Action_Time</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Handler_Info</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-handler-implement-handle-channels" title="tp_svc_client_handler_implement_handle_channels ()">tp_svc_client_handler_implement_handle_channels</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientHandlerClass" title="TpSvcClientHandlerClass"><span class="type">TpSvcClientHandlerClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-handler-handle-channels-impl" title="tp_svc_client_handler_handle_channels_impl ()"><span class="type">tp_svc_client_handler_handle_channels_impl</span></a> impl</code></em>);
+                    <a class="link" href="telepathy-glib-svc-client.html#TpSvcClientInterfaceRequests-struct" title="TpSvcClientInterfaceRequests">TpSvcClientInterfaceRequests</a>;
+                    <a class="link" href="telepathy-glib-svc-client.html#TpSvcClientInterfaceRequestsClass" title="TpSvcClientInterfaceRequestsClass">TpSvcClientInterfaceRequestsClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-interface-requests-return-from-add-request" title="tp_svc_client_interface_requests_return_from_add_request ()">tp_svc_client_interface_requests_return_from_add_request</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-interface-requests-add-request-impl" title="tp_svc_client_interface_requests_add_request_impl ()">*tp_svc_client_interface_requests_add_request_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientInterfaceRequests"><span class="type">TpSvcClientInterfaceRequests</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Request</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-interface-requests-implement-add-request" title="tp_svc_client_interface_requests_implement_add_request ()">tp_svc_client_interface_requests_implement_add_request</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientInterfaceRequestsClass" title="TpSvcClientInterfaceRequestsClass"><span class="type">TpSvcClientInterfaceRequestsClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-interface-requests-add-request-impl" title="tp_svc_client_interface_requests_add_request_impl ()"><span class="type">tp_svc_client_interface_requests_add_request_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-interface-requests-return-from-remove-request" title="tp_svc_client_interface_requests_return_from_remove_request ()">tp_svc_client_interface_requests_return_from_remove_request</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-interface-requests-remove-request-impl" title="tp_svc_client_interface_requests_remove_request_impl ()">*tp_svc_client_interface_requests_remove_request_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientInterfaceRequests"><span class="type">TpSvcClientInterfaceRequests</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Request</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Error</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Message</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-interface-requests-implement-remove-request" title="tp_svc_client_interface_requests_implement_remove_request ()">tp_svc_client_interface_requests_implement_remove_request</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientInterfaceRequestsClass" title="TpSvcClientInterfaceRequestsClass"><span class="type">TpSvcClientInterfaceRequestsClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-interface-requests-remove-request-impl" title="tp_svc_client_interface_requests_remove_request_impl ()"><span class="type">tp_svc_client_interface_requests_remove_request_impl</span></a> impl</code></em>);
+
+                    <a class="link" href="telepathy-glib-svc-client.html#TpSvcClientObserver-struct" title="TpSvcClientObserver">TpSvcClientObserver</a>;
+                    <a class="link" href="telepathy-glib-svc-client.html#TpSvcClientObserverClass" title="TpSvcClientObserverClass">TpSvcClientObserverClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-observer-return-from-observe-channels" title="tp_svc_client_observer_return_from_observe_channels ()">tp_svc_client_observer_return_from_observe_channels</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-observer-observe-channels-impl" title="tp_svc_client_observer_observe_channels_impl ()">*tp_svc_client_observer_observe_channels_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientObserver"><span class="type">TpSvcClientObserver</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Account</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Connection</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Channels</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Dispatch_Operation</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Requests_Satisfied</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Observer_Info</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-observer-implement-observe-channels" title="tp_svc_client_observer_implement_observe_channels ()">tp_svc_client_observer_implement_observe_channels</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientObserverClass" title="TpSvcClientObserverClass"><span class="type">TpSvcClientObserverClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-observer-observe-channels-impl" title="tp_svc_client_observer_observe_channels_impl ()"><span class="type">tp_svc_client_observer_observe_channels_impl</span></a> impl</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-client.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcClient
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcClientApprover
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcClientHandler
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcClientInterfaceRequests
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcClientObserver
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-client.implementations"></a><h2>Known Implementations</h2>
+<p>
+TpSvcClient is implemented by
+ <a class="link" href="telepathy-glib-base-client.html#TpBaseClient">TpBaseClient</a>,  <a class="link" href="telepathy-glib-simple-approver.html#TpSimpleApprover">TpSimpleApprover</a>,  <a class="link" href="telepathy-glib-simple-handler.html#TpSimpleHandler">TpSimpleHandler</a> and  <a class="link" href="telepathy-glib-simple-observer.html#TpSimpleObserver">TpSimpleObserver</a>.</p>
+<p>
+TpSvcClientApprover is implemented by
+ <a class="link" href="telepathy-glib-base-client.html#TpBaseClient">TpBaseClient</a>,  <a class="link" href="telepathy-glib-simple-approver.html#TpSimpleApprover">TpSimpleApprover</a>,  <a class="link" href="telepathy-glib-simple-handler.html#TpSimpleHandler">TpSimpleHandler</a> and  <a class="link" href="telepathy-glib-simple-observer.html#TpSimpleObserver">TpSimpleObserver</a>.</p>
+<p>
+TpSvcClientHandler is implemented by
+ <a class="link" href="telepathy-glib-base-client.html#TpBaseClient">TpBaseClient</a>,  <a class="link" href="telepathy-glib-simple-approver.html#TpSimpleApprover">TpSimpleApprover</a>,  <a class="link" href="telepathy-glib-simple-handler.html#TpSimpleHandler">TpSimpleHandler</a> and  <a class="link" href="telepathy-glib-simple-observer.html#TpSimpleObserver">TpSimpleObserver</a>.</p>
+<p>
+TpSvcClientInterfaceRequests is implemented by
+ <a class="link" href="telepathy-glib-base-client.html#TpBaseClient">TpBaseClient</a>,  <a class="link" href="telepathy-glib-simple-approver.html#TpSimpleApprover">TpSimpleApprover</a>,  <a class="link" href="telepathy-glib-simple-handler.html#TpSimpleHandler">TpSimpleHandler</a> and  <a class="link" href="telepathy-glib-simple-observer.html#TpSimpleObserver">TpSimpleObserver</a>.</p>
+<p>
+TpSvcClientObserver is implemented by
+ <a class="link" href="telepathy-glib-base-client.html#TpBaseClient">TpBaseClient</a>,  <a class="link" href="telepathy-glib-simple-approver.html#TpSimpleApprover">TpSimpleApprover</a>,  <a class="link" href="telepathy-glib-simple-handler.html#TpSimpleHandler">TpSimpleHandler</a> and  <a class="link" href="telepathy-glib-simple-observer.html#TpSimpleObserver">TpSimpleObserver</a>.</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-client.description"></a><h2>Description</h2>
+<p>
+These interfaces (auto-generated from the telepathy spec) make it easier
+to export the objects used to implement a Telepathy client.
+</p>
+<p>
+Clients such as loggers, new message notification windows and chat UIs
+should implement some or all of the Client types (Observer, Approver and/or
+Handler): see telepathy-spec for details.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-client.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpSvcClient-struct"></a><h3>TpSvcClient</h3>
+<pre class="programlisting">typedef struct _TpSvcClient TpSvcClient;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcClientClass"></a><h3>TpSvcClientClass</h3>
+<pre class="programlisting">typedef struct _TpSvcClientClass TpSvcClientClass;</pre>
+<p>
+The class of TpSvcClient.
+This interface has no D-Bus methods, so an
+implementation can typically pass <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> as the interface
+initialization function.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcClientApprover-struct"></a><h3>TpSvcClientApprover</h3>
+<pre class="programlisting">typedef struct _TpSvcClientApprover TpSvcClientApprover;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcClientApproverClass"></a><h3>TpSvcClientApproverClass</h3>
+<pre class="programlisting">typedef struct _TpSvcClientApproverClass TpSvcClientApproverClass;</pre>
+<p>
+The class of TpSvcClientApprover.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_client_approver (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_client_approver_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (add_dispatch_operation);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-client-approver-return-from-add-dispatch-operation"></a><h3>tp_svc_client_approver_return_from_add_dispatch_operation ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_client_approver_return_from_add_dispatch_operation
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-client-approver-add-dispatch-operation-impl"></a><h3>tp_svc_client_approver_add_dispatch_operation_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_client_approver_add_dispatch_operation_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientApprover"><span class="type">TpSvcClientApprover</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Channels</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_DispatchOperation</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+AddDispatchOperation on interface org.freedesktop.Telepathy.Client.Approver.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Channels</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_DispatchOperation</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Properties</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-client-approver-implement-add-dispatch-operation"></a><h3>tp_svc_client_approver_implement_add_dispatch_operation ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_client_approver_implement_add_dispatch_operation
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientApproverClass" title="TpSvcClientApproverClass"><span class="type">TpSvcClientApproverClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-approver-add-dispatch-operation-impl" title="tp_svc_client_approver_add_dispatch_operation_impl ()"><span class="type">tp_svc_client_approver_add_dispatch_operation_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the AddDispatchOperation method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the AddDispatchOperation D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcClientHandler-struct"></a><h3>TpSvcClientHandler</h3>
+<pre class="programlisting">typedef struct _TpSvcClientHandler TpSvcClientHandler;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcClientHandlerClass"></a><h3>TpSvcClientHandlerClass</h3>
+<pre class="programlisting">typedef struct _TpSvcClientHandlerClass TpSvcClientHandlerClass;</pre>
+<p>
+The class of TpSvcClientHandler.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_client_handler (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_client_handler_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (handle_channels);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-client-handler-return-from-handle-channels"></a><h3>tp_svc_client_handler_return_from_handle_channels ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_client_handler_return_from_handle_channels
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-client-handler-handle-channels-impl"></a><h3>tp_svc_client_handler_handle_channels_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_client_handler_handle_channels_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientHandler"><span class="type">TpSvcClientHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Account</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Connection</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Channels</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Requests_Satisfied</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> in_User_Action_Time</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Handler_Info</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+HandleChannels on interface org.freedesktop.Telepathy.Client.Handler.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Account</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Connection</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Channels</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Requests_Satisfied</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_User_Action_Time</code></em> :</span></p></td>
+<td>guint64  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Handler_Info</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-client-handler-implement-handle-channels"></a><h3>tp_svc_client_handler_implement_handle_channels ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_client_handler_implement_handle_channels
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientHandlerClass" title="TpSvcClientHandlerClass"><span class="type">TpSvcClientHandlerClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-handler-handle-channels-impl" title="tp_svc_client_handler_handle_channels_impl ()"><span class="type">tp_svc_client_handler_handle_channels_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the HandleChannels method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the HandleChannels D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcClientInterfaceRequests-struct"></a><h3>TpSvcClientInterfaceRequests</h3>
+<pre class="programlisting">typedef struct _TpSvcClientInterfaceRequests TpSvcClientInterfaceRequests;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcClientInterfaceRequestsClass"></a><h3>TpSvcClientInterfaceRequestsClass</h3>
+<pre class="programlisting">typedef struct _TpSvcClientInterfaceRequestsClass TpSvcClientInterfaceRequestsClass;</pre>
+<p>
+The class of TpSvcClientInterfaceRequests.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_client_interface_requests (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_client_interface_requests_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (add_request);
+  IMPLEMENT (remove_request);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-client-interface-requests-return-from-add-request"></a><h3>tp_svc_client_interface_requests_return_from_add_request ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_client_interface_requests_return_from_add_request
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-client-interface-requests-add-request-impl"></a><h3>tp_svc_client_interface_requests_add_request_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_client_interface_requests_add_request_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientInterfaceRequests"><span class="type">TpSvcClientInterfaceRequests</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Request</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+AddRequest on interface org.freedesktop.Telepathy.Client.Interface.Requests.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Request</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Properties</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-client-interface-requests-implement-add-request"></a><h3>tp_svc_client_interface_requests_implement_add_request ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_client_interface_requests_implement_add_request
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientInterfaceRequestsClass" title="TpSvcClientInterfaceRequestsClass"><span class="type">TpSvcClientInterfaceRequestsClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-interface-requests-add-request-impl" title="tp_svc_client_interface_requests_add_request_impl ()"><span class="type">tp_svc_client_interface_requests_add_request_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the AddRequest method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the AddRequest D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-client-interface-requests-return-from-remove-request"></a><h3>tp_svc_client_interface_requests_return_from_remove_request ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_client_interface_requests_return_from_remove_request
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-client-interface-requests-remove-request-impl"></a><h3>tp_svc_client_interface_requests_remove_request_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_client_interface_requests_remove_request_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientInterfaceRequests"><span class="type">TpSvcClientInterfaceRequests</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Request</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Error</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Message</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+RemoveRequest on interface org.freedesktop.Telepathy.Client.Interface.Requests.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Request</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Error</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Message</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-client-interface-requests-implement-remove-request"></a><h3>tp_svc_client_interface_requests_implement_remove_request ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_client_interface_requests_implement_remove_request
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientInterfaceRequestsClass" title="TpSvcClientInterfaceRequestsClass"><span class="type">TpSvcClientInterfaceRequestsClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-interface-requests-remove-request-impl" title="tp_svc_client_interface_requests_remove_request_impl ()"><span class="type">tp_svc_client_interface_requests_remove_request_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the RemoveRequest method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the RemoveRequest D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcClientObserver-struct"></a><h3>TpSvcClientObserver</h3>
+<pre class="programlisting">typedef struct _TpSvcClientObserver TpSvcClientObserver;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcClientObserverClass"></a><h3>TpSvcClientObserverClass</h3>
+<pre class="programlisting">typedef struct _TpSvcClientObserverClass TpSvcClientObserverClass;</pre>
+<p>
+The class of TpSvcClientObserver.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_client_observer (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_client_observer_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (observe_channels);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-client-observer-return-from-observe-channels"></a><h3>tp_svc_client_observer_return_from_observe_channels ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_client_observer_return_from_observe_channels
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-client-observer-observe-channels-impl"></a><h3>tp_svc_client_observer_observe_channels_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_client_observer_observe_channels_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientObserver"><span class="type">TpSvcClientObserver</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Account</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Connection</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Channels</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Dispatch_Operation</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Requests_Satisfied</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Observer_Info</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+ObserveChannels on interface org.freedesktop.Telepathy.Client.Observer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Account</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Connection</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Channels</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Dispatch_Operation</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Requests_Satisfied</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Observer_Info</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-client-observer-implement-observe-channels"></a><h3>tp_svc_client_observer_implement_observe_channels ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_client_observer_implement_observe_channels
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#TpSvcClientObserverClass" title="TpSvcClientObserverClass"><span class="type">TpSvcClientObserverClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-client.html#tp-svc-client-observer-observe-channels-impl" title="tp_svc_client_observer_observe_channels_impl ()"><span class="type">tp_svc_client_observer_observe_channels_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the ObserveChannels method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the ObserveChannels D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

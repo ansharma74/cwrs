@@ -1,0 +1,844 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpProxy Telepathy Properties</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-dbus.html" title="General D-Bus support">
+<link rel="prev" href="telepathy-glib-proxy-dbus-core.html" title="TpProxy D-Bus core methods">
+<link rel="next" href="telepathy-glib-dbus.html" title="D-Bus utilities">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-proxy-dbus-core.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-dbus.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-dbus.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-proxy-tp-properties.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-proxy-tp-properties.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-proxy-tp-properties"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-proxy-tp-properties.top_of_page"></a>TpProxy Telepathy Properties</span></h2>
+<p>TpProxy Telepathy Properties — The Telepathy Properties interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-proxy-tp-properties.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib-dbus.h&gt;
+
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-callback-for-get-properties" title="tp_cli_properties_interface_callback_for_get_properties ()">*tp_cli_properties_interface_callback_for_get_properties</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Values</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * <a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-call-get-properties" title="tp_cli_properties_interface_call_get_properties ()">tp_cli_properties_interface_call_get_properties</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-callback-for-get-properties" title="tp_cli_properties_interface_callback_for_get_properties ()"><span class="type">tp_cli_properties_interface_callback_for_get_properties</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-run-get-properties" title="tp_cli_properties_interface_run_get_properties ()">tp_cli_properties_interface_run_get_properties</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> **out_Values</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a> **loop</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-callback-for-list-properties" title="tp_cli_properties_interface_callback_for_list_properties ()">*tp_cli_properties_interface_callback_for_list_properties</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Available_Properties</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * <a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-call-list-properties" title="tp_cli_properties_interface_call_list_properties ()">tp_cli_properties_interface_call_list_properties</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-callback-for-list-properties" title="tp_cli_properties_interface_callback_for_list_properties ()"><span class="type">tp_cli_properties_interface_callback_for_list_properties</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-run-list-properties" title="tp_cli_properties_interface_run_list_properties ()">tp_cli_properties_interface_run_list_properties</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> **out_Available_Properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a> **loop</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-callback-for-set-properties" title="tp_cli_properties_interface_callback_for_set_properties ()">*tp_cli_properties_interface_callback_for_set_properties</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * <a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-call-set-properties" title="tp_cli_properties_interface_call_set_properties ()">tp_cli_properties_interface_call_set_properties</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-callback-for-set-properties" title="tp_cli_properties_interface_callback_for_set_properties ()"><span class="type">tp_cli_properties_interface_callback_for_set_properties</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-run-set-properties" title="tp_cli_properties_interface_run_set_properties ()">tp_cli_properties_interface_run_set_properties</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a> **loop</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-signal-callback-properties-changed" title="tp_cli_properties_interface_signal_callback_properties_changed ()">*tp_cli_properties_interface_signal_callback_properties_changed</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="returnvalue">TpProxySignalConnection</span></a> * <a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-connect-to-properties-changed" title="tp_cli_properties_interface_connect_to_properties_changed ()">tp_cli_properties_interface_connect_to_properties_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-signal-callback-properties-changed" title="tp_cli_properties_interface_signal_callback_properties_changed ()"><span class="type">tp_cli_properties_interface_signal_callback_properties_changed</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-signal-callback-property-flags-changed" title="tp_cli_properties_interface_signal_callback_property_flags_changed ()">*tp_cli_properties_interface_signal_callback_property_flags_changed</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="returnvalue">TpProxySignalConnection</span></a> * <a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-connect-to-property-flags-changed" title="tp_cli_properties_interface_connect_to_property_flags_changed ()">tp_cli_properties_interface_connect_to_property_flags_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-signal-callback-property-flags-changed" title="tp_cli_properties_interface_signal_callback_property_flags_changed ()"><span class="type">tp_cli_properties_interface_signal_callback_property_flags_changed</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-proxy-tp-properties.description"></a><h2>Description</h2>
+<p>
+As well as <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a>, proxy.h includes auto-generated client wrappers for the
+Telepathy Properties interface, which can be implemented by any type of
+object.
+</p>
+<p>
+The Telepathy Properties interface should not be confused with the D-Bus
+core Properties interface.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-proxy-tp-properties.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="tp-cli-properties-interface-callback-for-get-properties"></a><h3>tp_cli_properties_interface_callback_for_get_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_cli_properties_interface_callback_for_get_properties)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Values</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Signature of the callback called when a GetProperties method call
+succeeds or fails.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the proxy on which the call was made</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Values</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <em class="parameter"><code>error</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;An array of structs containing:&lt;/p&gt;           &lt;ul&gt;             &lt;li&gt;integer identifiers&lt;/li&gt;             &lt;li&gt;variant boxed values&lt;/li&gt;           &lt;/ul&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on success, or an error on failure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>user-supplied object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-properties-interface-call-get-properties"></a><h3>tp_cli_properties_interface_call_get_properties ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * tp_cli_properties_interface_call_get_properties
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-callback-for-get-properties" title="tp_cli_properties_interface_callback_for_get_properties ()"><span class="type">tp_cli_properties_interface_callback_for_get_properties</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Start a GetProperties method call.
+</p>
+<p>
+Returns an array of (identifier, value) pairs containing the current         values of the given properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout_ms</code></em> :</span></p></td>
+<td>the timeout in milliseconds, or -1 to use the
+default</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Properties</code></em> :</span></p></td>
+<td>Used to pass an 'in' argument: An array of property identifiers</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>called when the method call succeeds or fails;
+may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to make a "fire and forget" call with no
+reply tracking</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data passed to the callback;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>called with the user_data as argument, after the
+call has succeeded, failed or been cancelled;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> which will be
+weakly referenced; if it is destroyed, this call
+will automatically be cancelled. Must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if
+<em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="type">TpProxyPendingCall</span></a> representing the call in
+progress. It is borrowed from the object, and will become
+invalid when the callback is called, the call is
+cancelled or the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> becomes invalid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-properties-interface-run-get-properties"></a><h3>tp_cli_properties_interface_run_get_properties ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_cli_properties_interface_run_get_properties
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> **out_Values</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a> **loop</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_cli_properties_interface_run_get_properties</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+Call the method GetProperties and run the main loop
+until it returns. Before calling this method, you must
+add a reference to any borrowed objects you need to keep,
+and generally ensure that everything is in a consistent
+state.
+</p>
+<p>
+Returns an array of (identifier, value) pairs containing the current         values of the given properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> or subclass</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout_ms</code></em> :</span></p></td>
+<td>Timeout in milliseconds, or -1 for default</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Properties</code></em> :</span></p></td>
+<td>Used to pass an 'in' argument: An array of property identifiers</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Values</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> is returned: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;An array of structs containing:&lt;/p&gt;           &lt;ul&gt;             &lt;li&gt;integer identifiers&lt;/li&gt;             &lt;li&gt;variant boxed values&lt;/li&gt;           &lt;/ul&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, used to return errors if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>
+is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>loop</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, set before re-entering
+the main loop, to point to a <a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a>
+which can be used to cancel this call with
+<a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#g-main-loop-quit"><code class="function">g_main_loop_quit()</code></a>, causing a return of
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> with <em class="parameter"><code>error</code></em> set to <a class="link" href="telepathy-glib-proxy.html#TP-DBUS-ERROR-CANCELLED:CAPS"><code class="literal">TP_DBUS_ERROR_CANCELLED</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE on success, FALSE and sets <em class="parameter"><code>error</code></em> on error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-properties-interface-callback-for-list-properties"></a><h3>tp_cli_properties_interface_callback_for_list_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_cli_properties_interface_callback_for_list_properties)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Available_Properties</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Signature of the callback called when a ListProperties method call
+succeeds or fails.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the proxy on which the call was made</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Available_Properties</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <em class="parameter"><code>error</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>: An array of structs containing:           &lt;ul&gt;             &lt;li&gt;an integer identifier&lt;/li&gt;             &lt;li&gt;a string property name&lt;/li&gt;             &lt;li&gt;a string representing the D-Bus signature of this property&lt;/li&gt;             &lt;li&gt;a bitwise OR of the flags applicable to this property&lt;/li&gt;           &lt;/ul&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on success, or an error on failure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>user-supplied object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-properties-interface-call-list-properties"></a><h3>tp_cli_properties_interface_call_list_properties ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * tp_cli_properties_interface_call_list_properties
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-callback-for-list-properties" title="tp_cli_properties_interface_callback_for_list_properties ()"><span class="type">tp_cli_properties_interface_callback_for_list_properties</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Start a ListProperties method call.
+</p>
+<p>
+Returns a dictionary of the properties available on this channel.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout_ms</code></em> :</span></p></td>
+<td>the timeout in milliseconds, or -1 to use the
+default</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>called when the method call succeeds or fails;
+may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to make a "fire and forget" call with no
+reply tracking</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data passed to the callback;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>called with the user_data as argument, after the
+call has succeeded, failed or been cancelled;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> which will be
+weakly referenced; if it is destroyed, this call
+will automatically be cancelled. Must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if
+<em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="type">TpProxyPendingCall</span></a> representing the call in
+progress. It is borrowed from the object, and will become
+invalid when the callback is called, the call is
+cancelled or the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> becomes invalid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-properties-interface-run-list-properties"></a><h3>tp_cli_properties_interface_run_list_properties ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_cli_properties_interface_run_list_properties
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> **out_Available_Properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a> **loop</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_cli_properties_interface_run_list_properties</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+Call the method ListProperties and run the main loop
+until it returns. Before calling this method, you must
+add a reference to any borrowed objects you need to keep,
+and generally ensure that everything is in a consistent
+state.
+</p>
+<p>
+Returns a dictionary of the properties available on this channel.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> or subclass</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout_ms</code></em> :</span></p></td>
+<td>Timeout in milliseconds, or -1 for default</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Available_Properties</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> is returned: An array of structs containing:           &lt;ul&gt;             &lt;li&gt;an integer identifier&lt;/li&gt;             &lt;li&gt;a string property name&lt;/li&gt;             &lt;li&gt;a string representing the D-Bus signature of this property&lt;/li&gt;             &lt;li&gt;a bitwise OR of the flags applicable to this property&lt;/li&gt;           &lt;/ul&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, used to return errors if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>
+is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>loop</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, set before re-entering
+the main loop, to point to a <a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a>
+which can be used to cancel this call with
+<a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#g-main-loop-quit"><code class="function">g_main_loop_quit()</code></a>, causing a return of
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> with <em class="parameter"><code>error</code></em> set to <a class="link" href="telepathy-glib-proxy.html#TP-DBUS-ERROR-CANCELLED:CAPS"><code class="literal">TP_DBUS_ERROR_CANCELLED</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE on success, FALSE and sets <em class="parameter"><code>error</code></em> on error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-properties-interface-callback-for-set-properties"></a><h3>tp_cli_properties_interface_callback_for_set_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_cli_properties_interface_callback_for_set_properties)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Signature of the callback called when a SetProperties method call
+succeeds or fails.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the proxy on which the call was made</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on success, or an error on failure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>user-supplied object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-properties-interface-call-set-properties"></a><h3>tp_cli_properties_interface_call_set_properties ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * tp_cli_properties_interface_call_set_properties
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-callback-for-set-properties" title="tp_cli_properties_interface_callback_for_set_properties ()"><span class="type">tp_cli_properties_interface_callback_for_set_properties</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Start a SetProperties method call.
+</p>
+<p>
+&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;         &lt;p&gt;Takes an array of (identifier, value) pairs containing desired           values to set the given properties. In the case of any errors, no           properties will be changed. When the changes have been acknowledged           by the server, the PropertiesChanged signal will be emitted.&lt;/p&gt;          &lt;p&gt;All properties given must have the PROPERTY_FLAG_WRITE flag, or         PermissionDenied will be returned. If any variants are of the wrong         type, NotAvailable will be returned.  If any given property identifiers         are invalid, InvalidArgument will be returned.&lt;/p&gt;
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout_ms</code></em> :</span></p></td>
+<td>the timeout in milliseconds, or -1 to use the
+default</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Properties</code></em> :</span></p></td>
+<td>Used to pass an 'in' argument: An array mapping integer property identifiers to boxed values</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>called when the method call succeeds or fails;
+may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to make a "fire and forget" call with no
+reply tracking</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data passed to the callback;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>called with the user_data as argument, after the
+call has succeeded, failed or been cancelled;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> which will be
+weakly referenced; if it is destroyed, this call
+will automatically be cancelled. Must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if
+<em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="type">TpProxyPendingCall</span></a> representing the call in
+progress. It is borrowed from the object, and will become
+invalid when the callback is called, the call is
+cancelled or the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> becomes invalid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-properties-interface-run-set-properties"></a><h3>tp_cli_properties_interface_run_set_properties ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_cli_properties_interface_run_set_properties
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a> **loop</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_cli_properties_interface_run_set_properties</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+Call the method SetProperties and run the main loop
+until it returns. Before calling this method, you must
+add a reference to any borrowed objects you need to keep,
+and generally ensure that everything is in a consistent
+state.
+</p>
+<p>
+&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;         &lt;p&gt;Takes an array of (identifier, value) pairs containing desired           values to set the given properties. In the case of any errors, no           properties will be changed. When the changes have been acknowledged           by the server, the PropertiesChanged signal will be emitted.&lt;/p&gt;          &lt;p&gt;All properties given must have the PROPERTY_FLAG_WRITE flag, or         PermissionDenied will be returned. If any variants are of the wrong         type, NotAvailable will be returned.  If any given property identifiers         are invalid, InvalidArgument will be returned.&lt;/p&gt;
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> or subclass</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout_ms</code></em> :</span></p></td>
+<td>Timeout in milliseconds, or -1 for default</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Properties</code></em> :</span></p></td>
+<td>Used to pass an 'in' argument: An array mapping integer property identifiers to boxed values</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, used to return errors if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>
+is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>loop</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, set before re-entering
+the main loop, to point to a <a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a>
+which can be used to cancel this call with
+<a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#g-main-loop-quit"><code class="function">g_main_loop_quit()</code></a>, causing a return of
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> with <em class="parameter"><code>error</code></em> set to <a class="link" href="telepathy-glib-proxy.html#TP-DBUS-ERROR-CANCELLED:CAPS"><code class="literal">TP_DBUS_ERROR_CANCELLED</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE on success, FALSE and sets <em class="parameter"><code>error</code></em> on error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-properties-interface-signal-callback-properties-changed"></a><h3>tp_cli_properties_interface_signal_callback_properties_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_cli_properties_interface_signal_callback_properties_changed)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Represents the signature of a callback for the signal PropertiesChanged.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>The proxy on which <a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-connect-to-properties-changed" title="tp_cli_properties_interface_connect_to_properties_changed ()"><code class="function">tp_cli_properties_interface_connect_to_properties_changed()</code></a>
+was called</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Properties</code></em> :</span></p></td>
+<td>&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;An array of structs containing:&lt;/p&gt;           &lt;ul&gt;             &lt;li&gt;integer identifiers&lt;/li&gt;             &lt;li&gt;variant boxed values&lt;/li&gt;           &lt;/ul&gt;           &lt;p&gt;The array should contain only properties whose values have             actually changed.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>User-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>User-supplied weakly referenced object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-properties-interface-connect-to-properties-changed"></a><h3>tp_cli_properties_interface_connect_to_properties_changed ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="returnvalue">TpProxySignalConnection</span></a> * tp_cli_properties_interface_connect_to_properties_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-signal-callback-properties-changed" title="tp_cli_properties_interface_signal_callback_properties_changed ()"><span class="type">tp_cli_properties_interface_signal_callback_properties_changed</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Connect a handler to the signal PropertiesChanged.
+</p>
+<p>
+Emitted when the value of readable properties has changed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> or subclass</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>Callback to be called when the signal is
+received</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>User-supplied data for the callback</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>Destructor for the user-supplied data, which
+will be called when this signal is disconnected, or
+before this function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>A <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> which will be weakly referenced;
+if it is destroyed, this callback will automatically be
+disconnected</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, used to raise an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is
+returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="type">TpProxySignalConnection</span></a> containing all of the
+above, which can be used to disconnect the signal; or
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the proxy does not have the desired interface
+or has become invalid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-properties-interface-signal-callback-property-flags-changed"></a><h3>tp_cli_properties_interface_signal_callback_property_flags_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_cli_properties_interface_signal_callback_property_flags_changed)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Represents the signature of a callback for the signal PropertyFlagsChanged.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>The proxy on which <a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-connect-to-property-flags-changed" title="tp_cli_properties_interface_connect_to_property_flags_changed ()"><code class="function">tp_cli_properties_interface_connect_to_property_flags_changed()</code></a>
+was called</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Properties</code></em> :</span></p></td>
+<td>&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;An array of structs containing:&lt;/p&gt;           &lt;ul&gt;             &lt;li&gt;integer identifiers&lt;/li&gt;             &lt;li&gt;a bitwise OR of the current flags&lt;/li&gt;           &lt;/ul&gt;           &lt;p&gt;The array should contain only properties whose flags have actually             changed.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>User-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>User-supplied weakly referenced object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-properties-interface-connect-to-property-flags-changed"></a><h3>tp_cli_properties_interface_connect_to_property_flags_changed ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="returnvalue">TpProxySignalConnection</span></a> * tp_cli_properties_interface_connect_to_property_flags_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> proxy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-proxy-tp-properties.html#tp-cli-properties-interface-signal-callback-property-flags-changed" title="tp_cli_properties_interface_signal_callback_property_flags_changed ()"><span class="type">tp_cli_properties_interface_signal_callback_property_flags_changed</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Connect a handler to the signal PropertyFlagsChanged.
+</p>
+<p>
+Emitted when the flags of some room properties have changed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> or subclass</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>Callback to be called when the signal is
+received</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>User-supplied data for the callback</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>Destructor for the user-supplied data, which
+will be called when this signal is disconnected, or
+before this function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>A <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> which will be weakly referenced;
+if it is destroyed, this callback will automatically be
+disconnected</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, used to raise an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is
+returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="type">TpProxySignalConnection</span></a> containing all of the
+above, which can be used to disconnect the signal; or
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the proxy does not have the desired interface
+or has become invalid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-proxy-tp-properties.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

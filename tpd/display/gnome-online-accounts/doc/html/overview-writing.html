@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Writing GOA applications</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<link rel="home" href="index.html" title="GNOME Online Accounts Reference Manual">
+<link rel="up" href="overview.html" title="Part I. GNOME Online Accounts Overview">
+<link rel="prev" href="overview.html" title="Part I. GNOME Online Accounts Overview">
+<link rel="next" href="ch01s02.html" title="Accessing Services">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2"><tr valign="middle">
+<td><a accesskey="p" href="overview.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="overview.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GNOME Online Accounts Reference Manual</th>
+<td><a accesskey="n" href="ch01s02.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="chapter">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="overview-writing"></a>Writing GOA applications</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="sect1"><a href="overview-writing.html#idp6469280">Account Objects</a></span></dt>
+<dt><span class="sect1"><a href="ch01s02.html">Accessing Services</a></span></dt>
+<dt><span class="sect1"><a href="ch01s03.html">Credentials Handling</a></span></dt>
+</dl></div>
+<p>
+      The term <span class="emphasis"><em>GOA application</em></span> is used to
+      describe applications or libraries that are using the <a class="link" href="ref-dbus.html" title="Part II. D-Bus API Reference">GNOME Online Accounts D-Bus APIs</a>
+      either directly or through the <a class="link" href="ref-library.html" title="Part III. Client Library API Reference">supplied client library</a>.
+    </p>
+<div class="sect1">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="idp6469280"></a>Account Objects</h2></div></div></div>
+<p>
+        A GOA application typically creates <a class="link" href="GoaClient.html" title="GoaClient"><span class="type">GoaClient</span></a> object to get a
+        list of accounts and listen for changes. Each account provide
+        one or more specific services (such as <a class="link" href="gdbus-org.gnome.OnlineAccounts.Mail.html" title="org.gnome.OnlineAccounts.Mail">mail</a>,
+        <a class="link" href="gdbus-org.gnome.OnlineAccounts.Calendar.html" title="org.gnome.OnlineAccounts.Calendar">calendaring</a>
+        or <a class="link" href="gdbus-org.gnome.OnlineAccounts.Contacts.html" title="org.gnome.OnlineAccounts.Contacts">contacts</a>)
+        so the application will need to set up a filter for the
+        services it is interested in. For example, a mail application
+        would only be interested in GOA accounts with mail- and
+        contacts-services, not accounts with
+        calendaring-services. Applications can use methods on the
+        <a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> type (such as <a class="link" href="GoaObject.html#goa-object-peek-mail" title="goa_object_peek_mail ()"><code class="function">goa_object_peek_mail()</code></a>) to check what
+        kind of services an account provides. Note that this list can
+        change at run-time if e.g. the user toggles a <span class="guilabel">Use
+        account for Mail</span> check-button.
+      </p>
+<p>
+        Applications may use the <a class="link" href="gdbus-org.gnome.OnlineAccounts.Account.html#gdbus-property-org-gnome-OnlineAccounts-Account.Id" title='The "Id" property'>Account.Id</a>
+        property as a unique key to store information obtained from
+        an account.
+      </p>
+<p>
+        Applications must not destroy data if an account object is
+        removed (e.g. when the <a class="link" href="GoaClient.html#GoaClient-account-removed" title='The "account-removed" signal'><span class="type">"account-removed"</span></a> signal is
+        emitted) - for example, if the <span class="command"><strong>goa-daemon</strong></span>
+        program crashes or is restarted on software upgrade, account
+        objects will be removed only to be added back the next time
+        <span class="command"><strong>goa-daemon</strong></span> is started.
+      </p>
+<p>
+        Applications should use the
+        <a class="link" href="gdbus-org.gnome.OnlineAccounts.Account.html#gdbus-property-org-gnome-OnlineAccounts-Account.ProviderName" title='The "ProviderName" property'>Account.ProviderIcon</a>,
+        <a class="link" href="gdbus-org.gnome.OnlineAccounts.Account.html#gdbus-property-org-gnome-OnlineAccounts-Account.ProviderName" title='The "ProviderName" property'>Account.ProviderName</a>
+        and
+        <a class="link" href="gdbus-org.gnome.OnlineAccounts.Account.html#gdbus-property-org-gnome-OnlineAccounts-Account.ProviderName" title='The "ProviderName" property'>Account.PresentationIdentity</a>
+        properties when presenting an account in an user interface.
+        For example, for a hypothetical online services provider Acme,
+        this would be the Acme Logo, the word "Acme" and the identity
+        could be either an email address such as
+        <code class="email">&lt;<a class="email" href="mailto:some.name@acme.com">some.name@acme.com</a>&gt;</code> or an user
+        handle such as <code class="literal">davidz25</code> or
+        <code class="literal">chunkylover53</code>.
+      </p>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

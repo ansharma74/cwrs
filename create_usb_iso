@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+MINPARAMS=2
+if [ $# -lt "$MINPARAMS" ]
+then
+    echo usage:
+    echo   create_usb_iso "image" "usb-path"
+    echo
+    echo i.e.:
+    echo   create_usb_iso /tmp/builds/cbirnos.iso /dev/ttyUSB0
+    echo
+    exit 1
+fi
+
+isohybrid $1
+dd if=$1  of=$2
+

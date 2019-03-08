@@ -1,0 +1,906 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpPresenceMixin</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="TpBaseChannel.html" title="TpBaseChannel">
+<link rel="next" href="telepathy-glib-TpPropertiesMixin.html" title="TpPropertiesMixin">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="TpBaseChannel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-TpPropertiesMixin.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-TpPresenceMixin.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-TpPresenceMixin.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-TpPresenceMixin"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-TpPresenceMixin.top_of_page"></a>TpPresenceMixin</span></h2>
+<p>TpPresenceMixin — a mixin implementation of the Presence connection
+ interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-TpPresenceMixin.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+struct              <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatusOptionalArgumentSpec" title="struct TpPresenceStatusOptionalArgumentSpec">TpPresenceStatusOptionalArgumentSpec</a>;
+struct              <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatusSpec" title="struct TpPresenceStatusSpec">TpPresenceStatusSpec</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinStatusAvailableFunc" title="TpPresenceMixinStatusAvailableFunc ()">*TpPresenceMixinStatusAvailableFunc</a>)
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> which</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        (<a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinGetContactStatusesFunc" title="TpPresenceMixinGetContactStatusesFunc ()">*TpPresenceMixinGetContactStatusesFunc</a>)
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *contacts</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinSetOwnStatusFunc" title="TpPresenceMixinSetOwnStatusFunc ()">*TpPresenceMixinSetOwnStatusFunc</a>)  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatus" title="struct TpPresenceStatus"><span class="type">TpPresenceStatus</span></a> *status</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               (<a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinGetMaximumStatusMessageLengthFunc" title="TpPresenceMixinGetMaximumStatusMessageLengthFunc ()">*TpPresenceMixinGetMaximumStatusMessageLengthFunc</a>)
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);
+struct              <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatus" title="struct TpPresenceStatus">TpPresenceStatus</a>;
+<a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatus" title="struct TpPresenceStatus"><span class="returnvalue">TpPresenceStatus</span></a> *  <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-status-new" title="tp_presence_status_new ()">tp_presence_status_new</a>              (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> which</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *optional_arguments</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-status-free" title="tp_presence_status_free ()">tp_presence_status_free</a>             (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatus" title="struct TpPresenceStatus"><span class="type">TpPresenceStatus</span></a> *status</code></em>);
+                    <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixin" title="TpPresenceMixin">TpPresenceMixin</a>;
+struct              <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinClass" title="struct TpPresenceMixinClass">TpPresenceMixinClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-class-init" title="tp_presence_mixin_class_init ()">tp_presence_mixin_class_init</a>        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *obj_cls</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#glong"><span class="type">glong</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinStatusAvailableFunc" title="TpPresenceMixinStatusAvailableFunc ()"><span class="type">TpPresenceMixinStatusAvailableFunc</span></a> status_available</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinGetContactStatusesFunc" title="TpPresenceMixinGetContactStatusesFunc ()"><span class="type">TpPresenceMixinGetContactStatusesFunc</span></a> get_contact_statuses</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinSetOwnStatusFunc" title="TpPresenceMixinSetOwnStatusFunc ()"><span class="type">TpPresenceMixinSetOwnStatusFunc</span></a> set_own_status</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatusSpec" title="struct TpPresenceStatusSpec"><span class="type">TpPresenceStatusSpec</span></a> *statuses</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-init" title="tp_presence_mixin_init ()">tp_presence_mixin_init</a>              (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#glong"><span class="type">glong</span></a> offset</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-finalize" title="tp_presence_mixin_finalize ()">tp_presence_mixin_finalize</a>          (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-emit-presence-update" title="tp_presence_mixin_emit_presence_update ()">tp_presence_mixin_emit_presence_update</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *contact_presences</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-emit-one-presence-update" title="tp_presence_mixin_emit_one_presence_update ()">tp_presence_mixin_emit_one_presence_update</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatus" title="struct TpPresenceStatus"><span class="type">TpPresenceStatus</span></a> *status</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-iface-init" title="tp_presence_mixin_iface_init ()">tp_presence_mixin_iface_init</a>        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-simple-presence-iface-init" title="tp_presence_mixin_simple_presence_iface_init ()">tp_presence_mixin_simple_presence_iface_init</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-simple-presence-init-dbus-properties" title="tp_presence_mixin_simple_presence_init_dbus_properties ()">tp_presence_mixin_simple_presence_init_dbus_properties</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *cls</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-simple-presence-register-with-contacts-mixin" title="tp_presence_mixin_simple_presence_register_with_contacts_mixin ()">tp_presence_mixin_simple_presence_register_with_contacts_mixin</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpPresenceMixin.description"></a><h2>Description</h2>
+<p>
+This mixin can be added to a <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> subclass to implement the
+SimplePresence and/or Presence interfaces. Implementing both interfaces
+(as described below) is recommended. In particular, you must implement the
+old-style Presence interface if compatibility with telepathy-glib
+versions older than 0.11.13 is required.
+</p>
+<p>
+To use the presence mixin, include a <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinClass" title="struct TpPresenceMixinClass"><span class="type">TpPresenceMixinClass</span></a> somewhere in your
+class structure and a <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixin" title="TpPresenceMixin"><span class="type">TpPresenceMixin</span></a> somewhere in your instance structure,
+and call <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-class-init" title="tp_presence_mixin_class_init ()"><code class="function">tp_presence_mixin_class_init()</code></a> from your class_init function,
+<a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-init" title="tp_presence_mixin_init ()"><code class="function">tp_presence_mixin_init()</code></a> from your init function or constructor, and
+<a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-finalize" title="tp_presence_mixin_finalize ()"><code class="function">tp_presence_mixin_finalize()</code></a> from your dispose or finalize function.
+</p>
+<p>
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="idp110465584"></a>Implementing SimplePresence</h2></div></div></div>
+<p>
+  Since 0.7.13 this mixin supports the entire SimplePresence interface.
+  You can implement <a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnectionInterfaceSimplePresence"><span class="type">TpSvcConnectionInterfaceSimplePresence</span></a> as follows:
+  </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>use the <a class="link" href="telepathy-glib-TpContactsMixin.html#TpContactsMixin" title="TpContactsMixin"><span class="type">TpContactsMixin</span></a> and
+       <a class="link" href="telepathy-glib-dbus-properties-mixin.html" title="TpDBusPropertiesMixin">TpDBusPropertiesMixin</a>;</p></li>
+<li class="listitem">
+<p>pass <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-simple-presence-iface-init" title="tp_presence_mixin_simple_presence_iface_init ()"><code class="function">tp_presence_mixin_simple_presence_iface_init()</code></a> as an
+        argument to <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a>, like so:
+      </p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-DEFINE-TYPE-WITH-CODE:CAPS">G_DEFINE_TYPE_WITH_CODE</a></span> <span class="gtkdoc opt">(</span>MyConnection<span class="gtkdoc opt">,</span> my_connection<span class="gtkdoc opt">,</span>
+    TP_TYPE_BASE_CONNECTION<span class="gtkdoc opt">,</span>
+    <span class="gtkdoc slc">// ...</span>
+    <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS">G_IMPLEMENT_INTERFACE</a></span> <span class="gtkdoc opt">(</span>TP_TYPE_SVC_CONNECTION_INTERFACE_SIMPLE_PRESENCE<span class="gtkdoc opt">,</span>
+        tp_presence_mixin_simple_presence_iface_init<span class="gtkdoc opt">);</span>
+    <span class="gtkdoc slc">// ...</span>
+    <span class="gtkdoc opt">)</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</li>
+<li class="listitem"><p>
+        call <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-simple-presence-init-dbus-properties" title="tp_presence_mixin_simple_presence_init_dbus_properties ()"><code class="function">tp_presence_mixin_simple_presence_init_dbus_properties()</code></a> in the
+        <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GTypeInfo"><span class="type">GTypeInfo</span></a> class_init function;
+      </p></li>
+<li class="listitem"><p>
+        call <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-simple-presence-register-with-contacts-mixin" title="tp_presence_mixin_simple_presence_register_with_contacts_mixin ()"><code class="function">tp_presence_mixin_simple_presence_register_with_contacts_mixin()</code></a>
+        in the <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> constructed function.
+      </p></li>
+</ul></div>
+<p>
+</p>
+</div>
+<p> 
+</p>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="idp110481008"></a>Implementing old-style Presence</h2></div></div></div>
+<p>
+  This mixin also supports a large subset of the deprecated Presence
+  interface. It does not support protocols where it is possible to set
+  multiple statuses on yourself at once (all presence statuses will have the
+  exclusive flag set), or last-activity-time information.
+</p>
+<p>
+  To use the presence mixin as the implementation of
+  <a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnectionInterfacePresence"><span class="type">TpSvcConnectionInterfacePresence</span></a>, use <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-iface-init" title="tp_presence_mixin_iface_init ()"><code class="function">tp_presence_mixin_iface_init()</code></a> as
+  the function you pass to <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a>, as in the following
+  example.  The presence mixin implements all of the D-Bus methods in the
+  Presence interface.
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-DEFINE-TYPE-WITH-CODE:CAPS">G_DEFINE_TYPE_WITH_CODE</a></span> <span class="gtkdoc opt">(</span>MyConnection<span class="gtkdoc opt">,</span> my_connection<span class="gtkdoc opt">,</span>
+    TP_TYPE_BASE_CONNECTION<span class="gtkdoc opt">,</span>
+    <span class="gtkdoc slc">// ...</span>
+    <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS">G_IMPLEMENT_INTERFACE</a></span> <span class="gtkdoc opt">(</span>TP_TYPE_SVC_CONNECTION_INTERFACE_PRESENCE<span class="gtkdoc opt">,</span>
+        tp_presence_mixin_iface_init<span class="gtkdoc opt">);</span>
+    <span class="gtkdoc slc">// ...</span>
+    <span class="gtkdoc opt">)</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  In telepathy-glib versions older than 0.11.13, every connection
+  that used the <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixin" title="TpPresenceMixin"><span class="type">TpPresenceMixin</span></a> was required to implement
+  <a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnectionInterfacePresence"><span class="type">TpSvcConnectionInterfacePresence</span></a>; failing to do so would lead to an
+  assertion failure. Since 0.11.13, this is no longer required.
+</p>
+</div>
+<p> 
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpPresenceMixin.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpPresenceStatusOptionalArgumentSpec"></a><h3>struct TpPresenceStatusOptionalArgumentSpec</h3>
+<pre class="programlisting">struct TpPresenceStatusOptionalArgumentSpec {
+    const gchar *name;
+    const gchar *dtype;
+};
+</pre>
+<p>
+Structure specifying a supported optional argument for a presence status.
+</p>
+<p>
+In addition to the fields documented here, there are two gpointer fields
+which must currently be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. A meaning may be defined for these in a
+future version of telepathy-glib.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="TpPresenceStatusOptionalArgumentSpec.name"></a>name</code></em>;</span></p></td>
+<td>Name of the argument as passed over D-Bus</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="TpPresenceStatusOptionalArgumentSpec.dtype"></a>dtype</code></em>;</span></p></td>
+<td>D-Bus type signature of the argument</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpPresenceStatusSpec"></a><h3>struct TpPresenceStatusSpec</h3>
+<pre class="programlisting">struct TpPresenceStatusSpec {
+    const gchar *name;
+    TpConnectionPresenceType presence_type;
+    gboolean self;
+    const TpPresenceStatusOptionalArgumentSpec *optional_arguments;
+};
+</pre>
+<p>
+Structure specifying a supported presence status.
+</p>
+<p>
+In addition to the fields documented here, there are two gpointer fields
+which must currently be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. A meaning may be defined for these in a
+future version of telepathy-glib.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="TpPresenceStatusSpec.name"></a>name</code></em>;</span></p></td>
+<td>String identifier of the presence status</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-enums.html#TpConnectionPresenceType" title="enum TpConnectionPresenceType"><span class="type">TpConnectionPresenceType</span></a> <em class="structfield"><code><a name="TpPresenceStatusSpec.presence-type"></a>presence_type</code></em>;</span></p></td>
+<td>A type value, as specified by <a class="link" href="telepathy-glib-enums.html#TpConnectionPresenceType" title="enum TpConnectionPresenceType"><span class="type">TpConnectionPresenceType</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> <em class="structfield"><code><a name="TpPresenceStatusSpec.self"></a>self</code></em>;</span></p></td>
+<td>Indicates if this status may be set on yourself</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatusOptionalArgumentSpec" title="struct TpPresenceStatusOptionalArgumentSpec"><span class="type">TpPresenceStatusOptionalArgumentSpec</span></a> *<em class="structfield"><code><a name="TpPresenceStatusSpec.optional-arguments"></a>optional_arguments</code></em>;</span></p></td>
+<td>An array of <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatusOptionalArgumentSpec" title="struct TpPresenceStatusOptionalArgumentSpec"><span class="type">TpPresenceStatusOptionalArgumentSpec</span></a>
+structures representing the optional arguments for this status, terminated
+by a NULL name. If there are no optional arguments for a status, this can
+be NULL.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpPresenceMixinStatusAvailableFunc"></a><h3>TpPresenceMixinStatusAvailableFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpPresenceMixinStatusAvailableFunc)
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> which</code></em>);</pre>
+<p>
+Signature of a callback to be used to determine if a given presence
+status can be set on the connection. Most users of this mixin do not need to
+supply an implementation of this callback: the value of
+<a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatusSpec.self"><span class="type">TpPresenceStatusSpec.self</span></a> is enough to determine whether this is a
+user-settable presence, so <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> should be passed to
+<a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-class-init" title="tp_presence_mixin_class_init ()"><code class="function">tp_presence_mixin_class_init()</code></a> for this callback.
+</p>
+<p>
+One place where this callback may be needed is on XMPP: not all server
+implementation support the user becoming invisible. So an XMPP
+implementation would implement this function, so that—once connected—the
+hidden status is only available if the server supports it. Before the
+connection is connected, this callback should return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> for every status
+that might possibly be supported: this allows the user to at least try to
+sign in as invisible.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An instance of a <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> subclass implementing the presence
+interface with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>which</code></em> :</span></p></td>
+<td>An index into the array of <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatusSpec" title="struct TpPresenceStatusSpec"><span class="type">TpPresenceStatusSpec</span></a> provided to
+<a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-class-init" title="tp_presence_mixin_class_init ()"><code class="function">tp_presence_mixin_class_init()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the status can be set on this connection; <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if not.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpPresenceMixinGetContactStatusesFunc"></a><h3>TpPresenceMixinGetContactStatusesFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        (*TpPresenceMixinGetContactStatusesFunc)
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *contacts</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of the callback used to get the stored presence status of
+contacts. The returned hash table should have contact handles mapped to
+their respective presence statuses in <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatus" title="struct TpPresenceStatus"><span class="type">TpPresenceStatus</span></a> structs.
+</p>
+<p>
+The returned hash table will be freed with g_hash_table_unref. The
+callback is responsible for ensuring that this does any cleanup that
+may be necessary.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object with this mixin.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>contacts</code></em> :</span></p></td>
+<td>An array of <a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> for the contacts to get presence status for</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to return a Telepathy D-Bus error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The contact presence on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> with
+error set on error. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpPresenceMixinSetOwnStatusFunc"></a><h3>TpPresenceMixinSetOwnStatusFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpPresenceMixinSetOwnStatusFunc)  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatus" title="struct TpPresenceStatus"><span class="type">TpPresenceStatus</span></a> *status</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of the callback used to commit changes to the user's own presence
+status in SetStatuses. It is also used in ClearStatus and RemoveStatus to
+reset the user's own status back to the "default" one with a <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> status
+argument.
+</p>
+<p>
+The optional_arguments hash table in <em class="parameter"><code>status</code></em>, if not NULL, will have been
+filtered so it only contains recognised parameters, so the callback
+need not (and cannot) check for unrecognised parameters. However, the
+types of the parameters are not currently checked, so the callback is
+responsible for doing so.
+</p>
+<p>
+The callback is responsible for emitting PresenceUpdate, if appropriate,
+by calling <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-emit-presence-update" title="tp_presence_mixin_emit_presence_update ()"><code class="function">tp_presence_mixin_emit_presence_update()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object with this mixin.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>status</code></em> :</span></p></td>
+<td>The status to set, or NULL for whatever the protocol defines as a
+"default" status</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to return a Telepathy D-Bus error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the operation was successful, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if not.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpPresenceMixinGetMaximumStatusMessageLengthFunc"></a><h3>TpPresenceMixinGetMaximumStatusMessageLengthFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               (*TpPresenceMixinGetMaximumStatusMessageLengthFunc)
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);</pre>
+<p>
+Signature of a callback used to determine the maximum length of status
+messages. If this callback is provided and returns non-zero, the
+<a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinSetOwnStatusFunc" title="TpPresenceMixinSetOwnStatusFunc ()"><span class="type">TpPresenceMixinSetOwnStatusFunc</span></a> implementation is responsible for
+truncating the message to fit this limit, if necessary.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object with this mixin.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the maximum number of UTF-8 characters which may appear in a status
+message, or 0 if there is no limit.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.14.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpPresenceStatus"></a><h3>struct TpPresenceStatus</h3>
+<pre class="programlisting">struct TpPresenceStatus {
+    guint index;
+    GHashTable *optional_arguments;
+};
+</pre>
+<p>
+Structure representing a presence status.
+</p>
+<p>
+In addition to the fields documented here, there are two gpointer fields
+which must currently be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. A meaning may be defined for these in a
+future version of telepathy-glib.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="TpPresenceStatus.index"></a>index</code></em>;</span></p></td>
+<td>Index of the presence status in the provided supported presence
+statuses array</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *<em class="structfield"><code><a name="TpPresenceStatus.optional-arguments"></a>optional_arguments</code></em>;</span></p></td>
+<td>A GHashTable mapping of string identifiers to GValues
+of the optional status arguments, if any. If there are no optional
+arguments, this pointer may be NULL.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-presence-status-new"></a><h3>tp_presence_status_new ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatus" title="struct TpPresenceStatus"><span class="returnvalue">TpPresenceStatus</span></a> *  tp_presence_status_new              (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> which</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *optional_arguments</code></em>);</pre>
+<p>
+Construct a presence status structure. You should free the returned
+structure with <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-status-free" title="tp_presence_status_free ()"><span class="type">tp_presence_status_free</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>which</code></em> :</span></p></td>
+<td>Index of the presence status in the provided supported presence
+statuses array</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>optional_arguments</code></em> :</span></p></td>
+<td>Optional arguments for the presence statuses. Can be
+NULL if there are no optional arguments. The presence status object makes a
+copy of the hashtable, so you should free the original.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A pointer to the newly allocated presence status structure.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-presence-status-free"></a><h3>tp_presence_status_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_presence_status_free             (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatus" title="struct TpPresenceStatus"><span class="type">TpPresenceStatus</span></a> *status</code></em>);</pre>
+<p>
+Deallocate all resources associated with a presence status structure.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>status</code></em> :</span></p></td>
+<td>A pointer to the presence status structure to free.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpPresenceMixin"></a><h3>TpPresenceMixin</h3>
+<pre class="programlisting">typedef struct _TpPresenceMixin TpPresenceMixin;</pre>
+<p>
+Structure to be included in the instance structure of objects that
+use this mixin. Initialize it with <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-init" title="tp_presence_mixin_init ()"><code class="function">tp_presence_mixin_init()</code></a>.
+</p>
+<p>
+There are no public fields.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpPresenceMixinClass"></a><h3>struct TpPresenceMixinClass</h3>
+<pre class="programlisting">struct TpPresenceMixinClass {
+    TpPresenceMixinStatusAvailableFunc status_available;
+    TpPresenceMixinGetContactStatusesFunc get_contact_statuses;
+    TpPresenceMixinSetOwnStatusFunc set_own_status;
+
+    const TpPresenceStatusSpec *statuses;
+
+    TpPresenceMixinGetMaximumStatusMessageLengthFunc get_maximum_status_message_length;
+};
+</pre>
+<p>
+Structure to be included in the class structure of objects that
+use this mixin. Initialize it with <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-class-init" title="tp_presence_mixin_class_init ()"><code class="function">tp_presence_mixin_class_init()</code></a>.
+</p>
+<p>
+If the protocol imposes a limit on the length of status messages, one should
+implement <em class="parameter"><code>get_maximum_status_message_length</code></em>. If this callback is not
+implemented, it is assumed that there is no limit. The callback function
+should be set after calling <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-class-init" title="tp_presence_mixin_class_init ()"><code class="function">tp_presence_mixin_class_init()</code></a>, like so:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7</pre></td>
+        <td class="listing_code"><pre class="programlisting">TpPresenceMixinClass <span class="gtkdoc opt">*</span>mixin_class<span class="gtkdoc opt">;</span>
+
+<span class="function"><a href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-class-init">tp_presence_mixin_class_init</a></span> <span class="gtkdoc opt">((</span>GObjectClass <span class="gtkdoc opt">*)</span> klass<span class="gtkdoc opt">,</span>
+    <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#G-STRUCT-OFFSET:CAPS">G_STRUCT_OFFSET</a></span> <span class="gtkdoc opt">(</span>SomeObjectClass<span class="gtkdoc opt">,</span> presence_mixin<span class="gtkdoc opt">));</span>
+mixin_class <span class="gtkdoc opt">=</span> <span class="function">TP_PRESENCE_MIXIN_CLASS</span> <span class="gtkdoc opt">(</span>klass<span class="gtkdoc opt">);</span>
+mixin_class<span class="gtkdoc opt">-&gt;</span>get_maximum_status_message_length <span class="gtkdoc opt">=</span>
+    some_object_get_maximum_status_message_length<span class="gtkdoc opt">;</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+All other fields should be considered read-only.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinStatusAvailableFunc" title="TpPresenceMixinStatusAvailableFunc ()"><span class="type">TpPresenceMixinStatusAvailableFunc</span></a> <em class="structfield"><code><a name="TpPresenceMixinClass.status-available"></a>status_available</code></em>;</span></p></td>
+<td>The status-available function that was passed to
+<a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-class-init" title="tp_presence_mixin_class_init ()"><code class="function">tp_presence_mixin_class_init()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinGetContactStatusesFunc" title="TpPresenceMixinGetContactStatusesFunc ()"><span class="type">TpPresenceMixinGetContactStatusesFunc</span></a> <em class="structfield"><code><a name="TpPresenceMixinClass.get-contact-statuses"></a>get_contact_statuses</code></em>;</span></p></td>
+<td>The get-contact-statuses function that was passed to
+<a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-class-init" title="tp_presence_mixin_class_init ()"><code class="function">tp_presence_mixin_class_init()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinSetOwnStatusFunc" title="TpPresenceMixinSetOwnStatusFunc ()"><span class="type">TpPresenceMixinSetOwnStatusFunc</span></a> <em class="structfield"><code><a name="TpPresenceMixinClass.set-own-status"></a>set_own_status</code></em>;</span></p></td>
+<td>The set-own-status function that was passed to
+<a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-class-init" title="tp_presence_mixin_class_init ()"><code class="function">tp_presence_mixin_class_init()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatusSpec" title="struct TpPresenceStatusSpec"><span class="type">TpPresenceStatusSpec</span></a> *<em class="structfield"><code><a name="TpPresenceMixinClass.statuses"></a>statuses</code></em>;</span></p></td>
+<td>The presence statuses array that was passed to
+<a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-class-init" title="tp_presence_mixin_class_init ()"><code class="function">tp_presence_mixin_class_init()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinGetMaximumStatusMessageLengthFunc" title="TpPresenceMixinGetMaximumStatusMessageLengthFunc ()"><span class="type">TpPresenceMixinGetMaximumStatusMessageLengthFunc</span></a> <em class="structfield"><code><a name="TpPresenceMixinClass.get-maximum-status-message-length"></a>get_maximum_status_message_length</code></em>;</span></p></td>
+<td>The callback used to discover the
+the limit for status messages length, if any. Since: 0.14.5</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-presence-mixin-class-init"></a><h3>tp_presence_mixin_class_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_presence_mixin_class_init        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *obj_cls</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#glong"><span class="type">glong</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinStatusAvailableFunc" title="TpPresenceMixinStatusAvailableFunc ()"><span class="type">TpPresenceMixinStatusAvailableFunc</span></a> status_available</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinGetContactStatusesFunc" title="TpPresenceMixinGetContactStatusesFunc ()"><span class="type">TpPresenceMixinGetContactStatusesFunc</span></a> get_contact_statuses</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceMixinSetOwnStatusFunc" title="TpPresenceMixinSetOwnStatusFunc ()"><span class="type">TpPresenceMixinSetOwnStatusFunc</span></a> set_own_status</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatusSpec" title="struct TpPresenceStatusSpec"><span class="type">TpPresenceStatusSpec</span></a> *statuses</code></em>);</pre>
+<p>
+Initialize the presence mixin. Should be called from the implementation's
+class_init function like so:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-class-init">tp_presence_mixin_class_init</a></span> <span class="gtkdoc opt">((</span>GObjectClass <span class="gtkdoc opt">*)</span> klass<span class="gtkdoc opt">,</span>
+                              <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#G-STRUCT-OFFSET:CAPS">G_STRUCT_OFFSET</a></span> <span class="gtkdoc opt">(</span>SomeObjectClass<span class="gtkdoc opt">,</span>
+                                               presence_mixin<span class="gtkdoc opt">));</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj_cls</code></em> :</span></p></td>
+<td>The class of the implementation that uses this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>The byte offset of the TpPresenceMixinClass within the class
+structure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>status_available</code></em> :</span></p></td>
+<td>A callback to be used to determine if a given presence
+status can be set on a particular connection. Should usually be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, to
+consider all statuses with <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatusSpec.self"><span class="type">TpPresenceStatusSpec.self</span></a> set to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> to be
+settable.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>get_contact_statuses</code></em> :</span></p></td>
+<td>A callback to be used get the current presence status
+for contacts. This is used in implementations of various D-Bus methods and
+hence must be provided.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>set_own_status</code></em> :</span></p></td>
+<td>A callback to be used to commit changes to the user's own
+presence status to the server. This is used in implementations of various
+D-Bus methods and hence must be provided.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>statuses</code></em> :</span></p></td>
+<td>An array of <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatusSpec" title="struct TpPresenceStatusSpec"><span class="type">TpPresenceStatusSpec</span></a> structures representing all
+presence statuses supported by the protocol, terminated by a NULL name.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-presence-mixin-init"></a><h3>tp_presence_mixin_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_presence_mixin_init              (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#glong"><span class="type">glong</span></a> offset</code></em>);</pre>
+<p>
+Initialize the presence mixin. Should be called from the implementation's
+instance init function like so:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-init">tp_presence_mixin_init</a></span> <span class="gtkdoc opt">((</span>GObject <span class="gtkdoc opt">*)</span> self<span class="gtkdoc opt">,</span>
+                        <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#G-STRUCT-OFFSET:CAPS">G_STRUCT_OFFSET</a></span> <span class="gtkdoc opt">(</span>SomeObject<span class="gtkdoc opt">,</span> presence_mixin<span class="gtkdoc opt">));</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An instance of the implementation that uses this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>The byte offset of the TpPresenceMixin within the object structure</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-presence-mixin-finalize"></a><h3>tp_presence_mixin_finalize ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_presence_mixin_finalize          (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);</pre>
+<p>
+Free resources held by the presence mixin.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object with this mixin.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-presence-mixin-emit-presence-update"></a><h3>tp_presence_mixin_emit_presence_update ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_presence_mixin_emit_presence_update
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *contact_presences</code></em>);</pre>
+<p>
+Emit the PresenceUpdate signal for multiple contacts. For emitting
+PresenceUpdate for a single contact, there is a convenience wrapper called
+<a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-emit-one-presence-update" title="tp_presence_mixin_emit_one_presence_update ()"><span class="type">tp_presence_mixin_emit_one_presence_update</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>A connection object with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>contact_presences</code></em> :</span></p></td>
+<td>A mapping of contact handles to <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatus" title="struct TpPresenceStatus"><span class="type">TpPresenceStatus</span></a>
+structures with the presence data to emit</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-presence-mixin-emit-one-presence-update"></a><h3>tp_presence_mixin_emit_one_presence_update ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_presence_mixin_emit_one_presence_update
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatus" title="struct TpPresenceStatus"><span class="type">TpPresenceStatus</span></a> *status</code></em>);</pre>
+<p>
+Emit the PresenceUpdate signal for a single contact. This method is just a
+convenience wrapper around <a class="link" href="telepathy-glib-TpPresenceMixin.html#tp-presence-mixin-emit-presence-update" title="tp_presence_mixin_emit_presence_update ()"><span class="type">tp_presence_mixin_emit_presence_update</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>A connection object with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td>The handle of the contact to emit the signal for</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>status</code></em> :</span></p></td>
+<td>The new status to emit</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-presence-mixin-iface-init"></a><h3>tp_presence_mixin_iface_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_presence_mixin_iface_init        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);</pre>
+<p>
+Fill in the vtable entries needed to implement the presence interface using
+this mixin. This function should usually be called via G_IMPLEMENT_INTERFACE.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>g_iface</code></em> :</span></p></td>
+<td>A pointer to the <a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnectionInterfacePresenceClass" title="TpSvcConnectionInterfacePresenceClass"><span class="type">TpSvcConnectionInterfacePresenceClass</span></a> in an
+object class</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface_data</code></em> :</span></p></td>
+<td>Ignored</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-presence-mixin-simple-presence-iface-init"></a><h3>tp_presence_mixin_simple_presence_iface_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_presence_mixin_simple_presence_iface_init
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);</pre>
+<p>
+Fill in the vtable entries needed to implement the simple presence interface
+using this mixin. This function should usually be called via
+G_IMPLEMENT_INTERFACE.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>g_iface</code></em> :</span></p></td>
+<td>A pointer to the <a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnectionInterfaceSimplePresenceClass" title="TpSvcConnectionInterfaceSimplePresenceClass"><span class="type">TpSvcConnectionInterfaceSimplePresenceClass</span></a> in
+an object class</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface_data</code></em> :</span></p></td>
+<td>Ignored</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-presence-mixin-simple-presence-init-dbus-properties"></a><h3>tp_presence_mixin_simple_presence_init_dbus_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_presence_mixin_simple_presence_init_dbus_properties
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *cls</code></em>);</pre>
+<p>
+Set up <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinClass" title="TpDBusPropertiesMixinClass"><span class="type">TpDBusPropertiesMixinClass</span></a> to use this mixin's implementation of
+the SimplePresence interface's properties.
+</p>
+<p>
+This automatically sets up a list of the supported properties for the
+SimplePresence interface.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>cls</code></em> :</span></p></td>
+<td>The class of an object with this mixin</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.7.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-presence-mixin-simple-presence-register-with-contacts-mixin"></a><h3>tp_presence_mixin_simple_presence_register_with_contacts_mixin ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_presence_mixin_simple_presence_register_with_contacts_mixin
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);</pre>
+<p>
+Register the SimplePresence interface with the Contacts interface to make it
+inspectable. The Contacts mixin should be initialized before this function
+is called
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An instance that of the implementation that uses both the Contacts
+mixin and this mixin</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpPresenceMixin.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnectionInterfacePresence"><span class="type">TpSvcConnectionInterfacePresence</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

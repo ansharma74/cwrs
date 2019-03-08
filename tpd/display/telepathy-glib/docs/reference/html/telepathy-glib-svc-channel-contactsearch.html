@@ -1,0 +1,482 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Contact Search channels</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-dbus.html" title="Service-side D-Bus interfaces">
+<link rel="prev" href="telepathy-glib-svc-channel-contactlist.html" title="Contact List channels">
+<link rel="next" href="telepathy-glib-svc-channel-text.html" title="Text channels">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-svc-channel-contactlist.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-dbus.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-svc-channel-text.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-svc-channel-contactsearch.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel-contactsearch.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel-contactsearch.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel-contactsearch.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-svc-channel-contactsearch"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-svc-channel-contactsearch.top_of_page"></a>Contact Search channels</span></h2>
+<p>Contact Search channels — service-side interface for the Contact Search channel
+ type</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-svc-channel-contactsearch.synopsis"></a><h2>Synopsis</h2>
+<a name="TpSvcChannelTypeContactSearch"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib-dbus.h&gt;
+
+                    <a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearch-struct" title="TpSvcChannelTypeContactSearch">TpSvcChannelTypeContactSearch</a>;
+                    <a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearchClass" title="TpSvcChannelTypeContactSearchClass">TpSvcChannelTypeContactSearchClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-emit-search-result-received" title="tp_svc_channel_type_contact_search_emit_search_result_received ()">tp_svc_channel_type_contact_search_emit_search_result_received</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Result</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-emit-search-state-changed" title="tp_svc_channel_type_contact_search_emit_search_state_changed ()">tp_svc_channel_type_contact_search_emit_search_state_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_State</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Details</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-implement-more" title="tp_svc_channel_type_contact_search_implement_more ()">tp_svc_channel_type_contact_search_implement_more</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearchClass" title="TpSvcChannelTypeContactSearchClass"><span class="type">TpSvcChannelTypeContactSearchClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-more-impl" title="tp_svc_channel_type_contact_search_more_impl ()"><span class="type">tp_svc_channel_type_contact_search_more_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-implement-search" title="tp_svc_channel_type_contact_search_implement_search ()">tp_svc_channel_type_contact_search_implement_search</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearchClass" title="TpSvcChannelTypeContactSearchClass"><span class="type">TpSvcChannelTypeContactSearchClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-search-impl" title="tp_svc_channel_type_contact_search_search_impl ()"><span class="type">tp_svc_channel_type_contact_search_search_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-implement-stop" title="tp_svc_channel_type_contact_search_implement_stop ()">tp_svc_channel_type_contact_search_implement_stop</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearchClass" title="TpSvcChannelTypeContactSearchClass"><span class="type">TpSvcChannelTypeContactSearchClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-stop-impl" title="tp_svc_channel_type_contact_search_stop_impl ()"><span class="type">tp_svc_channel_type_contact_search_stop_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-more-impl" title="tp_svc_channel_type_contact_search_more_impl ()">*tp_svc_channel_type_contact_search_more_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearch"><span class="type">TpSvcChannelTypeContactSearch</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-return-from-more" title="tp_svc_channel_type_contact_search_return_from_more ()">tp_svc_channel_type_contact_search_return_from_more</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-return-from-search" title="tp_svc_channel_type_contact_search_return_from_search ()">tp_svc_channel_type_contact_search_return_from_search</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-return-from-stop" title="tp_svc_channel_type_contact_search_return_from_stop ()">tp_svc_channel_type_contact_search_return_from_stop</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-search-impl" title="tp_svc_channel_type_contact_search_search_impl ()">*tp_svc_channel_type_contact_search_search_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearch"><span class="type">TpSvcChannelTypeContactSearch</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Terms</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-stop-impl" title="tp_svc_channel_type_contact_search_stop_impl ()">*tp_svc_channel_type_contact_search_stop_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearch"><span class="type">TpSvcChannelTypeContactSearch</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-contactsearch.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcChannelTypeContactSearch
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-contactsearch.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearch-search-result-received" title='The "search-result-received" signal'>search-result-received</a>"                         : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearch-search-state-changed" title='The "search-state-changed" signal'>search-state-changed</a>"                           : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-contactsearch.description"></a><h2>Description</h2>
+<p>
+Some instant messaging protocols allow searching for contacts by name or
+other details. In Telepathy, each search attempt is represented as a
+Channel.
+</p>
+<p>
+This section documents the auto-generated C wrappers for the Contact Search
+channel type.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-contactsearch.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpSvcChannelTypeContactSearch-struct"></a><h3>TpSvcChannelTypeContactSearch</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelTypeContactSearch TpSvcChannelTypeContactSearch;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelTypeContactSearchClass"></a><h3>TpSvcChannelTypeContactSearchClass</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelTypeContactSearchClass TpSvcChannelTypeContactSearchClass;</pre>
+<p>
+The class of TpSvcChannelTypeContactSearch.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_channel_type_contact_search (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_channel_type_contact_search_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (search);
+  IMPLEMENT (more);
+  IMPLEMENT (stop);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-contact-search-emit-search-result-received"></a><h3>tp_svc_channel_type_contact_search_emit_search_result_received ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_contact_search_emit_search_result_received
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Result</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+SearchResultReceived signal on interface org.freedesktop.Telepathy.Channel.Type.ContactSearch.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Result</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-contact-search-emit-search-state-changed"></a><h3>tp_svc_channel_type_contact_search_emit_search_state_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_contact_search_emit_search_state_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_State</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Details</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+SearchStateChanged signal on interface org.freedesktop.Telepathy.Channel.Type.ContactSearch.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_State</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Error</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Details</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-contact-search-implement-more"></a><h3>tp_svc_channel_type_contact_search_implement_more ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_contact_search_implement_more
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearchClass" title="TpSvcChannelTypeContactSearchClass"><span class="type">TpSvcChannelTypeContactSearchClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-more-impl" title="tp_svc_channel_type_contact_search_more_impl ()"><span class="type">tp_svc_channel_type_contact_search_more_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the More method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the More D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-contact-search-implement-search"></a><h3>tp_svc_channel_type_contact_search_implement_search ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_contact_search_implement_search
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearchClass" title="TpSvcChannelTypeContactSearchClass"><span class="type">TpSvcChannelTypeContactSearchClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-search-impl" title="tp_svc_channel_type_contact_search_search_impl ()"><span class="type">tp_svc_channel_type_contact_search_search_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the Search method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the Search D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-contact-search-implement-stop"></a><h3>tp_svc_channel_type_contact_search_implement_stop ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_contact_search_implement_stop
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearchClass" title="TpSvcChannelTypeContactSearchClass"><span class="type">TpSvcChannelTypeContactSearchClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#tp-svc-channel-type-contact-search-stop-impl" title="tp_svc_channel_type_contact_search_stop_impl ()"><span class="type">tp_svc_channel_type_contact_search_stop_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the Stop method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the Stop D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-contact-search-more-impl"></a><h3>tp_svc_channel_type_contact_search_more_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_type_contact_search_more_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearch"><span class="type">TpSvcChannelTypeContactSearch</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+More on interface org.freedesktop.Telepathy.Channel.Type.ContactSearch.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-contact-search-return-from-more"></a><h3>tp_svc_channel_type_contact_search_return_from_more ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_contact_search_return_from_more
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-contact-search-return-from-search"></a><h3>tp_svc_channel_type_contact_search_return_from_search ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_contact_search_return_from_search
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-contact-search-return-from-stop"></a><h3>tp_svc_channel_type_contact_search_return_from_stop ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_contact_search_return_from_stop
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-contact-search-search-impl"></a><h3>tp_svc_channel_type_contact_search_search_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_type_contact_search_search_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearch"><span class="type">TpSvcChannelTypeContactSearch</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Terms</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+Search on interface org.freedesktop.Telepathy.Channel.Type.ContactSearch.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Terms</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-contact-search-stop-impl"></a><h3>tp_svc_channel_type_contact_search_stop_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_type_contact_search_stop_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearch"><span class="type">TpSvcChannelTypeContactSearch</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+Stop on interface org.freedesktop.Telepathy.Channel.Type.ContactSearch.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-contactsearch.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpSvcChannelTypeContactSearch-search-result-received"></a><h3>The <code class="literal">"search-result-received"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearch"><span class="type">TpSvcChannelTypeContactSearch</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                       user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The SearchResultReceived D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Result</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelTypeContactSearch-search-state-changed"></a><h3>The <code class="literal">"search-state-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearch"><span class="type">TpSvcChannelTypeContactSearch</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                          arg_State,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>                         *arg_Error,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                       user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The SearchStateChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_State</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Error</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Details</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

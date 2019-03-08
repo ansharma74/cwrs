@@ -1,0 +1,123 @@
+==============
+telepathy-glib
+==============
+
+This is a library for GLib-based Telepathy components.
+
+Telepathy is a D-Bus framework for unifying real time communication,
+including instant messaging, voice calls and video calls. It abstracts
+differences between protocols to provide a unified interface for
+applications.
+
+Telepathy specification
+=======================
+
+The copy of the Telepathy specification in the spec/ directory indicates
+the specification that this library claims to implement.
+
+Requirements
+============
+
+Building telepathy-glib requires:
+  GLib, GObject <http://ftp.gnome.org/pub/GNOME/sources/glib/>
+  libdbus <http://dbus.freedesktop.org/releases/dbus/>
+  The D-Bus GLib bindings <http://dbus.freedesktop.org/releases/dbus-glib/>
+
+  GNU make <http://www.gnu.org/software/make/>
+  pkg-config <http://ftp.gnome.org/pub/GNOME/sources/pkg-config/>
+  libxslt, xsltproc <http://xmlsoft.org/XSLT/>
+  Python <http://www.python.org/>
+
+and can also make use of:
+  GObject-Introspection <http://ftp.gnome.org/pub/GNOME/sources/gobject-introspection/>
+  Vala <http://ftp.gnome.org/pub/GNOME/sources/vala/>
+  gtkdoc <http://ftp.gnome.org/pub/GNOME/sources/gtk-doc/>
+
+See configure.ac for full details, including versions required.
+Of the packages listed above, only GLib, GObject, libdbus and dbus-glib are
+required at runtime.
+
+Building from git also requires the GNU build system (Autoconf, Automake,
+libtool).
+
+Bugs, feature requests and to-do list
+=====================================
+
+Report all bugs, feature requests and "to-do" items here:
+  <https://bugs.freedesktop.org/enter_bug.cgi?product=Telepathy&component=tp-glib>
+
+Running "make check" will produce FIXME.out, which lists all the mentions of
+FIXME, TODO or XXX in the source code. Ideally, all of these should be in
+Bugzilla, but sometimes they're not.
+
+API stability policy
+====================
+
+We use an "odd/even" versioning scheme where the minor version (the y in
+x.y.z) determines stability - stable branches have y even, development
+branches have y odd.
+
+In a stable (even) branch, we will not make incompatible API or ABI changes
+between one release tarball and the next.
+
+In a development (odd) branch, if we make incompatible ABI changes
+between one release tarball and the next, we will change the SONAME of the
+library; we will attempt to avoid incompatible API or ABI changes.
+
+The GObject-Introspection and Vala bindings are not currently considered to
+be stable, so they have no API/ABI guarantees yet.
+
+Unreleased builds straight from git identify themselves as version
+"x.y.z.1". We DO NOT make any API guarantees about unreleased builds:
+any binary relying on new functionality from an unreleased build is not
+guaranteed to work with any subsequent release or unreleased build, and on
+platforms with versioned symbols (mainly Linux) it definitely won't work with
+subsequent releases (you'll have to at least relink the binary).
+We do not increment SONAMEs on the basis of unreleased changes.
+
+Unreleased builds are compiled with -Werror, so they might stop working
+if your gcc version issues more warnings than ours. If this is a problem
+for you, use a release tarball.
+
+Contact info
+============
+
+This library is maintained by the Telepathy project:
+  <http://telepathy.freedesktop.org/>
+  <mailto:telepathy@lists.freedesktop.org>
+  <irc://irc.freenode.net/telepathy>
+
+Telepathy development is supported by Collabora Ltd.
+  <http://www.collabora.co.uk/>.
+
+Hacking
+=======
+
+The current development version of telepathy-glib is available from the
+'master' branch in the git repository:
+  <git://git.collabora.co.uk/git/telepathy-glib.git>
+  <git+ssh://git.collabora.co.uk/git/telepathy-glib.git> (for committers)
+  <http://git.collabora.co.uk/?p=telepathy-glib.git> (gitweb)
+
+Stable branches are available from branches with names like
+'telepathy-glib-0.6' in the same repository.
+
+Proposed patches awaiting review can usually be found in freedesktop.org bugzilla.
+Our review procedure is described by:
+  <http://telepathy.freedesktop.org/wiki/Review%20Procedure>
+
+Please follow <http://telepathy.freedesktop.org/wiki/Style>.
+
+GObject Introspection
+=====================
+
+telepathy-glib's high level API has experimental GObject-Introspection
+support.
+
+You can easily test it from the source directory by defining this environment
+variable:
+  GI_TYPELIB_PATH=`pwd`/telepathy-glib
+  export GI_TYPELIB_PATH
+
+In Python you can access the API using;
+  from gi.repository import TelepathyGLib

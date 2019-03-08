@@ -1,0 +1,2624 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+MINPARAMS=1
+if [ $# -lt "$MINPARAMS" ]
+then
+    echo usage:
+    echo   buildclean "option" 
+    echo "Options are: all linux cloudinfra media"
+    echo "routing packages extra fwc cce vl access"
+    echo
+    echo i.e.:
+    echo   buildclean media
+    echo    
+    exit 1
+fi
+
+TOP=`pwd`
+echo Source Base=$TOP
+
+BUILDTYPE=$1
+
+function clean_nos {
+
+    echo "------------- cleaning nos -------------"
+
+    rm -rf $TOP/images/nos
+    rm -rf $TOP/buildoutput/nos
+
+    mkdir $TOP/images/nos
+    mkdir $TOP/buildoutput/nos
+}
+
+function clean_linux {
+
+    echo "------------- cleaning linux -------------"
+
+    rm -rf $TOP/images/linux
+    rm -rf $TOP/buildoutput/linux
+
+    mkdir $TOP/images/linux
+    mkdir $TOP/buildoutput/linux
+}
+
+function clean_lxde {
+
+    echo "------------- cleaning lxde -------------"
+
+    rm -rf $TOP/images/lxde
+    rm -rf $TOP/buildoutput/lxde
+
+    mkdir $TOP/images/lxde
+    mkdir $TOP/buildoutput/lxde
+
+    echo "------------ cleaning lxappearance  ------------"
+
+    cd $TOP/lxde/lxappearance
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning lxconf  ------------"
+
+    cd $TOP/lxde/lxconf
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning lxde-common  ------------"
+
+    cd $TOP/lxde/lxde-common
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning lxde-icon-theme  ------------"
+
+    cd $TOP/lxde/lxde-icon-theme
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning lxdm  ------------"
+
+    cd $TOP/lxde/lxdm
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning lxinput  ------------"
+
+    cd $TOP/lxde/lxinput
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning lxlauncher  ------------"
+
+    cd $TOP/lxde/lxlauncher
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning lxmenu-data  ------------"
+
+    cd $TOP/lxde/lxmenu-data
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning lxpanel  ------------"
+
+    cd $TOP/lxde/lxpanel
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning lxpanel-plugins  ------------"
+
+    cd $TOP/lxde/lxpanel-plugins/batt
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    cd $TOP/lxde/lxpanel-plugins/menu_2
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    cd $TOP/lxde/lxpanel-plugins/drives
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    cd $TOP/lxde/lxpanel-plugins/netstat
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    cd $TOP/lxde/lxpanel-plugins/xkb
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning lxrandr  ------------"
+
+    cd $TOP/lxde/lxrandr
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning lxsession  ------------"
+
+    cd $TOP/lxde/lxsession
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning lxsession-edit  ------------"
+
+    cd $TOP/lxde/lxsession-edit
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning lxshortcut  ------------"
+
+    cd $TOP/lxde/lxshortcut
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning lxtask  ------------"
+
+    cd $TOP/lxde/lxtask
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning lxterminal  ------------"
+
+    cd $TOP/lxde/lxterminal
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning menu-cache  ------------"
+
+    cd $TOP/lxde/menu-cache
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+}
+
+function clean_cloudinfra {
+
+    echo "------------- cleaning cloudinfra -------------"
+
+    rm -rf $TOP/images/cloudinfra
+    rm -rf $TOP/buildoutput/cloudinfra
+
+    mkdir $TOP/images/cloudinfra
+    mkdir $TOP/buildoutput/cloudinfra
+}
+
+function clean_media {
+
+    echo "-------------cleaning media-------------"
+
+    rm -rf $TOP/images/media
+    rm -rf $TOP/buildoutput/media
+
+    mkdir $TOP/images/media
+    mkdir $TOP/buildoutput/media
+
+    echo "------------ cleaning a52dec ------------"
+
+    cd $TOP/media/a52dec
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning alsa-lib ------------"
+
+    cd $TOP/media/alsa-lib
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning alsa-utils ------------"
+
+    cd $TOP/media/alsa-utils
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning ffmpeg ------------"
+
+    cd $TOP/media/ffmpeg
+    if [ -f config.h ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning flac ------------"
+
+    cd $TOP/media/flac
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gstreamer ------------"
+
+    cd $TOP/media/gstreamer
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libass ------------"
+
+    cd $TOP/media/libass
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libdvdcss ------------"
+
+    cd $TOP/media/libdvdcss
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libdvdnav ------------"
+    cd $TOP/media/libdvdnav
+    if [ -f config.mak ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libdvdread ------------"
+
+    cd $TOP/media/libdvdread
+    if [ -f config.mak ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libeXosip ------------"
+
+    cd $TOP/media/libeXosip
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------cleaning libfreenect-------------"
+
+    cd $TOP/media/libfreenect
+    if [ -f Makefile ]
+    then
+        make clean
+    fi
+
+    if [ -f CMakeCache.txt ]
+    then
+        rm CMakeCache.txt
+    fi
+
+    echo "------------ cleaning libogg ------------"
+
+    cd $TOP/media/libogg
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libosip ------------"
+
+    cd $TOP/media/libosip
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libsndfile ------------"
+
+    cd $TOP/media/libsndfile
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libvorbis ------------"
+
+    cd $TOP/media/libvorbis
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libx264 ------------"
+
+    cd $TOP/media/libx264
+    if [ -f config.mak ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning multicat ------------"
+
+    cd $TOP/media/multicat
+    if [ -f Makefile ]
+    then   
+        make clean
+    fi
+
+    echo "------------ cleaning pulseaudio ------------"
+
+    cd $TOP/media/pulseaudio
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning spandsp ------------"
+
+    cd $TOP/media/spandsp
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning speex ------------"
+
+    cd $TOP/media/speex
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning tiff ------------"
+
+    cd $TOP/media/tiff
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning v4l-utils ------------"
+
+    cd $TOP/media/v4l-utils
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+}
+
+function clean_tpd_apps {
+
+    echo "-------------cleaning desktop apps -------------"
+
+    rm -rf $TOP/buildoutput/tpd
+    mkdir $TOP/buildoutput/tpd
+
+    echo "------------ cleaning linphone ------------"
+
+    cd $TOP/tpd/apps/linphone
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning ms-app ------------"
+
+    cd $TOP/tpd/apps/ms-app
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning sg ------------"
+
+    cd $TOP/tpd/apps/sg
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning yelp ------------"
+
+    cd $TOP/tpd/apps/yelp
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+}
+
+function clean_tpd_display {
+
+    echo "------------ cleaning GTK PlatformBuild -------------"
+
+    rm -rf $TOP/buildoutput/tpd
+    mkdir $TOP/buildoutput/tpd
+
+    echo "------------- cleaning accountsservice ------------------"
+
+    cd $TOP/tpd/display/accountsservice
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------- cleaning atk ------------------"
+
+    cd $TOP/tpd/display/atk
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning at-spi ------------"
+
+    cd $TOP/tpd/display/at-spi
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------- cleaning at-spi2-atk ------------------"
+
+    cd $TOP/tpd/display/at-spi2-atk
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------- cleaning at-spi2-core ------------------"
+
+    cd $TOP/tpd/display/at-spi2-core
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------- cleaning bigreqsproto ----------------"
+
+    cd $TOP/tpd/display/bigreqsproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------- cleaning Cairo ----------------"
+
+    cd $TOP/tpd/display/cairo
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning clutter ------------"
+
+    cd $TOP/tpd/display/clutter
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning colord ----------------"
+
+    cd $TOP/tpd/display/colord
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning compositeproto ----------------"
+
+    cd $TOP/tpd/display/compositeproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning ConsoleKit ----------------"
+
+    cd $TOP/tpd/display/ConsoleKit
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning damageproto ----------------"
+
+    cd $TOP/tpd/display/damageproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning dconf ----------------"
+
+    cd $TOP/tpd/display/dconf
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning dri2proto ----------------"
+
+    cd $TOP/tpd/display/dri2proto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning encodings ----------------"
+
+    cd $TOP/tpd/display/dri2proto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning evolution-data-server ------------"
+
+    cd $TOP/tpd/display/evolution-data-server
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning fixesproto ----------------"
+
+    cd $TOP/tpd/display/fixesproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning font-adobe-100dpi ----------------"
+
+    cd $TOP/tpd/display/fixesproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning font-bh-100dpi ----------------"
+
+    cd $TOP/tpd/display/fixesproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning fontcacheproto ----------------"
+
+    cd $TOP/tpd/display/fixesproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning font-mutt-misc ----------------"
+
+    cd $TOP/tpd/display/fixesproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning fontsproto ----------------"
+
+    cd $TOP/tpd/display/fixesproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning font-util ----------------"
+
+    cd $TOP/tpd/display/fixesproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning freetype ----------------"
+
+    cd $TOP/tpd/display/freetype
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning fribidi ----------------"
+
+    cd $TOP/tpd/display/fribidi
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning GConf ------------"
+
+    cd $TOP/tpd/display/GConf
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gcr ------------"
+
+    cd $TOP/tpd/display/gcr
+    if [ -f config.h ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning Gdk-pixbuf ------------"
+
+    cd $TOP/tpd/display/gdk-pixbuf
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gdm ------------"
+
+    cd $TOP/tpd/display/gdk-pixbuf
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gjs ------------"
+
+    cd $TOP/tpd/display/gjs
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning glproto ----------------"
+
+    cd $TOP/tpd/display/glproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning glu ----------------"
+
+    cd $TOP/tpd/display/glu
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gnome-backgrounds ------------"
+
+    cd $TOP/tpd/display/gnome-backgrounds
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gnome-desktop ------------"
+
+    cd $TOP/tpd/display/gnome-menus
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gnome-icon-theme ------------"
+
+    cd $TOP/tpd/display/gnome-menus
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gnome-menus ------------"
+
+    cd $TOP/tpd/display/gnome-menus
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gnome-online-accounts ------------"
+
+    cd $TOP/tpd/display/gnome-online-accounts
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gnome-panel ------------"
+
+    cd $TOP/tpd/display/gnome-panel
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gnome-session ------------"
+
+    cd $TOP/tpd/display/gnome-session
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gnome-settings-daemon ------------"
+
+    cd $TOP/tpd/display/gnome-settings-daemon
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gnome-shell ------------"
+
+    cd $TOP/tpd/display/gnome-shell
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gsettings-desktop-schemas ------------"
+
+    cd $TOP/tpd/display/gsettings-desktop-schemas
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gst-plugins-base ------------"
+
+    cd $TOP/tpd/display/gst-plugins-base 
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning GTK+ -----------------"
+
+    cd $TOP/tpd/display/gtk+
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gvfs ------------"
+
+    cd $TOP/tpd/display/gvfs
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning harfbuzz ----------------"
+
+    cd $TOP/tpd/display/inputproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning hicolor-icon-theme ----------------"
+
+    cd $TOP/tpd/display/inputproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning icon-naming-utils ----------------"
+
+    cd $TOP/tpd/display/inputproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning inputproto ----------------"
+
+    cd $TOP/tpd/display/inputproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning iso-codes ----------------"
+
+    cd $TOP/tpd/display/iso-codes
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning json-glib ----------------"
+
+    cd $TOP/tpd/display/json-glib
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning kbproto ----------------"
+
+    cd $TOP/tpd/display/kbproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning lcms ----------------"
+
+    cd $TOP/tpd/display/lcms
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libbonobo ------------"
+
+    cd $TOP/tpd/display/libbonobo
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libcanberra ------------"
+
+    cd $TOP/tpd/display/libcanberra
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libcroco ------------"
+
+    cd $TOP/tpd/display/libcroco
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libdrm ----------------"
+
+    cd $TOP/tpd/display/libdrm
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libgdata ------------"
+
+    cd $TOP/tpd/display/libgdata
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libgnomekbd ------------"
+
+    cd $TOP/tpd/display/libgnomekbd
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libgnome-keyring ------------"
+
+    cd $TOP/tpd/display/libgnome-keyring
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libical ----------------"
+
+    cd $TOP/tpd/display/libical
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libICE ------------"
+
+    cd $TOP/tpd/display/libICE
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libIDL ------------"
+
+    cd $TOP/tpd/display/libIDL
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libnotify ------------"
+
+    cd $TOP/tpd/display/libnotify
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning liboauth ----------------"
+
+    cd $TOP/tpd/display/liboauth
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libpciaccess ----------------"
+
+    cd $TOP/tpd/display/libpciaccess
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libpeas ------------"
+
+    cd $TOP/tpd/display/libpeas
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------- cleaning libpng -------------"
+
+    cd $TOP/tpd/display/libpng
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libSM ------------"
+
+    cd $TOP/tpd/display/libSM
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libsoup ------------"
+
+    cd $TOP/tpd/display/libsoup
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------- cleaning libtasn1 -------------"
+
+    cd $TOP/tpd/display/libtasn1
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libX11 ----------------"
+
+    cd $TOP/tpd/display/libX11
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXau ----------------"
+
+    cd $TOP/tpd/display/libXau
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXaw3d ----------------"
+
+    cd $TOP/tpd/display/libXaw3d
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libxcb ----------------"
+
+    cd $TOP/tpd/display/libxcb
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXcomposite ----------------"
+
+    cd $TOP/tpd/display/libXcomposite
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXcursor ----------------"
+
+    cd $TOP/tpd/display/libXcursor
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXdamage ----------------"
+
+    cd $TOP/tpd/display/libXdamage
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXdmcp ----------------"
+
+    cd $TOP/tpd/display/libXdmcp
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXext ----------------"
+
+    cd $TOP/tpd/display/libXext
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXfixes ----------------"
+
+    cd $TOP/tpd/display/libXfixes
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXfont ----------------"
+
+    cd $TOP/tpd/display/libXfont
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXfontcache ----------------"
+
+    cd $TOP/tpd/display/libXfontcache
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXi ----------------"
+
+    cd $TOP/tpd/display/libXi
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXinerama ----------------"
+
+    cd $TOP/tpd/display/libXinerama
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libxkbfile ----------------"
+
+    cd $TOP/tpd/display/libxkbfile
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libxklavier ----------------"
+
+    cd $TOP/tpd/display/libxklavier
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXpm ----------------"
+
+    cd $TOP/tpd/display/libXpm
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXrandr ----------------"
+
+    cd $TOP/tpd/display/libXrandr
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXrender ----------------"
+
+    cd $TOP/tpd/display/libXrender
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXScrnSaver ----------------"
+
+    cd $TOP/tpd/display/libXScrnSaver
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXt ----------------"
+
+    cd $TOP/tpd/display/libXt
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXTrap ----------------"
+
+    cd $TOP/tpd/display/libXTrap
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXtst ----------------"
+
+    cd $TOP/tpd/display/libXtst
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXv ----------------"
+
+    cd $TOP/tpd/display/libXv
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libXvMC ----------------"
+
+    cd $TOP/tpd/display/libXvMC
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning Mesa ----------------"
+
+    cd $TOP/tpd/display/Mesa
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning mutter ------------"
+
+    cd $TOP/tpd/display/mutter
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning nautilus ------------"
+
+    cd $TOP/tpd/display/nautilus
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning ORBit2 ------------"
+
+    cd $TOP/tpd/display/ORBit2
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------- cleaning Pango ----------------"
+
+    cd $TOP/tpd/display/pango
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------- cleaning Pixman ---------------"
+
+    cd $TOP/tpd/display/pixman
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning randrproto ----------------"
+
+    cd $TOP/tpd/display/recordproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning recordproto ----------------"
+
+    cd $TOP/tpd/display/recordproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning renderproto ----------------"
+
+    cd $TOP/tpd/display/recordproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning resourceproto ----------------"
+
+    cd $TOP/tpd/display/resourceproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning rest ------------"
+
+    cd $TOP/tpd/display/rest
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning scrnsaverproto ------------"
+
+    cd $TOP/tpd/display/scrnsaverproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning telepathy-glib ------------"
+
+    cd $TOP/tpd/display/telepathy-glib
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning telepathy-logger ----------------"
+
+    cd $TOP/tpd/display/telepathy-logger
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning trapproto ----------------"
+
+    cd $TOP/tpd/display/trapproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning upower ----------------"
+
+    cd $TOP/tpd/display/upower
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning util-macros ----------------"
+
+    cd $TOP/tpd/display/util-macros
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning videoproto ----------------"
+
+    cd $TOP/tpd/display/videoproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning webkitgtk ------------"
+
+    cd $TOP/tpd/display/webkitgtk
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning xcb-proto ----------------"
+
+    cd $TOP/tpd/display/xcb-proto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning xcb-util ----------------"
+
+    cd $TOP/tpd/display/xcb-util
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning xcmiscproto ----------------"
+
+    cd $TOP/tpd/display/xcmiscproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning xextproto ----------------"
+
+    cd $TOP/tpd/display/xextproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning xineramaproto ----------------"
+
+    cd $TOP/tpd/display/xineramaproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning xkbcommon ----------------"
+
+    cd $TOP/tpd/display/xkbcommon
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning xkeyboard-config ----------------"
+
+    cd $TOP/tpd/display/xkeyboard-config
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning xorg-server ------------"
+
+    cd $TOP/tpd/display/xorg-server
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning xproto ------------"
+
+    cd $TOP/tpd/display/xproto
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning xterm ------------"
+
+    cd $TOP/tpd/display/xterm
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning xtrans ------------"
+
+    cd $TOP/tpd/display/xtrans
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning zenity ------------"
+
+    cd $TOP/tpd/display/zenity
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+}
+
+function clean_routing {
+
+    echo "-------------cleaning routing-------------"
+
+    rm -rf $TOP/images/routing
+    rm -rf $TOP/buildoutput/routing
+
+    mkdir $TOP/images/routing
+    mkdir $TOP/buildoutput/routing
+     
+    cd $TOP/routing
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+}
+
+function clean_packages {
+
+    echo "------------ cleaning acl --------------"
+
+    cd $TOP/packages/acl
+    if [ -f Makefile ]
+    then   
+        make clean
+    fi
+
+    echo "---------- cleaning attr --------"
+
+    cd $TOP/packages/attr
+    if [ -f Makefile ]
+    then   
+        make clean
+    fi
+
+    echo "---------- cleaning autoconf --------"
+
+    cd $TOP/packages/autoconf
+    if [ -f Makefile ]
+    then   
+        make clean
+    fi
+
+    echo "------------ cleaning bash ------------"
+
+    cd $TOP/packages/bash
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning binutils ------------"
+
+    cd $TOP/packages/binutils
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning bison ------------"
+
+    cd $TOP/packages/bison
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning bridge-utils ------------"
+
+    cd $TOP/packages/bridge-utils
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning bzip2 ------------"
+
+    cd $TOP/packages/bzip2
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning check ------------"
+
+    cd $TOP/packages/check
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning coreutils ------------"
+
+    cd $TOP/packages/coreutils
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning cracklib ------------"
+
+    cd $TOP/packages/cracklib
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------- cleaning curl ----------------"
+
+    cd $TOP/packages/curl
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning db ------------"
+
+    cd $TOP/packages/db
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "-------------- cleaning dbus ----------------"
+
+    cd $TOP/packages/dbus
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning dbus-glib ------------"
+
+    cd $TOP/packages/dbus-glib
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning debconf ------------"
+
+    cd $TOP/packages/debconf
+    if [ -f Makefile ]
+    then   
+        make clean
+    fi
+
+    echo "------------ cleaning dhcpcd ------------"
+
+    cd $TOP/packages/dhcpcd
+    if [ -f config.mk ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning diffutils ------------"
+
+    cd $TOP/packages/diffutils
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning dpkg ------------"
+
+    cd $TOP/packages/dpkg
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning e2fsprogs ------------"
+
+    cd $TOP/packages/e2fsprogs
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning eglibc ------------"
+
+    cd $TOP/packages/eglibc
+    if [ -f config.h ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning eject ------------"
+
+    cd $TOP/packages/eject
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "-------------- cleaning expat ----------------"
+
+    cd $TOP/packages/expat
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning expect ------------"
+
+    cd $TOP/packages/expect
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "---------------- cleaning file ------------"
+
+    cd $TOP/packages/file
+    if [ -f config.h ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning findutils ------------"
+
+    cd $TOP/packages/findutils
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning flex ------------"
+
+    cd $TOP/packages/flex
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning gawk ------------"
+
+    cd $TOP/packages/gawk
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning gcc ------------"
+
+    cd $TOP/packages/gcc
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning gettext ------------"
+
+    cd $TOP/packages/gettext
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning glib ------------"
+
+    cd $TOP/packages/glib
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning glibc ------------"
+
+    cd $TOP/packages/glibc
+    if [ -f config.h ]
+    then
+        make distclean
+    fi
+
+    echo "-------------- cleaning glib-networking ----------------"
+
+    cd $TOP/packages/glib-networking
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "-------------- cleaning gmp ----------------"
+
+    cd $TOP/packages/gmp
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning gnutls ------------"
+
+    cd $TOP/packages/gnutls
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning gobject-introspection ------------"
+
+    cd $TOP/packages/gobject-introspection
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning gperf ------------"
+
+    cd $TOP/packages/gperf
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning grep ------------"
+
+    cd $TOP/packages/grep
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning gzip ------------"
+
+    cd $TOP/packages/gzip
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning iana-etc ------------"
+
+    cd $TOP/packages/iana-etc
+    if [ -f Makefile ]
+    then
+        make clean
+    fi
+
+    echo "------------ cleaning inetutils ------------"
+
+    cd $TOP/packages/inetutils
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "-------------- cleaning intltool ----------------"
+
+    cd $TOP/packages/intltool
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning iproute2 ------------"
+
+    cd $TOP/packages/iproute2
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning iptables ------------"
+
+    cd $TOP/packages/iptables
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "-------------- cleaning JPEG ----------------"
+
+    cd $TOP/packages/jpeg
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning js ----------------"
+
+    cd $TOP/packages/js
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi    
+
+    echo "------------- cleaning json-c ----------------"
+
+    cd $TOP/packages/json-c
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning kbd ------------"
+
+    cd $TOP/packages/kbd
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning kmod ------------"
+
+    cd $TOP/packages/kmod
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+
+    echo "------------ cleaning libarchive ------------"
+
+    cd $TOP/packages/libarchive
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libcap ------------"
+
+    cd $TOP/packages/libcap
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libffi ----------------"
+
+    cd $TOP/packages/libffi
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libgcrypt ------------"
+
+    cd $TOP/packages/libgcrypt
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libgpg-error ------------"
+
+    cd $TOP/packages/libgpg-error
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------- cleaning libnfnetlink -------------"
+
+    cd $TOP/packages/libnfnetlink
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------- cleaning libnl -------------"
+
+    cd $TOP/packages/libnl
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libpcap -------------"
+
+    cd $TOP/packages/libpcap
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libpipeline ------------"
+
+    cd $TOP/packages/libpipeline
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------- cleaning libusb ------------"
+
+    cd $TOP/packages/libusb
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libxml2 ----------------"
+
+    cd $TOP/packages/libxml2
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning libxslt ----------------"
+
+    cd $TOP/packages/libxslt
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning m4 ------------"
+
+    cd $TOP/packages/m4
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning make ------------"
+
+    cd $TOP/packages/make
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning man-db ------------"
+
+    cd $TOP/packages/man-db
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning man-pages ------------"
+    echo "Nothing to clean"
+
+    echo "------------ cleaning mpc ---------------"
+
+    cd $TOP/packages/mpc
+    if [ -f Makefile ]
+    then   
+        make clean
+    fi
+
+    echo "------------ cleaning mpfr ---------------"
+
+    cd $TOP/packages/mpfr
+    if [ -f Makefile ]
+    then   
+        make clean
+    fi
+
+    echo "------------ cleaning ncurses ------------"
+
+    cd $TOP/packages/ncurses
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning nettle ------------"
+
+    cd $TOP/packages/nettle
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning NetworkManager ------------"
+
+    cd $TOP/packages/NetworkManager
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning nss ---------------"
+
+    cd $TOP/packages/nss/mozilla/security/nss
+    if [ -f Makefile ]
+    then   
+        make clean
+    fi
+
+    echo "------------ cleaning openssl ---------------"
+
+    cd $TOP/packages/openssl
+    if [ -f Makefile ]
+    then   
+        make clean
+    fi
+
+    echo "------------- cleaning p11-kit ----------------"
+
+    cd $TOP/packages/p11-kit
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning pam ----------------"
+
+    cd $TOP/packages/pam
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning patch ----------------"
+
+    cd $TOP/packages/patch
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning pcre ----------------"
+
+    cd $TOP/packages/pcre
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning perl ------------"
+
+    cd $TOP/packages/perl
+    if [ -f config.h ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning php ----------------"
+
+    cd $TOP/packages/php
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning pkg-config ----------------"
+
+    cd $TOP/packages/pkg-config
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------- cleaning polkit ----------------"
+
+    cd $TOP/packages/polkit
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning popt ------------"
+
+    cd $TOP/packages/popt
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning ppp ------------"
+
+    cd $TOP/packages/ppp
+    if [ -f Makefile ]
+    then   
+        make clean
+    fi
+
+    echo "------------ cleaning procps ------------"
+
+    cd $TOP/packages/procps
+    if [ -f Makefile ]
+    then
+        make clean
+    fi
+
+    echo "-------------- cleaning Python ----------------"
+
+    cd $TOP/packages/Python
+    if [ -f Makefile ]
+    then   
+        make clean
+    fi
+
+    echo "------------ cleaning readline ------------"
+
+    cd $TOP/packages/readline
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning SDL ----------------"
+
+    cd $TOP/packages/SDL
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning sed ------------"
+
+    cd $TOP/packages/sed
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning shadow ------------"
+
+    cd $TOP/packages/shadow
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning sqlite-autoconf ------------"
+
+    cd $TOP/packages/sqlite-autoconf
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning sysklogd ------------"
+
+    cd $TOP/packages/sysklogd
+    if [ -f Makefile ]
+    then
+        make clean
+    fi
+
+    echo "------------ cleaning systemd ------------"
+
+    cd $TOP/packages/systemd
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning sysvinit ------------"
+
+    cd $TOP/packages/sysvinit
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning tar ------------"
+
+    cd $TOP/packages/tar
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning tcl ------------"
+
+    cd $TOP/packages/tcl/unix
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning texinfo ------------"
+
+    cd $TOP/packages/texinfo
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------- cleaning traceroute ------------"
+
+    cd $TOP/packages/traceroute
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning uclibc ------------"
+
+    cd $TOP/packages/uclibc
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning util-linux ------------"
+
+    cd $TOP/packages/util-linux
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning vim ------------"
+
+    cd $TOP/packages/vim
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------ cleaning wireless_tools ------------"
+
+    cd $TOP/packages/wireless_tools
+    if [ -f Makefile ]
+    then   
+        make clean
+    fi
+
+    echo "------------- cleaning wpa_supplicant ------------"
+
+    cd $TOP/packages/wpa_supplicant
+    if [ -f config.mak ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning xz ------------"
+
+    cd $TOP/packages/xz
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+    echo "------------- cleaning zip ------------"
+
+    cd $TOP/packages/zip
+    if [ -f config.mak ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning zlib ------------"
+
+    cd $TOP/packages/zlib
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+
+}
+
+
+function clean_extras {
+
+    echo "-------------cleaning extras-------------"
+    rm -rf $TOP/images/webserver
+    rm -rf $TOP/buildoutput/webserver
+
+    mkdir $TOP/images/webserver
+    mkdir $TOP/buildoutput/webserver
+
+    echo "-------------cleaning apache httpd-------------"
+
+    cd $TOP/apache/httpd
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "-------------cleaning mysql-------------"
+    rm -rf $TOP/images/mysql
+    rm -rf $TOP/buildoutput/mysql
+
+    mkdir $TOP/images/mysql
+    mkdir $TOP/buildoutput/mysql
+
+    cd $TOP/mysql
+    if [ -f Makefile ]
+    then
+        make clean
+    fi
+
+    if [ -f CMakeCache.txt ]
+    then
+        rm CMakeCache.txt
+    fi
+
+}
+
+function clean_fwc {
+
+    echo "-------------cleaning fwc-------------"
+
+    rm -rf $TOP/images/fwc
+    rm -rf $TOP/buildoutput/fwc
+
+    mkdir $TOP/images/fwc
+    mkdir $TOP/buildoutput/fwc
+     
+    cd $TOP/fwc
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+}
+
+function clean_cce {
+
+    echo "------------ cleaning cce ---------------"
+
+    rm -rf $TOP/images/cce
+    rm -rf $TOP/buildoutput/cce
+
+    mkdir $TOP/images/cce
+    mkdir $TOP/buildoutput/cce
+     
+    echo "------------- cleaning dahdi ------------"
+
+    cd $TOP/cce/dahdi
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------- cleaning freeradius ---------------"
+
+    cd $TOP/cce/freeradius
+    if [ -f Make.inc ]
+    then   
+        make distclean
+    fi
+
+    echo "------------- cleaning gnutls ---------------"
+
+    cd $TOP/packages/gnutls
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning libpri ------------"
+
+    cd $TOP/cce/libpri
+    if [ -f Makefile ]
+    then   
+        make clean
+    fi
+
+    echo "------------- cleaning nettle ---------------"
+
+    cd $TOP/packages/nettle
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "----------- cleaning pkcs11-helper -----------"
+
+    cd $TOP/cce/pkcs11-helper
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------- cleaning openvpn ---------------"
+
+    cd $TOP/cce/openvpn
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------ cleaning pbx ----------------"
+
+    cd $TOP/cce/pbx
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "---------------- cleaning vlc ------------"
+
+    cd $TOP/cce/vlc
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "---------------- cleaning wvstreams ----------------"
+
+    cd $TOP/cce/wvstreams
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+    echo "------------- cleaning wvdial ---------------"
+
+    cd $TOP/cce/wvdial
+    if [ -f Makefile ]
+    then   
+        make distclean
+    fi
+
+}
+
+function clean_vl {
+
+    echo "-------------cleaning vl-------------"
+
+    rm -rf $TOP/images/vl
+    rm -rf $TOP/buildoutput/vl
+
+    mkdir $TOP/images/vl
+    mkdir $TOP/buildoutput/vl
+}
+
+function clean_access {
+
+    echo "-------------cleaning access-------------"
+
+    rm -rf $TOP/images/access
+    rm -rf $TOP/buildoutput/access
+
+    mkdir $TOP/images/access
+    mkdir $TOP/buildoutput/access
+}
+
+function clean_media_cloud {
+
+    echo "------------- cleaning media cloud -------------"
+
+    rm -rf $TOP/buildoutput/media_cloud
+    mkdir $TOP/buildoutput/media_cloud
+    rm -rf $TOP/images/media_cloud
+    mkdir $TOP/images/media_cloud
+}
+
+function clean_cce_cloud {
+
+    echo "------------- cleaning cce cloud -------------"
+
+    rm -rf $TOP/buildoutput/cce_cloud
+    mkdir $TOP/buildoutput/cce_cloud
+    rm -rf $TOP/images/cce_cloud
+    mkdir $TOP/images/cce_cloud
+}
+
+function clean_all {
+    rm -rf $TOP/buildoutput/arm
+    rm -rf $TOP/buildoutput/mips
+    rm -rf $TOP/buildoutput/i686
+    rm -rf $TOP/buildoutput/x86_64
+    mkdir $TOP/buildoutput/arm
+    mkdir $TOP/buildoutput/mips
+    mkdir $TOP/buildoutput/i686
+    mkdir $TOP/buildoutput/x86_64
+    clean_linux 
+    clean_nos 
+    clean_lxde 
+    clean_cloudinfra 
+    clean_media 
+    clean_tpd_apps 
+    clean_tpd_display 
+    clean_routing 
+    clean_packages 
+    clean_extras
+    clean_fwc 
+    clean_cce 
+    clean_vl 
+    clean_access 
+    clean_media_cloud 
+    clean_cce_cloud 
+}
+
+case "$BUILDTYPE" in
+    all) 
+        clean_all
+        ;;
+    linux)
+        clean_linux 
+        clean_lxde 
+        clean_nos
+        ;;
+    cloudinfra)
+        clean_cloudinfra 
+        ;;
+    media)
+        clean_media 
+        ;;
+    tpd)
+        clean_tpd_apps 
+        clean_tpd_display 
+        ;;
+    routing)
+        clean_routing 
+        ;;
+    packages)
+        clean_packages 
+        ;;
+    extra)
+        clean_extras
+        ;;
+    fwc)
+        clean_fwc 
+        ;;
+    cce)
+        clean_cce 
+        clean_cce_cloud 
+        ;;
+    vl)
+        clean_vl 
+        clean_media_cloud 
+        ;;
+    access)
+        clean_access 
+        ;;
+    *)   
+        echo "Choice should be: all linux cloudinfra media tpd webserver"
+        echo "routing lxde nos mysql fwc cce vl access media_cloud cce_cloud"
+        exit 1
+        ;;
+esac
+
+
+rm -rf $TOP/images/builds
+mkdir $TOP/images/builds
+
+echo "---------- Print Default Config ----------------"
+
+$TOP/Config/envtest
+

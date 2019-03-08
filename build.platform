@@ -1,0 +1,344 @@
+#/bin/bash
+
+set -e
+set -o pipefail
+
+MINPARAMS=1
+if [ $# -lt "$MINPARAMS" ]
+then
+    echo usage:
+    echo   build.platform "cce | access | vl" "full | inc"
+    echo   
+    echo i.e.:
+    echo   build.platform vl 
+    echo    
+    exit 1
+fi
+
+BUILDTYPE=$1
+BUILDMODE=$2
+CCE=0
+ACCESS=0
+VIDLAN=0
+
+TOP=`pwd`
+echo Base is=$TOP
+source $TOP/packages_definitions
+
+case "$BUILDTYPE" in
+    access) 
+        echo "Access Build"
+        ACCESS=1
+        ;;
+    cce) 
+        echo "CCE Build"
+        CCE=1
+        ;;
+    vl) 
+        echo "VL Build"
+        VIDLAN=1
+        ;;
+    *)   
+        echo "Choices are: cce, tpd, vl"
+        exit 1
+        ;;
+esac
+
+
+echo "--------------Testing Build Tool Versions--------------"
+
+$TOP/Config/buildpackageversion
+
+echo "----------Print Default Config----------------"
+
+$TOP/Config/envtest
+
+export PREFIX=$TOP/images/$BUILDTYPE
+
+MEDIA_P=$TOP/images/media
+LNX_P=$TOP/images/linux
+
+export PATH=$MEDIA_P/bin:$LNX_P/bin:$PREFIX/bin:$PREFIX/lib:$PREFIX/include:$PREFIX/usr/lib:$PREFIX/usr/include:$PREFIX/usr/bin:$PATH
+
+export PKG_CONFIG_PATH=$MEDIA_P/lib/pkgconfig:$MEDIA_P/lib64/pkgconfig:$LNX_P/lib/pkgconfig:$LNX_P/lib64/pkgconfig:$PREFIX/lib/pkgconfig:$PREFIX/lib64/pkgconfig:$PREFIX/share/pkgconfig
+
+export LDFLAGS="-L$MEDIA_P/lib -L$MEDIA_P/lib64 -L$LNX_P/lib -L$LNX_P/lib64 -L$PREFIX/lib -L$PREFIX/lib64"
+
+export CFLAGS="-fPIC -I$MEDIA_P/include -I$MEDIA_P/usr/include -I$LNX_P/include -I$LNX_P/usr/include -I$PREFIX/include -I$PREFIX/usr/include"
+
+export CXXFLAGS="-fPIC -I$MEDIA_P/include -I$MEDIA_P/usr/include --I$LNX_P/include -I$LNX_P/usr/include -I$PREFIX/include -I$PREFIX/usr/include"
+
+export LD_LIBRARY_PATH=$MEDIA_P/lib:$MEDIA_P/lib64:$LNX_P/lib:$LNX_P/lib64:$PREFIX/lib:$PREFIX/lib64
+
+export LIBRARY_PATH=$MEDIA_P/lib:$MEDIA_P/lib64:$LNX_P/lib:$LNX_P/lib64:$PREFIX/lib:$PREFIX/lib64
+
+export C_INCLUDE_PATH=$MEDIA_P/include:$MEDIA_P/usr/include:$LNX_P/include:$LNX_P/usr/include:$PREFIX/include:$PREFIX/usr/include
+
+export CXX_INCLUDE_PATH=$MEDIA_P/include:$MEDIA_P/usr/include:$LNX_P/include:$LNX_P/usr/include:$PREFIX/include:$PREFIX/usr/include
+
+echo "----------Printing Environment Variables-------"
+
+$TOP/Config/envtest
+
+function buildCCE_component {
+
+    echo "----------------------------------------------------------"
+    echo "------------- Building $1 --------------------------------"
+    echo "----------------------------------------------------------"
+
+    DIR=$2
+
+    case $1 in
+    dahdi)
+        cd $TOP/cce/dahdi
+        make all
+        make DESTDIR=$PREFIX install
+        make DESTDIR=$PREFIX config 
+        make distclean
+ 	    export DESTDIR=
+        ;;    
+
+    freeradius)
+        cd $TOP/cce/freeradius
+        ./configure --prefix= --with-pic
+        make 
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;    
+
+    libpri)
+        cd $TOP/cce/libpri
+        make DESTDIR=$PREFIX install
+        make clean
+        export DESTDIR=
+        ;;    
+
+    pkcs11-helper)
+        cd $TOP/cce/pkcs11-helper
+        ./configure --prefix= --with-pic 
+        make 
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;    
+
+    openvpn)
+        cd $TOP/cce/openvpn
+        ./configure --prefix= --enable-ssl --disable-debug \
+            --with-pic --disable-plugin-auth-pam --enable-crypto \
+            --enable-iproute2 --enable-pkcs11 --disable-lzo \
+            --enable-server
+        make 
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;    
+
+    pbx)
+        cd $TOP/cce/pbx
+        ./configure --prefix= --disable-xmldoc 
+        make 
+        make DESTDIR=$PREFIX install
+        make DESTDIR=$PREFIX samples  
+        make distclean
+        ;;    
+
+    vlc)
+        rm -rf $TOP/buildoutput/$DIR/vlc
+        mkdir $TOP/buildoutput/$DIR/vlc
+        cd $TOP/buildoutput/$DIR/vlc
+        ../../../cce/vlc/configure \
+            --enable-skins2 --prefix= --with-pic \
+            --disable-lua --disable-mad 
+        make 
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;    
+
+    wvstreams)
+        cd $TOP/cce/wvstreams
+        ./configure --prefix= 
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    wvdial)
+        cd $TOP/cce/wvdial
+        ./configure 
+	make
+        make BINDIR=$TOP/images/$DIR/bin \
+             MANDIR=$TOP/images/$DIR/share/man/man5 \
+             PPPDIR=$TOP/images/$DIR/etc/ppp/peers install
+        make distclean
+        ;;
+
+    *)
+        echo "wrong cce pack"
+        exit 1
+        ;;    
+    esac
+}
+
+function buildCCE {
+
+    case "$1" in
+        access)    
+            for pack in $cce_access_packages; do
+                buildCCE_component $pack access
+            done        
+            ;;          
+        vl)    
+            for pack in $cce_video_packages; do
+                buildCCE_component $pack tpd
+            done        
+            ;;          
+        cce)    
+            for pack in $cce_voice_packages; do
+                buildCCE_component $pack cce
+            done        
+            ;;          
+        *)  
+            echo "Wrong cce pack class"
+            exit 1
+            ;;          
+    esac
+}
+
+function make_ccepack {
+
+    echo "--------- Making CCE Pack ---------------"
+
+    rm -rf $TOP/images/cce/DEBIAN
+    mkdir $TOP/images/cce/DEBIAN
+    echo "Package: cbircce
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: all
+Maintainer: CBIR (info@cbir.in)
+Description: CBIR CCE
+    CBIR CCE platform" > $TOP/images/cce/DEBIAN/control
+
+    cd $TOP/images/cce/..
+    find ./cce -type d | xargs chmod 755
+    dpkg-deb --build cce
+    mv cce.deb builds/cbircce.deb
+}
+
+function make_vlpack {
+
+    echo "--------- Making VL Pack ---------------"
+
+    rm -rf $TOP/images/vl/DEBIAN
+    mkdir $TOP/images/vl/DEBIAN
+    echo "Package: cbirvl
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: all
+Maintainer: CBIR (info@cbir.in)
+Description: CBIR Video
+    CBIR Video platform" > $TOP/images/vl/DEBIAN/control
+
+    cd $TOP/images/vl/..
+    find ./vl -type d | xargs chmod 755
+    dpkg-deb --build vl
+    mv vl.deb builds/cbirvl.deb
+}
+
+function make_accesspack {
+
+    echo "--------- Making access pack ---------------"
+
+    rm -rf $TOP/images/access/DEBIAN
+    mkdir $TOP/images/access/DEBIAN
+    echo "Package: cbiraccess
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: all
+Maintainer: CBIR (info@cbir.in)
+Description: CBIR Access
+    CBIR Access platform" > $TOP/images/access/DEBIAN/control
+
+    cd $TOP/images/access/..
+    find ./access -type d | xargs chmod 755
+    dpkg-deb --build access
+    mv access.deb builds/cbiraccess.deb
+}
+
+if [ $CCE == 1 ] 
+then
+    case "$BUILDMODE" in
+    full)
+        echo "--------- Starting CCE build ---------------------"
+        rm -rf $TOP/buildoutput/cce
+        rm -rf $TOP/images/cce/htdocs
+        rm -rf $TOP/images/cce
+        mkdir $TOP/buildoutput/cce
+        mkdir $TOP/images/cce
+        mkdir $TOP/images/cce/htdocs
+        buildCCE cce  
+        cp -r $TOP/cce/ccegui $TOP/images/cce/htdocs
+        cp -r $TOP/cce/smgui $TOP/images/cce/htdocs
+        cp -r $TOP/cce/wally $TOP/images/cce/htdocs
+        make_ccepack
+        ;;          
+    inc)
+        buildCCE cce
+        cp -r $TOP/cce/ccegui $TOP/images/cce/htdocs
+        make_ccepack
+        ;;          
+    *)   
+        echo "Choices for cce are: full, inc"
+        exit 1
+        ;;
+    esac
+fi
+
+if [ $VIDLAN == 1 ] 
+then
+    case "$BUILDMODE" in
+    full)
+        echo "--------- Starting VL build ---------------------"
+        rm -rf $TOP/buildoutput/vl
+        rm -rf $TOP/images/vl
+        mkdir $TOP/buildoutput/vl
+        mkdir $TOP/images/vl
+        buildCCE vl  
+        make_vlpack
+        ;;          
+    inc)
+        buildCCE vl  
+        make_vlpack
+        ;;          
+    *)   
+        echo "Choices for vl are: full, inc"
+        exit 1
+        ;;
+    esac
+
+fi
+
+if [ $ACCESS == 1 ] 
+then
+    case "$BUILDMODE" in
+    full)
+        echo "-------- Starting Access package build ------------"
+        rm -rf $TOP/buildoutput/access
+        rm -rf $TOP/images/access
+        mkdir $TOP/buildoutput/access
+        mkdir $TOP/images/access
+        buildCCE access
+        make_accesspack
+        ;;          
+    inc)
+        buildCCE access  
+        make_accesspack
+        ;;          
+    *)   
+        echo "Choices for access are: full, inc"
+        exit 1
+        ;;
+    esac
+
+fi

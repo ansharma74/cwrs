@@ -1,0 +1,659 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpBaseCallContent</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="TpBaseMediaCallChannel.html" title="TpBaseMediaCallChannel">
+<link rel="next" href="TpBaseMediaCallContent.html" title="TpBaseMediaCallContent">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="TpBaseMediaCallChannel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="TpBaseMediaCallContent.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#TpBaseCallContent.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#TpBaseCallContent.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#TpBaseCallContent.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#TpBaseCallContent.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#TpBaseCallContent.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="TpBaseCallContent"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="TpBaseCallContent.top_of_page"></a>TpBaseCallContent</span></h2>
+<p>TpBaseCallContent — base class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallContent"><span class="type">TpSvcCallContent</span></a> implementations</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="TpBaseCallContent.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+                    <a class="link" href="TpBaseCallContent.html#TpBaseCallContent-struct" title="TpBaseCallContent">TpBaseCallContent</a>;
+struct              <a class="link" href="TpBaseCallContent.html#TpBaseCallContentClass" title="struct TpBaseCallContentClass">TpBaseCallContentClass</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (<a class="link" href="TpBaseCallContent.html#TpBaseCallContentGetInterfacesFunc" title="TpBaseCallContentGetInterfacesFunc ()">*TpBaseCallContentGetInterfacesFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="TpBaseCallContent.html#TpBaseCallContentDeinitFunc" title="TpBaseCallContentDeinitFunc ()">*TpBaseCallContentDeinitFunc</a>)      (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="TpBaseCallContent.html#TpBaseCallContentMultipleTonesFunc" title="TpBaseCallContentMultipleTonesFunc ()">*TpBaseCallContentMultipleTonesFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tones</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="TpBaseCallContent.html#TpBaseCallContentStartToneFunc" title="TpBaseCallContentStartToneFunc ()">*TpBaseCallContentStartToneFunc</a>)   (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpDTMFEvent" title="enum TpDTMFEvent"><span class="type">TpDTMFEvent</span></a> event</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="TpBaseCallContent.html#TpBaseCallContentStopToneFunc" title="TpBaseCallContentStopToneFunc ()">*TpBaseCallContentStopToneFunc</a>)    (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="returnvalue">TpBaseConnection</span></a> *  <a class="link" href="TpBaseCallContent.html#tp-base-call-content-get-connection" title="tp_base_call_content_get_connection ()">tp_base_call_content_get_connection</a> (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="TpBaseCallContent.html#tp-base-call-content-get-object-path" title="tp_base_call_content_get_object_path ()">tp_base_call_content_get_object_path</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="TpBaseCallContent.html#tp-base-call-content-get-name" title="tp_base_call_content_get_name ()">tp_base_call_content_get_name</a>       (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);
+<a class="link" href="telepathy-glib-enums.html#TpMediaStreamType" title="enum TpMediaStreamType"><span class="returnvalue">TpMediaStreamType</span></a>   <a class="link" href="TpBaseCallContent.html#tp-base-call-content-get-media-type" title="tp_base_call_content_get_media_type ()">tp_base_call_content_get_media_type</a> (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);
+<a class="link" href="telepathy-glib-enums.html#TpCallContentDisposition" title="enum TpCallContentDisposition"><span class="returnvalue">TpCallContentDisposition</span></a> <a class="link" href="TpBaseCallContent.html#tp-base-call-content-get-disposition" title="tp_base_call_content_get_disposition ()">tp_base_call_content_get_disposition</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="TpBaseCallContent.html#tp-base-call-content-get-streams" title="tp_base_call_content_get_streams ()">tp_base_call_content_get_streams</a>    (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseCallContent.html#tp-base-call-content-add-stream" title="tp_base_call_content_add_stream ()">tp_base_call_content_add_stream</a>     (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpBaseCallStream.html" title="TpBaseCallStream"><span class="type">TpBaseCallStream</span></a> *stream</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseCallContent.html#tp-base-call-content-remove-stream" title="tp_base_call_content_remove_stream ()">tp_base_call_content_remove_stream</a>  (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpBaseCallStream.html" title="TpBaseCallStream"><span class="type">TpBaseCallStream</span></a> *stream</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> actor_handle</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpCallStateChangeReason" title="enum TpCallStateChangeReason"><span class="type">TpCallStateChangeReason</span></a> reason</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *dbus_reason</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseCallContent.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----TpBaseCallContent
+         +----<a class="link" href="TpBaseMediaCallContent.html" title="TpBaseMediaCallContent">TpBaseMediaCallContent</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseCallContent.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+TpBaseCallContent implements
+ <a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties">TpSvcDBusProperties</a>,  <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallContent">TpSvcCallContent</a> and  <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallContentInterfaceDTMF">TpSvcCallContentInterfaceDTMF</a>.</p>
+</div>
+<div class="refsect1">
+<a name="TpBaseCallContent.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="TpBaseCallContent.html#TpBaseCallContent--connection" title='The "connection" property'>connection</a>"               <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>*     : Read / Write / Construct Only
+  "<a class="link" href="TpBaseCallContent.html#TpBaseCallContent--creator" title='The "creator" property'>creator</a>"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct Only
+  "<a class="link" href="TpBaseCallContent.html#TpBaseCallContent--currently-sending-tones" title='The "currently-sending-tones" property'>currently-sending-tones</a>"  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+  "<a class="link" href="TpBaseCallContent.html#TpBaseCallContent--deferred-tones" title='The "deferred-tones" property'>deferred-tones</a>"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read
+  "<a class="link" href="TpBaseCallContent.html#TpBaseCallContent--disposition" title='The "disposition" property'>disposition</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct Only
+  "<a class="link" href="TpBaseCallContent.html#TpBaseCallContent--interfaces" title='The "interfaces" property'>interfaces</a>"               <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read
+  "<a class="link" href="TpBaseCallContent.html#TpBaseCallContent--media-type" title='The "media-type" property'>media-type</a>"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct Only
+  "<a class="link" href="TpBaseCallContent.html#TpBaseCallContent--name" title='The "name" property'>name</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only
+  "<a class="link" href="TpBaseCallContent.html#TpBaseCallContent--object-path" title='The "object-path" property'>object-path</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only
+  "<a class="link" href="TpBaseCallContent.html#TpBaseCallContent--streams" title='The "streams" property'>streams</a>"                  <span class="type">GPtrArray_DBusGObjectPath_</span>*  : Read
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseCallContent.description"></a><h2>Description</h2>
+<p>
+This base class makes it easier to write <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallContent"><span class="type">TpSvcCallContent</span></a>
+implementations by implementing its properties, and some of its methods.
+</p>
+<p>
+Subclasses should fill in <a class="link" href="TpBaseCallContent.html#TpBaseCallContentClass.get-interfaces"><span class="type">TpBaseCallContentClass.get_interfaces</span></a>,
+and <a class="link" href="TpBaseCallContent.html#TpBaseCallContentClass.deinit"><span class="type">TpBaseCallContentClass.deinit</span></a> virtual function.
+</p>
+</div>
+<div class="refsect1">
+<a name="TpBaseCallContent.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpBaseCallContent-struct"></a><h3>TpBaseCallContent</h3>
+<pre class="programlisting">typedef struct _TpBaseCallContent TpBaseCallContent;</pre>
+<p>
+A base class for call content implementations
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseCallContentClass"></a><h3>struct TpBaseCallContentClass</h3>
+<pre class="programlisting">struct TpBaseCallContentClass {
+  TpBaseCallContentDeinitFunc deinit;
+  TpBaseCallContentGetInterfacesFunc get_interfaces;
+
+  TpBaseCallContentStartToneFunc start_tone;
+  TpBaseCallContentStopToneFunc stop_tone;
+  TpBaseCallContentMultipleTonesFunc multiple_tones;
+};
+</pre>
+<p>
+The class structure for <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseCallContent.html#TpBaseCallContentDeinitFunc" title="TpBaseCallContentDeinitFunc ()"><span class="type">TpBaseCallContentDeinitFunc</span></a> <em class="structfield"><code><a name="TpBaseCallContentClass.deinit"></a>deinit</code></em>;</span></p></td>
+<td>optional; virtual method called by <a class="link" href="TpBaseCallChannel.html" title="TpBaseCallChannel"><span class="type">TpBaseCallChannel</span></a> when removing
+the content</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseCallContent.html#TpBaseCallContentGetInterfacesFunc" title="TpBaseCallContentGetInterfacesFunc ()"><span class="type">TpBaseCallContentGetInterfacesFunc</span></a> <em class="structfield"><code><a name="TpBaseCallContentClass.get-interfaces"></a>get_interfaces</code></em>;</span></p></td>
+<td>extra interfaces provided by this content (this SHOULD NOT
+include <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CALL-CONTENT:CAPS" title="TP_IFACE_CALL_CONTENT"><code class="literal">TP_IFACE_CALL_CONTENT</code></a> itself). Implementation must first chainup on
+parent class implementation then add extra interfaces into the <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseCallContent.html#TpBaseCallContentStartToneFunc" title="TpBaseCallContentStartToneFunc ()"><span class="type">TpBaseCallContentStartToneFunc</span></a> <em class="structfield"><code><a name="TpBaseCallContentClass.start-tone"></a>start_tone</code></em>;</span></p></td>
+<td>optional; virtual method called when user requested to send
+a DTMF tone. Note that this method is already implemented by
+<a class="link" href="TpBaseMediaCallContent.html" title="TpBaseMediaCallContent"><span class="type">TpBaseMediaCallContent</span></a> and so does not have to be overriden when using that
+subclass</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseCallContent.html#TpBaseCallContentStopToneFunc" title="TpBaseCallContentStopToneFunc ()"><span class="type">TpBaseCallContentStopToneFunc</span></a> <em class="structfield"><code><a name="TpBaseCallContentClass.stop-tone"></a>stop_tone</code></em>;</span></p></td>
+<td>optional; virtual method called when user requested to stop
+sending currently being played DTMF tones. Note that this method is already
+implemented by <a class="link" href="TpBaseMediaCallContent.html" title="TpBaseMediaCallContent"><span class="type">TpBaseMediaCallContent</span></a> and so does not have to be overriden
+when using that subclass</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseCallContent.html#TpBaseCallContentMultipleTonesFunc" title="TpBaseCallContentMultipleTonesFunc ()"><span class="type">TpBaseCallContentMultipleTonesFunc</span></a> <em class="structfield"><code><a name="TpBaseCallContentClass.multiple-tones"></a>multiple_tones</code></em>;</span></p></td>
+<td>optional; virtual method called when user requested to send
+multiple DTMF tones. Note that this method is already implemented by
+<a class="link" href="TpBaseMediaCallContent.html" title="TpBaseMediaCallContent"><span class="type">TpBaseMediaCallContent</span></a> and so does not have to be overriden when using that
+subclass</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseCallContentGetInterfacesFunc"></a><h3>TpBaseCallContentGetInterfacesFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (*TpBaseCallContentGetInterfacesFunc)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);</pre>
+<p>
+Signature of an implementation of <a class="link" href="TpBaseCallContent.html#TpBaseCallContentClass.get-interfaces"><span class="type">TpBaseCallContentClass.get_interfaces</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> containing static strings.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseCallContentDeinitFunc"></a><h3>TpBaseCallContentDeinitFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpBaseCallContentDeinitFunc)      (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);</pre>
+<p>
+Signature of an implementation of <a class="link" href="TpBaseCallContent.html#TpBaseCallContentClass.deinit"><span class="type">TpBaseCallContentClass.deinit</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseCallContentMultipleTonesFunc"></a><h3>TpBaseCallContentMultipleTonesFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpBaseCallContentMultipleTonesFunc)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tones</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of an implementation of <a class="link" href="TpBaseCallContent.html#TpBaseCallContentClass.multiple-tones"><span class="type">TpBaseCallContentClass.multiple_tones</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tones</code></em> :</span></p></td>
+<td>a string representation of one or more DTMF events</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> and set <em class="parameter"><code>error</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseCallContentStartToneFunc"></a><h3>TpBaseCallContentStartToneFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpBaseCallContentStartToneFunc)   (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpDTMFEvent" title="enum TpDTMFEvent"><span class="type">TpDTMFEvent</span></a> event</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of an implementation of <a class="link" href="TpBaseCallContent.html#TpBaseCallContentClass.start-tone"><span class="type">TpBaseCallContentClass.start_tone</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-enums.html#TpDTMFEvent" title="enum TpDTMFEvent"><span class="type">TpDTMFEvent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> and set <em class="parameter"><code>error</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseCallContentStopToneFunc"></a><h3>TpBaseCallContentStopToneFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpBaseCallContentStopToneFunc)    (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of an implementation of <a class="link" href="TpBaseCallContent.html#TpBaseCallContentClass.stop-tone"><span class="type">TpBaseCallContentClass.stop_tone</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> and set <em class="parameter"><code>error</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-call-content-get-connection"></a><h3>tp_base_call_content_get_connection ()</h3>
+<pre class="programlisting"><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="returnvalue">TpBaseConnection</span></a> *  tp_base_call_content_get_connection (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="TpBaseCallContent.html#TpBaseCallContent--connection" title='The "connection" property'><span class="type">"connection"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-call-content-get-object-path"></a><h3>tp_base_call_content_get_object_path ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_base_call_content_get_object_path
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="TpBaseCallContent.html#TpBaseCallContent--object-path" title='The "object-path" property'><span class="type">"object-path"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-call-content-get-name"></a><h3>tp_base_call_content_get_name ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_base_call_content_get_name       (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="TpBaseCallContent.html#TpBaseCallContent--name" title='The "name" property'><span class="type">"name"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-call-content-get-media-type"></a><h3>tp_base_call_content_get_media_type ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-enums.html#TpMediaStreamType" title="enum TpMediaStreamType"><span class="returnvalue">TpMediaStreamType</span></a>   tp_base_call_content_get_media_type (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="TpBaseCallContent.html#TpBaseCallContent--media-type" title='The "media-type" property'><span class="type">"media-type"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-call-content-get-disposition"></a><h3>tp_base_call_content_get_disposition ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-enums.html#TpCallContentDisposition" title="enum TpCallContentDisposition"><span class="returnvalue">TpCallContentDisposition</span></a> tp_base_call_content_get_disposition
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="TpBaseCallContent.html#TpBaseCallContent--disposition" title='The "disposition" property'><span class="type">"disposition"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-call-content-get-streams"></a><h3>tp_base_call_content_get_streams ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             tp_base_call_content_get_streams    (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of <a class="link" href="TpBaseCallStream.html" title="TpBaseCallStream"><span class="type">TpBaseCallStream</span></a> of this content.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-call-content-add-stream"></a><h3>tp_base_call_content_add_stream ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_call_content_add_stream     (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpBaseCallStream.html" title="TpBaseCallStream"><span class="type">TpBaseCallStream</span></a> *stream</code></em>);</pre>
+<p>
+Add <em class="parameter"><code>stream</code></em> to <em class="parameter"><code>self</code></em>'s <a class="link" href="TpBaseCallContent.html#TpBaseCallContent--streams" title='The "streams" property'><span class="type">"streams"</span></a>. Emitting StreamsAdded
+DBus signal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stream</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseCallStream.html" title="TpBaseCallStream"><span class="type">TpBaseCallStream</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-call-content-remove-stream"></a><h3>tp_base_call_content_remove_stream ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_call_content_remove_stream  (<em class="parameter"><code><a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpBaseCallStream.html" title="TpBaseCallStream"><span class="type">TpBaseCallStream</span></a> *stream</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> actor_handle</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpCallStateChangeReason" title="enum TpCallStateChangeReason"><span class="type">TpCallStateChangeReason</span></a> reason</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *dbus_reason</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>);</pre>
+<p>
+Remove <em class="parameter"><code>stream</code></em> from <em class="parameter"><code>self</code></em>'s <a class="link" href="TpBaseCallContent.html#TpBaseCallContent--streams" title='The "streams" property'><span class="type">"streams"</span></a>. Emitting
+StreamsRemoved DBus signal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stream</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseCallStream.html" title="TpBaseCallStream"><span class="type">TpBaseCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>actor_handle</code></em> :</span></p></td>
+<td>the contact responsible for the change, or 0 if no contact was
+responsible.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-enums.html#TpCallStateChangeReason" title="enum TpCallStateChangeReason"><span class="type">TpCallStateChangeReason</span></a> of the change</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dbus_reason</code></em> :</span></p></td>
+<td>a specific reason for the change, which may be a D-Bus error in
+the Telepathy namespace, a D-Bus error in any other namespace (for
+implementation-specific errors), or the empty string to indicate that the
+state change was not an error.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>an optional debug message, to expediate debugging the potentially
+many processes involved in a call.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpBaseCallContent.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpBaseCallContent--connection"></a><h3>The <code class="literal">"connection"</code> property</h3>
+<pre class="programlisting">  "connection"               <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>*     : Read / Write / Construct Only</pre>
+<p>
+<a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> object that owns this call content.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseCallContent--creator"></a><h3>The <code class="literal">"creator"</code> property</h3>
+<pre class="programlisting">  "creator"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct Only</pre>
+<p>
+The contact <a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> of the creator of this content.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseCallContent--currently-sending-tones"></a><h3>The <code class="literal">"currently-sending-tones"</code> property</h3>
+<pre class="programlisting">  "currently-sending-tones"  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>
+If this content is currently sending tones or not
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseCallContent--deferred-tones"></a><h3>The <code class="literal">"deferred-tones"</code> property</h3>
+<pre class="programlisting">  "deferred-tones"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read</pre>
+<p>
+Tones that are waiting for the user action to play.
+</p>
+<p>Default value: NULL</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseCallContent--disposition"></a><h3>The <code class="literal">"disposition"</code> property</h3>
+<pre class="programlisting">  "disposition"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct Only</pre>
+<p>
+The <a class="link" href="telepathy-glib-enums.html#TpCallContentDisposition" title="enum TpCallContentDisposition"><span class="type">TpCallContentDisposition</span></a> of this content.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseCallContent--interfaces"></a><h3>The <code class="literal">"interfaces"</code> property</h3>
+<pre class="programlisting">  "interfaces"               <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read</pre>
+<p>
+Additional interfaces implemented by this content.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseCallContent--media-type"></a><h3>The <code class="literal">"media-type"</code> property</h3>
+<pre class="programlisting">  "media-type"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct Only</pre>
+<p>
+The <a class="link" href="telepathy-glib-enums.html#TpMediaStreamType" title="enum TpMediaStreamType"><span class="type">TpMediaStreamType</span></a> of this content.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseCallContent--name"></a><h3>The <code class="literal">"name"</code> property</h3>
+<pre class="programlisting">  "name"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only</pre>
+<p>
+The name of this content, if any.
+</p>
+<p>Default value: ""</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseCallContent--object-path"></a><h3>The <code class="literal">"object-path"</code> property</h3>
+<pre class="programlisting">  "object-path"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only</pre>
+<p>
+The D-Bus object path used for this object on the bus.
+</p>
+<p>Default value: NULL</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseCallContent--streams"></a><h3>The <code class="literal">"streams"</code> property</h3>
+<pre class="programlisting">  "streams"                  <span class="type">GPtrArray_DBusGObjectPath_</span>*  : Read</pre>
+<p>
+A <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of this content streams' <a class="link" href="TpBaseCallStream.html#TpBaseCallStream--object-path" title='The "object-path" property'><span class="type">"object-path"</span></a>.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpBaseCallContent.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallContent"><span class="type">TpSvcCallContent</span></a>, <a class="link" href="TpBaseCallChannel.html" title="TpBaseCallChannel"><span class="type">TpBaseCallChannel</span></a> and <a class="link" href="TpBaseCallStream.html" title="TpBaseCallStream"><span class="type">TpBaseCallStream</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

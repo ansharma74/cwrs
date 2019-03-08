@@ -1,0 +1,5208 @@
+commit 9be71acfd404cb145c0a3b306ee93f401d42fdaa
+Author: Samuli Suominen <ssuominen@gentoo.org>
+Date:   Tue Mar 20 16:48:11 2012 +0100
+
+    build-sys: install run-seat.d symlink for udev-acl
+
+ tools/Makefile.am | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 53d03d644e105595a390d8923e512e2322eb880f
+Author: Samuli Suominen <ssuominen@gentoo.org>
+Date:   Tue Mar 20 08:10:27 2012 +0100
+
+    build-sys: missing AC_SUBST for UDEVDIR
+
+    Without this the UDEVDIR never gets substituted and the rules file is
+    installed to root filesystem /rules.d/ as opposed to
+    /lib/udev/rules.d/
+
+ configure.ac | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 4d06b16b69f8e9323ce128c92db4bb3e99cbd3aa
+Author: Pino Toscano <pino@kde.org>
+Date:   Mon Mar 19 16:46:29 2012 +0100
+
+    Fix unconditional PATH_MAX usage
+
+    Fix the unconditional PATH_MAX usage in
+    pam-ck-connector/pam-ck-connector.c by
+    using a variable-length malloc'ed buffer.
+
+    Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=552393
+    https://bugs.freedesktop.org/show_bug.cgi?id=24738
+
+ pam-ck-connector/pam-ck-connector.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+commit e722b11a8240991b57bc4f5269c4f375fb6d29af
+Author: Pino Toscano <pino@kde.org>
+Date:   Mon Mar 19 16:43:19 2012 +0100
+
+    Add support for GNU/Hurd
+
+    Currently consolekit fails to build on GNU/Hurd mainly because
+    there's no
+    sysdeps backend for the GNU OS implemented.
+    The attached patch proposes a sysdeps-gnu backend, which implements
+    the process
+    management using Hurd's libps, the *ttyent API for the part of
+    the console
+    implementation and the rest using similar (valid) approaches of
+    other backends.
+
+    Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=552393
+    https://bugs.freedesktop.org/show_bug.cgi?id=24738
+
+ configure.ac         |   4 +
+ src/Makefile.am      |   7 +
+ src/ck-sysdeps-gnu.c | 402
+ +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 413 insertions(+)
+
+commit 67cff230cff6b838d5a473f6bc44b28bcacc3a17
+Author: Michael Biebl <biebl@debian.org>
+Date:   Mon Mar 19 16:18:29 2012 +0100
+
+    build-sys: don't install systemd units when using
+    --without-systemdsystemunitdir
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=33924
+
+ configure.ac | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+commit 0177dadbce60176eda8571ebedc59af15d17a13f
+Author: Michael Biebl <biebl@debian.org>
+Date:   Mon Mar 19 01:32:49 2012 +0100
+
+    build-sys: run autoupdate
+
+ configure.ac | 46 ++++++++++++++++------------------------------
+ 1 file changed, 16 insertions(+), 30 deletions(-)
+
+commit f42cafcce978c402bdbc9c6e03a0c90bb0924b89
+Author: Michael Biebl <biebl@debian.org>
+Date:   Mon Mar 19 01:29:57 2012 +0100
+
+    build-sys: remove useless dbus version check
+
+ configure.ac | 33 ---------------------------------
+ 1 file changed, 33 deletions(-)
+
+commit d491e4017d3a098b6a2a4fe5a73989c172dfa035
+Author: Michael Biebl <biebl@debian.org>
+Date:   Mon Mar 19 01:25:57 2012 +0100
+
+    Import udev-acl tool from udev
+
+    The udev-acl tool has been removed from udev in version 182.
+    Add this tool to ConsoleKit for systems which don't use
+    systemd-logind.
+
+ configure.ac            |  21 +++
+ tools/.gitignore        |   1 +
+ tools/70-udev-acl.rules |  76 +++++++++
+ tools/Makefile.am       |  11 ++
+ tools/udev-acl.c        | 430
+ ++++++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 539 insertions(+)
+
+commit 803cbdfbd78b66b17ead45b1584d65a258e785bf
+Author: Ray Strode <rstrode@redhat.com>
+Date:   Tue May 24 20:58:10 2011 -0400
+
+    ck-history: don't truncate --frequent output to 8 chars
+
+    GDM screenscrapes the output and so we need the full username.
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=650330
+
+ tools/ck-history.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit b4eff485ddb8c0dc020593effc188741b964b5a4
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Tue May 3 02:19:09 2011 +0200
+
+    post release bump
+
+ NEWS         | 7 +++++++
+ configure.ac | 2 +-
+ 2 files changed, 8 insertions(+), 1 deletion(-)
+
+commit 4a1e58fd29c7cdf48dea879191a45db2cfcca0d1
+Author: Colin Watson <cjwatson@ubuntu.com>
+Date:   Sat Nov 20 17:57:22 2010 +0100
+
+    Retry opening console device on EIO
+
+    As reported in https://launchpad.net/bugs/544139, ConsoleKit sometimes
+    fails to
+    track the active VT. This particular case was tracked down to a
+    race condition
+    that happens if you try to open /dev/console while the current TTY
+    is currently
+    being closed. This yields an -EIO error, in which case CK should
+    just try
+    again.
+
+    For a more detailled summary of the problem from a kernel perspective,
+    please
+    see
+    https://bugs.launchpad.net/ubuntu/+source/linux/+bug/554172/comments/245
+    .
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=31790
+
+ src/ck-sysdeps-unix.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+commit 14d5ef815d3f1a1a7d72bdc242c7ebb085372c8d
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Thu Apr 14 01:12:51 2011 +0200
+
+    systemd: don't pull in sysinit.target
+
+    In case of shutdown when sysinit.target is not up yet (i.e. emergency
+    mode or suchlike) ensure that we don't try to start sysinit.target
+    before shutting down.
+
+ data/console-kit-log-system-restart.service.in | 1 -
+ data/console-kit-log-system-start.service.in   | 1 -
+ data/console-kit-log-system-stop.service.in    | 1 -
+ 3 files changed, 3 deletions(-)
+
+commit 91c73e774a033b6399624d8d5991543c70623ee0
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Thu Feb 17 01:37:33 2011 +0100
+
+    build-sys: post release version bump
+
+ NEWS         | 6 ++++++
+ configure.ac | 3 +--
+ 2 files changed, 7 insertions(+), 2 deletions(-)
+
+commit f19bd45476536439b0f9fe01808f5d118238c5b1
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Thu Feb 17 00:53:54 2011 +0100
+
+    build-sys: make sure make install can be run twice in a row
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=32130
+
+ data/Makefile.am | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit a3db5f00cfb924d3d93da5eca0914d23d7102fcd
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Thu Jan 20 19:19:46 2011 +0100
+
+    systemd: fix reference to systemd units
+
+ data/console-kit-log-system-restart.service.in | 2 +-
+ data/console-kit-log-system-stop.service.in    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit bdd4b0ca1c7e766649349a4b2a131f1f795d6ad6
+Author: DJ Lucas <dj@linuxfromscratch.org>
+Date:   Fri Dec 17 15:23:35 2010 -0500
+
+    ck-connector: advertise libexecdir
+
+    This lets apps know where consolekit helpers are installed.
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=18427
+
+ libck-connector/ck-connector.pc.in | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit ad93ff6f212815f7b8cdd4b0f6796965f61f26a3
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Fri Nov 19 02:33:52 2010 +0100
+
+    systemd: fix name of unit
+
+ data/console-kit-log-system-restart.service.in | 2 +-
+ data/console-kit-log-system-start.service.in   | 2 +-
+ data/console-kit-log-system-stop.service.in    | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+commit 14bab7395cad34e1780c984b9028fdd5555f6165
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Fri Nov 19 02:33:42 2010 +0100
+
+    build-sys: post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit bea922dbab5fb65997c62a98585a35741cbb1a5a
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Wed Nov 17 02:03:34 2010 +0100
+
+    update NEWS
+
+ NEWS | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+commit 72bc55ded76c567adee241094ba3147c72706f79
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Wed Nov 17 01:50:46 2010 +0100
+
+    Revert "linux: Use VT_WAITEVENT if available to avoid spawn too
+    many threads"
+
+    This reverts commit 2782cc8d4950effbc4407455e72bd4750cef6e11.
+
+    VT_WAITEVENT is racy unfortunately, since events that happen
+    between the
+    time we woke up from a VT_WAITEVENT and we go into the next
+    VT_WAITEVENT
+    are lost completely.
+
+ NEWS                  |  1 -
+ src/ck-sysdeps-unix.c | 44 --------------------------------------------
+ src/ck-sysdeps.h      |  2 --
+ src/ck-vt-monitor.c   | 48
+ ++++++++----------------------------------------
+ 4 files changed, 8 insertions(+), 87 deletions(-)
+
+commit d36415dcc3cd26a7d1def2f12b4d1c59e13d704e
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Wed Nov 17 01:49:37 2010 +0100
+
+    Revert "linux: Check for VT_WAITEVENT ioctl during runtime"
+
+    This reverts commit 24dc214f55e7c7c17d888d0ccf94cd3625767462.
+
+    VT_WAITEVENT is racy unfortunately, since events that happen
+    between the
+    time we woke up from a VT_WAITEVENT and we go into the next
+    VT_WAITEVENT
+    are lost completely.
+
+ src/ck-vt-monitor.c | 58
+ +++++++++--------------------------------------------
+ 1 file changed, 9 insertions(+), 49 deletions(-)
+
+commit e74c174728bfa582d8187392bdbc11fe940c2df3
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Wed Nov 17 00:45:40 2010 +0100
+
+    systemd: simplify unit files a little
+
+ data/console-kit-log-system-restart.service.in | 6 +++---
+ data/console-kit-log-system-start.service.in   | 6 +++---
+ data/console-kit-log-system-stop.service.in    | 6 +++---
+ 3 files changed, 9 insertions(+), 9 deletions(-)
+
+commit 8564260aa0a2ab18f908079f886f7689844bfad5
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Wed Nov 17 00:45:16 2010 +0100
+
+    systemd: log shutdown when doing kexec reboot
+
+ data/Makefile.am | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+commit 25b5d47b961542ceca5f589cc69041b2d941c054
+Author: Michael Biebl <biebl@debian.org>
+Date:   Sun Sep 19 21:17:26 2010 +0200
+
+    dbus: bump dependency on dbus-glib to 0.82
+
+    dbus-glib >= 0.82 requires dbus >= 1.1 so we can safely remove
+    DBUS_API_SUBJECT_TO_CHANGE.
+
+ configure.ac            | 2 +-
+ src/ck-manager.c        | 1 -
+ src/ck-seat.c           | 1 -
+ src/ck-session-leader.c | 1 -
+ src/ck-session.c        | 1 -
+ src/ck-vt-monitor.c     | 1 -
+ src/main.c              | 1 -
+ tools/list-sessions.c   | 1 -
+ 8 files changed, 1 insertion(+), 8 deletions(-)
+
+commit 24dc214f55e7c7c17d888d0ccf94cd3625767462
+Author: Michael Biebl <biebl@debian.org>
+Date:   Mon Sep 20 00:45:16 2010 +0200
+
+    linux: Check for VT_WAITEVENT ioctl during runtime
+
+    Since 2782cc8d4950effbc4407455e72bd4750cef6e11 ConsoleKit fails, if it
+    has been compiled on a linux kernel >= 2.6.32 but is run with an older
+    kernel. Check for VT_WAITEVENT ioctl during runtime and fallback
+    to the
+    old behaviour of creating a thread for every possible vt.
+
+ src/ck-vt-monitor.c | 58
+ ++++++++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 49 insertions(+), 9 deletions(-)
+
+commit 2d16bc565247b8d8653e7eb4a7a6b0d940142bb6
+Author: Michael Biebl <biebl@debian.org>
+Date:   Mon Sep 6 22:52:25 2010 +0200
+
+    build-sys: Bump GLIB_REQUIRED_VERSION to 2.14 for GRegex
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=30041
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 95ba1f7d70251830cf1dc0e0516ea0a4715272df
+Author: Luca Favatella <slackydeb@gmail.com>
+Date:   Mon Sep 20 00:13:33 2010 +0200
+
+    build-sys: extend configure check for kfreebsd
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=30051
+    http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=511270
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit c163d26a97f4f69422ec4ea0cfe4c7e211d824c1
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Tue Sep 14 01:08:06 2010 +0200
+
+    systemd: make sure the file system is writable before we write
+    log data
+
+ data/console-kit-log-system-restart.service.in | 3 ++-
+ data/console-kit-log-system-start.service.in   | 3 ++-
+ data/console-kit-log-system-stop.service.in    | 3 ++-
+ 3 files changed, 6 insertions(+), 3 deletions(-)
+
+commit 146e68f5c39653ba5878c6f32b3700d7fbabf777
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Tue Sep 7 02:58:59 2010 +0200
+
+    post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 55803876769bd0903cb0efda597bfd5a657adb86
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Mon Sep 6 16:34:13 2010 +0200
+
+    systemd: keep around console-kit-log-system-start.service after it
+    was run to avoid that it can be triggered twice
+
+ data/console-kit-log-system-start.service.in | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 2782cc8d4950effbc4407455e72bd4750cef6e11
+Author: Kan-Ru Chen <koster@debian.org>
+Date:   Thu Aug 19 13:45:03 2010 +0800
+
+    linux: Use VT_WAITEVENT if available to avoid spawn too many threads
+
+    Starting from linux kernel 2.6.32 there is a new ioctl VT_WAITEVENT
+    which can monitor vt switches and return new vt number.
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=17720
+
+ NEWS                  |  1 +
+ src/ck-sysdeps-unix.c | 44 ++++++++++++++++++++++++++++++++++++++++++++
+ src/ck-sysdeps.h      |  2 ++
+ src/ck-vt-monitor.c   | 48
+ ++++++++++++++++++++++++++++++++++++++++--------
+ 4 files changed, 87 insertions(+), 8 deletions(-)
+
+commit 98e36b216189966f21259bb33f1a25290a9ab23e
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Sun Sep 5 23:28:45 2010 +0200
+
+    NEWS: update for 0.4.2
+
+ NEWS | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+commit afedbb80497e0a26f2026336943b1e37a8e696af
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Fri Sep 3 19:24:18 2010 +0200
+
+    systemd: install unit files for CK logging calls
+
+    This follows the basic scheme of the Upstart scripts we already ship
+
+ data/.gitignore                                |  3 ++
+ data/Makefile.am                               | 38
+ ++++++++++++++++++++++++--
+ data/console-kit-log-system-restart.service.in |  9 ++++++
+ data/console-kit-log-system-start.service.in   |  9 ++++++
+ data/console-kit-log-system-stop.service.in    |  9 ++++++
+ 5 files changed, 66 insertions(+), 2 deletions(-)
+
+commit 5a81bb666df3d8469d282e63d452ac2dea96b313
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Wed Jul 21 16:55:44 2010 +0200
+
+    systemd: install systemd unit files
+
+ Makefile.am                                |  3 +++
+ configure.ac                               |  9 +++++++++
+ data/.gitignore                            |  1 +
+ data/Makefile.am                           | 12 +++++++++++-
+ data/console-kit-daemon.service.in         | 15 +++++++++++++++
+ data/org.freedesktop.ConsoleKit.service.in |  1 +
+ 6 files changed, 40 insertions(+), 1 deletion(-)
+
+commit 30f0968b9a7f544d1afc8908888dc403be6112b8
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Tue Aug 3 15:26:58 2010 -0400
+
+    Only load seat files with a .seat extension
+
+ src/ck-manager.c | 10 ++++++----
+ src/ck-seat.c    |  2 ++
+ 2 files changed, 8 insertions(+), 4 deletions(-)
+
+commit 7b9212fa6aff55420c58f2cacd0a941762920337
+Author: Anders Kaseorg <andersk@mit.edu>
+Date:   Tue Aug 3 15:07:39 2010 -0400
+
+    Fix a few memory leaks
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=26227
+
+ src/ck-manager.c | 7 +++++++
+ src/ck-session.c | 3 ++-
+ 2 files changed, 9 insertions(+), 1 deletion(-)
+
+commit 4f88228f31a63c026c424a92827f26ad7535275c
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Thu Jun 3 20:02:35 2010 -0400
+
+    Only set sessions to be is-local=true if set by a trusted party
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=28377
+
+ src/ck-manager.c                | 166
+ +++++++++++++++++++++++++++++++++++++++-
+ tools/ck-collect-session-info.c |  10 +--
+ 2 files changed, 165 insertions(+), 11 deletions(-)
+
+commit c9f2292339540d4b9d8940bcef16b7485480c8d9
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Fri Jun 11 15:53:22 2010 -0400
+
+    Add a --since option to show entries in a time window
+
+    Doesn't load any history files it doesn't need to which should
+    help performance on systems with long histories.
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=25660
+
+ tools/ck-history.c | 96
+ +++++++++++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 74 insertions(+), 22 deletions(-)
+
+commit b8a961f91105df661957f6b86922f744bac8b91c
+Author: Halton Huo <halton.huo@sun.com>
+Date:   Wed May 19 12:46:25 2010 +0800
+
+    Enhancement CanActivateSessions for OpenSolaris.
+
+    VT switching is always enabled on Linux, but for OpenSolaris VT
+    switching
+    can be truned of by 'svcadm disable vtdaemon'. So we should also check
+    whether the service vtdaemon is online on OpenSolaris.
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=26055
+
+ src/Makefile.am          |  1 +
+ src/ck-sysdeps-freebsd.c |  6 ++++++
+ src/ck-sysdeps-linux.c   |  6 ++++++
+ src/ck-sysdeps-solaris.c | 18 ++++++++++++++++++
+ src/ck-sysdeps.h         |  1 +
+ 5 files changed, 32 insertions(+)
+
+commit 9f7ded3fb41f7f656895373463e5aa3ca04f86bc
+Author: Halton Huo <halton.huo@sun.com>
+Date:   Thu May 20 10:48:09 2010 +0800
+
+    Revert "Enhancement CanActivateSessions for OpenSolaris."
+
+    This reverts commit b2e65a0ab7f4c417c85433e3e9bf97befbe6da3b.
+
+ configure.ac    | 13 -------------
+ src/Makefile.am |  1 -
+ src/ck-seat.c   | 26 +-------------------------
+ 3 files changed, 1 insertion(+), 39 deletions(-)
+
+commit b2e65a0ab7f4c417c85433e3e9bf97befbe6da3b
+Author: Halton Huo <halton.huo@sun.com>
+Date:   Fri Jan 15 14:06:32 2010 +0800
+
+    Enhancement CanActivateSessions for OpenSolaris.
+
+    VT switching is always enabled on Linux, but for OpenSolaris VT
+    switching
+    can be truned of by 'svcadm disable vtdaemon'. So we should also check
+    whether the service vtdaemon is online on OpenSolaris.
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=26055
+
+ configure.ac    | 13 +++++++++++++
+ src/Makefile.am |  1 +
+ src/ck-seat.c   | 26 +++++++++++++++++++++++++-
+ 3 files changed, 39 insertions(+), 1 deletion(-)
+
+commit e7f3952632f077ff647e303bd08950085c293297
+Author: Frederic Crozat <fcrozat@mandriva.com>
+Date:   Fri Jan 29 06:43:29 2010 -0500
+
+    format not a string literal and no format arguments
+
+    Fixes http://bugs.freedesktop.org/show_bug.cgi?id=24152
+
+ src/ck-log-event.c | 16 ++++++++--------
+ src/main.c         |  2 +-
+ 2 files changed, 9 insertions(+), 9 deletions(-)
+
+commit 42315147af68f5e64f86d794061e8c03e2b8dc01
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Thu Jan 28 18:24:49 2010 -0500
+
+    Use the correct property ID for idle-hint
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=25703
+
+ src/ck-session.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit f01e054a419d7aaf10c1da321bfbff554ffc3c54
+Author: Michael Biebl <mbiebl@gmail.com>
+Date:   Thu Jan 28 18:11:54 2010 -0500
+
+    Don't segfault if the seats file is invalid.
+
+    http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=561106
+
+ src/ck-manager.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 2418840248f07025ad0edc96ed17e03ce5e47f3e
+Author: Ray Strode <rstrode@redhat.com>
+Date:   Mon Dec 21 11:14:54 2009 -0500
+
+    Don't take bus name until ready
+
+    Previously, we would take a bus name right away, but
+    not register the manager object until later.  This
+    causes a race when being activated by a method call
+    on the manager object, where ConsoleKit gets started
+    but the method call fails.
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=25744
+
+ src/main.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+commit fc2870a65f6b3ed3b71bcac69c5faf3a9c759c64
+Author: Matthias Clasen <mclasen@redhat.com>
+Date:   Mon Dec 21 11:13:23 2009 -0500
+
+    Don't daemonize when activated
+
+    It confuses some versions of D-Bus and isn't needed
+    (or wanted it).
+
+    http://bugs.freedesktop.org/show_bug.cgi?id=25642
+
+ data/org.freedesktop.ConsoleKit.service.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 48b4b2d1174db98ee87ea4e71f4a21221043ca3f
+Author: Halton Huo <halton.huo@sun.com>
+Date:   Tue Nov 10 14:38:29 2009 +0800
+
+    Implement CanRestart and CanStop interfaces on Solaris.
+
+    Fixes http://bugs.freedesktop.org/show_bug.cgi?id=24992
+
+ src/ck-manager.c | 31 ++++++++++++++++++++++---------
+ 1 file changed, 22 insertions(+), 9 deletions(-)
+
+commit 42a909bbc8ede5c27e3d40606a98ab1251511dfc
+Author: Halton Huo <halton.huo@sun.com>
+Date:   Tue Nov 3 11:42:07 2009 +0800
+
+    Identify major device number for vt rather than hard code as 15.
+    Fixes bug http://defect.opensolaris.org/bz/show_bug.cgi?id=12322
+    This is solaris only bug, won't affect other platform.
+
+ src/ck-sysdeps-solaris.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
+
+commit b00450b3f9284d997e2e25fd470e7df7336f03ec
+Author: Halton Huo <halton.huo@sun.com>
+Date:   Fri Oct 16 11:10:37 2009 +0800
+
+    Fix bug console-kit-daemon exit when receiving  SIGPOLL on Solaris.
+    Refer to bug http://defect.opensolaris.org/bz/show_bug.cgi?id=11612
+
+ src/ck-vt-monitor.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 909bb5d08a50384ae2a521b80768c283363dbb86
+Author: Halton Huo <halton.huo@sun.com>
+Date:   Fri Oct 16 11:09:58 2009 +0800
+
+    Correct tty return value after VT support is integrated in Solaris.
+
+ src/ck-sysdeps-solaris.c | 19 -------------------
+ 1 file changed, 19 deletions(-)
+
+commit 4661908c6dc7964c87f698edc7bbeb30ab37c986
+Author: Ray Strode <rstrode@redhat.com>
+Date:   Fri Sep 25 15:33:23 2009 -0400
+
+    Turn on silent build by default
+
+    It's all the rage these days and makes seeing warnings much
+    easier.
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 3719fa53557d39d9b8a024d1cc7542ab6f9981d6
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Thu Sep 24 02:34:31 2009 -0400
+
+    fix style
+
+ src/ck-seat.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
+
+commit f40de949f72bb0da2c64776fdda039a855ea0374
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Thu Sep 24 02:31:49 2009 -0400
+
+    post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 9ddc8aa9549425ead3bfeb2dc22f0c07ddca7718
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Thu Sep 24 02:29:46 2009 -0400
+
+    Another?  So soon?
+
+ NEWS | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+commit 6bc4a3bf403acb762dfaa0cf4eb8288b73e6aa2d
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Thu Sep 24 02:15:59 2009 -0400
+
+    Fix a crasher
+
+ src/ck-seat.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit d9f4838baff87ad39f1726200e1b0812b7813808
+Author: Matthias Clasen <mclasen@redhat.com>
+Date:   Thu Sep 24 01:11:16 2009 -0400
+
+    fix a small memory leak
+
+ src/ck-manager.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+commit 76fba3d10411fc62a89d636ec2592cdf8015fbb2
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Thu Sep 24 01:06:07 2009 -0400
+
+    update email address
+
+ doc/dbus/ConsoleKit.xml.in | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit 2f5a8a128ac423d444882bbed5d186bc7e0d3188
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Thu Sep 24 00:47:04 2009 -0400
+
+    post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit bf1adae39b41009a54b91389b0d625fd81fdb39c
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Thu Sep 24 00:45:46 2009 -0400
+
+    Update for release
+
+ .gitignore          |  3 ++-
+ NEWS                | 18 +++++++++++++++++-
+ doc/dbus/.gitignore |  1 +
+ 3 files changed, 20 insertions(+), 2 deletions(-)
+
+commit ca74581668475c69fba6b5ccc1be453c8cdde8e9
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Thu Sep 24 00:27:15 2009 -0400
+
+    bump version before new release
+
+ AUTHORS      | 2 +-
+ configure.ac | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit ee7f189f604d2a976ab0861e11e902755c2ea6ae
+Author: Halton Huo <halton.huo@sun.com>
+Date:   Mon Sep 14 20:26:36 2009 -0400
+
+    close file descriptors before exit func
+
+    This bug is copied from
+    http://defect.opensolaris.org/bz/show_bug.cgi?id=10291.
+    The patch is attached, Please review it.
+
+    Fixes https://bugs.freedesktop.org/show_bug.cgi?id=22986
+
+ src/ck-sysdeps-solaris.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 528ff2ceb4efd5db89e5e677517c6c487deb196a
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Mon Sep 14 20:14:41 2009 -0400
+
+    log the kernel release and boot arguments at start time
+
+    Someone needs to add support for non-Linux platforms.
+
+    Fixes https://bugs.freedesktop.org/show_bug.cgi?id=23948
+
+ src/ck-log-event.c          | 42
+ +++++++++++++++++++++++++++++++++++++++++-
+ src/ck-log-event.h          |  3 ++-
+ tools/ck-history.c          |  5 ++---
+ tools/ck-log-system-start.c | 32 ++++++++++++++++++++++++++++++++
+ 4 files changed, 77 insertions(+), 5 deletions(-)
+
+commit 85cfd65a204477e22b258b01d29ab78503074290
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Mon Sep 14 18:18:41 2009 -0400
+
+    show display in host field if the host isn't set
+
+    This is consistent with how we write the wtmp records in GDM.
+    https://bugs.freedesktop.org/show_bug.cgi?id=23944
+
+ tools/ck-history.c | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
+
+commit 725e76c91823ee01729890ac1fe71a97754512e4
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Mon Sep 14 17:12:07 2009 -0400
+
+    print the uptime for the reboot items in the report
+
+    Fixes https://bugs.freedesktop.org/show_bug.cgi?id=23279
+
+ tools/ck-history.c | 41 +++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 39 insertions(+), 2 deletions(-)
+
+commit 3afb5dc9c0a8ee8e1259fea6bd4b6d5fdede2d5f
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Mon Sep 14 16:08:16 2009 -0400
+
+    fix logic for finding session remove events
+
+    The logic is supposed to find any type of removal event.  This can
+    be one of CK_LOG_EVENT_SEAT_SESSION_REMOVED,
+    CK_LOG_EVENT_SYSTEM_START,
+    CK_LOG_EVENT_SYSTEM_STOP, or CK_LOG_EVENT_SYSTEM_RESTART.
+
+    This is used to determine if the removal was normal or
+    RECORD_STATUS_CRASH,
+    or RECORD_STATUS_DOWN.  And indicated in the report log as something
+    like:
+
+    "Thu Sep  3 21:28 - down   (20:20)"
+
+ tools/ck-history.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit 81435b3d10d4b124c0a6b4649b4cf74378a26323
+Author: William Jon McCann <jmccann@redhat.com>
+Date:   Mon Sep 14 15:54:33 2009 -0400
+
+    fix a few small leaks
+
+    Fixes https://bugs.freedesktop.org/show_bug.cgi?id=23939
+
+ src/ck-seat.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+commit b4f893eb294883909759fc9fd825eade1a9f308c
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Tue Aug 11 04:02:33 2009 +0200
+
+    Add seat.d/ callout directory and guarantee we dump the database
+    before callout invocation
+
+    This adds a callout directory called seat.d/ that follows the basic
+    session.d/ semantics but works on seats instead of sessions.
+
+    As replacement for the old session.d/ 'session_active_changed'
+    semantics seat.d/ knows 'seat_active_session_changed'. Which combines
+    the two callouts necessary for session_active_changed into one. This
+    has
+    various advantages: it's not as racy, allows the suppressing of ACL
+    permission changes when switching between sessions of the same user,
+    reduces the amount of disk IO and finally is less ugly.
+
+    This patch also moves all callout invocations into the CkManager.
+    This
+    has the advantage that we can guarantee to have fully dumped the CK
+    database before the callout.
+
+    In summary, the session.d/ directory will now get two types of callout
+    invocations:
+
+	session_added
+	session_removed
+
+    In contrast, seat.d/ gets three types:
+
+	seat_added
+	seat_removed
+	seat_active_session_changed
+
+    The 'seat_active_session_changed' callout type gets two sets of
+    environment variables describing the old resp. the new session that is
+    active. Either set can be left out if no session was active before, or
+    no session will be active after the switch. This is similar to
+    the logic
+    behind D-Bus' NameOwnerChanged.
+
+    This patch duplicates CkSeat's 'session-removed' signal into
+    'session-removed-full' (and friends). Reason for that is that
+    the signal
+    forwarded via D-Bus needs the session id as string while the callout
+    code needs the session itself as object. Since at the time of
+    invocation
+    the CkSeat is no longer in the seats hashtable it is hence necessary
+    to
+    pass the object in as argument to the signal handlers, which
+    makes this
+    duplification necessary to not confuse dbus-glib. For a similar reason
+    'active-session-changed' is duplicated as well.
+
+ src/Makefile.am     |	 2 +
+ src/ck-manager.c    |	56 +++++++++++++-----
+ src/ck-marshal.list |	 1 +
+ src/ck-seat.c	     | 161
+ ++++++++++++++++++++++++++++++++++++++++++++++++----
+ src/ck-seat.h	     |	 5 ++
+ 5 files changed, 200 insertions(+), 25 deletions(-)
+
+commit 76f0578e7a497e569438316703df254f84b548a0
+Author: Lennart Poettering <lennart@poettering.net>
+Date:	Tue Aug 11 03:57:27 2009 +0200
+
+    get rid of session.d's session_active_changed callout
+
+    The 'session_active_changed' callout is an invitaton to racy misuses
+    since it splits up the session switches into two events. This
+    patch gets
+    rid of it.
+
+    At this point there are two known users of the session.d/ callouts:
+
+      - Suse/Ubuntu ship a script for emulating pam_atconsole style
+	/var/run/console management for supporting D-Bus' at_console
+	feature
+	properly. Both Martin Pitt and Kay Sievers however are happy with
+	having this feature go away. In addition I prepared a patch for
+	D-Bus which makes the need for these scripts go away
+	entirely. That
+	patch is currently awaiting review.
+
+      - udev's udev-acl tool currently uses this. However this doesn't
+      work
+	correctly anyway since it relies on that the CK database is
+	correctly
+	dumped before the tool is invoked, which CK does not handle
+	properly
+	at this time. In fact fixing this problem is the main reason why I
+	came up with this patch series. Kay is also very interested in
+	seeing the 'session_active_changed' logic go away.
+
+    A later commit introduces a replacement functionality that is
+    less racy.
+
+    Please note that this patch does not drop session.d/ in its entirety.
+    Only the 'session_active_changed' type callout is removed. Scripts
+    that
+    only rely on 'session_added'/'session_removed' will continue to work
+    fine, and will continue to be supported.
+
+ NEWS		  | 8 +++++++-
+ src/ck-session.c | 2 --
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+commit 8535db29009c48a37fc2559ca0fcc5b366e1e122
+Author: Lennart Poettering <lennart@poettering.net>
+Date:	Mon Jul 27 18:16:15 2009 +0200
+
+    database: write the console database to disk before signalling
+    via dbus
+
+    We simply change the order how the signal handlers for D-Bus and the
+    database dumping are registered. According to the gobject docs it is
+    guaranteed that the signal handlers are run in the same order as they
+    are registered, so this should be safe and have the desired effect.
+
+ src/ck-manager.c | 29 +++++++++++++++++++----------
+ src/ck-seat.c	  | 19 ++-----------------
+ src/ck-seat.h	  |  2 ++
+ 3 files changed, 23 insertions(+), 27 deletions(-)
+
+commit 17fe9ecafedffde111fd0ac95d5688bf5a330972
+Author: Lennart Poettering <lennart@poettering.net>
+Date:	Tue Aug 11 03:58:45 2009 +0200
+
+    Enforce that the env array has the right size
+
+    Hit an assert if folks add env vars but don't increase the env
+    var array
+    size.
+
+ src/ck-session.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 90ddcd8249e81341ec05fdb508b6768684ce178b
+Author: Lennart Poettering <lennart@poettering.net>
+Date:	Tue Aug 11 04:01:09 2009 +0200
+
+    when printing size_t use %z format string
+
+ src/ck-seat.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 242971667b66fea86d4cfb5a4d0a396e5a7b5e8b
+Author: Lennart Poettering <lennart@poettering.net>
+Date:	Tue Aug 11 03:54:57 2009 +0200
+
+    make CK database world readable
+
+    The CK database shall be readable by the D-Bus daemon which runs under
+    its own user id hence make sure it is readable for non-root processes.
+
+    To make sure this leaks no information this drops the session cookie
+    from the database.
+
+ src/ck-manager.c	 | 2 +-
+ src/ck-session-leader.c | 1 -
+ src/ck-session.c	 | 4 ----
+ 3 files changed, 1 insertion(+), 6 deletions(-)
+
+commit 6d4959b9a573c55fe56bbaf2394f492384f19c67
+Author: Lennart Poettering <lennart@poettering.net>
+Date:	Tue Aug 11 03:56:48 2009 +0200
+
+    get rid of ck_seat_set_active_session() prototype since no such
+    function exists
+
+ src/ck-seat.h | 3 ---
+ 1 file changed, 3 deletions(-)
+
+commit d4c986776d0626fc5e1d6d67232a312f9ec6ad75
+Author: Lennart Poettering <lennart@poettering.net>
+Date:	Tue Aug 11 03:53:40 2009 +0200
+
+    Move ck_session_run_programs() from ck-run-programs.h to ck-session.h
+
+    It's a method of CkSession hence it belongs in ck-session.h
+
+ src/ck-run-programs.h | 3 ---
+ src/ck-session.h      | 3 +++
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+commit ced836b356bd3235c69754e82fe8510ee377d58c
+Author: Ray Strode <rstrode@redhat.com>
+Date:	Wed Jul 22 16:54:01 2009 -0400
+
+    post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit a727d971f3dffc98bae043b69a95e02d3ab3eb88
+Author: Ray Strode <rstrode@redhat.com>
+Date:	Wed Jul 22 15:13:40 2009 -0400
+
+    Fix example upstart system start script
+
+    It was trying to write the log message way too early,
+    before the root filesystem was mounted.
+
+ NEWS			  | 2 +-
+ data/ck-log-system-start | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 0f5a014b1e722998e85a3e8482a1cc7654066b8f
+Author: Ray Strode <rstrode@redhat.com>
+Date:	Tue Jul 21 11:00:52 2009 -0400
+
+    Update NEWS for 0.3.1 release
+
+ NEWS | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+commit 671d3100d48af77eb03b79c73d20e7a4611339df
+Author: Ray Strode <rstrode@redhat.com>
+Date:	Tue Jul 21 10:38:26 2009 -0400
+
+    Reference entities relative to srcdir not cwd
+
+    The docs were failing to build when srcdir != builddir
+    because ConsoleKit.xml was ending up in builddir and
+    all its entities are in srcdir.
+
+    This commit makes ConsoleKit.xml load the entities from
+    srcdir, which fixes make distcheck.
+
+ doc/dbus/ConsoleKit.xml.in | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+commit bf40cd1b17e0bb55c606301f7d8ed65ae6791e54
+Author: Ray Strode <rstrode@redhat.com>
+Date:	Tue Jul 21 10:07:49 2009 -0400
+
+    Call "git log" instead of "git-log" in Makefile
+
+    git-log (with a hyphen) is an obsolete way to call
+    git log.
+
+ Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 23ab6a2ef30fb6fb56f33ac44ecda5887d2b1f94
+Author: Martin Pitt <martin.pitt@ubuntu.com>
+Date:	Mon Jul 20 17:09:36 2009 -0400
+
+    Add CanStop/Restart to D-Bus security policy
+
+    This change is necessarily following commit:
+
+    e0d9cc359b3099307067107b59ec691418e280b8
+
+ data/ConsoleKit.conf | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit 89b9256ad86ddc2a9fd12d3359bc431df45c6b25
+Author: Matthias Clasen <mclasen@redhat.com>
+Date:	Mon Jul 20 17:08:23 2009 -0400
+
+    Port to PolicyKit 1.0 apis
+
+ configure.ac				    |	5 +-
+ data/Makefile.am			    |	2 +-
+ data/org.freedesktop.consolekit.policy     |	4 +-
+ src/ck-manager.c			    | 673
+ +++++++++--------------------
+ src/ck-manager.h			    |	5 +
+ src/org.freedesktop.ConsoleKit.Manager.xml |  10 +
+ 6 files changed, 226 insertions(+), 473 deletions(-)
+
+commit 282c47eb102f839cbf3bee646ba2841362284760
+Author: Ray Strode <rstrode@redhat.com>
+Date:	Mon Jul 20 16:37:45 2009 -0400
+
+    Get VT from X display if no controlling tty
+
+    In some cases a controlling tty won't be able available to
+    peek at to find the VT of the X display.  In those cases,
+    we fall back to looking at the XFree86_VT property.
+
+    We can do this because we know the display is a local display
+    since we've already gotten peer credentials from its socket.
+
+ tools/ck-get-x11-display-device.c | 72
+ +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 72 insertions(+)
+
+commit bcc18427eec07139c9d907ac3995f2c157a7c715
+Author: Halton Huo <halton.huo@sun.com>
+Date:	Mon Jul 20 16:29:46 2009 -0400
+
+    Fix connector build on Solaris
+
+    Solaris now builds with flags to give getpwnam_r
+    more standard semantics.
+
+    bug 22361
+
+ pam-ck-connector/pam-ck-connector.c | 7 -------
+ 1 file changed, 7 deletions(-)
+
+commit bb5c86f61775039dca779959eb5822cb1d453bbd
+Author: Vincent Untz <vuntz@gnome.org>
+Date:	Mon Jul 20 16:22:43 2009 -0400
+
+    Allow GetSessions to get called
+
+    The manager interface GetSessions function was
+    disallowed by the dbus security policy, despite only
+    exporting information that's available in other ways.
+
+    This commit opens it up.
+
+    See http://bugs.freedesktop.org/show_bug.cgi?id=20471
+
+ data/ConsoleKit.conf | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 0f5390165fd68322d077e13d828af8f32fc09327
+Author: Matthias Clasen <mclasen@redhat.com>
+Date:	Thu Jul 16 17:19:30 2009 -0400
+
+    avoid a (harmless) warning message
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=21310
+
+ src/ck-manager.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit cbfd9578d73f93e47b282bdf4e298067c4a9bf79
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Thu Jul 16 17:15:14 2009 -0400
+
+    fix a bunch of xml validation errors
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=20232
+
+ configure.ac				    |  3 ++
+ doc/dbus/Makefile.am			    |  5 ++-
+ doc/dbus/ck-design.xml			    | 58 ++++++++++++------------
+ doc/dbus/spec-to-docbook.xsl		    | 72
+ +++++++++++++++++-------------
+ src/org.freedesktop.ConsoleKit.Manager.xml |  2 +-
+ src/org.freedesktop.ConsoleKit.Seat.xml    |  5 ++-
+ 6 files changed, 82 insertions(+), 63 deletions(-)
+
+commit 25145f35ab527a2219604e1710eb65e2178f6978
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Thu Feb 12 14:59:15 2009 -0500
+
+    fix parsing log entries with no body
+
+ src/ck-log-event.c | 25 +++++++++++++++++--------
+ 1 file changed, 17 insertions(+), 8 deletions(-)
+
+commit b550333228b73bb3ed4a55ec74baade1bdded0ff
+Author: Daniel Macks <dmacks@netspace.org>
+Date:	Wed Feb 11 21:56:55 2009 -0500
+
+    clearer diagnostic if platform back-end isn't implemented
+
+    Error if no backend for target host
+
+ configure.ac | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 87703597e24ba94c400ac8878a6835d86571da91
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Feb 11 21:51:41 2009 -0500
+
+    parse gecos field to get real name
+
+ tools/list-sessions.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+commit 739b39203166eda0174672541a06ceeb182b6ed3
+Author: James Westby <jw+debian@jameswestby.net>
+Date:	Wed Feb 11 21:39:46 2009 -0500
+
+    don't leak dbus proxy
+
+ src/ck-session.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit fef7d6f777b017878ba225395fe4199af5f1c581
+Author: Halton Huo <halton.huo@sun.com>
+Date:	Wed Feb 11 20:39:18 2009 -0500
+
+    fix building with Solaris PAM
+
+    This patch is a little different with Brian's. Let's me explain the
+    whole patch
+    one by one.
+
+    1. pam-ck-connector/Makefile.am (same with Brian's)
+       Solaris does not have libpam_misc, so only build test_pam under
+       linux
+
+    2. +#include <limits.h>
+       This is to get macro PATH_MAX from system. I think it is better
+       than
+    +#ifndef PATH_MAX
+    +#define PATH_MAX 4096
+    +#endif
+       On ubuntu, PATH_MAX=4096, on Solaris, PATH_MAX=1024
+
+    3. +#include <security/pam_appl.h>
+       This is to include declaration of pam_handle_t, to resolve
+       error like:
+    "/usr/include/security/pam_modules.h", line 38: syntax error before
+    or at: *
+    "/usr/include/security/pam_modules.h", line 45: syntax error before
+    or at: *
+
+    4.-#include <security/_pam_macros.h>
+      Solaris does not have this file, I remove it, no more error,
+      seems no use
+    here.
+
+    5. +#ifndef PAM_EXTERN ... part
+      Solaris PAM_EXTERN marco in pam_modules.h, while Ubuntu has,
+      I just copy the
+    logic from Ubuntu.
+
+    6. getpwnam_r part (same with Brian's)
+       getpwnam_r() have difference behavior between Solaris and Ubuntu.
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=18173
+
+ pam-ck-connector/Makefile.am	     |	2 ++
+ pam-ck-connector/pam-ck-connector.c | 18 +++++++++++++++++-
+ 2 files changed, 19 insertions(+), 1 deletion(-)
+
+commit da3a3fe00ad4c4e750e467db58d383ebf4da978f
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Feb 11 20:30:50 2009 -0500
+
+    fix zero-sized struct/union
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=18149
+
+ src/ck-log-event.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 2ca61880db1da2b15fe83d0fe94b95245ace77b0
+Author: James Westby <jw+debian@jameswestby.net>
+Date:	Wed Feb 11 20:18:24 2009 -0500
+
+    serialize removals, and avoid using freed data caused by removals
+
+    I changed the code to also loop through watch->notifies when
+    removing the watch due to inotify, and NULL each notify->watch
+    reference, the code then checks this before trying to delete
+    the watch itself if asked to remove the notify.
+
+    In order to prevent other race conditions in this area I also
+    made the inotify code not pass a watch to emit_events_in_idle,
+    as the watch may get freed in the meantime. It instead passes
+    the wd and the emit loop looks up the watch, discarding the
+    event if the watch has been removed.
+
+    I did however leave in the code that checks for a removed watch
+    before doing anything with inotify, as I hoped that this would
+    just optimise this case.
+
+ src/ck-file-monitor-inotify.c | 126
+ +++++++++++++++++++++++++++++++-----------
+ 1 file changed, 94 insertions(+), 32 deletions(-)
+
+commit 1ddd056da19a9e99b10601a557ebbcaf101d0de9
+Author: Steve Langasek <steve.langasek@canonical.com>
+Date:	Wed Feb 11 18:36:34 2009 -0500
+
+    close directory to fix leak
+
+    Chris Jones observed that console-kit-daemon had open a large
+    number of
+    redundant file descriptors, pointing to /etc/ConsoleKit/run-session.d
+    and
+    /usr/lib/ConsoleKit/run-session.d.	It turns out that
+    ck_run_programs() doesn't
+    close the directory handles after iterating, resulting in a fd leak
+    and a small
+    memory leak.
+
+    The attached patch corrects this.
+
+ src/ck-run-programs.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit a00c329d81be8691e13915ed36f5053bd0f820f3
+Author: Martin Pitt <martin.pitt@ubuntu.com>
+Date:	Wed Feb 11 16:30:34 2009 -0500
+
+    add "nox11" option to the PAM module
+
+    Ignores PAM sessions where PAM_TTY is an X11 display. This allows
+    adding
+    pam_ck_connector to PAM's "common-session" without interfering
+    with the already existing ConsoleKit operations in gdm, the
+    Xsession script, etc.
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=16746
+
+ pam-ck-connector/pam-ck-connector.c | 7 +++++++
+ pam-ck-connector/pam_ck_connector.8 | 4 ++++
+ 2 files changed, 11 insertions(+)
+
+commit 946c2daf3f654475e767ae98e52cbcd69e2c3320
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Feb 11 16:06:04 2009 -0500
+
+    add example upstart events for logging
+
+    These can be used to add system start/stop/restart logging
+    but hooking into Upstart event mechanism.
+
+ data/Makefile.am	    | 3 +++
+ data/ck-log-system-restart | 8 ++++++++
+ data/ck-log-system-start   | 8 ++++++++
+ data/ck-log-system-stop    | 8 ++++++++
+ 4 files changed, 27 insertions(+)
+
+commit e0d9cc359b3099307067107b59ec691418e280b8
+Author: Colin Walters <walters@verbum.org>
+Date:	Sun Jan 18 13:06:37 2009 -0500
+
+    fix up D-Bus permissions
+
+ data/ConsoleKit.conf | 120
+ ++++++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 80 insertions(+), 40 deletions(-)
+
+commit 6ef0f62dc8b41c6904099c2d2836747da38d69df
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Thu Oct 2 14:18:16 2008 -0400
+
+    check the result of the fchown call
+
+ src/ck-event-logger.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+commit a58a4bff451dcf8a6019aed1b2fb276e9836b0f4
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Thu Oct 2 14:15:10 2008 -0400
+
+    don't close the log file fd twice
+
+    Fixes #17866
+
+ src/ck-event-logger.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+commit 35794ece08bc678a537d0c2a680b79f9232dfe36
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Thu Oct 2 13:56:58 2008 -0400
+
+    fix typo
+
+    Fixes #17741
+
+ libck-connector/ck-connector.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit f0fb2d1cfd0f0ea3ad922175e895a9e751498a03
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Aug 20 19:48:08 2008 -0400
+
+    allow calling method SetIdleHint by default
+
+ data/ConsoleKit.conf | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit cb445f89d64d2171c1050dbf8ba1280f2260bc9c
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Jul 30 20:56:43 2008 -0400
+
+    post release bump again
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 9555166f23499642b64b247bd7106287c5b415c2
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Jul 30 20:56:22 2008 -0400
+
+    undo
+
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 6e26aa3e9ae08b4c35539100d1605cd7c3f29a25
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Jul 30 20:55:28 2008 -0400
+
+    post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 129efd6638cab89a3bc75a2b5f252e613a30163d
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Jul 30 20:38:21 2008 -0400
+
+    update for 0.3.0 release
+
+ NEWS		  | 42 ++++++++++++++++++++++++++++++++++++++++++
+ configure.ac	  |  2 +-
+ src/ck-session.c |  2 +-
+ 3 files changed, 44 insertions(+), 2 deletions(-)
+
+commit 456065f3f8d9ba785b0d2d9dc247fc9fb4fe9ba0
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Jul 30 18:06:31 2008 -0400
+
+    don't allow reboot if PolicyKit and RBAC are disabled
+
+ configure.ac	  | 11 ++++++++++-
+ src/ck-manager.c | 27 ++++++++++++++-------------
+ 2 files changed, 24 insertions(+), 14 deletions(-)
+
+commit 53d7c964bcdd29d6d22c4e78afe1ee5a2937bf95
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Jul 30 17:45:07 2008 -0400
+
+    fix path in includes
+
+ doc/dbus/ConsoleKit.xml.in | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+commit edad750e967458f55b9e761af966f325213ce9fe
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Jul 30 17:37:24 2008 -0400
+
+    reorganize the docs a bit
+
+ configure.ac			   |   4 +-
+ doc/.gitignore			   |   2 -
+ doc/ConsoleKit.xml.in		   |  74 ------
+ doc/Makefile.am		   |  41 +--
+ doc/config.xsl			   |   6 -
+ doc/dbus-introspect-docs.dtd	   |  32 ---
+ doc/dbus/.gitignore		   |   6 +
+ doc/dbus/ConsoleKit.xml.in	   |  74 ++++++
+ doc/dbus/Makefile.am		   |  46 ++++
+ doc/dbus/ck-design.xml		   | 180 +++++++++++++
+ doc/dbus/ck-introduction.xml	   |  28 ++
+ doc/dbus/ck-terms.xml		   |  67 +++++
+ doc/dbus/config.xsl		   |   6 +
+ doc/dbus/dbus-introspect-docs.dtd |  32 +++
+ doc/dbus/docbook.css		   |  78 ++++++
+ doc/dbus/spec-to-docbook.xsl	   | 543
+ ++++++++++++++++++++++++++++++++++++++
+ doc/docbook.css		   |  78 ------
+ doc/xml/Makefile.am		   |  20 --
+ doc/xml/ck-design.xml		   | 180 -------------
+ doc/xml/ck-introduction.xml	   |  28 --
+ doc/xml/ck-terms.xml		   |  67 -----
+ doc/xml/spec-to-docbook.xsl	   | 543
+ --------------------------------------
+ 22 files changed, 1063 insertions(+), 1072 deletions(-)
+
+commit 77fe8e2e89af7cd21357116e9668b23d958fb2a5
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Thu Jul 24 00:32:21 2008 -0400
+
+    pull updated DTD and xsl from DeviceKit-disks
+
+ doc/dbus-introspect-docs.dtd |   4 +-
+ doc/xml/spec-to-docbook.xsl  | 171
+ +++++++++++++++++++++++++++++++++++--------
+ 2 files changed, 141 insertions(+), 34 deletions(-)
+
+commit 3133a9ad1a1eb05ad6717d8ee8ede782b833ee67
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Thu Jul 24 00:18:32 2008 -0400
+
+    fix distcheck
+
+ doc/Makefile.am     | 1 +
+ doc/xml/Makefile.am | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+commit aad5b87b7e2f993aef418822d52d8dca5345fce5
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Thu Jul 24 00:06:57 2008 -0400
+
+    still having problems using xinclude
+
+ doc/ConsoleKit.xml.in | 23 ++++++++++++++++-------
+ doc/xml/Makefile.am   |  5 +----
+ 2 files changed, 17 insertions(+), 11 deletions(-)
+
+commit cda2111bd2a12fc246c6e7973ae7fae4ff779bca
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Jul 23 23:42:17 2008 -0400
+
+    fix the includes
+
+ doc/ConsoleKit.xml.in		  | 23 +++++++----------------
+ doc/dbus-introspect-docs.dtd	  | 32 ++++++++++++++++++++++++++++++++
+ doc/xml/Makefile.am		  |  6 +++---
+ doc/xml/dbus-introspect-docs.dtd | 32 --------------------------------
+ 4 files changed, 42 insertions(+), 51 deletions(-)
+
+commit 460d6c9e42e84d3d66bfcadfbaa77a0e059caae7
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Jul 23 23:31:48 2008 -0400
+
+    add missing bits
+
+ doc/Makefile.am     |	2 ++
+ doc/xml/Makefile.am | 23 +++++++++++++++++++++++
+ 2 files changed, 25 insertions(+)
+
+commit e54095996b9066120ebf20011eba199d25422c2f
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Jul 23 23:22:36 2008 -0400
+
+    use spec files directly as introspection xml and try to generate
+    docs on the fly
+
+    At one point we had to strip out the docs because dbus-glib didn't
+    support
+    unknown tags.  Apparently this is now fixed.  Also install the xml to
+    /usr/share/dbus-1/interfaces.
+
+ configure.ac				    |	6 +
+ doc/Makefile.am			    |	6 +-
+ doc/dbus-introspect-docs.dtd		    |  32 ---
+ doc/spec/ck-manager.xml		    | 343 -----------------------
+ doc/spec/ck-seat.xml			    | 163 -----------
+ doc/spec/ck-session.xml		    | 435
+ ----------------------------
+ doc/tools/spec-strip-docs		    |  34 ---
+ doc/tools/spec-strip-docs.xsl		    |  36 ---
+ doc/tools/spec-to-docbook		    |  34 ---
+ doc/tools/spec-to-docbook.xsl		    | 436
+ -----------------------------
+ doc/tools/update-from-spec		    |  25 --
+ doc/xml/dbus-introspect-docs.dtd	    |  32 +++
+ doc/xml/ref-ck-manager.xml		    | 199 -------------
+ doc/xml/ref-ck-seat.xml		    |  87 ------
+ doc/xml/ref-ck-session.xml		    | 258 -----------------
+ doc/xml/spec-to-docbook.xsl		    | 436
+ +++++++++++++++++++++++++++++
+ src/Makefile.am			    |  23 +-
+ src/ck-manager.xml			    |  70 -----
+ src/ck-seat.xml			    |  39 ---
+ src/ck-session.xml			    |  81 ------
+ src/org.freedesktop.ConsoleKit.Manager.xml | 343 +++++++++++++++++++++++
+ src/org.freedesktop.ConsoleKit.Seat.xml    | 163 +++++++++++
+ src/org.freedesktop.ConsoleKit.Session.xml | 435
+ ++++++++++++++++++++++++++++
+ 23 files changed, 1432 insertions(+), 2284 deletions(-)
+
+commit 34cefc96f7661ed92927bffa1cf7cbc79a84e5ab
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Tue Jul 22 18:28:06 2008 -0400
+
+    use object paths for seat added/removed signals per spec
+
+ src/ck-manager.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit 25546d381557f5da8dd8db54c857442193c5340b
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Tue Jul 22 17:23:59 2008 -0400
+
+    regenerate the docs and xml from the spec
+
+ doc/xml/ref-ck-session.xml | 6 +++++-
+ src/ck-session.xml	    | 3 +++
+ 2 files changed, 8 insertions(+), 1 deletion(-)
+
+commit f0dbc3ee0c8fb53f2b9eed000d72fb923a83a474
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Tue Jul 22 14:30:22 2008 -0400
+
+    add GetLoginSessionId to exported interface
+
+ doc/spec/ck-session.xml | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+commit e1cfb5cb97eee87ce34ba5ce586bf1e90f485874
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Tue Jul 22 14:29:54 2008 -0400
+
+    fix use of unix-user as int
+
+ tools/list-sessions.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+commit f757f22786dfa0bf034c5c1d66d47ecafc871606
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon Jul 21 16:48:21 2008 -0400
+
+    use fortify source flag when building from git
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 34291722aa95394b7470099394b936dfc70022eb
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon Jul 21 14:28:09 2008 -0400
+
+    fix location of scripts again
+
+ tools/linux/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit fa2bad04422d8c34974121cae68069a9e2d2e841
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon Jul 21 13:55:16 2008 -0400
+
+    dist bzip by default
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 8e6002b4bcf441e6a650d0adacf4a1eafe34cd54
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon Jul 21 13:50:55 2008 -0400
+
+    fix up signal definition
+
+ src/ck-seat.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit bab014f7f827c0d5306d029d08bf234b7a452282
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Jun 11 12:00:03 2008 -0400
+
+    fix UnixUser to be uint
+
+    Pointed out by Lennart Poettering
+
+ doc/spec/ck-session.xml    | 4 ++--
+ doc/xml/ref-ck-session.xml | 8 ++++----
+ src/ck-session.xml	    | 7 ++-----
+ 3 files changed, 8 insertions(+), 11 deletions(-)
+
+commit 25663a88377d76f9e722635bec96627ed0db4e43
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Jun 11 11:46:59 2008 -0400
+
+    use object paths instead of strings for signals
+
+    Pointed out by Lennart Poettering
+
+ src/ck-seat.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit dfcab49480565a7bcf71752c5b39eb367df81a19
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon May 5 15:12:39 2008 -0400
+
+    cleanly shutdown event logging thread
+
+ src/ck-event-logger.c | 28 +++++++++++++++++++++++++---
+ src/ck-log-event.h    |  8 +++++++-
+ 2 files changed, 32 insertions(+), 4 deletions(-)
+
+commit 844de7d4b6d29d57a5425dcc7d0d3f6d4b005311
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon May 5 14:20:25 2008 -0400
+
+    export login session id to the bus
+
+ data/ConsoleKit.conf	       |  2 ++
+ src/ck-manager.c	       |  9 +++++++++
+ src/ck-session.c	       |  2 +-
+ src/ck-session.h	       |  6 +++---
+ src/ck-session.xml	       |  3 +++
+ src/test-method-access-policy | 13 +++++++++++++
+ tools/list-sessions.c	       |  9 +++++++--
+ 7 files changed, 38 insertions(+), 6 deletions(-)
+
+commit 8ec523138671a8fe93748a0b75adaaca96e2392e
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon May 5 13:34:08 2008 -0400
+
+    exit with the bus now that we're activated by the bus
+
+ src/main.c | 65
+ ++++++++------------------------------------------------------
+ 1 file changed, 8 insertions(+), 57 deletions(-)
+
+commit c7116a525f643dead46873a81cf7a03bf5c54d55
+Author: David Zeuthen <davidz@redhat.com>
+Date:	Sun Apr 20 16:01:13 2008 -0400
+
+    allow retaining authorizations for {stop,restart}-multiple-users
+
+ data/org.freedesktop.consolekit.policy | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 5d62baaba55a1777b60284802d83d3e9befe60c9
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Sat Apr 19 01:28:27 2008 -0400
+
+    make sure to add all override parameters
+
+ src/ck-session-leader.c	       | 30 ++++++++++++++++++++++--------
+ src/test-open-session-with-parameters |  2 +-
+ 2 files changed, 23 insertions(+), 9 deletions(-)
+
+commit 5dbbfa91469135f59351cf3bffcf2d51b40f912f
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Sat Apr 19 01:05:42 2008 -0400
+
+    fix the script to work with recent dbus-python api changes
+
+ src/ck-job.c			       |  1 -
+ src/test-open-session-with-parameters | 20 ++++++++++----------
+ 2 files changed, 10 insertions(+), 11 deletions(-)
+
+commit fbb42449670f21cdeb7f0106fc617e276d7e229c
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Sat Apr 19 00:48:10 2008 -0400
+
+    always try to detect parameters for session
+
+    Treat the parameters passed in via OpenSessionWithParameters
+    as overrides.
+
+ src/ck-manager.c	 |  16 ++-----
+ src/ck-session-leader.c | 120
+ ++++++++++++++++++++++++++++++++++++++++++++++--
+ src/ck-session-leader.h |  63 +++++++++++++------------
+ src/ck-vt-monitor.c	 |   1 -
+ 4 files changed, 155 insertions(+), 45 deletions(-)
+
+commit e30bc7486fe4e872a7b91f1566bc2c880deb63b7
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Fri Apr 18 16:19:35 2008 -0400
+
+    oops one more place
+
+ tools/solaris/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 3c8db75b2ffdba1627a7030a4b57ce7ee8e474f2
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Fri Apr 18 16:11:59 2008 -0400
+
+    install scripts into $(prefix)/lib instead of $libdir
+
+    We don't want scripts going into lib64...
+
+ src/Makefile.am	   | 2 +-
+ src/ck-manager.c	   | 4 ++--
+ src/ck-session.c	   | 2 +-
+ tools/freebsd/Makefile.am | 2 +-
+ tools/linux/Makefile.am   | 2 +-
+ tools/solaris/Makefile.am | 2 +-
+ 6 files changed, 7 insertions(+), 7 deletions(-)
+
+commit f2bcc2a62015f6762eb426c25b7350ddf828bb0c
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Apr 16 17:32:50 2008 -0400
+
+    return PolicyKit results when not privileged for action
+
+ src/ck-manager.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+commit 933b89337028006b508e3ed964803753dea027c0
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Apr 16 17:30:15 2008 -0400
+
+    fix typo
+
+ data/org.freedesktop.consolekit.policy | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit e633be1b9a81cfb7993e469066e50af47f563575
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Thu Apr 3 22:09:26 2008 -0400
+
+    initial login session id support
+
+    Linux audit session id support.  Still TODO:
+    * determine if session id should be hidden
+    * export to bus
+    * add to event log
+    * figure out how to add it to non-generated sessions
+
+ src/ck-session-leader.c	 |  1 +
+ src/ck-session.c		 | 48 ++++++++++++++++++++++++++++++
+ src/ck-session.h		 |  6 ++++
+ src/ck-sysdeps-freebsd.c	 |  9 ++++++
+ src/ck-sysdeps-linux.c		 | 66
+ +++++++++++++++++++++++++++++++++++++++++
+ src/ck-sysdeps-solaris.c	 |  9 ++++++
+ src/ck-sysdeps.h		 |  2 ++
+ tools/ck-collect-session-info.c | 10 +++++++
+ 8 files changed, 151 insertions(+)
+
+commit 4740245c6f6137175ef51be2207c35185f4d98f1
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Fri Feb 29 15:25:54 2008 -0500
+
+    display uid as unix-user to match api
+
+ tools/list-sessions.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 970fbb66cb86c2a8b0ecbccbf8107c85b72343ae
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Fri Feb 29 15:25:43 2008 -0500
+
+    fix packaging of policy file
+
+ data/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 72a2abee7a963bef52561766131e1b52a85409a3
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Tue Feb 26 14:18:22 2008 -0500
+
+    rename policy file
+
+ data/ConsoleKit.policy			| 48
+ ----------------------------------
+ data/org.freedesktop.consolekit.policy | 48
+ ++++++++++++++++++++++++++++++++++
+ 2 files changed, 48 insertions(+), 48 deletions(-)
+
+commit 1d7b97d3a393996ffb95d9c23b081b4cf6c54ed0
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon Feb 25 19:43:04 2008 -0500
+
+    post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit c57bc09f5c1eaa216c8850ae64cc1735ce5c2bb1
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon Feb 25 19:41:56 2008 -0500
+
+    update for release
+
+ NEWS | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+commit 9e78825cef3db4e13cffbfd024bda365403aa6ba
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon Feb 25 19:19:31 2008 -0500
+
+    always create the directories we need
+
+ src/ck-event-logger.c | 22 +++++++++++++++---
+ src/ck-manager.c      | 63
+ +++++++++++++++++++++++++++++++--------------------
+ src/main.c	       | 50 +++++++++++++++++++++++++++++-----------
+ 3 files changed, 95 insertions(+), 40 deletions(-)
+
+commit 414f7cc1e62474da69058884c5b683dc20e3a8f6
+Author: Simon Zheng <simon.zheng@sun.com>
+Date:	Mon Feb 25 17:14:11 2008 -0500
+
+    properly get display device on Solaris
+
+    Mapping between device path and (major, minor).
+     "/dev/vt" -- (15,*)
+     "/dev/pts" -- (24,*)
+     "/dev/console" --	(0,0)
+     "NO_TTY_VALUE" - (-1,-1)
+
+    Also, solaris VT device is named like this.
+      /dev/console --- VT #1
+      /dev/vt/2 --- VT #2
+      /dev/vt/3 --- VT #3
+      /dev/vt/N --- VT #4
+
+ src/ck-sysdeps-solaris.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+commit 5315cd9e36f86f9d1ea1419c6521524a68801d4a
+Author: Brian Cameron <brian.cameron@sun.com>
+Date:	Mon Feb 25 16:37:03 2008 -0500
+
+    fix solaris x11-display-device when no vt available
+
+    This patch fixes ConsoleKit
+    so it sets x11-display-device to "/dev/console" when not using
+    VT.
+
+ src/ck-sysdeps-solaris.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+commit fc9abc6db6616b6960db070c98bad21f990a040e
+Author: Brian Cameron <Brian.Cameron@sun.com>
+Date:	Mon Feb 25 15:17:10 2008 -0500
+
+    solaris doesn't like printing null
+
+ src/ck-seat.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit f993c1d8970e3aae7de7dea6e1ae5c6d325865b2
+Author: Brian Cameron <Brian.Cameron@sun.com>
+Date:	Mon Feb 25 15:11:02 2008 -0500
+
+    fix display of active vt when vt is disabled
+
+    This fixes the Active device so it is set to "/dev/console" when not
+    using VT.  Without this patch, the syslog reports messages like:
+
+	      Active device: /dev/vt/3508388860
+
+    Which is obviously wrong if not using VT at all.
+
+ src/ck-sysdeps-solaris.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+commit f39d3756e1d9da62de923ba470d3312b89bea6be
+Author: Brian Cameron <Brian.Cameron@sun.com>
+Date:	Mon Feb 25 15:05:44 2008 -0500
+
+    fix solaris vt handling to work when no vt available
+
+    This fixes the patch that
+    Simon Zhang sent you earlier so that it builds on machines
+    without VT.
+
+ src/ck-vt-monitor.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+commit f551717e1830e86a8ccf5312f79ce8882af9f352
+Author: Simon Zheng <Simon.Zheng@sun.com>
+Date:	Tue Feb 19 11:34:15 2008 -0500
+
+    improve supporting Solaris VT switching
+
+    Here's a patch for ConsoleKit to improve supporting Solaris VT. Two
+    changes are made.
+
+    - Solaris supports synchronous event notification in STREAMS. Using
+    this, we can avoid creating many threads for idle VTs.
+
+    By setting the S_MSG flag in an I_SETSIG STREAMS ioctl, applications
+    can
+    get a synchronous notification of VT switching. In other words, these
+    processes are able to receive a SIGPOLL signal when a VT switching
+    succeeds.
+
+    - Change a little command line of getting maximum vt console numbers.
+
+ src/ck-sysdeps-solaris.c |  2 +-
+ src/ck-vt-monitor.c	  | 59
+ ++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 60 insertions(+), 1 deletion(-)
+
+commit 94d4dd225c6d161411f33396aec23a33a6661da6
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Tue Feb 19 11:04:51 2008 -0500
+
+    don't include paths.h on systems that don't have it
+
+ src/ck-event-logger.c	   | 1 -
+ tools/ck-launch-session.c | 5 +++++
+ 2 files changed, 5 insertions(+), 1 deletion(-)
+
+commit 190aed4effbfb9a982f46250c82994f58f4e5fb5
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Feb 13 11:37:20 2008 -0500
+
+    create the log file with S_IROTH and don't touch the log on build
+
+ src/Makefile.am       | 2 --
+ src/ck-event-logger.c | 3 ++-
+ 2 files changed, 2 insertions(+), 3 deletions(-)
+
+commit 6dda865f8fbe87a10a6047eb2db2c4fd1c94af17
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Tue Feb 12 22:55:58 2008 -0500
+
+    post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 72ce8d82848a6ee9634d9dd1610c5ba0074db4ae
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Tue Feb 12 22:54:24 2008 -0500
+
+    update for release
+
+ NEWS		   | 3 +++
+ tools/Makefile.am | 2 +-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+commit 5ab3eee820e97d632aa9401cbd2d25dc828ee1f0
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Tue Feb 12 22:30:05 2008 -0500
+
+    ck_seat_get_active_session shouldn't return a null ssid
+
+    Da bus no likey nulls for object paths.  Return false and set
+    error if there is no active session.
+
+ src/ck-manager.c	       | 31 +++++++++++--------------------
+ src/ck-seat.c		       | 26 +++++++++++++++++++++++---
+ src/test-method-access-policy |  2 +-
+ 3 files changed, 35 insertions(+), 24 deletions(-)
+
+commit 885708f75f493b85fb67114d112e950b6bfac652
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Tue Feb 12 15:32:15 2008 -0500
+
+    guard against writing null string to keyfile
+
+    Also make criticals fatal when starting with --debug.
+
+ src/ck-seat.c	  |  6 +++++-
+ src/ck-session.c | 47 ++++++++++++++++++++++++++++++++++++++---------
+ src/main.c	  |  5 +++++
+ 3 files changed, 48 insertions(+), 10 deletions(-)
+
+commit 40dff5a03c7b085e34a7052efd23651d5be7674f
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Tue Feb 12 15:00:46 2008 -0500
+
+    reverse the sense of the dbus policy
+
+    Deny first and then allow.	Add a simple test
+    script to check method access policy.
+
+ NEWS			       |   7 +
+ data/ConsoleKit.conf	       |  94 ++++++--
+ src/test-method-access-policy | 517
+ ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 598 insertions(+), 20 deletions(-)
+
+commit 685f2cbf9d69da556907ba6c935fe6ab1d2eeda3
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon Feb 11 15:31:42 2008 -0500
+
+    add a ck-launch-session tool
+
+    This tool opens a session with ConsoleKit and runs a command in it.
+
+ Makefile.am		   |  2 +-
+ tools/.gitignore	   |  1 +
+ tools/Makefile.am	   | 11 ++++++
+ tools/ck-launch-session.c | 87
+ +++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 100 insertions(+), 1 deletion(-)
+
+commit e2fa0c66a6ef8dafa8b503d0b077deb17f3fc512
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon Feb 11 14:51:21 2008 -0500
+
+    don't set the session-type to the command name
+
+ tools/ck-collect-session-info.c | 6 ------
+ 1 file changed, 6 deletions(-)
+
+commit e0f13df14e4f7289c35ebb376eaf7e1ffb2a2317
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon Feb 11 13:09:56 2008 -0500
+
+    post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit bceedd666cd25abf0aa09807bdb17ddf87f503f9
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon Feb 11 13:08:13 2008 -0500
+
+    update for release
+
+ NEWS		  | 11 +++++++++++
+ tools/.gitignore |  2 ++
+ 2 files changed, 13 insertions(+)
+
+commit 3f178c6d15daed161fe3bd7f5d9019a592cc564a
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon Feb 11 12:33:16 2008 -0500
+
+    add tools to log restart and stop events
+
+    This should probably be used by init instead of
+    logging the event from CK.
+
+ tools/Makefile.am	       |  20 +++++
+ tools/ck-log-system-restart.c | 174
+ ++++++++++++++++++++++++++++++++++++++++++
+ tools/ck-log-system-stop.c    | 174
+ ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 368 insertions(+)
+
+commit 710a4f5404049762ea49644c74aadb59737be37d
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Mon Feb 11 11:11:45 2008 -0500
+
+    fix typo in dbus policy file
+
+ data/ConsoleKit.conf		       | 2 +-
+ src/test-open-session-with-parameters | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit e59d5e9a9974a14043c98c292936584cefa930d3
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Thu Feb 7 19:29:34 2008 -0500
+
+    touch the history file to create it for people not using packages
+
+ src/Makefile.am | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit a7a00ec7f7237bd0150ed98dba5e796236135e28
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Wed Feb 6 17:04:14 2008 -0500
+
+    mkdir /var/log/ConsoleKit at install time
+
+ src/Makefile.am | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit edd2422e91f80850c1adfcd3d6d6c723b7947ccf
+Author: William Jon McCann <jmccann@redhat.com>
+Date:	Tue Feb 5 11:12:33 2008 -0500
+
+    set a global flag so that D-Bus does not change the SIGPIPE handler
+    in the PAM module
+
+ pam-ck-connector/pam-ck-connector.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+commit 076d63698c204427b210a2da76dc1b7e6640bbb9
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Feb 1 14:20:00 2008 -0500
+
+    when a parsing error occurs don't return an empty event
+
+ src/ck-log-event.c | 21 +++++++++++++--------
+ tools/ck-history.c | 12 ++++++------
+ 2 files changed, 19 insertions(+), 14 deletions(-)
+
+commit 185c0f5169dbcb55854491d9ab642c7b5c6418ca
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Jan 30 20:12:47 2008 -0500
+
+    post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 53e2ffa946b09dc29d40d822a290e30fbe169888
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Jan 30 20:11:47 2008 -0500
+
+    update for 0.2.7 release
+
+ NEWS | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+commit a034e3992b4c9c2d3723b14003483d4b39eab118
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Jan 29 16:16:35 2008 -0500
+
+    update gitignore files
+
+ data/.gitignore  | 1 +
+ src/.gitignore   | 1 +
+ tools/.gitignore | 4 +++-
+ 3 files changed, 5 insertions(+), 1 deletion(-)
+
+commit c08f52a53901cda1082a010cb2d6b013f3ae50a4
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Jan 29 16:14:04 2008 -0500
+
+    add a helper to write a system start record to the CK history
+
+ src/ck-log-event.c	     |	 2 +-
+ tools/Makefile.am	     |	13 ++++
+ tools/ck-log-system-start.c | 174
+ ++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 188 insertions(+), 1 deletion(-)
+
+commit 1a545ba0744532f2936899806523214d3a067769
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Jan 29 14:06:45 2008 -0500
+
+    add support for logging start/stop/restart
+
+    Also enable reporting this information with ck-history.
+
+ src/ck-log-event.c | 211 ++++++++++++++++++++++++-
+ src/ck-log-event.h |  19 ++-
+ src/ck-manager.c   |  59 ++++++-
+ tools/ck-history.c | 444
+ ++++++++++++++++++++++++++++++++++-------------------
+ 4 files changed, 564 insertions(+), 169 deletions(-)
+
+commit d8dcc8755a87a238ba37bc5275f142c92535915e
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Jan 28 22:26:53 2008 -0500
+
+    fix typo in man page
+
+ pam-ck-connector/pam_ck_connector.8 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit f38aba5d2a26b7c9ea0b7a5631281ed7cf678de4
+Author: Marc-Andre Lureau <marcandre.lureau@gmail.com>
+Date:	Mon Jan 28 22:23:35 2008 -0500
+
+    make autogen work with aclocal 1.10
+
+    https://bugs.freedesktop.org/show_bug.cgi?id=14175
+
+ autogen.sh		     | 179
+ +++++---------------------------------------
+ libck-connector/Makefile.am |	 2 +-
+ 2 files changed, 19 insertions(+), 162 deletions(-)
+
+commit 48519104df6037f8653ec62497796ba781dc0040
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Jan 28 19:56:19 2008 -0500
+
+    allow session type filtering for all report formats
+
+ tools/ck-history.c | 31 ++++++++++++++++++++++---------
+ 1 file changed, 22 insertions(+), 9 deletions(-)
+
+commit 5895396bc583ae08c5041f5b81f5f9d0a2888e22
+Author: Brian Cameron <brian.cameron@sun.com>
+Date:	Mon Jan 28 17:43:05 2008 -0500
+
+    make polkit optional and use RBAC on Solaris
+
+    This patch makes polkit an optional dependency.  If present
+    it builds with it.	If not, polkit support is disabled.
+
+    This patch also adds a --enable-rbac-shutdown=<key> option.
+    If set, then ConsoleKit will allow shutdown/reboot if the
+    user has the RBAC key authorization defined.  For example,
+    since the GDM GUI program runs as the "gdm" user, setting
+    the key for the "gdm" user allows the login program to
+    shutdown and reboot via ConsoleKit.
+
+    Also this patch modifies the tools/solaris/ck-system-restart
+    and tools/solaris/ck-system-stop scripts to call "/sbin/init 6"
+    and "/sbin/init 5", which are the right commands for Solaris.
+
+ configure.ac			 | 30 ++++++++++++++++-
+ data/Makefile.am		 |  2 ++
+ src/Makefile.am		 |  7 ++++
+ src/ck-manager.c		 | 71
+ ++++++++++++++++++++++++++++++++++++++++-
+ tools/solaris/ck-system-restart | 11 +------
+ tools/solaris/ck-system-stop	 | 11 +------
+ 6 files changed, 110 insertions(+), 22 deletions(-)
+
+commit 96d613ee9a4850753e8f93113ab28ed3045f73f3
+Author: Brian Cameron <brian.cameron@sun.com>
+Date:	Mon Jan 28 17:30:47 2008 -0500
+
+    fixes for solaris
+
+    Fixes two bugs I found in the code.  The first is that
+    we need some NULL protection around the g_strdup_printf
+    where we build CK_SESSION_X11_DISPLAY to avoid a crash.
+
+    Second, I noticed a bug in the ck_unix_pid_get_hash
+    function where we weren't parsing the data right and
+    causing the hash to not get set properly.
+
+ src/ck-session.c	  | 3 ++-
+ src/ck-sysdeps-solaris.c | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+commit 9aca4062ec226c8099b5d46467ad72792e9977dc
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Jan 28 17:17:13 2008 -0500
+
+    add session-type filtering to ck-history
+
+ src/ck-seat.c	    |  2 ++
+ tools/ck-history.c | 22 ++++++++++++++--------
+ 2 files changed, 16 insertions(+), 8 deletions(-)
+
+commit 6fe785aaddda2537aa4335e88c0606eda36b75ee
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Jan 28 10:59:04 2008 -0500
+
+    try to activate x11-display-device not only display-device
+
+ src/ck-seat.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+commit af7dbbc29151ccfe063625159ea531fbbfc85a07
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Jan 24 09:38:26 2008 -0500
+
+    post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 2064706053eb73d88655c0e1bc8dd7d1e144034e
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Jan 24 09:37:16 2008 -0500
+
+    update for 0.2.6 release
+
+ NEWS | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+commit d3e1069434bfff5e0c6236cbdec20db2a7d68d2c
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Jan 23 23:12:02 2008 -0500
+
+    be a little smarter about how we compute the number of users
+
+ src/ck-manager.c | 96
+ ++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 94 insertions(+), 2 deletions(-)
+
+commit 8dd0bb52b3cabf8673ecd3ede820b48ab6f6436f
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Jan 23 21:59:48 2008 -0500
+
+    fix policy action name
+
+ data/ConsoleKit.policy | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 4833651f336ee8f1cb266cf0c61fe527d3d5f713
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Jan 23 16:26:22 2008 -0500
+
+    post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 40d21bbea73ae15afb4823d58cada8ab9399235f
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Jan 23 16:25:23 2008 -0500
+
+    release 0.2.5
+
+ NEWS | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit 3c618213b2ada61496b49c4d8c5612df4f082d14
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Jan 23 16:07:15 2008 -0500
+
+    history should log to /var/log not /var/run
+
+ src/ck-event-logger.c | 2 +-
+ src/ck-manager.c      | 2 +-
+ tools/ck-history.c    | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+commit b1d56d43f357185594e5730d6bfb7e7db1f633c3
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Jan 23 15:06:02 2008 -0500
+
+    post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 8ec349dc86f617c8055c091fd5a9be80889d96f1
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Jan 23 14:30:48 2008 -0500
+
+    release 0.2.4
+
+ NEWS	      | 36 ++++++++++++++++++++++++++++++++++++
+ configure.ac |  2 ++
+ 2 files changed, 38 insertions(+)
+
+commit 8148ef7a28e3f52f7bd91a0f85fd47ce0cb1d11f
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Jan 23 13:16:30 2008 -0500
+
+    actually register the error type with dbus
+
+ src/ck-manager.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 6ad7516f69f08c9c5e30332f95b50c0dd0cd1cb1
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Jan 23 11:04:23 2008 -0500
+
+    add GetSessions method to Manager interface
+
+ doc/spec/ck-manager.xml    | 17 +++++++++++++++++
+ doc/xml/ref-ck-manager.xml | 10 +++++++++-
+ src/ck-manager.c	    | 25 +++++++++++++++++++++++++
+ src/ck-manager.h	    |  3 +++
+ src/ck-manager.xml	    |  3 +++
+ 5 files changed, 57 insertions(+), 1 deletion(-)
+
+commit 4b866a4af70fb19e8b0652637815ab24ad630065
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Jan 23 09:37:55 2008 -0500
+
+    add error type to manager
+
+ src/ck-manager.c | 22 ++++++++++++++++++++++
+ src/ck-manager.h |  6 +++++-
+ 2 files changed, 27 insertions(+), 1 deletion(-)
+
+commit 5ce97e6f22fd25279793fbc75211d2e86413ae73
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Jan 22 17:03:46 2008 -0500
+
+    initial stop/restart support
+
+    Add Stop and Restart methods to the Manager object.  We'll rename the
+    Manager object to System in the near future.  Use libpolkit to
+    determine authorization.
+
+ configure.ac			 |   2 +
+ data/ConsoleKit.policy		 |  48 +++
+ data/Makefile.am		 |   4 +
+ doc/spec/ck-manager.xml	 |  18 ++
+ doc/xml/ref-ck-manager.xml	 |  10 +-
+ src/ck-manager.c		 | 667
+ ++++++++++++++++++++++++++++++++++++----
+ src/ck-manager.h		 |  10 +-
+ src/ck-manager.xml		 |   6 +
+ tools/Makefile.am		 |  10 +
+ tools/freebsd/Makefile.am	 |  38 +++
+ tools/freebsd/ck-system-restart |  12 +
+ tools/freebsd/ck-system-stop	 |  18 ++
+ tools/linux/Makefile.am	 |  38 ++-
+ tools/linux/ck-system-restart	 |  12 +
+ tools/linux/ck-system-stop	 |  12 +
+ tools/solaris/Makefile.am	 |  38 +++
+ tools/solaris/ck-system-restart |  12 +
+ tools/solaris/ck-system-stop	 |  12 +
+ 18 files changed, 890 insertions(+), 77 deletions(-)
+
+commit 2fba24e67597bf59ae00db2867df7a348c81b094
+Author: Peter Jones <pjones@redhat.com>
+Date:	Sat Dec 8 23:04:03 2007 -0500
+
+    use VT_GETSTATE and tty0 to identify a console_ioctl on linux
+
+    ConsoleKit tries to find a valid fd it can issue
+    VT_WAITACTIVE against by iterating across a file list and issuing
+    ioctl(fd, KDGKBTYPE, &arg), then checking the return value.
+    Not all console
+    devices support this ioctl, so in some cases it never finds a
+    valid file
+    descriptor to use, and from then on never marks any session active.
+
+    We probably ought to be using something like VT_GETSTATE instead of
+    a keyboard
+    ioctl, but that's not sufficient to fix it.  One fix that seems to
+    work, though
+    I'm not completely sure if it's the best answer, is to add /dev/tty0
+    to the list
+    of files to try before /dev/console.
+
+ src/ck-sysdeps-unix.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+commit 751b95f2aa2eb2cea7fe9e0dec0848865d118ad0
+Author: Michael Biebl <mbiebl@gmail.com>
+Date:	Sat Dec 8 22:50:17 2007 -0500
+
+    remove obsolete sysv init script
+
+    given that my first patch get's applied, it makes sense to remove the
+    old sysv init script, as it's not really needed anymore. Besides, most
+    distros will not use this init script anyways as they have special
+    policies for their init script and provide their own.
+
+ data/ConsoleKit.in | 70
+ ------------------------------------------------------
+ data/Makefile.am   | 15 +-----------
+ 2 files changed, 1 insertion(+), 84 deletions(-)
+
+commit eb610a07a17db29138df50cafa4cf131a645332e
+Author: Michael Biebl <mbiebl@gmail.com>
+Date:	Sat Dec 8 22:45:42 2007 -0500
+
+    start CK service on-demand using D-Bus system activation
+
+    the attached patch installs a D-Bus system service file. This way the
+    CK service can be started on demand. This obviously makes the sysv
+    init script obsolete.
+    Requirements are dbus >= 1.1.2
+
+ data/Makefile.am			    | 9 ++++++++-
+ data/org.freedesktop.ConsoleKit.service.in | 4 ++++
+ 2 files changed, 12 insertions(+), 1 deletion(-)
+
+commit 7d167e65868cb2aa40273ee8ccd33cca5968438b
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Oct 22 21:23:08 2007 -0400
+
+    dump session leader info
+
+ src/ck-manager.c	 |  9 +++++++++
+ src/ck-session-leader.c | 15 ++++++++++++---
+ 2 files changed, 21 insertions(+), 3 deletions(-)
+
+commit 7b65ac249a1e28c9af25eb91919d898c3e0f8162
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Oct 22 21:00:16 2007 -0400
+
+    error out if unknown options are passed on command line
+
+ src/main.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+commit 5db2f7fdc2d1c5a45bc33d916d82c23178568923
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Oct 22 20:54:10 2007 -0400
+
+    move session leader stuff into a separate class
+
+    This will make it easier to dump/restore.
+
+ src/Makefile.am	 |   2 +
+ src/ck-manager.c	 | 482 +++++++++--------------------------------
+ src/ck-session-leader.c | 558
+ ++++++++++++++++++++++++++++++++++++++++++++++++
+ src/ck-session-leader.h |  97 +++++++++
+ 4 files changed, 762 insertions(+), 377 deletions(-)
+
+commit 252f542201036d36aa01ade9bd381624391cfb34
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Oct 22 16:57:47 2007 -0400
+
+    try to handle log rotation
+
+ src/ck-event-logger.c | 53
+ +++++++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 45 insertions(+), 8 deletions(-)
+
+commit 4c842f1e108a0e9a412ac599cc4cfc954d801e62
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Oct 22 16:14:07 2007 -0400
+
+    add support for reporting from logrotated files
+
+ configure.ac	       |  30 +++++++++---
+ src/ck-event-logger.c |   9 +++-
+ tools/Makefile.am     |   6 ++-
+ tools/ck-history.c    | 128
+ ++++++++++++++++++++++++++++++++++++++++++++++----
+ 4 files changed, 154 insertions(+), 19 deletions(-)
+
+commit 7e30b7d07d2f6216b6a8d2f75f3494d3947f0584
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Oct 22 11:34:02 2007 -0400
+
+    add a basic --frequent report
+
+ tools/ck-history.c | 109
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 109 insertions(+)
+
+commit 73f5875de6c8d2e3f79fcb2c5d570836f6df74d5
+Merge: e419ced 7b834cb
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Sun Oct 21 23:59:55 2007 -0400
+
+    Merge branch 'master' of git+ssh://git.freedesktop.org/git/ConsoleKit
+
+commit e419ced301a9e0d5f98c8cee030fe50158a2d291
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Sun Oct 21 23:59:32 2007 -0400
+
+    add last mode, filtering by user/seat; shorten logged ids
+
+ src/ck-manager.c   |  34 +++++++---
+ tools/ck-history.c | 177
+ +++++++++++++++++++++++++++++++++++++++++++++++++----
+ 2 files changed, 190 insertions(+), 21 deletions(-)
+
+commit 7b834cbcc29a2a8423569a738cef3bce3c9f10bd
+Author: William Jon McCann <mccannwj@acsnb1.pha.jhu.edu>
+Date:	Sat Oct 20 19:17:52 2007 -0400
+
+    add bugzilla url
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 7880c2eacaa45196b83a9032371f487f6fe312e4
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Oct 19 16:46:43 2007 -0400
+
+    check for oldest being null
+
+ tools/ck-history.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+commit 2ef61beadf1b4c938bb13bb3b460f69bcc720193
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Oct 19 16:30:52 2007 -0400
+
+    rename --last to --last-compat
+
+ tools/ck-history.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 92c036e50f2d0989651c43e2db78110a2a2fd5b0
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Oct 19 16:28:24 2007 -0400
+
+    a few fixes for last patch
+
+ tools/ck-history.c | 29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
+
+commit 489396ba206bb1e3b82bb504151b0a83d405b33d
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Oct 19 16:16:18 2007 -0400
+
+    add a last compatible outout format to ck-history
+
+ tools/ck-history.c | 175
+ +++++++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 169 insertions(+), 6 deletions(-)
+
+commit 36419b9ca34a89721746950eb78bb78c4bfb6206
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Oct 18 16:43:00 2007 -0400
+
+    use AC_GNU_SOURCE instead of #define
+
+ configure.ac	       | 3 +++
+ src/ck-event-logger.c | 2 --
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+commit 1773b5f77b9c575ab8fc3e3d692e8a7056fe2959
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Oct 17 17:09:03 2007 -0400
+
+    add a basic ck-history command
+
+    Refactor some event logging code to share with ck-history.	At the
+    moment the command only prints the events.
+
+ src/Makefile.am	 |   10 +-
+ src/ck-event-logger.c	 |  486 +--------------------
+ src/ck-event-logger.h	 |   99 +----
+ src/ck-log-event.c	 | 1084
+ +++++++++++++++++++++++++++++++++++++++++++++++
+ src/ck-log-event.h	 |  131 ++++++
+ src/ck-manager.c	 |   42 +-
+ src/test-event-logger.c |   10 +-
+ tools/Makefile.am	 |   10 +
+ tools/ck-history.c	 |  157 +++++++
+ tools/list-sessions.c	 |   58 +--
+ 10 files changed, 1458 insertions(+), 629 deletions(-)
+
+commit 0011a7aa94a9dbb00a322a1c08d5ac6a6dfdc21c
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Oct 16 16:40:44 2007 -0400
+
+    add event logging capability
+
+    This adds the ability to log events to a history file.  One idea
+    is to be able to provide wtmp like functionality.  The next step
+    is to add a seat-aware "last" command.  This will be very useful
+    for creating graphical logins that remember the most recent/frequent
+    logins.
+
+ src/Makefile.am	 |  13 +
+ src/ck-event-logger.c	 | 828
+ ++++++++++++++++++++++++++++++++++++++++++++++++
+ src/ck-event-logger.h	 | 161 ++++++++++
+ src/ck-manager.c	 | 340 +++++++++++++++++++-
+ src/test-event-logger.c |  94 ++++++
+ 5 files changed, 1430 insertions(+), 6 deletions(-)
+
+commit a0a1ff87b1f4c93c147d5222a164138cb83ba149
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Oct 11 15:06:14 2007 -0400
+
+    remove emacs modeline
+
+ configure.ac | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit b2be103bd606291319dc312f07d1f3fcbfdf634c
+Author: David Zeuthen <davidz@redhat.com>
+Date:	Wed Oct 10 13:39:15 2007 -0400
+
+    maintain a file with the dump of the local database
+
+    This feature is useful for programs wanting to read the database
+    without going through the D-Bus interface. This is sometimes desirable
+    when both performance and runtime dependencies are important.
+
+    For security reasons the file is only readable for the super user.
+
+ src/Makefile.am  |   2 +
+ src/ck-manager.c | 204
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++--
+ src/ck-seat.c	  |  86 ++++++++++++++++++++++-
+ src/ck-seat.h	  |   4 ++
+ src/ck-session.c |  38 +++++++++++
+ src/ck-session.h |   3 +
+ 6 files changed, 330 insertions(+), 7 deletions(-)
+
+commit bd43c78b3ab2ec7f85b17cca46d4b46f8671cd29
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Oct 10 12:53:45 2007 -0400
+
+    remove session/seat from list before signaling
+
+    We should remove the session or seat from the lists before
+    calling out or emitting a signal.  We steal from the lists
+    and then unref the objects when the signal is complete.
+
+ src/ck-manager.c | 57
+ ++++++++++++++++++++++++++++++++++++++++++++------------
+ src/ck-seat.c	  | 28 +++++++++++++++++++++-------
+ 2 files changed, 66 insertions(+), 19 deletions(-)
+
+commit a90ecd3544f03c16f6c5a97aafb1c0b33b58101c
+Author: David Zeuthen <davidz@redhat.com>
+Date:	Thu Oct 4 20:39:09 2007 -0400
+
+    add a way to synchronously run programs on session
+    add/remove/activity_change
+
+    This patch adds support for running programs when
+
+     1. A session is added
+     2. A session is removed
+     3. The activity of a session changes
+
+    Executables with the suffix .ck in the directories
+
+     $sysconfdir/ConsoleKit/run-session.d
+     (typically /etc/ConsoleKit/run-session.d)
+
+    and
+
+     $libdir/ConsoleKit/run-session.d
+     (typically /usr/lib/ConsoleKit/run-session.d)
+
+    will be run on each event. The former directory is meant to be used
+    for the system administrator and the latter is meant to be used by
+    programs.
+
+    Only when all programs in these directories have run, ConsoleKit will
+    resume event processing and e.g. broadcast the event on the system
+    message bus. Hence, this new mechanism can be used to safely
+    (e.g. without race conditions) perform operations on certain resources
+    before programs in the desktop session are told they may use them. The
+    obvious example here is managing ACL's on /dev such that certain
+    device nodes are only available to users in local and active sessions.
+
+    The environment of the program launched is the environment that the
+    ConsoleKit daemon was launched with and also the following variables
+    (variables tagged with [*] may not be set).
+
+     CK_SESSION_ID
+     CK_SESSION_TYPE
+     CK_SESSION_SEAT_ID
+     CK_SESSION_USER_UID
+     CK_SESSION_DISPLAY_DEVICE	   [*]
+     CK_SESSION_X11_DISPLAY_DEVICE [*]
+     CK_SESSION_X11_DISPLAY	   [*]
+     CK_SESSION_REMOTE_HOST_NAME   [*]
+     CK_SESSION_IS_ACTIVE
+     CK_SESSION_IS_LOCAL
+
+    corresponding to the properties of a Session object in question. Each
+    program is passed exactly one parameter that can assume one of the
+    following values:
+
+     - session_active_changed:	is_active changed
+     - session_added:		the session was added
+     - session_removed:		the session was removed
+
+    As a safety hatch, there is a timeout of 15 seconds for each program;
+    if it hasn't exited within 15 seconds, the daemon will send it a
+    SIGTERM signal, and move on to the next program. The daemon is still
+    responsive when the program is running - this is to ensure that the
+    program itself can call into the org.freedesktop.ConsoleKit service.
+
+ src/Makefile.am       |   6 ++
+ src/ck-run-programs.c | 230
+ ++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/ck-run-programs.h |  38 +++++++++
+ src/ck-seat.c	       |   5 ++
+ src/ck-session.c      |  39 +++++++++
+ 5 files changed, 318 insertions(+)
+
+commit ad9dbd345dbec43ffc24481a0d21c261e49347fb
+Author: Brian Cameron <brian.camerson@sun.com>
+Date:	Wed Sep 19 21:19:31 2007 -0400
+
+    don't use VT_GETSTATE when VT is unavailable
+
+ src/ck-sysdeps-solaris.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+commit 03c9196f59c849515f650e2eb1a190a10908a8ee
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Sep 19 11:13:31 2007 -0400
+
+    try to make things work for systems that don't support VT_ACTIVATE etc
+
+ configure.ac	       |  2 ++
+ src/ck-sysdeps-unix.c | 27 +++++++++++++++++++++++----
+ 2 files changed, 25 insertions(+), 4 deletions(-)
+
+commit 54582a7287f036bd6b65434e4b4888405972130d
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Sep 19 10:03:22 2007 -0400
+
+    add wiki to readme
+
+ README | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+commit 024fe2c942e1b3e5ddec8e829242017c9842393e
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Sep 18 11:12:54 2007 -0400
+
+    post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit eacf90d95c91db99c5946f00c95484fb66ec1b2a
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Sep 18 11:11:38 2007 -0400
+
+    update for brown bag release
+
+ NEWS | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit f35dee9696d81630216e283bcd91ca491febe153
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Sep 18 01:09:04 2007 -0400
+
+    use unix-user instead of user
+
+ pam-ck-connector/pam-ck-connector.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 6b8dc7403c105dc12dbe93616321850b8f160a8e
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Sep 17 18:27:54 2007 -0400
+
+    post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit e9c5548af759cb9968acb11e1b09dfc34fe13781
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Sep 17 18:24:11 2007 -0400
+
+    update NEWS for release
+
+ NEWS | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+commit 3708b8b25a8e48b627920eb0876203cac81eb36e
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Aug 29 15:56:06 2007 -0400
+
+    remove policy for gdm user
+
+ data/ConsoleKit.conf | 15 ---------------
+ 1 file changed, 15 deletions(-)
+
+commit 1c9456a82126f56f4bebca0e7b6671ca844db322
+Author: Joe Marcus Clarke <marcus@FreeBSD.org>
+Date:	Wed Aug 29 10:10:17 2007 -0400
+
+    fix FreeBSD issues translating VT numbers to devices
+
+    In FreeBSD the device number is always one less than the VT number
+    (e.g.
+    VT 1 is /dev/ttyv0).  Account for this.  Also, fix up reading console
+    entries from /etc/ttys, and make sure the full TTY device name
+    is returned
+    for a given process stat.
+
+ src/ck-sysdeps-freebsd.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
+
+commit b508cf9b49ecd1f4810f69e785ebf40a2e5d5677
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Aug 28 13:20:35 2007 -0400
+
+    untabify
+
+ src/ck-file-monitor-inotify.c |  2 +-
+ src/ck-manager.c	       | 16 ++++++++--------
+ src/ck-session.c	       |  8 ++++----
+ src/ck-sysdeps-unix.c	       |  6 +++---
+ src/main.c		       | 12 ++++++------
+ 5 files changed, 22 insertions(+), 22 deletions(-)
+
+commit 1523b599eeba119c1258e887b7df9b018ce10351
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Aug 28 11:48:11 2007 -0400
+
+    fix some compiler warnings, untabify
+
+    Based on patch from Joe Marcus Clarke
+
+ src/ck-sysdeps-freebsd.c | 188
+ +++++++++++++++++++----------------------------
+ src/ck-sysdeps-solaris.c |   8 +-
+ 2 files changed, 81 insertions(+), 115 deletions(-)
+
+commit 5e0f4848e5bfd325840d405582bdedf3a27b98f8
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Aug 27 16:34:45 2007 -0400
+
+    move some of the freebsd specific stuff into sysdeps
+
+ src/ck-sysdeps-freebsd.c    | 37 +++++++++++++++++
+ src/ck-sysdeps-linux.c      | 49 +++++++++++++++++++++++
+ src/ck-sysdeps-solaris.c    | 48 +++++++++++++++++++++++
+ src/ck-sysdeps-unix.c	     | 69 ++++++++++++++++++++++++++++++++
+ src/ck-sysdeps.h	     |	6 +++
+ src/ck-vt-monitor.c	     | 96
+ +++++++++------------------------------------
+ src/test-tty-idle-monitor.c | 14 +------
+ 7 files changed, 229 insertions(+), 90 deletions(-)
+
+commit 54b545beb4b7e65f852f03dd5da025d5eae7ef8f
+Author: Florent Thoumie <flz@FreeBSD.org>
+Date:	Mon Aug 27 14:31:53 2007 +0100
+
+    Don't create rc.d/init.d directory on FreeBSD.
+
+    Move the initdir variable inside the if-block so that
+    it's not created on FreeBSD.
+
+    Signed-off-by: Florent Thoumie <flz@FreeBSD.org>
+
+ data/Makefile.am | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit d6fa350994ac2c56644332fd5931a4a56d2f32d9
+Author: Florent Thoumie <flz@FreeBSD.org>
+Date:	Sun Aug 26 13:25:23 2007 +0100
+
+    Disconnect init.d script on FreeBSD.
+
+    Don't install ConsoleKit script in init.d/rc.d/ as it is
+    unusable on FreeBSD.
+
+    Signed-off-by: Florent Thoumie <flz@FreeBSD.org>
+
+ data/Makefile.am | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit a0a4451df57693a7cd4f69befd4cf17239013161
+Author: Joe Marcus Clarke <marcus@shumai.marcuscom.com>
+Date:	Sat Aug 25 20:23:36 2007 -0400
+
+    Add support for FreeBSD
+
+    Allow this test to properly determine the current tty device.
+
+    Signed-off-by: Florent Thoumie <flz@FreeBSD.org>
+
+ src/test-tty-idle-monitor.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit d643acbb50eb2cccc50df8b27bd2c08bdc405622
+Author: Joe Marcus Clarke <marcus@shumai.marcuscom.com>
+Date:	Sat Aug 25 20:10:37 2007 -0400
+
+    Add ck-sysdeps-freebsd.c to the list of dist sources
+
+    Fix make dist by making sure ck-sysdeps-freebsd.c is available on all
+    platforms.
+
+    Signed-off-by: Florent Thoumie <flz@FreeBSD.org>
+
+ src/Makefile.am | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit a2426fc2791a896c79d5eb14c2b518df7aca3dcf
+Author: Florent Thoumie <flz@FreeBSD.org>
+Date:	Sat Aug 25 21:05:32 2007 +0100
+
+    Restore copyright.
+
+    Restore copyright in ck-sysdeps-freebsd.c since Marcus
+    "used a lot of the existing functions".
+
+    Submitted by:	marcus
+
+    Signed-off-by: Florent Thoumie <flz@FreeBSD.org>
+
+ src/ck-sysdeps-freebsd.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 59d8b48dc3358057859c22588580e926aa68a3ee
+Author: Florent Thoumie <flz@FreeBSD.org>
+Date:	Sat Aug 25 19:50:54 2007 +0100
+
+    Some more fixes, Now test-vt-monitor works correctly.
+
+    Submitted by:	marcus
+
+    Signed-off-by: Florent Thoumie <flz@FreeBSD.org>
+
+ src/ck-sysdeps-unix.c | 14 +++++++++++---
+ src/ck-vt-monitor.c   | 35 ++++++++++++++++++++++-------------
+ 2 files changed, 33 insertions(+), 16 deletions(-)
+
+commit 1a16c740e0eab279eeca443c1a1c276e5e125852
+Author: Florent Thoumie <flz@FreeBSD.org>
+Date:	Sat Aug 25 18:22:02 2007 +0100
+
+    Add FreeBSD native backend (untested)
+
+    - Add Marcus' FreeBSD backend for ConsoleKit. Compiles fine but
+    test-vt-monitor doesn't seem to work correctly.
+    - Remove TODO entry.
+
+    Submitted by:	marcus
+
+    Signed-off-by: Florent Thoumie <flz@FreeBSD.org>
+
+ TODO			  |   2 -
+ configure.ac		  |   8 +
+ src/Makefile.am	  |   1 +
+ src/ck-sysdeps-freebsd.c | 592
+ ++++++++++++++---------------------------------
+ 4 files changed, 182 insertions(+), 421 deletions(-)
+
+commit a910e8cc1ad8df738a8160c4f710b04810dfe99d
+Author: Florent Thoumie <flz@FreeBSD.org>
+Date:	Sat Aug 25 17:19:09 2007 +0100
+
+    Add a note about native FreeBSD backend in TODO.
+
+    At the moment, we rely on linprocfs being mounted, we need a
+    native backend on FreeBSD.
+
+    Signed-off-by: Florent Thoumie <flz@FreeBSD.org>
+
+ TODO | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 342f4d1b60850daad422bd683978a88cb6a7eed7
+Author: Florent Thoumie <flz@FreeBSD.org>
+Date:	Sat Aug 25 17:08:20 2007 +0100
+
+    First attempt a making ConsoleKit work on FreeBSD
+
+    - Add some ifdef's to make the code compile.
+    - Add ck-sysdeps-freebsd.c, based on the Linux version, which
+    means it's using linprocfs right now.
+
+    Signed-off-by: Florent Thoumie <flz@FreeBSD.org>
+
+ src/Makefile.am	  |   5 +
+ src/ck-job.c		  |   1 +
+ src/ck-sysdeps-freebsd.c | 659
+ +++++++++++++++++++++++++++++++++++++++++++++++
+ src/ck-vt-monitor.c	  |  16 +-
+ 4 files changed, 679 insertions(+), 2 deletions(-)
+
+commit f19761b0e2e6649836d3514fbd007b9365756f32
+Author: Brian Cameron <brian.cameron@sun.com>
+Date:	Wed Aug 22 09:48:30 2007 -0400
+
+    more build fixes for solaris
+
+ src/ck-sysdeps-linux.c   | 5 ++++-
+ src/ck-sysdeps-solaris.c | 9 +++++++--
+ 2 files changed, 11 insertions(+), 3 deletions(-)
+
+commit de3718f03a6e1a83c1024dad0dea5b070b1b27b4
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Aug 21 11:50:08 2007 -0400
+
+    abstract out the tty device basename stuff
+
+ src/ck-seat.c		  | 15 ++++++---------
+ src/ck-sysdeps-linux.c   | 35 +++++++++++++++++++++++++++++++++++
+ src/ck-sysdeps-solaris.c | 35 +++++++++++++++++++++++++++++++++++
+ src/ck-sysdeps.h	  |  8 ++++----
+ 4 files changed, 80 insertions(+), 13 deletions(-)
+
+commit 0145691112f14352ef15b49c1ea3079a8e80f6e8
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Aug 21 11:27:04 2007 -0400
+
+    more solaris support
+
+    based on patch from Brian Cameron.
+
+ src/ck-sysdeps-linux.c   |  14 ++++++
+ src/ck-sysdeps-solaris.c | 109
+ ++++++++++++++++++++++++++++++++++++-----------
+ src/ck-sysdeps-unix.c	  |  40 ++++++++++++-----
+ src/ck-sysdeps.h	  |   2 +
+ src/ck-vt-monitor.c	  |  14 +++---
+ 5 files changed, 136 insertions(+), 43 deletions(-)
+
+commit 3e6bbcaea6d441956c9c1173d7586bd346a8c77b
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Aug 17 13:09:34 2007 -0400
+
+    display the current vt
+
+ src/test-vt-monitor.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+commit 3d907714c526c4c685bb8c5dc13f91df22331cdb
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Aug 17 13:00:16 2007 -0400
+
+    add test-vt-monitor
+
+ src/.gitignore | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 3423ce3039033e8bf54860a2b955fdf8c1f21be7
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Aug 17 12:59:41 2007 -0400
+
+    add a vt monitor test, move getfd to sysdeps, add a check for the
+    root user
+
+ src/Makefile.am	     |	14 +++++-
+ src/ck-sysdeps-unix.c	     | 114
+ +++++++++++++++++++++++++++++++++++++++++++-
+ src/ck-sysdeps.h	     |	11 +++++
+ src/ck-vt-monitor.c	     |	 5 +-
+ src/getfd.c		     |	97 -------------------------------------
+ src/main.c		     |	 6 +++
+ src/test-tty-idle-monitor.c |	12 +----
+ src/test-vt-monitor.c	     |	83 ++++++++++++++++++++++++++++++++
+ 8 files changed, 230 insertions(+), 112 deletions(-)
+
+commit bec4b4163ae65fa271845da6b748456346987c26
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Aug 17 11:54:21 2007 -0400
+
+    oops add docs for new seat interfaces
+
+ doc/spec/ck-seat.xml	 | 41 +++++++++++++++++++++++++++++++++++++++++
+ doc/xml/ref-ck-seat.xml | 33 +++++++++++++++++++++++----------
+ 2 files changed, 64 insertions(+), 10 deletions(-)
+
+commit c0c74f8064392598cd29401142804fcc241841ed
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Aug 17 10:52:19 2007 -0400
+
+    a few fixes for peer cred stuff
+
+ src/ck-sysdeps-unix.c		   | 26 ++++++++++++++++++++------
+ tools/ck-get-x11-display-device.c | 13 ++++++-------
+ tools/ck-get-x11-server-pid.c	   |  4 +++-
+ 3 files changed, 29 insertions(+), 14 deletions(-)
+
+commit 577099aea3ed75c1298d7a4cfa32784a1800bb09
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Aug 16 23:09:44 2007 -0400
+
+    move peercred stuff into sysdeps.  add solaris support.
+
+ configure.ac			   |  2 +
+ src/Makefile.am		   |  1 +
+ src/ck-sysdeps-unix.c		   | 84
+ +++++++++++++++++++++++++++++++++++++++
+ src/ck-sysdeps.h		   |  7 ++++
+ tools/ck-get-x11-display-device.c | 34 +++-------------
+ tools/ck-get-x11-server-pid.c	   | 31 ++++-----------
+ 6 files changed, 107 insertions(+), 52 deletions(-)
+
+commit fcb0f32632f74950c361a0a23128ebca05efdca0
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Aug 16 22:29:18 2007 -0400
+
+    move all proc stuff into ck-sysdeps
+
+ src/Makefile.am		   |  23 +-
+ src/ck-manager.c		   |  52 ++--
+ src/ck-sysdeps-linux.c		   | 605
+ ++++++++++++++++++++++++++++++++++++++
+ src/ck-sysdeps-solaris.c	   | 324 ++++++++++++++++++++
+ src/ck-sysdeps.h		   |  49 +++
+ src/proc-linux.c		   | 605
+ --------------------------------------
+ src/proc-solaris.c		   | 324 --------------------
+ src/proc.h			   |  48 ---
+ tools/Makefile.am		   |   6 +-
+ tools/ck-collect-session-info.c   |  36 +--
+ tools/ck-get-x11-display-device.c |  18 +-
+ 11 files changed, 1046 insertions(+), 1044 deletions(-)
+
+commit e56a95f64c9c9f57adebf6cb3e6c88790cec40e4
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Aug 14 17:03:00 2007 -0400
+
+    move tools out of linux subdirectory since they apparently work
+    on solaris
+
+ tools/.gitignore			 |   3 +
+ tools/Makefile.am			 |  36 +++
+ tools/ck-collect-session-info.c	 | 410
+ ++++++++++++++++++++++++++++++++
+ tools/ck-get-x11-display-device.c	 | 152 ++++++++++++
+ tools/ck-get-x11-server-pid.c		 | 100 ++++++++
+ tools/linux/Makefile.am		 |  32 ---
+ tools/linux/ck-collect-session-info.c	 | 410
+ --------------------------------
+ tools/linux/ck-get-x11-display-device.c | 152 ------------
+ tools/linux/ck-get-x11-server-pid.c	 | 100 --------
+ 9 files changed, 701 insertions(+), 694 deletions(-)
+
+commit dc97e6caabc9932922d26f3400424626462f5ad2
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Aug 14 16:55:24 2007 -0400
+
+    make a lt library for proc stuff
+
+ src/Makefile.am	 | 39 +++++++++++++++++++++++++--------------
+ tools/linux/Makefile.am |  7 +++----
+ 2 files changed, 28 insertions(+), 18 deletions(-)
+
+commit e6cf0e022d391154baed5ec30e857baffe52b437
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Aug 14 12:30:34 2007 -0400
+
+    remove example device from seat config
+
+ data/00-primary.seat | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit d4033604529b64156d5dd0f03fbe733ec7ae8246
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Aug 14 12:12:38 2007 -0400
+
+    make sure the device is a console and add some instructions
+
+ src/test-tty-idle-monitor.c | 44
+ ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
+
+commit 396363e70765af215f7302964ac9543305733a2b
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Aug 14 11:59:37 2007 -0400
+
+    don't bail if /proc/self/fd/0 is not a link
+
+ src/test-tty-idle-monitor.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit 383ea823871bf3768e85d1a3ca061e775c6aedf1
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Aug 14 11:50:54 2007 -0400
+
+    add some solaris support
+
+    Based on a patch from Brian Cameron.
+
+ configure.ac	    |	2 +
+ src/Makefile.am    |	9 ++
+ src/getfd.c	    |  20 +++-
+ src/proc-solaris.c | 324
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 352 insertions(+), 3 deletions(-)
+
+commit e054c0f8b86f27f94d9316bac065a94081f4be32
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Aug 8 16:07:01 2007 -0400
+
+    print out tools libs after configure
+
+ configure.ac | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 03590bfe7cc0346c9a36ee01fd3737aa009f0273
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Aug 7 11:21:47 2007 -0400
+
+    don't use PERROR if not available
+
+ src/ck-log.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+commit 90e87a110c648cb93c2bde0ace9626d5ce58167a
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Aug 7 11:21:31 2007 -0400
+
+    don't use stderr or stdout as variable names
+
+ src/ck-job.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+commit 488520e5c0d7d3684f7c91f11da52e9ef08d42c9
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Aug 1 10:44:21 2007 -0400
+
+    change user to unix-user
+
+ libck-connector/test-connector.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit d7d77af48ae9dbacde77d9337fe3a202d23467a6
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Aug 1 10:42:44 2007 -0400
+
+    use unix-user instead of user
+
+ libck-connector/ck-connector.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 289fff6aaaa206572efa768c4063111582d79f9d
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Jul 20 17:42:01 2007 -0400
+
+    Add preliminary support for seats with devices
+
+ data/00-primary.seat |   5 ++
+ data/Makefile.am     |   4 +
+ src/ck-manager.c     |  54 ++++++++++++-
+ src/ck-seat.c	      | 219
+ +++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/ck-seat.h	      |  36 +++++++--
+ src/ck-seat.xml      |   9 +++
+ 6 files changed, 319 insertions(+), 8 deletions(-)
+
+commit f6027221567fcb9ead1823e2da4eb9783f2db9ce
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Jul 20 17:41:32 2007 -0400
+
+    Add --display option to tool.
+
+ tools/linux/ck-get-x11-display-device.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
+
+commit a9aa00ff0fea79452a60a2448dd1f2714918884a
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Jul 18 17:24:00 2007 -0400
+
+    Add new helper for getting tty from DISPLAY
+
+ tools/linux/Makefile.am		 |  11 +++
+ tools/linux/ck-get-x11-display-device.c | 138
+ ++++++++++++++++++++++++++++++++
+ 2 files changed, 149 insertions(+)
+
+commit 17ff9ceb88e0b7f6dc5a7e6eac5ff98cb4a5cabe
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue May 15 11:15:12 2007 -0400
+
+    a few fixes for getfd suggested by Lennart
+
+    I am currently investigating how to best integrate PulseAudio with
+    ConsoleKit/PolicyKit. While doing that I had a look on your code, and
+    found a few issues in getfd.c I'd like to report, before I forget
+    them. I couldn't find any bugzilla with at consolekit project (neither
+    fedora, nor fdo, nor gnome?) hence I am mailing you in person.
+
+    In getfd.c in open_a_console() a close() is missing if is_a_console is
+    missing.
+
+    The open() in open_a_console() should probably use O_NOCTTY. Otherwise
+    C-c on the console might end up in a SIGINT to your daemon process!
+
+    Also I'd add an isatty() check to is_a_console(), to makes sure that
+    you're actually talking to a TTY before you issue KDGKBTYPE on
+    it. ioctl()s are unfortunately not unique, hence i'd recommend
+    that check.
+
+    That's it,
+
+    Lennart
+
+ src/getfd.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+commit fe29cc406719428bcc73d980299e4639a9bb37f1
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Apr 10 16:03:19 2007 -0400
+
+    bump version
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 2626a4405d19da40b98d526668bee7c92072e43b
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Apr 10 16:01:15 2007 -0400
+
+    update for release
+
+ NEWS | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+commit c6cd8d7c66b2bd39edf7ca70948982a553128282
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Apr 10 15:54:31 2007 -0400
+
+    disable static libs
+
+ configure.ac | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit e0244a8f6dd0b7f8ebecc6bec52c013ce5286279
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Apr 5 15:21:14 2007 -0400
+
+    use inotify to detect activity on tty when possible
+
+ .gitignore		       |   3 +-
+ configure.ac		       |  26 +-
+ doc/.gitignore		       |   1 +
+ src/.gitignore		       |   1 +
+ src/Makefile.am	       |  32 ++
+ src/ck-file-monitor-dummy.c   | 118 ++++++++
+ src/ck-file-monitor-inotify.c | 669
+ ++++++++++++++++++++++++++++++++++++++++++
+ src/ck-file-monitor.h	       |  84 ++++++
+ src/ck-session.c	       |  82 ++----
+ src/ck-tty-idle-monitor.c     | 389 ++++++++++++++++++++++++
+ src/ck-tty-idle-monitor.h     |  71 +++++
+ src/test-tty-idle-monitor.c   |  82 ++++++
+ 12 files changed, 1496 insertions(+), 62 deletions(-)
+
+commit 33dcd02c399e3255a7a64c1e90b258d79c14f2c4
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Apr 4 12:06:59 2007 -0400
+
+    fix typos
+
+ pam-ck-connector/pam_ck_connector.8 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit c012fdf98a19e9e3d67a64ed308943a04c355dc8
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Apr 4 12:04:16 2007 -0400
+
+    add support for CKCON_X11_DISPLAY_DEVICE environment variable
+
+    In order to set the x11-display-device parameter on the new
+    session.
+
+ pam-ck-connector/pam-ck-connector.c | 13 +++++++++++++
+ pam-ck-connector/pam_ck_connector.8 | 19 ++++++++++---------
+ 2 files changed, 23 insertions(+), 9 deletions(-)
+
+commit 42f6afb560859bf0dab898ae4c8f6d23070ef268
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Apr 3 14:48:36 2007 -0400
+
+    make sure no values are NULL
+
+ pam-ck-connector/pam-ck-connector.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+commit bf9a5070a715f129e1182af149a46e55529edb61
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Apr 3 14:38:33 2007 -0400
+
+    check for empty string as well as null values
+
+ pam-ck-connector/pam-ck-connector.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
+
+commit 8b1733abb942b4356485b4afcf1dc3bf04d1fedc
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Apr 3 12:25:41 2007 -0400
+
+    add some input validation
+
+ src/proc-linux.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+commit f073826f58541cbbe2b805f200a9d245d76c634c
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Apr 3 12:25:18 2007 -0400
+
+    daemonize a little earlier
+
+ src/main.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit 80dc652115e275a95b05bb6809825cc324d9475a
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Apr 3 11:42:43 2007 -0400
+
+    add a glib message to syslog handler
+
+    Also add ability to toggle debugging when SIGUSR1 is
+    received.
+
+ src/Makefile.am     |	 4 +-
+ src/ck-debug.c      | 153 ----------------------------------------
+ src/ck-debug.h      |	72 -------------------
+ src/ck-job.c	     |	21 +++---
+ src/ck-log.c	     | 197
+ ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/ck-log.h	     |	41 +++++++++++
+ src/ck-manager.c    |	41 ++++++-----
+ src/ck-seat.c	     |	21 +++---
+ src/ck-session.c    |	31 ++++-----
+ src/ck-vt-monitor.c |	30 ++++----
+ src/main.c	     |	66 ++++++++++++++++--
+ 11 files changed, 366 insertions(+), 311 deletions(-)
+
+commit 02b7dac1de29b7e323d9457f14b639582d0a2e04
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Apr 3 11:40:47 2007 -0400
+
+    bump the ac_prereq and use the docdir var
+
+ configure.ac	 | 16 +---------------
+ doc/Makefile.am |  2 +-
+ 2 files changed, 2 insertions(+), 16 deletions(-)
+
+commit b5c2e362c3ae4c932f4acdba13e53d80f63b1777
+Author: David Zeuthen <davidz@redhat.com>
+Date:	Mon Apr 2 18:38:51 2007 -0400
+
+    daemonize properly
+
+ src/main.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit b57d5c11612dbb896c53d65c01104bae586f6e17
+Author: Michael Biebl <mbiebl@gmail.com>
+Date:	Mon Apr 2 16:16:16 2007 -0400
+
+    autoconf fixes, separate pamlibdir variable, path expansion at
+    make time
+
+    The attached patch does the following:
+    - Use a separate $pam-module-dir variable for the pam module
+    - Instead of defining a custom $slibdir variable, just use the
+    standard $libdir variable specified by autoconf
+    - Use the standard autoconf $docdir variable (Add AC_PREREQ(2.59)
+    for that).
+    - Drop AS_AC_EXPAND macro and remove AC_DEFINE_UNQUOTED for dir
+    variables.
+     + Build the init script at make time using sed
+     + Use defines in src/Makefile.am to pass the variables to gcc at
+     make time
+    - Consistently use AC_HELP_STRING everywhere
+    - Remove/Replace deprecated macros:
+     + AM_INIT_AUTOMAKE takes the package name and version number
+     from AC_INIT
+     + AM_CONFIG_HEADER -> AC_CONFIG_HEADERS
+     + AC_OUTPUT -> AC_CONFIG_FILES
+
+    Patch is tested and make distcheck works.
+
+ acinclude.m4			    |  44 -----------
+ configure.ac			    | 152
+ +++++++++++++++++++------------------
+ data/ConsoleKit.in		    |  10 +--
+ data/Makefile.am		    |  13 ++++
+ libck-connector/Makefile.am	    |	3 +-
+ libck-connector/ck-connector.pc.in |	2 +-
+ pam-ck-connector/Makefile.am	    |	3 +-
+ src/Makefile.am		    |	1 +
+ 8 files changed, 99 insertions(+), 129 deletions(-)
+
+commit 86740ea242d0b26758e8a8c43904a0fc88a195f6
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Apr 2 15:36:30 2007 -0400
+
+    add unix-user to parse list
+
+    Oops.
+
+ src/ck-manager.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 41c329309a5c78d31495f97b2f4324a462c60568
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Apr 2 14:00:37 2007 -0400
+
+    add missing prefix and exec_prefix
+
+    Apparently this is required.
+
+ libck-connector/ck-connector.pc.in | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 5f3b3a7aec1c2ef81dfe28d6167049ef82e81860
+Author: Doug Goldstein <cardoe@gentoo.org>
+Date:	Fri Mar 30 16:59:21 2007 -0400
+
+    make pam module install into $slibdir
+
+    Basically the path for the pam module is hardcoded to /lib/security
+    which isn't right. Attached is a patch that uses the value of slibdir
+    for /lib/.
+
+ pam-ck-connector/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit a2b51f00af2143a90138c6ce1df1e7e9b4ec8afa
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Mar 26 14:39:44 2007 -0400
+
+    use xlib directly instead of via gdk
+
+ configure.ac			     |	5 +++--
+ tools/linux/ck-get-x11-server-pid.c | 39
+ ++++++++++++++++++++++++++++++-------
+ 2 files changed, 35 insertions(+), 9 deletions(-)
+
+commit 4c365a8e28adafd6619ada97d4239e9e6df429ab
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Mar 19 16:35:55 2007 -0400
+
+    add CanActivateSessions to Seat interface
+
+    And associated documentation and added to test-fus.
+
+ doc/spec/ck-seat.xml	 | 12 ++++++++++++
+ doc/xml/ck-design.xml	 |  9 +++++++++
+ doc/xml/ref-ck-seat.xml | 12 +++++++-----
+ src/ck-seat.c		 | 14 ++++++++++++++
+ src/ck-seat.h		 | 32 ++++++++++++++++----------------
+ src/ck-seat.xml	 |  3 +++
+ src/test-fus		 |  6 ++++++
+ 7 files changed, 67 insertions(+), 21 deletions(-)
+
+commit c40a87c622ac1543dc2d9cdccc651e33affadcfa
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Mar 15 14:04:05 2007 -0400
+
+    fix missed pam_syslog change
+
+    Also make the configure checks simpler.
+
+ configure.ac			     | 5 ++---
+ pam-ck-connector/pam-ck-connector.c | 6 +++---
+ 2 files changed, 5 insertions(+), 6 deletions(-)
+
+commit 4a947eddfad4f384bb02c8e4771a59a7ad01cd8b
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Mar 15 12:55:15 2007 -0400
+
+    fix building pam module on debian systems
+
+    Only include what is available.  Use a alternative to pam_syslog
+    if it isn't available.
+
+ configure.ac			     |	 3 ++
+ pam-ck-connector/pam-ck-connector.c | 101
+ +++++++++++++++++++++++++++++++-----
+ 2 files changed, 90 insertions(+), 14 deletions(-)
+
+commit 54ad2d581ce690060a29fa8a4b94bf5dddbafc87
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Mar 15 10:05:37 2007 -0400
+
+    more typos in docs
+
+ doc/xml/ck-design.xml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit ac2061bfcbf5c38b6f82b307479064cd73274a9f
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Mar 15 01:48:34 2007 -0400
+
+    typo
+
+ doc/xml/ck-terms.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 2f434135af56d627a887c3cdc24020c4d9ecbde4
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Mar 14 23:35:58 2007 -0400
+
+    bump version
+
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit fee1f37461cd1e0abc479f263ecfd3e3570daa53
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Mar 14 23:33:51 2007 -0400
+
+    update for release
+
+ NEWS | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+commit e8fbb76428bbaae2525347cddda8a2f526970451
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Mar 14 23:21:33 2007 -0400
+
+    bump the version arbitrarily
+
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit a6f9d78d526892da92fdeef9bacd70ea6271b038
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Mar 14 23:21:08 2007 -0400
+
+    update todo
+
+ TODO | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 2e415f120e7652da842632cc822faa9bb16294f6
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Mar 14 23:18:13 2007 -0400
+
+    add some more docs
+
+ doc/xml/ck-design.xml	     | 166
+ ++++++++++++++++++++++++++++++++++++++++++++
+ doc/xml/ck-introduction.xml |	 2 +
+ doc/xml/ck-terms.xml	     |	49 +++++++++++--
+ 3 files changed, 213 insertions(+), 4 deletions(-)
+
+commit 314b18ca8045eda3c48c0e7a5f2c0e26635ce5b8
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Mar 14 09:22:20 2007 -0400
+
+    add missing instead attribute
+
+ doc/dbus-introspect-docs.dtd | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 2f4b6ef24431fc9c4997e535f8b5e126eb5ae3db
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Mar 14 08:46:08 2007 -0400
+
+    don't include the generated html in git
+
+ doc/ConsoleKit.html | 317
+ ----------------------------------------------------
+ doc/Makefile.am     |	 1 -
+ 2 files changed, 318 deletions(-)
+
+commit f1ad1ddf9cd5898b4bca3875a698a9628313eb19
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Mar 14 08:45:44 2007 -0400
+
+    dont' mark the user properties to be set in the constructor
+
+    Now that we have two properties (one deprecated) that refer
+    to the same thing we can't require that they are both set
+    during the constructor.  Furthermore, we can't require
+    that either of them are set because we don't know which
+    will be used.
+
+ src/ck-session.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit c01153022b0fa850bd10503141ff081749f01d4d
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 13 17:29:46 2007 -0400
+
+    missed a namespace on the permission tag
+
+ doc/ConsoleKit.html	    | 132
+ ++++++++++++++++++++++-----------------------
+ doc/spec/ck-session.xml    |	4 +-
+ doc/xml/ref-ck-session.xml |	4 +-
+ 3 files changed, 70 insertions(+), 70 deletions(-)
+
+commit 4a531bc467c9a142cb2d05792e6f9e9330c199ff
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 13 15:20:37 2007 -0400
+
+    updated doc dtd
+
+ doc/ConsoleKit.html	      | 128
+ +++++++++++++++++++++----------------------
+ doc/dbus-introspect-docs.dtd |   2 +-
+ 2 files changed, 65 insertions(+), 65 deletions(-)
+
+commit 608080a2f755254a590b4d052451461294fbcee4
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 13 14:34:32 2007 -0400
+
+    add a new configure option --with-slibdir to use for connector
+
+    Turns out that just using libdir breaks the .pc file install.
+
+ configure.ac			    | 15 +++++++++++++++
+ libck-connector/Makefile.am	    |  3 ++-
+ libck-connector/ck-connector.pc.in |  2 +-
+ 3 files changed, 18 insertions(+), 2 deletions(-)
+
+commit 0f1d6b3b234a1f8d8c6b9dff38388ab58f695b64
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 13 13:50:58 2007 -0400
+
+    deprecate the user properties and add unix-user properties
+
+    Also added deprecated notes to the docs.  New code should
+    be using GetUnixUser instead of GetUser etc.
+
+ doc/ConsoleKit.html		       | 141
+ +++++++++++++++++++---------------
+ doc/dbus-introspect-docs.dtd	       |   2 +-
+ doc/spec/ck-manager.xml	       |  22 ++++++
+ doc/spec/ck-session.xml	       |  21 +++++
+ doc/tools/spec-to-docbook.xsl	       |  75 +++++++++++++++---
+ doc/xml/ref-ck-manager.xml	       |  15 +++-
+ doc/xml/ref-ck-session.xml	       |  24 ++++--
+ src/ck-manager.c		       |  25 ++++--
+ src/ck-manager.h		       |   4 +
+ src/ck-manager.xml		       |   5 ++
+ src/ck-session.c		       |  44 ++++++++---
+ src/ck-session.h		       |   8 +-
+ src/ck-session.xml		       |   4 +
+ tools/linux/ck-collect-session-info.c |   2 +-
+ tools/list-sessions.c		       |   2 +-
+ 15 files changed, 295 insertions(+), 99 deletions(-)
+
+commit 921b5e02edf59117b64385edbe4d191819d90abd
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 13 12:11:04 2007 -0400
+
+    add more doc stubs
+
+ doc/ConsoleKit.html	     | 122
+ +++++++++++++++++++++++---------------------
+ doc/ConsoleKit.xml.in	     |	 4 ++
+ doc/Makefile.am	     |	 2 +
+ doc/xml/ck-design.xml	     |	 5 ++
+ doc/xml/ck-introduction.xml |	 6 +++
+ doc/xml/ck-terms.xml	     |	26 ++++++++++
+ 6 files changed, 108 insertions(+), 57 deletions(-)
+
+commit 4a639d92a6f1a5dd8f59d57ade37d4cff420b66a
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 13 11:41:31 2007 -0400
+
+    various leak fixes
+
+ src/ck-manager.c | 38 +++++++++++++++++++++++++++++++++++---
+ src/ck-seat.c	  | 15 +++++++++++----
+ src/ck-session.c | 32 +++++++++++++++++++-------------
+ src/main.c	  |  4 +++-
+ 4 files changed, 68 insertions(+), 21 deletions(-)
+
+commit 1e7af7e9c648fb461e0d36d037d2920519159525
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 13 10:05:31 2007 -0400
+
+    convert to utf8 and xhtml output
+
+    Seems to fix some problems with invalid characters showing up.
+
+ doc/ConsoleKit.html	       | 122
+ +++++++++++++++++++++---------------------
+ doc/Makefile.am	       |   2 +-
+ doc/tools/spec-to-docbook.xsl |   2 +-
+ 3 files changed, 64 insertions(+), 62 deletions(-)
+
+commit 8b42a4928a0a266c3b3ae6bb13997764bc7f6405
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 13 03:42:04 2007 -0400
+
+    add the last bits of spec framework
+
+    The spec is the introspection format extended with
+    docs.  There are tools to build docbook and strip
+    the docs to make dbus introspect xml.
+
+ doc/ConsoleKit.html	       | 336 +++++++++++++++++++++++++++--------
+ doc/ConsoleKit.xml.in	       |   9 +-
+ doc/Makefile.am	       |   8 +-
+ doc/ck-introduction.xml       |  23 ---
+ doc/dbus-introspect-docs.dtd  |  31 ++++
+ doc/docbook-dbus.xsl	       | 261 ---------------------------
+ doc/docbook.css	       |   5 +
+ doc/docize-dbus-xml.sh        |  34 ----
+ doc/ref-ck-manager.xml        | 181 -------------------
+ doc/ref-ck-seat.xml	       | 111 ------------
+ doc/ref-ck-session.xml        | 350 ------------------------------------
+ doc/spec/ck-manager.xml       | 286 ++++++++++++++++++++++++++++++
+ doc/spec/ck-seat.xml	       | 110 ++++++++++++
+ doc/spec/ck-session.xml       | 401
+ ++++++++++++++++++++++++++++++++++++++++++
+ doc/tools/spec-strip-docs     |  34 ++++
+ doc/tools/spec-strip-docs.xsl |  36 ++++
+ doc/tools/spec-to-docbook     |  34 ++++
+ doc/tools/spec-to-docbook.xsl | 379
+ +++++++++++++++++++++++++++++++++++++++
+ doc/tools/update-from-spec    |  25 +++
+ doc/xml/ck-introduction.xml   |  20 +++
+ doc/xml/ref-ck-manager.xml    | 174 ++++++++++++++++++
+ doc/xml/ref-ck-seat.xml       |  72 ++++++++
+ doc/xml/ref-ck-session.xml    | 240 +++++++++++++++++++++++++
+ src/ck-manager.xml	       |  16 +-
+ src/ck-seat.xml	       |  14 +-
+ src/ck-session.xml	       |  11 +-
+ 26 files changed, 2131 insertions(+), 1070 deletions(-)
+
+commit 4595ab3d4953d6257a6fedfe5b294df67ff3581f
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 13 03:39:52 2007 -0400
+
+    install the connector into libdir by default
+
+    If building the PAM module then it probably should be going
+    into /lib.	However, hardcoding /lib makes it very difficult
+    to build as non-root, breaks make distcheck, and probably
+    isn't correct for 64 bit systems.  If you are a distro you
+    should probably configure using --libdir=/lib.
+
+ libck-connector/Makefile.am	    | 3 +--
+ libck-connector/ck-connector.pc.in | 2 +-
+ 2 files changed, 2 insertions(+), 3 deletions(-)
+
+commit 29437f4aa9bd1bab54bde41cb1f6301803a2632e
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Sat Mar 10 18:02:29 2007 -0500
+
+    regenerate docs
+
+ doc/ConsoleKit.html	| 72
+ +++++++++++++++++++++++++-------------------------
+ doc/ref-ck-session.xml | 36 ++++++++++++-------------
+ 2 files changed, 54 insertions(+), 54 deletions(-)
+
+commit 6ce9a74f69f611bc5aeeb57a4bf9efea19774938
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Sat Mar 10 17:05:06 2007 -0500
+
+    add the generated doc html
+
+ doc/.gitignore      |	1 -
+ doc/ConsoleKit.html | 96
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 96 insertions(+), 1 deletion(-)
+
+commit 50ff6eda31c06cea4e3b8010d114e66cfdb3f6e6
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Mar 9 13:51:21 2007 -0500
+
+    give root permission to use the property interface
+
+ data/ConsoleKit.conf | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+commit 093539956ac0a5092a5fdc39f8b27475071032c4
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Mar 9 13:50:10 2007 -0500
+
+    fix the user prop type
+
+ src/ck-session.xml | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+commit c8dbc4b6a38b99ed192f5ed2f73f57014a49d50a
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Mar 9 12:36:09 2007 -0500
+
+    add a few more parameters to session idl
+
+ doc/ref-ck-session.xml | 90
+ +++++++++++++++++++++++++++++++++++++++++++++++++-
+ src/ck-session.xml	|  8 +++++
+ 2 files changed, 97 insertions(+), 1 deletion(-)
+
+commit d5061bf16725bc711f7ddcff02e77a94014107f5
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Mar 9 12:35:30 2007 -0500
+
+    add uuid to cookie
+
+ src/ck-manager.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+commit 1d72374535de222cb816c74506555c71af10d429
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Mar 9 11:40:59 2007 -0500
+
+    add a tool to autogenerate dbus object ref docs
+
+    I hope I didn't reinvent a wheel but it seems to
+    work much better than hand coding these refentries.
+    Still need to add support for comments and actual
+    descriptions ala gtk-doc.
+
+ doc/ConsoleKit.xml.in	 |  10 +-
+ doc/Makefile.am	 |   6 +-
+ doc/ck-dbus-manager.xml |  52 ----------
+ doc/ck-dbus-seat.xml	 |  39 -------
+ doc/ck-dbus-session.xml |  55 ----------
+ doc/docbook-dbus.xsl	 | 261
+ +++++++++++++++++++++++++++++++++++++++++++++++
+ doc/docize-dbus-xml.sh  |  34 +++++++
+ doc/ref-ck-manager.xml  | 181 +++++++++++++++++++++++++++++++++
+ doc/ref-ck-seat.xml	 | 111 ++++++++++++++++++++
+ doc/ref-ck-session.xml  | 262
+ ++++++++++++++++++++++++++++++++++++++++++++++++
+ src/ck-manager.xml	 |  12 ++-
+ src/ck-seat.xml	 |  12 ++-
+ src/ck-session.xml	 |   9 +-
+ 13 files changed, 884 insertions(+), 160 deletions(-)
+
+commit 15ad40c8d8abd86a4b83e445031fd467406b45d8
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Mar 8 22:09:41 2007 -0500
+
+    tweak the css for the docs
+
+ doc/ConsoleKit.xml.in |  4 ---
+ doc/docbook.css       | 77
+ +++++++++++++++++++++++++++++++++++++++++++--------
+ 2 files changed, 66 insertions(+), 15 deletions(-)
+
+commit 54246537dfdcb89ee34dfbaa8b909b94ae2845b9
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Mar 8 21:24:25 2007 -0500
+
+    update all .gitignore files
+
+ .gitignore		     | 1 +
+ libck-connector/.gitignore  | 9 +++++++++
+ pam-ck-connector/.gitignore | 8 ++++++++
+ tools/.gitignore	     | 2 +-
+ tools/linux/.gitignore      | 9 +++++++++
+ 5 files changed, 28 insertions(+), 1 deletion(-)
+
+commit 1702970a3ea3de88f04623f69a3ab5260f77d2c5
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Mar 8 21:16:40 2007 -0500
+
+    add a stub for docbook documentation
+
+ Makefile.am		 |   1 +
+ configure.ac		 | 102
+ ++++++++++++++++++++++++++++++++++--------------
+ doc/.gitignore		 |   6 +++
+ doc/ConsoleKit.xml.in	 |  69 ++++++++++++++++++++++++++++++++
+ doc/Makefile.am	 |  37 ++++++++++++++++++
+ doc/ck-dbus-manager.xml |  52 ++++++++++++++++++++++++
+ doc/ck-dbus-seat.xml	 |  39 ++++++++++++++++++
+ doc/ck-dbus-session.xml |  55 ++++++++++++++++++++++++++
+ doc/ck-introduction.xml |  23 +++++++++++
+ doc/config.xsl		 |   6 +++
+ doc/docbook.css	 |  18 +++++++++
+ 11 files changed, 378 insertions(+), 30 deletions(-)
+
+commit ef7ee407bc58ea24db828cad9e1e7d628e322067
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Mar 8 21:06:55 2007 -0500
+
+    prevent the use of the glib properties interface
+
+    We don't want anyone to be able to directly modify properties.
+    Also make these policies mandatory.
+
+ data/ConsoleKit.conf | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+commit f4173a08a83db8879ae9c82356f7a9702cb4f883
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Mar 7 14:53:01 2007 -0500
+
+    update todo
+
+ TODO | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+commit ef83e4007f375db0ee8f240d2bf292331a5a76cb
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 6 18:46:25 2007 -0500
+
+    remove debug noise
+
+ src/ck-session.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 701349f1ad564242c143cab6773dde0de6396db8
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 6 18:32:49 2007 -0500
+
+    add very basic idle monitoring of text sessions and rework parameter
+    parsing
+
+    Rework the parameter parsing so it is a bit more robust and so that
+    parameters can get passed to the constructor.
+
+ src/ck-session.c		       | 223
+ ++++++++++++++++++++++++++++++----
+ src/test-open-session-with-parameters |   5 +-
+ 2 files changed, 205 insertions(+), 23 deletions(-)
+
+commit dc5e9585215f34ec78b68fbb6da990a90d8f3a1b
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 6 16:07:24 2007 -0500
+
+    use paths.h if available
+
+ configure.ac			     |	2 ++
+ pam-ck-connector/pam-ck-connector.c | 14 ++++++++++++--
+ pam-ck-connector/test-pam.c	     |	8 +++++++-
+ src/ck-seat.c			     | 11 +++++++++--
+ src/getfd.c			     | 28 +++++++++++++++++++++-------
+ src/proc-linux.c		     | 10 +++++++---
+ 6 files changed, 58 insertions(+), 15 deletions(-)
+
+commit ce4ee7b54d40faf13e005285e5b85a061f21e256
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 6 15:36:56 2007 -0500
+
+    add some items in a TODO file
+
+ TODO | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+commit 96d209ea26485c6b6f23a469ee1d2db672e6697a
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 6 15:01:07 2007 -0500
+
+    exit if we can't acquire name at startup and fix a glib warning
+
+ src/main.c | 41 ++++++++++++++++++++++++++++++++---------
+ 1 file changed, 32 insertions(+), 9 deletions(-)
+
+commit 98ea3604c92a4c0317d2f9626f097bc384caf70a
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 6 02:32:10 2007 -0500
+
+    add is-local back to the pam module
+
+ pam-ck-connector/pam-ck-connector.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 699923e665a4606a1b3f6822e4e4917f86a2a713
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 6 02:31:45 2007 -0500
+
+    check for empty strings as well as null
+
+ src/ck-manager.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
+
+commit d9ca86ae5acb8a4a56e875c9ad0ed617f50abf65
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 6 00:25:06 2007 -0500
+
+    use a slightly more sophisticated rule for adding sessions to
+    static seat
+
+ src/ck-manager.c		       | 37
+ ++++++++++++++++++++++++++++++-----
+ src/test-open-session-with-parameters |  1 +
+ 2 files changed, 33 insertions(+), 5 deletions(-)
+
+commit a3cb617b1fd3be5199c0dfc08aee0af4b04d1a8b
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Mar 6 00:24:02 2007 -0500
+
+    allow for the possibility of matching multiple sessions for device
+
+    In the event that there is more than one session that matches
+    a particular tty when the VT changes we use the following rule:
+     1. take the oldest session where display-device == active VT device
+     2. take the oldest session where x11-display-device == active
+     VT device
+
+ src/ck-seat.c | 160
+ ++++++++++++++++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 145 insertions(+), 15 deletions(-)
+
+commit 08436b041d6b334a5754266b11385941a71d3f81
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Mar 5 21:56:52 2007 -0500
+
+    add x11-display-device to parse table
+
+ src/ck-manager.c      | 13 +++++++------
+ src/test-open-session |  2 ++
+ 2 files changed, 9 insertions(+), 6 deletions(-)
+
+commit 5cc0ba8ec8c988d0068b07e4f67839d42b357537
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Mar 5 20:36:59 2007 -0500
+
+    try to parse the real meaning of PAM_TTY
+
+ pam-ck-connector/pam-ck-connector.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+commit 2e38a7026491595e6837fa8c02e077584fc71b71
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Mar 5 19:14:14 2007 -0500
+
+    fix the example code
+
+ libck-connector/ck-connector.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit a9a48c07142025841a69da6fc30c6a1fbd29727a
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Mar 5 19:10:51 2007 -0500
+
+    use with_parameters and add remote-host-name if available
+
+ pam-ck-connector/pam-ck-connector.c | 49
+ +++++++++++++++++++++++++++++--------
+ 1 file changed, 39 insertions(+), 10 deletions(-)
+
+commit 0293d43731d125b825fa8962976b527bf46b65d6
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Mar 5 19:10:02 2007 -0500
+
+    add a with_parameters function to connector
+
+ libck-connector/ck-connector.c   | 395
+ +++++++++++++++++++++------------------
+ libck-connector/ck-connector.h   |  36 ++--
+ libck-connector/test-connector.c |  18 +-
+ 3 files changed, 255 insertions(+), 194 deletions(-)
+
+commit d588a897fef3af61a7368226986b384fce2524e7
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Mar 5 19:08:15 2007 -0500
+
+    rename host-name in one more place
+
+ src/ck-manager.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+commit 7dfb9732b27778722214531d0c17b7e50e8a2fe1
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Mar 5 15:24:56 2007 -0500
+
+    rename host-name to remote-host-name to make it more intuitive
+
+ libck-connector/ck-connector.c        |  8 ------
+ src/ck-session.c		       | 49
+ +++++++++++++++++++----------------
+ src/ck-session.h		       |  6 ++---
+ src/ck-session.xml		       |  4 +--
+ tools/linux/ck-collect-session-info.c | 12 ++++-----
+ tools/list-sessions.c		       | 12 ++++-----
+ 6 files changed, 44 insertions(+), 47 deletions(-)
+
+commit ed0e87a5f66d88d6f388229e1bf71632bb0f1308
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Mar 5 14:49:47 2007 -0500
+
+    add x11-display-device to ck-list-sessions
+
+ tools/list-sessions.c | 28 ++++++++++++++++++++++------
+ 1 file changed, 22 insertions(+), 6 deletions(-)
+
+commit 4749b0ecb6241517685a2a809695a85bd9f93432
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Mar 5 14:39:07 2007 -0500
+
+    add two more proc sysdep functions
+
+ src/proc-linux.c | 53
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/proc.h	  |  4 ++++
+ 2 files changed, 57 insertions(+)
+
+commit 4b245b3113480d495440e1b7d32eb4dc6d564c8c
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Mar 5 12:12:59 2007 -0500
+
+    add x11-display-device attribute
+
+    In certain cases it is necessary to distinguish the display-device
+    (tty of session leader) from the x11-display-device (tty of xorg
+    process).
+
+ src/ck-session.c		       |  60 ++++++++++--
+ src/ck-session.h		       | 172
+ ++++++++++++++++++----------------
+ src/ck-session.xml		       |   3 +
+ tools/linux/ck-collect-session-info.c |  29 ++++--
+ 4 files changed, 164 insertions(+), 100 deletions(-)
+
+commit 67fa39aacf65117a85533035a71ee09b184003dc
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Mar 5 11:18:32 2007 -0500
+
+    use an async job to collect session info
+
+    Use an async helper job to collect session info for the
+    OpenSession() method.
+
+ src/Makefile.am		       |   2 +
+ src/ck-job.c			       | 392
+ ++++++++++++++++++++++++++++++++++
+ src/ck-job.h			       |  76 +++++++
+ src/ck-manager.c		       | 278 +++++++++++++++++-------
+ tools/linux/ck-collect-session-info.c |  11 +-
+ 5 files changed, 681 insertions(+), 78 deletions(-)
+
+commit f67761a042ff8b29d7689a043a53110d0bbbf6e9
+Author: David Zeuthen <david@fubar.dk>
+Date:	Mon Mar 5 10:26:10 2007 -0500
+
+    allow uid 0 to use the pam module
+
+    So in Fedora's Rawhide /bin/login is now using libck-connector via the
+    PAM module and CK will track such sessions. However, it doesn't work
+    when root logs in and I think that's a bug. Attached patch should
+    fix it
+    (is already in Rawhide). Thanks.
+
+       David
+
+ libck-connector/ck-connector.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 4f0911bf685f51b51d05a69a40d3950debb995a0
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Mar 2 17:51:37 2007 -0500
+
+    add linux backends for collecting session information
+
+    These tools will be used to generate and verify the parameters
+    used to open a session.
+
+ configure.ac			       |   5 +
+ src/proc-linux.c		       |  57 +++++
+ src/proc.h			       |  20 +-
+ tools/linux/Makefile.am	       |  23 +-
+ tools/linux/ck-collect-session-info.c | 390
+ ++++++++++++++++++++++++++++++++++
+ tools/linux/ck-get-x11-server-pid.c   |  75 +++++++
+ 6 files changed, 560 insertions(+), 10 deletions(-)
+
+commit 75ad4b862611bd6a39bda06db3db4c9737657dad
+Author: David Zeuthen <davidz@redhat.com>
+Date:	Thu Mar 1 15:23:14 2007 -0500
+
+    dist the manual page for the PAM module
+
+ pam-ck-connector/Makefile.am | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 1d1b98cd17764be77b1aee79efae8e89ce7faa04
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Mar 1 14:24:27 2007 -0500
+
+    add a test program for the PAM module
+
+    Basically this is a mini login.  It authenticates, opens a session,
+    sleeps 20 seconds, and then closes the session.
+
+ configure.ac			     |	 4 ++
+ pam-ck-connector/Makefile.am	     |	38 ++++++++--
+ pam-ck-connector/pam-ck-connector.c |	 2 +-
+ pam-ck-connector/test-pam.c	     | 135
+ ++++++++++++++++++++++++++++++++++++
+ 4 files changed, 174 insertions(+), 5 deletions(-)
+
+commit e37a78dfc5abcb3b02cb5debaa24122fa9b949c4
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Mar 1 13:08:17 2007 -0500
+
+    fix some typos
+
+ pam-ck-connector/pam-ck-connector.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+commit 6eae9c8ba66c9a7469a2cdea88c16048fdbe2638
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Feb 28 14:20:40 2007 -0500
+
+    add a test program for the connector
+
+    Add a simple test app for the connector.  Adapted from
+    the example David put in the header.
+
+ libck-connector/Makefile.am	  | 59 +++++++++++++++++++++++-----
+ libck-connector/test-connector.c | 85
+ ++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 135 insertions(+), 9 deletions(-)
+
+commit 1905aa0cb4a680308949e366c21803bcf542d9e1
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Feb 28 14:19:44 2007 -0500
+
+    change the connector API a bit + misc anality
+
+    I modified the API of the new connector a bit.
+     * include errors
+     * make names a bit more consistent with what they do
+     * have symmetry between open and close
+     * use refcounting
+     * do parameter checking on inputs
+
+    I also made some changes to whitespace and style.  And converted
+    descriptions to gtkdoc style comments.
+
+ libck-connector/ck-connector.c      | 886
+ +++++++++++++++++++++++-------------
+ libck-connector/ck-connector.h      | 108 +----
+ pam-ck-connector/pam-ck-connector.c | 287 ++++++------
+ 3 files changed, 762 insertions(+), 519 deletions(-)
+
+commit fed7e94f76c4279015354ff210bc72f1ac68af70
+Author: David Zeuthen <davidz@redhat.com>
+Date:	Wed Feb 28 13:52:17 2007 -0500
+
+    add a connector library and (reluctantly) a PAM module
+
+    Here are some patches to add one library and one PAM module so other
+    programs (apart from gdm) can easily interact with ConsoleKit. It's
+    mainly going to be used, I think, by login(1) and xinit(1). I'm not
+    super happy about doing a PAM module but the Fedora util-linux package
+    maintainer seems to be insist on this instead of just patching
+    login(1).
+    The PAM module isn't built by default. Both pieces of code are
+    licensed
+    under the MIT license as god knows what might want to use them. Sounds
+    good to you?
+
+ Makefile.am			     |	 2 +
+ configure.ac			     |	29 +++
+ libck-connector/Makefile.am	     |	22 +++
+ libck-connector/ck-connector.c      | 381
+ ++++++++++++++++++++++++++++++++++++
+ libck-connector/ck-connector.h      | 122 ++++++++++++
+ libck-connector/ck-connector.pc.in  |	 9 +
+ pam-ck-connector/Makefile.am	     |	17 ++
+ pam-ck-connector/pam-ck-connector.c | 228 +++++++++++++++++++++
+ pam-ck-connector/pam_ck_connector.8 |	80 ++++++++
+ 9 files changed, 890 insertions(+)
+
+commit 8b33f57e8cd5f451d55fbb0f9bcc3c119a076326
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Feb 28 10:50:46 2007 -0500
+
+    add framework for backend tools
+
+    System dependent tools will be built in subdirectories under tools.
+
+ configure.ac		 | 23 +++++++++++++++++++++++
+ tools/Makefile.am	 |  8 ++++++++
+ tools/linux/Makefile.am | 33 +++++++++++++++++++++++++++++++++
+ 3 files changed, 64 insertions(+)
+
+commit 593d2ae454f225c545c35398ddfd2c92389e48a7
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Feb 28 10:47:51 2007 -0500
+
+    lay the groundwork for making open session async
+
+    Restructure things a bit so that we can be completely async
+    about creating sessions.  We want to do this so we can use
+    callouts to gather session info or to verify info.	Also
+    make the OpenSession create a parameter list and then create
+    the session rather than creating the session and changing
+    attributes.  This is less racy and the session will be complete
+    and correct before any signals are emitted.
+
+ src/ck-manager.c | 370
+ +++++++++++++++++++++++++++++++++++++------------------
+ 1 file changed, 252 insertions(+), 118 deletions(-)
+
+commit 160f1cdb75e631743312cfd26fb41831ed0f5c8c
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Feb 28 10:43:17 2007 -0500
+
+    don't rely on evironment getting updated in python scripts
+
+ src/test-open-session-with-parameters | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+commit 7c64a3ab942df6232f1386808a817ff5ecad1311
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Feb 27 12:44:58 2007 -0500
+
+    install the list-sessions tool as ck-list-sessions
+
+ tools/Makefile.am | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit 75c0717053780fe51471213cdb21ee8019bfbb6e
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Feb 26 17:08:23 2007 -0500
+
+    post release version bump
+
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit f772ad2e5c57010f3ca0bbd04a0b490e8f78c07d
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Feb 26 17:07:06 2007 -0500
+
+    update news for release
+
+    Also fix a distcheck error.
+
+ NEWS		 | 13 +++++++++++++
+ src/Makefile.am |  3 ++-
+ 2 files changed, 15 insertions(+), 1 deletion(-)
+
+commit 35b022fde7836d0edb5819d4f8be29bd1b9a20d9
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Feb 26 15:18:49 2007 -0500
+
+    rename some items in proc.h api; add some more error checking
+
+    Make the proc.h API more coherent.	Convert some warnings
+    to debug statements.  Fix two leaks.  Add more error checking.
+
+ src/ck-manager.c | 104
+ +++++++++++++++++++++++++++++++++++--------------------
+ src/proc-linux.c |  42 ++++++++++++----------
+ src/proc.h	  |  17 ++++-----
+ 3 files changed, 99 insertions(+), 64 deletions(-)
+
+commit 8fa6f59953fbcae779008c7cdf12441e995b1ca3
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Feb 21 13:22:37 2007 -0500
+
+    add support for glib < 2.12
+
+    Copy the iso8601 function from glib to support versions less than
+    2.12.
+
+ src/ck-manager.c | 25 ++++++++++++++++++++++++-
+ src/ck-session.c | 27 +++++++++++++++++++++++++--
+ 2 files changed, 49 insertions(+), 3 deletions(-)
+
+commit 20d3103338d253d09ba7317e6a53310fa9680794
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Feb 21 11:31:54 2007 -0500
+
+    make separate test scripts for open session methods
+
+ src/ck-manager.c		       |  1 +
+ src/test-open-session		       | 44
+ ++++++++++++++++++++++++++++++++
+ src/test-open-session-with-parameters | 47
+ +++++++++++++++++++++++++++++++++++
+ src/test-session		       | 47
+ -----------------------------------
+ 4 files changed, 92 insertions(+), 47 deletions(-)
+
+commit 0a8a82bf2701eadb3ef8c3ea927b1d61ea0f68ba
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Feb 21 11:31:09 2007 -0500
+
+    don't use null parameters
+
+ src/ck-session.c | 32 +++++++++++++++++---------------
+ 1 file changed, 17 insertions(+), 15 deletions(-)
+
+commit eb9361c9b0b05c3bd51de7325c3327db79431fc9
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Feb 20 14:45:40 2007 -0500
+
+    add a system-idle-hint and system-idle-since-hint
+
+    The system idle hint is TRUE when there are no busy (ie non-idle)
+    sessions.
+    So the system is idle when there are no sessions or all sessions
+    are idle.
+
+ src/ck-manager.c   | 160
+ +++++++++++++++++++++++++++++++++++++++++++++++------
+ src/ck-manager.h   |  20 +++++--
+ src/ck-manager.xml |	8 +++
+ 3 files changed, 166 insertions(+), 22 deletions(-)
+
+commit ef89bbdb1be20fbca2a83037fcc922b444b7b513
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Feb 20 14:43:27 2007 -0500
+
+    make the idle hint getters sync dbus methods
+
+    This makes it easier to use from C code.  Also fix a bug where
+    we weren't emitting the argument in the idle-hint-changed signal.
+
+ src/ck-session.c   | 23 ++++++++++++++++-------
+ src/ck-session.h   |  6 ++++--
+ src/ck-session.xml |  2 --
+ 3 files changed, 20 insertions(+), 11 deletions(-)
+
+commit 10a6532e35f4e40135006329a6975942ee896817
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Feb 20 12:07:29 2007 -0500
+
+    rename idle methods and signal to indicate they are hints
+
+    Rename GetIdle to GetIdleHint (etc) to make it clear that these
+    are not authoritative properties.
+
+ src/ck-session.c      | 62
+ +++++++++++++++++++++++++--------------------------
+ src/ck-session.h      | 24 ++++++++++----------
+ src/ck-session.xml    | 12 +++++-----
+ tools/list-sessions.c | 12 +++++-----
+ 4 files changed, 55 insertions(+), 55 deletions(-)
+
+commit 7f7124d4f7583347043b271472e570614d975f35
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Feb 19 17:59:54 2007 -0500
+
+    limit the use of errno
+
+    Try to limit the use of errno in case it can change.
+
+ src/ck-vt-monitor.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+commit 5376650940e9018a0d3e97367d2979f90af749bc
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Feb 19 16:14:22 2007 -0500
+
+    handle the no console fd case better
+
+    Don't spew warnings when getfd() can't find a suitable console fd.
+    Also
+    add a comment to note where getfd.c comes from.
+
+ src/ck-vt-monitor.c | 42 ++++++++++++++++++++++++++++++++----------
+ src/getfd.c	     |	6 ++++++
+ 2 files changed, 38 insertions(+), 10 deletions(-)
+
+commit 4d7e3eec89f706cb9a46fd84359de3da1868245d
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Feb 19 15:42:37 2007 -0500
+
+    improve thread safety
+
+    Change to using an async queue for events from VT watching threads.
+    Add
+    mutex protection to shared data.  Compress the event queue when
+    possible by
+    discarding all but the most recent VT activation event.
+
+ src/ck-vt-monitor.c | 226
+ ++++++++++++++++++++++++++++++++++++++++------------
+ 1 file changed, 174 insertions(+), 52 deletions(-)
+
+commit 51ff0be15b7bd4a48fd07ada4822f07ddc028af0
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Feb 15 17:20:46 2007 -0500
+
+    split list-sessions output onto separate lines
+
+    It was getting impossible to read all on one line.
+
+ tools/list-sessions.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 497cc86462934168ab8cd379ab1130d4ef5d039b
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Feb 15 16:15:16 2007 -0500
+
+    add creation and idle-since times
+
+    Added GetCreationTime and GetIdleSince methods.  And added the
+    output to the list-sessions tool.
+
+ src/ck-session.c      | 49
+ +++++++++++++++++++++++++++++++++++++++++++++++++
+ src/ck-session.h      |  5 +++++
+ src/ck-session.xml    |  7 +++++++
+ tools/list-sessions.c | 17 +++++++++++++++--
+ 4 files changed, 76 insertions(+), 2 deletions(-)
+
+commit cbe9b9ba1ca59d25365593fdc1a66f9ffd3183ca
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Feb 15 15:28:27 2007 -0500
+
+    implement get/set idle methods
+
+    Add the GetIdle and SetIdle methods, and the IdleChanged signal.
+    SetIdle is restricted to the uid of the session in question.
+
+ src/ck-session.c   | 166
+ ++++++++++++++++++++++++++++++++++++++++++++++++++---
+ src/ck-session.h   |	7 ++-
+ src/ck-session.xml |  11 ++++
+ 3 files changed, 173 insertions(+), 11 deletions(-)
+
+commit 66c740f30d36bac8f7b56261f0bd595b297d3dd2
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Feb 15 15:26:06 2007 -0500
+
+    restrict access to CloseSession
+
+    Only allow the uid and pid that opened the session to close it.
+
+ src/ck-manager.c | 77
+ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 77 insertions(+)
+
+commit be0751cd3ec3638082721b1556c07a4238c6c4ac
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Feb 15 15:23:06 2007 -0500
+
+    convert all tabs to spaces
+
+ src/ck-manager.c | 154
+ +++++++++++++++++++++++++++----------------------------
+ src/ck-seat.c	  |  18 +++----
+ src/ck-session.c |  14 ++---
+ 3 files changed, 93 insertions(+), 93 deletions(-)
+
+commit 4009566af9a47aa4a41dac689ff89f017d6dc8db
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Feb 15 15:22:20 2007 -0500
+
+    fix compiler warning
+
+ src/getfd.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+commit 6c532b986e2a05bf666a8409cf130651e8461874
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Feb 13 08:07:19 2007 -0500
+
+    fix warning from missing include
+
+ src/ck-vt-monitor.c | 2 +-
+ src/main.c	     | 9 +++++----
+ 2 files changed, 6 insertions(+), 5 deletions(-)
+
+commit 4800bf1e4a3706b6829ccc875d040a64a8d17aad
+Author: S.Çağlar Onur <caglar@pardus.org.tr>
+Date:	Tue Feb 13 07:03:50 2007 -0500
+
+    create and delete pid file
+
+    While try to play with ConsoleKit i realize it cannot create its
+    pid file, so
+    if needed attached patch adds that with copy/paste from PolicyKit :).
+
+ src/main.c | 25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
+
+commit 1bd5d81ed1c69074d48158a337043fc569970b75
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Feb 12 17:02:35 2007 -0500
+
+    post release version bump
+
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 87813890f09c1e1ac16f617e8baf7d523e971381
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Feb 12 16:56:24 2007 -0500
+
+    add more warnings when building from git
+
+ configure.ac | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit 32d47eb2f93f97c29b2582add77b54428aefef5a
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Feb 12 16:53:24 2007 -0500
+
+    update for release
+
+ NEWS | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+commit 3444585150a2f88ccfe92ba5f3959961428d597c
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Feb 12 16:15:51 2007 -0500
+
+    use the supplied vt number when updating active session
+
+    Just the use vt number given by the vt-manager instead of
+    asking for the current vt again.  A little bit less racy this way.
+
+ src/ck-seat.c | 31 +++++++++++++++++++------------
+ 1 file changed, 19 insertions(+), 12 deletions(-)
+
+commit dc427221e1c5028465f4a78132374662341ca3b7
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Feb 8 14:12:10 2007 -0500
+
+    Bump thread stack size up to 64k
+
+    The minimum stack size 16k seems to crash glibc
+    when we do printf in debug.
+
+ src/ck-vt-monitor.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 0c695fd6c3279e8b3f3336337bdc0d66689eff9a
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Feb 7 14:51:16 2007 -0500
+
+    support for reconnecting to the system bus
+
+    Instead of exiting on disconnect this attempts to reconnect.
+    Based on patch from: Timo Hoenig <thoenig@suse.de>
+
+ src/main.c | 198
+ +++++++++++++++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 153 insertions(+), 45 deletions(-)
+
+commit 975ccd898da30b3904e287848d6d7661ed0a9dfe
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Feb 7 14:49:05 2007 -0500
+
+    reduce the debug buffer size
+
+    Reduce the buffer size in the debugging code.
+
+ src/ck-debug.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+commit 4cf47cb3072a7995e6dc87fcc7dd4bafe76256f8
+Author: David Zeuthen <david@fubar.dk>
+Date:	Wed Feb 7 11:01:52 2007 -0500
+
+    start ck before hal
+
+    We should start CK before HAL (especially in light of some changes in
+    HAL I'm working on); this patch does that for RH based systems. Please
+    apply. Thanks!
+
+ data/ConsoleKit.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 7dcf31d02463faa3c59a9417dae654668d03fea9
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Feb 7 10:57:55 2007 -0500
+
+    don't refer to the hal repo
+
+    Oops.
+
+ HACKING | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 98addf1933cd24f546177dd4b158c770ea404df0
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Feb 7 10:53:30 2007 -0500
+
+    add more information
+
+    Add more information that was stolen from the HAL HACKING file.
+    The parts on how to use git are particularly useful.
+
+ HACKING | 94
+ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 91 insertions(+), 3 deletions(-)
+
+commit 7e4ffe9ca1d65afeb094ee1bb71b0a7751e09e1c
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Feb 6 11:49:35 2007 -0500
+
+    Don't keep last session active when switching to a VT without
+    a session registered on it.
+    Patch from: David Zeuthen
+
+ src/ck-seat.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+commit dc17c930b2ba7dd0a4d0c1ba12c75aa2db18d5a6
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Feb 6 11:46:48 2007 -0500
+
+    Add some more debugging output
+
+ src/ck-manager.c | 8 +++++++-
+ src/ck-session.c | 4 +++-
+ 2 files changed, 10 insertions(+), 2 deletions(-)
+
+commit 89ee325cf6a0006e48ce702cd5626b7ef4021b04
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Feb 6 11:46:21 2007 -0500
+
+    Make threads use minimum stack size rather than the default.
+    Patch from: mclasen@redhat.com
+
+ src/ck-vt-monitor.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit a7208ca3337fef21daa9cd39e0178fe46d31ab99
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Jan 12 16:11:00 2007 -0500
+
+    Rename dbus config file.
+
+ data/ConsoleKit.conf  | 49
+ +++++++++++++++++++++++++++++++++++++++++++++++++
+ data/Makefile.am      |  2 +-
+ data/console-kit.conf | 49
+ -------------------------------------------------
+ 3 files changed, 50 insertions(+), 50 deletions(-)
+
+commit be3fef886b70ccfd5ee48bcd5d9f4cb0256ecbdc
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Jan 12 15:59:04 2007 -0500
+
+    Change a console-kit to ConsoleKit in a few places
+
+ configure.ac	    | 11 ++++++-----
+ data/ConsoleKit.in |  8 ++++----
+ 2 files changed, 10 insertions(+), 9 deletions(-)
+
+commit e7774625aa136e766c064f39d83d031c5af8d900
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Jan 11 11:03:30 2007 -0500
+
+    Post release version bump
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 9ced94ab8b658ae31e8d2652d6cfe4d635459014
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Jan 11 10:54:39 2007 -0500
+
+    Update for 0.1.0 release
+
+ NEWS	      | 7 +++++++
+ configure.ac | 2 +-
+ 2 files changed, 8 insertions(+), 1 deletion(-)
+
+commit e6b013eb3b5310357d6a62a405fcc1da8aad0cf8
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Jan 10 22:45:05 2007 -0500
+
+    Add HACKING and README.
+
+ HACKING     |	8 ++++++++
+ Makefile.am |	1 +
+ README      | 26 ++++++++++++++++++++++++++
+ 3 files changed, 35 insertions(+)
+
+commit 47b6509e6f386bf47244922b2c3cf5637be117a3
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Nov 17 17:39:51 2006 -0500
+
+    Dist the ChangeLog, sigh.
+
+ Makefile.am  | 1 +
+ configure.ac | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+commit c05a0ed330836b4f9569b6b6c96d853b8207c33a
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Nov 17 17:33:22 2006 -0500
+
+    Automatically generate ChangeLog.  Fix autogen.  Remove translation
+    stuff.
+
+ Makefile.am	|  26 ++-
+ autogen.sh	| 549
+ +++++++++++++++------------------------------------------
+ configure.ac	|   2 -
+ po/POTFILES.in |   3 -
+ 4 files changed, 158 insertions(+), 422 deletions(-)
+
+commit babc733eff30a2be18fa3f99bc3ef4f14e35d259
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Nov 6 15:28:41 2006 -0500
+
+    Fix some small leaks.  Add --timed-exit to daemon for valgrinding.
+
+ src/ck-manager.c | 11 ++++++++++-
+ src/ck-session.c |  2 ++
+ src/main.c	  |  3 ++-
+ src/test-session |  3 ++-
+ src/valgrind.sh  |  4 ++--
+ 5 files changed, 18 insertions(+), 5 deletions(-)
+
+commit be02d5de51072235c20d6974f0cccb485055a02e
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Mon Nov 6 00:35:01 2006 -0500
+
+    Show message even when error is NULL.  Fix valgrind script.
+
+ src/ck-manager.c | 1 -
+ src/main.c	  | 4 ++++
+ src/valgrind.sh  | 4 ++--
+ 3 files changed, 6 insertions(+), 3 deletions(-)
+
+commit 7e817628550ab4932baf6059b06049944893af7e
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Oct 31 23:38:41 2006 -0500
+
+    Fake the presence of a ChangeLog to work around automake
+
+ autogen.sh | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 26b40c39ef74eec4f0e9cc7834cfd033a4decbb3
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Tue Oct 31 22:40:34 2006 -0500
+
+    Add a script to test FUS related functionality.
+    Fix a problem where error was reported twice.
+
+ src/ck-seat.c	  |  5 ++++-
+ src/test-fus	  | 63
+ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/test-session | 13 ++++--------
+ 3 files changed, 71 insertions(+), 10 deletions(-)
+
+commit 1d77428175b9684acf582717e7b12b3775ec7e4e
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Oct 27 10:20:57 2006 -0400
+
+    Add .gitignore files and rename tool.
+
+ .gitignore	       |  45 +++++++
+ data/.gitignore       |   3 +
+ src/.gitignore        |  13 ++
+ tools/.gitignore      |   8 ++
+ tools/Makefile.am     |   8 +-
+ tools/list-consoles.c | 362
+ --------------------------------------------------
+ tools/list-sessions.c | 362
+ ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 7 files changed, 435 insertions(+), 366 deletions(-)
+
+commit 6b71d5dcaf9178645d83b4cbfc8febbb43ebe9c2
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Fri Oct 27 09:54:59 2006 -0400
+
+    Actually remove files and remember to use commit -a.
+
+ INSTALL	       |   236 -
+ Makefile.am	       |     3 -
+ Makefile.in	       |   723 --
+ acinclude.m4	       |    88 +
+ aclocal.m4	       |  8166 ----------------
+ compile	       |   142 -
+ config.guess	       |  1463 ---
+ config.h.in	       |    97 -
+ config.sub	       |  1579 ----
+ configure	       | 24456
+ ------------------------------------------------
+ configure.ac	       |     2 +-
+ data/Makefile.am      |     4 +
+ data/Makefile.in      |   443 -
+ depcomp	       |   530 --
+ install-sh	       |   323 -
+ intltool-extract.in   |   853 --
+ intltool-merge.in     |  1403 ---
+ intltool-update.in    |  1089 ---
+ ltmain.sh	       |  6863 --------------
+ missing	       |   360 -
+ mkinstalldirs	       |   158 -
+ po/Makefile.in.in     |   221 -
+ src/Makefile.in       |   724 --
+ src/ck-manager-glue.h |   223 -
+ src/ck-marshal.c      |   126 -
+ src/ck-marshal.h      |    28 -
+ src/ck-seat-glue.h    |   167 -
+ src/ck-session-glue.h |   135 -
+ tools/Makefile.in     |   632 --
+ 29 files changed, 93 insertions(+), 51144 deletions(-)
+
+commit 0c2eba4ba67bcc52e9ce88e49a0dd74ce5ebdea6
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Thu Oct 26 21:58:54 2006 -0400
+
+    Remove all the generated cruft from the tarball import.
+
+ autogen.sh | 445
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 445 insertions(+)
+
+commit d8d6b694e11d9433495833dfe09dcb3cf6830c1d
+Author: William Jon McCann <mccann@jhu.edu>
+Date:	Wed Oct 25 16:30:23 2006 -0400
+
+    Bump version for git.
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit a08530e838218b3c5859550058e78b8f1abee434
+Author: William Jon McCann <mccannwj@acsnb12.pha.jhu.edu>
+Date:	Wed Oct 25 14:38:19 2006 -0400
+
+    Initial import
+
+ AUTHORS	       |     1 +
+ COPYING	       |   340 +
+ INSTALL	       |   236 +
+ Makefile.am	       |    51 +
+ Makefile.in	       |   723 ++
+ acinclude.m4	       |    43 +
+ aclocal.m4	       |  8166 ++++++++++++++++
+ compile	       |   142 +
+ config.guess	       |  1463 +++
+ config.h.in	       |    97 +
+ config.sub	       |  1579 ++++
+ configure	       | 24456
+ ++++++++++++++++++++++++++++++++++++++++++++++++
+ configure.ac	       |   236 +
+ data/ConsoleKit.in    |    70 +
+ data/Makefile.am      |    14 +
+ data/Makefile.in      |   443 +
+ data/console-kit.conf |    49 +
+ depcomp	       |   530 ++
+ install-sh	       |   323 +
+ intltool-extract.in   |   853 ++
+ intltool-merge.in     |  1403 +++
+ intltool-update.in    |  1089 +++
+ ltmain.sh	       |  6863 ++++++++++++++
+ missing	       |   360 +
+ mkinstalldirs	       |   158 +
+ po/Makefile.in.in     |   221 +
+ po/POTFILES.in        |     3 +
+ src/Makefile.am       |    90 +
+ src/Makefile.in       |   724 ++
+ src/ck-debug.c        |   153 +
+ src/ck-debug.h        |    72 +
+ src/ck-manager-glue.h |   223 +
+ src/ck-manager.c      |  1017 ++
+ src/ck-manager.h      |    97 +
+ src/ck-manager.xml    |    48 +
+ src/ck-marshal.c      |   126 +
+ src/ck-marshal.h      |    28 +
+ src/ck-marshal.list   |     2 +
+ src/ck-seat-glue.h    |   167 +
+ src/ck-seat.c	       |   724 ++
+ src/ck-seat.h	       |   111 +
+ src/ck-seat.xml       |    27 +
+ src/ck-session-glue.h |   135 +
+ src/ck-session.c      |   744 ++
+ src/ck-session.h      |   156 +
+ src/ck-session.xml    |    49 +
+ src/ck-vt-monitor.c   |   360 +
+ src/ck-vt-monitor.h   |    71 +
+ src/getfd.c	       |    52 +
+ src/main.c	       |   141 +
+ src/proc-linux.c      |   473 +
+ src/proc.h	       |    41 +
+ src/test-session      |    51 +
+ src/valgrind.sh       |    12 +
+ tools/Makefile.am     |    42 +
+ tools/Makefile.in     |   632 ++
+ tools/list-consoles.c |   362 +
+ 57 files changed, 56842 insertions(+)

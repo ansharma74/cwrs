@@ -1,0 +1,85 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+MINPARAMS=2
+if [ $# -lt "$MINPARAMS" ]
+then
+    echo usage:
+    echo   build.cloudinfra "cce | media" "full | inc"
+    echo
+    echo i.e.:
+    echo   build.cloudinfra cce
+    echo    
+    exit 1
+fi
+
+BUILDTYPE=$1
+BUILDMODE=$2
+CCE=0
+MEDIA=0
+
+TOP=`pwd`
+echo Base is=$TOP
+source $TOP/packages_definitions
+
+case "$BUILDTYPE" in
+    cce) 
+        echo "CCE Build"
+        export PREFIX=$TOP/images/cce-cloud
+        DIR=cce-cloud
+        CCE=1   
+        ;;      
+    media)
+        echo "Media Build"
+        export PREFIX=$TOP/images/media-cloud
+        DIR=media-cloud
+        MEDIA=1   
+        ;;      
+    *)   
+        echo "Choices are: cce, media"
+        exit 1
+        ;;
+esac
+
+if [ $CCE == 1 ]
+then
+    case "$BUILDMODE" in
+    full)
+        echo "--------- Starting CCE cloud build ---------------------"
+        export INSTALLDIR=$PREFIX
+        rm -rf $TOP/buildoutput/$DIR
+        rm -rf $TOP/images/$DIR
+        mkdir $TOP/buildoutput/$DIR
+        mkdir $TOP/images/$DIR
+        cp -r $TOP/ccportal $PREFIX/usr/local/apache2/htdocs
+        cp -r $TOP/moodle $PREFIX/usr/local/apache2/htdocs
+        ;;
+    *)
+        cp -r $TOP/ccportal $PREFIX/usr/local/apache2/htdocs
+        cp -r $TOP/moodle $PREFIX/usr/local/apache2/htdocs
+        ;;
+    esac
+
+fi
+
+if [ $MEDIA == 1 ]
+then
+    case "$BUILDMODE" in
+    full)
+        echo "--------- Starting media cloud build ---------------------"
+        export INSTALLDIR=$PREFIX
+        rm -rf $TOP/buildoutput/$DIR
+        rm -rf $TOP/images/$DIR
+        mkdir $TOP/buildoutput/$DIR
+        mkdir $TOP/images/$DIR
+        cp -r $TOP/mediaportal $PREFIX/usr/local/apache2/htdocs
+        ;;
+    *)
+        cp -r $TOP/mediaportal $PREFIX/usr/local/apache2/htdocs
+        ;;
+    esac
+
+fi
+

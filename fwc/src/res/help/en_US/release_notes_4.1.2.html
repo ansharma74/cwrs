@@ -1,0 +1,567 @@
+
+<h1>Firewall Builder 4.1.2 Release Notes</h1>
+
+<p>
+</p>
+
+<p>
+  <a href="https://sourceforge.net/tracker/?atid=1129518&group_id=5314">SourceForge: Tickets for V4</a>
+</p>
+
+<h2>What's new in V4.1.2 ?</h2>
+
+
+<p>
+</p>
+
+<p>
+  v4.1.2 has been tested, and we believe it to be ready for production
+  use, but if you do find a bug or issue please let us know.
+</p>
+
+<a name="gui"></a>
+<h2>GUI Updates</h2>
+
+<ul>
+
+  <li>
+    <p>
+      fixed #1703 "importing iptables line with module pkttype causes
+      parser error". We do not have any object with the behavior
+      closely resembling that of iptables module "pkttype" so the
+      importer creates CustomService object with the code taken from
+      the original iptables rule. SF bug 3065435
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug 3049665 "Firewall Settings -&gt; Output file name
+      misses .fw extension"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed how we append suffix ".fw" to the name of generated script
+      when it is preconfigured in the firewall settings dialog and
+      already includes ".fw" suffix (it was added twice).
+    </p>
+  </li>
+
+  <li>
+    <p>
+      Fixed #1699 installation session status was reset from "failure"
+      to "success" in a configuration where fwbuilder gui was running
+      on Windows and talked to Cisco router using pscp.exe and
+      plink.exe and ssh session failed because of authentication
+      failure. This happened because plink.exe terminated with return
+      status "success" even in case of authentication failure.
+    </p>
+  </li>
+
+
+  <li>
+    <p>
+      	fixed #1724 . There was a problem with pscp.exe and putty
+	sessions. Plink.exe accepts session name in place of the host name
+	on the command line, but pscp.exe does not. We ask user to enter
+	session name in the "alternative name or address to use to
+	communicate with the firewall" input field in the "Installer" tab
+	of the firewall settings dialog and then use it in place of the
+	host name in the command line for pscp.exe and plink.exe. This
+	works with plink.exe but breaks pscp.exe which interprets it as a
+	host name and fails with an error 'ssh_init: Host does not
+	exist'. The fix checks if what user entered in the "alternative
+	host or address field" is a session name and uses different
+	command line with pscp.exe
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1715 "automatically expand new firewall and new host
+      objects in the tree once they are created"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1732 "Double clicking on object with child objects should
+      auto expand them".  Double clicking on objects and folders in
+      the tree expands and collapses them, as well as opens object in
+      the editor.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1729 "double clicking a folder in the tree should expand
+      it rather than open it in the editor".
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1738 "Enable tooltips by default"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      refs #1731 Change double-clicking on "Any" object
+      behavior. Tooltip shown for the object "any" in rules says "to
+      modify the rule drag and drop an object from the tree here"
+      instead of atributes of the object "any". Double click on "any"
+      in a rule does not try to open object "any" in the tree and
+      editor panel.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1739 "remove 'tooltip delay' input form preferences
+      dialog". Qt4 does not allow for changing tooltip delay.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1728 "Update Library drop down menu". Library drop down
+      list shows an item "Object libraries:" at the top that can not
+      be selected and that always stays on top as libraries are added,
+      removed and renamed. The list always stays sorted in ascending
+      order. Library names are indented by 2 spaces to make them
+      visually distinguishable from the prompt item at the
+      top. Implementation uses class ListOfLibrariesModel that
+      inherits QStringListModel.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1740 "Deleted library remains in the drop-down list". If
+      option "Show deleted objects" was turned off in the Preferences
+      dialog and user deleted a library, it remained in the drop-down
+      list of libraries and its object tree was still displayed in the
+      object tree panel.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1741 "there is no way to undelete a library object".
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1730 "Add background help text and images to empty policy
+      window". Showing tooltip in the empty space in the rule set
+      view, this tooltip provides hints on how to edit rules which
+      should be useful for the beginners.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1743 "change default for the option 'Show text
+      descriptions for direction and action'". The option should be on
+      by default.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1744 "Add tooltip to the rule number". The column in the
+      RuleSetView? where rule number is shown now has a tooltip to
+      remind the user that they can click right mouse button to the
+      the context menu and use keyboard shortcut "x" to compile the
+      rule
+    </p>
+  </li>
+
+  <li>
+    <p>
+      Added text to the tooltips shown for the "Direction" and
+      "Action" rule elements to remind user that to change these rule
+      parameters they need to click right mouse button to open list of
+      possible settings
+    </p>
+  </li>
+
+  <li>
+    <p>
+      system folders in the tree now have tooltips that explain what
+      kind of objects belong there.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      refs #1737 Added "Quick Start Guide" tutorial that demonstrates
+      basic features and key concepts of Firewall Builder. The
+      tutorial is accessible via Help / Tutorials menu and is shown to
+      the first-time user on the GUI startup instead of the "tip of
+      the day" dialog.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      refs #1748 "Add dialog about Standard Library when user creates
+      first Service object". First time users will see an
+      informational dialog reminding them about the Standard objects
+      library when they create their first service object.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1745 "Remove path data from text above rules window that
+      shows firewall name".
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1746 "Force user to change interface name in New Firewall
+      wizard". When user creates interfaces for the new firewall or
+      host using manual method and clicks on the "+" button to add a
+      tab for the new interface in the wizard page, the interface tab
+      is created with blank name. Wizard later checks the name when
+      user clicks Finish to create new firewall or host object and
+      does not let them do this while interface name is still
+      blank. Error dialog reminds that the name of the interface must
+      match the name of the interface on the machine.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1733 "Add button for video tutorial link". Shortcut
+      button "Watch Getting Started Tutorial" opens page with video
+      tutorials in the standard browser.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      added "placeholder" text to the interface name and label input
+      fields. This text is displayed in greyed-out small font inside
+      the imput field but is cleared as soon as user starts their
+      input.  The text gives user a prompt as of what is expected in
+      each input field and actual list of example interface names
+      depends on the host OS chosen in the first page of the
+      wizard.. The "placeholder" text support is available only in Qt
+      4.7 and later so the code is conditional on the version of Qt.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1718 "Inspect generated files" dialog says "Multiple
+      firewalls" even when there is only one
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1751 "Don't allow interface names to be blank". The GUI
+      should not allow the name of any object to be blank.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1759 "Use default template library" button seems to do
+      nothing. This button should only be enabled if user switched to
+      their own library of template objects. The button should be
+      disabled if they switched back to the standard template library
+      or never switched to their own one.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1757 Allow searching by attributes even after an object
+      is dropped into the drop area in search panel.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1760 'Search by attribute "name" should search by name or
+      label'. The first item in the list of attribute types available
+      for search now reads "Name or label". Searching using this
+      option matches the name or the label of object instead of just
+      the name. Label is only defined for Interface objects.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1755 "hitting enter after editing search attribute in the
+      Find panel should trigger search"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1753 "Set interface name hint based on firewall platform
+      and host OS". The placeholder text in the interface name and label
+      input fields in the new firewall wizard will depend on the host OS
+      chosen in the first page of the wizard.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1761 "blank interface name is possible in new host
+      wizard"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1763 Implemented basic facility for A/B testing within
+      the GUI
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1765, #1779 Move quick start guide to the web site. The
+      "Quick Start Guide" is now part of the web site and the GUI only
+      shows a dialog-invitation to watch it.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1776 once new firewall is created, automatically open its Policy
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1767 improved UI in the new firewall and new host dialogs
+      where user chooses file for the custom template library or uses
+      standard template library.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1791 "Add preference flag to enable / disable the Custom
+      templates button on the New Firewall Wizard". Use of the
+      custom template library to create new firewall object is now
+      optional, controlled by a checkbox in the "Object" tab of the
+      gobal preferenes dialog.  New users will have this option turned
+      off by default, however existing users will see it enabled for
+      backwards compatibility.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1777 "scroll new fw object to the top of the tree view
+      panel once its created". This has side effect in that some
+      other operations that open an object in the tree will also
+      scroll the tree to position this object at the top.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1778 "main menu Rules should have the same items that
+      context RuleSetView menu when no rules are selected"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug 3039681 "context-menu items inconsistent for
+      Single/Multiple rules". When several rules are selected in rule
+      set, some context menu itmes should turn to plural.
+    </p>
+  </li>
+
+</ul>
+
+
+
+
+<a name="iptables"></a>
+<h2>Changes in support for iptables</h2>
+
+<ul>
+  <li>
+    <p>
+      fixed SF bug #3071667 "Compilation segfault with DNS address in
+      NAT rule". Added rule processors to replace Run-time DNSName and
+      Address Table objects in TSrc and TDst.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1705 "iptables (v &gt= 1.4.4) --set option deprecated ..."
+      (SF bug 3059893) Option '--set' has been deprecated and renamed
+      '--match-set' in iptales 1.4.4
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug 3057503 "DNAT rule with dynamic IP has a white
+      space, causing error".
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug 3060325 "Address table object and prolog script
+      conflict". Generated script should run prolog before checking
+      and loading run-time address tables.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1707 "call function "prolog_commands" from the main
+      iptables script part instead of function "script_body" when
+      prolog should be executed after iptables reset"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug #3071667 "Compilation segfault with DNS address in
+      NAT rule". Added rule processors to replace Run-time DNSName and
+      Address Table objects in TSrc and TDst.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1714 "make checking for MODPROBE conditional". There is
+      no need to check if modprobe utility exists on the firewall
+      machine if it is not used by the script.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug 3077132 "no PREROUTING rule with
+      *-Interface". Rules matching addresses of a wildcard interface
+      (e.g. "ppp*") were not properly generated.
+    </p>
+  </li>
+
+</ul>
+
+
+
+<a name="pf"></a>
+<h2>Support for PF</h2>
+
+<ul>
+  <li>
+    <p>
+      fixed SF bug 3061034 "ifconfig definition missing". Script
+      generated for the ipfw firewall on Mac OS X missed definition of
+      variable IFCONFIG.
+    </p>
+  </li>
+</ul>
+
+
+
+<a name="ipf"></a>
+<h2>Support for ipfilter</h2>
+
+<ul>
+  <li>
+    <p>
+      fixed #1702 "Wrong path in the activation script for
+      ipfilter". Activation command embedded in the generated .fw
+      script used local path to the generated .conf file on the
+      machine where fwbuilder compiler was running.
+   </p>
+  </li>
+</ul>
+
+
+
+<a name="ios"></a>
+<h2>Changes in support for for Cisco IOS ACL</h2>
+
+<ul>
+  <li>
+    <p>No changes in support for IOS ACL in this release
+    </p>
+  </li>
+</ul>
+
+
+
+
+<a name="pix"></a>
+<h2>Changes in support for for Cisco ASA (PIX)</h2>
+
+<ul>
+  <li>
+    <p>
+      fixed #1783 "PIX routing entries require interface, but PIX
+      config will compile without interface in Routing rule". Policy
+      compiler for PIX now checks that both "interface" and "gateway"
+      rule elements are not empty.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      Collection of template firewall objects now includes an object
+      for PIX 50X (501 and 506)
+    </p>
+  </li>
+
+  <li>
+    <p>
+      using command "terminal width 256" to turn off ANSI commands in
+      the PIX command echo.
+    </p>
+  </li>
+
+</ul>
+
+
+
+
+<a name="procurve"></a>
+<h2>Support for HP ProCurve</h2>
+
+<ul>
+  <li>
+    <p>No changes in support for HP ProCurve in this release
+    </p>
+  </li>
+
+  <li>
+    <p>
+    </p>
+  </li>
+
+  <li>
+    <p>
+    </p>
+  </li>
+
+
+</ul>
+
+
+
+
+

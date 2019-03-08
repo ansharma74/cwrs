@@ -1,0 +1,181 @@
+Connection Model:
+C: COMMAND ARGS
+S: +OK <COMMAND> <PROCESS ID>
+S: +<PROCESS ID> <RESPONSE>
+S: +DONE <PROCESS ID>
+
+For Status:
+S: +STAT <LXNM_DEVICE_STATUS Data Structure>
+
+COMMAND:
+<command number> <args...>
+
+* Command Number:
+LXNM_VERSION                   0
+LXNM_DEVICE_LIST               1
+LXNM_DEVICE_STATUS             2
+LXNM_DEVICE_INFORMATION        3
+LXNM_MODEM_INFORMATION         4
+LXNM_PPP_INFORMATION           5
+LXNM_ETHERNET_UP               6
+LXNM_ETHERNET_DOWN             7
+LXNM_ETHERNET_REPAIR           8
+LXNM_WIRELESS_UP               9
+LXNM_WIRELESS_DOWN             10
+LXNM_WIRELESS_REPAIR           11
+LXNM_WIRELESS_CONNECT          12
+LXNM_WIRELESS_SCAN             13
+
+* LXNM_DEVICE_LIST
+[Command Number] <device type>
+
+	Define <device type>:
+	LXNM_DEVICE_TYPE_UNKNOWN       0
+	LXNM_DEVICE_TYPE_CONNECTION    1
+	LXNM_DEVICE_TYPE_MODEM         2
+
+	if device type is LXNM_DEVICE_TYPE_CONNECTION, it will return:
+	+<PROCESS ID> <interface 1> <interface 2> <interface ...>
+
+	if device type is LXNM_DEVICE_TYPE_MODEM, it will return:
+	+<PROCESS ID> <device name> <modem type>\n
+
+* LXNM_DEVICE_STATUS
+[Command Number] <device type> <interface | device name>
+
+	Define <device type> - see LXNM_DEVICE_LIST
+	Define <interface | device name>:
+		<interface> eth0, wlan0...etc
+		<device name> ttyUSB0, modem...etc
+
+		Set "system" which is fake interface or device name for internal implementation,
+		it will return currect interface and device list when device connected/disconnected.
+
+	If device type is LXNM_DEVICE_TYPE_CONNECTION, it returns:
+	+STAT <interface> <status number> <content>
+
+		Define <status number>:
+		LXNM_STATUS_MESSAGE			0
+		LXNM_STATUS_DEVICE_LIST			1
+		LXNM_STATUS_NETDEV_INFO			2
+		LXNM_STATUS_NETDEV_ENABLE	 	3
+		LXNM_STATUS_NETDEV_DISABLE	 	4
+		LXNM_STATUS_NETDEV_PLUGGED	 	5
+		LXNM_STATUS_NETDEV_UNPLUG	 	6
+		LXNM_STATUS_NETDEV_CONNECTING		7
+		LXNM_STATUS_NETDEV_CONNECTED 		8
+		LXNM_STATUS_NETDEV_DISCONNECTED 	9
+		LXNM_STATUS_NETDEV_PROBLEM		10
+		LXNM_STATUS_NETDEV_BOTHRS		11
+		LXNM_STATUS_NETDEV_SENDDATA		12
+		LXNM_STATUS_NETDEV_RECVDATA		13
+		LXNM_STATUS_NETDEV_NORT			14
+		LXNM_STATUS_NETDEV_WIRELESS_QUALITY	15
+
+		LXNM_STATUS_NETDEV_INFO will return:
+		+STAT <interface> <LXNM_STATUS_NETDEV_INFO> <connection type> <MAC> <ipaddr> <dest> <bcast> <mask> <recv_bytes> <recv_packets> <trans_bytes> <trans_packets>
+
+		Supported by internal interface "system" only, this command returns data format:
+		+STAT <internal interface> <LXNM_STATUS_DEVICE_LIST> <device type> <device1> <device2> <...>
+		+STAT <internal interface> <LXNM_STATUS_DEVICE_LIST> <device type> <interface1> <interface2> <...>
+		
+	
+
+* LXNM_DEVICE_INFORMATION
+[Command Number] <interface> <flags>
+
+	Define <flags>:
+	LXNM_FLAGS_DEVICE_INFO_ALL		0
+	LXNM_FLAGS_DEVICE_INFO_STATUS		(1<<0)
+	LXNM_FLAGS_DEVICE_INFO_TYPE		(1<<1)
+	LXNM_FLAGS_DEVICE_INFO_MAC		(1<<2)
+	LXNM_FLAGS_DEVICE_INFO_IPADDR		(1<<3)
+	LXNM_FLAGS_DEVICE_INFO_BROADCAST	(1<<4)
+	LXNM_FLAGS_DEVICE_INFO_NETMASK		(1<<5)
+	LXNM_FLAGS_DEVICE_INFO_GATEWAY		(1<<6)
+	LXNM_FLAGS_DEVICE_INFO_DESTINATION	(1<<7)
+	LXNM_FLAGS_DEVICE_INFO_QUALITY		(1<<8)
+
+	LXNM_FLAGS_DEVICE_INFO_ALL will return:
+	+<PROCESS ID> <status> <type> <MAC> <ipaddr> <dest> <bcast> <mask> <recv_bytes> <recv_packets> <trans_bytes> <trans_packets>
+
+	LXNM_FLAGS_DEVICE_INFO_STATUS and <status> Will Return:
+		LXNM_DEVICE_INFO_STATUS_NETDEV_ENABLE	 	(1<<0)
+		LXNM_DEVICE_INFO_STATUS_NETDEV_PLUG	 	(1<<1)
+		LXNM_DEVICE_INFO_STATUS_NETDEV_CONNECTING	(1<<2)
+		LXNM_DEVICE_INFO_STATUS_NETDEV_CONNECT		(1<<3)
+		LXNM_DEVICE_INFO_STATUS_NETDEV_PROBLEM		(1<<4)
+
+	LXNM_FLAGS_DEVICE_INFO_TYPE and <type> Will Return:
+		LXNM_CONNECTION_TYPE_UNKNOWN     0
+		LXNM_CONNECTION_TYPE_PRIDEVICE   1
+		LXNM_CONNECTION_TYPE_ETHERNET    2
+		LXNM_CONNECTION_TYPE_WIRELESS    3
+		LXNM_CONNECTION_TYPE_PPP         4
+
+* LXNM_MODEM_INFORMATION
+[Command Number] <device name> <flags>
+
+	Define <flags>:
+	LXNM_FLAGS_MODEM_INFO_TYPE		0
+	LXNM_FLAGS_MODEM_INFO_PPPNUM		1
+
+
+	LXNM_FLAGS_DEVICE_INFO_TYPE will return:
+		LXNM_MODEM_TYPE_NORMAL		0
+		LXNM_MODEM_TYPE_GSM		1
+
+* LXNM_MODEM_DETECT
+[Command Number] <device name>
+
+	if it is GSM Modem, it will return:
+	+<PROCESS ID> <modemtype> <provider id> <provider> <location id> <apn> <pin> <phonenumber> <username> <password>
+
+	Define <pin> value:
+		0 - no pin number
+		1 - SIM card is locked, need pin number
+
+* LXNM_PPP_INFORMATION
+[Command Number] <type> <interface | device name>
+
+	Define <type>:
+	LXNM_PPP_INFORMATION_TYPE_DEVICE      0
+	LXNM_PPP_INFORMATION_TYPE_INTERFACE   1
+
+	it will return:
+	+<PROCESS ID> <result code> <interface> <device name>
+
+	Define <result code>:
+		0 - no device found
+		1 - found
+
+* LXNM_WIRELESS_UP:
+[Command Number] <interface>
+
+* LXNM_WIRELESS_DOWN:
+[Command Number] <interface>
+
+* LXNM_WIRELESS_REPAIR:
+[Command Number] <interface>
+
+* LXNM_WIRELESS_CONNECT:
+[Command Number] <interface> <essid> <apaddr> <key> <protocol> <key_mgmt> <grpup> <pairwise>
+
+	* <essid> and key are transformed to hex
+
+* LXNM_WIRELESS_SCAN:
+[Command Number] <interface>
+
+	Return Data Structure:
+	+<PROCESS ID> <essid> <apaddr> <quality> <protocol> <key_mgmt> <grpup> <pairwise>\n
+
+	* <essid> is transformed to hex
+
+* LXNM_PPP_CONNECT
+[Command Number] <device name> <type> <options...>
+
+	For Normal Modem:
+	Not define yet.
+
+	For GSM Modem:
+	[Command Number] <device name> <type> <provider id> <location id> <apn> <pin> <phonenumber> <username> <password>

@@ -1,0 +1,1 @@
+cmd_/home/anil/cwrs/linux-headers/include/uapi/.install := perl scripts/headers_install.pl /home/anil/cwrs/linux-headers/include/uapi x86  ; for F in ; do echo "\#include <asm-generic/$$F>" > /home/anil/cwrs/linux-headers/include/uapi/$$F; done; touch /home/anil/cwrs/linux-headers/include/uapi/.install

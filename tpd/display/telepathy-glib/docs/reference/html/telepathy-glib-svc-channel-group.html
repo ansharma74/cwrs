@@ -1,0 +1,1742 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Service-side Channel Group and Conference interfaces</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-dbus.html" title="Service-side D-Bus interfaces">
+<link rel="prev" href="telepathy-glib-svc-channel.html" title="Service-side Channel base interface">
+<link rel="next" href="telepathy-glib-svc-channel-room.html" title="Service-side room interfaces">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-svc-channel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-dbus.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-svc-channel-room.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-svc-channel-group.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel-group.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel-group.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel-group.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-svc-channel-group"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-svc-channel-group.top_of_page"></a>Service-side Channel Group and Conference interfaces</span></h2>
+<p>Service-side Channel Group and Conference interfaces — Groups of contacts</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-svc-channel-group.synopsis"></a><h2>Synopsis</h2>
+<a name="TpSvcChannelInterfaceGroup"></a><a name="TpSvcChannelInterfaceConference"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib-dbus.h&gt;
+
+                    <a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup-struct" title="TpSvcChannelInterfaceGroup">TpSvcChannelInterfaceGroup</a>;
+                    <a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass">TpSvcChannelInterfaceGroupClass</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-add-members-impl" title="tp_svc_channel_interface_group_add_members_impl ()">*tp_svc_channel_interface_group_add_members_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Contacts</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Message</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-implement-add-members" title="tp_svc_channel_interface_group_implement_add_members ()">tp_svc_channel_interface_group_implement_add_members</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-add-members-impl" title="tp_svc_channel_interface_group_add_members_impl ()"><span class="type">tp_svc_channel_interface_group_add_members_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-return-from-add-members" title="tp_svc_channel_interface_group_return_from_add_members ()">tp_svc_channel_interface_group_return_from_add_members</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-all-members-impl" title="tp_svc_channel_interface_group_get_all_members_impl ()">*tp_svc_channel_interface_group_get_all_members_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-implement-get-all-members" title="tp_svc_channel_interface_group_implement_get_all_members ()">tp_svc_channel_interface_group_implement_get_all_members</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-all-members-impl" title="tp_svc_channel_interface_group_get_all_members_impl ()"><span class="type">tp_svc_channel_interface_group_get_all_members_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-return-from-get-all-members" title="tp_svc_channel_interface_group_return_from_get_all_members ()">tp_svc_channel_interface_group_return_from_get_all_members</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Members</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Local_Pending</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Remote_Pending</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-group-flags-impl" title="tp_svc_channel_interface_group_get_group_flags_impl ()">*tp_svc_channel_interface_group_get_group_flags_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-implement-get-group-flags" title="tp_svc_channel_interface_group_implement_get_group_flags ()">tp_svc_channel_interface_group_implement_get_group_flags</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-group-flags-impl" title="tp_svc_channel_interface_group_get_group_flags_impl ()"><span class="type">tp_svc_channel_interface_group_get_group_flags_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-return-from-get-group-flags" title="tp_svc_channel_interface_group_return_from_get_group_flags ()">tp_svc_channel_interface_group_return_from_get_group_flags</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> out_Group_Flags</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-handle-owners-impl" title="tp_svc_channel_interface_group_get_handle_owners_impl ()">*tp_svc_channel_interface_group_get_handle_owners_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Handles</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-implement-get-handle-owners" title="tp_svc_channel_interface_group_implement_get_handle_owners ()">tp_svc_channel_interface_group_implement_get_handle_owners</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-handle-owners-impl" title="tp_svc_channel_interface_group_get_handle_owners_impl ()"><span class="type">tp_svc_channel_interface_group_get_handle_owners_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-return-from-get-handle-owners" title="tp_svc_channel_interface_group_return_from_get_handle_owners ()">tp_svc_channel_interface_group_return_from_get_handle_owners</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Owners</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-local-pending-members-impl" title="tp_svc_channel_interface_group_get_local_pending_members_impl ()">*tp_svc_channel_interface_group_get_local_pending_members_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-implement-get-local-pending-members" title="tp_svc_channel_interface_group_implement_get_local_pending_members ()">tp_svc_channel_interface_group_implement_get_local_pending_members</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-local-pending-members-impl" title="tp_svc_channel_interface_group_get_local_pending_members_impl ()"><span class="type">tp_svc_channel_interface_group_get_local_pending_members_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-return-from-get-local-pending-members" title="tp_svc_channel_interface_group_return_from_get_local_pending_members ()">tp_svc_channel_interface_group_return_from_get_local_pending_members</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Handles</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-local-pending-members-with-info-impl" title="tp_svc_channel_interface_group_get_local_pending_members_with_info_impl ()">*tp_svc_channel_interface_group_get_local_pending_members_with_info_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-implement-get-local-pending-members-with-info" title="tp_svc_channel_interface_group_implement_get_local_pending_members_with_info ()">tp_svc_channel_interface_group_implement_get_local_pending_members_with_info</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-local-pending-members-with-info-impl" title="tp_svc_channel_interface_group_get_local_pending_members_with_info_impl ()"><span class="type">tp_svc_channel_interface_group_get_local_pending_members_with_info_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-return-from-get-local-pending-members-with-info" title="tp_svc_channel_interface_group_return_from_get_local_pending_members_with_info ()">tp_svc_channel_interface_group_return_from_get_local_pending_members_with_info</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Info</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-members-impl" title="tp_svc_channel_interface_group_get_members_impl ()">*tp_svc_channel_interface_group_get_members_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-implement-get-members" title="tp_svc_channel_interface_group_implement_get_members ()">tp_svc_channel_interface_group_implement_get_members</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-members-impl" title="tp_svc_channel_interface_group_get_members_impl ()"><span class="type">tp_svc_channel_interface_group_get_members_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-return-from-get-members" title="tp_svc_channel_interface_group_return_from_get_members ()">tp_svc_channel_interface_group_return_from_get_members</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Handles</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-remote-pending-members-impl" title="tp_svc_channel_interface_group_get_remote_pending_members_impl ()">*tp_svc_channel_interface_group_get_remote_pending_members_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-implement-get-remote-pending-members" title="tp_svc_channel_interface_group_implement_get_remote_pending_members ()">tp_svc_channel_interface_group_implement_get_remote_pending_members</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-remote-pending-members-impl" title="tp_svc_channel_interface_group_get_remote_pending_members_impl ()"><span class="type">tp_svc_channel_interface_group_get_remote_pending_members_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-return-from-get-remote-pending-members" title="tp_svc_channel_interface_group_return_from_get_remote_pending_members ()">tp_svc_channel_interface_group_return_from_get_remote_pending_members</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Handles</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-self-handle-impl" title="tp_svc_channel_interface_group_get_self_handle_impl ()">*tp_svc_channel_interface_group_get_self_handle_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-implement-get-self-handle" title="tp_svc_channel_interface_group_implement_get_self_handle ()">tp_svc_channel_interface_group_implement_get_self_handle</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-self-handle-impl" title="tp_svc_channel_interface_group_get_self_handle_impl ()"><span class="type">tp_svc_channel_interface_group_get_self_handle_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-return-from-get-self-handle" title="tp_svc_channel_interface_group_return_from_get_self_handle ()">tp_svc_channel_interface_group_return_from_get_self_handle</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> out_Self_Handle</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-remove-members-impl" title="tp_svc_channel_interface_group_remove_members_impl ()">*tp_svc_channel_interface_group_remove_members_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Contacts</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Message</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-implement-remove-members" title="tp_svc_channel_interface_group_implement_remove_members ()">tp_svc_channel_interface_group_implement_remove_members</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-remove-members-impl" title="tp_svc_channel_interface_group_remove_members_impl ()"><span class="type">tp_svc_channel_interface_group_remove_members_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-return-from-remove-members" title="tp_svc_channel_interface_group_return_from_remove_members ()">tp_svc_channel_interface_group_return_from_remove_members</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-emit-group-flags-changed" title="tp_svc_channel_interface_group_emit_group_flags_changed ()">tp_svc_channel_interface_group_emit_group_flags_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Added</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Removed</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-emit-members-changed" title="tp_svc_channel_interface_group_emit_members_changed ()">tp_svc_channel_interface_group_emit_members_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Message</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Added</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Removed</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Local_Pending</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Remote_Pending</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Actor</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Reason</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-emit-members-changed-detailed" title="tp_svc_channel_interface_group_emit_members_changed_detailed ()">tp_svc_channel_interface_group_emit_members_changed_detailed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Added</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Removed</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Local_Pending</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Remote_Pending</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Details</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-implement-remove-members-with-reason" title="tp_svc_channel_interface_group_implement_remove_members_with_reason ()">tp_svc_channel_interface_group_implement_remove_members_with_reason</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-remove-members-with-reason-impl" title="tp_svc_channel_interface_group_remove_members_with_reason_impl ()"><span class="type">tp_svc_channel_interface_group_remove_members_with_reason_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-remove-members-with-reason-impl" title="tp_svc_channel_interface_group_remove_members_with_reason_impl ()">*tp_svc_channel_interface_group_remove_members_with_reason_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Contacts</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Reason</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-return-from-remove-members-with-reason" title="tp_svc_channel_interface_group_return_from_remove_members_with_reason ()">tp_svc_channel_interface_group_return_from_remove_members_with_reason</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-emit-handle-owners-changed" title="tp_svc_channel_interface_group_emit_handle_owners_changed ()">tp_svc_channel_interface_group_emit_handle_owners_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Added</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Removed</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-emit-self-handle-changed" title="tp_svc_channel_interface_group_emit_self_handle_changed ()">tp_svc_channel_interface_group_emit_self_handle_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Self_Handle</code></em>);
+
+
+                    <a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceConference-struct" title="TpSvcChannelInterfaceConference">TpSvcChannelInterfaceConference</a>;
+                    <a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceConferenceClass" title="TpSvcChannelInterfaceConferenceClass">TpSvcChannelInterfaceConferenceClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-conference-emit-channel-merged" title="tp_svc_channel_interface_conference_emit_channel_merged ()">tp_svc_channel_interface_conference_emit_channel_merged</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Channel_Specific_Handle</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Properties</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-conference-emit-channel-removed" title="tp_svc_channel_interface_conference_emit_channel_removed ()">tp_svc_channel_interface_conference_emit_channel_removed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Details</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-group.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcChannelInterfaceGroup
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcChannelInterfaceConference
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-group.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup-group-flags-changed" title='The "group-flags-changed" signal'>group-flags-changed</a>"                            : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup-handle-owners-changed" title='The "handle-owners-changed" signal'>handle-owners-changed</a>"                          : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup-handle-owners-changed-detailed" title='The "handle-owners-changed-detailed" signal'>handle-owners-changed-detailed</a>"                 : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup-members-changed" title='The "members-changed" signal'>members-changed</a>"                                : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup-members-changed-detailed" title='The "members-changed-detailed" signal'>members-changed-detailed</a>"                       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup-self-contact-changed" title='The "self-contact-changed" signal'>self-contact-changed</a>"                           : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup-self-handle-changed" title='The "self-handle-changed" signal'>self-handle-changed</a>"                            : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceConference-channel-merged" title='The "channel-merged" signal'>channel-merged</a>"                                 : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceConference-channel-removed" title='The "channel-removed" signal'>channel-removed</a>"                                : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-group.description"></a><h2>Description</h2>
+<p>
+Many Telepathy Channel objects can be seen as representing groups or
+sets of contacts. The Telepathy specification represents this by a common
+interface, Group. This section documents the auto-generated GInterface
+used to implement the Group interface.
+</p>
+<p>
+Contacts can be in four states:
+</p>
+<p>
+* in the group (the "members" set)
+</p>
+<p>
+* "local pending" (waiting to be added to the group by the local client
+  calling <code class="function">AddMembers()</code>)
+</p>
+<p>
+* "remote pending" (waiting to be added to the group by some other
+  action, probably by someone else)
+</p>
+<p>
+* no relationship with the group at all
+</p>
+<p>
+For instance, chatrooms implement the Group interface. Contacts in the
+chatroom are members, and contacts who we've invited to the group, or
+contacts who've requested permission to join, are remote pending. If the
+local user has been invited by another contact, they will appear in the
+local-pending set until they accept or decline the invitation.
+</p>
+<p>
+Since 0.11.16, telepathy-glib also includes basic support for the
+Conference interface, which represents a Group channel that can be
+initiated by merging or upgrading individual 1-1 channels.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-group.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceGroup-struct"></a><h3>TpSvcChannelInterfaceGroup</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelInterfaceGroup TpSvcChannelInterfaceGroup;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceGroupClass"></a><h3>TpSvcChannelInterfaceGroupClass</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelInterfaceGroupClass TpSvcChannelInterfaceGroupClass;</pre>
+<p>
+The class of TpSvcChannelInterfaceGroup.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_channel_interface_group (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_channel_interface_group_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (add_members);
+  IMPLEMENT (get_all_members);
+  IMPLEMENT (get_group_flags);
+  IMPLEMENT (get_handle_owners);
+  IMPLEMENT (get_local_pending_members);
+  IMPLEMENT (get_local_pending_members_with_info);
+  IMPLEMENT (get_members);
+  IMPLEMENT (get_remote_pending_members);
+  IMPLEMENT (get_self_handle);
+  IMPLEMENT (remove_members);
+  IMPLEMENT (remove_members_with_reason);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-add-members-impl"></a><h3>tp_svc_channel_interface_group_add_members_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_group_add_members_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Contacts</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Message</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+AddMembers on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Contacts</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Message</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-implement-add-members"></a><h3>tp_svc_channel_interface_group_implement_add_members ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_implement_add_members
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-add-members-impl" title="tp_svc_channel_interface_group_add_members_impl ()"><span class="type">tp_svc_channel_interface_group_add_members_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the AddMembers method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the AddMembers D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-return-from-add-members"></a><h3>tp_svc_channel_interface_group_return_from_add_members ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_return_from_add_members
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-get-all-members-impl"></a><h3>tp_svc_channel_interface_group_get_all_members_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_group_get_all_members_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetAllMembers on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-implement-get-all-members"></a><h3>tp_svc_channel_interface_group_implement_get_all_members ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_implement_get_all_members
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-all-members-impl" title="tp_svc_channel_interface_group_get_all_members_impl ()"><span class="type">tp_svc_channel_interface_group_get_all_members_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetAllMembers method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetAllMembers D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-return-from-get-all-members"></a><h3>tp_svc_channel_interface_group_return_from_get_all_members ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_return_from_get_all_members
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Members</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Local_Pending</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Remote_Pending</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Members</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Local_Pending</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Remote_Pending</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-get-group-flags-impl"></a><h3>tp_svc_channel_interface_group_get_group_flags_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_group_get_group_flags_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetGroupFlags on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-implement-get-group-flags"></a><h3>tp_svc_channel_interface_group_implement_get_group_flags ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_implement_get_group_flags
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-group-flags-impl" title="tp_svc_channel_interface_group_get_group_flags_impl ()"><span class="type">tp_svc_channel_interface_group_get_group_flags_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetGroupFlags method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetGroupFlags D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-return-from-get-group-flags"></a><h3>tp_svc_channel_interface_group_return_from_get_group_flags ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_return_from_get_group_flags
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> out_Group_Flags</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Group_Flags</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-get-handle-owners-impl"></a><h3>tp_svc_channel_interface_group_get_handle_owners_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_group_get_handle_owners_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Handles</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetHandleOwners on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Handles</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-implement-get-handle-owners"></a><h3>tp_svc_channel_interface_group_implement_get_handle_owners ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_implement_get_handle_owners
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-handle-owners-impl" title="tp_svc_channel_interface_group_get_handle_owners_impl ()"><span class="type">tp_svc_channel_interface_group_get_handle_owners_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetHandleOwners method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetHandleOwners D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-return-from-get-handle-owners"></a><h3>tp_svc_channel_interface_group_return_from_get_handle_owners ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_return_from_get_handle_owners
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Owners</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Owners</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-get-local-pending-members-impl"></a><h3>tp_svc_channel_interface_group_get_local_pending_members_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_group_get_local_pending_members_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetLocalPendingMembers on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-implement-get-local-pending-members"></a><h3>tp_svc_channel_interface_group_implement_get_local_pending_members ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_implement_get_local_pending_members
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-local-pending-members-impl" title="tp_svc_channel_interface_group_get_local_pending_members_impl ()"><span class="type">tp_svc_channel_interface_group_get_local_pending_members_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetLocalPendingMembers method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetLocalPendingMembers D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-return-from-get-local-pending-members"></a><h3>tp_svc_channel_interface_group_return_from_get_local_pending_members ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_return_from_get_local_pending_members
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Handles</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Handles</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-get-local-pending-members-with-info-impl"></a><h3>tp_svc_channel_interface_group_get_local_pending_members_with_info_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_group_get_local_pending_members_with_info_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetLocalPendingMembersWithInfo on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-implement-get-local-pending-members-with-info"></a><h3>tp_svc_channel_interface_group_implement_get_local_pending_members_with_info ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_implement_get_local_pending_members_with_info
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-local-pending-members-with-info-impl" title="tp_svc_channel_interface_group_get_local_pending_members_with_info_impl ()"><span class="type">tp_svc_channel_interface_group_get_local_pending_members_with_info_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetLocalPendingMembersWithInfo method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetLocalPendingMembersWithInfo D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-return-from-get-local-pending-members-with-info"></a><h3>tp_svc_channel_interface_group_return_from_get_local_pending_members_with_info ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_return_from_get_local_pending_members_with_info
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Info</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Info</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-get-members-impl"></a><h3>tp_svc_channel_interface_group_get_members_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_group_get_members_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetMembers on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-implement-get-members"></a><h3>tp_svc_channel_interface_group_implement_get_members ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_implement_get_members
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-members-impl" title="tp_svc_channel_interface_group_get_members_impl ()"><span class="type">tp_svc_channel_interface_group_get_members_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetMembers method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetMembers D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-return-from-get-members"></a><h3>tp_svc_channel_interface_group_return_from_get_members ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_return_from_get_members
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Handles</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Handles</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-get-remote-pending-members-impl"></a><h3>tp_svc_channel_interface_group_get_remote_pending_members_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_group_get_remote_pending_members_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetRemotePendingMembers on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-implement-get-remote-pending-members"></a><h3>tp_svc_channel_interface_group_implement_get_remote_pending_members ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_implement_get_remote_pending_members
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-remote-pending-members-impl" title="tp_svc_channel_interface_group_get_remote_pending_members_impl ()"><span class="type">tp_svc_channel_interface_group_get_remote_pending_members_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetRemotePendingMembers method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetRemotePendingMembers D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-return-from-get-remote-pending-members"></a><h3>tp_svc_channel_interface_group_return_from_get_remote_pending_members ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_return_from_get_remote_pending_members
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Handles</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Handles</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-get-self-handle-impl"></a><h3>tp_svc_channel_interface_group_get_self_handle_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_group_get_self_handle_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetSelfHandle on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-implement-get-self-handle"></a><h3>tp_svc_channel_interface_group_implement_get_self_handle ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_implement_get_self_handle
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-get-self-handle-impl" title="tp_svc_channel_interface_group_get_self_handle_impl ()"><span class="type">tp_svc_channel_interface_group_get_self_handle_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetSelfHandle method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetSelfHandle D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-return-from-get-self-handle"></a><h3>tp_svc_channel_interface_group_return_from_get_self_handle ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_return_from_get_self_handle
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> out_Self_Handle</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Self_Handle</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-remove-members-impl"></a><h3>tp_svc_channel_interface_group_remove_members_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_group_remove_members_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Contacts</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Message</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+RemoveMembers on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Contacts</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Message</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-implement-remove-members"></a><h3>tp_svc_channel_interface_group_implement_remove_members ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_implement_remove_members
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-remove-members-impl" title="tp_svc_channel_interface_group_remove_members_impl ()"><span class="type">tp_svc_channel_interface_group_remove_members_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the RemoveMembers method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the RemoveMembers D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-return-from-remove-members"></a><h3>tp_svc_channel_interface_group_return_from_remove_members ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_return_from_remove_members
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-emit-group-flags-changed"></a><h3>tp_svc_channel_interface_group_emit_group_flags_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_emit_group_flags_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Added</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Removed</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+GroupFlagsChanged signal on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Added</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Removed</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-emit-members-changed"></a><h3>tp_svc_channel_interface_group_emit_members_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_emit_members_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Message</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Added</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Removed</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Local_Pending</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Remote_Pending</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Actor</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Reason</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+MembersChanged signal on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Message</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Added</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Removed</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Local_Pending</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Remote_Pending</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Actor</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Reason</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-emit-members-changed-detailed"></a><h3>tp_svc_channel_interface_group_emit_members_changed_detailed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_emit_members_changed_detailed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Added</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Removed</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Local_Pending</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Remote_Pending</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Details</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+MembersChangedDetailed signal on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Added</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Removed</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Local_Pending</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Remote_Pending</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Details</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-implement-remove-members-with-reason"></a><h3>tp_svc_channel_interface_group_implement_remove_members_with_reason ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_implement_remove_members_with_reason
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#tp-svc-channel-interface-group-remove-members-with-reason-impl" title="tp_svc_channel_interface_group_remove_members_with_reason_impl ()"><span class="type">tp_svc_channel_interface_group_remove_members_with_reason_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the RemoveMembersWithReason method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the RemoveMembersWithReason D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-remove-members-with-reason-impl"></a><h3>tp_svc_channel_interface_group_remove_members_with_reason_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_group_remove_members_with_reason_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Contacts</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Reason</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+RemoveMembersWithReason on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Contacts</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Message</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Reason</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-return-from-remove-members-with-reason"></a><h3>tp_svc_channel_interface_group_return_from_remove_members_with_reason ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_return_from_remove_members_with_reason
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-emit-handle-owners-changed"></a><h3>tp_svc_channel_interface_group_emit_handle_owners_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_emit_handle_owners_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Added</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Removed</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+HandleOwnersChanged signal on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Added</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Removed</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-group-emit-self-handle-changed"></a><h3>tp_svc_channel_interface_group_emit_self_handle_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_group_emit_self_handle_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Self_Handle</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+SelfHandleChanged signal on interface org.freedesktop.Telepathy.Channel.Interface.Group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Self_Handle</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceConference-struct"></a><h3>TpSvcChannelInterfaceConference</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelInterfaceConference TpSvcChannelInterfaceConference;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceConferenceClass"></a><h3>TpSvcChannelInterfaceConferenceClass</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelInterfaceConferenceClass TpSvcChannelInterfaceConferenceClass;</pre>
+<p>
+The class of TpSvcChannelInterfaceConference.
+This interface has no D-Bus methods, so an
+implementation can typically pass <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> as the interface
+initialization function.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-conference-emit-channel-merged"></a><h3>tp_svc_channel_interface_conference_emit_channel_merged ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_conference_emit_channel_merged
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Channel_Specific_Handle</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Properties</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+ChannelMerged signal on interface org.freedesktop.Telepathy.Channel.Interface.Conference.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Channel</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Channel_Specific_Handle</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Properties</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-conference-emit-channel-removed"></a><h3>tp_svc_channel_interface_conference_emit_channel_removed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_conference_emit_channel_removed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Details</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+ChannelRemoved signal on interface org.freedesktop.Telepathy.Channel.Interface.Conference.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Channel</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Details</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-group.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceGroup-group-flags-changed"></a><h3>The <code class="literal">"group-flags-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                       arg_Added,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                       arg_Removed,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                    user_data)        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The GroupFlagsChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Added</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Removed</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceGroup-handle-owners-changed"></a><h3>The <code class="literal">"handle-owners-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self,
+                                                        <span class="type">GArray_guint_</span>              *arg_Removed,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                    user_data)        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The HandleOwnersChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Added</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Removed</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceGroup-handle-owners-changed-detailed"></a><h3>The <code class="literal">"handle-owners-changed-detailed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self,
+                                                        <span class="type">GArray_guint_</span>              *arg_Removed,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                    user_data)        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The HandleOwnersChangedDetailed D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Added</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Removed</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Identifiers</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceGroup-members-changed"></a><h3>The <code class="literal">"members-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>                      *arg_Message,
+                                                        <span class="type">GArray_guint_</span>              *arg_Added,
+                                                        <span class="type">GArray_guint_</span>              *arg_Removed,
+                                                        <span class="type">GArray_guint_</span>              *arg_Local_Pending,
+                                                        <span class="type">GArray_guint_</span>              *arg_Remote_Pending,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                       arg_Actor,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                       arg_Reason,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                    user_data)               : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The MembersChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Message</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Added</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Removed</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Local_Pending</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Remote_Pending</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Actor</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Reason</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceGroup-members-changed-detailed"></a><h3>The <code class="literal">"members-changed-detailed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self,
+                                                        <span class="type">GArray_guint_</span>              *arg_Added,
+                                                        <span class="type">GArray_guint_</span>              *arg_Removed,
+                                                        <span class="type">GArray_guint_</span>              *arg_Local_Pending,
+                                                        <span class="type">GArray_guint_</span>              *arg_Remote_Pending,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                    user_data)               : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The MembersChangedDetailed D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Added</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Removed</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Local_Pending</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Remote_Pending</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Details</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceGroup-self-contact-changed"></a><h3>The <code class="literal">"self-contact-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                       arg_Self_Handle,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>                      *arg_Self_ID,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                    user_data)            : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The SelfContactChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Self_Handle</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Self_ID</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceGroup-self-handle-changed"></a><h3>The <code class="literal">"self-handle-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                       arg_Self_Handle,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                    user_data)            : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The SelfHandleChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Self_Handle</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceConference-channel-merged"></a><h3>The <code class="literal">"channel-merged"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceConference"><span class="type">TpSvcChannelInterfaceConference</span></a> *self,
+                                                        <span class="type">DBusGObjectPath</span>                 *arg_Channel,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                            arg_Channel_Specific_Handle,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                         user_data)                        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The ChannelMerged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Channel</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Channel_Specific_Handle</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Properties</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceConference-channel-removed"></a><h3>The <code class="literal">"channel-removed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceConference"><span class="type">TpSvcChannelInterfaceConference</span></a> *self,
+                                                        <span class="type">DBusGObjectPath</span>                 *arg_Channel,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                         user_data)        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The ChannelRemoved D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Channel</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Details</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-group.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixin" title="struct TpGroupMixin"><span class="type">TpGroupMixin</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

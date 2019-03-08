@@ -1,0 +1,554 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>File Transfer channels</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-dbus.html" title="Service-side D-Bus interfaces">
+<link rel="prev" href="telepathy-glib-svc-channel-media.html" title="Media channels">
+<link rel="next" href="telepathy-glib-svc-channel-ft-metadata.html" title="File transfer Metadata interface">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-svc-channel-media.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-dbus.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-svc-channel-ft-metadata.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-svc-channel-file-transfer.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel-file-transfer.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel-file-transfer.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel-file-transfer.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-svc-channel-file-transfer"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-svc-channel-file-transfer.top_of_page"></a>File Transfer channels</span></h2>
+<p>File Transfer channels — service-side interface for the File Transfer channel type</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-svc-channel-file-transfer.synopsis"></a><h2>Synopsis</h2>
+<a name="TpSvcChannelTypeFileTransfer"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib-dbus.h&gt;
+
+                    <a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransfer-struct" title="TpSvcChannelTypeFileTransfer">TpSvcChannelTypeFileTransfer</a>;
+                    <a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransferClass" title="TpSvcChannelTypeFileTransferClass">TpSvcChannelTypeFileTransferClass</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-file-transfer.html#tp-svc-channel-type-file-transfer-accept-file-impl" title="tp_svc_channel_type_file_transfer_accept_file_impl ()">*tp_svc_channel_type_file_transfer_accept_file_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransfer"><span class="type">TpSvcChannelTypeFileTransfer</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Address_Type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Access_Control</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *in_Access_Control_Param</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> in_Offset</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-file-transfer.html#tp-svc-channel-type-file-transfer-emit-file-transfer-state-changed" title="tp_svc_channel_type_file_transfer_emit_file_transfer_state_changed ()">tp_svc_channel_type_file_transfer_emit_file_transfer_state_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_State</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Reason</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-file-transfer.html#tp-svc-channel-type-file-transfer-emit-initial-offset-defined" title="tp_svc_channel_type_file_transfer_emit_initial_offset_defined ()">tp_svc_channel_type_file_transfer_emit_initial_offset_defined</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> arg_InitialOffset</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-file-transfer.html#tp-svc-channel-type-file-transfer-emit-transferred-bytes-changed" title="tp_svc_channel_type_file_transfer_emit_transferred_bytes_changed ()">tp_svc_channel_type_file_transfer_emit_transferred_bytes_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> arg_Count</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-file-transfer.html#tp-svc-channel-type-file-transfer-emit-uri-defined" title="tp_svc_channel_type_file_transfer_emit_uri_defined ()">tp_svc_channel_type_file_transfer_emit_uri_defined</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_URI</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-file-transfer.html#tp-svc-channel-type-file-transfer-implement-accept-file" title="tp_svc_channel_type_file_transfer_implement_accept_file ()">tp_svc_channel_type_file_transfer_implement_accept_file</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransferClass" title="TpSvcChannelTypeFileTransferClass"><span class="type">TpSvcChannelTypeFileTransferClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-file-transfer.html#tp-svc-channel-type-file-transfer-accept-file-impl" title="tp_svc_channel_type_file_transfer_accept_file_impl ()"><span class="type">tp_svc_channel_type_file_transfer_accept_file_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-file-transfer.html#tp-svc-channel-type-file-transfer-implement-provide-file" title="tp_svc_channel_type_file_transfer_implement_provide_file ()">tp_svc_channel_type_file_transfer_implement_provide_file</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransferClass" title="TpSvcChannelTypeFileTransferClass"><span class="type">TpSvcChannelTypeFileTransferClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-file-transfer.html#tp-svc-channel-type-file-transfer-provide-file-impl" title="tp_svc_channel_type_file_transfer_provide_file_impl ()"><span class="type">tp_svc_channel_type_file_transfer_provide_file_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-file-transfer.html#tp-svc-channel-type-file-transfer-provide-file-impl" title="tp_svc_channel_type_file_transfer_provide_file_impl ()">*tp_svc_channel_type_file_transfer_provide_file_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransfer"><span class="type">TpSvcChannelTypeFileTransfer</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Address_Type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Access_Control</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *in_Access_Control_Param</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-file-transfer.html#tp-svc-channel-type-file-transfer-return-from-accept-file" title="tp_svc_channel_type_file_transfer_return_from_accept_file ()">tp_svc_channel_type_file_transfer_return_from_accept_file</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *out_Address</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-file-transfer.html#tp-svc-channel-type-file-transfer-return-from-provide-file" title="tp_svc_channel_type_file_transfer_return_from_provide_file ()">tp_svc_channel_type_file_transfer_return_from_provide_file</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *out_Address</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-file-transfer.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcChannelTypeFileTransfer
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-file-transfer.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransfer-file-transfer-state-changed" title='The "file-transfer-state-changed" signal'>file-transfer-state-changed</a>"                    : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransfer-initial-offset-defined" title='The "initial-offset-defined" signal'>initial-offset-defined</a>"                         : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransfer-transferred-bytes-changed" title='The "transferred-bytes-changed" signal'>transferred-bytes-changed</a>"                      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransfer-u-ri-defined" title='The "u-ri-defined" signal'>u-ri-defined</a>"                                   : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-file-transfer.description"></a><h2>Description</h2>
+<p>
+This section documents the auto-generated GInterface used to implement
+the File Transfer channel type.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-file-transfer.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpSvcChannelTypeFileTransfer-struct"></a><h3>TpSvcChannelTypeFileTransfer</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelTypeFileTransfer TpSvcChannelTypeFileTransfer;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelTypeFileTransferClass"></a><h3>TpSvcChannelTypeFileTransferClass</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelTypeFileTransferClass TpSvcChannelTypeFileTransferClass;</pre>
+<p>
+The class of TpSvcChannelTypeFileTransfer.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_channel_type_file_transfer (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_channel_type_file_transfer_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (accept_file);
+  IMPLEMENT (provide_file);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-file-transfer-accept-file-impl"></a><h3>tp_svc_channel_type_file_transfer_accept_file_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_type_file_transfer_accept_file_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransfer"><span class="type">TpSvcChannelTypeFileTransfer</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Address_Type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Access_Control</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *in_Access_Control_Param</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> in_Offset</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+AcceptFile on interface org.freedesktop.Telepathy.Channel.Type.FileTransfer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Address_Type</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Access_Control</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Access_Control_Param</code></em> :</span></p></td>
+<td>const GValue * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Offset</code></em> :</span></p></td>
+<td>guint64  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-file-transfer-emit-file-transfer-state-changed"></a><h3>tp_svc_channel_type_file_transfer_emit_file_transfer_state_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_file_transfer_emit_file_transfer_state_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_State</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Reason</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+FileTransferStateChanged signal on interface org.freedesktop.Telepathy.Channel.Type.FileTransfer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_State</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Reason</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-file-transfer-emit-initial-offset-defined"></a><h3>tp_svc_channel_type_file_transfer_emit_initial_offset_defined ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_file_transfer_emit_initial_offset_defined
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> arg_InitialOffset</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+InitialOffsetDefined signal on interface org.freedesktop.Telepathy.Channel.Type.FileTransfer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_InitialOffset</code></em> :</span></p></td>
+<td>guint64  (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-file-transfer-emit-transferred-bytes-changed"></a><h3>tp_svc_channel_type_file_transfer_emit_transferred_bytes_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_file_transfer_emit_transferred_bytes_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> arg_Count</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+TransferredBytesChanged signal on interface org.freedesktop.Telepathy.Channel.Type.FileTransfer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Count</code></em> :</span></p></td>
+<td>guint64  (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-file-transfer-emit-uri-defined"></a><h3>tp_svc_channel_type_file_transfer_emit_uri_defined ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_file_transfer_emit_uri_defined
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_URI</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+URIDefined signal on interface org.freedesktop.Telepathy.Channel.Type.FileTransfer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_URI</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-file-transfer-implement-accept-file"></a><h3>tp_svc_channel_type_file_transfer_implement_accept_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_file_transfer_implement_accept_file
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransferClass" title="TpSvcChannelTypeFileTransferClass"><span class="type">TpSvcChannelTypeFileTransferClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-file-transfer.html#tp-svc-channel-type-file-transfer-accept-file-impl" title="tp_svc_channel_type_file_transfer_accept_file_impl ()"><span class="type">tp_svc_channel_type_file_transfer_accept_file_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the AcceptFile method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the AcceptFile D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-file-transfer-implement-provide-file"></a><h3>tp_svc_channel_type_file_transfer_implement_provide_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_file_transfer_implement_provide_file
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransferClass" title="TpSvcChannelTypeFileTransferClass"><span class="type">TpSvcChannelTypeFileTransferClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-file-transfer.html#tp-svc-channel-type-file-transfer-provide-file-impl" title="tp_svc_channel_type_file_transfer_provide_file_impl ()"><span class="type">tp_svc_channel_type_file_transfer_provide_file_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the ProvideFile method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the ProvideFile D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-file-transfer-provide-file-impl"></a><h3>tp_svc_channel_type_file_transfer_provide_file_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_type_file_transfer_provide_file_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransfer"><span class="type">TpSvcChannelTypeFileTransfer</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Address_Type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Access_Control</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *in_Access_Control_Param</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+ProvideFile on interface org.freedesktop.Telepathy.Channel.Type.FileTransfer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Address_Type</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Access_Control</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Access_Control_Param</code></em> :</span></p></td>
+<td>const GValue * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-file-transfer-return-from-accept-file"></a><h3>tp_svc_channel_type_file_transfer_return_from_accept_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_file_transfer_return_from_accept_file
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *out_Address</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Address</code></em> :</span></p></td>
+<td>const GValue * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-file-transfer-return-from-provide-file"></a><h3>tp_svc_channel_type_file_transfer_return_from_provide_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_file_transfer_return_from_provide_file
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *out_Address</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Address</code></em> :</span></p></td>
+<td>const GValue * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-file-transfer.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpSvcChannelTypeFileTransfer-file-transfer-state-changed"></a><h3>The <code class="literal">"file-transfer-state-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransfer"><span class="type">TpSvcChannelTypeFileTransfer</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                         arg_State,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                         arg_Reason,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                      user_data)       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The FileTransferStateChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_State</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Reason</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelTypeFileTransfer-initial-offset-defined"></a><h3>The <code class="literal">"initial-offset-defined"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransfer"><span class="type">TpSvcChannelTypeFileTransfer</span></a> *self,
+                                                        <span class="type">guint64</span>                       arg_InitialOffset,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                      user_data)              : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The InitialOffsetDefined D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_InitialOffset</code></em> :</span></p></td>
+<td>guint64  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelTypeFileTransfer-transferred-bytes-changed"></a><h3>The <code class="literal">"transferred-bytes-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransfer"><span class="type">TpSvcChannelTypeFileTransfer</span></a> *self,
+                                                        <span class="type">guint64</span>                       arg_Count,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The TransferredBytesChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Count</code></em> :</span></p></td>
+<td>guint64  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelTypeFileTransfer-u-ri-defined"></a><h3>The <code class="literal">"u-ri-defined"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-file-transfer.html#TpSvcChannelTypeFileTransfer"><span class="type">TpSvcChannelTypeFileTransfer</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>                        *arg_URI,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The URIDefined D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_URI</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

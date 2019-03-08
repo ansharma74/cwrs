@@ -1,0 +1,112 @@
+<div id="header">
+	<div id="header-inside">
+		<div id="header-content">
+			<div id="header-top" class='container_12'>
+				
+				<div id="logo" class='grid_6'>
+					<%= link_to "Snorby", root_path %>
+          <%= link_to "TS", "https://www.threatstack.com", :target => "_BLANK", :class => "threat-stack" %>
+				</div>
+				
+				<div id="user-menu" class=''>
+					
+					<ul>
+						<% if user_signed_in? %>
+
+							<li class='first'>Welcome <%= current_user.name %></li>
+							<li><%= link_to 'Settings', edit_user_registration_path %></li>
+							<li class='last'><%= link_to 'Log out', destroy_user_session_path %></li>
+							
+            <% else %>
+
+							<li class='first'><%= link_to 'Log In', login_path %></li>
+              <li class='last'><%= link_to 'Forgot Password?', new_password_path(resource_name) %></li>	
+
+            <% end %>
+
+            <% unless Rails.env.production? %>
+              <strong class='current-snorby-env'>(<%= Rails.env.upcase %> MODE)</strong>
+            <% end %>
+
+					</ul>
+					
+				</div>
+				
+			</div>
+		</div>
+		
+		<div id="menu">
+
+			<ul class='container_12'>
+
+				<% if user_signed_in? %>
+					<li class='item blank first'></li>
+					<li class='item'><%= link_to "Dashboard", dashboard_path %></li>
+					<li class='item'><%= link_to "My Queue (<span class='queue-count'>#{current_user.favorites_count}</span>)".html_safe, queue_events_path %></liü>
+            <li class='item'><%= link_to "Events", sessions_events_path %></li>
+					<li class='item'><%= link_to "Sensors", sensors_path %></li>
+					<li class='item'><%= link_to "Search", search_path %></li>
+					<li class='item blank last'></li>
+
+					<% if current_user.admin %>
+            <li class='administration right'><%= link_to "Administration", settings_path %></li>
+
+            <dl id="admin-menu" style='display:none;'>
+              
+              <dd>
+                <%= link_to "General Settings", settings_path %>
+              </dd>
+
+                <div class="admin-arrow"></div>
+
+              <dd>
+                <%= link_to "Classifications", classifications_path %>
+              </dd>
+
+              <dd>
+                <%= link_to "Sensors", sensors_path %>
+              </dd>
+
+              <dd>
+                <%= link_to 'Lookup Sources', lookups_path %>
+              </dd>
+
+              <dd>
+                <%= link_to 'Asset Name Manager', asset_names_path %>
+              </dd>
+
+              <dd>
+                <%= link_to "Severities", severities_path %>
+              </dd>
+
+              <dd>
+                <%= link_to "Signatures", signatures_path %>
+              </dd>
+
+              <dd>
+                <%= link_to "Users", users_path %>
+              </dd>
+
+              <dd>
+                <%= link_to "Worker & Job Queue <span class='shortcut'>ctrl+3</span>".html_safe, jobs_path %>
+              </dd>
+            
+            </dl>
+
+					<% end %>
+					
+					<% unless Snorby::Worker.running? %>
+            <li class='menu-error right <%= current_user.admin ? 'admin' : '' %>'>
+              <%= image_tag('icons/note-icon-white.png') %>
+              The Snorby worker is not currently running.
+            </li>
+					<% end %>
+					
+				<% end %>
+				
+			</ul>
+
+		</div>
+		
+	</div>
+</div>

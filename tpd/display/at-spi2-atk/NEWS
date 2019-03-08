@@ -1,0 +1,390 @@
+What's new in at-spi2-atk 2.6.2:
+
+* Up libatspi dependency to what is actually required (BGO#686667).
+
+* Don't distribute dbind-config.h (BGO#688083).
+
+What's new in at-spi2-atk 2.6.1:
+
+* Make atk-bridge location empty in the schema, to fix problems with multilib
+  builds. (The key should no longer be needed and will be removed for 2.8.)
+
+What's new in at-spi2-atk 2.6.0:
+
+* Fix some crashes in atk_bridge_adaptor_cleanup (BGO#684434).
+
+* When the cache is activated, register it on the main D-Bus connection.
+
+What's new in at-spi2-atk 2.5.92:
+
+* Fix atspi_hyperlink_get_uri (BGO#683182).
+
+* Only initialize the cache when an AT is running.
+
+* Fix various memory leaks (BGO#683979, BGO#684077)
+What's new in at-spi2-atk 2.5.91:
+
+* Removed the gtk 3.0 module (BGO#678315).
+
+What's new in at-spi2-atk 2.5.90:
+
+* Don't leak a GError when option parsing fails (BGO#679296)
+
+* Rework some inefficient code when removing clients and events (BGO#679295,
+  BGO#679297).
+
+What's new in at-spi2-atk 2.5.5:
+
+* Implement GetLocalizedName for actions (BGO#680598)
+
+* Allow to build out of source directory (BGO#680280).
+
+What's new in at-spi2-atk 2.5.4:
+
+    Fix for bug #679013 - AtspiCollection should be implemented for
+  all containers
+
+* Don't create a (non-readable) subdirectory for the socket when root.
+
+* Plug ref count leaks (BGO#679285).
+
+* Only create a directory and a socket when requested.
+
+* Only add items to the cache on children-changed if the children are
+  included in the event.
+
+* Only send PropertyChange signals used for caching, absent listeners.
+
+What's new in at-spi2-atk 2.5.3:
+
+* Create a library (libatk-bridge), currently with atk_bridge_adaptor_init()
+  and atk_bridge_adaptor_cleanup() functions, to facilitate linking directly
+  into, ie GTK+ 3.
+
+* Only register events at beginning if an AT is listening (BGO#678475).
+
+* Use XDG_RUNTIME_DIR to hold the socket, rather than a potentially secure
+  directory hard-coded under /tmp (BGO#678348).
+
+* Fix various compiler warnings and build errors.
+
+What's new in at-spi2-atk 2.5.2:
+
+* Fix for bug 677211 - The collection interface's MATCH_ANY fails for states
+
+What's new in at-spi2-atk 2.5.1:
+
+* Updated Norwegian Nynorsk translation
+
+What's new in at-spi2-atk 2.4.0:
+
+* Updated Hindi translation.
+
+What's new in at-spi2-atk 2.3.92:
+
+* Add Khmer and Malayalam translations.
+
+What's new in at-spi2-atk 2.3.91:
+
+* Have GetIndexInParent() return a signed int, per the spec.
+
+* Send a DoAction reply message before invoking atk (works around
+  atk_action_do_action potentially not returning right away for gtk).
+
+
+What's new in at-spi2-atk 2.3.90:
+
+* Have GrabFocus return a bool, per the spec, rather than a uint32.
+
+* Fix a potential crash when emitting a signal if the ATK implementor
+  misbehaves.
+
+What's new in at-spi2-atk 2.3.5:
+
+* Remove the ability to set an accessible's name and description via AT-SPI
+  (it seems wrong to have been exposing this in the first place).
+
+* Fix for BGO#659967: some list API usage fixes.
+
+* Fix for BGO#663967: Don't use /a11y/ as a dconf path.
+
+* Fix for BGO#666371: possible crash when accessibles are created and
+  deleted in rapid succession; eg, in gnome-shell)
+
+* Avoid triggering GLib criticals in a few places.
+
+What's new in at-spi2-atk 2.3.4:
+
+* Fix for BGO#666870: Keystroke listeners do not work unless an event listener
+  is also registered [also needs updated at-spi2-core]
+
+What's new in at-spi2-atk 2.3.3:
+
+* Fix for BGO#664822 - gnome-shell crash when an AT is launched
+
+* Fix a reference leak if a child-added signal has no object value.
+
+* Change a : to a / in the suffix to an event, to allow DBus match rules
+  using arg0path.
+
+* Only deregister objects when they are marked defunct, not when a previously
+  defunct object is marked as no longer defunct.
+
+What's new in at-spi2-atk 2.3.2:
+
+* Have AtkSocket's implementation of ref_state_set to return empty sets
+  instead of NULL
+
+* Fix for BGO#663876: Make sure the a11y hierarchy under an AtkPlug is
+  generated when embedding.
+    
+What's new in at-spi2-atk 2.3.1:
+
+* Fix a small coding error that could generate compiler warnings.
+
+What's new in at-spi2-atk 2.2.1:
+
+* Updated Finnish translation.
+
+What's new in at-spi2-atk 2.2.0:
+
+* Really fix BGO#658013: Attach the timeout for a key listener to the
+  appropriate main loop context.
+
+What's new in at-spi2-atk 2.1.92:
+
+* Fix for BGO#658013: Add timeout to check for disconnect on a key listener.
+
+What's new in at-spi2-atk 2.1.91:
+
+* Fix for BGO#645321: Use an array of bytes rather than a string for the
+  atk-bridge location in the schema.
+
+What's new in at-spi2-atk 2.1.90:
+
+* Try to use the new AtkWindow interface to register for window events.
+
+What's new in at-spi2-atk 2.1.5:
+
+* Use libatspi constants rather than keeping duplicate copies of the
+  constants in at-spi2-atk.
+
+* Fixed some problems when shutting down and restarting the module.
+
+What's new in at-spi2-atk 2.1.4:
+
+* Ensure the detail integers are initialized before sending events.
+
+* Map some new atk roles.
+
+What's new in at-spi2-atk 2.1.3:
+
+* Fix for BGO#652797: Remove unused AtkMisc instance.
+
+* Only register events when something is listening.  In theory, this should
+  mitigate performance loss that might show up when no ATs are running.
+
+* BGO#652596: Allow setting value via the DBus property again.
+
+* BGO#652858: Deregister objects on state-changed:defunct.
+
+* Add AT-SPI mapping for ATK_RELATION_NODE_PARENT_OF.
+
+What's new in at-spi2-atk 2.0.2:
+
+* Fix matching on attributes for collection methods
+
+* Fix for BGO#650286: Ensure valid UTF-8 from ATK
+
+* Always emit children-changed, property-change, and state-changed events, in
+  order to keep caches synchronized.
+
+* Add GetAtspiVersion to fetch the version of the AT-SPI specification provided
+  by an application.
+
+What's new in at-spi2-atk 2.0.1:
+
+* Fix a memory leak in impl_GetText
+
+What's new in at-spi2-atk 1.91.93:
+
+* Removed dbus-glib-related includes, as they are no longer required.
+
+What's new in at-spi2-atk 1.91.92:
+
+* Handle text-insert and text-removed signals from ATK (BGO#638377).
+
+* Use the new dbus errors when compiled against a version of libdbus that
+  defines them.
+
+* Use libatspi to get the accessibility bus and handle main loop integration.
+  This fixes a crash with some builds of Firefox (FDO#35115).
+  Note that this adds a dependency on libatspi.
+
+* Fix accessibility of applications running as root on Linux.
+
+What's new in at-spi2-atk 1.91.91:
+
+* Fix some missing prototypes.
+
+* Do not exit if the accessibility bus disconnects.
+
+What's new in at-spi2-atk 1.91.90:
+
+* Fix for BGO#641338: Avoid crashing when unable to listen for p2p connections.
+
+* Set /tmp/at-spi2 to be world-writable.
+
+* Fix for BGO#641869: Remove --enable-relocate option.
+
+* Changed accessibility key name as was done in gsettings-desktop-schemas.
+
+* Fixed several memory leaks.
+
+* Fixed some build errors.
+
+What's new in at-spi2-atk 1.91.6:
+
+* Fixed the path in org.a11y.atspi.gschema.xml for lib64.
+
+* Implemented SetPosition, SetExtents, and SetSize for components.
+
+What's new in at-spi2-atk 1.91.5:
+
+* Fixed some memory leaks.
+
+* Fixed a crash if peer-to-peer connections are disabled.
+
+* Fixed setting of GTK_PATH with --enable-relocate (was broken in 1.91.4).
+
+What's new in at-spi2-atk 1.91.4:
+
+* Support direct dbus connections to improve performance if dbus-glib
+  0.90 or greater is available.
+
+* Added a GSettings key to specify the location of libatk-bridge.so.
+
+* Added a desktop file to load gail and atk-bridge with the new
+  gnome-settings-daemon.
+
+What's new in at-spi2-atk 1.91.3:
+
+* Attributes in a collection match rule are now expected to be sent as a
+  dictionary.
+
+What's new in at-spi2-atk 1.91.2:
+
+* FIxed BGO#563546: Removed the g_atexit hook.
+
+What's new in at-spi2-atk 1.91.1:
+
+    * Fire all events until we receive a reply from GetRegisteredEvents
+
+What's new in at-spi2-atk 1.91.0:
+
+* --disable-relocate is the default again.
+
+What's new in at-spi2-atk 0.3.92:
+
+* Have value methods return 0 on failure rather than fail, as in original pyatspi
+
+What's new in at-spi2-atk 0.3.91.1:
+
+* Fi a build error introduced in 0.3.91.
+
+What's new in at-spi2-atk 0.3.91:
+
+* Default to --enable-relocate for now.
+
+* Fix for FDO#29880: gtk module can't handle reloading.
+
+What's new in at-spi2-atk 0.3.90:
+
+* FDO#29365: Stop using a deprecated glib function.
+
+* Caching fixes--GetItems was completely broken in v0.3.6, and fixed a
+possible crash when it is called.
+
+* Only emit signals when AT-SPI clients are listening for them.
+
+What's new in at-spi2-atk 0.3.6:
+
+* Fixed a problem with dbus introspection.
+
+* Do not block waiting for a response when registering.
+
+What's new in at-spi2-atk 0.3.5:
+
+* Have a socket retrieve its state set from its embedded plug
+
+* Rename AT_SPI_CLIENT to AT_SPI_REENTER_G_MAIN_LOOP, but still check the
+former variable as well for now.
+
+What's new in at-spi2-atk 0.3.4:
+
+* Ref an object while adding it to the message generated by GetItems.
+This prevents a crash if all other references to the objects go away while
+it is being analyzed.
+
+* Add GetChildren to the introspection.
+
+* Fix NSelectedRows and NSelectedColumns.
+
+* Fix the behavior of ChildCount and GetChildAtIndex for sockets with
+embedded plugs.
+
+* Fix extra unref when calling get_row_header or get_column_header on a
+table, or calling atk_hyperlink_get_object.
+
+* Set the /desktop/gnome/interface/at-spi-dbus gconf key to false by default
+(this key is only used when at-spi2 is relocated, which it is not by default).
+
+* Fix a few compiler warnings.
+
+What's new in at-spi2-atk 0.3.3:
+
+* Remove unused gtk build dependency.
+
+* Install a copy of the module into the gtk-3.0 modules directory.
+
+* Correct handling of some children-changed events sent by Firefox.
+
+* Lease objects that send events if they are not cached; fixes some
+tracebacks when handling Firefox events.
+
+What's new in at-spi2-atk 0.3.2:
+
+* Some hyperlink fixes.
+
+* Cache additions are now done in an idle call.  This prevents additions
+from being made when an object may not be fully initialized and prevents
+Firefox 3.6 from crashing.
+
+* The cache object has been placed into the org.a11y.atspi namespace.
+
+What's new in at-spi2-atk 0.3.1:
+
+* Added a gconf schema.
+
+* org.freedesktop.DBus.Properties.GetAll now works rather then crashing.
+
+* The position, size, and extents of an AtkSocket are now fetched from the
+corresponding AtkPlug.
+
+* An application is no longer registered if its root is an AtkPlug.
+
+* Fix BGO#538680 - Count ignored in GetMatchesTo
+
+* Fix FDO#27626 - deadlock when registering an application.
+
+* Fix a problem with various hyperlink methods.
+
+* Fix for an AtkPlug sometimes not appearing in the hierarchy.
+
+* Fix a crash if the registry returns an unexpected message while embedding.
+
+* Remove libxml2 dependency since libxml2 is no longer used.
+
+* Fix handling of MATCH_ANY for a stateset in a collection match rule.
+
+* Disabled relocation by default.

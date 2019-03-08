@@ -1,0 +1,34 @@
+<%= stylesheet 'jquery' %>
+<%= javascript :header, 'daterangepicker' %>
+
+<% content_for :footer do %>
+
+  <script type="text/javascript">
+
+    var rule = new SearchRule('<%= escape_javascript @json.html_safe %>');
+    rule.searchUI({
+      cssClass: "submit-search",
+      buttonTitle: "Submit Search"
+    });
+rule.add();
+rule.add();
+rule.add();
+
+	</script>
+
+<% end %>
+
+<%= title "Snorby Advanced Search" do %>
+
+	<%= drop_down_for('More Options', 'icons/filter.png', 'options') do %>
+
+    <%= drop_down_item "Save Current Search", new_saved_search_path, nil, { :class => "snorbybox" } %>
+
+    <%= drop_down_item "View Saved Searches", saved_searches_path, nil %>
+
+    <%= drop_down_item "Reset Search Form", '#', nil, {:class => 'reset-search-form'} %>
+
+	<% end %>
+
+<% end %>
+

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+NAME="$1-purge"
+
+if test -z "$1"; then
+    echo "Error! Parameter required."
+    exit
+fi
+
+if test -z "$CC"; then
+    CC=gcc
+fi
+
+if test ! -f "$NAME.c"; then
+    echo "Error! $NAME.c not found."
+fi
+
+set -x
+exec $CC -O2 -Wall \
+	`pkg-config glib-2.0 --cflags --libs` \
+	"$NAME.c" -o "$NAME"

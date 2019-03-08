@@ -1,0 +1,105 @@
+## -*- mode: shell-script; -*- 
+##
+## To be able to make changes to the part of configuration created
+## from this configlet you need to copy this file to the directory
+## fwbuilder/configlets/bsd/ in your home directory and modify it.
+## Double "##" comments are removed during processing but single "#"
+## comments are be retained and appear in the generated script. Empty
+## lines are removed as well.  
+##
+## Configlets support simple macro language with these constructs:
+## {{$var}} is variable expansion
+## {{if var}} is conditional operator.
+##
+############ VLAN ##############################################
+
+## arguments:
+##
+## $1:  vlan_name:vlan_id@<parent_name>    e.g.  vlan8101:101@em1
+## $2:  command, can be "add" or "rem"
+##
+missing_vlan() {
+    vlan=$1
+    cmd=$2
+
+    oldIFS=$IFS
+    IFS="@:"
+    set $vlan
+    subint=$1
+    vlan_id=$2
+    parent=$3
+    IFS=$oldIFS
+
+    test "$cmd" = "add" && {
+        echo "# Adding VLAN interface $subint (vlan id: $vlan_id parent: $parent)"
+        $FWBDEBUG $IFCONFIG $subint vlan $vlan_id vlandev $parent || exit 1
+        $FWBDEBUG $IFCONFIG $subint up || exit 1
+    }
+    test "$cmd" = "rem" && {
+        echo "# Removing VLAN interface $subint (vlan id: $vlan_id parent: $parent)"
+        $FWBDEBUG $IFCONFIG $subint vlan $vlan_id -vlandev || exit 1
+        $FWBDEBUG $IFCONFIG $subint destroy || exit 1
+    }
+}
+
+parse_fwb_vlans() {
+    set $1 
+    vlan_parent=$1 
+    shift
+
+    FWB_VLANS=$(
+      for subint in $*; do
+        echo "${subint}@$vlan_parent"
+      done | sort
+    )
+    echo $FWB_VLANS
+}
+
+parse_current_vlans() {
+    vlan_parent=$1
+    $IFCONFIG {{if openbsd}}-A{{endif}} | grep -E 'vlan[^ ]*:' | paste - - | \
+        sed 's/flags=.*vlan://;s/://g;s/parent interface//' | \
+    while read vlan_subint vlan_id parent
+    do
+       test "$parent" = "$vlan_parent" && echo "$vlan_subint:$vlan_id@$parent"
+    done | sort
+}
+
+##
+## Call format:
+##
+##  update_vlans_of_interface "pcn0 vlan101 vlan104"
+##
+##
+update_vlans_of_interface() {
+    args="$1"
+    set $1 
+    vlan_parent=$1 
+
+    FWB_VLANS=$(parse_fwb_vlans "$args")
+    CURRENT_VLANS=$(parse_current_vlans $vlan_parent)
+
+    $IFCONFIG $vlan_parent up || exit 1
+    diff_intf missing_vlan "$FWB_VLANS" "$CURRENT_VLANS" add
+    diff_intf missing_vlan "$CURRENT_VLANS" "$FWB_VLANS" rem
+}
+
+sync_vlan_interfaces() {
+    $IFCONFIG {{if openbsd}}-A{{endif}} | awk -v IGNORED="$*" \
+        'BEGIN {
+           split(IGNORED,ignored_arr);
+           for (a in ignored_arr) {ii=ignored_arr[a]":"; ignored_dict[ii]=1;}
+         }
+         ($1 ~ /^vlan[0-9]/ && !($1 in ignored_dict)) {print $1;}' | sed 's/://' |\
+         while read intf; do
+            echo "# Deleting vlan interface $intf"
+             $FWBDEBUG $IFCONFIG $intf destroy || exit 1
+         done
+
+    for intf in $*; do
+        $IFCONFIG $intf >/dev/null 2>&1 || {
+            echo "# Creating vlan interface $intf"
+            $FWBDEBUG $IFCONFIG $intf create || exit 1
+        }
+    done
+}

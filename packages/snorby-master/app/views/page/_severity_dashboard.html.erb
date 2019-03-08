@@ -1,0 +1,98 @@
+<% content_for :footer do %>
+
+	<script type="text/javascript">
+    $('#sev1-graph').sparkline([<%= @high.join(',') %>], { 
+        barWidth: 6, height: 40, type: 'bar', barColor: sev1_bg_color 
+     });
+    
+    $('#sev2-graph').sparkline([<%= @medium.join(',') %>], { 
+      barWidth: 6, height: 40, type: 'bar', barColor: sev2_bg_color 
+    });
+
+    $('#sev3-graph').sparkline([<%= @low.join(',') %>], { 
+      barWidth: 6, height: 40, type: 'bar', barColor: sev3_bg_color 
+    });
+	</script>
+
+<% end %>
+
+<div class='box grid_3 alpha shadow round' data-url='<%= results_path(:title => "High Severity Events", :match_all => true, :search => { :sev => { :column => :severity, :operator => :is, :value => 1 },
+                                                                                                                                             :stime => {:column => :start_time, :operator => :gte, :value => "#{@start_time.strftime("%Y-%m-%d %H:%M:%S")}"},
+                                                                                                                                             :etime => {:column => :end_time, :operator => :lte, :value => "#{@end_time.strftime("%Y-%m-%d %H:%M:%S")}"}
+}) %>'>
+	
+	<div class='content shadow-in'>
+		<div class='data'>
+			
+			<div id='box-count'>
+				<%= @high.sum %>
+			</div>
+			
+			<div id="box-title">
+				High Severity
+			</div>
+			
+			<div class='box-graph' id='sev1-graph'></div>
+			
+		</div>
+	</div>
+	
+	<div class='footer'>
+	<span><%= number_with_delimiter @high.sum %> / <%= number_with_delimiter @event_count %></span> 
+	</div>
+	
+</div>
+
+<div class='box grid_3 alpha shadow round' data-url='<%= results_path(:title => "Medium Severity Events", :match_all => true, :search => { :sev => { :column => :severity, :operator => :is, :value => 2 },
+                                                                                                                                             :stime => {:column => :start_time, :operator => :gte, :value => "#{@start_time.strftime("%Y-%m-%d %H:%M:%S")}"},
+                                                                                                                                             :etime => {:column => :end_time, :operator => :lte, :value => "#{@end_time.strftime("%Y-%m-%d %H:%M:%S")}"}
+}) %>'>
+	
+	<div class='content shadow-in'>
+		<div class='data'>
+			
+			<div id='box-count'>
+				<%= @medium.sum %>
+			</div>
+			
+			<div id="box-title">
+				Medium Severity
+			</div>
+			
+			<div class='box-graph' id='sev2-graph'></div>
+			
+		</div>
+	</div>
+	
+	<div class='footer'>
+	<span><%= number_with_delimiter @medium.sum %> / <%= number_with_delimiter @event_count %></span> 
+	</div>
+	
+</div>
+
+<div class='box grid_3 alpha shadow round' data-url='<%= results_path(:title => "Low Severity Events", :match_all => true, :search => { :sev => { :column => :severity, :operator => :is, :value => 3 },
+                                                                                                                                             :stime => {:column => :start_time, :operator => :gte, :value => "#{@start_time.strftime("%Y-%m-%d %H:%M:%S")}"},
+                                                                                                                                             :etime => {:column => :end_time, :operator => :lte, :value => "#{@end_time.strftime("%Y-%m-%d %H:%M:%S")}"}
+}) %>'>
+	
+	<div class='content shadow-in'>
+		<div class='data'>
+			
+			<div id='box-count'>
+				<%= @low.sum %>
+			</div>
+			
+			<div id="box-title">
+				Low Severity
+			</div>
+			
+			<div class='box-graph' id='sev3-graph'></div>
+			
+		</div>
+	</div>
+	
+	<div class='footer'>
+	<span><%= number_with_delimiter @low.sum %> / <%= number_with_delimiter @event_count %></span> 
+	</div>
+	
+</div>

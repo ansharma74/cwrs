@@ -1,0 +1,10 @@
+#!/bin/sh
+
+LTAG=${1%+*}
+TTAG=${1#*+}
+cat <<EOF > .newprop
+linux	https://origsvn.digium.com/svn/dahdi/linux/tags/${LTAG}
+tools	https://origsvn.digium.com/svn/dahdi/tools/tags/${TTAG}
+EOF
+svn ps svn:externals --file .newprop .
+rm -f .newprop

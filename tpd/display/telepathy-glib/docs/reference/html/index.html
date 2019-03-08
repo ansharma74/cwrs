@@ -1,0 +1,591 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>telepathy-glib API Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="next" href="ch-dbus.html" title="General D-Bus support">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="book">
+<div class="titlepage">
+<div>
+<div><table class="navigation" id="top" width="100%" cellpadding="2" cellspacing="0"><tr><th valign="middle"><p class="title">telepathy-glib API Reference Manual</p></th></tr></table></div>
+<div><p class="releaseinfo">
+      This manual documents telepathy-glib version 0.20.1
+.
+      The latest development version of this documentation can be found here:
+      <a class="ulink" href="http://telepathy.freedesktop.org/doc/telepathy-glib/" target="_top">online copy of the telepathy-glib API Reference Manual</a>.
+      The latest version in this stable branch can be found here:
+      <a class="ulink" href="http://telepathy.freedesktop.org/doc/telepathy-glib-0.20.x/" target="_top">online copy of the telepathy-glib 0.20.x API Reference Manual</a>.
+    </p></div>
+</div>
+<hr>
+</div>
+<div class="toc"><dl>
+<dt><span class="chapter"><a href="ch-dbus.html">General D-Bus support</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-proxy.html">TpProxy</a></span><span class="refpurpose"> — base class for Telepathy client proxy objects</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-proxy-dbus-core.html">TpProxy D-Bus core methods</a></span><span class="refpurpose"> — The D-Bus Introspectable, Peer and Properties interfaces</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-proxy-tp-properties.html">TpProxy Telepathy Properties</a></span><span class="refpurpose"> — The Telepathy Properties interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-dbus.html">D-Bus utilities</a></span><span class="refpurpose"> — some D-Bus utility functions</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-asv.html">Manipulating a{sv} mappings</a></span><span class="refpurpose"> — Functions to manipulate mappings from string to
+ variant, as represented in dbus-glib by a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> from string
+ to <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-variant-util.html">GVariant utilities</a></span><span class="refpurpose"> — some GVariant utility functions</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-vardict.html">Manipulating a{sv} mappings</a></span><span class="refpurpose"> — Functions to manipulate mappings from string to
+ variant, as represented in GVariant by a <a href="http://library.gnome.org/devel/glib/unstable/glib-GVariantType.html#G-VARIANT-TYPE-VARDICT:CAPS"><code class="literal">G_VARIANT_TYPE_VARDICT</code></a></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-proxy-subclass.html">TpProxy subclasses and mixins</a></span><span class="refpurpose"> — Providing extra functionality for a <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> or
+ subclass, or subclassing it</span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="ch-protocol.html">The Telepathy protocol</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-defs.html">Miscellaneous definitions</a></span><span class="refpurpose"> — Definitions useful for working with the Telepathy
+  protocol</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-handle.html">TpHandle</a></span><span class="refpurpose"> — type representing handles</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-interfaces.html">Telepathy protocol interface and property names</a></span><span class="refpurpose"> — D-Bus interface and property names from the
+ Telepathy spec</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-enums.html">Telepathy protocol enumerations</a></span><span class="refpurpose"> — Enumerated types and bitfields from the Telepathy spec</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-errors.html">Telepathy protocol errors</a></span><span class="refpurpose"> — The errors from the Telepathy D-Bus spec, as a
+ GLib error domain</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-gtypes.html">GType factory functions</a></span><span class="refpurpose"> — Macros using caching factory functions to get
+   dbus-glib specialized GTypes</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpChannelIface.html">TpChannelIface</a></span><span class="refpurpose"> — interface representing basic channel properties</span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="ch-client.html">Client-side proxies</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-manager.html">TpConnectionManager</a></span><span class="refpurpose"> — proxy object for a Telepathy connection manager</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-protocol.html">TpProtocol</a></span><span class="refpurpose"> — proxy for a Telepathy Protocol object</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection.html">TpConnection</a></span><span class="refpurpose"> — proxy object for a Telepathy connection</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-contact.html">TpContact</a></span><span class="refpurpose"> — object representing a contact</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-capabilities.html">TpCapabilities</a></span><span class="refpurpose"> — object representing capabilities</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-aliasing.html">Connection Aliasing interface</a></span><span class="refpurpose"> — client-side wrappers for the Aliasing interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-avatars.html">Connection Avatars interface</a></span><span class="refpurpose"> — client-side wrappers for the Avatars interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-balance.html">Connection Balance interface</a></span><span class="refpurpose"> — client-side wrappers for the Balance interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-client-types.html">Connection ClientTypes interface</a></span><span class="refpurpose"> — client-side wrappers for the ClientTypes interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-contacts.html">Connection Contacts interface</a></span><span class="refpurpose"> — client-side wrappers for the Contacts interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-contact-info.html">Connection ContactInfo interface</a></span><span class="refpurpose"> — client-side wrappers for the ContactInfo interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-contact-list.html">Connection ContactList, ContactGroups and ContactBlocking interfaces</a></span><span class="refpurpose"> — client-side wrappers for the ContactList,
+ ContactGroups and ContactBlocking interfaces</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-caps.html">Connection ContactCapabilities and Capabilities interfaces</a></span><span class="refpurpose"> — client-side wrappers for the capabilities interfaces</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-location.html">Connection Location interface</a></span><span class="refpurpose"> — client-side wrappers for the Location interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-requests.html">Connection Requests interface</a></span><span class="refpurpose"> — client-side wrappers for the Requests interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-simple-presence.html">Connection SimplePresence interface</a></span><span class="refpurpose"> — client-side wrappers for the SimplePresence interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-presence.html">Connection Presence interface</a></span><span class="refpurpose"> — client-side wrappers for the Presence interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-cellular.html">Connection Cellular interface</a></span><span class="refpurpose"> — client-side wrappers for the Cellular interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-mail.html">Connection MailNotification interface</a></span><span class="refpurpose"> — client-side wrappers for the MailNotification interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-powersaving.html">Connection PowerSaving interface</a></span><span class="refpurpose"> — client-side wrappers for the PowerSaving interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-connection-addressing.html">Connection Addressing interface</a></span><span class="refpurpose"> — client-side wrappers for the Addressing interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-contact-search.html">TpContactSearch</a></span><span class="refpurpose"> — object for a Telepathy contact search channel</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-contact-search-result.html">TpContactSearchResult</a></span><span class="refpurpose"> — a result of a contact search</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-channel.html">TpChannel</a></span><span class="refpurpose"> — proxy object for a Telepathy channel</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-channel-group.html">Group and Conference interfaces on Channels</a></span><span class="refpurpose"> — client-side wrappers for Group and Conference</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-channel-room.html">Room-related interfaces on Channels</a></span><span class="refpurpose"> — client-side wrappers for Room, RoomConfig and Subject</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-channel-text.html">Text channels</a></span><span class="refpurpose"> — client-side wrappers for the Text channel type, and
+ the Chat State and Password interfaces</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-channel-media.html">Media channels</a></span><span class="refpurpose"> — client-side wrappers for the Streamed Media channel
+ type, and the Call State, DTMF and Media Signalling interfaces</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-channel-file-transfer.html">File transfer</a></span><span class="refpurpose"> — client-side wrappers for the File Transfer channel type</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-channel-tubes.html">Tubes channels</a></span><span class="refpurpose"> — client-side wrappers for the Tubes channel type</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-channel-tube.html">Tube channels</a></span><span class="refpurpose"> — client-side wrappers for the Tube channel interface,
+ StreamTube channel type and DBusTube channel type.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-channel-roomlist.html">Room List channels</a></span><span class="refpurpose"> — client-side wrappers for the Room List channel type</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-channel-contactsearch.html">Contact Search channels</a></span><span class="refpurpose"> — client-side wrappers for the Contact Search channel type</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-channel-auth.html">Channel Authentication interfaces</a></span><span class="refpurpose"> — client-side wrappers for authentication channels</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-cli-call-channel.html">Channel Call interfaces</a></span><span class="refpurpose"> — client-side wrappers for call channels</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-cli-call-content.html">Channel Call content interfaces</a></span><span class="refpurpose"> — client-side wrappers for call contents</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-cli-call-stream.html">Channel Call stream interfaces</a></span><span class="refpurpose"> — client-side wrappers for call streams</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-cli-call-misc.html">Channel Call misc interfaces</a></span><span class="refpurpose"> — client-side wrappers for misc call interfaces</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-cli-anonymity.html">Connection and Channel Anonymity interfaces</a></span><span class="refpurpose"> — client-side wrappers for the Anonymity interfaces</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-cli-service-point.html">Connection and Channel ServicePoint interfaces</a></span><span class="refpurpose"> — client-side wrappers for the ServicePoint interfaces</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-media-interfaces.html">TpMediaSessionHandler, TpMediaStreamHandler</a></span><span class="refpurpose"> — proxy objects for Telepathy media streaming</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-account-manager.html">TpAccountManager</a></span><span class="refpurpose"> — proxy object for the Telepathy account manager</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-account.html">TpAccount</a></span><span class="refpurpose"> — proxy object for an account in the Telepathy account
+ manager</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-account-request.html">TpAccountRequest</a></span><span class="refpurpose"> — object for a currently non-existent account in
+  order to create easily without speaking fluent D-Bus</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-channel-dispatcher.html">TpChannelDispatcher</a></span><span class="refpurpose"> — proxy object for the Telepathy channel dispatcher</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-channel-dispatch-operation.html">TpChannelDispatchOperation</a></span><span class="refpurpose"> — proxy object for a to the Telepathy channel
+ dispatcher</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-channel-request.html">TpChannelRequest</a></span><span class="refpurpose"> — proxy object for a request to the Telepathy channel
+ dispatcher</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-client.html">TpClient</a></span><span class="refpurpose"> — proxy object for a client of the ChannelDispatcher</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-account-channel-request.html">TpAccountChannelRequest</a></span><span class="refpurpose"> — Object used to request a channel from a <a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-stream-tube-channel.html">TpStreamTubeChannel</a></span><span class="refpurpose"> — proxy object for a stream tube channel</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-stream-tube-connection.html">TpStreamTubeConnection</a></span><span class="refpurpose"> — a connection on a Stream Tube</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-dbus-tube-channel.html">TpDBusTubeChannel</a></span><span class="refpurpose"> — proxy object for D-Bus tube channels</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-client-channel-factory.html">TpClientChannelFactoryInterface</a></span><span class="refpurpose"> — an interface for client channel factories</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-basic-proxy-factory.html">TpBasicProxyFactory</a></span><span class="refpurpose"> — channel factory creating TpChannel objects</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-automatic-proxy-factory.html">TpAutomaticProxyFactory</a></span><span class="refpurpose"> — factory creating higher level proxy objects</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-simple-client-factory.html">TpSimpleClientFactory</a></span><span class="refpurpose"> — a factory for <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a>s and plain subclasses
+ of <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-automatic-client-factory.html">TpAutomaticClientFactory</a></span><span class="refpurpose"> — Factory for specialized <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> subclasses.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpClientMessage.html">TpClientMessage</a></span><span class="refpurpose"> — a message in the Telepathy message interface, client side</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpSignalledMessage.html">TpSignalledMessage</a></span><span class="refpurpose"> — a message received using the Telepathy message interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-text-channel.html">TpTextChannel</a></span><span class="refpurpose"> — proxy object for a text channel</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-file-transfer-channel.html">TpFileTransferChannel</a></span><span class="refpurpose"> — proxy object for a file transfer channel</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-call-channel.html">TpCallChannel</a></span><span class="refpurpose"> — proxy object for a call channel</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-call-content.html">TpCallContent</a></span><span class="refpurpose"> — proxy object for a call content</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-call-stream.html">TpCallStream</a></span><span class="refpurpose"> — proxy object for a call stream</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-call-misc.html">Misc Call APIs</a></span><span class="refpurpose"> — Misc generated APISs for Call</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpDebugClient.html">TpDebugClient</a></span><span class="refpurpose"> — proxy objects for Telepathy debug information</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpDebugMessage.html">TpDebugMessage</a></span><span class="refpurpose"> — a debug message</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-room-list.html">TpRoomList</a></span><span class="refpurpose"> — proxy object for a room list channel</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-room-info.html">TpRoomInfo</a></span><span class="refpurpose"> — a room found by <a class="link" href="telepathy-glib-room-list.html#TpRoomList"><span class="type">TpRoomList</span></a></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpTLSCertificate.html">TpTLSCertificate</a></span><span class="refpurpose"> — proxy object for a server or peer's TLS certificate</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpTLSCertificateRejection.html">TpTLSCertificateRejection</a></span><span class="refpurpose"> — a certificate rejection</span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="ch-service-dbus.html">Service-side D-Bus interfaces</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc.html">
+      The TpSvc* interfaces
+    </a></span><span class="refpurpose"> — How to export Telepathy objects</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-generic.html">Generic service-side interfaces</a></span><span class="refpurpose"> — GInterfaces for D-Bus objects exporting Telepathy
+ properties and common D-Bus core interfaces</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel.html">Service-side Channel base interface</a></span><span class="refpurpose"> — GInterface for Telepathy Channel objects</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-group.html">Service-side Channel Group and Conference interfaces</a></span><span class="refpurpose"> — Groups of contacts</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-room.html">Service-side room interfaces</a></span><span class="refpurpose"> — room-related functionality for channels</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-contactlist.html">Contact List channels</a></span><span class="refpurpose"> — service-side interface for the Contact List channel type</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-contactsearch.html">Contact Search channels</a></span><span class="refpurpose"> — service-side interface for the Contact Search channel
+ type</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-text.html">Text channels</a></span><span class="refpurpose"> — service-side interfaces for the Text channel type, and
+ the Chat State, Password and SMS interfaces</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-media.html">Media channels</a></span><span class="refpurpose"> — service-side interfaces for the Streamed Media channel
+ type, and the Call State, DTMF and Media Signalling interfaces</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-file-transfer.html">File Transfer channels</a></span><span class="refpurpose"> — service-side interface for the File Transfer channel type</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-ft-metadata.html">File transfer Metadata interface</a></span><span class="refpurpose"> — GInterface to implement metadata file transfer interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-tubes.html">Tubes channels</a></span><span class="refpurpose"> — service-side interface for the Tubes channel type</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-tube.html">Tube channels</a></span><span class="refpurpose"> — service-side interface for the Tube channel interface,
+ StreamTube channel type and DBusTube channel type.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-roomlist.html">Room List channels</a></span><span class="refpurpose"> — service-side interface for the Room List channel type</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-auth.html">Service-side Channel Authentication interfaces</a></span><span class="refpurpose"> — GInterfaces to implement authentication channels</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-securable.html">Service-side Securable interface</a></span><span class="refpurpose"> — GInterface to indicate channels' security level</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-call.html">Service-side Channel Call interface</a></span><span class="refpurpose"> — GInterface to implement call channels</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-debug.html">Service-side Debug base interface</a></span><span class="refpurpose"> — GInterface for Telepathy Debug objects</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-connection.html">Service-side Connection interfaces</a></span><span class="refpurpose"> — GInterfaces for Telepathy Connection objects</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-anonymity.html">Service-side Connection and Channel Anonymity interfaces</a></span><span class="refpurpose"> — GInterfaces to implement the Anonymity interfaces</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-service-point.html">Service-side Connection and Channel ServicePoint interfaces</a></span><span class="refpurpose"> — GInterfaces to implement the ServicePoint interfaces</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-media-interfaces.html">Service-side media streaming helper interfaces</a></span><span class="refpurpose"> — media session and media stream</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-connection-manager.html">Service-side Connection Manager interface</a></span><span class="refpurpose"> — GInterface for Telepathy ConnectionManager objects</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-protocol.html">Service-side Protocol interface</a></span><span class="refpurpose"> — GInterface for Telepathy Protocol objects</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-account-manager.html">Service-side Account Manager interface</a></span><span class="refpurpose"> — GInterface for Telepathy AccountManager objects</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-account.html">Service-side Account interfaces</a></span><span class="refpurpose"> — GInterfaces for Telepathy Account objects</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-dispatcher.html">Service-side Channel Dispatcher interface</a></span><span class="refpurpose"> — GInterfaces for Telepathy ChannelDispatcher object</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-dispatch-operation.html">Service-side Channel Dispatch Operation interface</a></span><span class="refpurpose"> — GInterface for Telepathy ChannelDispatchOperation object</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-channel-request.html">Service-side Channel Request interface</a></span><span class="refpurpose"> — GInterface for Telepathy ChannelRequest object</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-client.html">Service-side Client interfaces</a></span><span class="refpurpose"> — interfaces used to be an Observer, Approver and Handler</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-svc-tls.html">Service-side TLS interfaces</a></span><span class="refpurpose"> — GInterfaces to implement Chan.T.ServerTLSConnection</span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="ch-service-base.html">Service-side implementation</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-run.html">Connection manager life cycle</a></span><span class="refpurpose"> — entry point for telepathy-glib connection managers</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseConnectionManager.html">TpBaseConnectionManager</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-connection-manager.html#TpSvcConnectionManager"><span class="type">TpSvcConnectionManager</span></a> implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-base-protocol.html">TpBaseProtocol</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocol"><span class="type">TpSvcProtocol</span></a> implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseConnection.html">TpBaseConnection</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnection"><span class="type">TpSvcConnection</span></a> implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpChannelManager.html">TpChannelManager</a></span><span class="refpurpose"> — interface for creating and tracking channels</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-base-contact-list.html">TpBaseContactList</a></span><span class="refpurpose"> — channel manager for ContactList channels</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-TpContactsMixin.html">TpContactsMixin</a></span><span class="refpurpose"> — a mixin implementation of the contacts connection
+interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-dbus-properties-mixin.html">TpDBusPropertiesMixin</a></span><span class="refpurpose"> — a mixin implementation of the DBus.Properties interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpExportableChannel.html">TpExportableChannel</a></span><span class="refpurpose"> — interface representing channels with several standard
+                    properties</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseChannel.html">TpBaseChannel</a></span><span class="refpurpose"> — base class for <a class="link" href="TpExportableChannel.html" title="TpExportableChannel"><span class="type">TpExportableChannel</span></a> implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-TpPresenceMixin.html">TpPresenceMixin</a></span><span class="refpurpose"> — a mixin implementation of the Presence connection
+ interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-TpPropertiesMixin.html">TpPropertiesMixin</a></span><span class="refpurpose"> — a mixin implementation of the Telepathy.Properties
+ interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseRoomConfig.html">TpBaseRoomConfig</a></span><span class="refpurpose"> — implements the RoomConfig interface for chat rooms.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-TpGroupMixin.html">TpGroupMixin</a></span><span class="refpurpose"> — a mixin implementation of the groups interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-TpMessageMixin.html">TpMessageMixin</a></span><span class="refpurpose"> — a mixin implementation of the text channel type and the
+ Messages interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpMessage.html">TpMessage</a></span><span class="refpurpose"> — a message in the Telepathy message interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpCMMessage.html">TpCMMessage</a></span><span class="refpurpose"> — a message in the Telepathy message interface, CM side</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-base-password-channel.html">TpBasePasswordChannel</a></span><span class="refpurpose"> — a simple X-TELEPATHY-PASSWORD channel</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-simple-password-manager.html">TpSimplePasswordManager</a></span><span class="refpurpose"> — a simple X-TELEPATHY-PASSWORD channel manager</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-base-client.html">TpBaseClient</a></span><span class="refpurpose"> — base class for Telepathy clients on D-Bus</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-observe-channels-context.html">TpObserveChannelsContext</a></span><span class="refpurpose"> — context of a Observer.ObserveChannels() call</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-add-dispatch-operation-context.html">TpAddDispatchOperationContext</a></span><span class="refpurpose"> — context of a Approver.AddDispatchOperation() call</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-handle-channels-context.html">TpHandleChannelsContext</a></span><span class="refpurpose"> — context of a Handler.HandleChannels() call</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-simple-observer.html">TpSimpleObserver</a></span><span class="refpurpose"> — a subclass of <a class="link" href="telepathy-glib-base-client.html#TpBaseClient"><span class="type">TpBaseClient</span></a> implementing
+a simple Observer</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-simple-approver.html">TpSimpleApprover</a></span><span class="refpurpose"> — a subclass of <a class="link" href="telepathy-glib-base-client.html#TpBaseClient"><span class="type">TpBaseClient</span></a> implementing
+a simple Approver</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-simple-handler.html">TpSimpleHandler</a></span><span class="refpurpose"> — a subclass of <a class="link" href="telepathy-glib-base-client.html#TpBaseClient"><span class="type">TpBaseClient</span></a> implementing
+a simple Handler</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-dtmf.html">DTMF dialstring interpreter</a></span><span class="refpurpose"> — Converts a dialstring into a timed sequence of events</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseCallChannel.html">TpBaseCallChannel</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcChannelTypeCall"><span class="type">TpSvcChannelTypeCall</span></a> implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseMediaCallChannel.html">TpBaseMediaCallChannel</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcChannelTypeCall"><span class="type">TpSvcChannelTypeCall</span></a> RTP media implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseCallContent.html">TpBaseCallContent</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallContent"><span class="type">TpSvcCallContent</span></a> implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseMediaCallContent.html">TpBaseMediaCallContent</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallContentInterfaceMedia"><span class="type">TpSvcCallContentInterfaceMedia</span></a>
+ implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpCallContentMediaDescription.html">TpCallContentMediaDescription</a></span><span class="refpurpose"> — implementation of <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallContentMediaDescription"><span class="type">TpSvcCallContentMediaDescription</span></a></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseCallStream.html">TpBaseCallStream</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallStream"><span class="type">TpSvcCallStream</span></a> implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseMediaCallStream.html">TpBaseMediaCallStream</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallStreamInterfaceMedia"><span class="type">TpSvcCallStreamInterfaceMedia</span></a>
+ implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpCallStreamEndpoint.html">TpCallStreamEndpoint</a></span><span class="refpurpose"> — class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallStreamEndpoint"><span class="type">TpSvcCallStreamEndpoint</span></a> implementations</span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="ch-service-handles.html">Service-side handle repositories</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-handle-repo.html">TpHandleRepoIface</a></span><span class="refpurpose"> — abstract interface for handle allocation</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpStaticHandleRepo.html">TpStaticHandleRepo</a></span><span class="refpurpose"> — handle repository implementation with a fixed, static
+ set of handle names</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpDynamicHandleRepo.html">TpDynamicHandleRepo</a></span><span class="refpurpose"> — general handle repository implementation, with dynamic
+ handle allocation and recycling</span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="ch-utilities.html">Utilities</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-version.html">Version information</a></span><span class="refpurpose"> — Checking the telepathy-glib version</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-util.html">Utilities</a></span><span class="refpurpose"> — Non-Telepathy utility functions</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-gnio-util.html">GNIO Utilities</a></span><span class="refpurpose"> — Telepathy/GNIO utility functions</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-debug.html">Common debug support</a></span><span class="refpurpose"> — API to activate debugging messages from telepathy-glib</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-debug-sender.html">TpDebugSender</a></span><span class="refpurpose"> — object for exposing Telepathy debug interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpIntset.html">TpIntset</a></span><span class="refpurpose"> — a set of unsigned integers</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-TpHeap.html">TpHeap</a></span><span class="refpurpose"> — a heap queue of pointers</span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="ch-obsolete.html">Obsolete modules</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="TpChannelFactoryIface.html">TpChannelFactoryIface</a></span><span class="refpurpose"> — interface for channel allocation/tracking</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-debug-ansi.html">ANSI codes for debug messages</a></span><span class="refpurpose"> — used to colorize log messages for "clarity"</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-TpTextMixin.html">TpTextMixin</a></span><span class="refpurpose"> — a mixin implementation of the text channel type</span>
+</dt>
+</dl></dd>
+<dt><span class="glossary"><a href="annotation-glossary.html">Annotation Glossary</a></span></dt>
+</dl></div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

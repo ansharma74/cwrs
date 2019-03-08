@@ -1,0 +1,414 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpContactsMixin</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="telepathy-glib-base-contact-list.html" title="TpBaseContactList">
+<link rel="next" href="telepathy-glib-dbus-properties-mixin.html" title="TpDBusPropertiesMixin">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-base-contact-list.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-dbus-properties-mixin.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-TpContactsMixin.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-TpContactsMixin.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-TpContactsMixin"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-TpContactsMixin.top_of_page"></a>TpContactsMixin</span></h2>
+<p>TpContactsMixin — a mixin implementation of the contacts connection
+interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-TpContactsMixin.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+                    <a class="link" href="telepathy-glib-TpContactsMixin.html#TpContactsMixin" title="TpContactsMixin">TpContactsMixin</a>;
+struct              <a class="link" href="telepathy-glib-TpContactsMixin.html#TpContactsMixinClass" title="struct TpContactsMixinClass">TpContactsMixinClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpContactsMixin.html#tp-contacts-mixin-add-contact-attributes-iface" title="tp_contacts_mixin_add_contact_attributes_iface ()">tp_contacts_mixin_add_contact_attributes_iface</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *interface</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpContactsMixin.html#TpContactsMixinFillContactAttributesFunc" title="TpContactsMixinFillContactAttributesFunc ()"><span class="type">TpContactsMixinFillContactAttributesFunc</span></a> fill_contact_attributes</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpContactsMixin.html#tp-contacts-mixin-class-init" title="tp_contacts_mixin_class_init ()">tp_contacts_mixin_class_init</a>        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *obj_cls</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#glong"><span class="type">glong</span></a> offset</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpContactsMixin.html#tp-contacts-mixin-finalize" title="tp_contacts_mixin_finalize ()">tp_contacts_mixin_finalize</a>          (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpContactsMixin.html#tp-contacts-mixin-iface-init" title="tp_contacts_mixin_iface_init ()">tp_contacts_mixin_iface_init</a>        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpContactsMixin.html#tp-contacts-mixin-init" title="tp_contacts_mixin_init ()">tp_contacts_mixin_init</a>              (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> offset</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpContactsMixin.html#tp-contacts-mixin-set-contact-attribute" title="tp_contacts_mixin_set_contact_attribute ()">tp_contacts_mixin_set_contact_attribute</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *contact_attributes</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *attribute</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        <a class="link" href="telepathy-glib-TpContactsMixin.html#tp-contacts-mixin-get-contact-attributes" title="tp_contacts_mixin_get_contact_attributes ()">tp_contacts_mixin_get_contact_attributes</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *handles</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **interfaces</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **assumed_interfaces</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *sender</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-TpContactsMixin.html#TpContactsMixinFillContactAttributesFunc" title="TpContactsMixinFillContactAttributesFunc ()">*TpContactsMixinFillContactAttributesFunc</a>)
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *contacts</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *attributes_hash</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpContactsMixin.description"></a><h2>Description</h2>
+<p>
+This mixin can be added to a <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> subclass to implement the
+Contacts interface in a generic way.
+</p>
+<p>
+To use the contacts mixin, include a <a class="link" href="telepathy-glib-TpContactsMixin.html#TpContactsMixinClass" title="struct TpContactsMixinClass"><span class="type">TpContactsMixinClass</span></a> somewhere in
+your class structure and a <a class="link" href="telepathy-glib-TpContactsMixin.html#TpContactsMixin" title="TpContactsMixin"><span class="type">TpContactsMixin</span></a> somewhere in your instance
+structure, and call <a class="link" href="telepathy-glib-TpContactsMixin.html#tp-contacts-mixin-class-init" title="tp_contacts_mixin_class_init ()"><code class="function">tp_contacts_mixin_class_init()</code></a> from your class_init
+function, <a class="link" href="telepathy-glib-TpContactsMixin.html#tp-contacts-mixin-init" title="tp_contacts_mixin_init ()"><code class="function">tp_contacts_mixin_init()</code></a> from your init function or constructor,
+and <a class="link" href="telepathy-glib-TpContactsMixin.html#tp-contacts-mixin-finalize" title="tp_contacts_mixin_finalize ()"><code class="function">tp_contacts_mixin_finalize()</code></a> from your dispose or finalize function.
+</p>
+<p>
+To use the contacts mixin as the implementation of
+<a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnectionInterfaceContacts"><span class="type">TpSvcConnectionInterfaceContacts</span></a>, in the function you pass to
+G_IMPLEMENT_INTERFACE, you should call tp_contacts_mixin_iface_init.
+TpContactsMixin implements all of the D-Bus methods and properties in the
+Contacts interface.
+</p>
+<p>
+To add interfaces with contact attributes to this interface use
+tp_contacts_mixin_add_contact_attributes_iface:
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpContactsMixin.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpContactsMixin"></a><h3>TpContactsMixin</h3>
+<pre class="programlisting">typedef struct _TpContactsMixin TpContactsMixin;</pre>
+<p>
+Structure to be included in the instance structure of objects that
+use this mixin. Initialize it with <a class="link" href="telepathy-glib-TpContactsMixin.html#tp-contacts-mixin-init" title="tp_contacts_mixin_init ()"><code class="function">tp_contacts_mixin_init()</code></a>.
+</p>
+<p>
+There are no public fields.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpContactsMixinClass"></a><h3>struct TpContactsMixinClass</h3>
+<pre class="programlisting">struct TpContactsMixinClass {
+};
+</pre>
+<p>
+Structure to be included in the class structure of objects that
+use this mixin. Initialize it with <a class="link" href="telepathy-glib-TpContactsMixin.html#tp-contacts-mixin-class-init" title="tp_contacts_mixin_class_init ()"><code class="function">tp_contacts_mixin_class_init()</code></a>.
+</p>
+<p>
+There are no public fields.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contacts-mixin-add-contact-attributes-iface"></a><h3>tp_contacts_mixin_add_contact_attributes_iface ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_contacts_mixin_add_contact_attributes_iface
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *interface</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpContactsMixin.html#TpContactsMixinFillContactAttributesFunc" title="TpContactsMixinFillContactAttributesFunc ()"><span class="type">TpContactsMixinFillContactAttributesFunc</span></a> fill_contact_attributes</code></em>);</pre>
+<p>
+Declare that the given interface has contact attributes which can be added
+to the attributes hash using the filler function. All the handles in the
+handle array passed to the filler function are guaranteed to be valid and
+referenced.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An instance of the implementation that uses this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interface</code></em> :</span></p></td>
+<td>Name of the interface that has ContactAttributes</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fill_contact_attributes</code></em> :</span></p></td>
+<td>Contact attribute filler function</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contacts-mixin-class-init"></a><h3>tp_contacts_mixin_class_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_contacts_mixin_class_init        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *obj_cls</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#glong"><span class="type">glong</span></a> offset</code></em>);</pre>
+<p>
+Initialize the contacts mixin. Should be called from the implementation's
+class_init function like so:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="telepathy-glib-TpContactsMixin.html#tp-contacts-mixin-class-init">tp_contacts_mixin_class_init</a></span> <span class="gtkdoc opt">((</span>GObjectClass <span class="gtkdoc opt">*)</span> klass<span class="gtkdoc opt">,</span>
+                         <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#G-STRUCT-OFFSET:CAPS">G_STRUCT_OFFSET</a></span> <span class="gtkdoc opt">(</span>SomeObjectClass<span class="gtkdoc opt">,</span> contacts_mixin<span class="gtkdoc opt">));</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj_cls</code></em> :</span></p></td>
+<td>The class of the implementation that uses this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>The byte offset of the TpContactsMixinClass within the class
+structure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contacts-mixin-finalize"></a><h3>tp_contacts_mixin_finalize ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_contacts_mixin_finalize          (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);</pre>
+<p>
+Free resources held by the contacts mixin.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object with this mixin.</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.7.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contacts-mixin-iface-init"></a><h3>tp_contacts_mixin_iface_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_contacts_mixin_iface_init        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);</pre>
+<p>
+Fill in the vtable entries needed to implement the contacts interface
+using this mixin. This function should usually be called via
+G_IMPLEMENT_INTERFACE.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>g_iface</code></em> :</span></p></td>
+<td>A pointer to the <a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnectionInterfaceContacts"><span class="type">TpSvcConnectionInterfaceContacts</span></a> in an object
+class</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface_data</code></em> :</span></p></td>
+<td>Ignored</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contacts-mixin-init"></a><h3>tp_contacts_mixin_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_contacts_mixin_init              (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> offset</code></em>);</pre>
+<p>
+Initialize the contacts mixin. Should be called from the implementation's
+instance init function like so:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="telepathy-glib-TpContactsMixin.html#tp-contacts-mixin-init">tp_contacts_mixin_init</a></span> <span class="gtkdoc opt">((</span>GObject <span class="gtkdoc opt">*)</span> self<span class="gtkdoc opt">,</span>
+                    <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#G-STRUCT-OFFSET:CAPS">G_STRUCT_OFFSET</a></span> <span class="gtkdoc opt">(</span>SomeObject<span class="gtkdoc opt">,</span> contacts_mixin<span class="gtkdoc opt">));</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An instance of the implementation that uses this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>The byte offset of the TpContactsMixin within the object structure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contacts-mixin-set-contact-attribute"></a><h3>tp_contacts_mixin_set_contact_attribute ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_contacts_mixin_set_contact_attribute
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *contact_attributes</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *attribute</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>);</pre>
+<p>
+Utility function to set attribute for handle to value in the attributes hash
+as passed to a TpContactsMixinFillContactAttributesFunc.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>contact_attributes</code></em> :</span></p></td>
+<td>contacts attribute hash as passed to
+TpContactsMixinFillContactAttributesFunc</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td>Handle to set the attribute on</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>attribute</code></em> :</span></p></td>
+<td>attribute name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>slice allocated GValue containing the value of the attribute, for
+instance with tp_g_value_slice_new. Ownership of the GValue is taken over by
+the mixin</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contacts-mixin-get-contact-attributes"></a><h3>tp_contacts_mixin_get_contact_attributes ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        tp_contacts_mixin_get_contact_attributes
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *handles</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **interfaces</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **assumed_interfaces</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *sender</code></em>);</pre>
+<p>
+Get contact attributes for the given contacts. Provide attributes for all requested
+interfaces. If contact attributes are not immediately known, the behaviour is defined
+by the interface; the attribute should either be omitted from the result or replaced
+with a default value.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>A connection instance that uses this mixin. The connection must be connected.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handles</code></em> :</span></p></td>
+<td>List of handles to retrieve contacts for. Any invalid handles will be
+dropped from the returned mapping.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interfaces</code></em> :</span></p></td>
+<td>A list of interfaces to retrieve attributes from.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>assumed_interfaces</code></em> :</span></p></td>
+<td>A list of additional interfaces to retrieve attributes
+from. This can be used for interfaces documented as automatically included,
+like <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CONNECTION:CAPS" title="TP_IFACE_CONNECTION"><code class="literal">TP_IFACE_CONNECTION</code></a> for GetContactAttributes,
+or <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CONNECTION:CAPS" title="TP_IFACE_CONNECTION"><code class="literal">TP_IFACE_CONNECTION</code></a> and <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CONNECTION-INTERFACE-CONTACT-LIST:CAPS" title="TP_IFACE_CONNECTION_INTERFACE_CONTACT_LIST"><code class="literal">TP_IFACE_CONNECTION_INTERFACE_CONTACT_LIST</code></a> for
+GetContactListAttributes.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sender</code></em> :</span></p></td>
+<td>The DBus client's unique name. If this is not NULL, the requested handles
+will be held on behalf of this client.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A dictionary mapping the contact handles to contact attributes.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpContactsMixinFillContactAttributesFunc"></a><h3>TpContactsMixinFillContactAttributesFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpContactsMixinFillContactAttributesFunc)
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *contacts</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *attributes_hash</code></em>);</pre>
+<p>
+This function is called to supply contact attributes pertaining to
+a particular interface, for a list of contacts.
+All the handles in <em class="parameter"><code>contacts</code></em> are guaranteed to be valid and
+referenced.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the Contacts interface with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>contacts</code></em> :</span></p></td>
+<td>The contact handles for which attributes are requested</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>attributes_hash</code></em> :</span></p></td>
+<td>hash of handle =&gt; hash of attributes, containing all the
+contacts in the contacts array</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpContactsMixin.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnectionInterfaceContacts"><span class="type">TpSvcConnectionInterfaceContacts</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

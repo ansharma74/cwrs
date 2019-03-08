@@ -1,0 +1,708 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Connection Requests interface</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-client.html" title="Client-side proxies">
+<link rel="prev" href="telepathy-glib-connection-location.html" title="Connection Location interface">
+<link rel="next" href="telepathy-glib-connection-simple-presence.html" title="Connection SimplePresence interface">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-connection-location.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-client.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-connection-simple-presence.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-connection-requests.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-connection-requests.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-connection-requests"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-connection-requests.top_of_page"></a>Connection Requests interface</span></h2>
+<p>Connection Requests interface — client-side wrappers for the Requests interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-connection-requests.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib-dbus.h&gt;
+
+<a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * <a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-call-create-channel" title="tp_cli_connection_interface_requests_call_create_channel ()">tp_cli_connection_interface_requests_call_create_channel</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Request</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-callback-for-create-channel" title="tp_cli_connection_interface_requests_callback_for_create_channel ()"><span class="type">tp_cli_connection_interface_requests_callback_for_create_channel</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * <a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-call-ensure-channel" title="tp_cli_connection_interface_requests_call_ensure_channel ()">tp_cli_connection_interface_requests_call_ensure_channel</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Request</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-callback-for-ensure-channel" title="tp_cli_connection_interface_requests_callback_for_ensure_channel ()"><span class="type">tp_cli_connection_interface_requests_callback_for_ensure_channel</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-callback-for-create-channel" title="tp_cli_connection_interface_requests_callback_for_create_channel ()">*tp_cli_connection_interface_requests_callback_for_create_channel</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *out_Channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *out_Properties</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-callback-for-ensure-channel" title="tp_cli_connection_interface_requests_callback_for_ensure_channel ()">*tp_cli_connection_interface_requests_callback_for_ensure_channel</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> out_Yours</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *out_Channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *out_Properties</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="returnvalue">TpProxySignalConnection</span></a> * <a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-connect-to-channel-closed" title="tp_cli_connection_interface_requests_connect_to_channel_closed ()">tp_cli_connection_interface_requests_connect_to_channel_closed</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-signal-callback-channel-closed" title="tp_cli_connection_interface_requests_signal_callback_channel_closed ()"><span class="type">tp_cli_connection_interface_requests_signal_callback_channel_closed</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="returnvalue">TpProxySignalConnection</span></a> * <a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-connect-to-new-channels" title="tp_cli_connection_interface_requests_connect_to_new_channels ()">tp_cli_connection_interface_requests_connect_to_new_channels</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-signal-callback-new-channels" title="tp_cli_connection_interface_requests_signal_callback_new_channels ()"><span class="type">tp_cli_connection_interface_requests_signal_callback_new_channels</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-run-create-channel" title="tp_cli_connection_interface_requests_run_create_channel ()">tp_cli_connection_interface_requests_run_create_channel</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Request</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out_Channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> **out_Properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a> **loop</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-run-ensure-channel" title="tp_cli_connection_interface_requests_run_ensure_channel ()">tp_cli_connection_interface_requests_run_ensure_channel</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Request</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *out_Yours</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out_Channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> **out_Properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a> **loop</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-signal-callback-channel-closed" title="tp_cli_connection_interface_requests_signal_callback_channel_closed ()">*tp_cli_connection_interface_requests_signal_callback_channel_closed</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Removed</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-signal-callback-new-channels" title="tp_cli_connection_interface_requests_signal_callback_new_channels ()">*tp_cli_connection_interface_requests_signal_callback_new_channels</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Channels</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-connection-requests.description"></a><h2>Description</h2>
+<p>
+This interface allows a client to request new channels from a connection,
+and to listen to signals indicating that channels have been created and
+closed.
+</p>
+<p>
+This section documents the auto-generated C wrappers for the Requests
+interface, used with <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> objects.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-connection-requests.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-requests-call-create-channel"></a><h3>tp_cli_connection_interface_requests_call_create_channel ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * tp_cli_connection_interface_requests_call_create_channel
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Request</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-callback-for-create-channel" title="tp_cli_connection_interface_requests_callback_for_create_channel ()"><span class="type">tp_cli_connection_interface_requests_callback_for_create_channel</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Start a CreateChannel method call.
+</p>
+<p>
+&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;         &lt;p&gt;Request that an entirely new channel is created.&lt;/p&gt;          &lt;tp:rationale&gt;           &lt;p&gt;There is deliberately no flag corresponding to the             suppress_handler argument to             &lt;tp:dbus-ref namespace="org.freedesktop.Telepathy"&gt;Connection.RequestChannel&lt;/tp:dbus-ref&gt;,             because passing a FALSE value for that argument is deprecated.             Requests made using this interface always behave as though             suppress_handler was TRUE.&lt;/p&gt;         &lt;/tp:rationale&gt;
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout_ms</code></em> :</span></p></td>
+<td>the timeout in milliseconds, or -1 to use the
+default</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Request</code></em> :</span></p></td>
+<td>Used to pass an 'in' argument: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;A dictionary containing desirable properties, which MUST include             &lt;tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"&gt;ChannelType&lt;/tp:dbus-ref&gt;.             Some properties             are defined such that only an exact match makes sense, and             connection managers MUST NOT satisfy a request with a channel             where that property does not match; some properties are defined             such that the connection manager MAY treat the request as merely             a hint, and make a best-effort attempt to satisfy it. This is             documented separately for each property.&lt;/p&gt;            &lt;p&gt;If this dictionary contains a property whose semantics             are not known to the connection manager, this method MUST fail             without side-effects (in particular it must not create a new             channel).&lt;/p&gt;            &lt;tp:rationale&gt;             &lt;p&gt;This is necessary if we want to be able to invent properties               in future that, when used in a request, are hard requirements               rather than just hints. A connection manager that did not know               the semantics of those properties could incorrectly return a               new channel that did not satisfy the requirements.&lt;/p&gt;           &lt;/tp:rationale&gt;            &lt;p&gt;The connection manager MUST NOT respond successfully,             and SHOULD NOT create a new channel or cause any other             side-effects, unless it can create a new channel that satisfies             the client's requirements.&lt;/p&gt;            &lt;p&gt;Properties that will be set by this argument need not have write             access after the channel has been created - indeed, it is             expected that most will be read-only.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>called when the method call succeeds or fails;
+may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to make a "fire and forget" call with no
+reply tracking</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data passed to the callback;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>called with the user_data as argument, after the
+call has succeeded, failed or been cancelled;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> which will be
+weakly referenced; if it is destroyed, this call
+will automatically be cancelled. Must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if
+<em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="type">TpProxyPendingCall</span></a> representing the call in
+progress. It is borrowed from the object, and will become
+invalid when the callback is called, the call is
+cancelled or the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> becomes invalid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-requests-call-ensure-channel"></a><h3>tp_cli_connection_interface_requests_call_ensure_channel ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * tp_cli_connection_interface_requests_call_ensure_channel
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Request</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-callback-for-ensure-channel" title="tp_cli_connection_interface_requests_callback_for_ensure_channel ()"><span class="type">tp_cli_connection_interface_requests_callback_for_ensure_channel</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Start a EnsureChannel method call.
+</p>
+<p>
+&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;         &lt;p&gt;Request that channels are ensured to exist.&lt;/p&gt;          &lt;tp:rationale&gt;           &lt;p&gt;The connection manager is in the best position to determine which             existing channels could satisfy which requests.&lt;/p&gt;         &lt;/tp:rationale&gt;
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout_ms</code></em> :</span></p></td>
+<td>the timeout in milliseconds, or -1 to use the
+default</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Request</code></em> :</span></p></td>
+<td>Used to pass an 'in' argument: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;A dictionary containing desirable properties, with the same             semantics as the corresponding parameter to             &lt;tp:member-ref&gt;CreateChannel&lt;/tp:member-ref&gt;.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>called when the method call succeeds or fails;
+may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to make a "fire and forget" call with no
+reply tracking</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data passed to the callback;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>called with the user_data as argument, after the
+call has succeeded, failed or been cancelled;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> which will be
+weakly referenced; if it is destroyed, this call
+will automatically be cancelled. Must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if
+<em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="type">TpProxyPendingCall</span></a> representing the call in
+progress. It is borrowed from the object, and will become
+invalid when the callback is called, the call is
+cancelled or the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> becomes invalid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-requests-callback-for-create-channel"></a><h3>tp_cli_connection_interface_requests_callback_for_create_channel ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_cli_connection_interface_requests_callback_for_create_channel)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *out_Channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *out_Properties</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Signature of the callback called when a CreateChannel method call
+succeeds or fails.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the proxy on which the call was made</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Channel</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <em class="parameter"><code>error</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;The Channel object, which MUST NOT be signalled with             &lt;tp:member-ref&gt;NewChannels&lt;/tp:member-ref&gt; until after this method             returns.&lt;/p&gt;            &lt;tp:rationale&gt;             &lt;p&gt;This allows the requester to alter its handling of               NewChannels by knowing whether one of the channels satisfied               a request it made.&lt;/p&gt;           &lt;/tp:rationale&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Properties</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <em class="parameter"><code>error</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;Properties of the channel that was produced, equivalent to             the properties in &lt;tp:type&gt;Channel_Details&lt;/tp:type&gt;.             Connection managers MUST NOT include properties here whose             values can change, for the same reasons as in             &lt;tp:type&gt;Channel_Details&lt;/tp:type&gt;.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on success, or an error on failure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>user-supplied object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-requests-callback-for-ensure-channel"></a><h3>tp_cli_connection_interface_requests_callback_for_ensure_channel ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_cli_connection_interface_requests_callback_for_ensure_channel)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> out_Yours</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *out_Channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *out_Properties</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Signature of the callback called when a EnsureChannel method call
+succeeds or fails.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the proxy on which the call was made</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Yours</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <em class="parameter"><code>error</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;If false, the caller of EnsureChannel MUST assume that some             other process is handling this channel; if true, the caller of             EnsureChannel SHOULD handle it themselves or delegate it to another             client.&lt;/p&gt;            &lt;p&gt;If the creation of a channel makes several calls to EnsureChannel             (and no other requests) successful, exactly one of those calls MUST             return a true value for this argument.&lt;/p&gt;            &lt;p&gt;If the creation of a channel makes other requests successful,             the value returned for this argument MUST be such that exactly             one of the clients making requests ends up responsible for the             channel. In particular, if             &lt;tp:member-ref&gt;CreateChannel&lt;/tp:member-ref&gt; returns a channel             &lt;em&gt;C&lt;/em&gt;, any EnsureChannel calls that also return &lt;em&gt;C&lt;/em&gt;             MUST return a false value for this argument.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Channel</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <em class="parameter"><code>error</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>: The Channel object. If it was created as a result of this method           call, it MUST NOT be signalled by           &lt;tp:member-ref&gt;NewChannels&lt;/tp:member-ref&gt; until after this method           returns.            &lt;tp:rationale&gt;             &lt;p&gt;This allows the requester to alter its handling of               NewChannels by knowing whether one of the channels satisfied               a request it made.&lt;/p&gt;           &lt;/tp:rationale&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Properties</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <em class="parameter"><code>error</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;Properties of the channel that was produced, equivalent to             the properties in &lt;tp:type&gt;Channel_Details&lt;/tp:type&gt;.             Connection managers MUST NOT include properties here whose             values can change, for the same reasons as in             &lt;tp:type&gt;Channel_Details&lt;/tp:type&gt;.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on success, or an error on failure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>user-supplied object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-requests-connect-to-channel-closed"></a><h3>tp_cli_connection_interface_requests_connect_to_channel_closed ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="returnvalue">TpProxySignalConnection</span></a> * tp_cli_connection_interface_requests_connect_to_channel_closed
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-signal-callback-channel-closed" title="tp_cli_connection_interface_requests_signal_callback_channel_closed ()"><span class="type">tp_cli_connection_interface_requests_signal_callback_channel_closed</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Connect a handler to the signal ChannelClosed.
+</p>
+<p>
+Emitted when a channel is closed and hence disappears from the         &lt;tp:member-ref&gt;Channels&lt;/tp:member-ref&gt; property.          &lt;tp:rationale&gt;           This is redundant with the &lt;tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"&gt;Closed&lt;/tp:dbus-ref&gt;           signal on the channel itself, but it does provide full change           notification for the Channels property.         &lt;/tp:rationale&gt;
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> or subclass</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>Callback to be called when the signal is
+received</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>User-supplied data for the callback</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>Destructor for the user-supplied data, which
+will be called when this signal is disconnected, or
+before this function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>A <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> which will be weakly referenced;
+if it is destroyed, this callback will automatically be
+disconnected</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, used to raise an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is
+returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="type">TpProxySignalConnection</span></a> containing all of the
+above, which can be used to disconnect the signal; or
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the proxy does not have the desired interface
+or has become invalid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-requests-connect-to-new-channels"></a><h3>tp_cli_connection_interface_requests_connect_to_new_channels ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="returnvalue">TpProxySignalConnection</span></a> * tp_cli_connection_interface_requests_connect_to_new_channels
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-signal-callback-new-channels" title="tp_cli_connection_interface_requests_signal_callback_new_channels ()"><span class="type">tp_cli_connection_interface_requests_signal_callback_new_channels</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Connect a handler to the signal NewChannels.
+</p>
+<p>
+&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;         &lt;p&gt;New channels have been created. The connection manager SHOULD emit           a single signal for any group of closely related channels that are           created at the same time, so that the channel dispatcher can try to           dispatch them to a handler as a unit.&lt;/p&gt;          &lt;p&gt;In particular, if additional channels are created as a side-effect           of a call to &lt;tp:member-ref&gt;CreateChannel&lt;/tp:member-ref&gt;,           these channels SHOULD appear in the same NewChannels signal as           the channel that satisfies the request.&lt;/p&gt;          &lt;tp:rationale&gt;           &lt;p&gt;Joining a MUC Tube in XMPP requires joining the corresponding             MUC (chatroom), so a &lt;tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Type"&gt;Text&lt;/tp:dbus-ref&gt;             channel can be created as a side-effect.&lt;/p&gt;         &lt;/tp:rationale&gt;          &lt;p&gt;Every time NewChannels is emitted, it MUST be followed by           a &lt;tp:dbus-ref namespace="org.freedesktop.Telepathy"&gt;Connection.NewChannel&lt;/tp:dbus-ref&gt;           signal for each channel.&lt;/p&gt;          &lt;tp:rationale&gt;           &lt;p&gt;The double signal emission is for the benefit of older Telepathy             clients, which won't be listening for NewChannels.&lt;/p&gt;            &lt;p&gt;The more informative NewChannels signal comes first so that             clients that did not examine the connection to find             out whether Requests is supported will see the more informative             signal for each channel first, and then ignore the less             informative signal because it announces a new channel of which             they are already aware.&lt;/p&gt;         &lt;/tp:rationale&gt;
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> or subclass</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>Callback to be called when the signal is
+received</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>User-supplied data for the callback</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>Destructor for the user-supplied data, which
+will be called when this signal is disconnected, or
+before this function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>A <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> which will be weakly referenced;
+if it is destroyed, this callback will automatically be
+disconnected</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, used to raise an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is
+returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="type">TpProxySignalConnection</span></a> containing all of the
+above, which can be used to disconnect the signal; or
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the proxy does not have the desired interface
+or has become invalid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-requests-run-create-channel"></a><h3>tp_cli_connection_interface_requests_run_create_channel ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_cli_connection_interface_requests_run_create_channel
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Request</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out_Channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> **out_Properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a> **loop</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_cli_connection_interface_requests_run_create_channel</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+Call the method CreateChannel and run the main loop
+until it returns. Before calling this method, you must
+add a reference to any borrowed objects you need to keep,
+and generally ensure that everything is in a consistent
+state.
+</p>
+<p>
+&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;         &lt;p&gt;Request that an entirely new channel is created.&lt;/p&gt;          &lt;tp:rationale&gt;           &lt;p&gt;There is deliberately no flag corresponding to the             suppress_handler argument to             &lt;tp:dbus-ref namespace="org.freedesktop.Telepathy"&gt;Connection.RequestChannel&lt;/tp:dbus-ref&gt;,             because passing a FALSE value for that argument is deprecated.             Requests made using this interface always behave as though             suppress_handler was TRUE.&lt;/p&gt;         &lt;/tp:rationale&gt;
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> or subclass</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout_ms</code></em> :</span></p></td>
+<td>Timeout in milliseconds, or -1 for default</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Request</code></em> :</span></p></td>
+<td>Used to pass an 'in' argument: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;A dictionary containing desirable properties, which MUST include             &lt;tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"&gt;ChannelType&lt;/tp:dbus-ref&gt;.             Some properties             are defined such that only an exact match makes sense, and             connection managers MUST NOT satisfy a request with a channel             where that property does not match; some properties are defined             such that the connection manager MAY treat the request as merely             a hint, and make a best-effort attempt to satisfy it. This is             documented separately for each property.&lt;/p&gt;            &lt;p&gt;If this dictionary contains a property whose semantics             are not known to the connection manager, this method MUST fail             without side-effects (in particular it must not create a new             channel).&lt;/p&gt;            &lt;tp:rationale&gt;             &lt;p&gt;This is necessary if we want to be able to invent properties               in future that, when used in a request, are hard requirements               rather than just hints. A connection manager that did not know               the semantics of those properties could incorrectly return a               new channel that did not satisfy the requirements.&lt;/p&gt;           &lt;/tp:rationale&gt;            &lt;p&gt;The connection manager MUST NOT respond successfully,             and SHOULD NOT create a new channel or cause any other             side-effects, unless it can create a new channel that satisfies             the client's requirements.&lt;/p&gt;            &lt;p&gt;Properties that will be set by this argument need not have write             access after the channel has been created - indeed, it is             expected that most will be read-only.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Channel</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> is returned: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;The Channel object, which MUST NOT be signalled with             &lt;tp:member-ref&gt;NewChannels&lt;/tp:member-ref&gt; until after this method             returns.&lt;/p&gt;            &lt;tp:rationale&gt;             &lt;p&gt;This allows the requester to alter its handling of               NewChannels by knowing whether one of the channels satisfied               a request it made.&lt;/p&gt;           &lt;/tp:rationale&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Properties</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> is returned: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;Properties of the channel that was produced, equivalent to             the properties in &lt;tp:type&gt;Channel_Details&lt;/tp:type&gt;.             Connection managers MUST NOT include properties here whose             values can change, for the same reasons as in             &lt;tp:type&gt;Channel_Details&lt;/tp:type&gt;.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, used to return errors if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>
+is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>loop</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, set before re-entering
+the main loop, to point to a <a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a>
+which can be used to cancel this call with
+<a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#g-main-loop-quit"><code class="function">g_main_loop_quit()</code></a>, causing a return of
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> with <em class="parameter"><code>error</code></em> set to <a class="link" href="telepathy-glib-proxy.html#TP-DBUS-ERROR-CANCELLED:CAPS"><code class="literal">TP_DBUS_ERROR_CANCELLED</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE on success, FALSE and sets <em class="parameter"><code>error</code></em> on error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-requests-run-ensure-channel"></a><h3>tp_cli_connection_interface_requests_run_ensure_channel ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_cli_connection_interface_requests_run_ensure_channel
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Request</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *out_Yours</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out_Channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> **out_Properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a> **loop</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_cli_connection_interface_requests_run_ensure_channel</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+Call the method EnsureChannel and run the main loop
+until it returns. Before calling this method, you must
+add a reference to any borrowed objects you need to keep,
+and generally ensure that everything is in a consistent
+state.
+</p>
+<p>
+&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;         &lt;p&gt;Request that channels are ensured to exist.&lt;/p&gt;          &lt;tp:rationale&gt;           &lt;p&gt;The connection manager is in the best position to determine which             existing channels could satisfy which requests.&lt;/p&gt;         &lt;/tp:rationale&gt;
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> or subclass</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout_ms</code></em> :</span></p></td>
+<td>Timeout in milliseconds, or -1 for default</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Request</code></em> :</span></p></td>
+<td>Used to pass an 'in' argument: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;A dictionary containing desirable properties, with the same             semantics as the corresponding parameter to             &lt;tp:member-ref&gt;CreateChannel&lt;/tp:member-ref&gt;.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Yours</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> is returned: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;If false, the caller of EnsureChannel MUST assume that some             other process is handling this channel; if true, the caller of             EnsureChannel SHOULD handle it themselves or delegate it to another             client.&lt;/p&gt;            &lt;p&gt;If the creation of a channel makes several calls to EnsureChannel             (and no other requests) successful, exactly one of those calls MUST             return a true value for this argument.&lt;/p&gt;            &lt;p&gt;If the creation of a channel makes other requests successful,             the value returned for this argument MUST be such that exactly             one of the clients making requests ends up responsible for the             channel. In particular, if             &lt;tp:member-ref&gt;CreateChannel&lt;/tp:member-ref&gt; returns a channel             &lt;em&gt;C&lt;/em&gt;, any EnsureChannel calls that also return &lt;em&gt;C&lt;/em&gt;             MUST return a false value for this argument.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Channel</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> is returned: The Channel object. If it was created as a result of this method           call, it MUST NOT be signalled by           &lt;tp:member-ref&gt;NewChannels&lt;/tp:member-ref&gt; until after this method           returns.            &lt;tp:rationale&gt;             &lt;p&gt;This allows the requester to alter its handling of               NewChannels by knowing whether one of the channels satisfied               a request it made.&lt;/p&gt;           &lt;/tp:rationale&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Properties</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> is returned: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;Properties of the channel that was produced, equivalent to             the properties in &lt;tp:type&gt;Channel_Details&lt;/tp:type&gt;.             Connection managers MUST NOT include properties here whose             values can change, for the same reasons as in             &lt;tp:type&gt;Channel_Details&lt;/tp:type&gt;.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, used to return errors if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>
+is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>loop</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, set before re-entering
+the main loop, to point to a <a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a>
+which can be used to cancel this call with
+<a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#g-main-loop-quit"><code class="function">g_main_loop_quit()</code></a>, causing a return of
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> with <em class="parameter"><code>error</code></em> set to <a class="link" href="telepathy-glib-proxy.html#TP-DBUS-ERROR-CANCELLED:CAPS"><code class="literal">TP_DBUS_ERROR_CANCELLED</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE on success, FALSE and sets <em class="parameter"><code>error</code></em> on error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-requests-signal-callback-channel-closed"></a><h3>tp_cli_connection_interface_requests_signal_callback_channel_closed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_cli_connection_interface_requests_signal_callback_channel_closed)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Removed</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Represents the signature of a callback for the signal ChannelClosed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>The proxy on which <a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-connect-to-channel-closed" title="tp_cli_connection_interface_requests_connect_to_channel_closed ()"><code class="function">tp_cli_connection_interface_requests_connect_to_channel_closed()</code></a>
+was called</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Removed</code></em> :</span></p></td>
+<td>The channel which has been removed from the Channels property</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>User-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>User-supplied weakly referenced object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-requests-signal-callback-new-channels"></a><h3>tp_cli_connection_interface_requests_signal_callback_new_channels ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_cli_connection_interface_requests_signal_callback_new_channels)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Channels</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Represents the signature of a callback for the signal NewChannels.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>The proxy on which <a class="link" href="telepathy-glib-connection-requests.html#tp-cli-connection-interface-requests-connect-to-new-channels" title="tp_cli_connection_interface_requests_connect_to_new_channels ()"><code class="function">tp_cli_connection_interface_requests_connect_to_new_channels()</code></a>
+was called</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Channels</code></em> :</span></p></td>
+<td>The channels and their details. All channels that are signalled           together like this MUST have the same           &lt;tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.FUTURE"&gt;Bundle&lt;/tp:dbus-ref&gt;           property, which may           either refer to an existing bundle, or establish a new bundle.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>User-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>User-supplied weakly referenced object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-connection-requests.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

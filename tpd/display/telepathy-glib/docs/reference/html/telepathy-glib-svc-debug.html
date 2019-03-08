@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Service-side Debug base interface</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-dbus.html" title="Service-side D-Bus interfaces">
+<link rel="prev" href="telepathy-glib-svc-channel-call.html" title="Service-side Channel Call interface">
+<link rel="next" href="telepathy-glib-svc-connection.html" title="Service-side Connection interfaces">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-svc-channel-call.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-dbus.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-svc-connection.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-svc-debug.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-svc-debug.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-svc-debug.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-svc-debug.implementations" class="shortcut">Known Implementations</a>
+                   | 
+                  <a href="#telepathy-glib-svc-debug.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-svc-debug"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-svc-debug.top_of_page"></a>Service-side Debug base interface</span></h2>
+<p>Service-side Debug base interface — GInterface for Telepathy Debug objects</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-svc-debug.synopsis"></a><h2>Synopsis</h2>
+<a name="TpSvcDebug"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib-dbus.h&gt;
+
+                    <a class="link" href="telepathy-glib-svc-debug.html#TpSvcDebug-struct" title="TpSvcDebug">TpSvcDebug</a>;
+                    <a class="link" href="telepathy-glib-svc-debug.html#TpSvcDebugClass" title="TpSvcDebugClass">TpSvcDebugClass</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-debug.html#tp-svc-debug-get-messages-impl" title="tp_svc_debug_get_messages_impl ()">*tp_svc_debug_get_messages_impl</a>)   (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-debug.html#TpSvcDebug"><span class="type">TpSvcDebug</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-debug.html#tp-svc-debug-implement-get-messages" title="tp_svc_debug_implement_get_messages ()">tp_svc_debug_implement_get_messages</a> (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-debug.html#TpSvcDebugClass" title="TpSvcDebugClass"><span class="type">TpSvcDebugClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-debug.html#tp-svc-debug-get-messages-impl" title="tp_svc_debug_get_messages_impl ()"><span class="type">tp_svc_debug_get_messages_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-debug.html#tp-svc-debug-return-from-get-messages" title="tp_svc_debug_return_from_get_messages ()">tp_svc_debug_return_from_get_messages</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Messages</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-debug.html#tp-svc-debug-emit-new-debug-message" title="tp_svc_debug_emit_new_debug_message ()">tp_svc_debug_emit_new_debug_message</a> (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> arg_time</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_domain</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_level</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_message</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-debug.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcDebug
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-debug.implementations"></a><h2>Known Implementations</h2>
+<p>
+TpSvcDebug is implemented by
+ <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender">TpDebugSender</a>.</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-debug.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-svc-debug.html#TpSvcDebug-new-debug-message" title='The "new-debug-message" signal'>new-debug-message</a>"                              : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-debug.description"></a><h2>Description</h2>
+<p>
+This interface (auto-generated from the Telepathy spec) makes it easier
+to export objects implementing the Telepathy Debug interface.
+</p>
+<p>
+<a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> provides a reference implementation of the Debug object.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-debug.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpSvcDebug-struct"></a><h3>TpSvcDebug</h3>
+<pre class="programlisting">typedef struct _TpSvcDebug TpSvcDebug;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcDebugClass"></a><h3>TpSvcDebugClass</h3>
+<pre class="programlisting">typedef struct _TpSvcDebugClass TpSvcDebugClass;</pre>
+<p>
+The class of TpSvcDebug.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_debug (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_debug_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (get_messages);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-debug-get-messages-impl"></a><h3>tp_svc_debug_get_messages_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_debug_get_messages_impl)   (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-debug.html#TpSvcDebug"><span class="type">TpSvcDebug</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetMessages on interface org.freedesktop.Telepathy.Debug.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-debug-implement-get-messages"></a><h3>tp_svc_debug_implement_get_messages ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_debug_implement_get_messages (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-debug.html#TpSvcDebugClass" title="TpSvcDebugClass"><span class="type">TpSvcDebugClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-debug.html#tp-svc-debug-get-messages-impl" title="tp_svc_debug_get_messages_impl ()"><span class="type">tp_svc_debug_get_messages_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetMessages method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetMessages D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-debug-return-from-get-messages"></a><h3>tp_svc_debug_return_from_get_messages ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_debug_return_from_get_messages
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Messages</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Messages</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-debug-emit-new-debug-message"></a><h3>tp_svc_debug_emit_new_debug_message ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_debug_emit_new_debug_message (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> arg_time</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_domain</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_level</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_message</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+NewDebugMessage signal on interface org.freedesktop.Telepathy.Debug.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_time</code></em> :</span></p></td>
+<td>gdouble  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_domain</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_level</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_message</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-debug.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpSvcDebug-new-debug-message"></a><h3>The <code class="literal">"new-debug-message"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-debug.html#TpSvcDebug"><span class="type">TpSvcDebug</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>     arg_time,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>      *arg_domain,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>       arg_level,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>      *arg_message,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>    user_data)        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The NewDebugMessage D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_time</code></em> :</span></p></td>
+<td>gdouble  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_domain</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_level</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_message</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

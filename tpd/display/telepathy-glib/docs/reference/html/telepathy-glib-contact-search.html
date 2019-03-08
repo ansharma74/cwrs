@@ -1,0 +1,526 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpContactSearch</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-client.html" title="Client-side proxies">
+<link rel="prev" href="telepathy-glib-connection-addressing.html" title="Connection Addressing interface">
+<link rel="next" href="telepathy-glib-contact-search-result.html" title="TpContactSearchResult">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-connection-addressing.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-client.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-contact-search-result.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-contact-search.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-contact-search.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-contact-search.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-contact-search.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#telepathy-glib-contact-search.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#telepathy-glib-contact-search.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-contact-search"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-contact-search.top_of_page"></a>TpContactSearch</span></h2>
+<p>TpContactSearch — object for a Telepathy contact search channel</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-contact-search.synopsis"></a><h2>Synopsis</h2>
+<a name="TpContactSearch"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+struct              <a class="link" href="telepathy-glib-contact-search.html#TpContactSearch-struct" title="struct TpContactSearch">TpContactSearch</a>;
+struct              <a class="link" href="telepathy-glib-contact-search.html#TpContactSearchClass" title="struct TpContactSearchClass">TpContactSearchClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-new-async" title="tp_contact_search_new_async ()">tp_contact_search_new_async</a>         (<em class="parameter"><code><a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> *account</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> limit</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="returnvalue">TpContactSearch</span></a> *   <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-new-finish" title="tp_contact_search_new_finish ()">tp_contact_search_new_finish</a>        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-reset-async" title="tp_contact_search_reset_async ()">tp_contact_search_reset_async</a>       (<em class="parameter"><code><a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> limit</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> * const * <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-reset-finish" title="tp_contact_search_reset_finish ()">tp_contact_search_reset_finish</a>    (<em class="parameter"><code><a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-start" title="tp_contact_search_start ()">tp_contact_search_start</a>             (<em class="parameter"><code><a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *criteria</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> * const * <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-get-search-keys" title="tp_contact_search_get_search_keys ()">tp_contact_search_get_search_keys</a> (<em class="parameter"><code><a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> *self</code></em>);
+<a class="link" href="telepathy-glib-account.html#TpAccount"><span class="returnvalue">TpAccount</span></a> *         <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-get-account" title="tp_contact_search_get_account ()">tp_contact_search_get_account</a>       (<em class="parameter"><code><a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-get-limit" title="tp_contact_search_get_limit ()">tp_contact_search_get_limit</a>         (<em class="parameter"><code><a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> *self</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-get-server" title="tp_contact_search_get_server ()">tp_contact_search_get_server</a>        (<em class="parameter"><code><a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> *self</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-contact-search.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----TpContactSearch
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-contact-search.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+TpContactSearch implements
+ <a href="http://library.gnome.org/devel/gio/unstable/GAsyncInitable.html">GAsyncInitable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-contact-search.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-contact-search.html#TpContactSearch--account" title='The "account" property'>account</a>"                  <a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a>*            : Read / Write / Construct Only
+  "<a class="link" href="telepathy-glib-contact-search.html#TpContactSearch--limit" title='The "limit" property'>limit</a>"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="telepathy-glib-contact-search.html#TpContactSearch--server" title='The "server" property'>server</a>"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only
+  "<a class="link" href="telepathy-glib-contact-search.html#TpContactSearch--state" title='The "state" property'>state</a>"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-contact-search.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-contact-search.html#TpContactSearch-search-results-received" title='The "search-results-received" signal'>search-results-received</a>"                        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-contact-search.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> objects represent ongoing searches for contacts. They
+implement the <a href="http://library.gnome.org/devel/gio/unstable/GAsyncInitable.html"><span class="type">GAsyncInitable</span></a> interface, so the initialization may fail.
+</p>
+<p>
+In normal circumstances, after creating a <a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> object, you
+would connect to the <a class="link" href="telepathy-glib-contact-search.html#TpContactSearch-search-results-received" title='The "search-results-received" signal'><span class="type">"search-results-received"</span></a> signal
+to get search results when a search happens. You would then call
+<a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-get-search-keys" title="tp_contact_search_get_search_keys ()"><code class="function">tp_contact_search_get_search_keys()</code></a> to get the search keys, and then
+do a search using <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-start" title="tp_contact_search_start ()"><code class="function">tp_contact_search_start()</code></a>. When results are found,
+the <a class="link" href="telepathy-glib-contact-search.html#TpContactSearch-search-results-received" title='The "search-results-received" signal'><span class="type">"search-results-received"</span></a> callback will be called.
+</p>
+<p>
+You can check the search state by looking at the
+<a class="link" href="telepathy-glib-contact-search.html#TpContactSearch--state" title='The "state" property'><span class="type">"state"</span></a> property. If you want to be notified about
+changes, connect to the notify::state signal, see
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject-notify"><span class="type">"notify"</span></a> for details.
+</p>
+<p>
+You can search as many times as you want on a <a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> object,
+but you need to call <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-reset-async" title="tp_contact_search_reset_async ()"><code class="function">tp_contact_search_reset_async()</code></a> between searches.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-contact-search.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpContactSearch-struct"></a><h3>struct TpContactSearch</h3>
+<pre class="programlisting">struct TpContactSearch;</pre>
+<p>
+An object for Telepathy contact searches.
+There are no interesting public struct fields.
+</p>
+<p class="since">Since 0.13.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpContactSearchClass"></a><h3>struct TpContactSearchClass</h3>
+<pre class="programlisting">struct TpContactSearchClass {
+};
+</pre>
+<p>
+The class of a <a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a>.
+</p>
+<p class="since">Since 0.13.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contact-search-new-async"></a><h3>tp_contact_search_new_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_contact_search_new_async         (<em class="parameter"><code><a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> *account</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> limit</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>account</code></em> :</span></p></td>
+<td>an account for the contact search</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>the server on which to search for contacts, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>limit</code></em> :</span></p></td>
+<td>The maximum number of results the server should return,
+or 0 for the server default.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the initialization
+is finished</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to the callback function</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contact-search-new-finish"></a><h3>tp_contact_search_new_finish ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="returnvalue">TpContactSearch</span></a> *   tp_contact_search_new_finish        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>the <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> from the callback</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> location to store an error, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new contact search object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+in case of error. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contact-search-reset-async"></a><h3>tp_contact_search_reset_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_contact_search_reset_async       (<em class="parameter"><code><a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> limit</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Resets the contact search object so a new search can be performed.
+If another <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-reset-async" title="tp_contact_search_reset_async ()"><code class="function">tp_contact_search_reset_async()</code></a> call is in progress,
+it will be cancelled and <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-reset-finish" title="tp_contact_search_reset_finish ()"><code class="function">tp_contact_search_reset_finish()</code></a> will
+return an appropriate error.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> to reset</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>the server on which to search for contacts, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>limit</code></em> :</span></p></td>
+<td>The maximum number of results the server should return,
+or 0 for the server default.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the initialization
+is finished</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to the callback function</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contact-search-reset-finish"></a><h3>tp_contact_search_reset_finish ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> * const * tp_contact_search_reset_finish    (<em class="parameter"><code><a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> that is being reset</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>the <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> from the callback</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> location to store an error, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the new search keys, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+in case of error. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contact-search-start"></a><h3>tp_contact_search_start ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_contact_search_start             (<em class="parameter"><code><a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *criteria</code></em>);</pre>
+<p>
+Starts a search for the keys specified in <em class="parameter"><code>criteria</code></em>. Connect
+to the <a class="link" href="telepathy-glib-contact-search.html#TpContactSearch-search-results-received" title='The "search-results-received" signal'><span class="type">"search-results-received"</span></a> signal
+before calling this function.
+</p>
+<p>
+Before searching again on the same <a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a>, you must
+call <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-reset-async" title="tp_contact_search_reset_async ()"><code class="function">tp_contact_search_reset_async()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>criteria</code></em> :</span></p></td>
+<td>a map
+from keys returned by <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-get-search-keys" title="tp_contact_search_get_search_keys ()"><code class="function">tp_contact_search_get_search_keys()</code></a>
+to values to search for. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 utf8]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contact-search-get-search-keys"></a><h3>tp_contact_search_get_search_keys ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> * const * tp_contact_search_get_search_keys (<em class="parameter"><code><a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> *self</code></em>);</pre>
+<p>
+Get the search keys for a contact search.
+The keys are vCard field names in lower case, except when
+they're one of the special cases from telepathy-spec like
+"tel;cell" or "x-n-given". See the
+<a class="ulink" href="http://telepathy.freedesktop.org/spec/Channel_Type_Contact_Search.html" target="_top">
+Channel.Type.ContactSearch interface</a>
+for a list of the special cases.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the contact search object to get the keys from</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the new search keys, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contact-search-get-account"></a><h3>tp_contact_search_get_account ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-account.html#TpAccount"><span class="returnvalue">TpAccount</span></a> *         tp_contact_search_get_account       (<em class="parameter"><code><a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a contact search object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The TpContactSearch:account property. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contact-search-get-limit"></a><h3>tp_contact_search_get_limit ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               tp_contact_search_get_limit         (<em class="parameter"><code><a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a contact search object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The TpContactSearch:limit property</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-contact-search-get-server"></a><h3>tp_contact_search_get_server ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_contact_search_get_server        (<em class="parameter"><code><a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a contact search object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The TpContactSearch:server property</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.11</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-contact-search.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpContactSearch--account"></a><h3>The <code class="literal">"account"</code> property</h3>
+<pre class="programlisting">  "account"                  <a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a>*            : Read / Write / Construct Only</pre>
+<p>
+This search's account.
+</p>
+<p class="since">Since 0.13.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpContactSearch--limit"></a><h3>The <code class="literal">"limit"</code> property</h3>
+<pre class="programlisting">  "limit"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>
+The maximum number of results that the server should return.
+This is only supported by some protocols; use
+<a class="link" href="telepathy-glib-capabilities.html#tp-capabilities-supports-contact-search" title="tp_capabilities_supports_contact_search ()"><code class="function">tp_capabilities_supports_contact_search()</code></a> to check if it's
+supported.
+</p>
+<p>
+To change the limit after the object has been constructed,
+use <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-reset-async" title="tp_contact_search_reset_async ()"><code class="function">tp_contact_search_reset_async()</code></a>.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.13.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpContactSearch--server"></a><h3>The <code class="literal">"server"</code> property</h3>
+<pre class="programlisting">  "server"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only</pre>
+<p>
+The search server. This is only supported by some protocols;
+use <a class="link" href="telepathy-glib-capabilities.html#tp-capabilities-supports-contact-search" title="tp_capabilities_supports_contact_search ()"><code class="function">tp_capabilities_supports_contact_search()</code></a> to check if it's
+supported.
+</p>
+<p>
+To change the server after the object has been constructed,
+use <a class="link" href="telepathy-glib-contact-search.html#tp-contact-search-reset-async" title="tp_contact_search_reset_async ()"><code class="function">tp_contact_search_reset_async()</code></a>.
+</p>
+<p>Default value: NULL</p>
+<p class="since">Since 0.13.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpContactSearch--state"></a><h3>The <code class="literal">"state"</code> property</h3>
+<pre class="programlisting">  "state"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>
+This search's state, as a <a class="link" href="telepathy-glib-gtypes.html#TpChannelContactSearchState" title="enum TpChannelContactSearchState"><code class="literal">TpChannelContactSearchState</code></a>.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.13.11</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-contact-search.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpContactSearch-search-results-received"></a><h3>The <code class="literal">"search-results-received"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-contact-search.html#TpContactSearch"><span class="type">TpContactSearch</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>         results,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>         user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted when search results are received. Note that this signal may
+be emitted multiple times for the same search.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a contact search</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>results</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> with the search results. <span class="annotation">[<acronym title="Override the parsed C type with given type"><span class="acronym">type</span></acronym> GLib.List][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> TelepathyGLib.ContactSearchResult]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.11</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-contact-search.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

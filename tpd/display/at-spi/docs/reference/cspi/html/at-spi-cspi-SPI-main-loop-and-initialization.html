@@ -1,0 +1,574 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SPI main loop and initialization</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="AT-SPI C Bindings Reference Manual">
+<link rel="up" href="spi-main.html" title="SPI Main Event Loop and Registry">
+<link rel="prev" href="spi-main.html" title="SPI Main Event Loop and Registry">
+<link rel="next" href="at-spi-cspi-Event-Listener-Support.html" title="Event Listener Support">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="spi-main.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="spi-main.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">AT-SPI C Bindings Reference Manual</th>
+<td><a accesskey="n" href="at-spi-cspi-Event-Listener-Support.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#at-spi-cspi-SPI-main-loop-and-initialization.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#at-spi-cspi-SPI-main-loop-and-initialization.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="SPI main loop and initialization">
+<a name="at-spi-cspi-SPI-main-loop-and-initialization"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="at-spi-cspi-SPI-main-loop-and-initialization.top_of_page"></a>SPI main loop and initialization</span></h2>
+<p>SPI main loop and initialization</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="at-spi-cspi-SPI-main-loop-and-initialization.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis"><span class="returnvalue">int</span>                 <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPI-init" title="SPI_init ()">SPI_init</a>                            (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPI-event-main" title="SPI_event_main ()">SPI_event_main</a>                      (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPI-event-quit" title="SPI_event_quit ()">SPI_event_quit</a>                      (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">SPIBoolean</span>          <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPI-eventIsReady" title="SPI_eventIsReady ()">SPI_eventIsReady</a>                    (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="at-spi-cspi-Event-Listener-Support.html#AccessibleEvent" title="AccessibleEvent"><span class="returnvalue">AccessibleEvent</span></a> *   <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPI-nextEvent" title="SPI_nextEvent ()">SPI_nextEvent</a>                       (<em class="parameter"><code><span class="type">SPIBoolean</span> waitForEvent</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPI-exit" title="SPI_exit ()">SPI_exit</a>                            (<em class="parameter"><code><span class="type">void</span></code></em>);
+
+<span class="returnvalue">void</span>                <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPI-freeString" title="SPI_freeString ()">SPI_freeString</a>                      (<em class="parameter"><code><span class="type">char</span> *s</code></em>);
+<a class="link" href="at-spi-cspi-Accessible-Objects.html#Accessible" title="struct Accessible"><span class="returnvalue">Accessible</span></a>*         <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIAccessibleException-getSource" title="SPIAccessibleException_getSource ()">SPIAccessibleException_getSource</a>    (<em class="parameter"><code><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException" title="SPIException"><span class="type">SPIException</span></a> *err</code></em>);
+<span class="returnvalue">char</span>*               <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException-getDescription" title="SPIException_getDescription ()">SPIException_getDescription</a>         (<em class="parameter"><code><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException" title="SPIException"><span class="type">SPIException</span></a> *err</code></em>);
+<a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionCode" title="enum SPIExceptionCode"><span class="returnvalue">SPIExceptionCode</span></a>    <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException-getExceptionCode" title="SPIException_getExceptionCode ()">SPIException_getExceptionCode</a>       (<em class="parameter"><code><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException" title="SPIException"><span class="type">SPIException</span></a> *err</code></em>);
+<a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionType" title="enum SPIExceptionType"><span class="returnvalue">SPIExceptionType</span></a>    <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException-getSourceType" title="SPIException_getSourceType ()">SPIException_getSourceType</a>          (<em class="parameter"><code><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException" title="SPIException"><span class="type">SPIException</span></a> *err</code></em>);
+                    <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException" title="SPIException">SPIException</a>;
+enum                <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionCode" title="enum SPIExceptionCode">SPIExceptionCode</a>;
+enum                <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionType" title="enum SPIExceptionType">SPIExceptionType</a>;
+<span class="returnvalue">SPIBoolean</span>          (<a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionHandler" title="SPIExceptionHandler ()">*SPIExceptionHandler</a>)              (<em class="parameter"><code><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException" title="SPIException"><span class="type">SPIException</span></a> *err</code></em>,
+                                                         <em class="parameter"><code><span class="type">SPIBoolean</span> is_fatal</code></em>);
+                    <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIRect" title="SPIRect">SPIRect</a>;
+<span class="returnvalue">void</span>                <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPI-freeRect" title="SPI_freeRect ()">SPI_freeRect</a>                        (<em class="parameter"><code><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIRect" title="SPIRect"><span class="type">SPIRect</span></a> *r</code></em>);
+<span class="returnvalue">char</span>*               <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPI-dupString" title="SPI_dupString ()">SPI_dupString</a>                       (<em class="parameter"><code><span class="type">char</span> *s</code></em>);
+<span class="returnvalue">SPIBoolean</span>          <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPI-exceptionHandlerPush" title="SPI_exceptionHandlerPush ()">SPI_exceptionHandlerPush</a>            (<em class="parameter"><code><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionHandler" title="SPIExceptionHandler ()"><span class="type">SPIExceptionHandler</span></a> *handler</code></em>);
+<a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionHandler" title="SPIExceptionHandler ()"><span class="returnvalue">SPIExceptionHandler</span></a>* <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPI-exceptionHandlerPop" title="SPI_exceptionHandlerPop ()">SPI_exceptionHandlerPop</a>            (<em class="parameter"><code><span class="type">void</span></code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="at-spi-cspi-SPI-main-loop-and-initialization.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="at-spi-cspi-SPI-main-loop-and-initialization.details"></a><h2>Details</h2>
+<div class="refsect2" title="SPI_init ()">
+<a name="SPI-init"></a><h3>SPI_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 SPI_init                            (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Connects to the accessibility registry and initializes the SPI.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, otherwise an integer error code.  
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="SPI_event_main ()">
+<a name="SPI-event-main"></a><h3>SPI_event_main ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                SPI_event_main                      (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Starts/enters the main event loop for the SPI services.
+</p>
+<p>
+(NOTE: This method does not return control, it is exited via a call to
+ <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPI-event-quit" title="SPI_event_quit ()"><code class="function">SPI_event_quit()</code></a> from within an event handler).
+</p>
+</div>
+<hr>
+<div class="refsect2" title="SPI_event_quit ()">
+<a name="SPI-event-quit"></a><h3>SPI_event_quit ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                SPI_event_quit                      (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Quits the last main event loop for the SPI services,
+see SPI_event_main
+</p>
+</div>
+<hr>
+<div class="refsect2" title="SPI_eventIsReady ()">
+<a name="SPI-eventIsReady"></a><h3>SPI_eventIsReady ()</h3>
+<pre class="programlisting"><span class="returnvalue">SPIBoolean</span>          SPI_eventIsReady                    (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Checks to see if an SPI event is waiting in the event queue.
+Used by clients that don't wish to use <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPI-event-main" title="SPI_event_main ()"><code class="function">SPI_event_main()</code></a>.
+</p>
+<p>
+Not Yet Implemented.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <span class="type">TRUE</span> if an event is waiting, otherwise <span class="type">FALSE</span>.
+
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="SPI_nextEvent ()">
+<a name="SPI-nextEvent"></a><h3>SPI_nextEvent ()</h3>
+<pre class="programlisting"><a class="link" href="at-spi-cspi-Event-Listener-Support.html#AccessibleEvent" title="AccessibleEvent"><span class="returnvalue">AccessibleEvent</span></a> *   SPI_nextEvent                       (<em class="parameter"><code><span class="type">SPIBoolean</span> waitForEvent</code></em>);</pre>
+<p>
+Gets the next event in the SPI event queue; blocks if no event
+is pending and <em class="parameter"><code>waitForEvent</code></em> is <span class="type">TRUE</span>.
+Used by clients that don't wish to use <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPI-event-main" title="SPI_event_main ()"><code class="function">SPI_event_main()</code></a>.
+</p>
+<p>
+Not Yet Implemented.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>waitForEvent</code></em> :</span></p></td>
+<td>a <span class="type">SPIBoolean</span> indicating whether to block or not.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the next <a class="link" href="at-spi-cspi-Event-Listener-Support.html#AccessibleEvent" title="AccessibleEvent"><span class="type">AccessibleEvent</span></a> in the SPI event queue.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="SPI_exit ()">
+<a name="SPI-exit"></a><h3>SPI_exit ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 SPI_exit                            (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Disconnects from the Accessibility Registry and releases 
+any floating resources. Call only once at exit.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if there were no leaks, otherwise non zero.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="SPI_freeString ()">
+<a name="SPI-freeString"></a><h3>SPI_freeString ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                SPI_freeString                      (<em class="parameter"><code><span class="type">char</span> *s</code></em>);</pre>
+<p>
+Free a character string returned from an at-spi call.  Clients of
+at-spi should use this function instead of <code class="function">free()</code> or <code class="function">g_free()</code>.
+A NULL string <em class="parameter"><code>s</code></em> will be silently ignored.
+This API should not be used to free strings
+from other libraries or allocated by the client.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>a character string returned from another at-spi call.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="SPIAccessibleException_getSource ()">
+<a name="SPIAccessibleException-getSource"></a><h3>SPIAccessibleException_getSource ()</h3>
+<pre class="programlisting"><a class="link" href="at-spi-cspi-Accessible-Objects.html#Accessible" title="struct Accessible"><span class="returnvalue">Accessible</span></a>*         SPIAccessibleException_getSource    (<em class="parameter"><code><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException" title="SPIException"><span class="type">SPIException</span></a> *err</code></em>);</pre>
+<p>
+Get the identity of the object which threw an exception.
+</p>
+<p>
+<em class="parameter"><code>Since</code></em>: AT-SPI 1.4
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>err</code></em> :</span></p></td>
+<td>the <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException" title="SPIException"><span class="type">SPIException</span></a> being queried.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a pointer to the <a class="link" href="at-spi-cspi-Accessible-Objects.html#Accessible" title="struct Accessible"><span class="type">Accessible</span></a> object which threw the exception.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="SPIException_getDescription ()">
+<a name="SPIException-getDescription"></a><h3>SPIException_getDescription ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span>*               SPIException_getDescription         (<em class="parameter"><code><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException" title="SPIException"><span class="type">SPIException</span></a> *err</code></em>);</pre>
+<p>
+Get a text description of the exception that has been thrown.
+Unfortunately these descriptions tend to be terse and limited in
+the detail which they can provide.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>err</code></em> :</span></p></td>
+<td>the <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException" title="SPIException"><span class="type">SPIException</span></a> being queried.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a brief character string describing the exception.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="SPIException_getExceptionCode ()">
+<a name="SPIException-getExceptionCode"></a><h3>SPIException_getExceptionCode ()</h3>
+<pre class="programlisting"><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionCode" title="enum SPIExceptionCode"><span class="returnvalue">SPIExceptionCode</span></a>    SPIException_getExceptionCode       (<em class="parameter"><code><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException" title="SPIException"><span class="type">SPIException</span></a> *err</code></em>);</pre>
+<p>
+Get the <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionCode" title="enum SPIExceptionCode"><span class="type">SPIExceptionCode</span></a> telling what type of exception condition has occurred.
+</p>
+<p>
+<em class="parameter"><code>Since</code></em>: AT-SPI 1.4
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>err</code></em> :</span></p></td>
+<td>the <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException" title="SPIException"><span class="type">SPIException</span></a> being queried.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionCode" title="enum SPIExceptionCode"><span class="type">SPIExceptionCode</span></a> corresponding to exception <em class="parameter"><code>err</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="SPIException_getSourceType ()">
+<a name="SPIException-getSourceType"></a><h3>SPIException_getSourceType ()</h3>
+<pre class="programlisting"><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionType" title="enum SPIExceptionType"><span class="returnvalue">SPIExceptionType</span></a>    SPIException_getSourceType          (<em class="parameter"><code><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException" title="SPIException"><span class="type">SPIException</span></a> *err</code></em>);</pre>
+<p>
+Get the <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionType" title="enum SPIExceptionType"><span class="type">SPIExceptionType</span></a> of an exception which has been thrown.
+</p>
+<p>
+<em class="parameter"><code>Since</code></em>: AT-SPI 1.4
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>err</code></em> :</span></p></td>
+<td>the exception being queried
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionType" title="enum SPIExceptionType"><span class="type">SPIExceptionType</span></a> corresponding to exception <em class="parameter"><code>err</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="SPIException">
+<a name="SPIException"></a><h3>SPIException</h3>
+<pre class="programlisting">typedef struct {
+  SPIExceptionType type;
+  CORBA_Object source;
+  CORBA_Environment *ev;
+  SPIExceptionCode code;
+  char * desc;
+} SPIException;
+</pre>
+<p>
+An opaque object encapsulating information about thrown exceptions.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionType" title="enum SPIExceptionType"><span class="type">SPIExceptionType</span></a> <em class="structfield"><code><a name="SPIException.type"></a>type</code></em>;</span></p></td>
+<td>private
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">CORBA_Object</span> <em class="structfield"><code><a name="SPIException.source"></a>source</code></em>;</span></p></td>
+<td>private
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">CORBA_Environment</span> *<em class="structfield"><code><a name="SPIException.ev"></a>ev</code></em>;</span></p></td>
+<td>private
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionCode" title="enum SPIExceptionCode"><span class="type">SPIExceptionCode</span></a> <em class="structfield"><code><a name="SPIException.code"></a>code</code></em>;</span></p></td>
+<td>private
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">char</span> *<em class="structfield"><code><a name="SPIException.desc"></a>desc</code></em>;</span></p></td>
+<td>private
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="enum SPIExceptionCode">
+<a name="SPIExceptionCode"></a><h3>enum SPIExceptionCode</h3>
+<pre class="programlisting">typedef enum {
+	SPI_EXCEPTION_UNSPECIFIED,
+	SPI_EXCEPTION_DISCONNECT,
+	SPI_EXCEPTION_NO_IMPL,
+	SPI_EXCEPTION_IO,
+	SPI_EXCEPTION_BAD_DATA
+} SPIExceptionCode;
+</pre>
+<p>
+Exception codes indicating what's gone wrong in an AT-SPI call.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="SPI-EXCEPTION-UNSPECIFIED:CAPS"></a><span class="term"><code class="literal">SPI_EXCEPTION_UNSPECIFIED</code></span></p></td>
+<td>An exception of unknown type, or which doesn't fit the other types.
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-EXCEPTION-DISCONNECT:CAPS"></a><span class="term"><code class="literal">SPI_EXCEPTION_DISCONNECT</code></span></p></td>
+<td>Communication with the object or service has been disconnected;
+this usually means that the object or service has died or exited.
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-EXCEPTION-NO-IMPL:CAPS"></a><span class="term"><code class="literal">SPI_EXCEPTION_NO_IMPL</code></span></p></td>
+<td>The object or service is missing the implementation for a request.
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-EXCEPTION-IO:CAPS"></a><span class="term"><code class="literal">SPI_EXCEPTION_IO</code></span></p></td>
+<td>The communications channel has become corrupted, blocked, or is otherwise in a bad state.
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-EXCEPTION-BAD-DATA:CAPS"></a><span class="term"><code class="literal">SPI_EXCEPTION_BAD_DATA</code></span></p></td>
+<td>The data received or sent over the interface has been identified as 
+improperly formatted or otherwise fails to match the expectations.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="enum SPIExceptionType">
+<a name="SPIExceptionType"></a><h3>enum SPIExceptionType</h3>
+<pre class="programlisting">typedef enum {
+	SPI_EXCEPTION_SOURCE_UNSPECIFIED,
+	SPI_EXCEPTION_SOURCE_ACCESSIBLE,
+	SPI_EXCEPTION_SOURCE_REGISTRY,
+	SPI_EXCEPTION_SOURCE_DEVICE
+} SPIExceptionType;
+</pre>
+<p>
+The general source of the failure, i.e. whether the app, registry, or device system has encountered trouble.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="SPI-EXCEPTION-SOURCE-UNSPECIFIED:CAPS"></a><span class="term"><code class="literal">SPI_EXCEPTION_SOURCE_UNSPECIFIED</code></span></p></td>
+<td>Don't know or can't tell where the problem is
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-EXCEPTION-SOURCE-ACCESSIBLE:CAPS"></a><span class="term"><code class="literal">SPI_EXCEPTION_SOURCE_ACCESSIBLE</code></span></p></td>
+<td>The source of an event or query (i.e. an app) has thrown the exception.
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-EXCEPTION-SOURCE-REGISTRY:CAPS"></a><span class="term"><code class="literal">SPI_EXCEPTION_SOURCE_REGISTRY</code></span></p></td>
+<td>The AT-SPI registry has thrown the exception or cannot be reached.
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-EXCEPTION-SOURCE-DEVICE:CAPS"></a><span class="term"><code class="literal">SPI_EXCEPTION_SOURCE_DEVICE</code></span></p></td>
+<td>The device event subsystem has encountered an error condition.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="SPIExceptionHandler ()">
+<a name="SPIExceptionHandler"></a><h3>SPIExceptionHandler ()</h3>
+<pre class="programlisting"><span class="returnvalue">SPIBoolean</span>          (*SPIExceptionHandler)              (<em class="parameter"><code><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException" title="SPIException"><span class="type">SPIException</span></a> *err</code></em>,
+                                                         <em class="parameter"><code><span class="type">SPIBoolean</span> is_fatal</code></em>);</pre>
+<p>
+A function type for functions to be called when exceptions occur.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>err</code></em> :</span></p></td>
+<td>points to the SPIException opaque object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>is_fatal</code></em> :</span></p></td>
+<td>indicates whether the exception is a fatal error or not.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="SPIRect">
+<a name="SPIRect"></a><h3>SPIRect</h3>
+<pre class="programlisting">typedef struct {
+	long x;
+	long y;
+	long width;
+	long height;
+} SPIRect;
+</pre>
+<p>
+A structure encapsulating a rectangle.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="SPI_freeRect ()">
+<a name="SPI-freeRect"></a><h3>SPI_freeRect ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                SPI_freeRect                        (<em class="parameter"><code><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIRect" title="SPIRect"><span class="type">SPIRect</span></a> *r</code></em>);</pre>
+<p>
+Free a SPIRect structure returned from an at-spi call.  Clients of
+at-spi should use this function instead of <code class="function">free()</code> or <code class="function">g_free()</code>.
+A NULL rect <em class="parameter"><code>r</code></em> will be silently ignored.
+This API should not be used to free data
+from other libraries or allocated by the client.
+</p>
+<p>
+<em class="parameter"><code>Since</code></em>: AT-SPI 1.6
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>r</code></em> :</span></p></td>
+<td>a pointer to an SPIRect returned from another at-spi call.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="SPI_dupString ()">
+<a name="SPI-dupString"></a><h3>SPI_dupString ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span>*               SPI_dupString                       (<em class="parameter"><code><span class="type">char</span> *s</code></em>);</pre>
+<p>
+<em class="parameter"><code>Since</code></em>: AT-SPI 1.4
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>a UTF-8 string to be duplicated
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a duplicate of the string passed as a parameter, which should
+be freed via SPI_freeString after use.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="SPI_exceptionHandlerPush ()">
+<a name="SPI-exceptionHandlerPush"></a><h3>SPI_exceptionHandlerPush ()</h3>
+<pre class="programlisting"><span class="returnvalue">SPIBoolean</span>          SPI_exceptionHandlerPush            (<em class="parameter"><code><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionHandler" title="SPIExceptionHandler ()"><span class="type">SPIExceptionHandler</span></a> *handler</code></em>);</pre>
+<p>
+Install a client-side handler for <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIException" title="SPIException"><span class="type">SPIException</span></a> instances, which can see and handle any
+exceptions before chaining them to the next exception handler in the stack.
+</p>
+<p>
+<em class="parameter"><code>Since</code></em>: AT-SPI 1.4
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handler</code></em> :</span></p></td>
+<td>an <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionHandler" title="SPIExceptionHandler ()"><span class="type">SPIExceptionHandler</span></a> to install as the first code to deal with exceptions.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if the result succeeded, <code class="literal">FALSE</code> if <em class="parameter"><code>hander</code></em> could not be registered.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="SPI_exceptionHandlerPop ()">
+<a name="SPI-exceptionHandlerPop"></a><h3>SPI_exceptionHandlerPop ()</h3>
+<pre class="programlisting"><a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionHandler" title="SPIExceptionHandler ()"><span class="returnvalue">SPIExceptionHandler</span></a>* SPI_exceptionHandlerPop            (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Remove/pop an <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionHandler" title="SPIExceptionHandler ()"><span class="type">SPIExceptionHandler</span></a> off the error handler stack and return the new handler.
+</p>
+<p>
+<em class="parameter"><code>Since</code></em>: AT-SPI 1.4
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="at-spi-cspi-SPI-main-loop-and-initialization.html#SPIExceptionHandler" title="SPIExceptionHandler ()"><span class="type">SPIExceptionHandler</span></a> which is now at the top of the error handler stack after the call.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

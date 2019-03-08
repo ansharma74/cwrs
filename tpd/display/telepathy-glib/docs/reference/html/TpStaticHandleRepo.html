@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpStaticHandleRepo</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-handles.html" title="Service-side handle repositories">
+<link rel="prev" href="telepathy-glib-handle-repo.html" title="TpHandleRepoIface">
+<link rel="next" href="TpDynamicHandleRepo.html" title="TpDynamicHandleRepo">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-handle-repo.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-handles.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="TpDynamicHandleRepo.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#TpStaticHandleRepo.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#TpStaticHandleRepo.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#TpStaticHandleRepo.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#TpStaticHandleRepo.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#TpStaticHandleRepo.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="TpStaticHandleRepo"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="TpStaticHandleRepo.top_of_page"></a>TpStaticHandleRepo</span></h2>
+<p>TpStaticHandleRepo — handle repository implementation with a fixed, static
+ set of handle names</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="TpStaticHandleRepo.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+<a class="link" href="telepathy-glib-handle-repo.html#TpHandleRepoIface"><span class="returnvalue">TpHandleRepoIface</span></a> * <a class="link" href="TpStaticHandleRepo.html#tp-static-handle-repo-new" title="tp_static_handle_repo_new ()">tp_static_handle_repo_new</a>           (<em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> handle_type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **handle_names</code></em>);
+                    <a class="link" href="TpStaticHandleRepo.html#TpStaticHandleRepo-struct" title="TpStaticHandleRepo">TpStaticHandleRepo</a>;
+                    <a class="link" href="TpStaticHandleRepo.html#TpStaticHandleRepoClass" title="TpStaticHandleRepoClass">TpStaticHandleRepoClass</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpStaticHandleRepo.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----TpStaticHandleRepo
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpStaticHandleRepo.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+TpStaticHandleRepo implements
+ <a class="link" href="telepathy-glib-handle-repo.html#TpHandleRepoIface">TpHandleRepoIface</a>.</p>
+</div>
+<div class="refsect1">
+<a name="TpStaticHandleRepo.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="TpStaticHandleRepo.html#TpStaticHandleRepo--handle-names" title='The "handle-names" property'>handle-names</a>"             <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpStaticHandleRepo.description"></a><h2>Description</h2>
+<p>
+A static handle repository has a fixed, static set of allowed names;
+these handles can never be destroyed, and no more can be created, so
+no reference counting is performed.
+</p>
+<p>
+The <a class="link" href="telepathy-glib-handle-repo.html#TpHandleRepoIface--handle-type" title='The "handle-type" property'><span class="type">"handle-type"</span></a> property must be set at construction
+time.
+</p>
+<p>
+Most connection managers will use this for handles of type
+<a class="link" href="telepathy-glib-enums.html#TP-HANDLE-TYPE-LIST:CAPS"><code class="literal">TP_HANDLE_TYPE_LIST</code></a>.
+</p>
+</div>
+<div class="refsect1">
+<a name="TpStaticHandleRepo.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="tp-static-handle-repo-new"></a><h3>tp_static_handle_repo_new ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-handle-repo.html#TpHandleRepoIface"><span class="returnvalue">TpHandleRepoIface</span></a> * tp_static_handle_repo_new           (<em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> handle_type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **handle_names</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle_type</code></em> :</span></p></td>
+<td>The type of handle to store in the
+new repository</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle_names</code></em> :</span></p></td>
+<td>Same as <a class="link" href="TpStaticHandleRepo.html#TpStaticHandleRepo--handle-names" title='The "handle-names" property'><span class="type">"handle-names"</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new static handle repository</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpStaticHandleRepo-struct"></a><h3>TpStaticHandleRepo</h3>
+<pre class="programlisting">typedef struct _TpStaticHandleRepo TpStaticHandleRepo;</pre>
+<p>
+A static handle repository contains a fixed set of handles.
+</p>
+<p>
+As well as setting the <a class="link" href="telepathy-glib-handle-repo.html#TpHandleRepoIface--handle-type" title='The "handle-type" property'><span class="type">"handle-type"</span></a> property, code
+which creates a static handle repository must set the
+<a class="link" href="TpStaticHandleRepo.html#TpStaticHandleRepo--handle-names" title='The "handle-names" property'><span class="type">"handle-names"</span></a> construction property to a strv of
+valid handle names. All of these are preallocated; no more may be
+created, and attempts to do so will fail.
+</p>
+<p>
+Handles in this repository are 1 more than the index in the string
+vector of the handle's name, so the first name in the vector has
+handle 1 and so on. Connection managers which use a static repository
+may assume this to be true, and use an enumeration starting at 1, in the
+same order as the string vector, to avoid having to look up handles
+internally.
+</p>
+<p>
+This is intended for handles of type <a class="link" href="telepathy-glib-enums.html#TP-HANDLE-TYPE-LIST:CAPS"><code class="literal">TP_HANDLE_TYPE_LIST</code></a>,
+for which the connection manager should only accept a static list of
+supported handle names.
+</p>
+<p>
+All structure fields are private.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpStaticHandleRepoClass"></a><h3>TpStaticHandleRepoClass</h3>
+<pre class="programlisting">typedef struct _TpStaticHandleRepoClass TpStaticHandleRepoClass;</pre>
+<p>
+The class of a TpStaticHandleRepo. All fields are private.
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpStaticHandleRepo.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpStaticHandleRepo--handle-names"></a><h3>The <code class="literal">"handle-names"</code> property</h3>
+<pre class="programlisting">  "handle-names"             <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read / Write / Construct Only</pre>
+<p>The static set of handle names supported by this repo.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpStaticHandleRepo.see-also"></a><h2>See Also</h2>
+TpHandleRepoIface, TpDynamicHandleRepo
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

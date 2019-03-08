@@ -1,0 +1,130 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+MINPARAMS=1
+if [ $# -lt "$MINPARAMS" ]
+then
+    echo usage:
+    echo   buildnet "package_type"
+    echo   
+    echo i.e.:
+    echo   buildnet fwc
+    echo    
+    exit 1
+fi
+
+BUILDTYPE=$1
+
+TOP=`pwd`
+echo Source Base=$TOP
+
+echo "--------------Testing Build Tools--------------"
+
+$TOP/Config/buildpackageversion
+
+echo "----------Print Default Config----------------"
+
+$TOP/Config/envtest
+
+echo "----------Export Environment Variables-------"
+
+export PREFIX=$TOP/images/$BUILDTYPE
+LNX_P=$TOP/images/linux
+
+export PATH=$LNX_P/bin:$PREFIX/bin:$PREFIX/lib:$PREFIX/include:$PREFIX/usr/lib:$PREFIX/usr/include:$PREFIX/usr/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+
+export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig:$PREFIX/lib64/pkgconfig:$LNX_P/lib/pkgconfig:$LNX_P/lib64/pkgconfig
+
+export LDFLAGS="-L$PREFIX/lib -L$PREFIX/lib64 -L$LNX_P/lib -L$LNX_P/lib64"
+export CFLAGS="-fPIC -I$PREFIX/include -I$LNX_P/include -I/usr/include"
+export CPPFLAGS="-fPIC -I$PREFIX/include -I$LNX_P/include -I/usr/include"
+export LD_LIBRARY_PATH=$PREFIX/lib:$PREFIX/lib64:$LNX_P/lib:$LNX_P/lib64
+export LIBRARY_PATH=$PREFIX/lib:$PREFIX/lib64:$LNX_P/lib:$LNX_P/lib64
+export C_INCLUDE_PATH=$PREFIX/include:$PREFIX/usr/include:$LNX_P/include:$LNX_P/usr/include
+export CXX_INCLUDE_PATH=$PREFIX/include:$PREFIX/usr/include:$LNX_P/include:$LNX_P/usr/include
+
+echo "----------Print Build Config----------------"
+
+$TOP/Config/envtest
+
+function make_rtpack {
+
+    echo "---------------------------------------------------"
+    echo "------------------- Building routing --------------"
+    echo "---------------------------------------------------"
+
+    cd $TOP/routing
+    ./configure --prefix= --with-pic 
+    make
+    make DESTDIR=$PREFIX install
+    make distclean
+
+    echo "--------- Making Routing Manager Pack ---------------"
+
+    rm -rf $PREFIX/DEBIAN
+    mkdir $PREFIX/DEBIAN
+    echo "Package: cbirrouting
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: all
+Maintainer: CBIR (info@cbir.in)
+Description: CBIR Routing Manager
+    CBIR Routing manager" > $PREFIX/DEBIAN/control
+
+    cd $PREFIX/..
+    find ./routing -type d | xargs chmod 755
+    dpkg-deb --build routing
+    if [ ! -d /tmp/build ]
+    then
+        mkdir /tmp/build
+    fi
+    mv routing.deb /tmp/builds/cbirrouting.deb
+}
+
+function make_fwcpack {
+
+    echo "--------- Making Firewall Controller ---------------"
+
+    cd $TOP/fwc
+    ./configure --prefix= --with-pic 
+    make
+    make DESTDIR=$PREFIX install
+    make distclean
+
+    rm -rf $PREFIX/DEBIAN
+    mkdir $PREFIX/DEBIAN
+    echo "Package: cbirfwc
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: all
+Maintainer: CBIR (info@cbir.in)
+Description: CBIR firewall controller 
+    Firewall config and operations manager" > $PREFIX/DEBIAN/control
+
+    cd $PREFIX/..
+    find ./fwc -type d | xargs chmod 755
+    dpkg-deb --build fwc
+    if [ ! -d /tmp/build ]
+    then
+        mkdir /tmp/build
+    fi
+    mv fwc.deb /tmp/builds/cbirfwcpack.deb
+}
+
+case "$BUILDTYPE" in
+    routing)
+        make_rtpack
+        ;;
+    fwc)
+        make_fwcpack
+        ;;
+    *)   
+        echo "Choices are as follows: routing | fwc"
+        exit 1
+        ;;
+esac
+

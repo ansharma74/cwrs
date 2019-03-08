@@ -1,0 +1,38 @@
+<% if current_user.admin %>
+	
+	<%= title "Listing Sensors" do -%>
+
+		<% if current_user.admin %>
+			<%= render :partial => 'settings/menu' %>
+		<% end %>
+
+	<%- end -%>
+
+<% else %>
+
+	<%= title "Listing Sensors" -%>
+
+<% end %>
+
+<div id="sensors" class='boxit'>
+	
+	<table class='default' border="0" cellspacing="0" cellpadding="0">
+		<tr>		
+			<th>ID</th>
+			<th>Name</th>
+			<th>Hostname</th>
+			<th>Interface</th>
+			<th>Last Event</th>
+			<th>Event Count</th>
+			<th>Event %</th>
+			<th class="<%= current_user.admin ? "admin-sensor-actions" : "sensor-actions" %>"></th>
+		</tr>
+		<tbody class='sensors'>
+			<%= render @sensors %>
+		</tbody>
+	</table>
+
+
+	<%= pager(@sensors, request.fullpath) %>
+	
+</div>

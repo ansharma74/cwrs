@@ -1,0 +1,36 @@
+<tp:spec
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+
+  <tp:title>D-Bus Properties</tp:title>
+
+  <node name="/DBus_Properties">
+    <interface name="org.freedesktop.DBus.Properties">
+
+      <method name="Get" tp:name-for-bindings="Get">
+        <arg direction="in" type="s" name="Interface_Name"/>
+        <arg direction="in" type="s" name="Property_Name"/>
+        <arg direction="out" type="v" name="Value"/>
+      </method>
+
+      <method name="Set" tp:name-for-bindings="Set">
+        <arg direction="in" type="s" name="Interface_Name"/>
+        <arg direction="in" type="s" name="Property_Name"/>
+        <arg direction="in" type="v" name="Value"/>
+      </method>
+
+      <method name="GetAll" tp:name-for-bindings="Get_All">
+        <arg direction="in" type="s" name="Interface_Name"/>
+        <arg direction="out" type="a{sv}" name="Properties"/>
+      </method>
+
+      <signal name="PropertiesChanged"
+              tp:name-for-bindings="Properties_Changed">
+        <arg type="s" name="Interface_Name"/>
+        <arg type="a{sv}" name="Changed_Properties"/>
+        <arg type="as" name="Invalidated_Properties"/>
+      </signal>
+
+    </interface>
+  </node>
+
+</tp:spec>

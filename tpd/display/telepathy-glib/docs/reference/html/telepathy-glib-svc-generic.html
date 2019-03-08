@@ -1,0 +1,1016 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Generic service-side interfaces</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-dbus.html" title="Service-side D-Bus interfaces">
+<link rel="prev" href="telepathy-glib-svc.html" title="The TpSvc* interfaces">
+<link rel="next" href="telepathy-glib-svc-channel.html" title="Service-side Channel base interface">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-svc.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-dbus.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-svc-channel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-svc-generic.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-svc-generic.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-svc-generic.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-svc-generic.implementations" class="shortcut">Known Implementations</a>
+                   | 
+                  <a href="#telepathy-glib-svc-generic.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-svc-generic"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-svc-generic.top_of_page"></a>Generic service-side interfaces</span></h2>
+<p>Generic service-side interfaces — GInterfaces for D-Bus objects exporting Telepathy
+ properties and common D-Bus core interfaces</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-svc-generic.synopsis"></a><h2>Synopsis</h2>
+<a name="TpSvcDBusIntrospectable"></a><a name="TpSvcDBusProperties"></a><a name="TpSvcPropertiesInterface"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib-dbus.h&gt;
+
+                    <a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusIntrospectable-struct" title="TpSvcDBusIntrospectable">TpSvcDBusIntrospectable</a>;
+                    <a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusIntrospectableClass" title="TpSvcDBusIntrospectableClass">TpSvcDBusIntrospectableClass</a>;
+                    <a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties-struct" title="TpSvcDBusProperties">TpSvcDBusProperties</a>;
+                    <a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusPropertiesClass" title="TpSvcDBusPropertiesClass">TpSvcDBusPropertiesClass</a>;
+                    <a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterface-struct" title="TpSvcPropertiesInterface">TpSvcPropertiesInterface</a>;
+                    <a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterfaceClass" title="TpSvcPropertiesInterfaceClass">TpSvcPropertiesInterfaceClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-introspectable-implement-introspect" title="tp_svc_dbus_introspectable_implement_introspect ()">tp_svc_dbus_introspectable_implement_introspect</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusIntrospectableClass" title="TpSvcDBusIntrospectableClass"><span class="type">TpSvcDBusIntrospectableClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-introspectable-introspect-impl" title="tp_svc_dbus_introspectable_introspect_impl ()"><span class="type">tp_svc_dbus_introspectable_introspect_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-introspectable-introspect-impl" title="tp_svc_dbus_introspectable_introspect_impl ()">*tp_svc_dbus_introspectable_introspect_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusIntrospectable"><span class="type">TpSvcDBusIntrospectable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-introspectable-return-from-introspect" title="tp_svc_dbus_introspectable_return_from_introspect ()">tp_svc_dbus_introspectable_return_from_introspect</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *out_XML_Data</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-get-all-impl" title="tp_svc_dbus_properties_get_all_impl ()">*tp_svc_dbus_properties_get_all_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties"><span class="type">TpSvcDBusProperties</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Interface_Name</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-get-impl" title="tp_svc_dbus_properties_get_impl ()">*tp_svc_dbus_properties_get_impl</a>)  (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties"><span class="type">TpSvcDBusProperties</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Interface_Name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Property_Name</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-implement-get" title="tp_svc_dbus_properties_implement_get ()">tp_svc_dbus_properties_implement_get</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusPropertiesClass" title="TpSvcDBusPropertiesClass"><span class="type">TpSvcDBusPropertiesClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-get-impl" title="tp_svc_dbus_properties_get_impl ()"><span class="type">tp_svc_dbus_properties_get_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-implement-get-all" title="tp_svc_dbus_properties_implement_get_all ()">tp_svc_dbus_properties_implement_get_all</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusPropertiesClass" title="TpSvcDBusPropertiesClass"><span class="type">TpSvcDBusPropertiesClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-get-all-impl" title="tp_svc_dbus_properties_get_all_impl ()"><span class="type">tp_svc_dbus_properties_get_all_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-implement-set" title="tp_svc_dbus_properties_implement_set ()">tp_svc_dbus_properties_implement_set</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusPropertiesClass" title="TpSvcDBusPropertiesClass"><span class="type">TpSvcDBusPropertiesClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-set-impl" title="tp_svc_dbus_properties_set_impl ()"><span class="type">tp_svc_dbus_properties_set_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-return-from-get" title="tp_svc_dbus_properties_return_from_get ()">tp_svc_dbus_properties_return_from_get</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *out_Value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-return-from-get-all" title="tp_svc_dbus_properties_return_from_get_all ()">tp_svc_dbus_properties_return_from_get_all</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *out_Properties</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-return-from-set" title="tp_svc_dbus_properties_return_from_set ()">tp_svc_dbus_properties_return_from_set</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-set-impl" title="tp_svc_dbus_properties_set_impl ()">*tp_svc_dbus_properties_set_impl</a>)  (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties"><span class="type">TpSvcDBusProperties</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Interface_Name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Property_Name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *in_Value</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-emit-properties-changed" title="tp_svc_dbus_properties_emit_properties_changed ()">tp_svc_dbus_properties_emit_properties_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Interface_Name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Changed_Properties</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **arg_Invalidated_Properties</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-get-properties-impl" title="tp_svc_properties_interface_get_properties_impl ()">*tp_svc_properties_interface_get_properties_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterface"><span class="type">TpSvcPropertiesInterface</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-return-from-get-properties" title="tp_svc_properties_interface_return_from_get_properties ()">tp_svc_properties_interface_return_from_get_properties</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Values</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-implement-get-properties" title="tp_svc_properties_interface_implement_get_properties ()">tp_svc_properties_interface_implement_get_properties</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterfaceClass" title="TpSvcPropertiesInterfaceClass"><span class="type">TpSvcPropertiesInterfaceClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-get-properties-impl" title="tp_svc_properties_interface_get_properties_impl ()"><span class="type">tp_svc_properties_interface_get_properties_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-list-properties-impl" title="tp_svc_properties_interface_list_properties_impl ()">*tp_svc_properties_interface_list_properties_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterface"><span class="type">TpSvcPropertiesInterface</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-return-from-list-properties" title="tp_svc_properties_interface_return_from_list_properties ()">tp_svc_properties_interface_return_from_list_properties</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Available_Properties</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-implement-list-properties" title="tp_svc_properties_interface_implement_list_properties ()">tp_svc_properties_interface_implement_list_properties</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterfaceClass" title="TpSvcPropertiesInterfaceClass"><span class="type">TpSvcPropertiesInterfaceClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-list-properties-impl" title="tp_svc_properties_interface_list_properties_impl ()"><span class="type">tp_svc_properties_interface_list_properties_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-set-properties-impl" title="tp_svc_properties_interface_set_properties_impl ()">*tp_svc_properties_interface_set_properties_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterface"><span class="type">TpSvcPropertiesInterface</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-return-from-set-properties" title="tp_svc_properties_interface_return_from_set_properties ()">tp_svc_properties_interface_return_from_set_properties</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-implement-set-properties" title="tp_svc_properties_interface_implement_set_properties ()">tp_svc_properties_interface_implement_set_properties</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterfaceClass" title="TpSvcPropertiesInterfaceClass"><span class="type">TpSvcPropertiesInterfaceClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-set-properties-impl" title="tp_svc_properties_interface_set_properties_impl ()"><span class="type">tp_svc_properties_interface_set_properties_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-emit-properties-changed" title="tp_svc_properties_interface_emit_properties_changed ()">tp_svc_properties_interface_emit_properties_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Properties</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-emit-property-flags-changed" title="tp_svc_properties_interface_emit_property_flags_changed ()">tp_svc_properties_interface_emit_property_flags_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Properties</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-generic.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcDBusIntrospectable
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcDBusProperties
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcPropertiesInterface
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-generic.implementations"></a><h2>Known Implementations</h2>
+<p>
+TpSvcDBusProperties is implemented by
+ <a class="link" href="TpBaseCallChannel.html" title="TpBaseCallChannel">TpBaseCallChannel</a>,  <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent">TpBaseCallContent</a>,  <a class="link" href="TpBaseCallStream.html" title="TpBaseCallStream">TpBaseCallStream</a>,  <a class="link" href="TpBaseChannel.html" title="TpBaseChannel">TpBaseChannel</a>,  <a class="link" href="telepathy-glib-base-client.html#TpBaseClient">TpBaseClient</a>,  <a class="link" href="TpBaseConnection.html" title="TpBaseConnection">TpBaseConnection</a>,  <a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager">TpBaseConnectionManager</a>,  <a class="link" href="TpBaseMediaCallChannel.html" title="TpBaseMediaCallChannel">TpBaseMediaCallChannel</a>,  <a class="link" href="TpBaseMediaCallContent.html" title="TpBaseMediaCallContent">TpBaseMediaCallContent</a>,  <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream">TpBaseMediaCallStream</a>,  <a class="link" href="telepathy-glib-base-password-channel.html#TpBasePasswordChannel">TpBasePasswordChannel</a>,  <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol">TpBaseProtocol</a>,  <a class="link" href="TpCallContentMediaDescription.html" title="TpCallContentMediaDescription">TpCallContentMediaDescription</a>,  <a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint">TpCallStreamEndpoint</a>,  <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender">TpDebugSender</a>,  <a class="link" href="telepathy-glib-simple-approver.html#TpSimpleApprover">TpSimpleApprover</a>,  <a class="link" href="telepathy-glib-simple-handler.html#TpSimpleHandler">TpSimpleHandler</a> and  <a class="link" href="telepathy-glib-simple-observer.html#TpSimpleObserver">TpSimpleObserver</a>.</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-generic.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties-properties-changed" title='The "properties-changed" signal'>properties-changed</a>"                             : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterface-properties-changed" title='The "properties-changed" signal'>properties-changed</a>"                             : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterface-property-flags-changed" title='The "property-flags-changed" signal'>property-flags-changed</a>"                         : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-generic.description"></a><h2>Description</h2>
+<p>
+The D-Bus Properties interface associates named properties with any D-Bus
+object.
+</p>
+<p>
+The D-Bus Introspectable interface provides introspection information.
+</p>
+<p>
+The D-Bus Peer interface is exported by every D-Bus object.
+</p>
+<p>
+The Telepathy Properties interface associates a number of named properties
+with a channel, connection or other D-Bus object. Signals are emitted
+when the properties or their flags (readable/writable) change.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-generic.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpSvcDBusIntrospectable-struct"></a><h3>TpSvcDBusIntrospectable</h3>
+<pre class="programlisting">typedef struct _TpSvcDBusIntrospectable TpSvcDBusIntrospectable;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcDBusIntrospectableClass"></a><h3>TpSvcDBusIntrospectableClass</h3>
+<pre class="programlisting">typedef struct _TpSvcDBusIntrospectableClass TpSvcDBusIntrospectableClass;</pre>
+<p>
+The class of TpSvcDBusIntrospectable.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_dbus_introspectable (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_dbus_introspectable_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (introspect);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcDBusProperties-struct"></a><h3>TpSvcDBusProperties</h3>
+<pre class="programlisting">typedef struct _TpSvcDBusProperties TpSvcDBusProperties;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcDBusPropertiesClass"></a><h3>TpSvcDBusPropertiesClass</h3>
+<pre class="programlisting">typedef struct _TpSvcDBusPropertiesClass TpSvcDBusPropertiesClass;</pre>
+<p>
+The class of TpSvcDBusProperties.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_dbus_properties (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_dbus_properties_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (get);
+  IMPLEMENT (set);
+  IMPLEMENT (get_all);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcPropertiesInterface-struct"></a><h3>TpSvcPropertiesInterface</h3>
+<pre class="programlisting">typedef struct _TpSvcPropertiesInterface TpSvcPropertiesInterface;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcPropertiesInterfaceClass"></a><h3>TpSvcPropertiesInterfaceClass</h3>
+<pre class="programlisting">typedef struct _TpSvcPropertiesInterfaceClass TpSvcPropertiesInterfaceClass;</pre>
+<p>
+The class of TpSvcPropertiesInterface.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_properties_interface (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_properties_interface_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (get_properties);
+  IMPLEMENT (list_properties);
+  IMPLEMENT (set_properties);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-dbus-introspectable-implement-introspect"></a><h3>tp_svc_dbus_introspectable_implement_introspect ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_dbus_introspectable_implement_introspect
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusIntrospectableClass" title="TpSvcDBusIntrospectableClass"><span class="type">TpSvcDBusIntrospectableClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-introspectable-introspect-impl" title="tp_svc_dbus_introspectable_introspect_impl ()"><span class="type">tp_svc_dbus_introspectable_introspect_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the Introspect method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the Introspect D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-dbus-introspectable-introspect-impl"></a><h3>tp_svc_dbus_introspectable_introspect_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_dbus_introspectable_introspect_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusIntrospectable"><span class="type">TpSvcDBusIntrospectable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+Introspect on interface org.freedesktop.DBus.Introspectable.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-dbus-introspectable-return-from-introspect"></a><h3>tp_svc_dbus_introspectable_return_from_introspect ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_dbus_introspectable_return_from_introspect
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *out_XML_Data</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_XML_Data</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-dbus-properties-get-all-impl"></a><h3>tp_svc_dbus_properties_get_all_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_dbus_properties_get_all_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties"><span class="type">TpSvcDBusProperties</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Interface_Name</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetAll on interface org.freedesktop.DBus.Properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Interface_Name</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-dbus-properties-get-impl"></a><h3>tp_svc_dbus_properties_get_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_dbus_properties_get_impl)  (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties"><span class="type">TpSvcDBusProperties</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Interface_Name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Property_Name</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+Get on interface org.freedesktop.DBus.Properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Interface_Name</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Property_Name</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-dbus-properties-implement-get"></a><h3>tp_svc_dbus_properties_implement_get ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_dbus_properties_implement_get
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusPropertiesClass" title="TpSvcDBusPropertiesClass"><span class="type">TpSvcDBusPropertiesClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-get-impl" title="tp_svc_dbus_properties_get_impl ()"><span class="type">tp_svc_dbus_properties_get_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the Get method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the Get D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-dbus-properties-implement-get-all"></a><h3>tp_svc_dbus_properties_implement_get_all ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_dbus_properties_implement_get_all
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusPropertiesClass" title="TpSvcDBusPropertiesClass"><span class="type">TpSvcDBusPropertiesClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-get-all-impl" title="tp_svc_dbus_properties_get_all_impl ()"><span class="type">tp_svc_dbus_properties_get_all_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetAll method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetAll D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-dbus-properties-implement-set"></a><h3>tp_svc_dbus_properties_implement_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_dbus_properties_implement_set
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusPropertiesClass" title="TpSvcDBusPropertiesClass"><span class="type">TpSvcDBusPropertiesClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#tp-svc-dbus-properties-set-impl" title="tp_svc_dbus_properties_set_impl ()"><span class="type">tp_svc_dbus_properties_set_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the Set method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the Set D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-dbus-properties-return-from-get"></a><h3>tp_svc_dbus_properties_return_from_get ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_dbus_properties_return_from_get
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *out_Value</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Value</code></em> :</span></p></td>
+<td>const GValue * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-dbus-properties-return-from-get-all"></a><h3>tp_svc_dbus_properties_return_from_get_all ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_dbus_properties_return_from_get_all
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *out_Properties</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Properties</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-dbus-properties-return-from-set"></a><h3>tp_svc_dbus_properties_return_from_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_dbus_properties_return_from_set
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-dbus-properties-set-impl"></a><h3>tp_svc_dbus_properties_set_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_dbus_properties_set_impl)  (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties"><span class="type">TpSvcDBusProperties</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Interface_Name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Property_Name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *in_Value</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+Set on interface org.freedesktop.DBus.Properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Interface_Name</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Property_Name</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Value</code></em> :</span></p></td>
+<td>const GValue * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-dbus-properties-emit-properties-changed"></a><h3>tp_svc_dbus_properties_emit_properties_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_dbus_properties_emit_properties_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Interface_Name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Changed_Properties</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **arg_Invalidated_Properties</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+PropertiesChanged signal on interface org.freedesktop.DBus.Properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Interface_Name</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Changed_Properties</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Invalidated_Properties</code></em> :</span></p></td>
+<td>const gchar ** (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-properties-interface-get-properties-impl"></a><h3>tp_svc_properties_interface_get_properties_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_properties_interface_get_properties_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterface"><span class="type">TpSvcPropertiesInterface</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetProperties on interface org.freedesktop.Telepathy.Properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Properties</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-properties-interface-return-from-get-properties"></a><h3>tp_svc_properties_interface_return_from_get_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_properties_interface_return_from_get_properties
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Values</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Values</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-properties-interface-implement-get-properties"></a><h3>tp_svc_properties_interface_implement_get_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_properties_interface_implement_get_properties
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterfaceClass" title="TpSvcPropertiesInterfaceClass"><span class="type">TpSvcPropertiesInterfaceClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-get-properties-impl" title="tp_svc_properties_interface_get_properties_impl ()"><span class="type">tp_svc_properties_interface_get_properties_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetProperties method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetProperties D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-properties-interface-list-properties-impl"></a><h3>tp_svc_properties_interface_list_properties_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_properties_interface_list_properties_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterface"><span class="type">TpSvcPropertiesInterface</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+ListProperties on interface org.freedesktop.Telepathy.Properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-properties-interface-return-from-list-properties"></a><h3>tp_svc_properties_interface_return_from_list_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_properties_interface_return_from_list_properties
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Available_Properties</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Available_Properties</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-properties-interface-implement-list-properties"></a><h3>tp_svc_properties_interface_implement_list_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_properties_interface_implement_list_properties
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterfaceClass" title="TpSvcPropertiesInterfaceClass"><span class="type">TpSvcPropertiesInterfaceClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-list-properties-impl" title="tp_svc_properties_interface_list_properties_impl ()"><span class="type">tp_svc_properties_interface_list_properties_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the ListProperties method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the ListProperties D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-properties-interface-set-properties-impl"></a><h3>tp_svc_properties_interface_set_properties_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_properties_interface_set_properties_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterface"><span class="type">TpSvcPropertiesInterface</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Properties</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+SetProperties on interface org.freedesktop.Telepathy.Properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Properties</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-properties-interface-return-from-set-properties"></a><h3>tp_svc_properties_interface_return_from_set_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_properties_interface_return_from_set_properties
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-properties-interface-implement-set-properties"></a><h3>tp_svc_properties_interface_implement_set_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_properties_interface_implement_set_properties
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterfaceClass" title="TpSvcPropertiesInterfaceClass"><span class="type">TpSvcPropertiesInterfaceClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-generic.html#tp-svc-properties-interface-set-properties-impl" title="tp_svc_properties_interface_set_properties_impl ()"><span class="type">tp_svc_properties_interface_set_properties_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the SetProperties method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the SetProperties D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-properties-interface-emit-properties-changed"></a><h3>tp_svc_properties_interface_emit_properties_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_properties_interface_emit_properties_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Properties</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+PropertiesChanged signal on interface org.freedesktop.Telepathy.Properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Properties</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-properties-interface-emit-property-flags-changed"></a><h3>tp_svc_properties_interface_emit_property_flags_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_properties_interface_emit_property_flags_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Properties</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+PropertyFlagsChanged signal on interface org.freedesktop.Telepathy.Properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Properties</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-generic.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpSvcDBusProperties-properties-changed"></a><h3>The <code class="literal">"properties-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties"><span class="type">TpSvcDBusProperties</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>               *arg_Interface_Name,
+                                                        <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                arg_Invalidated_Properties,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>             user_data)                       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The PropertiesChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Interface_Name</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Changed_Properties</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Invalidated_Properties</code></em> :</span></p></td>
+<td>const gchar ** (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcPropertiesInterface-properties-changed"></a><h3>The <code class="literal">"properties-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterface"><span class="type">TpSvcPropertiesInterface</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                  user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The PropertiesChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Properties</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcPropertiesInterface-property-flags-changed"></a><h3>The <code class="literal">"property-flags-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterface"><span class="type">TpSvcPropertiesInterface</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                  user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The PropertyFlagsChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Properties</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-generic.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesMixin" title="struct TpPropertiesMixin"><span class="type">TpPropertiesMixin</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -1,0 +1,788 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Connection ContactCapabilities and Capabilities interfaces</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-client.html" title="Client-side proxies">
+<link rel="prev" href="telepathy-glib-connection-contact-list.html" title="Connection ContactList, ContactGroups and ContactBlocking interfaces">
+<link rel="next" href="telepathy-glib-connection-location.html" title="Connection Location interface">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-connection-contact-list.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-client.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-connection-location.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-connection-caps.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-connection-caps.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-connection-caps"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-connection-caps.top_of_page"></a>Connection ContactCapabilities and Capabilities interfaces</span></h2>
+<p>Connection ContactCapabilities and Capabilities interfaces — client-side wrappers for the capabilities interfaces</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-connection-caps.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib-dbus.h&gt;
+
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-contact-capabilities-callback-for-get-contact-capabilities" title="tp_cli_connection_interface_contact_capabilities_callback_for_get_contact_capabilities ()">*tp_cli_connection_interface_contact_capabilities_callback_for_get_contact_capabilities</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *out_Contact_Capabilities</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * <a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-contact-capabilities-call-get-contact-capabilities" title="tp_cli_connection_interface_contact_capabilities_call_get_contact_capabilities ()">tp_cli_connection_interface_contact_capabilities_call_get_contact_capabilities</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Handles</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-contact-capabilities-callback-for-get-contact-capabilities" title="tp_cli_connection_interface_contact_capabilities_callback_for_get_contact_capabilities ()"><span class="type">tp_cli_connection_interface_contact_capabilities_callback_for_get_contact_capabilities</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-contact-capabilities-callback-for-update-capabilities" title="tp_cli_connection_interface_contact_capabilities_callback_for_update_capabilities ()">*tp_cli_connection_interface_contact_capabilities_callback_for_update_capabilities</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * <a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-contact-capabilities-call-update-capabilities" title="tp_cli_connection_interface_contact_capabilities_call_update_capabilities ()">tp_cli_connection_interface_contact_capabilities_call_update_capabilities</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Handler_Capabilities</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-contact-capabilities-callback-for-update-capabilities" title="tp_cli_connection_interface_contact_capabilities_callback_for_update_capabilities ()"><span class="type">tp_cli_connection_interface_contact_capabilities_callback_for_update_capabilities</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-contact-capabilities-signal-callback-contact-capabilities-changed" title="tp_cli_connection_interface_contact_capabilities_signal_callback_contact_capabilities_changed ()">*tp_cli_connection_interface_contact_capabilities_signal_callback_contact_capabilities_changed</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_caps</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="returnvalue">TpProxySignalConnection</span></a> * <a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-contact-capabilities-connect-to-contact-capabilities-changed" title="tp_cli_connection_interface_contact_capabilities_connect_to_contact_capabilities_changed ()">tp_cli_connection_interface_contact_capabilities_connect_to_contact_capabilities_changed</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-contact-capabilities-signal-callback-contact-capabilities-changed" title="tp_cli_connection_interface_contact_capabilities_signal_callback_contact_capabilities_changed ()"><span class="type">tp_cli_connection_interface_contact_capabilities_signal_callback_contact_capabilities_changed</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+
+
+<a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * <a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-capabilities-call-advertise-capabilities" title="tp_cli_connection_interface_capabilities_call_advertise_capabilities ()">tp_cli_connection_interface_capabilities_call_advertise_capabilities</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Add</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **in_Remove</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-capabilities-callback-for-advertise-capabilities" title="tp_cli_connection_interface_capabilities_callback_for_advertise_capabilities ()"><span class="type">tp_cli_connection_interface_capabilities_callback_for_advertise_capabilities</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * <a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-capabilities-call-get-capabilities" title="tp_cli_connection_interface_capabilities_call_get_capabilities ()">tp_cli_connection_interface_capabilities_call_get_capabilities</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Handles</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-capabilities-callback-for-get-capabilities" title="tp_cli_connection_interface_capabilities_callback_for_get_capabilities ()"><span class="type">tp_cli_connection_interface_capabilities_callback_for_get_capabilities</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-capabilities-callback-for-advertise-capabilities" title="tp_cli_connection_interface_capabilities_callback_for_advertise_capabilities ()">*tp_cli_connection_interface_capabilities_callback_for_advertise_capabilities</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Self_Capabilities</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-capabilities-callback-for-get-capabilities" title="tp_cli_connection_interface_capabilities_callback_for_get_capabilities ()">*tp_cli_connection_interface_capabilities_callback_for_get_capabilities</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Contact_Capabilities</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+<a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="returnvalue">TpProxySignalConnection</span></a> * <a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-capabilities-connect-to-capabilities-changed" title="tp_cli_connection_interface_capabilities_connect_to_capabilities_changed ()">tp_cli_connection_interface_capabilities_connect_to_capabilities_changed</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-capabilities-signal-callback-capabilities-changed" title="tp_cli_connection_interface_capabilities_signal_callback_capabilities_changed ()"><span class="type">tp_cli_connection_interface_capabilities_signal_callback_capabilities_changed</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-capabilities-signal-callback-capabilities-changed" title="tp_cli_connection_interface_capabilities_signal_callback_capabilities_changed ()">*tp_cli_connection_interface_capabilities_signal_callback_capabilities_changed</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Caps</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-connection-caps.description"></a><h2>Description</h2>
+<p>
+Some instant messaging protocols allow discovery of the capabilities of
+a user's client. In Telepathy, this is represented by the
+ContactCapabilities interface, which lets applications advertise extra
+capabilities for the local user, and query the interfaces supported by
+their contacts.
+</p>
+<p>
+The Capabilities interface is an older API with similar functionality.
+</p>
+<p>
+This section documents the auto-generated C wrappers for the
+ContactCapabilities and Capabilities interfaces, used with
+<a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> objects.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-connection-caps.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-contact-capabilities-callback-for-get-contact-capabilities"></a><h3>tp_cli_connection_interface_contact_capabilities_callback_for_get_contact_capabilities ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_cli_connection_interface_contact_capabilities_callback_for_get_contact_capabilities)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *out_Contact_Capabilities</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Signature of the callback called when a GetContactCapabilities method call
+succeeds or fails.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the proxy on which the call was made</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Contact_Capabilities</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <em class="parameter"><code>error</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;A map from contact handles to lists of requestable channel             classes, representing the channel requests that are expected             to succeed for that contact.&lt;/p&gt;            &lt;p&gt;Contacts listed among Handles whose capabilities are unknown             SHOULD be omitted from this map; contacts known to have an empty             set of capabilities SHOULD be included in the keys of this map,             with an empty array as the corresponding value.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on success, or an error on failure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>user-supplied object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-contact-capabilities-call-get-contact-capabilities"></a><h3>tp_cli_connection_interface_contact_capabilities_call_get_contact_capabilities ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * tp_cli_connection_interface_contact_capabilities_call_get_contact_capabilities
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Handles</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-contact-capabilities-callback-for-get-contact-capabilities" title="tp_cli_connection_interface_contact_capabilities_callback_for_get_contact_capabilities ()"><span class="type">tp_cli_connection_interface_contact_capabilities_callback_for_get_contact_capabilities</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Start a GetContactCapabilities method call.
+</p>
+<p>
+&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;         &lt;p&gt;Returns an array of requestable channel classes for the given           contact handles, representing the channel requests that are           expected to succeed.&lt;/p&gt;
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout_ms</code></em> :</span></p></td>
+<td>the timeout in milliseconds, or -1 to use the
+default</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Handles</code></em> :</span></p></td>
+<td>Used to pass an 'in' argument: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;An array of contact handles for this connection.&lt;/p&gt;            &lt;p&gt;The handle zero MUST NOT be included in the request.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>called when the method call succeeds or fails;
+may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to make a "fire and forget" call with no
+reply tracking</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data passed to the callback;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>called with the user_data as argument, after the
+call has succeeded, failed or been cancelled;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> which will be
+weakly referenced; if it is destroyed, this call
+will automatically be cancelled. Must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if
+<em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="type">TpProxyPendingCall</span></a> representing the call in
+progress. It is borrowed from the object, and will become
+invalid when the callback is called, the call is
+cancelled or the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> becomes invalid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-contact-capabilities-callback-for-update-capabilities"></a><h3>tp_cli_connection_interface_contact_capabilities_callback_for_update_capabilities ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_cli_connection_interface_contact_capabilities_callback_for_update_capabilities)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Signature of the callback called when a UpdateCapabilities method call
+succeeds or fails.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the proxy on which the call was made</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on success, or an error on failure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>user-supplied object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-contact-capabilities-call-update-capabilities"></a><h3>tp_cli_connection_interface_contact_capabilities_call_update_capabilities ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * tp_cli_connection_interface_contact_capabilities_call_update_capabilities
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Handler_Capabilities</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-contact-capabilities-callback-for-update-capabilities" title="tp_cli_connection_interface_contact_capabilities_callback_for_update_capabilities ()"><span class="type">tp_cli_connection_interface_contact_capabilities_callback_for_update_capabilities</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Start a UpdateCapabilities method call.
+</p>
+<p>
+&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;         &lt;p&gt;Alter the connection's advertised capabilities to include           the intersection of the given clients' capabilities with what the           connection manager is able to implement.&lt;/p&gt;          &lt;p&gt;On connections managed by the ChannelDispatcher, processes other           than the ChannelDispatcher SHOULD NOT call this method, and the           ChannelDispatcher SHOULD use this method to advertise the           capabilities of all the registered &lt;tp:dbus-ref namespace="org.freedesktop.Telepathy"&gt;Client.Handler&lt;/tp:dbus-ref&gt;           implementations.On connections not managed by the ChannelDispatcher,           clients MAY use this method directly, to indicate the channels they           will handle and the extra capabilities they have.&lt;/p&gt;          &lt;p&gt;Upon a successful invocation of this method, the connection manager           will only emit the           &lt;tp:member-ref&gt;ContactCapabilitiesChanged&lt;/tp:member-ref&gt; signal           for the user's &lt;tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection"&gt;SelfHandle&lt;/tp:dbus-ref&gt;           if, in the underlying protocol, the new capabilities are distinct           from the previous state.&lt;/p&gt;          &lt;tp:rationale&gt;           &lt;p&gt;The connection manager will essentially intersect the provided             capabilities and the channel classes it implements. Therefore,             certain properties which are never fixed for a channel class             (such as the target handle, or the Parameters property of a tube             channel) will almost certainly not be advertised.&lt;/p&gt;         &lt;/tp:rationale&gt;          &lt;p&gt;This method MAY be called on a newly-created connection while it           is still in the DISCONNECTED state, to request that when the           connection connects, it will do so with the appropriate           capabilities. Doing so MUST NOT fail.&lt;/p&gt;
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout_ms</code></em> :</span></p></td>
+<td>the timeout in milliseconds, or -1 to use the
+default</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Handler_Capabilities</code></em> :</span></p></td>
+<td>Used to pass an 'in' argument: &lt;p&gt;The capabilities of one or more clients.&lt;/p&gt;            &lt;p&gt;For each client in the given list, any capabilities previously             advertised for the same client name are discarded, then replaced by             the capabilities indicated.&lt;/p&gt;            &lt;p&gt;As a result, if a client becomes unavailable, this method SHOULD             be called with a &lt;tp:type&gt;Handler_Capabilities&lt;/tp:type&gt; structure             containing its name, an empty list of channel classes, and an             empty list of capabilities. When this is done, the connection             manager SHOULD free all memory associated with that client name.&lt;/p&gt;            &lt;tp:rationale&gt;             &lt;p&gt;This method takes a list of clients so that               when the channel dispatcher first calls it (with a list of all               the Handlers that are initially available), the changes can be               made atomically, with only one transmission of updated               capabilities to the network. Afterwards, the channel dispatcher               will call this method with a single-element list every time               a Handler becomes available or unavailable.&lt;/p&gt;           &lt;/tp:rationale&gt;            &lt;p&gt;The connection manager MUST ignore any channel classes and client             capabilities for which there is no representation in the protocol             or no support in the connection manager.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>called when the method call succeeds or fails;
+may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to make a "fire and forget" call with no
+reply tracking</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data passed to the callback;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>called with the user_data as argument, after the
+call has succeeded, failed or been cancelled;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> which will be
+weakly referenced; if it is destroyed, this call
+will automatically be cancelled. Must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if
+<em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="type">TpProxyPendingCall</span></a> representing the call in
+progress. It is borrowed from the object, and will become
+invalid when the callback is called, the call is
+cancelled or the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> becomes invalid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-contact-capabilities-signal-callback-contact-capabilities-changed"></a><h3>tp_cli_connection_interface_contact_capabilities_signal_callback_contact_capabilities_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_cli_connection_interface_contact_capabilities_signal_callback_contact_capabilities_changed)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_caps</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Represents the signature of a callback for the signal ContactCapabilitiesChanged.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>The proxy on which <a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-contact-capabilities-connect-to-contact-capabilities-changed" title="tp_cli_connection_interface_contact_capabilities_connect_to_contact_capabilities_changed ()"><code class="function">tp_cli_connection_interface_contact_capabilities_connect_to_contact_capabilities_changed()</code></a>
+was called</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_caps</code></em> :</span></p></td>
+<td>&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           All the capabilities of the contacts</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>User-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>User-supplied weakly referenced object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-contact-capabilities-connect-to-contact-capabilities-changed"></a><h3>tp_cli_connection_interface_contact_capabilities_connect_to_contact_capabilities_changed ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="returnvalue">TpProxySignalConnection</span></a> * tp_cli_connection_interface_contact_capabilities_connect_to_contact_capabilities_changed
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-contact-capabilities-signal-callback-contact-capabilities-changed" title="tp_cli_connection_interface_contact_capabilities_signal_callback_contact_capabilities_changed ()"><span class="type">tp_cli_connection_interface_contact_capabilities_signal_callback_contact_capabilities_changed</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Connect a handler to the signal ContactCapabilitiesChanged.
+</p>
+<p>
+&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;         &lt;p&gt;Announce that there has been a change of capabilities on the           given handles. A single signal can be emitted for several         contacts.&lt;/p&gt;          &lt;tp:rationale&gt;           &lt;p&gt;The underlying protocol can get several contacts' capabilities at             the same time.&lt;/p&gt;         &lt;/tp:rationale&gt;
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> or subclass</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>Callback to be called when the signal is
+received</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>User-supplied data for the callback</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>Destructor for the user-supplied data, which
+will be called when this signal is disconnected, or
+before this function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>A <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> which will be weakly referenced;
+if it is destroyed, this callback will automatically be
+disconnected</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, used to raise an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is
+returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="type">TpProxySignalConnection</span></a> containing all of the
+above, which can be used to disconnect the signal; or
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the proxy does not have the desired interface
+or has become invalid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-capabilities-call-advertise-capabilities"></a><h3>tp_cli_connection_interface_capabilities_call_advertise_capabilities ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * tp_cli_connection_interface_capabilities_call_advertise_capabilities
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Add</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **in_Remove</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-capabilities-callback-for-advertise-capabilities" title="tp_cli_connection_interface_capabilities_callback_for_advertise_capabilities ()"><span class="type">tp_cli_connection_interface_capabilities_callback_for_advertise_capabilities</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Start a AdvertiseCapabilities method call.
+</p>
+<p>
+&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;         &lt;p&gt;Used by user interfaces to indicate which channel types they are able         to handle on this connection. Because these may be provided by         different client processes, this method accepts channel types to add         and remove from the set already advertised on this connection. The type         of advertised capabilities (create versus invite) is protocol-dependent         and hence cannot be set by the this method. In the case of a client         adding an already advertised channel type but with new channel type         specific flags, the connection manager should simply add the new flags         to the set of advertised capabilities.&lt;/p&gt;          &lt;p&gt;Upon a successful invocation of this method, the         &lt;tp:member-ref&gt;CapabilitiesChanged&lt;/tp:member-ref&gt;         signal will be emitted for the user's own handle ( &lt;tp:dbus-ref namespace="org.freedesktop.Telepathy"&gt;Connection.GetSelfHandle&lt;/tp:dbus-ref&gt;)         by the connection manager to indicate the changes         that have been made.  This signal should also be monitored to ensure         that the set is kept accurate - for example, a client may remove         capabilities or type specific capability flags when it exits         which are still provided by another client.&lt;/p&gt;          &lt;p&gt;On connections managed by the &lt;tp:dbus-ref namespace="org.freedesktop.Telepathy"&gt;ChannelDispatcher&lt;/tp:dbus-ref&gt;,           this method SHOULD NOT be used by clients other than the           ChannelDispatcher itself.&lt;/p&gt;
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout_ms</code></em> :</span></p></td>
+<td>the timeout in milliseconds, or -1 to use the
+default</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Add</code></em> :</span></p></td>
+<td>Used to pass an 'in' argument: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           An array of structures containing:           &lt;ul&gt;             &lt;li&gt;a string channel type&lt;/li&gt;             &lt;li&gt;a bitwise OR of type specific capability flags&lt;/li&gt;           &lt;/ul&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Remove</code></em> :</span></p></td>
+<td>Used to pass an 'in' argument: An array of D-Bus interface names of channel types to remove</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>called when the method call succeeds or fails;
+may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to make a "fire and forget" call with no
+reply tracking</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data passed to the callback;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>called with the user_data as argument, after the
+call has succeeded, failed or been cancelled;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> which will be
+weakly referenced; if it is destroyed, this call
+will automatically be cancelled. Must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if
+<em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="type">TpProxyPendingCall</span></a> representing the call in
+progress. It is borrowed from the object, and will become
+invalid when the callback is called, the call is
+cancelled or the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> becomes invalid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-capabilities-call-get-capabilities"></a><h3>tp_cli_connection_interface_capabilities_call_get_capabilities ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="returnvalue">TpProxyPendingCall</span></a> * tp_cli_connection_interface_capabilities_call_get_capabilities
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> timeout_ms</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Handles</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-capabilities-callback-for-get-capabilities" title="tp_cli_connection_interface_capabilities_callback_for_get_capabilities ()"><span class="type">tp_cli_connection_interface_capabilities_callback_for_get_capabilities</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Start a GetCapabilities method call.
+</p>
+<p>
+Returns an array of capabilities for the given contact handles.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout_ms</code></em> :</span></p></td>
+<td>the timeout in milliseconds, or -1 to use the
+default</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Handles</code></em> :</span></p></td>
+<td>Used to pass an 'in' argument: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           &lt;p&gt;An array of contact handles for this connection.&lt;/p&gt;            &lt;p&gt;This may include zero, which originally meant a query for             capabilities available on the connection itself. This usage             is deprecated; clients SHOULD NOT do this, and connection managers             SHOULD proceed as though zero had not been present in this             list.&lt;/p&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>called when the method call succeeds or fails;
+may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to make a "fire and forget" call with no
+reply tracking</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data passed to the callback;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>called with the user_data as argument, after the
+call has succeeded, failed or been cancelled;
+must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> which will be
+weakly referenced; if it is destroyed, this call
+will automatically be cancelled. Must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if
+<em class="parameter"><code>callback</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-proxy.html#TpProxyPendingCall" title="TpProxyPendingCall"><span class="type">TpProxyPendingCall</span></a> representing the call in
+progress. It is borrowed from the object, and will become
+invalid when the callback is called, the call is
+cancelled or the <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> becomes invalid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-capabilities-callback-for-advertise-capabilities"></a><h3>tp_cli_connection_interface_capabilities_callback_for_advertise_capabilities ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_cli_connection_interface_capabilities_callback_for_advertise_capabilities)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Self_Capabilities</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Signature of the callback called when a AdvertiseCapabilities method call
+succeeds or fails.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the proxy on which the call was made</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Self_Capabilities</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <em class="parameter"><code>error</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>: An array of structures describing the current capabilities containing:           &lt;ul&gt;             &lt;li&gt;a string channel type&lt;/li&gt;             &lt;li&gt;a bitwise OR of type specific capability flags&lt;/li&gt;           &lt;/ul&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on success, or an error on failure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>user-supplied object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-capabilities-callback-for-get-capabilities"></a><h3>tp_cli_connection_interface_capabilities_callback_for_get_capabilities ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_cli_connection_interface_capabilities_callback_for_get_capabilities)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Contact_Capabilities</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Signature of the callback called when a GetCapabilities method call
+succeeds or fails.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>the proxy on which the call was made</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Contact_Capabilities</code></em> :</span></p></td>
+<td>Used to return an 'out' argument if <em class="parameter"><code>error</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>: &lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           An array of structures containing:           &lt;ul&gt;             &lt;li&gt;an integer handle representing the contact&lt;/li&gt;             &lt;li&gt;a string channel type&lt;/li&gt;             &lt;li&gt;a bitwise OR of generic capability flags for the type&lt;/li&gt;             &lt;li&gt;a bitwise OR of type specific capability flags for the type&lt;/li&gt;           &lt;/ul&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on success, or an error on failure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>user-supplied object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-capabilities-connect-to-capabilities-changed"></a><h3>tp_cli_connection_interface_capabilities_connect_to_capabilities_changed ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="returnvalue">TpProxySignalConnection</span></a> * tp_cli_connection_interface_capabilities_connect_to_capabilities_changed
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-capabilities-signal-callback-capabilities-changed" title="tp_cli_connection_interface_capabilities_signal_callback_capabilities_changed ()"><span class="type">tp_cli_connection_interface_capabilities_signal_callback_capabilities_changed</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Connect a handler to the signal CapabilitiesChanged.
+</p>
+<p>
+&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;         &lt;p&gt;Announce that there has been a change of capabilities on the           given handle.&lt;/p&gt;          &lt;p&gt;If the handle is zero, the capabilities refer to the connection           itself, in some poorly defined way. This usage is deprecated and           clients should ignore it.&lt;/p&gt;
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> or subclass</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>Callback to be called when the signal is
+received</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>User-supplied data for the callback</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>Destructor for the user-supplied data, which
+will be called when this signal is disconnected, or
+before this function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>A <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> which will be weakly referenced;
+if it is destroyed, this callback will automatically be
+disconnected</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, used to raise an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is
+returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-proxy.html#TpProxySignalConnection" title="TpProxySignalConnection"><span class="type">TpProxySignalConnection</span></a> containing all of the
+above, which can be used to disconnect the signal; or
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the proxy does not have the desired interface
+or has become invalid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cli-connection-interface-capabilities-signal-callback-capabilities-changed"></a><h3>tp_cli_connection_interface_capabilities_signal_callback_capabilities_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_cli_connection_interface_capabilities_signal_callback_capabilities_changed)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *proxy</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Caps</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *weak_object</code></em>);</pre>
+<p>
+Represents the signature of a callback for the signal CapabilitiesChanged.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proxy</code></em> :</span></p></td>
+<td>The proxy on which <a class="link" href="telepathy-glib-connection-caps.html#tp-cli-connection-interface-capabilities-connect-to-capabilities-changed" title="tp_cli_connection_interface_capabilities_connect_to_capabilities_changed ()"><code class="function">tp_cli_connection_interface_capabilities_connect_to_capabilities_changed()</code></a>
+was called</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Caps</code></em> :</span></p></td>
+<td>&lt;tp:docstring xmlns="http://www.w3.org/1999/xhtml"&gt;           An array of structures containing:           &lt;ul&gt;             &lt;li&gt;an integer handle representing the contact&lt;/li&gt;             &lt;li&gt;a string channel type&lt;/li&gt;             &lt;li&gt;a bitwise OR of the contact's old generic capability flags&lt;/li&gt;             &lt;li&gt;a bitwise OR of the contact's new generic capability flags&lt;/li&gt;             &lt;li&gt;a bitwise OR of the contact's old type specific capability flags&lt;/li&gt;             &lt;li&gt;a bitwise OR of the contact's new type specific capability flags&lt;/li&gt;           &lt;/ul&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>User-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weak_object</code></em> :</span></p></td>
+<td>User-supplied weakly referenced object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-connection-caps.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -1,0 +1,1309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpMessage</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="telepathy-glib-TpMessageMixin.html" title="TpMessageMixin">
+<link rel="next" href="TpCMMessage.html" title="TpCMMessage">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-TpMessageMixin.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="TpCMMessage.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#TpMessage.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#TpMessage.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#TpMessage.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="TpMessage"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="TpMessage.top_of_page"></a>TpMessage</span></h2>
+<p>TpMessage — a message in the Telepathy message interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="TpMessage.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+                    <a class="link" href="TpMessage.html#TpMessage-struct" title="TpMessage">TpMessage</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()">tp_message_count_parts</a>              (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-GVariant.html#GVariant"><span class="returnvalue">GVariant</span></a> *          <a class="link" href="TpMessage.html#tp-message-dup-part" title="tp_message_dup_part ()">tp_message_dup_part</a>                 (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *  <a class="link" href="TpMessage.html#tp-message-peek" title="tp_message_peek ()">tp_message_peek</a>                     (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="TpMessage.html#tp-message-to-text" title="tp_message_to_text ()">tp_message_to_text</a>                  (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelTextMessageFlags" title="enum TpChannelTextMessageFlags"><span class="type">TpChannelTextMessageFlags</span></a> *out_flags</code></em>);
+<a class="link" href="telepathy-glib-enums.html#TpChannelTextMessageType" title="enum TpChannelTextMessageType"><span class="returnvalue">TpChannelTextMessageType</span></a> <a class="link" href="TpMessage.html#tp-message-get-message-type" title="tp_message_get_message_type ()">tp_message_get_message_type</a>    (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);
+<span class="returnvalue">gint64</span>              <a class="link" href="TpMessage.html#tp-message-get-received-timestamp" title="tp_message_get_received_timestamp ()">tp_message_get_received_timestamp</a>   (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);
+<span class="returnvalue">gint64</span>              <a class="link" href="TpMessage.html#tp-message-get-sent-timestamp" title="tp_message_get_sent_timestamp ()">tp_message_get_sent_timestamp</a>       (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="TpMessage.html#tp-message-get-specific-to-interface" title="tp_message_get_specific_to_interface ()">tp_message_get_specific_to_interface</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="TpMessage.html#tp-message-get-supersedes" title="tp_message_get_supersedes ()">tp_message_get_supersedes</a>           (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="TpMessage.html#tp-message-get-token" title="tp_message_get_token ()">tp_message_get_token</a>                (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpMessage.html#tp-message-is-delivery-report" title="tp_message_is_delivery_report ()">tp_message_is_delivery_report</a>       (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpMessage.html#tp-message-is-rescued" title="tp_message_is_rescued ()">tp_message_is_rescued</a>               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpMessage.html#tp-message-is-scrollback" title="tp_message_is_scrollback ()">tp_message_is_scrollback</a>            (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);
+<span class="returnvalue">guint32</span>             <a class="link" href="TpMessage.html#tp-message-get-pending-message-id" title="tp_message_get_pending_message_id ()">tp_message_get_pending_message_id</a>   (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *valid</code></em>);
+
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpMessage.html#tp-message-is-mutable" title="tp_message_is_mutable ()">tp_message_is_mutable</a>               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="TpMessage.html#tp-message-append-part" title="tp_message_append_part ()">tp_message_append_part</a>              (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpMessage.html#tp-message-delete-key" title="tp_message_delete_key ()">tp_message_delete_key</a>               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpMessage.html#tp-message-delete-part" title="tp_message_delete_part ()">tp_message_delete_part</a>              (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpMessage.html#tp-message-set" title="tp_message_set ()">tp_message_set</a>                      (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *source</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpMessage.html#tp-message-set-variant" title="tp_message_set_variant ()">tp_message_set_variant</a>              (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-GVariant.html#GVariant"><span class="type">GVariant</span></a> *value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpMessage.html#tp-message-set-boolean" title="tp_message_set_boolean ()">tp_message_set_boolean</a>              (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> b</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpMessage.html#tp-message-set-bytes" title="tp_message_set_bytes ()">tp_message_set_bytes</a>                (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> len</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> bytes</code></em>);
+#define             <a class="link" href="TpMessage.html#tp-message-set-int16" title="tp_message_set_int16()">tp_message_set_int16</a>                (s,
+                                                         p,
+                                                         k,
+                                                         i)
+<span class="returnvalue">void</span>                <a class="link" href="TpMessage.html#tp-message-set-int32" title="tp_message_set_int32 ()">tp_message_set_int32</a>                (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint32</span> i</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpMessage.html#tp-message-set-int64" title="tp_message_set_int64 ()">tp_message_set_int64</a>                (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint64</span> i</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpMessage.html#tp-message-set-string" title="tp_message_set_string ()">tp_message_set_string</a>               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *s</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpMessage.html#tp-message-set-string-printf" title="tp_message_set_string_printf ()">tp_message_set_string_printf</a>        (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+#define             <a class="link" href="TpMessage.html#tp-message-set-uint16" title="tp_message_set_uint16()">tp_message_set_uint16</a>               (s,
+                                                         p,
+                                                         k,
+                                                         u)
+<span class="returnvalue">void</span>                <a class="link" href="TpMessage.html#tp-message-set-uint32" title="tp_message_set_uint32 ()">tp_message_set_uint32</a>               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> u</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpMessage.html#tp-message-set-uint64" title="tp_message_set_uint64 ()">tp_message_set_uint64</a>               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> u</code></em>);
+
+<a class="link" href="TpMessage.html" title="TpMessage"><span class="returnvalue">TpMessage</span></a> *         <a class="link" href="TpMessage.html#tp-message-new" title="tp_message_new ()">tp_message_new</a>                      (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> initial_parts</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size_hint</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpMessage.html#tp-message-destroy" title="tp_message_destroy ()">tp_message_destroy</a>                  (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpMessage.html#tp-message-ref-handle" title="tp_message_ref_handle ()">tp_message_ref_handle</a>               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> handle_type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpMessage.html#tp-message-set-handle" title="tp_message_set_handle ()">tp_message_set_handle</a>               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> handle_type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle_or_0</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpMessage.html#tp-message-take-message" title="tp_message_take_message ()">tp_message_take_message</a>             (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpMessage.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----TpMessage
+         +----<a class="link" href="TpClientMessage.html" title="TpClientMessage">TpClientMessage</a>
+         +----<a class="link" href="TpCMMessage.html" title="TpCMMessage">TpCMMessage</a>
+         +----<a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage">TpSignalledMessage</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpMessage.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> represent a message send or received using the Message
+interface.
+</p>
+</div>
+<div class="refsect1">
+<a name="TpMessage.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpMessage-struct"></a><h3>TpMessage</h3>
+<pre class="programlisting">typedef struct _TpMessage TpMessage;</pre>
+<p>
+Opaque structure representing a message in the Telepathy messages interface
+(an array of at least one mapping from string to variant, where the first
+mapping contains message headers and subsequent mappings contain the
+message body).
+</p>
+<p>
+This base class provides convenience API for most of the common keys that
+can appear in the header. One notable exception is the sender of the
+message. Inside a connection manager, messages are represented by the
+<a class="link" href="TpCMMessage.html" title="TpCMMessage"><span class="type">TpCMMessage</span></a> subclass, and you should use <a class="link" href="TpCMMessage.html#tp-cm-message-get-sender" title="tp_cm_message_get_sender ()"><code class="function">tp_cm_message_get_sender()</code></a>.
+When composing a message in a client using <a class="link" href="TpClientMessage.html" title="TpClientMessage"><span class="type">TpClientMessage</span></a>, messages do
+not have an explicit sender (the sender is automatically the local user).
+When a client sees a sent or received message signalled by the connection
+manager (represented by <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a>), the message's sender (if any)
+can be accessed with <a class="link" href="TpSignalledMessage.html#tp-signalled-message-get-sender" title="tp_signalled_message_get_sender ()"><code class="function">tp_signalled_message_get_sender()</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-count-parts"></a><h3>tp_message_count_parts ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               tp_message_count_parts              (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the number of parts in the message, including the headers in
+part 0</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-dup-part"></a><h3>tp_message_dup_part ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-GVariant.html#GVariant"><span class="returnvalue">GVariant</span></a> *          tp_message_dup_part                 (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the current contents of the given part, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the part number is
+out of range. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-peek"></a><h3>tp_message_peek ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *  tp_message_peek                     (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> used to implement the given part, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the
+part number is out of range. The hash table is only valid as long as the
+message is valid and the part is not deleted. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-to-text"></a><h3>tp_message_to_text ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             tp_message_to_text                  (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelTextMessageFlags" title="enum TpChannelTextMessageFlags"><span class="type">TpChannelTextMessageFlags</span></a> *out_flags</code></em>);</pre>
+<p>
+Concatene all the text parts contained in <em class="parameter"><code>message</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>a <a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_flags</code></em> :</span></p></td>
+<td>(out) : if not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, the <a class="link" href="telepathy-glib-enums.html#TpChannelTextMessageFlags" title="enum TpChannelTextMessageFlags"><span class="type">TpChannelTextMessageFlags</span></a> of <em class="parameter"><code>message</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly allocated string containing the
+text content of <span class="type">message</span>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-get-message-type"></a><h3>tp_message_get_message_type ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-enums.html#TpChannelTextMessageType" title="enum TpChannelTextMessageType"><span class="returnvalue">TpChannelTextMessageType</span></a> tp_message_get_message_type    (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the type of this message</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-get-received-timestamp"></a><h3>tp_message_get_received_timestamp ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint64</span>              tp_message_get_received_timestamp   (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);</pre>
+<p>
+Return when this message was received locally, as a number of seconds since
+the beginning of 1970 in the UTC timezone (the same representation used by
+<a href="http://library.gnome.org/devel/glib/unstable/glib-GDateTime.html#g-date-time-new-from-unix-utc"><code class="function">g_date_time_new_from_unix_utc()</code></a>, for instance), or 0 if not known.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a Unix timestamp, or 0</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-get-sent-timestamp"></a><h3>tp_message_get_sent_timestamp ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint64</span>              tp_message_get_sent_timestamp       (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);</pre>
+<p>
+Return when this message was sent, as a number of seconds since the
+beginning of 1970 in the UTC timezone (the same representation used by
+<a href="http://library.gnome.org/devel/glib/unstable/glib-GDateTime.html#g-date-time-new-from-unix-utc"><code class="function">g_date_time_new_from_unix_utc()</code></a>, for instance), or 0 if not known.
+</p>
+<p>
+If this protocol does not track the time at which the message was
+initially sent, this timestamp might be approximated by using the
+time at which it arrived at a central server.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a Unix timestamp, or 0</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-get-specific-to-interface"></a><h3>tp_message_get_specific_to_interface ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_message_get_specific_to_interface
+                                                        (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);</pre>
+<p>
+If this message is specific to a particular D-Bus interface and should
+be ignored by clients without knowledge of that interface, return the
+name of the interface.
+</p>
+<p>
+If this message is an ordinary message or delivery report, return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a D-Bus interface name, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> for ordinary
+messages and delivery reports. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-get-supersedes"></a><h3>tp_message_get_supersedes ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_message_get_supersedes           (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);</pre>
+<p>
+If this message replaces a previous message, return the value of
+<a class="link" href="TpMessage.html#tp-message-get-token" title="tp_message_get_token ()"><code class="function">tp_message_get_token()</code></a> for that previous message. Otherwise, return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p>
+For instance, a user interface could replace the superseded
+message with this message, or grey out the superseded message.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a non-empty opaque identifier, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if none. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-get-token"></a><h3>tp_message_get_token ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_message_get_token                (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);</pre>
+<p>
+Return this message's identifier in the underlying protocol. This is
+<span class="emphasis"><em>not</em></span> guaranteed to be unique, even within the scope
+of a single channel or contact: the only guarantee made is that two
+messages with different non-empty tokens are different messages.
+</p>
+<p>
+If there is no suitable token, return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a non-empty opaque identifier, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if none. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-is-delivery-report"></a><h3>tp_message_is_delivery_report ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_message_is_delivery_report       (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);</pre>
+<p>
+If this message is a delivery report indicating success or failure of
+delivering a message, return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if this is a delivery report</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-is-rescued"></a><h3>tp_message_is_rescued ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_message_is_rescued               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);</pre>
+<p>
+Returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if this incoming message has been seen in a previous channel
+during the lifetime of the Connection, but had not been acknowledged when
+that channel closed, causing an identical channel (in which the message now
+appears) to open.
+</p>
+<p>
+Loggers should check this flag to avoid duplicating messages, for instance.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if this message was seen in a previous Channel on this
+Connection</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-is-scrollback"></a><h3>tp_message_is_scrollback ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_message_is_scrollback            (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if this message is part of a replay of message history, for
+instance in an XMPP chatroom.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-get-pending-message-id"></a><h3>tp_message_get_pending_message_id ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint32</span>             tp_message_get_pending_message_id   (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *valid</code></em>);</pre>
+<p>
+Return the incoming message ID of <em class="parameter"><code>self</code></em>. Only incoming messages have such
+ID, for outgoing ones this function returns 0 and set <em class="parameter"><code>valid</code></em> to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>valid</code></em> :</span></p></td>
+<td>either <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, or a location in which to store <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>self</code></em>
+contains a pending message ID. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the incoming message ID.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-is-mutable"></a><h3>tp_message_is_mutable ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_message_is_mutable               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);</pre>
+<p>
+Check if <em class="parameter"><code>self</code></em> is mutable. Only mutable messages can be modified using
+functions such as <a class="link" href="TpMessage.html#tp-message-set-string" title="tp_message_set_string ()"><code class="function">tp_message_set_string()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the message is mutable.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-append-part"></a><h3>tp_message_append_part ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               tp_message_append_part              (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);</pre>
+<p>
+Append a body part to the message.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the part number</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-delete-key"></a><h3>tp_message_delete_key ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_message_delete_key               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+<p>
+Remove the given key and its value from the given part.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the key previously existed</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-delete-part"></a><h3>tp_message_delete_part ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_delete_part              (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>);</pre>
+<p>
+Delete the given body part from the message.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly greater than 0, and strictly
+less than the number returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-set"></a><h3>tp_message_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_set                      (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *source</code></em>);</pre>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have a copy of <em class="parameter"><code>source</code></em> as its value.
+</p>
+<p>
+If <em class="parameter"><code>source</code></em> represents a data structure containing handles, they should
+all be referenced with <a class="link" href="TpMessage.html#tp-message-ref-handle" title="tp_message_ref_handle ()"><code class="function">tp_message_ref_handle()</code></a> first.
+</p>
+<p>
+In high-level language bindings, use <a class="link" href="TpMessage.html#tp-message-set-variant" title="tp_message_set_variant ()"><code class="function">tp_message_set_variant()</code></a> instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>a value, encoded as dbus-glib would</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-set-variant"></a><h3>tp_message_set_variant ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_set_variant              (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-GVariant.html#GVariant"><span class="type">GVariant</span></a> *value</code></em>);</pre>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have <em class="parameter"><code>value</code></em> as its value.
+</p>
+<p>
+If <em class="parameter"><code>value</code></em> is a floating reference (see <a href="http://library.gnome.org/devel/glib/unstable/glib-GVariant.html#g-variant-ref-sink"><code class="function">g_variant_ref_sink()</code></a>), then this
+function will take ownership of it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-set-boolean"></a><h3>tp_message_set_boolean ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_set_boolean              (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> b</code></em>);</pre>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have <em class="parameter"><code>b</code></em> as a boolean value.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>a boolean value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-set-bytes"></a><h3>tp_message_set_bytes ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_set_bytes                (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> len</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> bytes</code></em>);</pre>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have <em class="parameter"><code>bytes</code></em> as a byte-array value.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>a number of bytes</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bytes</code></em> :</span></p></td>
+<td>an array of <em class="parameter"><code>len</code></em> bytes</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-set-int16"></a><h3>tp_message_set_int16()</h3>
+<pre class="programlisting">#define             tp_message_set_int16(s, p, k, i)</pre>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have <em class="parameter"><code>i</code></em> as a signed integer value.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>p</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>k</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>i</code></em> :</span></p></td>
+<td>an integer value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-set-int32"></a><h3>tp_message_set_int32 ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_set_int32                (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint32</span> i</code></em>);</pre>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have <em class="parameter"><code>i</code></em> as a signed integer value.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>i</code></em> :</span></p></td>
+<td>an integer value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-set-int64"></a><h3>tp_message_set_int64 ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_set_int64                (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint64</span> i</code></em>);</pre>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have <em class="parameter"><code>i</code></em> as a signed integer value.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>i</code></em> :</span></p></td>
+<td>an integer value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-set-string"></a><h3>tp_message_set_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_set_string               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *s</code></em>);</pre>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have <em class="parameter"><code>s</code></em> as a string value.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>a string value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-set-string-printf"></a><h3>tp_message_set_string_printf ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_set_string_printf        (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have a string value constructed from a
+printf-style format string.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>a printf-style format string for the string value</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>arguments for the format string</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-set-uint16"></a><h3>tp_message_set_uint16()</h3>
+<pre class="programlisting">#define             tp_message_set_uint16(s, p, k, u)</pre>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have <em class="parameter"><code>u</code></em> as an unsigned integer value.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>p</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>k</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>u</code></em> :</span></p></td>
+<td>an unsigned integer value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-set-uint32"></a><h3>tp_message_set_uint32 ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_set_uint32               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> u</code></em>);</pre>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have <em class="parameter"><code>u</code></em> as an unsigned integer value.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>u</code></em> :</span></p></td>
+<td>an unsigned integer value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-set-uint64"></a><h3>tp_message_set_uint64 ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_set_uint64               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> u</code></em>);</pre>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have <em class="parameter"><code>u</code></em> as an unsigned integer value.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>u</code></em> :</span></p></td>
+<td>an unsigned integer value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-new"></a><h3>tp_message_new ()</h3>
+<pre class="programlisting"><a class="link" href="TpMessage.html" title="TpMessage"><span class="returnvalue">TpMessage</span></a> *         tp_message_new                      (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> initial_parts</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size_hint</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_message_new</code> is deprecated and should not be used in newly-written code. since 0.13.9. Use <a class="link" href="TpCMMessage.html#tp-cm-message-new" title="tp_cm_message_new ()"><code class="function">tp_cm_message_new()</code></a></p>
+</div>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection</code></em> :</span></p></td>
+<td>a connection on which to reference handles</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>initial_parts</code></em> :</span></p></td>
+<td>number of parts to create (at least 1)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size_hint</code></em> :</span></p></td>
+<td>preallocate space for this many parts (at least <em class="parameter"><code>initial_parts</code></em>)</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly allocated message suitable to be passed to
+<a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-take-received" title="tp_message_mixin_take_received ()"><code class="function">tp_message_mixin_take_received()</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-destroy"></a><h3>tp_message_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_destroy                  (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);</pre>
+<p>
+Since 0.13.9 this function is a simple wrapper around
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-ref-handle"></a><h3>tp_message_ref_handle ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_ref_handle               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> handle_type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_message_ref_handle</code> is deprecated and should not be used in newly-written code. since 0.13.9. Handles are now immortal so there is
+no point to ref them. Furthermore, the only handle that should be stored
+in a TpMessage is message-sender which should be set using
+<a class="link" href="TpCMMessage.html#tp-cm-message-set-sender" title="tp_cm_message_set_sender ()"><code class="function">tp_cm_message_set_sender()</code></a>.</p>
+</div>
+<p>
+Reference the given handle until this message is destroyed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle_type</code></em> :</span></p></td>
+<td>a handle type, greater than <a class="link" href="telepathy-glib-enums.html#TP-HANDLE-TYPE-NONE:CAPS"><code class="literal">TP_HANDLE_TYPE_NONE</code></a> and less than
+<a class="link" href="telepathy-glib-enums.html#TP-NUM-HANDLE-TYPES:CAPS" title="TP_NUM_HANDLE_TYPES"><code class="literal">TP_NUM_HANDLE_TYPES</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td>a handle of the given type</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-set-handle"></a><h3>tp_message_set_handle ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_set_handle               (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> handle_type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle_or_0</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_message_set_handle</code> is deprecated and should not be used in newly-written code. since 0.13.9. Use <a class="link" href="TpCMMessage.html#tp-cm-message-set-sender" title="tp_cm_message_set_sender ()"><code class="function">tp_cm_message_set_sender()</code></a></p>
+</div>
+<p>
+If <em class="parameter"><code>handle_or_0</code></em> is not zero, reference it with <a class="link" href="TpMessage.html#tp-message-ref-handle" title="tp_message_ref_handle ()"><code class="function">tp_message_ref_handle()</code></a>.
+</p>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have <em class="parameter"><code>handle_or_0</code></em> as an unsigned integer
+value.
+</p>
+<p>
+Since 0.13.9 this function has been deprecated in favor or
+<a class="link" href="TpCMMessage.html#tp-cm-message-set-sender" title="tp_cm_message_set_sender ()"><code class="function">tp_cm_message_set_sender()</code></a> as 'message-sender' is the only handle
+you can put in a <a class="link" href="TpCMMessage.html" title="TpCMMessage"><span class="type">TpCMMessage</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpCMMessage.html" title="TpCMMessage"><span class="type">TpCMMessage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle_type</code></em> :</span></p></td>
+<td>a handle type</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle_or_0</code></em> :</span></p></td>
+<td>a handle of that type, or 0</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-take-message"></a><h3>tp_message_take_message ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_take_message             (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_message_take_message</code> is deprecated and should not be used in newly-written code. since 0.13.9. Use <a class="link" href="TpCMMessage.html#tp-cm-message-take-message" title="tp_cm_message_take_message ()"><code class="function">tp_cm_message_take_message()</code></a></p>
+</div>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have <em class="parameter"><code>message</code></em> as an aa{sv} value (that
+is, an array of Message_Part), and take ownership of <em class="parameter"><code>message</code></em>.  The caller
+should not use <em class="parameter"><code>message</code></em> after passing it to this function.  All handle
+references owned by <em class="parameter"><code>message</code></em> will subsequently belong to and be released
+with <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpCMMessage.html" title="TpCMMessage"><span class="type">TpCMMessage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>another (distinct) message created for the same <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpMessage.see-also"></a><h2>See Also</h2>
+<a class="link" href="TpCMMessage.html" title="TpCMMessage"><span class="type">TpCMMessage</span></a>, <a class="link" href="TpClientMessage.html" title="TpClientMessage"><span class="type">TpClientMessage</span></a>, <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

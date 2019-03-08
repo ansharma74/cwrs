@@ -1,0 +1,525 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpCallStream</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-client.html" title="Client-side proxies">
+<link rel="prev" href="telepathy-glib-call-content.html" title="TpCallContent">
+<link rel="next" href="telepathy-glib-call-misc.html" title="Misc Call APIs">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-call-content.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-client.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-call-misc.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-call-stream.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-call-stream.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-call-stream.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-call-stream.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#telepathy-glib-call-stream.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-call-stream"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-call-stream.top_of_page"></a>TpCallStream</span></h2>
+<p>TpCallStream — proxy object for a call stream</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-call-stream.synopsis"></a><h2>Synopsis</h2>
+<a name="TpCallStream"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+struct              <a class="link" href="telepathy-glib-call-stream.html#TpCallStream-struct" title="struct TpCallStream">TpCallStream</a>;
+struct              <a class="link" href="telepathy-glib-call-stream.html#TpCallStreamClass" title="struct TpCallStreamClass">TpCallStreamClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-call-stream.html#tp-call-stream-init-known-interfaces" title="tp_call_stream_init_known_interfaces ()">tp_call_stream_init_known_interfaces</a>
+                                                        (<em class="parameter"><code><span class="type">void</span></code></em>);
+#define             <a class="link" href="telepathy-glib-call-stream.html#TP-CALL-STREAM-FEATURE-CORE:CAPS" title="TP_CALL_STREAM_FEATURE_CORE">TP_CALL_STREAM_FEATURE_CORE</a>
+
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-call-stream.html#tp-call-stream-can-request-receiving" title="tp_call_stream_can_request_receiving ()">tp_call_stream_can_request_receiving</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> *self</code></em>);
+<a class="link" href="telepathy-glib-enums.html#TpSendingState" title="enum TpSendingState"><span class="returnvalue">TpSendingState</span></a>      <a class="link" href="telepathy-glib-call-stream.html#tp-call-stream-get-local-sending-state" title="tp_call_stream_get_local_sending_state ()">tp_call_stream_get_local_sending_state</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        <a class="link" href="telepathy-glib-call-stream.html#tp-call-stream-get-remote-members" title="tp_call_stream_get_remote_members ()">tp_call_stream_get_remote_members</a>   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> *self</code></em>);
+
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-call-stream.html#tp-call-stream-request-receiving-async" title="tp_call_stream_request_receiving_async ()">tp_call_stream_request_receiving_async</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> *contact</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> receive</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-call-stream.html#tp-call-stream-request-receiving-finish" title="tp_call_stream_request_receiving_finish ()">tp_call_stream_request_receiving_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-call-stream.html#tp-call-stream-set-sending-async" title="tp_call_stream_set_sending_async ()">tp_call_stream_set_sending_async</a>    (<em class="parameter"><code><a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> send</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-call-stream.html#tp-call-stream-set-sending-finish" title="tp_call_stream_set_sending_finish ()">tp_call_stream_set_sending_finish</a>   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-call-stream.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="telepathy-glib-proxy.html#TpProxy">TpProxy</a>
+         +----TpCallStream
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-call-stream.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-call-stream.html#TpCallStream--can-request-receiving" title='The "can-request-receiving" property'>can-request-receiving</a>"    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+  "<a class="link" href="telepathy-glib-call-stream.html#TpCallStream--connection" title='The "connection" property'>connection</a>"               <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>*         : Read / Write / Construct Only
+  "<a class="link" href="telepathy-glib-call-stream.html#TpCallStream--content" title='The "content" property'>content</a>"                  <a class="link" href="telepathy-glib-call-content.html#TpCallContent"><span class="type">TpCallContent</span></a>*        : Read / Write / Construct Only
+  "<a class="link" href="telepathy-glib-call-stream.html#TpCallStream--local-sending-state" title='The "local-sending-state" property'>local-sending-state</a>"      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-call-stream.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-call-stream.html#TpCallStream-local-sending-state-changed" title='The "local-sending-state-changed" signal'>local-sending-state-changed</a>"                    : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="telepathy-glib-call-stream.html#TpCallStream-remote-members-changed" title='The "remote-members-changed" signal'>remote-members-changed</a>"                         : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-call-stream.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> is a sub-class of <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> providing convenient API
+to represent <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>'s stream.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-call-stream.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpCallStream-struct"></a><h3>struct TpCallStream</h3>
+<pre class="programlisting">struct TpCallStream;</pre>
+<p>
+Data structure representing a <a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a>.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStreamClass"></a><h3>struct TpCallStreamClass</h3>
+<pre class="programlisting">struct TpCallStreamClass {
+};
+</pre>
+<p>
+The class of a <a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a>.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-stream-init-known-interfaces"></a><h3>tp_call_stream_init_known_interfaces ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_call_stream_init_known_interfaces
+                                                        (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Ensure that the known interfaces for <a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> have been set up.
+This is done automatically when necessary, but for correct
+overriding of library interfaces by local extensions, you should
+call this function before calling
+<a class="link" href="telepathy-glib-proxy-subclass.html#tp-proxy-or-subclass-hook-on-interface-add" title="tp_proxy_or_subclass_hook_on_interface_add ()"><code class="function">tp_proxy_or_subclass_hook_on_interface_add()</code></a> with first argument
+<code class="literal">TP_TYPE_CALL_STREAM</code>.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-CALL-STREAM-FEATURE-CORE:CAPS"></a><h3>TP_CALL_STREAM_FEATURE_CORE</h3>
+<pre class="programlisting">#define             TP_CALL_STREAM_FEATURE_CORE</pre>
+<p>
+Expands to a call to a function that returns a quark for the "core"
+feature on a <a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a>.
+</p>
+<p>
+One can ask for a feature to be prepared using the <a class="link" href="telepathy-glib-proxy.html#tp-proxy-prepare-async" title="tp_proxy_prepare_async ()"><code class="function">tp_proxy_prepare_async()</code></a>
+function, and waiting for it to trigger the callback.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-stream-can-request-receiving"></a><h3>tp_call_stream_can_request_receiving ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_call_stream_can_request_receiving
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="telepathy-glib-call-stream.html#TpCallStream--can-request-receiving" title='The "can-request-receiving" property'><span class="type">"can-request-receiving"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-stream-get-local-sending-state"></a><h3>tp_call_stream_get_local_sending_state ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-enums.html#TpSendingState" title="enum TpSendingState"><span class="returnvalue">TpSendingState</span></a>      tp_call_stream_get_local_sending_state
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="telepathy-glib-call-stream.html#TpCallStream--local-sending-state" title='The "local-sending-state" property'><span class="type">"local-sending-state"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-stream-get-remote-members"></a><h3>tp_call_stream_get_remote_members ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        tp_call_stream_get_remote_members   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> *self</code></em>);</pre>
+<p>
+Get the remote contacts to who this stream is connected, mapped to their
+sending state.
+</p>
+<p>
+It is NOT guaranteed that <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> objects have any feature prepared.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> mapping <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> to its new <a class="link" href="telepathy-glib-enums.html#TpSendingState" title="enum TpSendingState"><span class="type">TpSendingState</span></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Override the parsed C type with given type"><span class="acronym">type</span></acronym> GLib.HashTable][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> TelepathyGLib.Contact uint]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-stream-request-receiving-async"></a><h3>tp_call_stream_request_receiving_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_call_stream_request_receiving_async
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> *contact</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> receive</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Request that a remote contact stops or starts sending on this stream.
+</p>
+<p>
+The <a class="link" href="telepathy-glib-call-stream.html#TpCallStream--can-request-receiving" title='The "can-request-receiving" property'><span class="type">"can-request-receiving"</span></a> property defines whether the protocol
+allows the local user to request the other side start sending on this stream.
+</p>
+<p>
+If <em class="parameter"><code>receive</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, request that the given contact starts to send media.
+If <em class="parameter"><code>receive</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, request that the given contact stops sending media.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>contact</code></em> :</span></p></td>
+<td>contact from which sending is requested</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>receive</code></em> :</span></p></td>
+<td>the requested receiving state</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the operation finishes</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-stream-request-receiving-finish"></a><h3>tp_call_stream_request_receiving_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_call_stream_request_receiving_finish
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes <a class="link" href="telepathy-glib-call-stream.html#tp-call-stream-request-receiving-async" title="tp_call_stream_request_receiving_async ()"><code class="function">tp_call_stream_request_receiving_async()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-stream-set-sending-async"></a><h3>tp_call_stream_set_sending_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_call_stream_set_sending_async    (<em class="parameter"><code><a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> send</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Set the stream to start or stop sending media from the local user to other
+contacts.
+</p>
+<p>
+If <em class="parameter"><code>send</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, <a class="link" href="telepathy-glib-call-stream.html#TpCallStream--local-sending-state" title='The "local-sending-state" property'><span class="type">"local-sending-state"</span></a> should change to
+<a class="link" href="telepathy-glib-enums.html#TP-SENDING-STATE-SENDING:CAPS"><code class="literal">TP_SENDING_STATE_SENDING</code></a>, if it isn't already.
+If <em class="parameter"><code>send</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, <a class="link" href="telepathy-glib-call-stream.html#TpCallStream--local-sending-state" title='The "local-sending-state" property'><span class="type">"local-sending-state"</span></a> should change to
+<a class="link" href="telepathy-glib-enums.html#TP-SENDING-STATE-NONE:CAPS"><code class="literal">TP_SENDING_STATE_NONE</code></a>, if it isn't already.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>send</code></em> :</span></p></td>
+<td>the requested sending state</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the operation finishes</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-stream-set-sending-finish"></a><h3>tp_call_stream_set_sending_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_call_stream_set_sending_finish   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes <a class="link" href="telepathy-glib-call-stream.html#tp-call-stream-set-sending-async" title="tp_call_stream_set_sending_async ()"><code class="function">tp_call_stream_set_sending_async()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-call-stream.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpCallStream--can-request-receiving"></a><h3>The <code class="literal">"can-request-receiving"</code> property</h3>
+<pre class="programlisting">  "can-request-receiving"    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>
+If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the user can request that a remote contact starts sending on this
+stream.
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStream--connection"></a><h3>The <code class="literal">"connection"</code> property</h3>
+<pre class="programlisting">  "connection"               <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>*         : Read / Write / Construct Only</pre>
+<p>
+The <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> of the call.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStream--content"></a><h3>The <code class="literal">"content"</code> property</h3>
+<pre class="programlisting">  "content"                  <a class="link" href="telepathy-glib-call-content.html#TpCallContent"><span class="type">TpCallContent</span></a>*        : Read / Write / Construct Only</pre>
+<p>
+The Content that this streams belongs to
+</p>
+<p class="since">Since 0.17.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStream--local-sending-state"></a><h3>The <code class="literal">"local-sending-state"</code> property</h3>
+<pre class="programlisting">  "local-sending-state"      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>
+The local user's sending state, from <a class="link" href="telepathy-glib-enums.html#TpSendingState" title="enum TpSendingState"><span class="type">TpSendingState</span></a>.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.17.5</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-call-stream.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpCallStream-local-sending-state-changed"></a><h3>The <code class="literal">"local-sending-state-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a>      *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>              state,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>              reason,
+                                                        <a class="link" href="telepathy-glib-call-channel.html#TpCallStateReason"><span class="type">TpCallStateReason</span></a> *arg3,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a>        *arg4,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+The ::local-sending-state-changed signal is emitted whenever the
+stream sending state changes.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>state</code></em> :</span></p></td>
+<td>the new <a class="link" href="telepathy-glib-enums.html#TpSendingState" title="enum TpSendingState"><span class="type">TpSendingState</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-call-channel.html#TpCallStateReason"><span class="type">TpCallStateReason</span></a> for the change</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStream-remote-members-changed"></a><h3>The <code class="literal">"remote-members-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a>      *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a>        *updates,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>         *removed,
+                                                        <a class="link" href="telepathy-glib-call-channel.html#TpCallStateReason"><span class="type">TpCallStateReason</span></a> *reason,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+The ::remote-members-changed signal is emitted whenever the
+stream's remote members changes.
+</p>
+<p>
+It is NOT guaranteed that <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> objects have any feature prepared.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-call-stream.html#TpCallStream"><span class="type">TpCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>updates</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> mapping <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> to its new <a class="link" href="telepathy-glib-enums.html#TpSendingState" title="enum TpSendingState"><span class="type">TpSendingState</span></a>. <span class="annotation">[<acronym title="Override the parsed C type with given type"><span class="acronym">type</span></acronym> GLib.HashTable][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> TelepathyGLib.Contact uint]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>removed</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> removed from remote contacts. <span class="annotation">[<acronym title="Override the parsed C type with given type"><span class="acronym">type</span></acronym> GLib.PtrArray][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> TelepathyGLib.Contact]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-call-channel.html#TpCallStateReason"><span class="type">TpCallStateReason</span></a> for the change</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESourceAuthenticator</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
+<link rel="up" href="ch01.html" title="Data Sources">
+<link rel="prev" href="ESourceRegistry.html" title="ESourceRegistry">
+<link rel="next" href="ch02.html" title="Data Source Extensions">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ESourceRegistry.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Utilities (libedataserver)</th>
+<td><a accesskey="n" href="ch02.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ESourceAuthenticator.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#ESourceAuthenticator.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#ESourceAuthenticator.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#ESourceAuthenticator.prerequisites" class="shortcut">Prerequisites</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="ESourceAuthenticator"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESourceAuthenticator.top_of_page"></a>ESourceAuthenticator</span></h2>
+<p>ESourceAuthenticator — Interface for authentication attempts</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ESourceAuthenticator.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;libedataserver/libedataserver.h&gt;
+
+                    <a class="link" href="ESourceAuthenticator.html#ESourceAuthenticator-struct" title="ESourceAuthenticator">ESourceAuthenticator</a>;
+struct              <a class="link" href="ESourceAuthenticator.html#ESourceAuthenticatorInterface" title="struct ESourceAuthenticatorInterface">ESourceAuthenticatorInterface</a>;
+enum                <a class="link" href="ESourceAuthenticator.html#ESourceAuthenticationResult" title="enum ESourceAuthenticationResult">ESourceAuthenticationResult</a>;
+<span class="returnvalue">void</span>                <a class="link" href="ESourceAuthenticator.html#e-source-authenticator-get-prompt-strings" title="e_source_authenticator_get_prompt_strings ()">e_source_authenticator_get_prompt_strings</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **prompt_title</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **prompt_message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **prompt_description</code></em>);
+<a class="link" href="ESourceAuthenticator.html#ESourceAuthenticationResult" title="enum ESourceAuthenticationResult"><span class="returnvalue">ESourceAuthenticationResult</span></a> <a class="link" href="ESourceAuthenticator.html#e-source-authenticator-try-password-sync" title="e_source_authenticator_try_password_sync ()">e_source_authenticator_try_password_sync</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Strings.html#GString"><span class="type">GString</span></a> *password</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceAuthenticator.html#e-source-authenticator-try-password" title="e_source_authenticator_try_password ()">e_source_authenticator_try_password</a> (<em class="parameter"><code><a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Strings.html#GString"><span class="type">GString</span></a> *password</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a class="link" href="ESourceAuthenticator.html#ESourceAuthenticationResult" title="enum ESourceAuthenticationResult"><span class="returnvalue">ESourceAuthenticationResult</span></a> <a class="link" href="ESourceAuthenticator.html#e-source-authenticator-try-password-finish" title="e_source_authenticator_try_password_finish ()">e_source_authenticator_try_password_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceAuthenticator.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----ESourceAuthenticator
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceAuthenticator.prerequisites"></a><h2>Prerequisites</h2>
+<p>
+ESourceAuthenticator requires
+ <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>.</p>
+</div>
+<div class="refsect1">
+<a name="ESourceAuthenticator.description"></a><h2>Description</h2>
+<p>
+An object implementing the <a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a> interface gets passed
+to <a class="link" href="ESourceRegistry.html#e-source-registry-authenticate" title="e_source_registry_authenticate ()"><code class="function">e_source_registry_authenticate()</code></a>.  The job of an <a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a>
+is to test whether a remote server will accept a given password, and then
+indicate the result by returning an <a class="link" href="ESourceAuthenticator.html#ESourceAuthenticationResult" title="enum ESourceAuthenticationResult"><span class="type">ESourceAuthenticationResult</span></a> value.
+</p>
+<p>
+Typically only <a href="/usr/share/gtk-doc/html/libebackend/EBackend.html"><span class="type">EBackend</span></a> subclasses need to implement this interface,
+as client applications are not involved in authentication.
+</p>
+<p>
+Note this interface is designed around "stateful authentication", where
+one connects to a server, provides credentials for authentication once,
+and then issues commands in an authenticated state for the remainder of
+the session.
+</p>
+<p>
+Backends requiring "stateless authentication" -- where credentials are
+included with each command -- will typically want to cache the password
+internally once it's verified as part of implementing this interface.
+</p>
+</div>
+<div class="refsect1">
+<a name="ESourceAuthenticator.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="ESourceAuthenticator-struct"></a><h3>ESourceAuthenticator</h3>
+<pre class="programlisting">typedef struct _ESourceAuthenticator ESourceAuthenticator;</pre>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceAuthenticatorInterface"></a><h3>struct ESourceAuthenticatorInterface</h3>
+<pre class="programlisting">struct ESourceAuthenticatorInterface {
+	GTypeInterface parent_interface;
+
+	void		(*get_prompt_strings) (ESourceAuthenticator *auth,
+						 ESource *source,
+						 gchar **prompt_title,
+						 gchar **prompt_message,
+						 gchar **prompt_description);
+
+	/* Synchronous I/O Methods */
+	ESourceAuthenticationResult
+			(*try_password_sync) (ESourceAuthenticator *auth,
+						 const GString *password,
+						 GCancellable *cancellable,
+						 GError **error);
+
+	/* Asynchronous I/O Methods (all have defaults) */
+	void		(*try_password)		(ESourceAuthenticator *auth,
+						 const GString *password,
+						 GCancellable *cancellable,
+						 GAsyncReadyCallback callback,
+						 gpointer user_data);
+	ESourceAuthenticationResult
+			(*try_password_finish) (ESourceAuthenticator *auth,
+						 GAsyncResult *result,
+						 GError **error);
+};
+</pre>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceAuthenticationResult"></a><h3>enum ESourceAuthenticationResult</h3>
+<pre class="programlisting">typedef enum {
+	E_SOURCE_AUTHENTICATION_ERROR,
+	E_SOURCE_AUTHENTICATION_ACCEPTED,
+	E_SOURCE_AUTHENTICATION_REJECTED
+} ESourceAuthenticationResult;
+</pre>
+<p>
+Status codes used by the <a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a> interface.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="E-SOURCE-AUTHENTICATION-ERROR:CAPS"></a><span class="term"><code class="literal">E_SOURCE_AUTHENTICATION_ERROR</code></span></p></td>
+<td>  An error occurred while authenticating.
+</td>
+</tr>
+<tr>
+<td><p><a name="E-SOURCE-AUTHENTICATION-ACCEPTED:CAPS"></a><span class="term"><code class="literal">E_SOURCE_AUTHENTICATION_ACCEPTED</code></span></p></td>
+<td>  Server requesting authentication accepted password.
+</td>
+</tr>
+<tr>
+<td><p><a name="E-SOURCE-AUTHENTICATION-REJECTED:CAPS"></a><span class="term"><code class="literal">E_SOURCE_AUTHENTICATION_REJECTED</code></span></p></td>
+<td>  Server requesting authentication rejected password.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-authenticator-get-prompt-strings"></a><h3>e_source_authenticator_get_prompt_strings ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_authenticator_get_prompt_strings
+                                                        (<em class="parameter"><code><a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **prompt_title</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **prompt_message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **prompt_description</code></em>);</pre>
+<p>
+Generates authentication prompt strings for <em class="parameter"><code>source</code></em>.
+</p>
+<p>
+For registry service clients, <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> calls this function as
+part of <a class="link" href="ESourceRegistry.html#e-source-registry-authenticate-sync" title="e_source_registry_authenticate_sync ()"><code class="function">e_source_registry_authenticate_sync()</code></a>.  In the registry service
+itself, <a href="/usr/share/gtk-doc/html/libebackend/EAuthenticationSession.html"><span class="type">EAuthenticationSession</span></a> calls this function during initialization.
+This function should rarely need to be called explicitly outside of those
+two cases.
+</p>
+<p>
+The <a class="link" href="ESourceAuthenticator.html#ESourceAuthenticatorInterface" title="struct ESourceAuthenticatorInterface"><span class="type">ESourceAuthenticatorInterface</span></a> defines a default behavior for this
+method which should suffice in most cases.  But implementors can still
+override the method if needed for special circumstances.
+</p>
+<p>
+Free each of the returned prompt strings with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>auth</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>prompt_title</code></em> :</span></p></td>
+<td>the title of the prompt. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>prompt_message</code></em> :</span></p></td>
+<td>the prompt message for the user. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>prompt_description</code></em> :</span></p></td>
+<td>the detailed description of the prompt. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-authenticator-try-password-sync"></a><h3>e_source_authenticator_try_password_sync ()</h3>
+<pre class="programlisting"><a class="link" href="ESourceAuthenticator.html#ESourceAuthenticationResult" title="enum ESourceAuthenticationResult"><span class="returnvalue">ESourceAuthenticationResult</span></a> e_source_authenticator_try_password_sync
+                                                        (<em class="parameter"><code><a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Strings.html#GString"><span class="type">GString</span></a> *password</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Attempts to authenticate using <em class="parameter"><code>password</code></em>.
+</p>
+<p>
+The password is passed in a <a href="http://library.gnome.org/devel/glib/unstable/glib-Strings.html#GString"><span class="type">GString</span></a> container so its content is not
+accidentally revealed in a stack trace.
+</p>
+<p>
+If an error occurs, the function sets <em class="parameter"><code>error</code></em> and returns
+<a class="link" href="ESourceAuthenticator.html#E-SOURCE-AUTHENTICATION-ERROR:CAPS"><span class="type">E_SOURCE_AUTHENTICATION_ERROR</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>auth</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>password</code></em> :</span></p></td>
+<td>a user-provided password</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the authentication result</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-authenticator-try-password"></a><h3>e_source_authenticator_try_password ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_authenticator_try_password (<em class="parameter"><code><a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Strings.html#GString"><span class="type">GString</span></a> *password</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Asyncrhonously attempts to authenticate using <em class="parameter"><code>password</code></em>.
+</p>
+<p>
+The password is passed in a <a href="http://library.gnome.org/devel/glib/unstable/glib-Strings.html#GString"><span class="type">GString</span></a> container so its content is not
+accidentally revealed in a stack trace.
+</p>
+<p>
+When the operation is finished, <em class="parameter"><code>callback</code></em> will be called.  You can then
+call <a class="link" href="ESourceAuthenticator.html#e-source-authenticator-try-password-finish" title="e_source_authenticator_try_password_finish ()"><code class="function">e_source_authenticator_try_password_finish()</code></a> to get the result of the
+operation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>auth</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>password</code></em> :</span></p></td>
+<td>a user-provided password</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request
+is satisfied. <span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to the callback function. <span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-authenticator-try-password-finish"></a><h3>e_source_authenticator_try_password_finish ()</h3>
+<pre class="programlisting"><a class="link" href="ESourceAuthenticator.html#ESourceAuthenticationResult" title="enum ESourceAuthenticationResult"><span class="returnvalue">ESourceAuthenticationResult</span></a> e_source_authenticator_try_password_finish
+                                                        (<em class="parameter"><code><a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes the operation started with <a class="link" href="ESourceAuthenticator.html#e-source-authenticator-try-password" title="e_source_authenticator_try_password ()"><code class="function">e_source_authenticator_try_password()</code></a>.
+</p>
+<p>
+If an error occurred, the function sets <em class="parameter"><code>error</code></em> and returns
+<a class="link" href="ESourceAuthenticator.html#E-SOURCE-AUTHENTICATION-ERROR:CAPS"><span class="type">E_SOURCE_AUTHENTICATION_ERROR</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>auth</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceAuthenticator.html" title="ESourceAuthenticator"><span class="type">ESourceAuthenticator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the authentication result</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

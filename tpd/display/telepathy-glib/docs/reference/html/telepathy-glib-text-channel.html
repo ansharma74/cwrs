@@ -1,0 +1,1349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpTextChannel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-client.html" title="Client-side proxies">
+<link rel="prev" href="TpSignalledMessage.html" title="TpSignalledMessage">
+<link rel="next" href="telepathy-glib-file-transfer-channel.html" title="TpFileTransferChannel">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="TpSignalledMessage.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-client.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-file-transfer-channel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-text-channel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-text-channel.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-text-channel.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-text-channel.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#telepathy-glib-text-channel.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#telepathy-glib-text-channel.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-text-channel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-text-channel.top_of_page"></a>TpTextChannel</span></h2>
+<p>TpTextChannel — proxy object for a text channel</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-text-channel.synopsis"></a><h2>Synopsis</h2>
+<a name="TpTextChannel"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+struct              <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel-struct" title="struct TpTextChannel">TpTextChannel</a>;
+struct              <a class="link" href="telepathy-glib-text-channel.html#TpTextChannelClass" title="struct TpTextChannelClass">TpTextChannelClass</a>;
+<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="returnvalue">TpTextChannel</span></a> *     <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-new" title="tp_text_channel_new ()">tp_text_channel_new</a>                 (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *conn</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *immutable_properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> * const * <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-get-supported-content-types" title="tp_text_channel_get_supported_content_types ()">tp_text_channel_get_supported_content_types</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);
+<a class="link" href="telepathy-glib-enums.html#TpMessagePartSupportFlags" title="enum TpMessagePartSupportFlags"><span class="returnvalue">TpMessagePartSupportFlags</span></a> <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-get-message-part-support-flags" title="tp_text_channel_get_message_part_support_flags ()">tp_text_channel_get_message_part_support_flags</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);
+<a class="link" href="telepathy-glib-enums.html#TpDeliveryReportingSupportFlags" title="enum TpDeliveryReportingSupportFlags"><span class="returnvalue">TpDeliveryReportingSupportFlags</span></a> <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-get-delivery-reporting-support" title="tp_text_channel_get_delivery_reporting_support ()">tp_text_channel_get_delivery_reporting_support</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-get-pending-messages" title="tp_text_channel_get_pending_messages ()">tp_text_channel_get_pending_messages</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-dup-pending-messages" title="tp_text_channel_dup_pending_messages ()">tp_text_channel_dup_pending_messages</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="returnvalue">GArray</span></a> *            <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-get-message-types" title="tp_text_channel_get_message_types ()">tp_text_channel_get_message_types</a>   (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);
+#define             <a class="link" href="telepathy-glib-text-channel.html#TP-TEXT-CHANNEL-FEATURE-INCOMING-MESSAGES:CAPS" title="TP_TEXT_CHANNEL_FEATURE_INCOMING_MESSAGES">TP_TEXT_CHANNEL_FEATURE_INCOMING_MESSAGES</a>
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-send-message-async" title="tp_text_channel_send_message_async ()">tp_text_channel_send_message_async</a>  (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpMessageSendingFlags" title="enum TpMessageSendingFlags"><span class="type">TpMessageSendingFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-send-message-finish" title="tp_text_channel_send_message_finish ()">tp_text_channel_send_message_finish</a> (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **token</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-ack-messages-async" title="tp_text_channel_ack_messages_async ()">tp_text_channel_ack_messages_async</a>  (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *messages</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-ack-messages-finish" title="tp_text_channel_ack_messages_finish ()">tp_text_channel_ack_messages_finish</a> (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-ack-message-async" title="tp_text_channel_ack_message_async ()">tp_text_channel_ack_message_async</a>   (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-ack-message-finish" title="tp_text_channel_ack_message_finish ()">tp_text_channel_ack_message_finish</a>  (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-ack-all-pending-messages-async" title="tp_text_channel_ack_all_pending_messages_async ()">tp_text_channel_ack_all_pending_messages_async</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-ack-all-pending-messages-finish" title="tp_text_channel_ack_all_pending_messages_finish ()">tp_text_channel_ack_all_pending_messages_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-set-chat-state-async" title="tp_text_channel_set_chat_state_async ()">tp_text_channel_set_chat_state_async</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelChatState" title="enum TpChannelChatState"><span class="type">TpChannelChatState</span></a> state</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-set-chat-state-finish" title="tp_text_channel_set_chat_state_finish ()">tp_text_channel_set_chat_state_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-supports-message-type" title="tp_text_channel_supports_message_type ()">tp_text_channel_supports_message_type</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelTextMessageType" title="enum TpChannelTextMessageType"><span class="type">TpChannelTextMessageType</span></a> message_type</code></em>);
+
+#define             <a class="link" href="telepathy-glib-text-channel.html#TP-TEXT-CHANNEL-FEATURE-SMS:CAPS" title="TP_TEXT_CHANNEL_FEATURE_SMS">TP_TEXT_CHANNEL_FEATURE_SMS</a>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-is-sms-channel" title="tp_text_channel_is_sms_channel ()">tp_text_channel_is_sms_channel</a>      (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-get-sms-flash" title="tp_text_channel_get_sms_flash ()">tp_text_channel_get_sms_flash</a>       (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-get-sms-length-async" title="tp_text_channel_get_sms_length_async ()">tp_text_channel_get_sms_length_async</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-get-sms-length-finish" title="tp_text_channel_get_sms_length_finish ()">tp_text_channel_get_sms_length_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *chunks_required</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *remaining_characters</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *estimated_cost</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+
+#define             <a class="link" href="telepathy-glib-text-channel.html#TP-TEXT-CHANNEL-FEATURE-CHAT-STATES:CAPS" title="TP_TEXT_CHANNEL_FEATURE_CHAT_STATES">TP_TEXT_CHANNEL_FEATURE_CHAT_STATES</a>
+<a class="link" href="telepathy-glib-enums.html#TpChannelChatState" title="enum TpChannelChatState"><span class="returnvalue">TpChannelChatState</span></a>  <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-get-chat-state" title="tp_text_channel_get_chat_state ()">tp_text_channel_get_chat_state</a>      (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> *contact</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-text-channel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="telepathy-glib-proxy.html#TpProxy">TpProxy</a>
+         +----<a class="link" href="telepathy-glib-channel.html#TpChannel">TpChannel</a>
+               +----TpTextChannel
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-text-channel.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+TpTextChannel implements
+ <a class="link" href="TpChannelIface.html" title="TpChannelIface">TpChannelIface</a>.</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-text-channel.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--delivery-reporting-support" title='The "delivery-reporting-support" property'>delivery-reporting-support</a>" <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+  "<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--is-sms-channel" title='The "is-sms-channel" property'>is-sms-channel</a>"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+  "<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--message-part-support-flags" title='The "message-part-support-flags" property'>message-part-support-flags</a>" <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+  "<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--message-types" title='The "message-types" property'>message-types</a>"            <span class="type">GArray_guint_</span>*        : Read
+  "<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--sms-flash" title='The "sms-flash" property'>sms-flash</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+  "<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--supported-content-types" title='The "supported-content-types" property'>supported-content-types</a>"  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-text-channel.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel-contact-chat-state-changed" title='The "contact-chat-state-changed" signal'>contact-chat-state-changed</a>"                     : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel-message-received" title='The "message-received" signal'>message-received</a>"                               : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel-message-sent" title='The "message-sent" signal'>message-sent</a>"                                   : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel-pending-message-removed" title='The "pending-message-removed" signal'>pending-message-removed</a>"                        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-text-channel.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> is a sub-class of <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> providing convenient API
+to send and receive <a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a>.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-text-channel.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpTextChannel-struct"></a><h3>struct TpTextChannel</h3>
+<pre class="programlisting">struct TpTextChannel;</pre>
+<p>
+Data structure representing a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>.
+</p>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpTextChannelClass"></a><h3>struct TpTextChannelClass</h3>
+<pre class="programlisting">struct TpTextChannelClass {
+};
+</pre>
+<p>
+The class of a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>.
+</p>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-new"></a><h3>tp_text_channel_new ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="returnvalue">TpTextChannel</span></a> *     tp_text_channel_new                 (<em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *conn</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *immutable_properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_text_channel_new</code> is deprecated and should not be used in newly-written code. Use <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-ensure-channel" title="tp_simple_client_factory_ensure_channel ()"><code class="function">tp_simple_client_factory_ensure_channel()</code></a> instead.</p>
+</div>
+<p>
+Convenient function to create a new <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>conn</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>; may not be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object_path</code></em> :</span></p></td>
+<td>the object path of the channel; may not be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>immutable_properties</code></em> :</span></p></td>
+<td>the immutable properties of the channel,
+as signalled by the NewChannel D-Bus signal or returned by the
+CreateChannel and EnsureChannel D-Bus methods: a mapping from
+strings (D-Bus interface name + "." + property name) to <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> instances. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>used to indicate the error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly created <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-get-supported-content-types"></a><h3>tp_text_channel_get_supported_content_types ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> * const * tp_text_channel_get_supported_content_types
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);</pre>
+<p>
+Return the <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--supported-content-types" title='The "supported-content-types" property'><span class="type">"supported-content-types"</span></a> property
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>(transfer none) :
+the value of <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--supported-content-types" title='The "supported-content-types" property'><span class="type">"supported-content-types"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-get-message-part-support-flags"></a><h3>tp_text_channel_get_message_part_support_flags ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-enums.html#TpMessagePartSupportFlags" title="enum TpMessagePartSupportFlags"><span class="returnvalue">TpMessagePartSupportFlags</span></a> tp_text_channel_get_message_part_support_flags
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);</pre>
+<p>
+Return the <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--message-part-support-flags" title='The "message-part-support-flags" property'><span class="type">"message-part-support-flags"</span></a> property
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--message-part-support-flags" title='The "message-part-support-flags" property'><span class="type">"message-part-support-flags"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-get-delivery-reporting-support"></a><h3>tp_text_channel_get_delivery_reporting_support ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-enums.html#TpDeliveryReportingSupportFlags" title="enum TpDeliveryReportingSupportFlags"><span class="returnvalue">TpDeliveryReportingSupportFlags</span></a> tp_text_channel_get_delivery_reporting_support
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);</pre>
+<p>
+Return the <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--delivery-reporting-support" title='The "delivery-reporting-support" property'><span class="type">"delivery-reporting-support"</span></a> property
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--delivery-reporting-support" title='The "delivery-reporting-support" property'><span class="type">"delivery-reporting-support"</span></a> property</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-get-pending-messages"></a><h3>tp_text_channel_get_pending_messages ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             tp_text_channel_get_pending_messages
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_text_channel_get_pending_messages</code> is deprecated and should not be used in newly-written code. Since 0.19.9. New code should use
+ <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-dup-pending-messages" title="tp_text_channel_dup_pending_messages ()"><code class="function">tp_text_channel_dup_pending_messages()</code></a> instead.</p>
+</div>
+<p>
+Return a newly allocated list of unacknowledged <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a>
+objects.
+</p>
+<p>
+It is guaranteed that the <a class="link" href="TpSignalledMessage.html#TpSignalledMessage--sender" title='The "sender" property'><span class="type">"sender"</span></a> of each
+<a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a> has all of the features previously passed to
+<a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-contact-features" title="tp_simple_client_factory_add_contact_features ()"><code class="function">tp_simple_client_factory_add_contact_features()</code></a> prepared.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of borrowed <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a>. <span class="annotation">[<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> TelepathyGLib.SignalledMessage]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-dup-pending-messages"></a><h3>tp_text_channel_dup_pending_messages ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             tp_text_channel_dup_pending_messages
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);</pre>
+<p>
+Return a newly allocated list of unacknowledged <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a>
+objects.
+</p>
+<p>
+It is guaranteed that the <a class="link" href="TpSignalledMessage.html#TpSignalledMessage--sender" title='The "sender" property'><span class="type">"sender"</span></a> of each
+<a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a> has all of the features previously passed to
+<a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-contact-features" title="tp_simple_client_factory_add_contact_features ()"><code class="function">tp_simple_client_factory_add_contact_features()</code></a> prepared.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of reffed <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> TelepathyGLib.SignalledMessage]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-get-message-types"></a><h3>tp_text_channel_get_message_types ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="returnvalue">GArray</span></a> *            tp_text_channel_get_message_types   (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);</pre>
+<p>
+Return the <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--message-types" title='The "message-types" property'><span class="type">"message-types"</span></a> property
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--message-types" title='The "message-types" property'><span class="type">"message-types"</span></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> TelepathyGLib.ChannelTextMessageType]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.16</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-TEXT-CHANNEL-FEATURE-INCOMING-MESSAGES:CAPS"></a><h3>TP_TEXT_CHANNEL_FEATURE_INCOMING_MESSAGES</h3>
+<pre class="programlisting">#define             TP_TEXT_CHANNEL_FEATURE_INCOMING_MESSAGES</pre>
+<p>
+Expands to a call to a function that returns a quark representing the
+incoming messages features of a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>.
+</p>
+<p>
+When this feature is prepared, <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-dup-pending-messages" title="tp_text_channel_dup_pending_messages ()"><code class="function">tp_text_channel_dup_pending_messages()</code></a> will
+return a non-empty list if any unacknowledged messages are waiting, and the
+<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel-message-received" title='The "message-received" signal'><span class="type">"message-received"</span></a> and <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel-pending-message-removed" title='The "pending-message-removed" signal'><span class="type">"pending-message-removed"</span></a>
+signals will be emitted.
+</p>
+<p>
+One can ask for a feature to be prepared using the
+<a class="link" href="telepathy-glib-proxy.html#tp-proxy-prepare-async" title="tp_proxy_prepare_async ()"><code class="function">tp_proxy_prepare_async()</code></a> function, and waiting for it to callback.
+</p>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-send-message-async"></a><h3>tp_text_channel_send_message_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_text_channel_send_message_async  (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpMessageSendingFlags" title="enum TpMessageSendingFlags"><span class="type">TpMessageSendingFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Submit a message to the server for sending. Once the message has been
+submitted to the sever, <em class="parameter"><code>callback</code></em> will be called. You can then call
+<a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-send-message-finish" title="tp_text_channel_send_message_finish ()"><code class="function">tp_text_channel_send_message_finish()</code></a> to get the result of the operation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>a <a class="link" href="TpClientMessage.html" title="TpClientMessage"><span class="type">TpClientMessage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>flags affecting how the message is sent</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the message has been submitted to the
+server</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-send-message-finish"></a><h3>tp_text_channel_send_message_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_text_channel_send_message_finish (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **token</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Completes a call to <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-send-message-async" title="tp_text_channel_send_message_async ()"><code class="function">tp_text_channel_send_message_async()</code></a>.
+</p>
+<p>
+<em class="parameter"><code>token</code></em> can be used to match any incoming delivery or failure reports
+against the sent message. If this function returns true but the returned
+token is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, the message was sent successfully but the protocol does not
+provide a way to identify it later.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> passed to the callback for <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-send-message-async" title="tp_text_channel_send_message_async ()"><code class="function">tp_text_channel_send_message_async()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>token</code></em> :</span></p></td>
+<td>if not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, used to return the
+token of the sent message. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the message has been submitted to the server, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>
+otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-ack-messages-async"></a><h3>tp_text_channel_ack_messages_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_text_channel_ack_messages_async  (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *messages</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Acknowledge all the messages in <em class="parameter"><code>messages</code></em>.
+Once the messages have been acked, <em class="parameter"><code>callback</code></em> will be called.
+You can then call <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-ack-messages-finish" title="tp_text_channel_ack_messages_finish ()"><code class="function">tp_text_channel_ack_messages_finish()</code></a> to get the
+result of the operation.
+</p>
+<p>
+You should use the <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a> received from
+<a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-dup-pending-messages" title="tp_text_channel_dup_pending_messages ()"><code class="function">tp_text_channel_dup_pending_messages()</code></a> or the
+<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel-message-received" title='The "message-received" signal'><span class="type">"message-received"</span></a> signal.
+</p>
+<p>
+See <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-ack-message-async" title="tp_text_channel_ack_message_async ()"><code class="function">tp_text_channel_ack_message_async()</code></a> about acknowledging messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>messages</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of
+<a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a>. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> TelepathyGLib.SignalledMessage]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the message have been acked</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-ack-messages-finish"></a><h3>tp_text_channel_ack_messages_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_text_channel_ack_messages_finish (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes acknowledging a list of messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> passed to the callback for <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-ack-messages-async" title="tp_text_channel_ack_messages_async ()"><code class="function">tp_text_channel_ack_messages_async()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the messages have been acked, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-ack-message-async"></a><h3>tp_text_channel_ack_message_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_text_channel_ack_message_async   (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Acknowledge <em class="parameter"><code>message</code></em>. Once the message has been acked, <em class="parameter"><code>callback</code></em> will be
+called. You can then call <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-ack-message-finish" title="tp_text_channel_ack_message_finish ()"><code class="function">tp_text_channel_ack_message_finish()</code></a> to get the
+result of the operation.
+</p>
+<p>
+A message should be acknowledged once it has been shown to the user by the
+Handler of the channel. So Observers and Approvers should NOT acknowledge
+messages themselves.
+Once a message has been acknowledged, it is removed from the
+pending-message queue and so the <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel-pending-message-removed" title='The "pending-message-removed" signal'><span class="type">"pending-message-removed"</span></a>
+signal is fired.
+</p>
+<p>
+You should use the <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a> received from
+<a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-dup-pending-messages" title="tp_text_channel_dup_pending_messages ()"><code class="function">tp_text_channel_dup_pending_messages()</code></a> or the
+<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel-message-received" title='The "message-received" signal'><span class="type">"message-received"</span></a> signal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>a <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the message have been acked</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-ack-message-finish"></a><h3>tp_text_channel_ack_message_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_text_channel_ack_message_finish  (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes acknowledging a message.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> passed to the callback for <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-ack-message-async" title="tp_text_channel_ack_message_async ()"><code class="function">tp_text_channel_ack_message_async()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the message has been acked, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-ack-all-pending-messages-async"></a><h3>tp_text_channel_ack_all_pending_messages_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_text_channel_ack_all_pending_messages_async
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Acknowledge all the pending messages. This is equivalent of calling
+<a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-ack-messages-async" title="tp_text_channel_ack_messages_async ()"><code class="function">tp_text_channel_ack_messages_async()</code></a> with the list of <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a>
+returned by <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-dup-pending-messages" title="tp_text_channel_dup_pending_messages ()"><code class="function">tp_text_channel_dup_pending_messages()</code></a>.
+</p>
+<p>
+Once the messages have been acked, <em class="parameter"><code>callback</code></em> will be called.
+You can then call <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-ack-all-pending-messages-finish" title="tp_text_channel_ack_all_pending_messages_finish ()"><code class="function">tp_text_channel_ack_all_pending_messages_finish()</code></a> to get
+the result of the operation.
+</p>
+<p>
+See <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-ack-message-async" title="tp_text_channel_ack_message_async ()"><code class="function">tp_text_channel_ack_message_async()</code></a> about acknowledging messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the messages have been acked</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-ack-all-pending-messages-finish"></a><h3>tp_text_channel_ack_all_pending_messages_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_text_channel_ack_all_pending_messages_finish
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finish an asynchronous acknowledgement operation of all messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the messages have been acked, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-set-chat-state-async"></a><h3>tp_text_channel_set_chat_state_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_text_channel_set_chat_state_async
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelChatState" title="enum TpChannelChatState"><span class="type">TpChannelChatState</span></a> state</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Set the local state on channel <em class="parameter"><code>self</code></em> to <em class="parameter"><code>state</code></em>.
+Once the state has been set, <em class="parameter"><code>callback</code></em> will be called.
+You can then call <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-set-chat-state-finish" title="tp_text_channel_set_chat_state_finish ()"><code class="function">tp_text_channel_set_chat_state_finish()</code></a> to get the
+result of the operation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>state</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-enums.html#TpChannelChatState" title="enum TpChannelChatState"><span class="type">TpChannelChatState</span></a> to set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the chat state has been set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-set-chat-state-finish"></a><h3>tp_text_channel_set_chat_state_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_text_channel_set_chat_state_finish
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Completes a call to <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-set-chat-state-async" title="tp_text_channel_set_chat_state_async ()"><code class="function">tp_text_channel_set_chat_state_async()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> passed to the callback for <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-set-chat-state-async" title="tp_text_channel_set_chat_state_async ()"><code class="function">tp_text_channel_set_chat_state_async()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the chat state has been changed, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-supports-message-type"></a><h3>tp_text_channel_supports_message_type ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_text_channel_supports_message_type
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelTextMessageType" title="enum TpChannelTextMessageType"><span class="type">TpChannelTextMessageType</span></a> message_type</code></em>);</pre>
+<p>
+Check if message of type <em class="parameter"><code>message_type</code></em> can be sent on this channel.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message_type</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-enums.html#TpChannelTextMessageType" title="enum TpChannelTextMessageType"><span class="type">TpChannelTextMessageType</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if message of type <em class="parameter"><code>message_type</code></em> can be sent on <em class="parameter"><code>self</code></em>, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>
+otherwise</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.16</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-TEXT-CHANNEL-FEATURE-SMS:CAPS"></a><h3>TP_TEXT_CHANNEL_FEATURE_SMS</h3>
+<pre class="programlisting">#define             TP_TEXT_CHANNEL_FEATURE_SMS</pre>
+<p>
+Expands to a call to a function that returns a quark representing the
+SMS feature of a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>.
+</p>
+<p>
+When this feature is prepared, the TpTextChannel:is-sms-channel property
+will have a meaningful value and will be updated when needed.
+</p>
+<p>
+One can ask for a feature to be prepared using the
+<a class="link" href="telepathy-glib-proxy.html#tp-proxy-prepare-async" title="tp_proxy_prepare_async ()"><code class="function">tp_proxy_prepare_async()</code></a> function, and waiting for it to callback.
+</p>
+<p class="since">Since 0.15.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-is-sms-channel"></a><h3>tp_text_channel_is_sms_channel ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_text_channel_is_sms_channel      (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);</pre>
+<p>
+Return the <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--is-sms-channel" title='The "is-sms-channel" property'><span class="type">"is-sms-channel"</span></a> property
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--is-sms-channel" title='The "is-sms-channel" property'><span class="type">"is-sms-channel"</span></a> property</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-get-sms-flash"></a><h3>tp_text_channel_get_sms_flash ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_text_channel_get_sms_flash       (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>);</pre>
+<p>
+Return the <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--sms-flash" title='The "sms-flash" property'><span class="type">"sms-flash"</span></a> property
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel--sms-flash" title='The "sms-flash" property'><span class="type">"sms-flash"</span></a> property</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-get-sms-length-async"></a><h3>tp_text_channel_get_sms_length_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_text_channel_get_sms_length_async
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Starts an async call to get the number of 140 octet chunks required to
+send a <span class="type">message</span> via SMS on <span class="type">self</span>, as well as the number of remaining
+characters available in the final chunk and, if possible,
+an estimate of the cost.
+</p>
+<p>
+Once the request has been satisfied, <em class="parameter"><code>callback</code></em> will be called.
+You can then call <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-get-sms-length-finish" title="tp_text_channel_get_sms_length_finish ()"><code class="function">tp_text_channel_get_sms_length_finish()</code></a> to get the
+result of the operation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>a <a class="link" href="TpClientMessage.html" title="TpClientMessage"><span class="type">TpClientMessage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the request has been satisfied</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-get-sms-length-finish"></a><h3>tp_text_channel_get_sms_length_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_text_channel_get_sms_length_finish
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *chunks_required</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *remaining_characters</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *estimated_cost</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes an async SMS length request.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chunks_required</code></em> :</span></p></td>
+<td>if not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> used to return
+the number of 140 octet chunks required to send the message. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>remaining_characters</code></em> :</span></p></td>
+<td>if not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> used to return
+the number of further characters that can be fit in the final chunk.
+A negative value indicates that the message will be truncated by
+abs(<em class="parameter"><code>remaining_characters</code></em>).
+The value <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#G-MININT32:CAPS"><span class="type">G_MININT32</span></a> indicates the message will be truncated by
+an unknown amount. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>estimated_cost</code></em> :</span></p></td>
+<td>if not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> used to return
+the estimated cost of sending this message.
+The currency and scale of this value are the same as the
+values of the <a class="link" href="telepathy-glib-connection.html#TpConnection--balance-scale" title='The "balance-scale" property'><span class="type">"balance-scale"</span></a> and
+<a class="link" href="telepathy-glib-connection.html#TpConnection--balance-currency" title='The "balance-currency" property'><span class="type">"balance-currency"</span></a> properties.
+A value of -1 indicates the cost could not be estimated. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the number of 140 octet chunks required to send
+the message has been retrieved, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-TEXT-CHANNEL-FEATURE-CHAT-STATES:CAPS"></a><h3>TP_TEXT_CHANNEL_FEATURE_CHAT_STATES</h3>
+<pre class="programlisting">#define             TP_TEXT_CHANNEL_FEATURE_CHAT_STATES</pre>
+<p>
+Expands to a call to a function that returns a quark representing the
+chat states feature on a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>.
+</p>
+<p>
+When this feature is prepared, <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-get-chat-state" title="tp_text_channel_get_chat_state ()"><code class="function">tp_text_channel_get_chat_state()</code></a> and the
+<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel-contact-chat-state-changed" title='The "contact-chat-state-changed" signal'><span class="type">"contact-chat-state-changed"</span></a> signal become useful.
+</p>
+<p>
+One can ask for a feature to be prepared using the
+<a class="link" href="telepathy-glib-proxy.html#tp-proxy-prepare-async" title="tp_proxy_prepare_async ()"><code class="function">tp_proxy_prepare_async()</code></a> function, and waiting for it to callback.
+</p>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-text-channel-get-chat-state"></a><h3>tp_text_channel_get_chat_state ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-enums.html#TpChannelChatState" title="enum TpChannelChatState"><span class="returnvalue">TpChannelChatState</span></a>  tp_text_channel_get_chat_state      (<em class="parameter"><code><a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> *contact</code></em>);</pre>
+<p>
+Return the chat state for the given contact. If <a class="link" href="telepathy-glib-proxy.html#tp-proxy-is-prepared" title="tp_proxy_is_prepared ()"><code class="function">tp_proxy_is_prepared()</code></a>
+would return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> for the feature <a class="link" href="telepathy-glib-text-channel.html#TP-TEXT-CHANNEL-FEATURE-CHAT-STATES:CAPS" title="TP_TEXT_CHANNEL_FEATURE_CHAT_STATES"><code class="literal">TP_TEXT_CHANNEL_FEATURE_CHAT_STATES</code></a>,
+the result will always be <a class="link" href="telepathy-glib-enums.html#TP-CHANNEL-CHAT-STATE-INACTIVE:CAPS"><code class="literal">TP_CHANNEL_CHAT_STATE_INACTIVE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>contact</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the chat state for <em class="parameter"><code>contact</code></em>, or <a class="link" href="telepathy-glib-enums.html#TP-CHANNEL-CHAT-STATE-INACTIVE:CAPS"><code class="literal">TP_CHANNEL_CHAT_STATE_INACTIVE</code></a>
+if their chat state is not known</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-text-channel.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpTextChannel--delivery-reporting-support"></a><h3>The <code class="literal">"delivery-reporting-support"</code> property</h3>
+<pre class="programlisting">  "delivery-reporting-support" <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>
+A <a class="link" href="telepathy-glib-enums.html#TpDeliveryReportingSupportFlags" title="enum TpDeliveryReportingSupportFlags"><span class="type">TpDeliveryReportingSupportFlags</span></a> indicating features supported
+by this channel.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpTextChannel--is-sms-channel"></a><h3>The <code class="literal">"is-sms-channel"</code> property</h3>
+<pre class="programlisting">  "is-sms-channel"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if messages sent and received on this channel are transmitted
+via SMS.
+</p>
+<p>
+This property is not guaranteed to have a meaningful value until
+TP_TEXT_CHANNEL_FEATURE_SMS has been prepared.
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.15.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpTextChannel--message-part-support-flags"></a><h3>The <code class="literal">"message-part-support-flags"</code> property</h3>
+<pre class="programlisting">  "message-part-support-flags" <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>
+A <a class="link" href="telepathy-glib-enums.html#TpMessagePartSupportFlags" title="enum TpMessagePartSupportFlags"><span class="type">TpMessagePartSupportFlags</span></a> indicating the level of support for
+message parts on this channel.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpTextChannel--message-types"></a><h3>The <code class="literal">"message-types"</code> property</h3>
+<pre class="programlisting">  "message-types"            <span class="type">GArray_guint_</span>*        : Read</pre>
+<p>
+A <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> containing the <a class="link" href="telepathy-glib-enums.html#TpChannelTextMessageType" title="enum TpChannelTextMessageType"><span class="type">TpChannelTextMessageType</span></a> which may be sent on
+this channel.
+</p>
+<p class="since">Since 0.13.16</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpTextChannel--sms-flash"></a><h3>The <code class="literal">"sms-flash"</code> property</h3>
+<pre class="programlisting">  "sms-flash"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if this channel is exclusively for receiving class 0 SMSes
+(and no SMSes can be sent using <a class="link" href="telepathy-glib-text-channel.html#tp-text-channel-send-message-async" title="tp_text_channel_send_message_async ()"><code class="function">tp_text_channel_send_message_async()</code></a>
+on this channel). If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, no incoming class 0 SMSes will appear
+on this channel.
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.15.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpTextChannel--supported-content-types"></a><h3>The <code class="literal">"supported-content-types"</code> property</h3>
+<pre class="programlisting">  "supported-content-types"  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read</pre>
+<p>
+A <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a> containing the MIME types supported by this channel, with more
+preferred MIME types appearing earlier in the array.
+</p>
+<p class="since">Since 0.13.10</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-text-channel.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpTextChannel-contact-chat-state-changed"></a><h3>The <code class="literal">"contact-chat-state-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a> *self,
+                                                        <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a>     *contact,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>          state,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>       user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+Emitted when a contact's chat state changes after <a class="link" href="telepathy-glib-proxy.html#tp-proxy-prepare-async" title="tp_proxy_prepare_async ()"><code class="function">tp_proxy_prepare_async()</code></a>
+has finished preparing features <a class="link" href="telepathy-glib-text-channel.html#TP-TEXT-CHANNEL-FEATURE-CHAT-STATES:CAPS" title="TP_TEXT_CHANNEL_FEATURE_CHAT_STATES"><code class="literal">TP_TEXT_CHANNEL_FEATURE_CHAT_STATES</code></a>,
+<a class="link" href="telepathy-glib-channel.html#TP-CHANNEL-FEATURE-GROUP:CAPS" title="TP_CHANNEL_FEATURE_GROUP"><code class="literal">TP_CHANNEL_FEATURE_GROUP</code></a> and <a class="link" href="telepathy-glib-channel.html#TP-CHANNEL-FEATURE-CONTACTS:CAPS" title="TP_CHANNEL_FEATURE_CONTACTS"><code class="literal">TP_CHANNEL_FEATURE_CONTACTS</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>contact</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> for the local user or another contact</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>state</code></em> :</span></p></td>
+<td>the new <a class="link" href="telepathy-glib-enums.html#TpChannelChatState" title="enum TpChannelChatState"><span class="type">TpChannelChatState</span></a> for the contact</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpTextChannel-message-received"></a><h3>The <code class="literal">"message-received"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>      *self,
+                                                        <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a> *message,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+The ::message-received signal is emitted when a new message has been
+received on <em class="parameter"><code>self</code></em>.
+</p>
+<p>
+The same <em class="parameter"><code>message</code></em> object will be used by the
+<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel-pending-message-removed" title='The "pending-message-removed" signal'><span class="type">"pending-message-removed"</span></a> signal once <em class="parameter"><code>message</code></em> has been
+acked so you can simply compare pointers to identify the message.
+</p>
+<p>
+Note that this signal is only fired once the
+<a class="link" href="telepathy-glib-text-channel.html#TP-TEXT-CHANNEL-FEATURE-INCOMING-MESSAGES:CAPS" title="TP_TEXT_CHANNEL_FEATURE_INCOMING_MESSAGES"><span class="type">TP_TEXT_CHANNEL_FEATURE_INCOMING_MESSAGES</span></a> has been prepared.
+</p>
+<p>
+It is guaranteed that <em class="parameter"><code>message</code></em>'s <a class="link" href="TpSignalledMessage.html#TpSignalledMessage--sender" title='The "sender" property'><span class="type">"sender"</span></a> has all of the
+features previously passed to
+<a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-contact-features" title="tp_simple_client_factory_add_contact_features ()"><code class="function">tp_simple_client_factory_add_contact_features()</code></a> prepared.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>a <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpTextChannel-message-sent"></a><h3>The <code class="literal">"message-sent"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>      *self,
+                                                        <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a> *message,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>               flags,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>              *token,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+The ::message-sent signal is emitted when <em class="parameter"><code>message</code></em>
+has been submitted for sending.
+</p>
+<p>
+It is guaranteed that <em class="parameter"><code>message</code></em>'s <a class="link" href="TpSignalledMessage.html#TpSignalledMessage--sender" title='The "sender" property'><span class="type">"sender"</span></a> has all of the
+features previously passed to
+<a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-contact-features" title="tp_simple_client_factory_add_contact_features ()"><code class="function">tp_simple_client_factory_add_contact_features()</code></a> prepared.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>a <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-enums.html#TpMessageSendingFlags" title="enum TpMessageSendingFlags"><span class="type">TpMessageSendingFlags</span></a> affecting how the message was sent</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>token</code></em> :</span></p></td>
+<td>an opaque token used to match any incoming delivery or failure
+reports against this message, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the message is not
+readily identifiable.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpTextChannel-pending-message-removed"></a><h3>The <code class="literal">"pending-message-removed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>      *self,
+                                                        <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a> *message,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+The ::pending-message-removed signal is emitted when <em class="parameter"><code>message</code></em>
+has been acked and so removed from the pending messages list.
+</p>
+<p>
+Note that this signal is only fired once the
+<a class="link" href="telepathy-glib-text-channel.html#TP-TEXT-CHANNEL-FEATURE-INCOMING-MESSAGES:CAPS" title="TP_TEXT_CHANNEL_FEATURE_INCOMING_MESSAGES"><span class="type">TP_TEXT_CHANNEL_FEATURE_INCOMING_MESSAGES</span></a> has been prepared.
+</p>
+<p>
+It is guaranteed that <em class="parameter"><code>message</code></em>'s <a class="link" href="TpSignalledMessage.html#TpSignalledMessage--sender" title='The "sender" property'><span class="type">"sender"</span></a> has all of the
+features previously passed to
+<a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-contact-features" title="tp_simple_client_factory_add_contact_features ()"><code class="function">tp_simple_client_factory_add_contact_features()</code></a> prepared.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>a <a class="link" href="TpSignalledMessage.html" title="TpSignalledMessage"><span class="type">TpSignalledMessage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

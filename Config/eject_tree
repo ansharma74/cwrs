@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Place yourself outside of the eject source tree.  In
+# this example, the environment variable EJECT_SOURCE
+# is assumed to contain the absolute eject source directory.
+
+(cd $EJECT_SOURCE; find . -type f) | while read F; do
+	mkdir -p `dirname $F`
+	ln -s $EJECT_SOURCE/$F $F
+done
+

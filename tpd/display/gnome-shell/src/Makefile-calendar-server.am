@@ -1,0 +1,37 @@
+service_in_files += calendar-server/org.gnome.Shell.CalendarServer.service.in
+
+libexec_PROGRAMS += gnome-shell-calendar-server
+
+gnome_shell_calendar_server_SOURCES =								\
+	calendar-server/calendar-debug.h							\
+	calendar-server/calendar-sources.c		calendar-server/calendar-sources.h	\
+	calendar-server/gnome-shell-calendar-server.c						\
+	$(NULL)
+
+desktopdir=$(datadir)/applications
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+desktop_in_files = calendar-server/evolution-calendar.desktop.in
+
+@INTLTOOL_DESKTOP_RULE@
+
+gnome_shell_calendar_server_CFLAGS =		\
+	-I$(top_srcdir)/src			\
+	-DPREFIX=\""$(prefix)"\"		\
+	-DLIBDIR=\""$(libdir)"\"		\
+	-DDATADIR=\""$(datadir)"\"		\
+	-DG_DISABLE_DEPRECATED			\
+	-DG_LOG_DOMAIN=\"ShellCalendarServer\"	\
+	$(CALENDAR_SERVER_CFLAGS)		\
+	$(NULL)
+
+gnome_shell_calendar_server_LDFLAGS =		\
+	$(CALENDAR_SERVER_LIBS)			\
+	$(NULL)
+
+EXTRA_DIST += 							  \
+	calendar-server/README					  \
+	calendar-server/org.gnome.Shell.CalendarServer.service.in \
+	$(NULL)
+
+CLEANFILES += \
+	$(desktop_DATA)

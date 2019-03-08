@@ -1,0 +1,1456 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Manipulating a{sv} mappings</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-dbus.html" title="General D-Bus support">
+<link rel="prev" href="telepathy-glib-dbus.html" title="D-Bus utilities">
+<link rel="next" href="telepathy-glib-variant-util.html" title="GVariant utilities">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-dbus.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-dbus.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-variant-util.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-asv.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-asv.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-asv"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-asv.top_of_page"></a>Manipulating a{sv} mappings</span></h2>
+<p>Manipulating a{sv} mappings — Functions to manipulate mappings from string to
+ variant, as represented in dbus-glib by a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> from string
+ to <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a></p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-asv.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+#define             <a class="link" href="telepathy-glib-asv.html#tp-asv-size" title="tp_asv_size()">tp_asv_size</a>                         (asv)
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()">tp_asv_new</a>                          (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_key</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-asv.html#tp-asv-get-boolean" title="tp_asv_get_boolean ()">tp_asv_get_boolean</a>                  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *valid</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-set-boolean" title="tp_asv_set_boolean ()">tp_asv_set_boolean</a>                  (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> value</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="telepathy-glib-asv.html#tp-asv-get-boxed" title="tp_asv_get_boxed ()">tp_asv_get_boxed</a>                    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> type</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-set-boxed" title="tp_asv_set_boxed ()">tp_asv_set_boxed</a>                    (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-take-boxed" title="tp_asv_take_boxed ()">tp_asv_take_boxed</a>                   (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-set-static-boxed" title="tp_asv_set_static_boxed ()">tp_asv_set_static_boxed</a>             (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> value</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="returnvalue">GArray</span></a> *      <a class="link" href="telepathy-glib-asv.html#tp-asv-get-bytes" title="tp_asv_get_bytes ()">tp_asv_get_bytes</a>                    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-set-bytes" title="tp_asv_set_bytes ()">tp_asv_set_bytes</a>                    (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> length</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> bytes</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-take-bytes" title="tp_asv_take_bytes ()">tp_asv_take_bytes</a>                   (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *value</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="returnvalue">gdouble</span></a>             <a class="link" href="telepathy-glib-asv.html#tp-asv-get-double" title="tp_asv_get_double ()">tp_asv_get_double</a>                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *valid</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-set-double" title="tp_asv_set_double ()">tp_asv_set_double</a>                   (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> value</code></em>);
+<span class="returnvalue">gint32</span>              <a class="link" href="telepathy-glib-asv.html#tp-asv-get-int32" title="tp_asv_get_int32 ()">tp_asv_get_int32</a>                    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *valid</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-set-int32" title="tp_asv_set_int32 ()">tp_asv_set_int32</a>                    (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint32</span> value</code></em>);
+<span class="returnvalue">gint64</span>              <a class="link" href="telepathy-glib-asv.html#tp-asv-get-int64" title="tp_asv_get_int64 ()">tp_asv_get_int64</a>                    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *valid</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-set-int64" title="tp_asv_set_int64 ()">tp_asv_set_int64</a>                    (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint64</span> value</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="telepathy-glib-asv.html#tp-asv-get-object-path" title="tp_asv_get_object_path ()">tp_asv_get_object_path</a>              (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-set-object-path" title="tp_asv_set_object_path ()">tp_asv_set_object_path</a>              (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-take-object-path" title="tp_asv_take_object_path ()">tp_asv_take_object_path</a>             (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-set-static-object-path" title="tp_asv_set_static_object_path ()">tp_asv_set_static_object_path</a>       (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="telepathy-glib-asv.html#tp-asv-get-string" title="tp_asv_get_string ()">tp_asv_get_string</a>                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-set-string" title="tp_asv_set_string ()">tp_asv_set_string</a>                   (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-take-string" title="tp_asv_take_string ()">tp_asv_take_string</a>                  (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-set-static-string" title="tp_asv_set_static_string ()">tp_asv_set_static_string</a>            (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> * const * <a class="link" href="telepathy-glib-asv.html#tp-asv-get-strv" title="tp_asv_get_strv ()">tp_asv_get_strv</a>                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-set-strv" title="tp_asv_set_strv ()">tp_asv_set_strv</a>                     (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **value</code></em>);
+<span class="returnvalue">guint32</span>             <a class="link" href="telepathy-glib-asv.html#tp-asv-get-uint32" title="tp_asv_get_uint32 ()">tp_asv_get_uint32</a>                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *valid</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-set-uint32" title="tp_asv_set_uint32 ()">tp_asv_set_uint32</a>                   (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> value</code></em>);
+<span class="returnvalue">guint64</span>             <a class="link" href="telepathy-glib-asv.html#tp-asv-get-uint64" title="tp_asv_get_uint64 ()">tp_asv_get_uint64</a>                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *valid</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-set-uint64" title="tp_asv_set_uint64 ()">tp_asv_set_uint64</a>                   (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> value</code></em>);
+const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *      <a class="link" href="telepathy-glib-asv.html#tp-asv-lookup" title="tp_asv_lookup ()">tp_asv_lookup</a>                       (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-asv.html#tp-asv-dump" title="tp_asv_dump ()">tp_asv_dump</a>                         (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-asv.description"></a><h2>Description</h2>
+<p>
+Mappings from string to variant (D-Bus signature a{sv}) are commonly used
+to provide extensibility, but in dbus-glib they're somewhat awkward to deal
+with.
+</p>
+<p>
+These functions provide convenient access to the values in such
+a mapping.
+</p>
+<p>
+They also work around the fact that none of the <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> public API
+takes a const pointer to a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a>, even the read-only methods that
+logically ought to.
+</p>
+<p>
+Parts of telepathy-glib return const pointers to <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a>, to encourage
+the use of this API.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-asv.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="tp-asv-size"></a><h3>tp_asv_size()</h3>
+<pre class="programlisting">#define tp_asv_size(asv) _tp_asv_size_inline (asv)
+</pre>
+<p>
+Return the size of <em class="parameter"><code>asv</code></em> as if via <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#g-hash-table-size"><code class="function">g_hash_table_size()</code></a>.
+</p>
+<p>
+The only difference is that this version takes a const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> and
+casts it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a GHashTable</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.7.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-new"></a><h3>tp_asv_new ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        tp_asv_new                          (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_key</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Creates a new <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> for use with a{sv} maps, containing the values
+passed in as parameters.
+</p>
+<p>
+The <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> is synonymous with:
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2</pre></td>
+        <td class="listing_code"><pre class="programlisting">GHashTable <span class="gtkdoc opt">*</span>asv <span class="gtkdoc opt">=</span> <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#g-hash-table-new-full">g_hash_table_new_full</a></span> <span class="gtkdoc opt">(</span>g_str_hash<span class="gtkdoc opt">,</span> g_str_equal<span class="gtkdoc opt">,</span>
+   NULL<span class="gtkdoc opt">, (</span>GDestroyNotify<span class="gtkdoc opt">)</span> tp_g_value_slice_free<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+Followed by manual insertion of each of the parameters.
+</p>
+<p>
+Parameters are stored in slice-allocated GValues and should be set using
+tp_asv_set_*() and retrieved using tp_asv_get_*().
+</p>
+<p>
+<a class="link" href="telepathy-glib-util.html#tp-g-value-slice-new" title="tp_g_value_slice_new ()"><code class="function">tp_g_value_slice_new()</code></a> and <a class="link" href="telepathy-glib-util.html#tp-g-value-slice-dup" title="tp_g_value_slice_dup ()"><code class="function">tp_g_value_slice_dup()</code></a> may also be used to insert
+into the map if required.
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#g-hash-table-insert">g_hash_table_insert</a></span> <span class="gtkdoc opt">(</span>parameters<span class="gtkdoc opt">,</span> <span class="string">&quot;account&quot;</span><span class="gtkdoc opt">,</span>
+   <span class="function"><a href="telepathy-glib-util.html#tp-g-value-slice-new-string">tp_g_value_slice_new_string</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;bob&#64;mcbadgers.com&quot;</span><span class="gtkdoc opt">));</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+</p>
+<div class="example">
+<a name="idp12752432"></a><p class="title"><b>Example 1. Using <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a></b></p>
+<div class="example-contents">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4</pre></td>
+        <td class="listing_code"><pre class="programlisting">GHashTable <span class="gtkdoc opt">*</span>parameters <span class="gtkdoc opt">=</span> <span class="function"><a href="telepathy-glib-asv.html#tp-asv-new">tp_asv_new</a></span> <span class="gtkdoc opt">(</span>
+   <span class="string">&quot;answer&quot;</span><span class="gtkdoc opt">,</span> G_TYPE_INT<span class="gtkdoc opt">,</span> <span class="number">42</span><span class="gtkdoc opt">,</span>
+   <span class="string">&quot;question&quot;</span><span class="gtkdoc opt">,</span> G_TYPE_STRING<span class="gtkdoc opt">,</span> <span class="string">&quot;We just don't know&quot;</span><span class="gtkdoc opt">,</span>
+   NULL<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+<p><br class="example-break">
+</p>
+<p>
+Allocated values will be automatically free'd when overwritten, removed or
+the hash table destroyed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#g-hash-table-unref"><code class="function">g_hash_table_unref()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_key</code></em> :</span></p></td>
+<td>the name of the first key (or NULL)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>type and value for the first key, followed by a NULL-terminated list
+of (key, type, value) tuples</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly created <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> for storing a{sv} maps, free with
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#g-hash-table-unref"><code class="function">g_hash_table_unref()</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-get-boolean"></a><h3>tp_asv_get_boolean ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_asv_get_boolean                  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *valid</code></em>);</pre>
+<p>
+If a value for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is present and boolean, return it,
+and set *<em class="parameter"><code>valid</code></em> to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>valid</code></em> is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p>
+Otherwise return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, and set *<em class="parameter"><code>valid</code></em> to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if <em class="parameter"><code>valid</code></em> is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>A GHashTable where the keys are
+strings and the values are GValues. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The key to look up</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>valid</code></em> :</span></p></td>
+<td>Either <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, or a location to store <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the key actually
+exists and has a boolean value. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a boolean value for <em class="parameter"><code>key</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-set-boolean"></a><h3>tp_asv_set_boolean ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_set_boolean                  (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-boolean" title="tp_asv_get_boolean ()"><code class="function">tp_asv_get_boolean()</code></a>, <a class="link" href="telepathy-glib-util.html#tp-g-value-slice-new-boolean" title="tp_g_value_slice_new_boolean ()"><code class="function">tp_g_value_slice_new_boolean()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-get-boxed"></a><h3>tp_asv_get_boxed ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            tp_asv_get_boxed                    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> type</code></em>);</pre>
+<p>
+If a value for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is present and is of the desired type,
+return it.
+</p>
+<p>
+Otherwise return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p>
+The returned value is not copied, and is only valid as long as the value
+for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is not removed or altered. Copy it, for instance with
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#g-boxed-copy"><code class="function">g_boxed_copy()</code></a>, if you need to keep it for longer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>A GHashTable where the keys are
+strings and the values are GValues. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The key to look up</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>The type that the key's value should have, which must be derived
+from <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-TYPE-BOXED:CAPS"><code class="literal">G_TYPE_BOXED</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <em class="parameter"><code>key</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-set-boxed"></a><h3>tp_asv_set_boxed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_set_boxed                    (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-boxed" title="tp_asv_get_boxed ()"><code class="function">tp_asv_get_boxed()</code></a>, <a class="link" href="telepathy-glib-util.html#tp-g-value-slice-new-boxed" title="tp_g_value_slice_new_boxed ()"><code class="function">tp_g_value_slice_new_boxed()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the type of the key's value, which must be derived from <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-TYPE-BOXED:CAPS"><code class="literal">G_TYPE_BOXED</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-take-boxed"></a><h3>tp_asv_take_boxed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_take_boxed                   (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-boxed" title="tp_asv_get_boxed ()"><code class="function">tp_asv_get_boxed()</code></a>, <a class="link" href="telepathy-glib-util.html#tp-g-value-slice-new-take-boxed" title="tp_g_value_slice_new_take_boxed ()"><code class="function">tp_g_value_slice_new_take_boxed()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the type of the key's value, which must be derived from <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-TYPE-BOXED:CAPS"><code class="literal">G_TYPE_BOXED</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-set-static-boxed"></a><h3>tp_asv_set_static_boxed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_set_static_boxed             (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-boxed" title="tp_asv_get_boxed ()"><code class="function">tp_asv_get_boxed()</code></a>,
+<a class="link" href="telepathy-glib-util.html#tp-g-value-slice-new-static-boxed" title="tp_g_value_slice_new_static_boxed ()"><code class="function">tp_g_value_slice_new_static_boxed()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the type of the key's value, which must be derived from <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-TYPE-BOXED:CAPS"><code class="literal">G_TYPE_BOXED</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-get-bytes"></a><h3>tp_asv_get_bytes ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="returnvalue">GArray</span></a> *      tp_asv_get_bytes                    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+<p>
+If a value for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is present and is an array of bytes
+(its GType is <code class="literal">DBUS_TYPE_G_UCHAR_ARRAY</code>), return it.
+</p>
+<p>
+Otherwise return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p>
+The returned value is not copied, and is only valid as long as the value
+for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is not removed or altered. Copy it with
+g_boxed_copy (DBUS_TYPE_G_UCHAR_ARRAY, ...) if you need to keep
+it for longer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>A GHashTable where the keys are
+strings and the values are GValues. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The key to look up</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the string value of <em class="parameter"><code>key</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-set-bytes"></a><h3>tp_asv_set_bytes ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_set_bytes                    (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> length</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> bytes</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-bytes" title="tp_asv_get_bytes ()"><code class="function">tp_asv_get_bytes()</code></a>, <a class="link" href="telepathy-glib-dbus.html#tp-g-value-slice-new-bytes" title="tp_g_value_slice_new_bytes ()"><code class="function">tp_g_value_slice_new_bytes()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>length</code></em> :</span></p></td>
+<td>the number of bytes to copy</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bytes</code></em> :</span></p></td>
+<td>location of an array of bytes to be copied (this may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+if and only if length is 0)</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-take-bytes"></a><h3>tp_asv_take_bytes ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_take_bytes                   (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-bytes" title="tp_asv_get_bytes ()"><code class="function">tp_asv_get_bytes()</code></a>, <a class="link" href="telepathy-glib-dbus.html#tp-g-value-slice-new-take-bytes" title="tp_g_value_slice_new_take_bytes ()"><code class="function">tp_g_value_slice_new_take_bytes()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a non-NULL <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> of <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guchar"><code class="literal">guchar</code></a>, ownership of which will be taken by
+the <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-get-double"></a><h3>tp_asv_get_double ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="returnvalue">gdouble</span></a>             tp_asv_get_double                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *valid</code></em>);</pre>
+<p>
+If a value for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is present and has any numeric type used by
+dbus-glib (guchar, gint, guint, gint64, guint64 or gdouble),
+return it as a double, and if <em class="parameter"><code>valid</code></em> is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, set *<em class="parameter"><code>valid</code></em> to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.
+</p>
+<p>
+Otherwise, return 0.0, and if <em class="parameter"><code>valid</code></em> is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, set *<em class="parameter"><code>valid</code></em> to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>A GHashTable where the keys are
+strings and the values are GValues. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The key to look up</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>valid</code></em> :</span></p></td>
+<td>Either <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, or a location in which to store <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the double precision floating-point value of <em class="parameter"><code>key</code></em>, or 0.0</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-set-double"></a><h3>tp_asv_set_double ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_set_double                   (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-double" title="tp_asv_get_double ()"><code class="function">tp_asv_get_double()</code></a>, <a class="link" href="telepathy-glib-util.html#tp-g-value-slice-new-double" title="tp_g_value_slice_new_double ()"><code class="function">tp_g_value_slice_new_double()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-get-int32"></a><h3>tp_asv_get_int32 ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint32</span>              tp_asv_get_int32                    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *valid</code></em>);</pre>
+<p>
+If a value for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is present, has an integer type used by
+dbus-glib (guchar, gint, guint, gint64 or guint64) and fits in the
+range of a gint32, return it, and if <em class="parameter"><code>valid</code></em> is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, set *<em class="parameter"><code>valid</code></em> to
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.
+</p>
+<p>
+Otherwise, return 0, and if <em class="parameter"><code>valid</code></em> is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, set *<em class="parameter"><code>valid</code></em> to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>A GHashTable where the keys are
+strings and the values are GValues. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The key to look up</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>valid</code></em> :</span></p></td>
+<td>Either <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, or a location in which to store <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the 32-bit signed integer value of <em class="parameter"><code>key</code></em>, or 0</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-set-int32"></a><h3>tp_asv_set_int32 ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_set_int32                    (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint32</span> value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-int32" title="tp_asv_get_int32 ()"><code class="function">tp_asv_get_int32()</code></a>, <a class="link" href="telepathy-glib-util.html#tp-g-value-slice-new-int" title="tp_g_value_slice_new_int ()"><code class="function">tp_g_value_slice_new_int()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-get-int64"></a><h3>tp_asv_get_int64 ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint64</span>              tp_asv_get_int64                    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *valid</code></em>);</pre>
+<p>
+If a value for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is present, has an integer type used by
+dbus-glib (guchar, gint, guint, gint64 or guint64) and fits in the
+range of a gint64, return it, and if <em class="parameter"><code>valid</code></em> is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, set *<em class="parameter"><code>valid</code></em> to
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.
+</p>
+<p>
+Otherwise, return 0, and if <em class="parameter"><code>valid</code></em> is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, set *<em class="parameter"><code>valid</code></em> to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>A GHashTable where the keys are
+strings and the values are GValues. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The key to look up</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>valid</code></em> :</span></p></td>
+<td>Either <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, or a location in which to store <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the 64-bit signed integer value of <em class="parameter"><code>key</code></em>, or 0</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-set-int64"></a><h3>tp_asv_set_int64 ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_set_int64                    (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint64</span> value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-int64" title="tp_asv_get_int64 ()"><code class="function">tp_asv_get_int64()</code></a>, <a class="link" href="telepathy-glib-util.html#tp-g-value-slice-new-int64" title="tp_g_value_slice_new_int64 ()"><code class="function">tp_g_value_slice_new_int64()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-get-object-path"></a><h3>tp_asv_get_object_path ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_asv_get_object_path              (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+<p>
+If a value for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is present and is an object path, return it.
+</p>
+<p>
+Otherwise return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p>
+The returned value is not copied, and is only valid as long as the value
+for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is not removed or altered. Copy it with <a href="http://library.gnome.org/devel/glib/unstable/glib-String-Utility-Functions.html#g-strdup"><code class="function">g_strdup()</code></a> if you
+need to keep it for longer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>A GHashTable where the keys are
+strings and the values are GValues. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The key to look up</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the object-path value of <em class="parameter"><code>key</code></em>, or
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-set-object-path"></a><h3>tp_asv_set_object_path ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_set_object_path              (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-object-path" title="tp_asv_get_object_path ()"><code class="function">tp_asv_get_object_path()</code></a>,
+<a class="link" href="telepathy-glib-dbus.html#tp-g-value-slice-new-object-path" title="tp_g_value_slice_new_object_path ()"><code class="function">tp_g_value_slice_new_object_path()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-take-object-path"></a><h3>tp_asv_take_object_path ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_take_object_path             (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-object-path" title="tp_asv_get_object_path ()"><code class="function">tp_asv_get_object_path()</code></a>,
+<a class="link" href="telepathy-glib-dbus.html#tp-g-value-slice-new-take-object-path" title="tp_g_value_slice_new_take_object_path ()"><code class="function">tp_g_value_slice_new_take_object_path()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-set-static-object-path"></a><h3>tp_asv_set_static_object_path ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_set_static_object_path       (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-object-path" title="tp_asv_get_object_path ()"><code class="function">tp_asv_get_object_path()</code></a>,
+<a class="link" href="telepathy-glib-dbus.html#tp-g-value-slice-new-static-object-path" title="tp_g_value_slice_new_static_object_path ()"><code class="function">tp_g_value_slice_new_static_object_path()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-get-string"></a><h3>tp_asv_get_string ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_asv_get_string                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+<p>
+If a value for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is present and is a string, return it.
+</p>
+<p>
+Otherwise return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p>
+The returned value is not copied, and is only valid as long as the value
+for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is not removed or altered. Copy it with <a href="http://library.gnome.org/devel/glib/unstable/glib-String-Utility-Functions.html#g-strdup"><code class="function">g_strdup()</code></a> if you
+need to keep it for longer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>A GHashTable where the keys are
+strings and the values are GValues. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The key to look up</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the string value of <em class="parameter"><code>key</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-set-string"></a><h3>tp_asv_set_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_set_string                   (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-string" title="tp_asv_get_string ()"><code class="function">tp_asv_get_string()</code></a>, <a class="link" href="telepathy-glib-util.html#tp-g-value-slice-new-string" title="tp_g_value_slice_new_string ()"><code class="function">tp_g_value_slice_new_string()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-take-string"></a><h3>tp_asv_take_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_take_string                  (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-string" title="tp_asv_get_string ()"><code class="function">tp_asv_get_string()</code></a>,
+<a class="link" href="telepathy-glib-util.html#tp-g-value-slice-new-take-string" title="tp_g_value_slice_new_take_string ()"><code class="function">tp_g_value_slice_new_take_string()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-set-static-string"></a><h3>tp_asv_set_static_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_set_static_string            (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-string" title="tp_asv_get_string ()"><code class="function">tp_asv_get_string()</code></a>,
+<a class="link" href="telepathy-glib-util.html#tp-g-value-slice-new-static-string" title="tp_g_value_slice_new_static_string ()"><code class="function">tp_g_value_slice_new_static_string()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-get-strv"></a><h3>tp_asv_get_strv ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> * const * tp_asv_get_strv                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+<p>
+If a value for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is present and is an array of strings (strv),
+return it.
+</p>
+<p>
+Otherwise return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p>
+The returned value is not copied, and is only valid as long as the value
+for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is not removed or altered. Copy it with <a href="http://library.gnome.org/devel/glib/unstable/glib-String-Utility-Functions.html#g-strdupv"><code class="function">g_strdupv()</code></a> if you
+need to keep it for longer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>A GHashTable where the keys are
+strings and the values are GValues. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The key to look up</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated string-array
+value of <em class="parameter"><code>key</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-set-strv"></a><h3>tp_asv_set_strv ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_set_strv                     (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-strv" title="tp_asv_get_strv ()"><code class="function">tp_asv_get_strv()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated string array</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-get-uint32"></a><h3>tp_asv_get_uint32 ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint32</span>             tp_asv_get_uint32                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *valid</code></em>);</pre>
+<p>
+If a value for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is present, has an integer type used by
+dbus-glib (guchar, gint, guint, gint64 or guint64) and fits in the
+range of a guint32, return it, and if <em class="parameter"><code>valid</code></em> is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, set *<em class="parameter"><code>valid</code></em> to
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.
+</p>
+<p>
+Otherwise, return 0, and if <em class="parameter"><code>valid</code></em> is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, set *<em class="parameter"><code>valid</code></em> to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>A GHashTable where the keys are
+strings and the values are GValues. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The key to look up</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>valid</code></em> :</span></p></td>
+<td>Either <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, or a location in which to store <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the 32-bit unsigned integer value of <em class="parameter"><code>key</code></em>, or 0</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-set-uint32"></a><h3>tp_asv_set_uint32 ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_set_uint32                   (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-uint32" title="tp_asv_get_uint32 ()"><code class="function">tp_asv_get_uint32()</code></a>, <a class="link" href="telepathy-glib-util.html#tp-g-value-slice-new-uint" title="tp_g_value_slice_new_uint ()"><code class="function">tp_g_value_slice_new_uint()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-get-uint64"></a><h3>tp_asv_get_uint64 ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint64</span>             tp_asv_get_uint64                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *valid</code></em>);</pre>
+<p>
+If a value for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is present, has an integer type used by
+dbus-glib (guchar, gint, guint, gint64 or guint64) and is non-negative,
+return it, and if <em class="parameter"><code>valid</code></em> is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, set *<em class="parameter"><code>valid</code></em> to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.
+</p>
+<p>
+Otherwise, return 0, and if <em class="parameter"><code>valid</code></em> is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, set *<em class="parameter"><code>valid</code></em> to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>A GHashTable where the keys are
+strings and the values are GValues. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The key to look up</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>valid</code></em> :</span></p></td>
+<td>Either <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, or a location in which to store <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the 64-bit unsigned integer value of <em class="parameter"><code>key</code></em>, or 0</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-set-uint64"></a><h3>tp_asv_set_uint64 ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_set_uint64                   (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> value</code></em>);</pre>
+<p>
+Stores the value in the map.
+</p>
+<p>
+The value is stored as a slice-allocated GValue.
+</p>
+<p>
+See Also: <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>, <a class="link" href="telepathy-glib-asv.html#tp-asv-get-uint64" title="tp_asv_get_uint64 ()"><code class="function">tp_asv_get_uint64()</code></a>, <a class="link" href="telepathy-glib-util.html#tp-g-value-slice-new-uint64" title="tp_g_value_slice_new_uint64 ()"><code class="function">tp_g_value_slice_new_uint64()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-lookup"></a><h3>tp_asv_lookup ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *      tp_asv_lookup                       (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+<p>
+If a value for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is present, return it. Otherwise return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p>
+The returned value is not copied, and is only valid as long as the value
+for <em class="parameter"><code>key</code></em> in <em class="parameter"><code>asv</code></em> is not removed or altered. Copy it with (for instance)
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#g-value-copy"><code class="function">g_value_copy()</code></a> if you need to keep it for longer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>A GHashTable where the keys are strings and the values are GValues</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The key to look up</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <em class="parameter"><code>key</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-asv-dump"></a><h3>tp_asv_dump ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_asv_dump                         (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>);</pre>
+<p>
+Dumps the a{sv} map to the debugging console.
+</p>
+<p>
+The purpose of this function is give the programmer the ability to easily
+inspect the contents of an a{sv} map for debugging purposes.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> created with <a class="link" href="telepathy-glib-asv.html#tp-asv-new" title="tp_asv_new ()"><code class="function">tp_asv_new()</code></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

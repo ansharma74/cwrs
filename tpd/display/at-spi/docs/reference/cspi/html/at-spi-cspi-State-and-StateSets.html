@@ -1,0 +1,570 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>State and StateSets</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="AT-SPI C Bindings Reference Manual">
+<link rel="up" href="spi-accessible.html" title="Basic Accessible Object Methods and Interface Query">
+<link rel="prev" href="at-spi-cspi-AccessibleRelations-and-RelationSets.html" title="AccessibleRelations and RelationSets">
+<link rel="next" href="spi-component.html" title="Subinterface Methods">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="at-spi-cspi-AccessibleRelations-and-RelationSets.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="spi-accessible.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">AT-SPI C Bindings Reference Manual</th>
+<td><a accesskey="n" href="spi-component.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#at-spi-cspi-State-and-StateSets.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#at-spi-cspi-State-and-StateSets.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="State and StateSets">
+<a name="at-spi-cspi-State-and-StateSets"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="at-spi-cspi-State-and-StateSets.top_of_page"></a>State and StateSets</span></h2>
+<p>State and StateSets</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="at-spi-cspi-State-and-StateSets.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">enum                <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleState" title="enum AccessibleState">AccessibleState</a>;
+struct              <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet">AccessibleStateSet</a>;
+<span class="returnvalue">void</span>                <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet-ref" title="AccessibleStateSet_ref ()">AccessibleStateSet_ref</a>              (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet-unref" title="AccessibleStateSet_unref ()">AccessibleStateSet_unref</a>            (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet-add" title="AccessibleStateSet_add ()">AccessibleStateSet_add</a>              (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleState" title="enum AccessibleState"><span class="type">AccessibleState</span></a> state</code></em>);
+<a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="returnvalue">AccessibleStateSet</span></a> * <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet-compare" title="AccessibleStateSet_compare ()">AccessibleStateSet_compare</a>         (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj2</code></em>);
+<span class="returnvalue">SPIBoolean</span>          <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet-contains" title="AccessibleStateSet_contains ()">AccessibleStateSet_contains</a>         (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleState" title="enum AccessibleState"><span class="type">AccessibleState</span></a> state</code></em>);
+<span class="returnvalue">SPIBoolean</span>          <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet-equals" title="AccessibleStateSet_equals ()">AccessibleStateSet_equals</a>           (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj2</code></em>);
+<span class="returnvalue">SPIBoolean</span>          <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet-isEmpty" title="AccessibleStateSet_isEmpty ()">AccessibleStateSet_isEmpty</a>          (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet-remove" title="AccessibleStateSet_remove ()">AccessibleStateSet_remove</a>           (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleState" title="enum AccessibleState"><span class="type">AccessibleState</span></a> state</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="at-spi-cspi-State-and-StateSets.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="at-spi-cspi-State-and-StateSets.details"></a><h2>Details</h2>
+<div class="refsect2" title="enum AccessibleState">
+<a name="AccessibleState"></a><h3>enum AccessibleState</h3>
+<pre class="programlisting">typedef enum
+{
+  SPI_STATE_INVALID,
+  SPI_STATE_ACTIVE,
+  SPI_STATE_ARMED,
+  SPI_STATE_BUSY,
+  SPI_STATE_CHECKED,
+  SPI_STATE_COLLAPSED,
+  SPI_STATE_DEFUNCT,
+  SPI_STATE_EDITABLE,
+  SPI_STATE_ENABLED,
+  SPI_STATE_EXPANDABLE,
+  SPI_STATE_EXPANDED,
+  SPI_STATE_FOCUSABLE,
+  SPI_STATE_FOCUSED,
+  SPI_STATE_HORIZONTAL,
+  SPI_STATE_ICONIFIED,
+  SPI_STATE_MODAL,
+  SPI_STATE_MULTI_LINE,
+  SPI_STATE_MULTISELECTABLE,
+  SPI_STATE_OPAQUE,
+  SPI_STATE_PRESSED,
+  SPI_STATE_RESIZABLE,
+  SPI_STATE_SELECTABLE,
+  SPI_STATE_SELECTED,
+  SPI_STATE_SENSITIVE,
+  SPI_STATE_SHOWING,
+  SPI_STATE_SINGLE_LINE,
+  SPI_STATE_STALE,
+  SPI_STATE_TRANSIENT,
+  SPI_STATE_VERTICAL,
+  SPI_STATE_VISIBLE,
+  SPI_STATE_MANAGES_DESCENDANTS, 
+  SPI_STATE_INDETERMINATE, 
+  SPI_STATE_TRUNCATED,
+  SPI_STATE_REQUIRED,
+  SPI_STATE_INVALID_ENTRY,
+  SPI_STATE_SUPPORTS_AUTOCOMPLETION,
+  SPI_STATE_SELECTABLE_TEXT,
+  SPI_STATE_IS_DEFAULT,
+  SPI_STATE_VISITED,
+  SPI_STATE_LAST_DEFINED
+} AccessibleState;
+</pre>
+<p>
+The possibles states of an object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="SPI-STATE-INVALID:CAPS"></a><span class="term"><code class="literal">SPI_STATE_INVALID</code></span></p></td>
+<td>Indicates an invalid state
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-ACTIVE:CAPS"></a><span class="term"><code class="literal">SPI_STATE_ACTIVE</code></span></p></td>
+<td>Indicates a window is currently the active window 
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-ARMED:CAPS"></a><span class="term"><code class="literal">SPI_STATE_ARMED</code></span></p></td>
+<td>Indicates that the object is armed
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-BUSY:CAPS"></a><span class="term"><code class="literal">SPI_STATE_BUSY</code></span></p></td>
+<td>Indicates the current object is busy 
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-CHECKED:CAPS"></a><span class="term"><code class="literal">SPI_STATE_CHECKED</code></span></p></td>
+<td>Indicates this object is currently checked 
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-COLLAPSED:CAPS"></a><span class="term"><code class="literal">SPI_STATE_COLLAPSED</code></span></p></td>
+<td>Indicates this object is collapsed 
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-DEFUNCT:CAPS"></a><span class="term"><code class="literal">SPI_STATE_DEFUNCT</code></span></p></td>
+<td>Indicates the user interface object corresponding to this object no longer exists 
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-EDITABLE:CAPS"></a><span class="term"><code class="literal">SPI_STATE_EDITABLE</code></span></p></td>
+<td>Indicates the user can change the contents of this object
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-ENABLED:CAPS"></a><span class="term"><code class="literal">SPI_STATE_ENABLED</code></span></p></td>
+<td>Indicates that this object is enabled 
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-EXPANDABLE:CAPS"></a><span class="term"><code class="literal">SPI_STATE_EXPANDABLE</code></span></p></td>
+<td>Indicates this object allows progressive disclosure of its children 
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-EXPANDED:CAPS"></a><span class="term"><code class="literal">SPI_STATE_EXPANDED</code></span></p></td>
+<td>Indicates this object its expanded
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-FOCUSABLE:CAPS"></a><span class="term"><code class="literal">SPI_STATE_FOCUSABLE</code></span></p></td>
+<td>Indicates this object can accept keyboard focus, which means all events resulting from typing on the keyboard will normally be passed to it when it has focus
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-FOCUSED:CAPS"></a><span class="term"><code class="literal">SPI_STATE_FOCUSED</code></span></p></td>
+<td>Indicates this object currently has the keyboard focus 
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-HORIZONTAL:CAPS"></a><span class="term"><code class="literal">SPI_STATE_HORIZONTAL</code></span></p></td>
+<td>Indicates the orientation of thsi object is horizontal
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-ICONIFIED:CAPS"></a><span class="term"><code class="literal">SPI_STATE_ICONIFIED</code></span></p></td>
+<td>Indicates this object is minimized and is represented only by an icon
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-MODAL:CAPS"></a><span class="term"><code class="literal">SPI_STATE_MODAL</code></span></p></td>
+<td>Indicates something must be done with this object before the user can interact with an object in a different window
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-MULTI-LINE:CAPS"></a><span class="term"><code class="literal">SPI_STATE_MULTI_LINE</code></span></p></td>
+<td>Indicates this (text) object can contain multiple lines of text
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-MULTISELECTABLE:CAPS"></a><span class="term"><code class="literal">SPI_STATE_MULTISELECTABLE</code></span></p></td>
+<td>Indicates this object allows more than one of its children to be selected at the same time
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-OPAQUE:CAPS"></a><span class="term"><code class="literal">SPI_STATE_OPAQUE</code></span></p></td>
+<td>Indicates this object paints every pixel within its rectangular region
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-PRESSED:CAPS"></a><span class="term"><code class="literal">SPI_STATE_PRESSED</code></span></p></td>
+<td>Indicates this object is currently pressed
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-RESIZABLE:CAPS"></a><span class="term"><code class="literal">SPI_STATE_RESIZABLE</code></span></p></td>
+<td>Indicates the size of this object is not fixed
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-SELECTABLE:CAPS"></a><span class="term"><code class="literal">SPI_STATE_SELECTABLE</code></span></p></td>
+<td>Indicates this object is the child of an object that allows its children to be selected and that this child is one of those children that can be selected
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-SELECTED:CAPS"></a><span class="term"><code class="literal">SPI_STATE_SELECTED</code></span></p></td>
+<td>Indicates this object is the child of an object that allows its children to be selected and that this child is one of those children that has been selected
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-SENSITIVE:CAPS"></a><span class="term"><code class="literal">SPI_STATE_SENSITIVE</code></span></p></td>
+<td>Indicates this object is sensitive
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-SHOWING:CAPS"></a><span class="term"><code class="literal">SPI_STATE_SHOWING</code></span></p></td>
+<td>Indicates this object, the object's parent, the object's parent's parent, and so on, are all visible
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-SINGLE-LINE:CAPS"></a><span class="term"><code class="literal">SPI_STATE_SINGLE_LINE</code></span></p></td>
+<td>Indicates this (text) object can contain only a single line of text
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-STALE:CAPS"></a><span class="term"><code class="literal">SPI_STATE_STALE</code></span></p></td>
+<td>Indicates that the index associated with this object has changed since the user accessed the object
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-TRANSIENT:CAPS"></a><span class="term"><code class="literal">SPI_STATE_TRANSIENT</code></span></p></td>
+<td>Indicates this object is transient
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-VERTICAL:CAPS"></a><span class="term"><code class="literal">SPI_STATE_VERTICAL</code></span></p></td>
+<td>Indicates the orientation of this object is vertical
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-VISIBLE:CAPS"></a><span class="term"><code class="literal">SPI_STATE_VISIBLE</code></span></p></td>
+<td>Indicates this object is visible 
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-MANAGES-DESCENDANTS:CAPS"></a><span class="term"><code class="literal">SPI_STATE_MANAGES_DESCENDANTS</code></span></p></td>
+<td>Indicates that "active-descendant-changed" 
+event is sent when children become 'active' (i.e. are selected or navigated 
+to onscreen).  Used to prevent need to enumerate all children in very large 
+containers, like tables.
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-INDETERMINATE:CAPS"></a><span class="term"><code class="literal">SPI_STATE_INDETERMINATE</code></span></p></td>
+<td>Indicates that a check box is in a state other than checked or not checked.
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-TRUNCATED:CAPS"></a><span class="term"><code class="literal">SPI_STATE_TRUNCATED</code></span></p></td>
+<td>Indicates that an object is truncated, e.g. a text value in a speradsheet cell.
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-REQUIRED:CAPS"></a><span class="term"><code class="literal">SPI_STATE_REQUIRED</code></span></p></td>
+<td>Indicates that explicit user interaction with an object is required by the user interface, e.g. a required field in a "web-form" interface.
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-INVALID-ENTRY:CAPS"></a><span class="term"><code class="literal">SPI_STATE_INVALID_ENTRY</code></span></p></td>
+<td>Indicates that the object has encountered an error condition due to failure of input validation. For instance, a form control may acquire this state in response to invalid or malformed user input.
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-SUPPORTS-AUTOCOMPLETION:CAPS"></a><span class="term"><code class="literal">SPI_STATE_SUPPORTS_AUTOCOMPLETION</code></span></p></td>
+<td>Indicates that the object may exhibit "typeahead" behavior in response to user keystrokes, e.g. one keystroke may result in the insertion of several characters into an entry, or result in the auto-selection of an item in a list.  This state supplants <em class="parameter"><code>SPI_ROLE_AUTOCOMPLETE</code></em>.
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-SELECTABLE-TEXT:CAPS"></a><span class="term"><code class="literal">SPI_STATE_SELECTABLE_TEXT</code></span></p></td>
+<td>Indicates that the object in question supports text selection. It should only be exposed on objects which implement the Text interface, in order to distinguish this state from <em class="parameter"><code>SPI_STATE_SELECTABLE</code></em>, which infers that the object in question is a selectable child of an object which implements Selection. While similar, text selection and subelement selection are distinct operations.
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-IS-DEFAULT:CAPS"></a><span class="term"><code class="literal">SPI_STATE_IS_DEFAULT</code></span></p></td>
+<td>Indicates that the object is the "default" active component, i.e. the object which is activated by an end-user press of the "Enter" or "Return" key.  Typically a "close" or "submit" button.
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-VISITED:CAPS"></a><span class="term"><code class="literal">SPI_STATE_VISITED</code></span></p></td>
+<td>Indicates that the object (typically a hyperlink) has already been 'activated', and/or its backing data has already been downloaded, rendered, or otherwise "visited".
+</td>
+</tr>
+<tr>
+<td><p><a name="SPI-STATE-LAST-DEFINED:CAPS"></a><span class="term"><code class="literal">SPI_STATE_LAST_DEFINED</code></span></p></td>
+<td>Not a valid state, used for finding end of enumeration
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="struct AccessibleStateSet">
+<a name="AccessibleStateSet"></a><h3>struct AccessibleStateSet</h3>
+<pre class="programlisting">struct AccessibleStateSet {
+	guint   ref_count;
+	GArray *states;
+};
+</pre>
+<p>
+An opaque structure representing an accessible object's state,
+which can then be queried via AccessibleStateSet APIs.
+</p>
+<p>
+An AccessibleStateSet determines a component's state set. It is composed of
+a set of AccessibleState values.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><span class="type">guint</span> <em class="structfield"><code><a name="AccessibleStateSet.ref-count"></a>ref_count</code></em>;</span></p></td>
+<td>private
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">GArray</span> *<em class="structfield"><code><a name="AccessibleStateSet.states"></a>states</code></em>;</span></p></td>
+<td>private
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="AccessibleStateSet_ref ()">
+<a name="AccessibleStateSet-ref"></a><h3>AccessibleStateSet_ref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                AccessibleStateSet_ref              (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>);</pre>
+<p>
+Increment the reference count for an <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a pointer to the <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> object on which to operate.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="AccessibleStateSet_unref ()">
+<a name="AccessibleStateSet-unref"></a><h3>AccessibleStateSet_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                AccessibleStateSet_unref            (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>);</pre>
+<p>
+Decrement the reference count for an <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a pointer to the <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> object on which to operate.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="AccessibleStateSet_add ()">
+<a name="AccessibleStateSet-add"></a><h3>AccessibleStateSet_add ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                AccessibleStateSet_add              (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleState" title="enum AccessibleState"><span class="type">AccessibleState</span></a> state</code></em>);</pre>
+<p>
+Add a particular <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleState" title="enum AccessibleState"><span class="type">AccessibleState</span></a> to an <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> (i.e. set the
+      given state to <span class="type">TRUE</span> in the stateset.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a pointer to the <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> object on which to operate.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>state</code></em> :</span></p></td>
+<td>an <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleState" title="enum AccessibleState"><span class="type">AccessibleState</span></a> to be added to the specified <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="AccessibleStateSet_compare ()">
+<a name="AccessibleStateSet-compare"></a><h3>AccessibleStateSet_compare ()</h3>
+<pre class="programlisting"><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="returnvalue">AccessibleStateSet</span></a> * AccessibleStateSet_compare         (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj2</code></em>);</pre>
+<p>
+Determine the differences between two instances of <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a>.
+Not Yet Implemented.
+.
+<em class="parameter"><code>see</code></em> <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet-equals" title="AccessibleStateSet_equals ()"><code class="function">AccessibleStateSet_equals()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a pointer to the first <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> object on which to operate.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj2</code></em> :</span></p></td>
+<td>a pointer to the second <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> object on which to operate.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> an <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> object containing all states contained on one of
+         the two sets but not the other.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="AccessibleStateSet_contains ()">
+<a name="AccessibleStateSet-contains"></a><h3>AccessibleStateSet_contains ()</h3>
+<pre class="programlisting"><span class="returnvalue">SPIBoolean</span>          AccessibleStateSet_contains         (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleState" title="enum AccessibleState"><span class="type">AccessibleState</span></a> state</code></em>);</pre>
+<p>
+Determine whether a given <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> includes a given state; that is,
+      whether <em class="parameter"><code>state</code></em> is true for the stateset in question.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a pointer to the <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> object on which to operate.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>state</code></em> :</span></p></td>
+<td>an <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleState" title="enum AccessibleState"><span class="type">AccessibleState</span></a> for which the specified <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a>
+      will be queried.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <span class="type">TRUE</span> if <em class="parameter"><code>state</code></em> is true/included in the given <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a>,
+         otherwise <span class="type">FALSE</span>.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="AccessibleStateSet_equals ()">
+<a name="AccessibleStateSet-equals"></a><h3>AccessibleStateSet_equals ()</h3>
+<pre class="programlisting"><span class="returnvalue">SPIBoolean</span>          AccessibleStateSet_equals           (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj2</code></em>);</pre>
+<p>
+Determine whether two instances of <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> are equivalent (i.e.
+        consist of the same <a href="at-spi-cspi-State-and-StateSets.html#AccessibleState"><span class="type">AccessibleStates</span></a>).  Useful for checking multiple
+        state variables at once; construct the target state then compare against it.
+</p>
+<p>
+<em class="parameter"><code>see</code></em> <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet-compare" title="AccessibleStateSet_compare ()"><code class="function">AccessibleStateSet_compare()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a pointer to the first <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> object on which to operate.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj2</code></em> :</span></p></td>
+<td>a pointer to the second <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> object on which to operate.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <span class="type">TRUE</span> if the two <a href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet"><span class="type">AccessibleStateSets</span></a> are equivalent,
+         otherwise <span class="type">FALSE</span>.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="AccessibleStateSet_isEmpty ()">
+<a name="AccessibleStateSet-isEmpty"></a><h3>AccessibleStateSet_isEmpty ()</h3>
+<pre class="programlisting"><span class="returnvalue">SPIBoolean</span>          AccessibleStateSet_isEmpty          (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>);</pre>
+<p>
+Determine whether a given <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> is the empty set.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a pointer to the <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> object on which to operate.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <span class="type">TRUE</span> if the given <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> contains no (true) states,
+         otherwise <span class="type">FALSE</span>.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="AccessibleStateSet_remove ()">
+<a name="AccessibleStateSet-remove"></a><h3>AccessibleStateSet_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                AccessibleStateSet_remove           (<em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleState" title="enum AccessibleState"><span class="type">AccessibleState</span></a> state</code></em>);</pre>
+<p>
+Remove a particular <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleState" title="enum AccessibleState"><span class="type">AccessibleState</span></a> to an <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> (i.e. set the
+      given state to <span class="type">FALSE</span> in the stateset.)
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a pointer to the <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a> object on which to operate.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>state</code></em> :</span></p></td>
+<td>an <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleState" title="enum AccessibleState"><span class="type">AccessibleState</span></a> to be removed from the specified <a class="link" href="at-spi-cspi-State-and-StateSets.html#AccessibleStateSet" title="struct AccessibleStateSet"><span class="type">AccessibleStateSet</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

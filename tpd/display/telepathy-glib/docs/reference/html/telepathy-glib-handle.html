@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpHandle</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-protocol.html" title="The Telepathy protocol">
+<link rel="prev" href="telepathy-glib-defs.html" title="Miscellaneous definitions">
+<link rel="next" href="telepathy-glib-interfaces.html" title="Telepathy protocol interface and property names">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-defs.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-protocol.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-interfaces.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-handle.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-handle.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-handle"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-handle.top_of_page"></a>TpHandle</span></h2>
+<p>TpHandle — type representing handles</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-handle.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+typedef             <a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle">TpHandle</a>;
+#define             <a class="link" href="telepathy-glib-handle.html#TP-TYPE-HANDLE:CAPS" title="TP_TYPE_HANDLE">TP_TYPE_HANDLE</a>
+#define             <a class="link" href="telepathy-glib-handle.html#TP-UNKNOWN-HANDLE-TYPE:CAPS" title="TP_UNKNOWN_HANDLE_TYPE">TP_UNKNOWN_HANDLE_TYPE</a>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-handle.html#tp-handle-type-is-valid" title="tp_handle_type_is_valid ()">tp_handle_type_is_valid</a>             (<em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="telepathy-glib-handle.html#tp-handle-type-to-string" title="tp_handle_type_to_string ()">tp_handle_type_to_string</a>            (<em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> type</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-handle.description"></a><h2>Description</h2>
+<p>
+The TpHandle type represents a Telepathy handle.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-handle.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpHandle"></a><h3>TpHandle</h3>
+<pre class="programlisting">typedef guint TpHandle;
+</pre>
+<p>
+Type representing Telepathy handles within telepathy-glib.
+</p>
+<p>
+This is guint despite the wire protocol having 32-bit integers, because
+dbus-glib expects GArrays of guint and so on. If the dbus-glib ABI changes
+in future, telepathy-glib is likely to have a matching ABI change.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-TYPE-HANDLE:CAPS"></a><h3>TP_TYPE_HANDLE</h3>
+<pre class="programlisting">#define TP_TYPE_HANDLE G_TYPE_UINT
+</pre>
+<p>
+The GType of a TpHandle, currently G_TYPE_UINT.
+</p>
+<p>
+This won't change unless in an ABI-incompatible version of telepathy-glib.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-UNKNOWN-HANDLE-TYPE:CAPS"></a><h3>TP_UNKNOWN_HANDLE_TYPE</h3>
+<pre class="programlisting">#define TP_UNKNOWN_HANDLE_TYPE ((TpHandleType) -1)
+</pre>
+<p>
+An invalid handle type (-1 cast to TpHandleType) used to represent an
+unknown handle type.
+</p>
+<p class="since">Since 0.7.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-handle-type-is-valid"></a><h3>tp_handle_type_is_valid ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_handle_type_is_valid             (<em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+If the given handle type is valid, return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>. If not, set <em class="parameter"><code>error</code></em>
+and return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>A handle type, valid or not, to be checked</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Set if the handle type is invalid</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the handle type is valid.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-handle-type-to-string"></a><h3>tp_handle_type_to_string ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_handle_type_to_string            (<em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> type</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>A handle type, which need not be valid</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a human-readable string describing the handle type, e.g. "contact".
+For invalid handle types, returns "(no handle)" for 0 or
+"(invalid handle type)" for others.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-handle.see-also"></a><h2>See Also</h2>
+TpHandleRepoIface
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

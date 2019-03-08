@@ -1,0 +1,1872 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Text channels</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-dbus.html" title="Service-side D-Bus interfaces">
+<link rel="prev" href="telepathy-glib-svc-channel-contactsearch.html" title="Contact Search channels">
+<link rel="next" href="telepathy-glib-svc-channel-media.html" title="Media channels">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-svc-channel-contactsearch.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-dbus.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-svc-channel-media.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-svc-channel-text.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel-text.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel-text.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel-text.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-svc-channel-text"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-svc-channel-text.top_of_page"></a>Text channels</span></h2>
+<p>Text channels — service-side interfaces for the Text channel type, and
+ the Chat State, Password and SMS interfaces</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-svc-channel-text.synopsis"></a><h2>Synopsis</h2>
+<a name="TpSvcChannelTypeText"></a><a name="TpSvcChannelInterfaceChatState"></a><a name="TpSvcChannelInterfaceMessages"></a><a name="TpSvcChannelInterfacePassword"></a><a name="TpSvcChannelInterfaceSMS"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib-dbus.h&gt;
+
+                    <a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText-struct" title="TpSvcChannelTypeText">TpSvcChannelTypeText</a>;
+                    <a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeTextClass" title="TpSvcChannelTypeTextClass">TpSvcChannelTypeTextClass</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-acknowledge-pending-messages-impl" title="tp_svc_channel_type_text_acknowledge_pending_messages_impl ()">*tp_svc_channel_type_text_acknowledge_pending_messages_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText"><span class="type">TpSvcChannelTypeText</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_IDs</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-implement-acknowledge-pending-messages" title="tp_svc_channel_type_text_implement_acknowledge_pending_messages ()">tp_svc_channel_type_text_implement_acknowledge_pending_messages</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeTextClass" title="TpSvcChannelTypeTextClass"><span class="type">TpSvcChannelTypeTextClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-acknowledge-pending-messages-impl" title="tp_svc_channel_type_text_acknowledge_pending_messages_impl ()"><span class="type">tp_svc_channel_type_text_acknowledge_pending_messages_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-return-from-acknowledge-pending-messages" title="tp_svc_channel_type_text_return_from_acknowledge_pending_messages ()">tp_svc_channel_type_text_return_from_acknowledge_pending_messages</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-get-message-types-impl" title="tp_svc_channel_type_text_get_message_types_impl ()">*tp_svc_channel_type_text_get_message_types_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText"><span class="type">TpSvcChannelTypeText</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-implement-get-message-types" title="tp_svc_channel_type_text_implement_get_message_types ()">tp_svc_channel_type_text_implement_get_message_types</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeTextClass" title="TpSvcChannelTypeTextClass"><span class="type">TpSvcChannelTypeTextClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-get-message-types-impl" title="tp_svc_channel_type_text_get_message_types_impl ()"><span class="type">tp_svc_channel_type_text_get_message_types_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-return-from-get-message-types" title="tp_svc_channel_type_text_return_from_get_message_types ()">tp_svc_channel_type_text_return_from_get_message_types</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Available_Types</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-list-pending-messages-impl" title="tp_svc_channel_type_text_list_pending_messages_impl ()">*tp_svc_channel_type_text_list_pending_messages_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText"><span class="type">TpSvcChannelTypeText</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> in_Clear</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-implement-list-pending-messages" title="tp_svc_channel_type_text_implement_list_pending_messages ()">tp_svc_channel_type_text_implement_list_pending_messages</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeTextClass" title="TpSvcChannelTypeTextClass"><span class="type">TpSvcChannelTypeTextClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-list-pending-messages-impl" title="tp_svc_channel_type_text_list_pending_messages_impl ()"><span class="type">tp_svc_channel_type_text_list_pending_messages_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-return-from-list-pending-messages" title="tp_svc_channel_type_text_return_from_list_pending_messages ()">tp_svc_channel_type_text_return_from_list_pending_messages</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Pending_Messages</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-send-impl" title="tp_svc_channel_type_text_send_impl ()">*tp_svc_channel_type_text_send_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText"><span class="type">TpSvcChannelTypeText</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Text</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-implement-send" title="tp_svc_channel_type_text_implement_send ()">tp_svc_channel_type_text_implement_send</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeTextClass" title="TpSvcChannelTypeTextClass"><span class="type">TpSvcChannelTypeTextClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-send-impl" title="tp_svc_channel_type_text_send_impl ()"><span class="type">tp_svc_channel_type_text_send_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-return-from-send" title="tp_svc_channel_type_text_return_from_send ()">tp_svc_channel_type_text_return_from_send</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-emit-lost-message" title="tp_svc_channel_type_text_emit_lost_message ()">tp_svc_channel_type_text_emit_lost_message</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-emit-received" title="tp_svc_channel_type_text_emit_received ()">tp_svc_channel_type_text_emit_received</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_ID</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Timestamp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Sender</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Flags</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Text</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-emit-send-error" title="tp_svc_channel_type_text_emit_send_error ()">tp_svc_channel_type_text_emit_send_error</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Timestamp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Text</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-emit-sent" title="tp_svc_channel_type_text_emit_sent ()">tp_svc_channel_type_text_emit_sent</a>  (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Timestamp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Text</code></em>);
+
+
+                    <a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceChatState-struct" title="TpSvcChannelInterfaceChatState">TpSvcChannelInterfaceChatState</a>;
+                    <a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceChatStateClass" title="TpSvcChannelInterfaceChatStateClass">TpSvcChannelInterfaceChatStateClass</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-chat-state-set-chat-state-impl" title="tp_svc_channel_interface_chat_state_set_chat_state_impl ()">*tp_svc_channel_interface_chat_state_set_chat_state_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceChatState"><span class="type">TpSvcChannelInterfaceChatState</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_State</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-chat-state-implement-set-chat-state" title="tp_svc_channel_interface_chat_state_implement_set_chat_state ()">tp_svc_channel_interface_chat_state_implement_set_chat_state</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceChatStateClass" title="TpSvcChannelInterfaceChatStateClass"><span class="type">TpSvcChannelInterfaceChatStateClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-chat-state-set-chat-state-impl" title="tp_svc_channel_interface_chat_state_set_chat_state_impl ()"><span class="type">tp_svc_channel_interface_chat_state_set_chat_state_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-chat-state-return-from-set-chat-state" title="tp_svc_channel_interface_chat_state_return_from_set_chat_state ()">tp_svc_channel_interface_chat_state_return_from_set_chat_state</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-chat-state-emit-chat-state-changed" title="tp_svc_channel_interface_chat_state_emit_chat_state_changed ()">tp_svc_channel_interface_chat_state_emit_chat_state_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Contact</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_State</code></em>);
+
+
+                    <a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessages-struct" title="TpSvcChannelInterfaceMessages">TpSvcChannelInterfaceMessages</a>;
+                    <a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessagesClass" title="TpSvcChannelInterfaceMessagesClass">TpSvcChannelInterfaceMessagesClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-messages-emit-message-received" title="tp_svc_channel_interface_messages_emit_message_received ()">tp_svc_channel_interface_messages_emit_message_received</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Message</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-messages-emit-message-sent" title="tp_svc_channel_interface_messages_emit_message_sent ()">tp_svc_channel_interface_messages_emit_message_sent</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Content</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Flags</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Message_Token</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-messages-emit-pending-messages-removed" title="tp_svc_channel_interface_messages_emit_pending_messages_removed ()">tp_svc_channel_interface_messages_emit_pending_messages_removed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Message_IDs</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-messages-get-pending-message-content-impl" title="tp_svc_channel_interface_messages_get_pending_message_content_impl ()">*tp_svc_channel_interface_messages_get_pending_message_content_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessages"><span class="type">TpSvcChannelInterfaceMessages</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Message_ID</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Parts</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-messages-implement-get-pending-message-content" title="tp_svc_channel_interface_messages_implement_get_pending_message_content ()">tp_svc_channel_interface_messages_implement_get_pending_message_content</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessagesClass" title="TpSvcChannelInterfaceMessagesClass"><span class="type">TpSvcChannelInterfaceMessagesClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-messages-get-pending-message-content-impl" title="tp_svc_channel_interface_messages_get_pending_message_content_impl ()"><span class="type">tp_svc_channel_interface_messages_get_pending_message_content_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-messages-implement-send-message" title="tp_svc_channel_interface_messages_implement_send_message ()">tp_svc_channel_interface_messages_implement_send_message</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessagesClass" title="TpSvcChannelInterfaceMessagesClass"><span class="type">TpSvcChannelInterfaceMessagesClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-messages-send-message-impl" title="tp_svc_channel_interface_messages_send_message_impl ()"><span class="type">tp_svc_channel_interface_messages_send_message_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-messages-return-from-get-pending-message-content" title="tp_svc_channel_interface_messages_return_from_get_pending_message_content ()">tp_svc_channel_interface_messages_return_from_get_pending_message_content</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *out_Content</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-messages-return-from-send-message" title="tp_svc_channel_interface_messages_return_from_send_message ()">tp_svc_channel_interface_messages_return_from_send_message</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *out_Token</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-messages-send-message-impl" title="tp_svc_channel_interface_messages_send_message_impl ()">*tp_svc_channel_interface_messages_send_message_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessages"><span class="type">TpSvcChannelInterfaceMessages</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Flags</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+
+
+                    <a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfacePassword-struct" title="TpSvcChannelInterfacePassword">TpSvcChannelInterfacePassword</a>;
+                    <a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfacePasswordClass" title="TpSvcChannelInterfacePasswordClass">TpSvcChannelInterfacePasswordClass</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-password-get-password-flags-impl" title="tp_svc_channel_interface_password_get_password_flags_impl ()">*tp_svc_channel_interface_password_get_password_flags_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfacePassword"><span class="type">TpSvcChannelInterfacePassword</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-password-implement-get-password-flags" title="tp_svc_channel_interface_password_implement_get_password_flags ()">tp_svc_channel_interface_password_implement_get_password_flags</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfacePasswordClass" title="TpSvcChannelInterfacePasswordClass"><span class="type">TpSvcChannelInterfacePasswordClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-password-get-password-flags-impl" title="tp_svc_channel_interface_password_get_password_flags_impl ()"><span class="type">tp_svc_channel_interface_password_get_password_flags_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-password-return-from-get-password-flags" title="tp_svc_channel_interface_password_return_from_get_password_flags ()">tp_svc_channel_interface_password_return_from_get_password_flags</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> out_Password_Flags</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-password-provide-password-impl" title="tp_svc_channel_interface_password_provide_password_impl ()">*tp_svc_channel_interface_password_provide_password_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfacePassword"><span class="type">TpSvcChannelInterfacePassword</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Password</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-password-implement-provide-password" title="tp_svc_channel_interface_password_implement_provide_password ()">tp_svc_channel_interface_password_implement_provide_password</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfacePasswordClass" title="TpSvcChannelInterfacePasswordClass"><span class="type">TpSvcChannelInterfacePasswordClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-password-provide-password-impl" title="tp_svc_channel_interface_password_provide_password_impl ()"><span class="type">tp_svc_channel_interface_password_provide_password_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-password-return-from-provide-password" title="tp_svc_channel_interface_password_return_from_provide_password ()">tp_svc_channel_interface_password_return_from_provide_password</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> out_Correct</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-password-emit-password-flags-changed" title="tp_svc_channel_interface_password_emit_password_flags_changed ()">tp_svc_channel_interface_password_emit_password_flags_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Added</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Removed</code></em>);
+
+
+                    <a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceSMS-struct" title="TpSvcChannelInterfaceSMS">TpSvcChannelInterfaceSMS</a>;
+                    <a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceSMSClass" title="TpSvcChannelInterfaceSMSClass">TpSvcChannelInterfaceSMSClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-sms-emit-sms-channel-changed" title="tp_svc_channel_interface_sms_emit_sms_channel_changed ()">tp_svc_channel_interface_sms_emit_sms_channel_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> arg_SMSChannel</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-sms-get-sms-length-impl" title="tp_svc_channel_interface_sms_get_sms_length_impl ()">*tp_svc_channel_interface_sms_get_sms_length_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceSMS"><span class="type">TpSvcChannelInterfaceSMS</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Message</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-sms-implement-get-sms-length" title="tp_svc_channel_interface_sms_implement_get_sms_length ()">tp_svc_channel_interface_sms_implement_get_sms_length</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceSMSClass" title="TpSvcChannelInterfaceSMSClass"><span class="type">TpSvcChannelInterfaceSMSClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-sms-get-sms-length-impl" title="tp_svc_channel_interface_sms_get_sms_length_impl ()"><span class="type">tp_svc_channel_interface_sms_get_sms_length_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-sms-return-from-get-sms-length" title="tp_svc_channel_interface_sms_return_from_get_sms_length ()">tp_svc_channel_interface_sms_return_from_get_sms_length</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> out_Chunks_Required</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> out_Remaining_Characters</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> out_Estimated_Cost</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-text.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcChannelTypeText
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcChannelInterfaceChatState
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcChannelInterfaceMessages
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcChannelInterfacePassword
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcChannelInterfaceSMS
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-text.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText-lost-message" title='The "lost-message" signal'>lost-message</a>"                                   : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText-received" title='The "received" signal'>received</a>"                                       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText-send-error" title='The "send-error" signal'>send-error</a>"                                     : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText-sent" title='The "sent" signal'>sent</a>"                                           : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceChatState-chat-state-changed" title='The "chat-state-changed" signal'>chat-state-changed</a>"                             : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessages-message-received" title='The "message-received" signal'>message-received</a>"                               : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessages-message-sent" title='The "message-sent" signal'>message-sent</a>"                                   : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessages-pending-messages-removed" title='The "pending-messages-removed" signal'>pending-messages-removed</a>"                       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfacePassword-password-flags-changed" title='The "password-flags-changed" signal'>password-flags-changed</a>"                         : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceSMS-s-ms-channel-changed" title='The "s-ms-channel-changed" signal'>s-ms-channel-changed</a>"                           : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-text.description"></a><h2>Description</h2>
+<p>
+A major use for instant messaging is obviously to send messages.
+Channels of type Text represent conversations or chat rooms using short
+real-time messages, including SMS.
+</p>
+<p>
+This section documents the auto-generated GInterfaces used to implement
+the Text channel type, and some interfaces used in conjunction with it.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-text.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpSvcChannelTypeText-struct"></a><h3>TpSvcChannelTypeText</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelTypeText TpSvcChannelTypeText;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelTypeTextClass"></a><h3>TpSvcChannelTypeTextClass</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelTypeTextClass TpSvcChannelTypeTextClass;</pre>
+<p>
+The class of TpSvcChannelTypeText.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_channel_type_text (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_channel_type_text_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (acknowledge_pending_messages);
+  IMPLEMENT (get_message_types);
+  IMPLEMENT (list_pending_messages);
+  IMPLEMENT (send);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-acknowledge-pending-messages-impl"></a><h3>tp_svc_channel_type_text_acknowledge_pending_messages_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_type_text_acknowledge_pending_messages_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText"><span class="type">TpSvcChannelTypeText</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_IDs</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+AcknowledgePendingMessages on interface org.freedesktop.Telepathy.Channel.Type.Text.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_IDs</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-implement-acknowledge-pending-messages"></a><h3>tp_svc_channel_type_text_implement_acknowledge_pending_messages ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_text_implement_acknowledge_pending_messages
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeTextClass" title="TpSvcChannelTypeTextClass"><span class="type">TpSvcChannelTypeTextClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-acknowledge-pending-messages-impl" title="tp_svc_channel_type_text_acknowledge_pending_messages_impl ()"><span class="type">tp_svc_channel_type_text_acknowledge_pending_messages_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the AcknowledgePendingMessages method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the AcknowledgePendingMessages D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-return-from-acknowledge-pending-messages"></a><h3>tp_svc_channel_type_text_return_from_acknowledge_pending_messages ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_text_return_from_acknowledge_pending_messages
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-get-message-types-impl"></a><h3>tp_svc_channel_type_text_get_message_types_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_type_text_get_message_types_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText"><span class="type">TpSvcChannelTypeText</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetMessageTypes on interface org.freedesktop.Telepathy.Channel.Type.Text.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-implement-get-message-types"></a><h3>tp_svc_channel_type_text_implement_get_message_types ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_text_implement_get_message_types
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeTextClass" title="TpSvcChannelTypeTextClass"><span class="type">TpSvcChannelTypeTextClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-get-message-types-impl" title="tp_svc_channel_type_text_get_message_types_impl ()"><span class="type">tp_svc_channel_type_text_get_message_types_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetMessageTypes method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetMessageTypes D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-return-from-get-message-types"></a><h3>tp_svc_channel_type_text_return_from_get_message_types ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_text_return_from_get_message_types
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *out_Available_Types</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Available_Types</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-list-pending-messages-impl"></a><h3>tp_svc_channel_type_text_list_pending_messages_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_type_text_list_pending_messages_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText"><span class="type">TpSvcChannelTypeText</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> in_Clear</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+ListPendingMessages on interface org.freedesktop.Telepathy.Channel.Type.Text.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Clear</code></em> :</span></p></td>
+<td>gboolean  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-implement-list-pending-messages"></a><h3>tp_svc_channel_type_text_implement_list_pending_messages ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_text_implement_list_pending_messages
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeTextClass" title="TpSvcChannelTypeTextClass"><span class="type">TpSvcChannelTypeTextClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-list-pending-messages-impl" title="tp_svc_channel_type_text_list_pending_messages_impl ()"><span class="type">tp_svc_channel_type_text_list_pending_messages_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the ListPendingMessages method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the ListPendingMessages D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-return-from-list-pending-messages"></a><h3>tp_svc_channel_type_text_return_from_list_pending_messages ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_text_return_from_list_pending_messages
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *out_Pending_Messages</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Pending_Messages</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-send-impl"></a><h3>tp_svc_channel_type_text_send_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_type_text_send_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText"><span class="type">TpSvcChannelTypeText</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Text</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+Send on interface org.freedesktop.Telepathy.Channel.Type.Text.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Type</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Text</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-implement-send"></a><h3>tp_svc_channel_type_text_implement_send ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_text_implement_send
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeTextClass" title="TpSvcChannelTypeTextClass"><span class="type">TpSvcChannelTypeTextClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-type-text-send-impl" title="tp_svc_channel_type_text_send_impl ()"><span class="type">tp_svc_channel_type_text_send_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the Send method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the Send D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-return-from-send"></a><h3>tp_svc_channel_type_text_return_from_send ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_text_return_from_send
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-emit-lost-message"></a><h3>tp_svc_channel_type_text_emit_lost_message ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_text_emit_lost_message
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+LostMessage signal on interface org.freedesktop.Telepathy.Channel.Type.Text.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-emit-received"></a><h3>tp_svc_channel_type_text_emit_received ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_text_emit_received
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_ID</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Timestamp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Sender</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Flags</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Text</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+Received signal on interface org.freedesktop.Telepathy.Channel.Type.Text.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_ID</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Timestamp</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Sender</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Type</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Flags</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Text</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-emit-send-error"></a><h3>tp_svc_channel_type_text_emit_send_error ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_text_emit_send_error
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Timestamp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Text</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+SendError signal on interface org.freedesktop.Telepathy.Channel.Type.Text.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Error</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Timestamp</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Type</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Text</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-type-text-emit-sent"></a><h3>tp_svc_channel_type_text_emit_sent ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_type_text_emit_sent  (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Timestamp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Text</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+Sent signal on interface org.freedesktop.Telepathy.Channel.Type.Text.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Timestamp</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Type</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Text</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceChatState-struct"></a><h3>TpSvcChannelInterfaceChatState</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelInterfaceChatState TpSvcChannelInterfaceChatState;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceChatStateClass"></a><h3>TpSvcChannelInterfaceChatStateClass</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelInterfaceChatStateClass TpSvcChannelInterfaceChatStateClass;</pre>
+<p>
+The class of TpSvcChannelInterfaceChatState.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_channel_interface_chat_state (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_channel_interface_chat_state_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (set_chat_state);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-chat-state-set-chat-state-impl"></a><h3>tp_svc_channel_interface_chat_state_set_chat_state_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_chat_state_set_chat_state_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceChatState"><span class="type">TpSvcChannelInterfaceChatState</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_State</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+SetChatState on interface org.freedesktop.Telepathy.Channel.Interface.ChatState.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_State</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-chat-state-implement-set-chat-state"></a><h3>tp_svc_channel_interface_chat_state_implement_set_chat_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_chat_state_implement_set_chat_state
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceChatStateClass" title="TpSvcChannelInterfaceChatStateClass"><span class="type">TpSvcChannelInterfaceChatStateClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-chat-state-set-chat-state-impl" title="tp_svc_channel_interface_chat_state_set_chat_state_impl ()"><span class="type">tp_svc_channel_interface_chat_state_set_chat_state_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the SetChatState method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the SetChatState D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-chat-state-return-from-set-chat-state"></a><h3>tp_svc_channel_interface_chat_state_return_from_set_chat_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_chat_state_return_from_set_chat_state
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-chat-state-emit-chat-state-changed"></a><h3>tp_svc_channel_interface_chat_state_emit_chat_state_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_chat_state_emit_chat_state_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Contact</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_State</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+ChatStateChanged signal on interface org.freedesktop.Telepathy.Channel.Interface.ChatState.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Contact</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_State</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceMessages-struct"></a><h3>TpSvcChannelInterfaceMessages</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelInterfaceMessages TpSvcChannelInterfaceMessages;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceMessagesClass"></a><h3>TpSvcChannelInterfaceMessagesClass</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelInterfaceMessagesClass TpSvcChannelInterfaceMessagesClass;</pre>
+<p>
+The class of TpSvcChannelInterfaceMessages.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_channel_interface_messages (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_channel_interface_messages_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (send_message);
+  IMPLEMENT (get_pending_message_content);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-messages-emit-message-received"></a><h3>tp_svc_channel_interface_messages_emit_message_received ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_messages_emit_message_received
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Message</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+MessageReceived signal on interface org.freedesktop.Telepathy.Channel.Interface.Messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Message</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-messages-emit-message-sent"></a><h3>tp_svc_channel_interface_messages_emit_message_sent ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_messages_emit_message_sent
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *arg_Content</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Flags</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_Message_Token</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+MessageSent signal on interface org.freedesktop.Telepathy.Channel.Interface.Messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Content</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Flags</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Message_Token</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-messages-emit-pending-messages-removed"></a><h3>tp_svc_channel_interface_messages_emit_pending_messages_removed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_messages_emit_pending_messages_removed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *arg_Message_IDs</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+PendingMessagesRemoved signal on interface org.freedesktop.Telepathy.Channel.Interface.Messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Message_IDs</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-messages-get-pending-message-content-impl"></a><h3>tp_svc_channel_interface_messages_get_pending_message_content_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_messages_get_pending_message_content_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessages"><span class="type">TpSvcChannelInterfaceMessages</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Message_ID</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *in_Parts</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetPendingMessageContent on interface org.freedesktop.Telepathy.Channel.Interface.Messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Message_ID</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Parts</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-messages-implement-get-pending-message-content"></a><h3>tp_svc_channel_interface_messages_implement_get_pending_message_content ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_messages_implement_get_pending_message_content
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessagesClass" title="TpSvcChannelInterfaceMessagesClass"><span class="type">TpSvcChannelInterfaceMessagesClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-messages-get-pending-message-content-impl" title="tp_svc_channel_interface_messages_get_pending_message_content_impl ()"><span class="type">tp_svc_channel_interface_messages_get_pending_message_content_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetPendingMessageContent method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetPendingMessageContent D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-messages-implement-send-message"></a><h3>tp_svc_channel_interface_messages_implement_send_message ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_messages_implement_send_message
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessagesClass" title="TpSvcChannelInterfaceMessagesClass"><span class="type">TpSvcChannelInterfaceMessagesClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-messages-send-message-impl" title="tp_svc_channel_interface_messages_send_message_impl ()"><span class="type">tp_svc_channel_interface_messages_send_message_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the SendMessage method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the SendMessage D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-messages-return-from-get-pending-message-content"></a><h3>tp_svc_channel_interface_messages_return_from_get_pending_message_content ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_messages_return_from_get_pending_message_content
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *out_Content</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Content</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-messages-return-from-send-message"></a><h3>tp_svc_channel_interface_messages_return_from_send_message ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_messages_return_from_send_message
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *out_Token</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Token</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-messages-send-message-impl"></a><h3>tp_svc_channel_interface_messages_send_message_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_messages_send_message_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessages"><span class="type">TpSvcChannelInterfaceMessages</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> in_Flags</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+SendMessage on interface org.freedesktop.Telepathy.Channel.Interface.Messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Message</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Flags</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfacePassword-struct"></a><h3>TpSvcChannelInterfacePassword</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelInterfacePassword TpSvcChannelInterfacePassword;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfacePasswordClass"></a><h3>TpSvcChannelInterfacePasswordClass</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelInterfacePasswordClass TpSvcChannelInterfacePasswordClass;</pre>
+<p>
+The class of TpSvcChannelInterfacePassword.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_channel_interface_password (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_channel_interface_password_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (get_password_flags);
+  IMPLEMENT (provide_password);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-password-get-password-flags-impl"></a><h3>tp_svc_channel_interface_password_get_password_flags_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_password_get_password_flags_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfacePassword"><span class="type">TpSvcChannelInterfacePassword</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetPasswordFlags on interface org.freedesktop.Telepathy.Channel.Interface.Password.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-password-implement-get-password-flags"></a><h3>tp_svc_channel_interface_password_implement_get_password_flags ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_password_implement_get_password_flags
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfacePasswordClass" title="TpSvcChannelInterfacePasswordClass"><span class="type">TpSvcChannelInterfacePasswordClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-password-get-password-flags-impl" title="tp_svc_channel_interface_password_get_password_flags_impl ()"><span class="type">tp_svc_channel_interface_password_get_password_flags_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetPasswordFlags method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetPasswordFlags D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-password-return-from-get-password-flags"></a><h3>tp_svc_channel_interface_password_return_from_get_password_flags ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_password_return_from_get_password_flags
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> out_Password_Flags</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Password_Flags</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-password-provide-password-impl"></a><h3>tp_svc_channel_interface_password_provide_password_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_password_provide_password_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfacePassword"><span class="type">TpSvcChannelInterfacePassword</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Password</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+ProvidePassword on interface org.freedesktop.Telepathy.Channel.Interface.Password.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Password</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-password-implement-provide-password"></a><h3>tp_svc_channel_interface_password_implement_provide_password ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_password_implement_provide_password
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfacePasswordClass" title="TpSvcChannelInterfacePasswordClass"><span class="type">TpSvcChannelInterfacePasswordClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-password-provide-password-impl" title="tp_svc_channel_interface_password_provide_password_impl ()"><span class="type">tp_svc_channel_interface_password_provide_password_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the ProvidePassword method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the ProvidePassword D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-password-return-from-provide-password"></a><h3>tp_svc_channel_interface_password_return_from_provide_password ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_password_return_from_provide_password
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> out_Correct</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Correct</code></em> :</span></p></td>
+<td>gboolean  (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-password-emit-password-flags-changed"></a><h3>tp_svc_channel_interface_password_emit_password_flags_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_password_emit_password_flags_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Added</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> arg_Removed</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+PasswordFlagsChanged signal on interface org.freedesktop.Telepathy.Channel.Interface.Password.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Added</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Removed</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceSMS-struct"></a><h3>TpSvcChannelInterfaceSMS</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelInterfaceSMS TpSvcChannelInterfaceSMS;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceSMSClass"></a><h3>TpSvcChannelInterfaceSMSClass</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelInterfaceSMSClass TpSvcChannelInterfaceSMSClass;</pre>
+<p>
+The class of TpSvcChannelInterfaceSMS.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_channel_interface_sms (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_channel_interface_sms_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (get_sms_length);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-sms-emit-sms-channel-changed"></a><h3>tp_svc_channel_interface_sms_emit_sms_channel_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_sms_emit_sms_channel_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> arg_SMSChannel</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+SMSChannelChanged signal on interface org.freedesktop.Telepathy.Channel.Interface.SMS.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_SMSChannel</code></em> :</span></p></td>
+<td>gboolean  (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-sms-get-sms-length-impl"></a><h3>tp_svc_channel_interface_sms_get_sms_length_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_sms_get_sms_length_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceSMS"><span class="type">TpSvcChannelInterfaceSMS</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *in_Message</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetSMSLength on interface org.freedesktop.Telepathy.Channel.Interface.SMS.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Message</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-sms-implement-get-sms-length"></a><h3>tp_svc_channel_interface_sms_implement_get_sms_length ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_sms_implement_get_sms_length
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceSMSClass" title="TpSvcChannelInterfaceSMSClass"><span class="type">TpSvcChannelInterfaceSMSClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel-text.html#tp-svc-channel-interface-sms-get-sms-length-impl" title="tp_svc_channel_interface_sms_get_sms_length_impl ()"><span class="type">tp_svc_channel_interface_sms_get_sms_length_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetSMSLength method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetSMSLength D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-sms-return-from-get-sms-length"></a><h3>tp_svc_channel_interface_sms_return_from_get_sms_length ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_sms_return_from_get_sms_length
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> out_Chunks_Required</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> out_Remaining_Characters</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> out_Estimated_Cost</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Chunks_Required</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Remaining_Characters</code></em> :</span></p></td>
+<td>gint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Estimated_Cost</code></em> :</span></p></td>
+<td>gint  (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-text.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpSvcChannelTypeText-lost-message"></a><h3>The <code class="literal">"lost-message"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText"><span class="type">TpSvcChannelTypeText</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The LostMessage D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelTypeText-received"></a><h3>The <code class="literal">"received"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText"><span class="type">TpSvcChannelTypeText</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 arg_ID,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 arg_Timestamp,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 arg_Sender,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 arg_Type,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 arg_Flags,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>                *arg_Text,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              user_data)          : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The Received D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_ID</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Timestamp</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Sender</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Type</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Flags</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Text</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelTypeText-send-error"></a><h3>The <code class="literal">"send-error"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText"><span class="type">TpSvcChannelTypeText</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 arg_Error,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 arg_Timestamp,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 arg_Type,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>                *arg_Text,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              user_data)          : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The SendError D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Error</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Timestamp</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Type</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Text</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelTypeText-sent"></a><h3>The <code class="literal">"sent"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText"><span class="type">TpSvcChannelTypeText</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 arg_Timestamp,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 arg_Type,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>                *arg_Text,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              user_data)          : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The Sent D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Timestamp</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Type</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Text</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceChatState-chat-state-changed"></a><h3>The <code class="literal">"chat-state-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceChatState"><span class="type">TpSvcChannelInterfaceChatState</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                           arg_Contact,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                           arg_State,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                        user_data)        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The ChatStateChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Contact</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_State</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceMessages-message-received"></a><h3>The <code class="literal">"message-received"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessages"><span class="type">TpSvcChannelInterfaceMessages</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                       user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The MessageReceived D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Message</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceMessages-message-sent"></a><h3>The <code class="literal">"message-sent"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessages"><span class="type">TpSvcChannelInterfaceMessages</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                          arg_Flags,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>                         *arg_Message_Token,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                       user_data)              : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The MessageSent D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Content</code></em> :</span></p></td>
+<td>const GPtrArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Flags</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Message_Token</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceMessages-pending-messages-removed"></a><h3>The <code class="literal">"pending-messages-removed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessages"><span class="type">TpSvcChannelInterfaceMessages</span></a> *self,
+                                                        <span class="type">GArray_guint_</span>                 *arg_Message_IDs,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                       user_data)            : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The PendingMessagesRemoved D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Message_IDs</code></em> :</span></p></td>
+<td>const GArray * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfacePassword-password-flags-changed"></a><h3>The <code class="literal">"password-flags-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfacePassword"><span class="type">TpSvcChannelInterfacePassword</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                          arg_Added,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                          arg_Removed,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                       user_data)        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The PasswordFlagsChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Added</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Removed</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceSMS-s-ms-channel-changed"></a><h3>The <code class="literal">"s-ms-channel-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceSMS"><span class="type">TpSvcChannelInterfaceSMS</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>                  arg_SMSChannel,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                  user_data)           : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The SMSChannelChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_SMSChannel</code></em> :</span></p></td>
+<td>gboolean  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel-text.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-TpTextMixin.html#TpTextMixin" title="TpTextMixin"><span class="type">TpTextMixin</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

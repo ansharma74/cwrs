@@ -1,0 +1,505 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESourceOpenPGP</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
+<link rel="up" href="ch02.html" title="Data Source Extensions">
+<link rel="prev" href="ESourceOffline.html" title="ESourceOffline">
+<link rel="next" href="ESourceRefresh.html" title="ESourceRefresh">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ESourceOffline.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Utilities (libedataserver)</th>
+<td><a accesskey="n" href="ESourceRefresh.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ESourceOpenPGP.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#ESourceOpenPGP.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#ESourceOpenPGP.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#ESourceOpenPGP.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="ESourceOpenPGP"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESourceOpenPGP.top_of_page"></a>ESourceOpenPGP</span></h2>
+<p>ESourceOpenPGP — <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> extension for OpenPGP settings</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ESourceOpenPGP.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;libedataserver/libedataserver.h&gt;
+
+struct              <a class="link" href="ESourceOpenPGP.html#ESourceOpenPGP-struct" title="struct ESourceOpenPGP">ESourceOpenPGP</a>;
+#define             <a class="link" href="ESourceOpenPGP.html#E-SOURCE-EXTENSION-OPENPGP:CAPS" title="E_SOURCE_EXTENSION_OPENPGP">E_SOURCE_EXTENSION_OPENPGP</a>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-always-trust" title="e_source_openpgp_get_always_trust ()">e_source_openpgp_get_always_trust</a>   (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-set-always-trust" title="e_source_openpgp_set_always_trust ()">e_source_openpgp_set_always_trust</a>   (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> always_trust</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-encrypt-to-self" title="e_source_openpgp_get_encrypt_to_self ()">e_source_openpgp_get_encrypt_to_self</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-set-encrypt-to-self" title="e_source_openpgp_set_encrypt_to_self ()">e_source_openpgp_set_encrypt_to_self</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> encrypt_to_self</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-key-id" title="e_source_openpgp_get_key_id ()">e_source_openpgp_get_key_id</a>         (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-dup-key-id" title="e_source_openpgp_dup_key_id ()">e_source_openpgp_dup_key_id</a>         (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-set-key-id" title="e_source_openpgp_set_key_id ()">e_source_openpgp_set_key_id</a>         (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key_id</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-signing-algorithm" title="e_source_openpgp_get_signing_algorithm ()">e_source_openpgp_get_signing_algorithm</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-dup-signing-algorithm" title="e_source_openpgp_dup_signing_algorithm ()">e_source_openpgp_dup_signing_algorithm</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-set-signing-algorithm" title="e_source_openpgp_set_signing_algorithm ()">e_source_openpgp_set_signing_algorithm</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *signing_algorithm</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-sign-by-default" title="e_source_openpgp_get_sign_by_default ()">e_source_openpgp_get_sign_by_default</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-set-sign-by-default" title="e_source_openpgp_set_sign_by_default ()">e_source_openpgp_set_sign_by_default</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sign_by_default</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceOpenPGP.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="ESourceExtension.html" title="ESourceExtension">ESourceExtension</a>
+         +----ESourceOpenPGP
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceOpenPGP.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="ESourceOpenPGP.html#ESourceOpenPGP--always-trust" title='The "always-trust" property'>always-trust</a>"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct
+  "<a class="link" href="ESourceOpenPGP.html#ESourceOpenPGP--encrypt-to-self" title='The "encrypt-to-self" property'>encrypt-to-self</a>"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct
+  "<a class="link" href="ESourceOpenPGP.html#ESourceOpenPGP--key-id" title='The "key-id" property'>key-id</a>"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct
+  "<a class="link" href="ESourceOpenPGP.html#ESourceOpenPGP--sign-by-default" title='The "sign-by-default" property'>sign-by-default</a>"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct
+  "<a class="link" href="ESourceOpenPGP.html#ESourceOpenPGP--signing-algorithm" title='The "signing-algorithm" property'>signing-algorithm</a>"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceOpenPGP.description"></a><h2>Description</h2>
+<p>
+The <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> extension tracks OpenPGP (RFC 4880) settings to be
+applied to outgoing mail messages.
+</p>
+<p>
+Access the extension as follows:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc ppc">#include &lt;libedataserver/libedataserver.h&gt;</span>
+
+ESourceOpenPGP <span class="gtkdoc opt">*</span>extension<span class="gtkdoc opt">;</span>
+
+extension <span class="gtkdoc opt">=</span> <span class="function"><a href="ESource.html#e-source-get-extension">e_source_get_extension</a></span> <span class="gtkdoc opt">(</span>source<span class="gtkdoc opt">,</span> E_SOURCE_EXTENSION_OPENPGP<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="ESourceOpenPGP.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="ESourceOpenPGP-struct"></a><h3>struct ESourceOpenPGP</h3>
+<pre class="programlisting">struct ESourceOpenPGP;</pre>
+<p>
+Contains only private data that should be read and manipulated using the
+functions below.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="E-SOURCE-EXTENSION-OPENPGP:CAPS"></a><h3>E_SOURCE_EXTENSION_OPENPGP</h3>
+<pre class="programlisting">#define E_SOURCE_EXTENSION_OPENPGP "Pretty Good Privacy (OpenPGP)"
+</pre>
+<p>
+Pass this extension name to <a class="link" href="ESource.html#e-source-get-extension" title="e_source_get_extension ()"><code class="function">e_source_get_extension()</code></a> to access
+<a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a>.  This is also used as a group name in key files.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-get-always-trust"></a><h3>e_source_openpgp_get_always_trust ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_openpgp_get_always_trust   (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>
+Returns whether to skip key validation and assume that used keys are
+always fully trusted.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether used keys are always fully trusted</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-set-always-trust"></a><h3>e_source_openpgp_set_always_trust ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_openpgp_set_always_trust   (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> always_trust</code></em>);</pre>
+<p>
+Sets whether to skip key validation and assume that used keys are
+always fully trusted.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>always_trust</code></em> :</span></p></td>
+<td>whether used keys are always fully trusted</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-get-encrypt-to-self"></a><h3>e_source_openpgp_get_encrypt_to_self ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_openpgp_get_encrypt_to_self
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>
+Returns whether to "encrypt-to-self" when sending encrypted messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether to "encrypt-to-self"</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-set-encrypt-to-self"></a><h3>e_source_openpgp_set_encrypt_to_self ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_openpgp_set_encrypt_to_self
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> encrypt_to_self</code></em>);</pre>
+<p>
+Sets whether to "encrypt-to-self" when sending encrypted messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>encrypt_to_self</code></em> :</span></p></td>
+<td>whether to "encrypt-to-self"</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-get-key-id"></a><h3>e_source_openpgp_get_key_id ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_openpgp_get_key_id         (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>
+Returns the OpenPGP key ID used to sign and encrypt messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the key ID used to sign and encrypt messages</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-dup-key-id"></a><h3>e_source_openpgp_dup_key_id ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_openpgp_dup_key_id         (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>
+Thread-safe variation of <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-key-id" title="e_source_openpgp_get_key_id ()"><code class="function">e_source_openpgp_get_key_id()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em> from multiple threads.
+</p>
+<p>
+The returned string should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-allocated copy of <a class="link" href="ESourceOpenPGP.html#ESourceOpenPGP--key-id" title='The "key-id" property'><span class="type">"key-id"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-set-key-id"></a><h3>e_source_openpgp_set_key_id ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_openpgp_set_key_id         (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key_id</code></em>);</pre>
+<p>
+Sets the OpenPGP key ID used to sign and encrypt messages.
+</p>
+<p>
+The internal copy of <em class="parameter"><code>key_id</code></em> is automatically stripped of leading and
+trailing whitespace.  If the resulting string is empty, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is set
+instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key_id</code></em> :</span></p></td>
+<td>the key ID used to sign and encrypt messages</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-get-signing-algorithm"></a><h3>e_source_openpgp_get_signing_algorithm ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_openpgp_get_signing_algorithm
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>
+Returns the name of the hash algorithm used to digitally sign outgoing
+messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the signing algorithm for outgoing messages</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-dup-signing-algorithm"></a><h3>e_source_openpgp_dup_signing_algorithm ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_openpgp_dup_signing_algorithm
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>
+Thread-safe variation of <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-signing-algorithm" title="e_source_openpgp_get_signing_algorithm ()"><code class="function">e_source_openpgp_get_signing_algorithm()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em> from multiple threads.
+</p>
+<p>
+The returned string should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-allocated copy of <a class="link" href="ESourceOpenPGP.html#ESourceOpenPGP--signing-algorithm" title='The "signing-algorithm" property'><span class="type">"signing-algorithm"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-set-signing-algorithm"></a><h3>e_source_openpgp_set_signing_algorithm ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_openpgp_set_signing_algorithm
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *signing_algorithm</code></em>);</pre>
+<p>
+Sets the name of the hash algorithm used to digitally sign outgoing
+messages.
+</p>
+<p>
+The internal copy of <em class="parameter"><code>signing_algorithm</code></em> is automatically stripped of
+leading and trailing whitespace.  If the resulting string is empty,
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is set instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>signing_algorithm</code></em> :</span></p></td>
+<td>the signing algorithm for outgoing messages</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-get-sign-by-default"></a><h3>e_source_openpgp_get_sign_by_default ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_openpgp_get_sign_by_default
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>
+Returns whether to digitally sign outgoing messages by default using
+OpenPGP-compliant software such as GNU Privacy Guard (GnuPG).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether to sign outgoing messages by default</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-set-sign-by-default"></a><h3>e_source_openpgp_set_sign_by_default ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_openpgp_set_sign_by_default
+                                                        (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sign_by_default</code></em>);</pre>
+<p>
+Sets whether to digitally sign outgoing messages by default using
+OpenPGP-compliant software such as GNU Privacy Guard (GnuPG).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sign_by_default</code></em> :</span></p></td>
+<td>whether to sign outgoing messages by default</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ESourceOpenPGP.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="ESourceOpenPGP--always-trust"></a><h3>The <code class="literal">"always-trust"</code> property</h3>
+<pre class="programlisting">  "always-trust"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct</pre>
+<p>Always trust keys in my keyring.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceOpenPGP--encrypt-to-self"></a><h3>The <code class="literal">"encrypt-to-self"</code> property</h3>
+<pre class="programlisting">  "encrypt-to-self"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct</pre>
+<p>Always encrypt to myself.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceOpenPGP--key-id"></a><h3>The <code class="literal">"key-id"</code> property</h3>
+<pre class="programlisting">  "key-id"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct</pre>
+<p>PGP/GPG Key ID.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceOpenPGP--sign-by-default"></a><h3>The <code class="literal">"sign-by-default"</code> property</h3>
+<pre class="programlisting">  "sign-by-default"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct</pre>
+<p>Sign outgoing messages by default.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceOpenPGP--signing-algorithm"></a><h3>The <code class="literal">"signing-algorithm"</code> property</h3>
+<pre class="programlisting">  "signing-algorithm"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct</pre>
+<p>Hash algorithm used to sign messages.</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

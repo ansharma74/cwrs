@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpCMMessage</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="TpMessage.html" title="TpMessage">
+<link rel="next" href="telepathy-glib-base-password-channel.html" title="TpBasePasswordChannel">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="TpMessage.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-base-password-channel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#TpCMMessage.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#TpCMMessage.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#TpCMMessage.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="TpCMMessage"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="TpCMMessage.top_of_page"></a>TpCMMessage</span></h2>
+<p>TpCMMessage — a message in the Telepathy message interface, CM side</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="TpCMMessage.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+                    <a class="link" href="TpCMMessage.html#TpCMMessage-struct" title="TpCMMessage">TpCMMessage</a>;
+<a class="link" href="TpMessage.html" title="TpMessage"><span class="returnvalue">TpMessage</span></a> *         <a class="link" href="TpCMMessage.html#tp-cm-message-new" title="tp_cm_message_new ()">tp_cm_message_new</a>                   (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> initial_parts</code></em>);
+<a class="link" href="TpMessage.html" title="TpMessage"><span class="returnvalue">TpMessage</span></a> *         <a class="link" href="TpCMMessage.html#tp-cm-message-new-text" title="tp_cm_message_new_text ()">tp_cm_message_new_text</a>              (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *conn</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> sender</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelTextMessageType" title="enum TpChannelTextMessageType"><span class="type">TpChannelTextMessageType</span></a> type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *text</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpCMMessage.html#tp-cm-message-set-message" title="tp_cm_message_set_message ()">tp_cm_message_set_message</a>           (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpCMMessage.html#tp-cm-message-take-message" title="tp_cm_message_take_message ()">tp_cm_message_take_message</a>          (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>);
+<a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="returnvalue">TpHandle</span></a>            <a class="link" href="TpCMMessage.html#tp-cm-message-get-sender" title="tp_cm_message_get_sender ()">tp_cm_message_get_sender</a>            (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpCMMessage.html#tp-cm-message-set-sender" title="tp_cm_message_set_sender ()">tp_cm_message_set_sender</a>            (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpCMMessage.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="TpMessage.html" title="TpMessage">TpMessage</a>
+         +----TpCMMessage
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpCMMessage.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="TpCMMessage.html" title="TpCMMessage"><span class="type">TpCMMessage</span></a> is used within connection managers to represent a
+ message sent or received using the Messages interface.
+</p>
+</div>
+<div class="refsect1">
+<a name="TpCMMessage.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpCMMessage-struct"></a><h3>TpCMMessage</h3>
+<pre class="programlisting">typedef struct _TpCMMessage TpCMMessage;</pre>
+<p>
+Opaque structure representing a message in the Telepathy messages interface
+(an array of at least one mapping from string to variant, where the first
+mapping contains message headers and subsequent mappings contain the
+message body).
+</p>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cm-message-new"></a><h3>tp_cm_message_new ()</h3>
+<pre class="programlisting"><a class="link" href="TpMessage.html" title="TpMessage"><span class="returnvalue">TpMessage</span></a> *         tp_cm_message_new                   (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> initial_parts</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection</code></em> :</span></p></td>
+<td>a connection on which to reference handles</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>initial_parts</code></em> :</span></p></td>
+<td>number of parts to create (at least 1)</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly allocated message suitable to be passed to
+<code class="function">tp_cm_message_mixin_take_received()</code>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cm-message-new-text"></a><h3>tp_cm_message_new_text ()</h3>
+<pre class="programlisting"><a class="link" href="TpMessage.html" title="TpMessage"><span class="returnvalue">TpMessage</span></a> *         tp_cm_message_new_text              (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *conn</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> sender</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelTextMessageType" title="enum TpChannelTextMessageType"><span class="type">TpChannelTextMessageType</span></a> type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *text</code></em>);</pre>
+<p>
+A convenient function to create a new <a class="link" href="TpCMMessage.html" title="TpCMMessage"><span class="type">TpCMMessage</span></a> having
+'text/plain' as 'content-type', <em class="parameter"><code>type</code></em> as 'message-type',
+<em class="parameter"><code>text</code></em> as 'content' and <em class="parameter"><code>sender</code></em> as its sender.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>conn</code></em> :</span></p></td>
+<td>a connection</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sender</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> of the sender of the message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the type of message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td>content of the messsage</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly allocated <a class="link" href="TpCMMessage.html" title="TpCMMessage"><span class="type">TpCMMessage</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cm-message-set-message"></a><h3>tp_cm_message_set_message ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_cm_message_set_message           (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>);</pre>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have <em class="parameter"><code>message</code></em> as an aa{sv} value (that
+is, an array of Message_Part).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>another (distinct) message created for the same <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cm-message-take-message"></a><h3>tp_cm_message_take_message ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_cm_message_take_message          (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> part</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>);</pre>
+<p>
+Set <em class="parameter"><code>key</code></em> in part <em class="parameter"><code>part</code></em> of <em class="parameter"><code>self</code></em> to have <em class="parameter"><code>message</code></em> as an aa{sv} value (that
+is, an array of Message_Part), and take ownership of <em class="parameter"><code>message</code></em>.  The caller
+should not use <em class="parameter"><code>message</code></em> after passing it to this function.  All handle
+references owned by <em class="parameter"><code>message</code></em> will subsequently belong to and be released
+with <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>part</code></em> :</span></p></td>
+<td>a part number, which must be strictly less than the number
+returned by <a class="link" href="TpMessage.html#tp-message-count-parts" title="tp_message_count_parts ()"><code class="function">tp_message_count_parts()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a key in the mapping representing the part</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>another (distinct) message created for the same <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cm-message-get-sender"></a><h3>tp_cm_message_get_sender ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="returnvalue">TpHandle</span></a>            tp_cm_message_get_sender            (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>);</pre>
+<p>
+Return the sender of <em class="parameter"><code>self</code></em>, i.e. the "message-sender" key of the header,
+or 0 if there is no sender.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpCMMessage.html" title="TpCMMessage"><span class="type">TpCMMessage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-enums.html#TP-HANDLE-TYPE-CONTACT:CAPS"><code class="literal">TP_HANDLE_TYPE_CONTACT</code></a> handle, or 0</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cm-message-set-sender"></a><h3>tp_cm_message_set_sender ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_cm_message_set_sender            (<em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>);</pre>
+<p>
+Set the sender of <em class="parameter"><code>self</code></em>, i.e. the "message-sender" and
+"message-sender-id" keys in the header.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpCMMessage.html" title="TpCMMessage"><span class="type">TpCMMessage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> of the sender of the message</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

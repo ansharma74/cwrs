@@ -1,0 +1,531 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESourceMailComposition</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
+<link rel="up" href="ch02.html" title="Data Source Extensions">
+<link rel="prev" href="ESourceMailAccount.html" title="ESourceMailAccount">
+<link rel="next" href="ESourceMailIdentity.html" title="ESourceMailIdentity">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ESourceMailAccount.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Utilities (libedataserver)</th>
+<td><a accesskey="n" href="ESourceMailIdentity.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ESourceMailComposition.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#ESourceMailComposition.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#ESourceMailComposition.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#ESourceMailComposition.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="ESourceMailComposition"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESourceMailComposition.top_of_page"></a>ESourceMailComposition</span></h2>
+<p>ESourceMailComposition — <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> extension for mail composition settings</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ESourceMailComposition.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;libedataserver/libedataserver.h&gt;
+
+struct              <a class="link" href="ESourceMailComposition.html#ESourceMailComposition-struct" title="struct ESourceMailComposition">ESourceMailComposition</a>;
+#define             <a class="link" href="ESourceMailComposition.html#E-SOURCE-EXTENSION-MAIL-COMPOSITION:CAPS" title="E_SOURCE_EXTENSION_MAIL_COMPOSITION">E_SOURCE_EXTENSION_MAIL_COMPOSITION</a>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **            <a class="link" href="ESourceMailComposition.html#e-source-mail-composition-dup-bcc" title="e_source_mail_composition_dup_bcc ()">e_source_mail_composition_dup_bcc</a>   (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceMailComposition.html#e-source-mail-composition-set-bcc" title="e_source_mail_composition_set_bcc ()">e_source_mail_composition_set_bcc</a>   (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> * const *bcc</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **            <a class="link" href="ESourceMailComposition.html#e-source-mail-composition-dup-cc" title="e_source_mail_composition_dup_cc ()">e_source_mail_composition_dup_cc</a>    (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceMailComposition.html#e-source-mail-composition-set-cc" title="e_source_mail_composition_set_cc ()">e_source_mail_composition_set_cc</a>    (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> * const *cc</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESourceMailComposition.html#e-source-mail-composition-get-drafts-folder" title="e_source_mail_composition_get_drafts_folder ()">e_source_mail_composition_get_drafts_folder</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESourceMailComposition.html#e-source-mail-composition-dup-drafts-folder" title="e_source_mail_composition_dup_drafts_folder ()">e_source_mail_composition_dup_drafts_folder</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceMailComposition.html#e-source-mail-composition-set-drafts-folder" title="e_source_mail_composition_set_drafts_folder ()">e_source_mail_composition_set_drafts_folder</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *drafts_folder</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceMailComposition.html#e-source-mail-composition-get-sign-imip" title="e_source_mail_composition_get_sign_imip ()">e_source_mail_composition_get_sign_imip</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceMailComposition.html#e-source-mail-composition-set-sign-imip" title="e_source_mail_composition_set_sign_imip ()">e_source_mail_composition_set_sign_imip</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sign_imip</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESourceMailComposition.html#e-source-mail-composition-get-templates-folder" title="e_source_mail_composition_get_templates_folder ()">e_source_mail_composition_get_templates_folder</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESourceMailComposition.html#e-source-mail-composition-dup-templates-folder" title="e_source_mail_composition_dup_templates_folder ()">e_source_mail_composition_dup_templates_folder</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceMailComposition.html#e-source-mail-composition-set-templates-folder" title="e_source_mail_composition_set_templates_folder ()">e_source_mail_composition_set_templates_folder</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *templates_folder</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceMailComposition.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="ESourceExtension.html" title="ESourceExtension">ESourceExtension</a>
+         +----ESourceMailComposition
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceMailComposition.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="ESourceMailComposition.html#ESourceMailComposition--bcc" title='The "bcc" property'>bcc</a>"                      <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read / Write / Construct
+  "<a class="link" href="ESourceMailComposition.html#ESourceMailComposition--cc" title='The "cc" property'>cc</a>"                       <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read / Write / Construct
+  "<a class="link" href="ESourceMailComposition.html#ESourceMailComposition--drafts-folder" title='The "drafts-folder" property'>drafts-folder</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct
+  "<a class="link" href="ESourceMailComposition.html#ESourceMailComposition--sign-imip" title='The "sign-imip" property'>sign-imip</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct
+  "<a class="link" href="ESourceMailComposition.html#ESourceMailComposition--templates-folder" title='The "templates-folder" property'>templates-folder</a>"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceMailComposition.description"></a><h2>Description</h2>
+<p>
+The <a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> extension tracks settings to be applied
+when composing a new mail message.
+</p>
+<p>
+Access the extension as follows:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc ppc">#include &lt;libedataserver/libedataserver.h&gt;</span>
+
+ESourceMailComposition <span class="gtkdoc opt">*</span>extension<span class="gtkdoc opt">;</span>
+
+extension <span class="gtkdoc opt">=</span> <span class="function"><a href="ESource.html#e-source-get-extension">e_source_get_extension</a></span> <span class="gtkdoc opt">(</span>source<span class="gtkdoc opt">,</span> E_SOURCE_EXTENSION_MAIL_COMPOSITION<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="ESourceMailComposition.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="ESourceMailComposition-struct"></a><h3>struct ESourceMailComposition</h3>
+<pre class="programlisting">struct ESourceMailComposition;</pre>
+<p>
+Contains only private data that should be read and manipulated using the
+functions below.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="E-SOURCE-EXTENSION-MAIL-COMPOSITION:CAPS"></a><h3>E_SOURCE_EXTENSION_MAIL_COMPOSITION</h3>
+<pre class="programlisting">#define E_SOURCE_EXTENSION_MAIL_COMPOSITION "Mail Composition"
+</pre>
+<p>
+Pass this extension name to <a class="link" href="ESource.html#e-source-get-extension" title="e_source_get_extension ()"><code class="function">e_source_get_extension()</code></a> to access
+<a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a>.  This is also used as a group name in key files.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-mail-composition-dup-bcc"></a><h3>e_source_mail_composition_dup_bcc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **            e_source_mail_composition_dup_bcc   (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>);</pre>
+<p>
+Thread-safe variation of <code class="function">e_source_mail_composition_get_bcc()</code>.
+Use this function when accessing <em class="parameter"><code>extension</code></em> from multiple threads.
+</p>
+<p>
+The returned string array should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-String-Utility-Functions.html#g-strfreev"><code class="function">g_strfreev()</code></a> when no
+longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-allocated copy of
+<a class="link" href="ESourceMailComposition.html#ESourceMailComposition--bcc" title='The "bcc" property'><span class="type">"bcc"</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-mail-composition-set-bcc"></a><h3>e_source_mail_composition_set_bcc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_mail_composition_set_bcc   (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> * const *bcc</code></em>);</pre>
+<p>
+Sets the recipients which should automatically be added to the blind
+carbon-copy (Bcc) list when composing a new mail message.  The recipient
+strings should be of the form "Full Name &lt;email-address&gt;".
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bcc</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated string array of Bcc recipients. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-mail-composition-dup-cc"></a><h3>e_source_mail_composition_dup_cc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **            e_source_mail_composition_dup_cc    (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>);</pre>
+<p>
+Thread-safe variation of <code class="function">e_source_mail_composition_get_cc()</code>.
+Use this function when accessing <em class="parameter"><code>extension</code></em> from multiple threads.
+</p>
+<p>
+The returned string array should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-String-Utility-Functions.html#g-strfreev"><code class="function">g_strfreev()</code></a> when no
+longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-allocated copy of
+<a class="link" href="ESourceMailComposition.html#ESourceMailComposition--cc" title='The "cc" property'><span class="type">"cc"</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-mail-composition-set-cc"></a><h3>e_source_mail_composition_set_cc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_mail_composition_set_cc    (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> * const *cc</code></em>);</pre>
+<p>
+Sets the recipients which should automatically be added to the carbon
+copy (Cc) list when composing a new mail message.  The recipient strings
+should be of the form "Full Name &lt;email-address&gt;".
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cc</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated string array of Cc recipients. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-mail-composition-get-drafts-folder"></a><h3>e_source_mail_composition_get_drafts_folder ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_mail_composition_get_drafts_folder
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>);</pre>
+<p>
+Returns a string identifying the preferred folder for draft messages.
+The format of the identifier string is defined by the client application.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>an identifier for the preferred drafts folder</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-mail-composition-dup-drafts-folder"></a><h3>e_source_mail_composition_dup_drafts_folder ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_mail_composition_dup_drafts_folder
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>);</pre>
+<p>
+Thread-safe variation of <a class="link" href="ESourceMailComposition.html#e-source-mail-composition-get-drafts-folder" title="e_source_mail_composition_get_drafts_folder ()"><code class="function">e_source_mail_composition_get_drafts_folder()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em> from multiple threads.
+</p>
+<p>
+The returned string should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-allocated copy of <a class="link" href="ESourceMailComposition.html#ESourceMailComposition--drafts-folder" title='The "drafts-folder" property'><span class="type">"drafts-folder"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-mail-composition-set-drafts-folder"></a><h3>e_source_mail_composition_set_drafts_folder ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_mail_composition_set_drafts_folder
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *drafts_folder</code></em>);</pre>
+<p>
+Sets the preferred folder for draft messages by an identifier string.
+The format of the identifier string is defined by the client application.
+</p>
+<p>
+The internal copy of <em class="parameter"><code>drafts_folder</code></em> is automatically stripped of
+leading and trailing whitespace.  If the resulting string is empty,
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is set instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>drafts_folder</code></em> :</span></p></td>
+<td>an identifier for the preferred drafts
+folder, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-mail-composition-get-sign-imip"></a><h3>e_source_mail_composition_get_sign_imip ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_mail_composition_get_sign_imip
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>);</pre>
+<p>
+Returns whether outgoing iMIP messages such as meeting requests should
+also be signed.  This is primarily intended as a workaround for certain
+versions of Microsoft Outlook which can't handle signed iMIP messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether outgoing iMIP messages should be signed</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-mail-composition-set-sign-imip"></a><h3>e_source_mail_composition_set_sign_imip ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_mail_composition_set_sign_imip
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sign_imip</code></em>);</pre>
+<p>
+Sets whether outgoing iMIP messages such as meeting requests should
+also be signed.  This is primarily intended as a workaround for certain
+versions of Microsoft Outlook which can't handle signed iMIP messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sign_imip</code></em> :</span></p></td>
+<td>whether outgoing iMIP messages should be signed</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-mail-composition-get-templates-folder"></a><h3>e_source_mail_composition_get_templates_folder ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_mail_composition_get_templates_folder
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>);</pre>
+<p>
+Returns a string identifying the preferred folder for message templates.
+The format of the identifier string is defined by the client application.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>an identifier for the preferred templates folder</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-mail-composition-dup-templates-folder"></a><h3>e_source_mail_composition_dup_templates_folder ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_mail_composition_dup_templates_folder
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>);</pre>
+<p>
+Thread-safe variation of <a class="link" href="ESourceMailComposition.html#e-source-mail-composition-get-templates-folder" title="e_source_mail_composition_get_templates_folder ()"><code class="function">e_source_mail_composition_get_templates_folder()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em> from multiple threads.
+</p>
+<p>
+The returned string should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-allocated copy of <a class="link" href="ESourceMailComposition.html#ESourceMailComposition--templates-folder" title='The "templates-folder" property'><span class="type">"templates-folder"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-mail-composition-set-templates-folder"></a><h3>e_source_mail_composition_set_templates_folder ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_mail_composition_set_templates_folder
+                                                        (<em class="parameter"><code><a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *templates_folder</code></em>);</pre>
+<p>
+Sets the preferred folder for message templates by an identifier string.
+The format of the identifier string is defined by the client application.
+</p>
+<p>
+The internal copy of <em class="parameter"><code>templates_folder</code></em> is automatically stripped of
+leading and trailing whitespace.  If the resulting string is empty,
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is set instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceMailComposition.html" title="ESourceMailComposition"><span class="type">ESourceMailComposition</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>templates_folder</code></em> :</span></p></td>
+<td>an identifier for the preferred templates
+folder, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ESourceMailComposition.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="ESourceMailComposition--bcc"></a><h3>The <code class="literal">"bcc"</code> property</h3>
+<pre class="programlisting">  "bcc"                      <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read / Write / Construct</pre>
+<p>Recipients to blind carbon-copy.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceMailComposition--cc"></a><h3>The <code class="literal">"cc"</code> property</h3>
+<pre class="programlisting">  "cc"                       <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read / Write / Construct</pre>
+<p>Recipients to carbon-copy.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceMailComposition--drafts-folder"></a><h3>The <code class="literal">"drafts-folder"</code> property</h3>
+<pre class="programlisting">  "drafts-folder"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct</pre>
+<p>Preferred folder for draft messages.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceMailComposition--sign-imip"></a><h3>The <code class="literal">"sign-imip"</code> property</h3>
+<pre class="programlisting">  "sign-imip"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct</pre>
+<p>Include iMIP messages when signing.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceMailComposition--templates-folder"></a><h3>The <code class="literal">"templates-folder"</code> property</h3>
+<pre class="programlisting">  "templates-folder"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct</pre>
+<p>Preferred folder for message templates.</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

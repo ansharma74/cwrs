@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Logging</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<link rel="home" href="index.html" title="GNOME Online Accounts Reference Manual">
+<link rel="up" href="ch07.html" title="Core">
+<link rel="prev" href="ch07.html" title="Core">
+<link rel="next" href="goa-Utilities.html" title="Utilities">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch07.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch07.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GNOME Online Accounts Reference Manual</th>
+<td><a accesskey="n" href="goa-Utilities.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#goa-Logging.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#goa-Logging.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="goa-Logging"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="goa-Logging.top_of_page"></a>Logging</span></h2>
+<p>Logging — Logging Routines</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="goa-Logging.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">enum                <a class="link" href="goa-Logging.html#GoaLogLevel" title="enum GoaLogLevel">GoaLogLevel</a>;
+<span class="returnvalue">void</span>                <a class="link" href="goa-Logging.html#goa-log" title="goa_log ()">goa_log</a>                             (<em class="parameter"><code><a class="link" href="goa-Logging.html#GoaLogLevel" title="enum GoaLogLevel"><span class="type">GoaLogLevel</span></a> level</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *function</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *location</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+
+#define             <a class="link" href="goa-Logging.html#goa-debug" title="goa_debug()">goa_debug</a>                           (...)
+#define             <a class="link" href="goa-Logging.html#goa-info" title="goa_info()">goa_info</a>                            (...)
+#define             <a class="link" href="goa-Logging.html#goa-notice" title="goa_notice()">goa_notice</a>                          (...)
+#define             <a class="link" href="goa-Logging.html#goa-warning" title="goa_warning()">goa_warning</a>                         (...)
+#define             <a class="link" href="goa-Logging.html#goa-error" title="goa_error()">goa_error</a>                           (...)
+</pre>
+</div>
+<div class="refsect1">
+<a name="goa-Logging.description"></a><h2>Description</h2>
+<p>
+TODO: explain a bit more what these logging routines do - e.g. that
+<a class="link" href="goa-Logging.html#GOA-LOG-LEVEL-NOTICE:CAPS"><code class="literal">GOA_LOG_LEVEL_NOTICE</code></a> and higher goes to the syslog and so on
+etc. etc.
+</p>
+</div>
+<div class="refsect1">
+<a name="goa-Logging.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GoaLogLevel"></a><h3>enum GoaLogLevel</h3>
+<pre class="programlisting">typedef enum {
+  GOA_LOG_LEVEL_DEBUG,
+  GOA_LOG_LEVEL_INFO,
+  GOA_LOG_LEVEL_NOTICE,
+  GOA_LOG_LEVEL_WARNING,
+  GOA_LOG_LEVEL_ERROR
+} GoaLogLevel;
+</pre>
+<p>
+Logging levels.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><a name="GOA-LOG-LEVEL-DEBUG:CAPS"></a><span class="term"><code class="literal">GOA_LOG_LEVEL_DEBUG</code></span></p></td>
+<td>Debug messages.
+</td>
+</tr>
+<tr>
+<td><p><a name="GOA-LOG-LEVEL-INFO:CAPS"></a><span class="term"><code class="literal">GOA_LOG_LEVEL_INFO</code></span></p></td>
+<td>Informational messages.
+</td>
+</tr>
+<tr>
+<td><p><a name="GOA-LOG-LEVEL-NOTICE:CAPS"></a><span class="term"><code class="literal">GOA_LOG_LEVEL_NOTICE</code></span></p></td>
+<td>Messages that the administrator should take notice of.
+</td>
+</tr>
+<tr>
+<td><p><a name="GOA-LOG-LEVEL-WARNING:CAPS"></a><span class="term"><code class="literal">GOA_LOG_LEVEL_WARNING</code></span></p></td>
+<td>Warning messages.
+</td>
+</tr>
+<tr>
+<td><p><a name="GOA-LOG-LEVEL-ERROR:CAPS"></a><span class="term"><code class="literal">GOA_LOG_LEVEL_ERROR</code></span></p></td>
+<td>Error messages.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-log"></a><h3>goa_log ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                goa_log                             (<em class="parameter"><code><a class="link" href="goa-Logging.html#GoaLogLevel" title="enum GoaLogLevel"><span class="type">GoaLogLevel</span></a> level</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *function</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *location</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Low-level logging function used by <a class="link" href="goa-Logging.html#goa-debug" title="goa_debug()"><code class="function">goa_debug()</code></a> and other macros.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>A <a class="link" href="goa-Logging.html#GoaLogLevel" title="enum GoaLogLevel"><span class="type">GoaLogLevel</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>function</code></em> :</span></p></td>
+<td>Pass <a href="http://library.gnome.org/devel/glib/unstable/glib-Miscellaneous-Macros.html#G-STRFUNC:CAPS"><span class="type">G_STRFUNC</span></a> here.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>location</code></em> :</span></p></td>
+<td>Pass <a href="http://library.gnome.org/devel/glib/unstable/glib-Miscellaneous-Macros.html#G-STRLOC:CAPS"><span class="type">G_STRLOC</span></a> here.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>printf()-style format.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>Arguments for format.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-debug"></a><h3>goa_debug()</h3>
+<pre class="programlisting">#define goa_debug(args...)   goa_log(GOA_LOG_LEVEL_DEBUG, G_STRFUNC, G_STRLOC, args);
+</pre>
+<p>
+Logging macro for <a class="link" href="goa-Logging.html#GOA-LOG-LEVEL-DEBUG:CAPS"><code class="literal">GOA_LOG_LEVEL_DEBUG</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-info"></a><h3>goa_info()</h3>
+<pre class="programlisting">#define goa_info(args...)    goa_log(GOA_LOG_LEVEL_INFO, G_STRFUNC, G_STRLOC, args);
+</pre>
+<p>
+Logging macro for <a class="link" href="goa-Logging.html#GOA-LOG-LEVEL-INFO:CAPS"><code class="literal">GOA_LOG_LEVEL_INFO</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-notice"></a><h3>goa_notice()</h3>
+<pre class="programlisting">#define goa_notice(args...)    goa_log(GOA_LOG_LEVEL_NOTICE, G_STRFUNC, G_STRLOC, args);
+</pre>
+<p>
+Logging macro for <a class="link" href="goa-Logging.html#GOA-LOG-LEVEL-NOTICE:CAPS"><code class="literal">GOA_LOG_LEVEL_NOTICE</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-warning"></a><h3>goa_warning()</h3>
+<pre class="programlisting">#define goa_warning(args...) goa_log(GOA_LOG_LEVEL_WARNING, G_STRFUNC, G_STRLOC, args);
+</pre>
+<p>
+Logging macro for <a class="link" href="goa-Logging.html#GOA-LOG-LEVEL-WARNING:CAPS"><code class="literal">GOA_LOG_LEVEL_WARNING</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-error"></a><h3>goa_error()</h3>
+<pre class="programlisting">#define goa_error(args...)   goa_log(GOA_LOG_LEVEL_ERROR, G_STRFUNC, G_STRLOC, args);
+</pre>
+<p>
+Logging macro for <a class="link" href="goa-Logging.html#GOA-LOG-LEVEL-ERROR:CAPS"><code class="literal">GOA_LOG_LEVEL_ERROR</code></a>.
+</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

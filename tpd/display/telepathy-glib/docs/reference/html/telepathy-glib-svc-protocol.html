@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Service-side Protocol interface</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-dbus.html" title="Service-side D-Bus interfaces">
+<link rel="prev" href="telepathy-glib-svc-connection-manager.html" title="Service-side Connection Manager interface">
+<link rel="next" href="telepathy-glib-svc-account-manager.html" title="Service-side Account Manager interface">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-svc-connection-manager.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-dbus.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-svc-account-manager.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-svc-protocol.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-svc-protocol.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-svc-protocol.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-svc-protocol.implementations" class="shortcut">Known Implementations</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-svc-protocol"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-svc-protocol.top_of_page"></a>Service-side Protocol interface</span></h2>
+<p>Service-side Protocol interface — GInterface for Telepathy Protocol objects</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-svc-protocol.synopsis"></a><h2>Synopsis</h2>
+<a name="TpSvcProtocol"></a><a name="TpSvcProtocolInterfaceAddressing"></a><a name="TpSvcProtocolInterfacePresence"></a><a name="TpSvcProtocolInterfaceAvatars"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib-dbus.h&gt;
+
+                    <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocol-struct" title="TpSvcProtocol">TpSvcProtocol</a>;
+                    <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocolClass" title="TpSvcProtocolClass">TpSvcProtocolClass</a>;
+
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-protocol.html#tp-svc-protocol-identify-account-impl" title="tp_svc_protocol_identify_account_impl ()">*tp_svc_protocol_identify_account_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocol"><span class="type">TpSvcProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Parameters</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-protocol.html#tp-svc-protocol-implement-identify-account" title="tp_svc_protocol_implement_identify_account ()">tp_svc_protocol_implement_identify_account</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocolClass" title="TpSvcProtocolClass"><span class="type">TpSvcProtocolClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-protocol.html#tp-svc-protocol-identify-account-impl" title="tp_svc_protocol_identify_account_impl ()"><span class="type">tp_svc_protocol_identify_account_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-protocol.html#tp-svc-protocol-implement-normalize-contact" title="tp_svc_protocol_implement_normalize_contact ()">tp_svc_protocol_implement_normalize_contact</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocolClass" title="TpSvcProtocolClass"><span class="type">TpSvcProtocolClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-protocol.html#tp-svc-protocol-normalize-contact-impl" title="tp_svc_protocol_normalize_contact_impl ()"><span class="type">tp_svc_protocol_normalize_contact_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-protocol.html#tp-svc-protocol-normalize-contact-impl" title="tp_svc_protocol_normalize_contact_impl ()">*tp_svc_protocol_normalize_contact_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocol"><span class="type">TpSvcProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Contact_ID</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-protocol.html#tp-svc-protocol-return-from-identify-account" title="tp_svc_protocol_return_from_identify_account ()">tp_svc_protocol_return_from_identify_account</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *out_Account_ID</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-protocol.html#tp-svc-protocol-return-from-normalize-contact" title="tp_svc_protocol_return_from_normalize_contact ()">tp_svc_protocol_return_from_normalize_contact</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *out_Normalized_Contact_ID</code></em>);
+
+                    <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocolInterfaceAddressing-struct" title="TpSvcProtocolInterfaceAddressing">TpSvcProtocolInterfaceAddressing</a>;
+                    <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocolInterfaceAddressingClass" title="TpSvcProtocolInterfaceAddressingClass">TpSvcProtocolInterfaceAddressingClass</a>;
+
+                    <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocolInterfacePresence-struct" title="TpSvcProtocolInterfacePresence">TpSvcProtocolInterfacePresence</a>;
+                    <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocolInterfacePresenceClass" title="TpSvcProtocolInterfacePresenceClass">TpSvcProtocolInterfacePresenceClass</a>;
+
+                    <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocolInterfaceAvatars-struct" title="TpSvcProtocolInterfaceAvatars">TpSvcProtocolInterfaceAvatars</a>;
+                    <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocolInterfaceAvatarsClass" title="TpSvcProtocolInterfaceAvatarsClass">TpSvcProtocolInterfaceAvatarsClass</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-protocol.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcProtocol
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcProtocolInterfaceAddressing
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcProtocolInterfacePresence
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcProtocolInterfaceAvatars
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-protocol.implementations"></a><h2>Known Implementations</h2>
+<p>
+TpSvcProtocol is implemented by
+ <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol">TpBaseProtocol</a>.</p>
+<p>
+TpSvcProtocolInterfaceAddressing is implemented by
+ <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol">TpBaseProtocol</a>.</p>
+<p>
+TpSvcProtocolInterfacePresence is implemented by
+ <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol">TpBaseProtocol</a>.</p>
+<p>
+TpSvcProtocolInterfaceAvatars is implemented by
+ <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol">TpBaseProtocol</a>.</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-protocol.description"></a><h2>Description</h2>
+<p>
+The <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocol"><span class="type">TpSvcProtocol</span></a> interface (auto-generated from the Telepathy
+spec) makes it easier to export an object implementing the Telepathy
+Protocol interface.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-protocol.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpSvcProtocol-struct"></a><h3>TpSvcProtocol</h3>
+<pre class="programlisting">typedef struct _TpSvcProtocol TpSvcProtocol;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcProtocolClass"></a><h3>TpSvcProtocolClass</h3>
+<pre class="programlisting">typedef struct _TpSvcProtocolClass TpSvcProtocolClass;</pre>
+<p>
+The class of TpSvcProtocol.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_protocol (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_protocol_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (identify_account);
+  IMPLEMENT (normalize_contact);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-protocol-identify-account-impl"></a><h3>tp_svc_protocol_identify_account_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_protocol_identify_account_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocol"><span class="type">TpSvcProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Parameters</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+IdentifyAccount on interface org.freedesktop.Telepathy.Protocol.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Parameters</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-protocol-implement-identify-account"></a><h3>tp_svc_protocol_implement_identify_account ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_protocol_implement_identify_account
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocolClass" title="TpSvcProtocolClass"><span class="type">TpSvcProtocolClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-protocol.html#tp-svc-protocol-identify-account-impl" title="tp_svc_protocol_identify_account_impl ()"><span class="type">tp_svc_protocol_identify_account_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the IdentifyAccount method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the IdentifyAccount D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-protocol-implement-normalize-contact"></a><h3>tp_svc_protocol_implement_normalize_contact ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_protocol_implement_normalize_contact
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocolClass" title="TpSvcProtocolClass"><span class="type">TpSvcProtocolClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-protocol.html#tp-svc-protocol-normalize-contact-impl" title="tp_svc_protocol_normalize_contact_impl ()"><span class="type">tp_svc_protocol_normalize_contact_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the NormalizeContact method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the NormalizeContact D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-protocol-normalize-contact-impl"></a><h3>tp_svc_protocol_normalize_contact_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_protocol_normalize_contact_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocol"><span class="type">TpSvcProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_Contact_ID</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+NormalizeContact on interface org.freedesktop.Telepathy.Protocol.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Contact_ID</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-protocol-return-from-identify-account"></a><h3>tp_svc_protocol_return_from_identify_account ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_protocol_return_from_identify_account
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *out_Account_ID</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Account_ID</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-protocol-return-from-normalize-contact"></a><h3>tp_svc_protocol_return_from_normalize_contact ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_protocol_return_from_normalize_contact
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *out_Normalized_Contact_ID</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Normalized_Contact_ID</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcProtocolInterfaceAddressing-struct"></a><h3>TpSvcProtocolInterfaceAddressing</h3>
+<pre class="programlisting">typedef struct _TpSvcProtocolInterfaceAddressing TpSvcProtocolInterfaceAddressing;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcProtocolInterfaceAddressingClass"></a><h3>TpSvcProtocolInterfaceAddressingClass</h3>
+<pre class="programlisting">typedef struct _TpSvcProtocolInterfaceAddressingClass TpSvcProtocolInterfaceAddressingClass;</pre>
+<p>
+The class of TpSvcProtocolInterfaceAddressing.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_protocol_interface_addressing (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_protocol_interface_addressing_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (normalize_vcard_address);
+  IMPLEMENT (normalize_contact_uri);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcProtocolInterfacePresence-struct"></a><h3>TpSvcProtocolInterfacePresence</h3>
+<pre class="programlisting">typedef struct _TpSvcProtocolInterfacePresence TpSvcProtocolInterfacePresence;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcProtocolInterfacePresenceClass"></a><h3>TpSvcProtocolInterfacePresenceClass</h3>
+<pre class="programlisting">typedef struct _TpSvcProtocolInterfacePresenceClass TpSvcProtocolInterfacePresenceClass;</pre>
+<p>
+The class of TpSvcProtocolInterfacePresence.
+This interface has no D-Bus methods, so an
+implementation can typically pass <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> as the interface
+initialization function.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcProtocolInterfaceAvatars-struct"></a><h3>TpSvcProtocolInterfaceAvatars</h3>
+<pre class="programlisting">typedef struct _TpSvcProtocolInterfaceAvatars TpSvcProtocolInterfaceAvatars;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcProtocolInterfaceAvatarsClass"></a><h3>TpSvcProtocolInterfaceAvatarsClass</h3>
+<pre class="programlisting">typedef struct _TpSvcProtocolInterfaceAvatarsClass TpSvcProtocolInterfaceAvatarsClass;</pre>
+<p>
+The class of TpSvcProtocolInterfaceAvatars.
+This interface has no D-Bus methods, so an
+implementation can typically pass <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> as the interface
+initialization function.
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-protocol.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

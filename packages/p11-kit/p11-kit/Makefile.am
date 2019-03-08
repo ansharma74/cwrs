@@ -1,0 +1,103 @@
+NULL =
+
+INCLUDES = \
+	-I$(top_srcdir) \
+	-I$(top_srcdir)/common \
+	-DP11_KIT_FUTURE_UNSTABLE_API \
+	$(NULL)
+
+incdir = $(includedir)/p11-kit-1/p11-kit
+
+inc_HEADERS = \
+	p11-kit.h \
+	pin.h \
+	uri.h \
+	pkcs11.h
+
+MODULE_SRCS = \
+	util.c util.h \
+	conf.c conf.h \
+	debug.c debug.h \
+	hashmap.c hashmap.h \
+	modules.c \
+	pin.c \
+	proxy.c \
+	private.h \
+	ptr-array.c ptr-array.h \
+	messages.c \
+	uri.c \
+	$(top_srcdir)/common/compat.c \
+	$(top_srcdir)/common/compat.h \
+	$(inc_HEADERS)
+
+lib_LTLIBRARIES = \
+	libp11-kit.la
+
+libp11_kit_la_CFLAGS = \
+	-DP11_SYSTEM_CONFIG_FILE=\""$(p11_system_config_file)"\" \
+	-DP11_SYSTEM_CONFIG_MODULES=\""$(p11_system_config_modules)"\" \
+	-DP11_USER_CONFIG_FILE=\""$(p11_user_config_file)"\" \
+	-DP11_USER_CONFIG_MODULES=\""$(p11_user_config_modules)"\" \
+	-DP11_MODULE_PATH=\""$(p11_module_path)"\" \
+	$(NULL)
+
+libp11_kit_la_LDFLAGS = \
+	-no-undefined \
+	-version-info $(P11KIT_LT_RELEASE) \
+	-export-symbols-regex '^C_GetFunctionList|^p11_kit_'
+
+libp11_kit_la_SOURCES = $(MODULE_SRCS)
+
+libp11_kit_la_LIBADD = $(LTLIBINTL)
+
+noinst_LTLIBRARIES = \
+	libp11-kit-testable.la \
+	libp11-kit-compat.la
+
+libp11_kit_testable_la_LDFLAGS = \
+	-no-undefined
+
+libp11_kit_testable_la_SOURCES = $(MODULE_SRCS)
+
+if OS_WIN32
+
+libp11_kit_testable_la_CFLAGS = \
+	-DP11_SYSTEM_CONFIG_FILE=\""$(abs_top_srcdir)/tests/files/system-pkcs11.conf"\" \
+	-DP11_SYSTEM_CONFIG_MODULES=\""$(abs_top_srcdir)/tests/files/system-modules/win32"\" \
+	-DP11_USER_CONFIG_FILE=\""$(abs_top_srcdir)/tests/files/user-pkcs11.conf"\" \
+	-DP11_USER_CONFIG_MODULES=\""$(abs_top_srcdir)/tests/files/user-modules/win32"\" \
+	-DP11_MODULE_PATH=\""$(abs_top_builddir)/tests/.libs"\" \
+	$(NULL)
+
+else
+
+libp11_kit_testable_la_CFLAGS = \
+	-DP11_SYSTEM_CONFIG_FILE=\""$(abs_top_srcdir)/tests/files/system-pkcs11.conf"\" \
+	-DP11_SYSTEM_CONFIG_MODULES=\""$(abs_top_srcdir)/tests/files/system-modules"\" \
+	-DP11_USER_CONFIG_FILE=\""$(abs_top_srcdir)/tests/files/user-pkcs11.conf"\" \
+	-DP11_USER_CONFIG_MODULES=\""$(abs_top_srcdir)/tests/files/user-modules"\" \
+	-DP11_MODULE_PATH=\""$(abs_top_builddir)/tests/.libs"\" \
+	$(NULL)
+
+endif
+
+libp11_kit_compat_la_SOURCES = \
+	debug.c debug.h \
+	messages.c \
+	util.c util.h \
+	$(top_srcdir)/common/compat.c \
+	$(top_srcdir)/common/compat.h
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = p11-kit-1.pc
+
+exampledir = $(p11_system_config)
+example_DATA = pkcs11.conf.example
+
+EXTRA_DIST = \
+	p11-kit-1.pc.in \
+	pkcs11.conf.example.in
+
+# Proxy module is actually same as library, so install a link
+install-exec-hook:
+	$(LN_S) -f `readlink $(DESTDIR)$(libdir)/libp11-kit.so` $(DESTDIR)$(libdir)/p11-kit-proxy.so

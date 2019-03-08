@@ -1,0 +1,365 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+TOP=`pwd`
+echo Source Base=$TOP
+
+source $TOP/packages_definitions
+
+echo "--------------Testing Build Tools--------------"
+
+$TOP/Config/buildpackageversion
+
+echo "----------Print Default Config----------------"
+
+$TOP/Config/envtest
+
+LNX_P=$TOP/images/linux
+
+echo "----------Export Environment Variables-------"
+export PREFIX=$TOP/images/media
+
+export PATH=$LNX_P/bin:$PREFIX/bin:$PREFIX/lib:$PREFIX/include:$PREFIX/usr/lib:$PREFIX/usr/include:$PREFIX/usr/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+
+export PKG_CONFIG_PATH=$LNX_P/lib/pkgconfig:$LNX_P/lib64/pkgconfig:$PREFIX/lib/pkgconfig:$PREFIX/lib64/pkgconfig
+
+export LDFLAGS="-L$PREFIX/lib -L$PREFIX/lib64 -L$LNX_P/lib -L$LNX_P/lib64"
+export CFLAGS="-fPIC -I$PREFIX/include -I$LNX_P/include"
+export CXXFLAGS="-fPIC -I$PREFIX/include -I$LNX_P/include"
+export LD_LIBRARY_PATH=$PREFIX/lib:$PREFIX/lib64:$LNX_P/lib:$LNX_P/lib64
+export LIBRARY_PATH=$PREFIX/lib:$PREFIX/lib64:$LNX_P/lib:$LNX_P/lib64
+export C_INCLUDE_PATH=$PREFIX/include:$PREFIX/usr/include:$LNX_P/include:$LNX_P/usr/include
+export CXX_INCLUDE_PATH=$PREFIX/include:$PREFIX/usr/include:$LNX_P/include:$LNX_P/usr/include
+
+echo "----------Print Environment Variables ----------------"
+
+$TOP/Config/envtest
+
+function buildmediapackages_component {
+
+    echo "---------------------------------------------------"
+    echo "------------------------ Building $1 --------------"
+    echo "---------------------------------------------------"
+
+    DIR=$2
+
+    case $1 in
+    a52dec)
+        rm -rf $TOP/buildoutput/$DIR/a52dec
+        mkdir $TOP/buildoutput/$DIR/a52dec
+        cd $TOP/buildoutput/$DIR/a52dec
+        ../../../media/a52dec/configure --prefix= --with-pic
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    alsa-lib)
+        rm -rf $TOP/buildoutput/$DIR/alsa-lib
+        mkdir $TOP/buildoutput/$DIR/alsa-lib
+        cd $TOP/buildoutput/$DIR/alsa-lib
+        ../../../media/alsa-lib/configure --prefix= --with-pic
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    alsa-utils)
+        rm -rf $TOP/buildoutput/$DIR/alsa-utils
+        mkdir $TOP/buildoutput/$DIR/alsa-utils
+        cd $TOP/buildoutput/$DIR/alsa-utils
+        export ALSAUTILS_SOURCE=$TOP/media/alsa-utils
+        $TOP/Config/alsautils_tree
+        ./configure --prefix= \
+            --with-alsa-prefix=/lib \
+            --with-alsa-inc-prefix=/include \
+            --with-udev-rules-dir= \
+            --with-asound-state-dir=
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        export ALSAUTILS_SOURCE=
+        ;;
+
+    bitstream)
+        cd $TOP/media/bitstream
+        make PREFIX=$PREFIX install
+        echo Bitstream Install Successful
+        ;;
+
+    ffmpeg)
+        rm -rf $TOP/buildoutput/$DIR/ffmpeg
+        mkdir $TOP/buildoutput/$DIR/ffmpeg
+        cd $TOP/buildoutput/$DIR/ffmpeg
+        ../../../media/ffmpeg/configure \
+            --prefix= \
+            --extra-cflags=-I$PREFIX/include \
+            --extra-ldflags=-L$PREFIX/lib --disable-txtpages \
+            --enable-pic --enable-shared \
+            --enable-gpl --enable-libpulse \
+            --enable-libx264 --enable-libv4l2 --enable-libspeex \
+            --enable-libass --enable-libfreetype --enable-gnutls \
+            --enable-libvorbis --disable-manpages --disable-debug \
+            --enable-fontconfig --disable-doc --disable-podpages \
+            --disable-txtpages
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    flac)
+        rm -rf $TOP/buildoutput/$DIR/flac
+        mkdir $TOP/buildoutput/$DIR/flac
+        cd $TOP/buildoutput/$DIR/flac
+        export FLAC_SOURCE=$TOP/media/flac
+        $TOP/Config/flac_tree
+        ./configure --prefix= --with-pic
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        export FLAC_SOURCE=
+        ;;
+
+    gstreamer)
+        rm -rf $TOP/buildoutput/$DIR/gstreamer
+        mkdir $TOP/buildoutput/$DIR/gstreamer
+        cd $TOP/buildoutput/$DIR/gstreamer
+        ../../../media/gstreamer/configure \
+            --prefix= --with-pic --disable-check --disable-tests \
+            --disable-examples --enable-gtk-doc-html
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    libass)
+        rm -rf $TOP/buildoutput/$DIR/libass
+        mkdir $TOP/buildoutput/$DIR/libass
+        cd $TOP/buildoutput/$DIR/libass
+        ../../../media/libass/configure --prefix= \
+            --with-pic 
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    libdvdcss)
+        rm -rf $TOP/buildoutput/$DIR/libdvdcss
+        mkdir $TOP/buildoutput/$DIR/libdvdcss
+        cd $TOP/buildoutput/$DIR/libdvdcss
+        ../../../media/libdvdcss/configure --prefix= \
+            --with-pic --enable-shared --disable-doc
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    libdvdnav)
+        rm -rf $TOP/buildoutput/$DIR/libdvdnav
+        mkdir $TOP/buildoutput/$DIR/libdvdnav
+        cd $TOP/buildoutput/$DIR/libdvdnav
+        ../../../media/libdvdnav/configure2 \
+            --prefix= --extra-cflags=-fPIC \
+            --enable-shared --with-dvdread=$PREFIX \
+            --with-dvdread-config=$PREFIX/bin/dvdread-config \
+            --disable-debug --srcdir=$TOP/media/libdvdread
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    libdvdread)
+        rm -rf $TOP/buildoutput/$DIR/libdvdread
+        mkdir $TOP/buildoutput/$DIR/libdvdread
+        cd $TOP/buildoutput/$DIR/libdvdread
+        ../../../media/libdvdread/configure2 --prefix= \
+            --extra-cflags=-fPIC --enable-shared --disable-debug 
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    libeXosip)
+        rm -rf $TOP/buildoutput/$DIR/libeXosip
+        mkdir $TOP/buildoutput/$DIR/libeXosip
+        cd $TOP/buildoutput/$DIR/libeXosip
+        ../../../media/libeXosip/configure --with-pic \
+            --prefix= --enable-openssl LIBS=-lssl
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    libfreenect)
+        cd $TOP/media/libfreenect
+        cmake . -DCMAKE_INSTALL_PREFIX:PATH= \
+        -DCMAKE_C_FLAGS:STRING="-fPIC -I$PREFIX/include" \
+        -DLIBUSB_1_LIBRARY:FILEPATH=$TOP/images/os/lib/libusb-1.0.a \
+        -DLIBUSB_1_INCLUDE_DIR:PATH=$TOP/images/os/include/libusb-1.0
+        make
+        make DESTDIR=$PREFIX install
+        make clean
+        ;;
+
+    libogg)
+        rm -rf $TOP/buildoutput/$DIR/libogg
+        mkdir $TOP/buildoutput/$DIR/libogg
+        cd $TOP/buildoutput/$DIR/libogg
+        ../../../media/libogg/configure --prefix= --with-pic
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    libosip)
+        rm -rf $TOP/buildoutput/$DIR/libosip
+        mkdir $TOP/buildoutput/$DIR/libosip
+        cd $TOP/buildoutput/$DIR/libosip
+        ../../../media/libosip/configure --prefix= --with-pic
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    libsndfile)
+        rm -rf $TOP/buildoutput/$DIR/libsndfile
+        mkdir $TOP/buildoutput/$DIR/libsndfile
+        cd $TOP/buildoutput/$DIR/libsndfile
+        ../../../media/libsndfile/configure \
+            --prefix= --with-pic 
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    libvorbis)
+        rm -rf $TOP/buildoutput/$DIR/libvorbis
+        mkdir $TOP/buildoutput/$DIR/libvorbis
+        cd $TOP/buildoutput/$DIR/libvorbis
+        ../../../media/libvorbis/configure --prefix= \
+            --with-pic --enable-shared
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    libx264)
+        rm -rf $TOP/buildoutput/$DIR/libx264
+        mkdir $TOP/buildoutput/$DIR/libx264
+        cd $TOP/buildoutput/$DIR/libx264
+        ../../../media/libx264/configure --prefix= \
+            --enable-pic --enable-shared --enable-static
+        make
+        make DESTDIR=$PREFIX install-lib-both
+        make distclean
+        ;;
+
+    multicat)
+        cd $TOP/media/multicat
+        make PREFIX=$PREFIX install
+        echo Multicat Install Successful
+        ;;
+
+    pulseaudio)
+        rm -rf $TOP/buildoutput/$DIR/pulseaudio
+        mkdir $TOP/buildoutput/$DIR/pulseaudio
+        cd $TOP/buildoutput/$DIR/pulseaudio
+        ../../../media/pulseaudio/configure --disable-manpages \
+            --prefix= --with-pic --enable-static --disable-udev \
+            --disable-systemd --disable-tests --enable-silent-rules 
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    spandsp)
+        rm -rf $TOP/buildoutput/$DIR/spandsp
+        mkdir $TOP/buildoutput/$DIR/spandsp
+        cd $TOP/buildoutput/$DIR/spandsp
+        export SPANDSP_SOURCE=$TOP/media/spandsp
+        $TOP/Config/spandsp_tree
+        ./configure --prefix= --with-pic 
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        export SPANDSP_SOURCE=
+        ;;
+
+    speex)
+        rm -rf $TOP/buildoutput/$DIR/speex
+        mkdir $TOP/buildoutput/$DIR/speex
+        cd $TOP/buildoutput/$DIR/speex
+        ../../../media/speex/configure --prefix= --with-pic 
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    tiff)
+        rm -rf $TOP/buildoutput/$DIR/tiff
+        mkdir $TOP/buildoutput/$DIR/tiff
+        cd $TOP/buildoutput/$DIR/tiff
+        ../../../media/tiff/configure --prefix= --with-pic 
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    v4l-utils)
+        rm -rf $TOP/buildoutput/$DIR/v4l-utils
+        mkdir $TOP/buildoutput/$DIR/v4l-utils
+        cd $TOP/buildoutput/$DIR/v4l-utils
+        ../../../media/v4l-utils/configure \
+            --prefix= --with-pic --with-udevdir=$PREFIX
+        make
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    *)
+        echo "wrong package"
+        echo "skip"
+        ;;
+
+    esac
+}
+
+function make_mediapack {
+
+    echo "--------- Making Media Pack ---------------"
+
+    rm -rf $TOP/images/media/DEBIAN
+    mkdir $TOP/images/media/DEBIAN
+    echo "Package: cbirmediapack
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: all
+Maintainer: CBIR (info@cbir.in)
+Description: Linux media utilities
+     Media utilities" > $TOP/images/media/DEBIAN/control
+
+    cd $TOP/images/media/..
+    find ./media -type d | xargs chmod 755
+    dpkg-deb --build media
+    if [ ! -d /tmp/build ]
+    then
+        mkdir /tmp/build
+    fi
+    mv media.deb /tmp/builds/cbirmediapack.deb
+}
+
+function build_media_packages {
+        rm -rf $TOP/buildoutput/media
+        rm -rf $TOP/images/media
+        mkdir $TOP/buildoutput/media
+        mkdir $TOP/images/media
+        for pack in $media_packages; do
+            buildmediapackages_component $pack media
+        done
+}
+
+build_media_packages
+make_mediapack

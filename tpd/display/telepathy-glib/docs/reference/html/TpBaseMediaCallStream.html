@@ -1,0 +1,857 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpBaseMediaCallStream</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="TpBaseCallStream.html" title="TpBaseCallStream">
+<link rel="next" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="TpBaseCallStream.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="TpCallStreamEndpoint.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#TpBaseMediaCallStream.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#TpBaseMediaCallStream.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#TpBaseMediaCallStream.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#TpBaseMediaCallStream.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#TpBaseMediaCallStream.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="TpBaseMediaCallStream"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="TpBaseMediaCallStream.top_of_page"></a>TpBaseMediaCallStream</span></h2>
+<p>TpBaseMediaCallStream — base class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallStreamInterfaceMedia"><span class="type">TpSvcCallStreamInterfaceMedia</span></a>
+ implementations</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="TpBaseMediaCallStream.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+                    <a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream-struct" title="TpBaseMediaCallStream">TpBaseMediaCallStream</a>;
+struct              <a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamClass" title="struct TpBaseMediaCallStreamClass">TpBaseMediaCallStreamClass</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamFinishInitialCandidatesFunc" title="TpBaseMediaCallStreamFinishInitialCandidatesFunc ()">*TpBaseMediaCallStreamFinishInitialCandidatesFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamAddCandidatesFunc" title="TpBaseMediaCallStreamAddCandidatesFunc ()">*TpBaseMediaCallStreamAddCandidatesFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *candidates</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamReportFailureFunc" title="TpBaseMediaCallStreamReportFailureFunc ()">*TpBaseMediaCallStreamReportFailureFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpStreamFlowState" title="enum TpStreamFlowState"><span class="type">TpStreamFlowState</span></a> old_state</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpCallStateChangeReason" title="enum TpCallStateChangeReason"><span class="type">TpCallStateChangeReason</span></a> reason</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *dbus_reason</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamRequestReceivingFunc" title="TpBaseMediaCallStreamRequestReceivingFunc ()">*TpBaseMediaCallStreamRequestReceivingFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> contact</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> receive</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamSetSendingFunc" title="TpBaseMediaCallStreamSetSendingFunc ()">*TpBaseMediaCallStreamSetSendingFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sending</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseMediaCallStream.html#tp-base-media-call-stream-set-relay-info" title="tp_base_media_call_stream_set_relay_info ()">tp_base_media_call_stream_set_relay_info</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *relays</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseMediaCallStream.html#tp-base-media-call-stream-set-stun-servers" title="tp_base_media_call_stream_set_stun_servers ()">tp_base_media_call_stream_set_stun_servers</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *stun_servers</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseMediaCallStream.html#tp-base-media-call-stream-add-endpoint" title="tp_base_media_call_stream_add_endpoint ()">tp_base_media_call_stream_add_endpoint</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *endpoint</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseMediaCallStream.html#tp-base-media-call-stream-remove-endpoint" title="tp_base_media_call_stream_remove_endpoint ()">tp_base_media_call_stream_remove_endpoint</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *endpoint</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="TpBaseMediaCallStream.html#tp-base-media-call-stream-get-endpoints" title="tp_base_media_call_stream_get_endpoints ()">tp_base_media_call_stream_get_endpoints</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="TpBaseMediaCallStream.html#tp-base-media-call-stream-get-username" title="tp_base_media_call_stream_get_username ()">tp_base_media_call_stream_get_username</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="TpBaseMediaCallStream.html#tp-base-media-call-stream-get-password" title="tp_base_media_call_stream_get_password ()">tp_base_media_call_stream_get_password</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseMediaCallStream.html#tp-base-media-call-stream-update-receiving-state" title="tp_base_media_call_stream_update_receiving_state ()">tp_base_media_call_stream_update_receiving_state</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);
+<a class="link" href="telepathy-glib-enums.html#TpStreamFlowState" title="enum TpStreamFlowState"><span class="returnvalue">TpStreamFlowState</span></a>   <a class="link" href="TpBaseMediaCallStream.html#tp-base-media-call-stream-get-receiving-state" title="tp_base_media_call_stream_get_receiving_state ()">tp_base_media_call_stream_get_receiving_state</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseMediaCallStream.html#tp-base-media-call-stream-update-sending-state" title="tp_base_media_call_stream_update_sending_state ()">tp_base_media_call_stream_update_sending_state</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);
+<a class="link" href="telepathy-glib-enums.html#TpStreamFlowState" title="enum TpStreamFlowState"><span class="returnvalue">TpStreamFlowState</span></a>   <a class="link" href="TpBaseMediaCallStream.html#tp-base-media-call-stream-get-sending-state" title="tp_base_media_call_stream_get_sending_state ()">tp_base_media_call_stream_get_sending_state</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseMediaCallStream.html#tp-base-media-call-stream-set-local-sending" title="tp_base_media_call_stream_set_local_sending ()">tp_base_media_call_stream_set_local_sending</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sending</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpBaseMediaCallStream.html#tp-base-media-call-stream-get-local-sending" title="tp_base_media_call_stream_get_local_sending ()">tp_base_media_call_stream_get_local_sending</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         <a class="link" href="TpBaseMediaCallStream.html#tp-base-media-call-stream-get-local-candidates" title="tp_base_media_call_stream_get_local_candidates ()">tp_base_media_call_stream_get_local_candidates</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseMediaCallStream.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="TpBaseCallStream.html" title="TpBaseCallStream">TpBaseCallStream</a>
+         +----TpBaseMediaCallStream
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseMediaCallStream.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+TpBaseMediaCallStream implements
+ <a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties">TpSvcDBusProperties</a>,  <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallStream">TpSvcCallStream</a> and  <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallStreamInterfaceMedia">TpSvcCallStreamInterfaceMedia</a>.</p>
+</div>
+<div class="refsect1">
+<a name="TpBaseMediaCallStream.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--endpoints" title='The "endpoints" property'>endpoints</a>"                <span class="type">GPtrArray_DBusGObjectPath_</span>*  : Read
+  "<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--has-server-info" title='The "has-server-info" property'>has-server-info</a>"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+  "<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--ice-restart-pending" title='The "ice-restart-pending" property'>ice-restart-pending</a>"      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+  "<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--local-candidates" title='The "local-candidates" property'>local-candidates</a>"         <span class="type">GPtrArray_GValueArray_guint+gchararray+guint+GHashTable_gchararray+GValue___*</span>  : Read
+  "<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--local-credentials" title='The "local-credentials" property'>local-credentials</a>"        <span class="type">GValueArray_gchararray+gchararray_*</span>  : Read
+  "<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--receiving-state" title='The "receiving-state" property'>receiving-state</a>"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+  "<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--relay-info" title='The "relay-info" property'>relay-info</a>"               <span class="type">GPtrArray_GHashTable_gchararray+GValue__*</span>  : Read
+  "<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--sending-state" title='The "sending-state" property'>sending-state</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+  "<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--stun-servers" title='The "stun-servers" property'>stun-servers</a>"             <span class="type">GPtrArray_GValueArray_gchararray+guint__*</span>  : Read
+  "<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--transport" title='The "transport" property'>transport</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseMediaCallStream.description"></a><h2>Description</h2>
+<p>
+This base class makes it easier to write <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallStreamInterfaceMedia"><span class="type">TpSvcCallStreamInterfaceMedia</span></a>
+implementations by implementing some of its properties and methods.
+</p>
+<p>
+Subclasses must still implement <a class="link" href="TpBaseCallStream.html" title="TpBaseCallStream"><span class="type">TpBaseCallStream</span></a>'s virtual methods plus
+<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamClass.add-local-candidates"><span class="type">TpBaseMediaCallStreamClass.add_local_candidates</span></a> and
+<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamClass.finish-initial-candidates"><span class="type">TpBaseMediaCallStreamClass.finish_initial_candidates</span></a>.
+</p>
+</div>
+<div class="refsect1">
+<a name="TpBaseMediaCallStream.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpBaseMediaCallStream-struct"></a><h3>TpBaseMediaCallStream</h3>
+<pre class="programlisting">typedef struct _TpBaseMediaCallStream TpBaseMediaCallStream;</pre>
+<p>
+A base class for media call stream implementations
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseMediaCallStreamClass"></a><h3>struct TpBaseMediaCallStreamClass</h3>
+<pre class="programlisting">struct TpBaseMediaCallStreamClass {
+  TpBaseMediaCallStreamReportFailureFunc report_sending_failure;
+  TpBaseMediaCallStreamReportFailureFunc report_receiving_failure;
+  TpBaseMediaCallStreamAddCandidatesFunc add_local_candidates;
+  TpBaseMediaCallStreamFinishInitialCandidatesFunc finish_initial_candidates;
+
+  TpBaseMediaCallStreamRequestReceivingFunc request_receiving;
+  TpBaseMediaCallStreamSetSendingFunc set_sending;
+};
+</pre>
+<p>
+The class structure for <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamReportFailureFunc" title="TpBaseMediaCallStreamReportFailureFunc ()"><span class="type">TpBaseMediaCallStreamReportFailureFunc</span></a> <em class="structfield"><code><a name="TpBaseMediaCallStreamClass.report-sending-failure"></a>report_sending_failure</code></em>;</span></p></td>
+<td>optional; called to indicate a failure in the
+outgoing portion of the stream</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamReportFailureFunc" title="TpBaseMediaCallStreamReportFailureFunc ()"><span class="type">TpBaseMediaCallStreamReportFailureFunc</span></a> <em class="structfield"><code><a name="TpBaseMediaCallStreamClass.report-receiving-failure"></a>report_receiving_failure</code></em>;</span></p></td>
+<td>optional; called to indicate a failure in the
+incoming portion of the stream</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamAddCandidatesFunc" title="TpBaseMediaCallStreamAddCandidatesFunc ()"><span class="type">TpBaseMediaCallStreamAddCandidatesFunc</span></a> <em class="structfield"><code><a name="TpBaseMediaCallStreamClass.add-local-candidates"></a>add_local_candidates</code></em>;</span></p></td>
+<td>mandatory; called when new candidates are added</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamFinishInitialCandidatesFunc" title="TpBaseMediaCallStreamFinishInitialCandidatesFunc ()"><span class="type">TpBaseMediaCallStreamFinishInitialCandidatesFunc</span></a> <em class="structfield"><code><a name="TpBaseMediaCallStreamClass.finish-initial-candidates"></a>finish_initial_candidates</code></em>;</span></p></td>
+<td>optional; called when the initial batch of
+candidates has been added, and should now be processed/sent to the remote
+side</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamRequestReceivingFunc" title="TpBaseMediaCallStreamRequestReceivingFunc ()"><span class="type">TpBaseMediaCallStreamRequestReceivingFunc</span></a> <em class="structfield"><code><a name="TpBaseMediaCallStreamClass.request-receiving"></a>request_receiving</code></em>;</span></p></td>
+<td>optional (see <a class="link" href="TpBaseCallStream.html#TpBaseCallStream--can-request-receiving" title='The "can-request-receiving" property'><span class="type">"can-request-receiving"</span></a>);
+virtual method called when user requested receiving from the given remote
+contact. This virtual method should be implemented instead of
+<a class="link" href="TpBaseCallStream.html#TpBaseCallStreamClass.request-receiving"><span class="type">TpBaseCallStreamClass.request_receiving</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamSetSendingFunc" title="TpBaseMediaCallStreamSetSendingFunc ()"><span class="type">TpBaseMediaCallStreamSetSendingFunc</span></a> <em class="structfield"><code><a name="TpBaseMediaCallStreamClass.set-sending"></a>set_sending</code></em>;</span></p></td>
+<td>mandatory; virtual method called when user requested to
+start/stop sending to remote contacts. This virtual method should be
+implemented instead of <a class="link" href="TpBaseCallStream.html#TpBaseCallStreamClass.set-sending"><span class="type">TpBaseCallStreamClass.set_sending</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseMediaCallStreamFinishInitialCandidatesFunc"></a><h3>TpBaseMediaCallStreamFinishInitialCandidatesFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpBaseMediaCallStreamFinishInitialCandidatesFunc)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of an implementation of
+<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamClass.finish-initial-candidates"><span class="type">TpBaseMediaCallStreamClass.finish_initial_candidates</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseMediaCallStreamAddCandidatesFunc"></a><h3>TpBaseMediaCallStreamAddCandidatesFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (*TpBaseMediaCallStreamAddCandidatesFunc)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *candidates</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of an implementation of
+<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamClass.add-local-candidates"><span class="type">TpBaseMediaCallStreamClass.add_local_candidates</span></a>.
+</p>
+<p>
+Implementation should validate the added <em class="parameter"><code>candidates</code></em> and return a subset
+(or all) of them that are accepted. Implementation should return a new
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> build in a way that <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#g-ptr-array-unref"><code class="function">g_ptr_array_unref()</code></a> is enough to free all its
+memory. It is fine to just add element pointers from <em class="parameter"><code>candidates</code></em> to the
+returned <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> without deep-copy them.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>candidates</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a> containing candidates info</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseMediaCallStreamReportFailureFunc"></a><h3>TpBaseMediaCallStreamReportFailureFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpBaseMediaCallStreamReportFailureFunc)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpStreamFlowState" title="enum TpStreamFlowState"><span class="type">TpStreamFlowState</span></a> old_state</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpCallStateChangeReason" title="enum TpCallStateChangeReason"><span class="type">TpCallStateChangeReason</span></a> reason</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *dbus_reason</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>);</pre>
+<p>
+Signature of an implementation of
+<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamClass.report-sending-failure"><span class="type">TpBaseMediaCallStreamClass.report_sending_failure</span></a> and
+<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamClass.report-receiving-failure"><span class="type">TpBaseMediaCallStreamClass.report_receiving_failure</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>old_state</code></em> :</span></p></td>
+<td>the previous <a class="link" href="telepathy-glib-enums.html#TpStreamFlowState" title="enum TpStreamFlowState"><span class="type">TpStreamFlowState</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-enums.html#TpCallStateChangeReason" title="enum TpCallStateChangeReason"><span class="type">TpCallStateChangeReason</span></a> of the change</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dbus_reason</code></em> :</span></p></td>
+<td>a specific reason for the change, which may be a D-Bus error in
+the Telepathy namespace, a D-Bus error in any other namespace (for
+implementation-specific errors), or the empty string to indicate that the
+state change was not an error.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>an optional debug message, to expediate debugging the potentially
+many processes involved in a call.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseMediaCallStreamRequestReceivingFunc"></a><h3>TpBaseMediaCallStreamRequestReceivingFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpBaseMediaCallStreamRequestReceivingFunc)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> contact</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> receive</code></em>);</pre>
+<p>
+Signature of an implementation of
+<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamClass.request-receiving"><span class="type">TpBaseMediaCallStreamClass.request_receiving</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>contact</code></em> :</span></p></td>
+<td>the contact from who user wants to start or stop receiving</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>receive</code></em> :</span></p></td>
+<td>wheter or not user would like to be receiving</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseMediaCallStreamSetSendingFunc"></a><h3>TpBaseMediaCallStreamSetSendingFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpBaseMediaCallStreamSetSendingFunc)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sending</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of an implementation of <a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStreamClass.set-sending"><span class="type">TpBaseMediaCallStreamClass.set_sending</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sending</code></em> :</span></p></td>
+<td>whether or not user would like to be sending</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-media-call-stream-set-relay-info"></a><h3>tp_base_media_call_stream_set_relay_info ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_media_call_stream_set_relay_info
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *relays</code></em>);</pre>
+<p>
+Set the relays info. The <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> should have a free_func defined such as
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#g-ptr-array-ref"><code class="function">g_ptr_array_ref()</code></a> is enough to keep the data and <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#g-ptr-array-unref"><code class="function">g_ptr_array_unref()</code></a> is
+enough to release it later.
+</p>
+<p>
+Note that this replaces the previously set relays, it is not an addition.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>relays</code></em> :</span></p></td>
+<td>the new relays info</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-media-call-stream-set-stun-servers"></a><h3>tp_base_media_call_stream_set_stun_servers ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_media_call_stream_set_stun_servers
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *stun_servers</code></em>);</pre>
+<p>
+Set the STUN servers. The <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> should have a free_func defined such as
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#g-ptr-array-ref"><code class="function">g_ptr_array_ref()</code></a> is enough to keep the data and <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#g-ptr-array-unref"><code class="function">g_ptr_array_unref()</code></a> is
+enough to release it later.
+</p>
+<p>
+Note that this replaces the previously set STUN servers, it is not an
+addition.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stun_servers</code></em> :</span></p></td>
+<td>the new stun servers</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-media-call-stream-add-endpoint"></a><h3>tp_base_media_call_stream_add_endpoint ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_media_call_stream_add_endpoint
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *endpoint</code></em>);</pre>
+<p>
+Add <em class="parameter"><code>endpoint</code></em> to <a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--endpoints" title='The "endpoints" property'><span class="type">"endpoints"</span></a> list, and emits
+EndpointsChanged DBus signal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>endpoint</code></em> :</span></p></td>
+<td>a <a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-media-call-stream-remove-endpoint"></a><h3>tp_base_media_call_stream_remove_endpoint ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_media_call_stream_remove_endpoint
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *endpoint</code></em>);</pre>
+<p>
+Remove <em class="parameter"><code>endpoint</code></em> from <a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--endpoints" title='The "endpoints" property'><span class="type">"endpoints"</span></a> list, and emits
+EndpointsChanged DBus signal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>endpoint</code></em> :</span></p></td>
+<td>a <a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-media-call-stream-get-endpoints"></a><h3>tp_base_media_call_stream_get_endpoints ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             tp_base_media_call_stream_get_endpoints
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);</pre>
+<p>
+Same as <a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--endpoints" title='The "endpoints" property'><span class="type">"endpoints"</span></a> but as a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of
+<a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>Borrowed <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of <a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-media-call-stream-get-username"></a><h3>tp_base_media_call_stream_get_username ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_base_media_call_stream_get_username
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the username part of <a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--local-credentials" title='The "local-credentials" property'><span class="type">"local-credentials"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-media-call-stream-get-password"></a><h3>tp_base_media_call_stream_get_password ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_base_media_call_stream_get_password
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the password part of <a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--local-credentials" title='The "local-credentials" property'><span class="type">"local-credentials"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-media-call-stream-update-receiving-state"></a><h3>tp_base_media_call_stream_update_receiving_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_media_call_stream_update_receiving_state
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);</pre>
+<p>
+Update the receiving state.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-media-call-stream-get-receiving-state"></a><h3>tp_base_media_call_stream_get_receiving_state ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-enums.html#TpStreamFlowState" title="enum TpStreamFlowState"><span class="returnvalue">TpStreamFlowState</span></a>   tp_base_media_call_stream_get_receiving_state
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--receiving-state" title='The "receiving-state" property'><span class="type">"receiving-state"</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-media-call-stream-update-sending-state"></a><h3>tp_base_media_call_stream_update_sending_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_media_call_stream_update_sending_state
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);</pre>
+<p>
+Update the sending state.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-media-call-stream-get-sending-state"></a><h3>tp_base_media_call_stream_get_sending_state ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-enums.html#TpStreamFlowState" title="enum TpStreamFlowState"><span class="returnvalue">TpStreamFlowState</span></a>   tp_base_media_call_stream_get_sending_state
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--sending-state" title='The "sending-state" property'><span class="type">"sending-state"</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-media-call-stream-set-local-sending"></a><h3>tp_base_media_call_stream_set_local_sending ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_media_call_stream_set_local_sending
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sending</code></em>);</pre>
+<p>
+Set local sending state.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sending</code></em> :</span></p></td>
+<td>whether or not we are sending</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-media-call-stream-get-local-sending"></a><h3>tp_base_media_call_stream_get_local_sending ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_base_media_call_stream_get_local_sending
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);</pre>
+<p>
+Gets the local sending state
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The local sending state</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-media-call-stream-get-local-candidates"></a><h3>tp_base_media_call_stream_get_local_candidates ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         tp_base_media_call_stream_get_local_candidates
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--local-candidates" title='The "local-candidates" property'><span class="type">"local-candidates"</span></a> as a <span class="type">GtrArray</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpBaseMediaCallStream.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpBaseMediaCallStream--endpoints"></a><h3>The <code class="literal">"endpoints"</code> property</h3>
+<pre class="programlisting">  "endpoints"                <span class="type">GPtrArray_DBusGObjectPath_</span>*  : Read</pre>
+<p>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>{object-path string}
+The endpoints of this content.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseMediaCallStream--has-server-info"></a><h3>The <code class="literal">"has-server-info"</code> property</h3>
+<pre class="programlisting">  "has-server-info"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--relay-info" title='The "relay-info" property'><span class="type">"relay-info"</span></a> and
+<a class="link" href="TpBaseMediaCallStream.html#TpBaseMediaCallStream--stun-servers" title='The "stun-servers" property'><span class="type">"stun-servers"</span></a> have been set.
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseMediaCallStream--ice-restart-pending"></a><h3>The <code class="literal">"ice-restart-pending"</code> property</h3>
+<pre class="programlisting">  "ice-restart-pending"      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> when ICERestartRequested signal is emitted, and <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> when
+SetCredentials is called. Useful for debugging.
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseMediaCallStream--local-candidates"></a><h3>The <code class="literal">"local-candidates"</code> property</h3>
+<pre class="programlisting">  "local-candidates"         <span class="type">GPtrArray_GValueArray_guint+gchararray+guint+GHashTable_gchararray+GValue___*</span>  : Read</pre>
+<p>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>{candidate <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a>}
+List of local candidates.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseMediaCallStream--local-credentials"></a><h3>The <code class="literal">"local-credentials"</code> property</h3>
+<pre class="programlisting">  "local-credentials"        <span class="type">GValueArray_gchararray+gchararray_*</span>  : Read</pre>
+<p>
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a>{username string, password string}
+ufrag and pwd as defined by ICE.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseMediaCallStream--receiving-state"></a><h3>The <code class="literal">"receiving-state"</code> property</h3>
+<pre class="programlisting">  "receiving-state"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>
+The receiving <a class="link" href="telepathy-glib-enums.html#TpStreamFlowState" title="enum TpStreamFlowState"><span class="type">TpStreamFlowState</span></a>.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseMediaCallStream--relay-info"></a><h3>The <code class="literal">"relay-info"</code> property</h3>
+<pre class="programlisting">  "relay-info"               <span class="type">GPtrArray_GHashTable_gchararray+GValue__*</span>  : Read</pre>
+<p>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>{relay-info asv}
+List of relay information.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseMediaCallStream--sending-state"></a><h3>The <code class="literal">"sending-state"</code> property</h3>
+<pre class="programlisting">  "sending-state"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>
+The sending <a class="link" href="telepathy-glib-enums.html#TpStreamFlowState" title="enum TpStreamFlowState"><span class="type">TpStreamFlowState</span></a>.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseMediaCallStream--stun-servers"></a><h3>The <code class="literal">"stun-servers"</code> property</h3>
+<pre class="programlisting">  "stun-servers"             <span class="type">GPtrArray_GValueArray_gchararray+guint__*</span>  : Read</pre>
+<p>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>{stun-server <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a>}
+List of STUN servers.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseMediaCallStream--transport"></a><h3>The <code class="literal">"transport"</code> property</h3>
+<pre class="programlisting">  "transport"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct Only</pre>
+<p>
+The <a class="link" href="telepathy-glib-enums.html#TpStreamTransportType" title="enum TpStreamTransportType"><span class="type">TpStreamTransportType</span></a> of this stream.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.17.5</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpBaseMediaCallStream.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallStreamInterfaceMedia"><span class="type">TpSvcCallStreamInterfaceMedia</span></a>, <a class="link" href="TpBaseCallChannel.html" title="TpBaseCallChannel"><span class="type">TpBaseCallChannel</span></a>,
+ <a class="link" href="TpBaseCallStream.html" title="TpBaseCallStream"><span class="type">TpBaseCallStream</span></a> and <a class="link" href="TpBaseCallContent.html" title="TpBaseCallContent"><span class="type">TpBaseCallContent</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

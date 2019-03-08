@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Place yourself outside of the gperf source tree.  In
+# this example, the environment variable GPERF_SOURCE
+# is assumed to contain the absolute GPERF source directory.
+
+(cd $GPERF_SOURCE; find . -type f) | while read F; do
+	mkdir -p `dirname $F`
+	ln -s $GPERF_SOURCE/$F $F
+done
+

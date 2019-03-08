@@ -1,0 +1,449 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpDebugSender</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-utilities.html" title="Utilities">
+<link rel="prev" href="telepathy-glib-debug.html" title="Common debug support">
+<link rel="next" href="TpIntset.html" title="TpIntset">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-debug.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-utilities.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="TpIntset.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-debug-sender.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-debug-sender.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-debug-sender.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-debug-sender.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#telepathy-glib-debug-sender.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-debug-sender"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-debug-sender.top_of_page"></a>TpDebugSender</span></h2>
+<p>TpDebugSender — object for exposing Telepathy debug interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-debug-sender.synopsis"></a><h2>Synopsis</h2>
+<a name="TpDebugSender"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+struct              <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender-struct" title="struct TpDebugSender">TpDebugSender</a>;
+<a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="returnvalue">TpDebugSender</span></a> *     <a class="link" href="telepathy-glib-debug-sender.html#tp-debug-sender-dup" title="tp_debug_sender_dup ()">tp_debug_sender_dup</a>                 (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-debug-sender.html#tp-debug-sender-add-message" title="tp_debug_sender_add_message ()">tp_debug_sender_add_message</a>         (<em class="parameter"><code><a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#GTimeVal"><span class="type">GTimeVal</span></a> *timestamp</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *domain</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#GLogLevelFlags"><span class="type">GLogLevelFlags</span></a> level</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *string</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-debug-sender.html#tp-debug-sender-add-message-vprintf" title="tp_debug_sender_add_message_vprintf ()">tp_debug_sender_add_message_vprintf</a> (<em class="parameter"><code><a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#GTimeVal"><span class="type">GTimeVal</span></a> *timestamp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **formatted</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *domain</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#GLogLevelFlags"><span class="type">GLogLevelFlags</span></a> level</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *format</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> args</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-debug-sender.html#tp-debug-sender-add-message-printf" title="tp_debug_sender_add_message_printf ()">tp_debug_sender_add_message_printf</a>  (<em class="parameter"><code><a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#GTimeVal"><span class="type">GTimeVal</span></a> *timestamp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **formatted</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *domain</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#GLogLevelFlags"><span class="type">GLogLevelFlags</span></a> level</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-debug-sender.html#tp-debug-sender-log-handler" title="tp_debug_sender_log_handler ()">tp_debug_sender_log_handler</a>         (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *log_domain</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#GLogLevelFlags"><span class="type">GLogLevelFlags</span></a> log_level</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> exclude</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-debug-sender.html#tp-debug-sender-set-timestamps" title="tp_debug_sender_set_timestamps ()">tp_debug_sender_set_timestamps</a>      (<em class="parameter"><code><a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> maybe</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-debug-sender.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----TpDebugSender
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-debug-sender.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+TpDebugSender implements
+ <a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties">TpSvcDBusProperties</a> and  <a class="link" href="telepathy-glib-svc-debug.html#TpSvcDebug">TpSvcDebug</a>.</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-debug-sender.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender--enabled" title='The "enabled" property'>enabled</a>"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-debug-sender.description"></a><h2>Description</h2>
+<p>
+A <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> object is an object exposing the Telepathy debug interface.
+There should be one object per process as it registers the object path
+/org/freedesktop/Telepathy/debug. Once the object exists and has the object
+path, messages can be passed to it using tp_debug_sender_add_message and
+signals will automatically be fired.
+</p>
+<p>
+<a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> is primarily designed for use in Connection Managers, but can
+be used by any other part of the Telepathy stack which wants to expose its
+debugging information over the debug interface.
+</p>
+<p>
+In a Connection Manager, one would probably keep a ref to the <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a>
+in the connection manager object, and when this said object is finalized, so
+is the process's <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a>. A GLib log handler is also provided:
+<a class="link" href="telepathy-glib-debug-sender.html#tp-debug-sender-log-handler" title="tp_debug_sender_log_handler ()"><code class="function">tp_debug_sender_log_handler()</code></a>.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-debug-sender.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpDebugSender-struct"></a><h3>struct TpDebugSender</h3>
+<pre class="programlisting">struct TpDebugSender;</pre>
+<p>
+An object for exposing the Telepathy debug interface.
+</p>
+<p class="since">Since 0.7.36</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-debug-sender-dup"></a><h3>tp_debug_sender_dup ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="returnvalue">TpDebugSender</span></a> *     tp_debug_sender_dup                 (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Returns a <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> instance on the bus this process was activated by
+(if it was launched by D-Bus service activation), or the session bus
+(otherwise).
+</p>
+<p>
+The returned <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> is cached; the same <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> object will
+be returned by this function repeatedly, as long as at least one reference
+exists.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a reference to the <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> instance for the current starter
+bus daemon</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.7.36</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-debug-sender-add-message"></a><h3>tp_debug_sender_add_message ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_debug_sender_add_message         (<em class="parameter"><code><a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#GTimeVal"><span class="type">GTimeVal</span></a> *timestamp</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *domain</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#GLogLevelFlags"><span class="type">GLogLevelFlags</span></a> level</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *string</code></em>);</pre>
+<p>
+Adds a new message to the debug sender message queue. If the
+<a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender--enabled" title='The "enabled" property'><span class="type">"enabled"</span></a> property is set to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, then a NewDebugMessage
+signal will be fired too.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>Time of the message or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> for right now</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>Message domain</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>The message level</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>string</code></em> :</span></p></td>
+<td>The message string itself</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.36</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-debug-sender-add-message-vprintf"></a><h3>tp_debug_sender_add_message_vprintf ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_debug_sender_add_message_vprintf (<em class="parameter"><code><a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#GTimeVal"><span class="type">GTimeVal</span></a> *timestamp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **formatted</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *domain</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#GLogLevelFlags"><span class="type">GLogLevelFlags</span></a> level</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *format</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> args</code></em>);</pre>
+<p>
+Formats and adds a new message to the debug sender message queue. If the
+<a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender--enabled" title='The "enabled" property'><span class="type">"enabled"</span></a> property is set to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, then a NewDebugMessage
+signal will be fired too.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>Time of the message, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> for right now</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>formatted</code></em> :</span></p></td>
+<td>Place to store the formatted message, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if not needed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>Message domain</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>The message level</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>The <code class="function">printf()</code> format string</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args</code></em> :</span></p></td>
+<td>the <span class="type">va_list</span> of parameters to insert into <em class="parameter"><code>format</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-debug-sender-add-message-printf"></a><h3>tp_debug_sender_add_message_printf ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_debug_sender_add_message_printf  (<em class="parameter"><code><a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#GTimeVal"><span class="type">GTimeVal</span></a> *timestamp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **formatted</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *domain</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#GLogLevelFlags"><span class="type">GLogLevelFlags</span></a> level</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Formats and adds a new message to the debug sender message queue. If the
+<a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender--enabled" title='The "enabled" property'><span class="type">"enabled"</span></a> property is set to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, then a NewDebugMessage
+signal will be fired too.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>Time of the message, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> for right now</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>formatted</code></em> :</span></p></td>
+<td>Place to store the formatted message, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if not required</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>Message domain</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>The message level</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>The <code class="function">printf()</code> format string</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>The parameters to insert into <em class="parameter"><code>format</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-debug-sender-log-handler"></a><h3>tp_debug_sender_log_handler ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_debug_sender_log_handler         (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *log_domain</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#GLogLevelFlags"><span class="type">GLogLevelFlags</span></a> log_level</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> exclude</code></em>);</pre>
+<p>
+A generic log handler designed to be used by CMs. It initially calls
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#g-log-default-handler"><code class="function">g_log_default_handler()</code></a>, and then sends the message on the bus
+<a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a>.
+</p>
+<p>
+The <em class="parameter"><code>exclude</code></em> parameter is designed to allow filtering one domain, instead of
+sending every message to the <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a>: typical usage is for a
+process to filter out messages from its own <a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#G-LOG-DOMAIN:CAPS"><code class="literal">G_LOG_DOMAIN</code></a>, so that it can
+append a category to its own messages and pass them directly to
+tp_debug_sender_add_message. Note that every message, regardless of
+domain, is given to <a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#g-log-default-handler"><code class="function">g_log_default_handler()</code></a>.
+</p>
+<p>
+Note that a ref to a <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> must be kept at all times otherwise
+no messages given to the handler will be sent to the Telepathy debug
+interface.
+</p>
+<p>
+An example of its usage, taking in mind the notes above, follows:
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="comment">/* Create a main loop and debug sender */</span>
+GMainLoop <span class="gtkdoc opt">*</span>loop <span class="gtkdoc opt">=</span> <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#g-main-loop-new">g_main_loop_new</a></span> <span class="gtkdoc opt">(</span>NULL<span class="gtkdoc opt">,</span> FALSE<span class="gtkdoc opt">);</span>
+TpDebugSender <span class="gtkdoc opt">*</span>sender <span class="gtkdoc opt">=</span> <span class="function"><a href="telepathy-glib-debug-sender.html#tp-debug-sender-dup">tp_debug_sender_dup</a></span> <span class="gtkdoc opt">();</span>
+
+<span class="comment">/* Set the default handler */</span>
+<span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#g-log-set-default-handler">g_log_set_default_handler</a></span> <span class="gtkdoc opt">(</span>tp_debug_sender_log_handler<span class="gtkdoc opt">,</span> G_LOG_DOMAIN<span class="gtkdoc opt">);</span>
+
+<span class="comment">/* Run the main loop, but keeping a ref on the TpDebugSender from</span>
+<span class="comment"> * the beginning of this code sample. */</span>
+<span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#g-main-loop-run">g_main_loop_run</a></span> <span class="gtkdoc opt">(</span>loop<span class="gtkdoc opt">);</span>
+
+<span class="comment">/* g_main_loop_quit was called, so only now can we clean up the</span>
+<span class="comment"> * TpDebugSender. */</span>
+<span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref">g_object_unref</a></span> <span class="gtkdoc opt">(</span>sender<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+(In a connection manager, replace <a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#g-main-loop-run"><code class="function">g_main_loop_run()</code></a> in the above example
+with <a class="link" href="telepathy-glib-run.html#tp-run-connection-manager" title="tp_run_connection_manager ()"><code class="function">tp_run_connection_manager()</code></a>.)
+</p>
+<p>
+This function is merely for convenience if it meets the requirements.
+It can easily be re-implemented in services, and does not need to be
+used.
+</p>
+<p>
+If timestamps should be prepended to messages (like in
+<a class="link" href="telepathy-glib-debug.html#tp-debug-timestamped-log-handler" title="tp_debug_timestamped_log_handler ()"><code class="function">tp_debug_timestamped_log_handler()</code></a>), <a class="link" href="telepathy-glib-debug-sender.html#tp-debug-sender-set-timestamps" title="tp_debug_sender_set_timestamps ()"><code class="function">tp_debug_sender_set_timestamps()</code></a>
+should also be called.
+</p>
+<p>
+Since version 0.11.15, this function can be called from any thread.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>log_domain</code></em> :</span></p></td>
+<td>domain of the message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>log_level</code></em> :</span></p></td>
+<td>log leve of the message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>the message itself</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>exclude</code></em> :</span></p></td>
+<td>a log domain string to exclude from the <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.36</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-debug-sender-set-timestamps"></a><h3>tp_debug_sender_set_timestamps ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_debug_sender_set_timestamps      (<em class="parameter"><code><a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> maybe</code></em>);</pre>
+<p>
+If the log handler is <a class="link" href="telepathy-glib-debug-sender.html#tp-debug-sender-log-handler" title="tp_debug_sender_log_handler ()"><code class="function">tp_debug_sender_log_handler()</code></a> then calling
+this function with <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on the debug sender will prepend the
+message to be printed to stdout with the UTC time (currently in ISO
+8601 format, with microsecond resolution). This is equivalent to
+using <a class="link" href="telepathy-glib-debug.html#tp-debug-timestamped-log-handler" title="tp_debug_timestamped_log_handler ()"><code class="function">tp_debug_timestamped_log_handler()</code></a> as the log handler, but
+also logging to the debug sender.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-debug-sender.html#TpDebugSender"><span class="type">TpDebugSender</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>maybe</code></em> :</span></p></td>
+<td>whether to display message timestamps</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-debug-sender.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpDebugSender--enabled"></a><h3>The <code class="literal">"enabled"</code> property</h3>
+<pre class="programlisting">  "enabled"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the NewDebugMessage signal should be emitted when a new debug
+message is generated.
+</p>
+<p>Default value: FALSE</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

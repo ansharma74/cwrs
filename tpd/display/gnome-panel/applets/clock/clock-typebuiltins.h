@@ -1,0 +1,14 @@
+
+
+
+#ifndef __CLOCK_TYPEBUILTINS_H__
+#define __CLOCK_TYPEBUILTINS_H__ 1
+
+G_BEGIN_DECLS
+
+G_END_DECLS
+
+#endif /* __CLOCK_TYPEBUILTINS_H__ */
+
+
+

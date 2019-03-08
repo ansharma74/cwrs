@@ -1,0 +1,140 @@
+<%= title "General Settings" do -%>
+
+	<%= render :partial => 'settings/menu' %>
+	
+<%- end -%>
+
+<div id='general-settings', class='grid_12 page boxit'>
+	
+	<%= form_tag '/settings', :multipart => true, :class => 'basic-form validate' do %>
+	
+	
+	<div id='form-holder'>
+		
+		<div class='grid_6'>
+			<p>
+				<%= label_tag 'Company Name' %><br />
+				<%= text_field_tag '[settings][company]', (Setting.company ? Setting.find(:company) : nil), :placeholder => 'Company Name', :autocomplete => :off, :class => 'required' %>
+			</p>
+
+			<p>
+				<%= label_tag 'Company Email' %> <i>(this email will be used as the report sender)</i><br />
+				<%= text_field_tag '[settings][email]', (Setting.email ? Setting.find(:email) : nil), :placeholder => 'Company Email', :autocomplete => :off, :class => 'required email' %>
+			</p>
+			
+			<p>
+				<%= label_tag 'Signature Lookup URL' %> <i>(user $$sid$$ and $$gid$$ for the get request parameters)</i><br />
+				<%= text_field_tag '[settings][signature_lookup]', (Setting.signature_lookup ? Setting.find(:signature_lookup) : nil), :placeholder => 'Signature Lookup URL', :autocomplete => :off, :class => 'required url' %>
+			</p>
+
+			<p>
+				<%= check_box_tag '[settings][update_notifications]', 0, (Setting.update_notifications ? Setting.find(:update_notifications) : nil) %> <%= label_tag 'Enable Snorby Update Notifications' %><br />
+        <i>(Notification reminder when a new Snorby build is release using http://snorby.org/version)</i>
+			</p>
+
+			<p class='_settings_packet_capture'>
+				<%= check_box_tag '[settings][packet_capture]', 0, (Setting.packet_capture ? Setting.find(:packet_capture) : nil) %> <%= label_tag 'Enable Packet Capture Support' %><br />
+				<i>(Enable the Snorby Packet Capture Plugin)</i>
+      </p>
+
+		</div>
+
+		<div class='grid_5'>
+
+			<p>
+				<%= check_box_tag '[settings][daily]', 1, (Setting.daily ? Setting.find(:daily) : nil) %> <%= label_tag 'Daily Reports' %><br />
+				<i>(Send a report summarizing the captured traffic daily.)</i><br />
+			</p>
+
+			<p>
+				<%= check_box_tag '[settings][weekly]', 1, (Setting.weekly ? Setting.find(:weekly) : nil) %> <%= label_tag 'Weekly Reports' %><br />
+				<i>(Send a report summarizing the captured traffic weekly)</i><br />
+			</p>
+
+			<p>
+				<%= check_box_tag '[settings][monthly]', 1, (Setting.monthly ? Setting.find(:monthly) : nil) %> <%= label_tag 'Monthly Reports' %><br />
+				<i>(Send a report summarizing the captured traffic monthly)</i><br />
+			</p>
+
+			<p>
+				<%= check_box_tag '[settings][lookups]', 1, (Setting.lookups ? Setting.find(:lookups) : nil) %> <%= label_tag 'Address Lookups' %><br />
+				<i>(This option enables the analyst to perform basic queries on source & destination addresses using external sources.)</i><br />
+			</p>
+
+			<p>
+				<%= check_box_tag '[settings][event_notifications]', 0, (Setting.event_notifications ? Setting.find(:event_notifications) : false) %> <%= label_tag 'Enable Global Event Notifications' %><br />
+        <i>(Show new event notifications globally. Event count since last check time.)</i>
+			</p>
+
+			<p>
+				<%= check_box_tag '[settings][geoip]', 1, Setting.find(:geoip) %> <%= label_tag 'GeoIP' %><br />
+				<i>(Display GeoIP information on the events list)</i><br />
+			</p>			
+
+			<p>
+      <%= check_box_tag '[settings][autodrop]', 1, Setting.find(:autodrop) %> <%= label_tag 'Prune database when event count is greater than' %>
+        <%= select_tag '[settings][autodrop_count]', "<option value='500000'>500,000</option><option value='1000000'>1,000,000</option><option value='2000000'>2,000,000</option><option value='3000000'>3,000,000</option><option value='4000000'>4,000,000</option><option value='5000000'>5,000,000</option>".html_safe, 
+				{ :class => 'require', :autodrop_count => Setting.find(:autodrop_count) } %>
+        <br />
+        <i>(Prune the database automatically when the event count exceeds your specified limit.)</i><br />
+				<br/>
+			</p>
+
+		</div>
+		
+	</div>	
+	
+	<div class='pc-settings'>
+		
+		<div class='grid_6'>
+
+			<p class='pc-settings'>
+				<%= label_tag 'Packet Capture Plugin:' %>
+				<%= select_tag '[settings][packet_capture_type]', "<option value='openfpc'>OpenFPC</option><option value='solera'>Solera Networks</option>".html_safe, 
+				{ :class => 'require', :packet_capture_plugin => Setting.find(:packet_capture_type) } %><br />
+			</p>
+
+			<p class='pc-settings'>
+				<%= check_box_tag '[settings][packet_capture_auto_auth]', 1, (Setting.packet_capture_auto_auth ? Setting.find(:packet_capture_auto_auth) : nil) %> 
+				<%= label_tag 'Packet Capture Auto-Authenticate' %><br />
+				<i>(Pass the credentials in the get request)</i><br />
+			</p>
+
+			<p class='pc-settings'>
+				<%= label_tag 'Packet Capture Extract URL' %> <i>(Packet Capture extract URL)</i><br />
+				<%= text_field_tag '[settings][packet_capture_url]', (Setting.packet_capture_url ? Setting.find(:packet_capture_url) : nil), 
+				:placeholder => 'Packet Capture Extract URL', :autocomplete => :off, :class => 'url' %>
+			</p>
+
+		</div>
+
+		<div class='grid_5'>
+
+			<p class='pc-settings'>
+				<%= label_tag 'API User' %> <i>(User name for Packet Capture API)</i><br />
+				<%= text_field_tag '[settings][packet_capture_user]', (Setting.packet_capture_user ? Setting.find(:packet_capture_user) : nil), 
+				:placeholder => 'Packet Capture User', :autocomplete => :off, :class => '' %>
+			</p>
+
+			<p class='pc-settings'>
+				<%= label_tag 'API Password' %> <i>(Password for Packet Capture API)</i><br />
+				<%= password_field_tag '[settings][packet_capture_password]', (Setting.packet_capture_password ? Setting.find(:packet_capture_password) : nil), 
+				:placeholder => 'Packet Capture Password', :autocomplete => :off, :class => '' %>
+			</p>
+
+		</div>
+		
+  </div>
+	
+	<%= form_actions do %>
+
+		<%= button "Save Settings", :class => 'success' %>
+
+		<%= button "Cancel", :class => 'warning cancel' %>
+
+	<% end %>
+		
+	
+	<% end %>
+	
+</div>

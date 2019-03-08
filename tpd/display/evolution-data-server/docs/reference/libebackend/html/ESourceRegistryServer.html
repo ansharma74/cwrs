@@ -1,0 +1,851 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESourceRegistryServer</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Backend Utilities (libebackend)">
+<link rel="up" href="ch02.html" title="Registry Service Classes">
+<link rel="prev" href="EServerSideSource.html" title="EServerSideSource">
+<link rel="next" href="ch03.html" title="Miscellaneous Utilities">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="EServerSideSource.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Backend Utilities (libebackend)</th>
+<td><a accesskey="n" href="ch03.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ESourceRegistryServer.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#ESourceRegistryServer.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#ESourceRegistryServer.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#ESourceRegistryServer.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#ESourceRegistryServer.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="ESourceRegistryServer"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESourceRegistryServer.top_of_page"></a>ESourceRegistryServer</span></h2>
+<p>ESourceRegistryServer — Server-side repository for data sources</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ESourceRegistryServer.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;libebackend/libebackend.h&gt;
+
+#define             <a class="link" href="ESourceRegistryServer.html#E-SOURCE-REGISTRY-SERVER-OBJECT-PATH:CAPS" title="E_SOURCE_REGISTRY_SERVER_OBJECT_PATH">E_SOURCE_REGISTRY_SERVER_OBJECT_PATH</a>
+struct              <a class="link" href="ESourceRegistryServer.html#ESourceRegistryServer-struct" title="struct ESourceRegistryServer">ESourceRegistryServer</a>;
+<a class="link" href="EDBusServer.html" title="EDBusServer"><span class="returnvalue">EDBusServer</span></a> *       <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-new" title="e_source_registry_server_new ()">e_source_registry_server_new</a>        (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-add-source" title="e_source_registry_server_add_source ()">e_source_registry_server_add_source</a> (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-remove-source" title="e_source_registry_server_remove_source ()">e_source_registry_server_remove_source</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-load-all" title="e_source_registry_server_load_all ()">e_source_registry_server_load_all</a>   (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+enum                <a class="link" href="ESourceRegistryServer.html#ESourcePermissionFlags" title="enum ESourcePermissionFlags">ESourcePermissionFlags</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-load-directory" title="e_source_registry_server_load_directory ()">e_source_registry_server_load_directory</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *path</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESourceRegistryServer.html#ESourcePermissionFlags" title="enum ESourcePermissionFlags"><span class="type">ESourcePermissionFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-load-file" title="e_source_registry_server_load_file ()">e_source_registry_server_load_file</a>  (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> *file</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESourceRegistryServer.html#ESourcePermissionFlags" title="enum ESourcePermissionFlags"><span class="type">ESourcePermissionFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-load-error" title="e_source_registry_server_load_error ()">e_source_registry_server_load_error</a> (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> *file</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);
+<a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-ref-source" title="e_source_registry_server_ref_source ()">e_source_registry_server_ref_source</a> (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-list-sources" title="e_source_registry_server_list_sources ()">e_source_registry_server_list_sources</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>);
+<a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="returnvalue">ECollectionBackend</span></a> * <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-ref-backend" title="e_source_registry_server_ref_backend ()">e_source_registry_server_ref_backend</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);
+<a class="link" href="ECollectionBackendFactory.html" title="ECollectionBackendFactory"><span class="returnvalue">ECollectionBackendFactory</span></a> * <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-ref-backend-factory" title="e_source_registry_server_ref_backend_factory ()">e_source_registry_server_ref_backend_factory</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-authenticate-sync" title="e_source_registry_server_authenticate_sync ()">e_source_registry_server_authenticate_sync</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-authenticate" title="e_source_registry_server_authenticate ()">e_source_registry_server_authenticate</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-authenticate-finish" title="e_source_registry_server_authenticate_finish ()">e_source_registry_server_authenticate_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceRegistryServer.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="EDBusServer.html" title="EDBusServer">EDBusServer</a>
+         +----<a class="link" href="EDataFactory.html" title="EDataFactory">EDataFactory</a>
+               +----ESourceRegistryServer
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceRegistryServer.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+ESourceRegistryServer implements
+ <a class="link" href="EExtensible.html" title="EExtensible">EExtensible</a>.</p>
+</div>
+<div class="refsect1">
+<a name="ESourceRegistryServer.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="ESourceRegistryServer.html#ESourceRegistryServer-files-loaded" title='The "files-loaded" signal'>files-loaded</a>"                                   : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="ESourceRegistryServer.html#ESourceRegistryServer-load-error" title='The "load-error" signal'>load-error</a>"                                     : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="ESourceRegistryServer.html#ESourceRegistryServer-source-added" title='The "source-added" signal'>source-added</a>"                                   : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="ESourceRegistryServer.html#ESourceRegistryServer-source-removed" title='The "source-removed" signal'>source-removed</a>"                                 : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceRegistryServer.description"></a><h2>Description</h2>
+<p>
+The <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> is the heart of the registry D-Bus service.
+Acting as a global singleton store for all <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> instances,
+its responsibilities include loading data source content from key files,
+exporting data sources to clients over D-Bus, handling authentication
+and content change requests from clients, and saving content changes
+back to key files.
+</p>
+<p>
+It also hosts any number of built-in or 3rd party data source collection
+backends, which coordinate with <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> to automatically
+advertise available data sources on a remote server.
+</p>
+</div>
+<div class="refsect1">
+<a name="ESourceRegistryServer.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="E-SOURCE-REGISTRY-SERVER-OBJECT-PATH:CAPS"></a><h3>E_SOURCE_REGISTRY_SERVER_OBJECT_PATH</h3>
+<pre class="programlisting">#define             E_SOURCE_REGISTRY_SERVER_OBJECT_PATH</pre>
+<p>
+D-Bus object path of the data source server.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRegistryServer-struct"></a><h3>struct ESourceRegistryServer</h3>
+<pre class="programlisting">struct ESourceRegistryServer;</pre>
+<p>
+Contains only private data that should be read and manipulated using the
+functions below.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-server-new"></a><h3>e_source_registry_server_new ()</h3>
+<pre class="programlisting"><a class="link" href="EDBusServer.html" title="EDBusServer"><span class="returnvalue">EDBusServer</span></a> *       e_source_registry_server_new        (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new instance of <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new instance of <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-server-add-source"></a><h3>e_source_registry_server_add_source ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_server_add_source (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<p>
+Adds <em class="parameter"><code>source</code></em> to <em class="parameter"><code>server</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-server-remove-source"></a><h3>e_source_registry_server_remove_source ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_server_remove_source
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<p>
+Removes <em class="parameter"><code>source</code></em> and all of its descendants from <em class="parameter"><code>server</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-server-load-all"></a><h3>e_source_registry_server_load_all ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_registry_server_load_all   (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Loads data source key files from standard system-wide and user-specific
+locations.  Because multiple errors can occur when loading multiple files,
+<em class="parameter"><code>error</code></em> is only set if a directory can not be opened.  If a data source key
+file fails to load, the error is broadcast through the
+<a class="link" href="ESourceRegistryServer.html#ESourceRegistryServer-load-error" title='The "load-error" signal'><span class="type">"load-error"</span></a> signal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the standard directories were successfully opened,
+but this does not imply the key files were successfully loaded</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourcePermissionFlags"></a><h3>enum ESourcePermissionFlags</h3>
+<pre class="programlisting">typedef enum {
+ /*&lt; flags &gt;*/
+	E_SOURCE_PERMISSION_NONE      = 0,
+	E_SOURCE_PERMISSION_WRITABLE  = 1 &lt;&lt; 0,
+	E_SOURCE_PERMISSION_REMOVABLE = 1 &lt;&lt; 1
+} ESourcePermissionFlags;
+</pre>
+<p>
+Initial permissions for a newly-loaded data source key file.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="E-SOURCE-PERMISSION-NONE:CAPS"></a><span class="term"><code class="literal">E_SOURCE_PERMISSION_NONE</code></span></p></td>
+<td>  The data source gets no initial permissions.
+</td>
+</tr>
+<tr>
+<td><p><a name="E-SOURCE-PERMISSION-WRITABLE:CAPS"></a><span class="term"><code class="literal">E_SOURCE_PERMISSION_WRITABLE</code></span></p></td>
+<td>  The data source is initially writable.
+</td>
+</tr>
+<tr>
+<td><p><a name="E-SOURCE-PERMISSION-REMOVABLE:CAPS"></a><span class="term"><code class="literal">E_SOURCE_PERMISSION_REMOVABLE</code></span></p></td>
+<td>  The data source is initially removable.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-server-load-directory"></a><h3>e_source_registry_server_load_directory ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_registry_server_load_directory
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *path</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESourceRegistryServer.html#ESourcePermissionFlags" title="enum ESourcePermissionFlags"><span class="type">ESourcePermissionFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Loads data source key files in <em class="parameter"><code>path</code></em>.  Because multiple errors can
+occur when loading multiple files, <em class="parameter"><code>error</code></em> is only set if <em class="parameter"><code>path</code></em> can
+not be opened.  If a key file fails to load, the error is broadcast
+through the <a class="link" href="ESourceRegistryServer.html#ESourceRegistryServer-load-error" title='The "load-error" signal'><span class="type">"load-error"</span></a> signal.
+</p>
+<p>
+If the <span class="type">E_DBUS_LOAD_DIRECTORY_REMOVABLE</span> flag is given, then the <em class="parameter"><code>server</code></em>
+will emit signals on the D-Bus interface when key files are created or
+deleted in <em class="parameter"><code>path</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>the path to the directory to load</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>permission flags for files loaded from <em class="parameter"><code>path</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>path</code></em> was successfully opened, but this
+does not imply the key files were successfully loaded</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-server-load-file"></a><h3>e_source_registry_server_load_file ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           e_source_registry_server_load_file  (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> *file</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESourceRegistryServer.html#ESourcePermissionFlags" title="enum ESourcePermissionFlags"><span class="type">ESourcePermissionFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Creates an <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> for a native key file and adds it to <em class="parameter"><code>server</code></em>.
+If an error occurs, the function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> and sets <em class="parameter"><code>error</code></em>.
+</p>
+<p>
+The returned <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> is referenced for thread-safety.  Unreference
+the <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>the data source key file to load</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>initial permission flags for the data source</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the newly-added <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on error</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-server-load-error"></a><h3>e_source_registry_server_load_error ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_server_load_error (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> *file</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);</pre>
+<p>
+Emits the <a class="link" href="ESourceRegistryServer.html#ESourceRegistryServer-load-error" title='The "load-error" signal'><span class="type">"load-error"</span></a> signal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <span class="type">EBusSourceServer</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>the <a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> that failed to load</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> describing the load error</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-server-ref-source"></a><h3>e_source_registry_server_ref_source ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           e_source_registry_server_ref_source (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
+<p>
+Looks up an <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> in <em class="parameter"><code>server</code></em> by its unique identifier string.
+</p>
+<p>
+The returned <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uid</code></em> :</span></p></td>
+<td>a unique identifier string</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>an <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if no match was found</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-server-list-sources"></a><h3>e_source_registry_server_list_sources ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             e_source_registry_server_list_sources
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>);</pre>
+<p>
+Returns a list of registered sources, sorted by display name.  If
+<em class="parameter"><code>extension_name</code></em> is given, restrict the list to sources having that
+extension name.
+</p>
+<p>
+The sources returned in the list are referenced for thread-safety.
+They must each be unreferenced with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished
+with them.  Free the returned <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> itself with <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#g-list-free"><code class="function">g_list_free()</code></a>.
+</p>
+<p>
+An easy way to free the list properly in one step is as follows:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#g-list-free-full">g_list_free_full</a></span> <span class="gtkdoc opt">(</span>list<span class="gtkdoc opt">,</span> g_object_unref<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension_name</code></em> :</span></p></td>
+<td>an extension name, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a sorted list of sources</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-server-ref-backend"></a><h3>e_source_registry_server_ref_backend ()</h3>
+<pre class="programlisting"><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="returnvalue">ECollectionBackend</span></a> * e_source_registry_server_ref_backend
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<p>
+Returns the <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> associated with <em class="parameter"><code>source</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if
+there is no <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> associated with <em class="parameter"><code>source</code></em>.
+</p>
+<p>
+An <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> is associated with an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> if the <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> has
+an <a href="/usr/share/gtk-doc/html/libedataserver/ESourceCollection.html"><span class="type">ESourceCollection</span></a> extension, or if it is a hierarchical descendant of
+another <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> which has an <a href="/usr/share/gtk-doc/html/libedataserver/ESourceCollection.html"><span class="type">ESourceCollection</span></a> extension.
+</p>
+<p>
+The returned <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> is referenced for thread-safety.
+Unreference the <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished
+with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> for <em class="parameter"><code>source</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-server-ref-backend-factory"></a><h3>e_source_registry_server_ref_backend_factory ()</h3>
+<pre class="programlisting"><a class="link" href="ECollectionBackendFactory.html" title="ECollectionBackendFactory"><span class="returnvalue">ECollectionBackendFactory</span></a> * e_source_registry_server_ref_backend_factory
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<p>
+Returns the <a class="link" href="ECollectionBackendFactory.html" title="ECollectionBackendFactory"><span class="type">ECollectionBackendFactory</span></a> for <em class="parameter"><code>source</code></em>, if available.
+If <em class="parameter"><code>source</code></em> does not have an <a href="/usr/share/gtk-doc/html/libedataserver/ESourceCollection.html"><span class="type">ESourceCollection</span></a> extension, or if the
+<a href="/usr/share/gtk-doc/html/libedataserver/ESourceCollection.html"><span class="type">ESourceCollection</span></a> extension names a <a href="/usr/share/gtk-doc/html/libedataserver/ESourceBackend.html#ESourceBackend--backend-name"><span class="type">"backend-name"</span></a> for
+which there is no corresponding <a class="link" href="ECollectionBackendFactory.html" title="ECollectionBackendFactory"><span class="type">ECollectionBackendFactory</span></a>, the function
+returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p>
+The returned <a class="link" href="ECollectionBackendFactory.html" title="ECollectionBackendFactory"><span class="type">ECollectionBackendFactory</span></a> is referenced for thread-safety.
+Unreference the <a class="link" href="ECollectionBackendFactory.html" title="ECollectionBackendFactory"><span class="type">ECollectionBackendFactory</span></a> with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when
+finished with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="ECollectionBackendFactory.html" title="ECollectionBackendFactory"><span class="type">ECollectionBackendFactory</span></a> for <em class="parameter"><code>source</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-server-authenticate-sync"></a><h3>e_source_registry_server_authenticate_sync ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_registry_server_authenticate_sync
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Queues the <em class="parameter"><code>session</code></em> behind any ongoing or pending authentication
+sessions for the same data source, and eventually executes <em class="parameter"><code>session</code></em>
+(see <a class="link" href="EAuthenticationSession.html#e-authentication-session-execute-sync" title="e_authentication_session_execute_sync ()"><code class="function">e_authentication_session_execute_sync()</code></a> for more details).
+</p>
+<p>
+This function blocks until <em class="parameter"><code>session</code></em> is finished executing.  For a
+non-blocking variation see <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-authenticate" title="e_source_registry_server_authenticate ()"><code class="function">e_source_registry_server_authenticate()</code></a>.
+</p>
+<p>
+If an error occurs, the function sets <em class="parameter"><code>error</code></em> and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-server-authenticate"></a><h3>e_source_registry_server_authenticate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_registry_server_authenticate
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Queues the <em class="parameter"><code>session</code></em> behind any ongoing or pending authentication
+sessions for the same data source, and eventually executes <em class="parameter"><code>session</code></em>
+(see <a class="link" href="EAuthenticationSession.html#e-authentication-session-execute-sync" title="e_authentication_session_execute_sync ()"><code class="function">e_authentication_session_execute_sync()</code></a> for more details).
+</p>
+<p>
+This function returns immediately after enqueuing <em class="parameter"><code>session</code></em>.  When
+<em class="parameter"><code>session</code></em> is finished executing, <em class="parameter"><code>callback</code></em> will be called.  You can
+then call <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-authenticate-finish" title="e_source_registry_server_authenticate_finish ()"><code class="function">e_source_registry_server_authenticate_finish()</code></a> to get the
+result of the operation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to the callback function</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-registry-server-authenticate-finish"></a><h3>e_source_registry_server_authenticate_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_registry_server_authenticate_finish
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes the operation started with <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-authenticate" title="e_source_registry_server_authenticate ()"><code class="function">e_source_registry_server_authenticate()</code></a>.
+If an error occurred, the function will set <em class="parameter"><code>error</code></em> and return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ESourceRegistryServer.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="ESourceRegistryServer-files-loaded"></a><h3>The <code class="literal">"files-loaded"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted after all data source key files are loaded on startup.
+Extensions can connect to this signal to perform any additional
+work prior to running the main loop.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>the <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> which emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRegistryServer-load-error"></a><h3>The <code class="literal">"load-error"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server,
+                                                        <a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a>                 *file,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>                *error,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted when an error occurs while loading or parsing a
+data source key file.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>the <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> which emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>the <a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> being loaded</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> describing the error</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRegistryServer-source-added"></a><h3>The <code class="literal">"source-added"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server,
+                                                        <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>     *source,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted when an <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> is added to <em class="parameter"><code>server</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>the <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> which emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>the newly-added <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRegistryServer-source-removed"></a><h3>The <code class="literal">"source-removed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server,
+                                                        <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>     *source,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted when an <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> is removed from <em class="parameter"><code>server</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>the <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> when emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>the <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> that got removed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

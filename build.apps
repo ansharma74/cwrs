@@ -1,0 +1,167 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+MINPARAMS=1
+if [ $# -lt "$MINPARAMS" ]
+then
+    echo usage:
+    echo   build.apps "full | inc"
+    echo   
+    echo i.e.:
+    echo   build.apps  full
+    echo    
+    exit 1
+fi
+
+BUILDMODE=$2
+
+TOP=`pwd`
+echo Base is=$TOP
+source $TOP/packages_definitions
+
+echo "--------------Testing Build Tool Versions--------------"
+
+$TOP/Config/buildpackageversion
+
+echo "----------Print Default Config----------------"
+
+$TOP/Config/envtest
+
+export PREFIX=$TOP/images/$BUILDTYPE
+
+MEDIA_P=$TOP/images/media
+LNX_P=$TOP/images/linux
+
+export PATH=$MEDIA_P/bin:$LNX_P/bin:$PREFIX/bin:$PREFIX/lib:$PREFIX/include:$PREFIX/usr/lib:$PREFIX/usr/include:$PREFIX/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+
+export PKG_CONFIG_PATH=$MEDIA_P/lib/pkgconfig:$MEDIA_P/lib64/pkgconfig:$LNX_P/lib/pkgconfig:$LNX_P/lib64/pkgconfig:$PREFIX/lib/pkgconfig:$PREFIX/lib64/pkgconfig:$PREFIX/share/pkgconfig
+
+export LDFLAGS="-L$MEDIA_P/lib -L$MEDIA_P/lib64 -L$LNX_P/lib -L$LNX_P/lib64 -L$PREFIX/lib -L$PREFIX/lib64"
+
+export CFLAGS="-fPIC -I$MEDIA_P/include -I$MEDIA_P/usr/include -I$LNX_P/include -I$LNX_P/usr/include -I$PREFIX/include -I$PREFIX/usr/include"
+
+export CXXFLAGS="-fPIC -I$MEDIA_P/include -I$MEDIA_P/usr/include --I$LNX_P/include -I$LNX_P/usr/include -I$PREFIX/include -I$PREFIX/usr/include"
+
+export LD_LIBRARY_PATH=$MEDIA_P/lib:$MEDIA_P/lib64:$LNX_P/lib:$LNX_P/lib64:$PREFIX/lib:$PREFIX/lib64
+
+export LIBRARY_PATH=$MEDIA_P/lib:$MEDIA_P/lib64:$LNX_P/lib:$LNX_P/lib64:$PREFIX/lib:$PREFIX/lib64
+
+export C_INCLUDE_PATH=$MEDIA_P/include:$MEDIA_P/usr/include:$LNX_P/include:$LNX_P/usr/include:$PREFIX/include:$PREFIX/usr/include
+
+export CXX_INCLUDE_PATH=$MEDIA_P/include:$MEDIA_P/usr/include:$LNX_P/include:$LNX_P/usr/include:$PREFIX/include:$PREFIX/usr/include
+
+echo "----------Printing Environment Variables-------"
+
+$TOP/Config/envtest
+
+function buildTPD_desktop_apps_component {
+
+    echo "----------------------------------------------------------"
+    echo "------------------- building $1 --------------------------"
+    echo "----------------------------------------------------------"
+
+    DIR=$2
+
+    case $1 in
+    yelp)
+        rm -rf $TOP/buildoutput/$DIR/yelp
+        mkdir $TOP/buildoutput/$DIR/yelp
+        cd $TOP/buildoutput/$DIR/yelp
+        ../../../tpd/apps/yelp/configure \
+            --prefix= --with-pic 
+        make 
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    linphone)
+        rm -rf $TOP/buildoutput/$DIR/linphone
+        mkdir $TOP/buildoutput/$DIR/linphone
+        cd $TOP/buildoutput/$DIR/linphone
+        ../../../tpd/apps/linphone/configure --prefix= \
+            --with-pic --enable-video \
+            --enable-alsa --with-osip=$PREFIX \
+            --with-ffmpeg=$PREFIX
+        make 
+        make DESTDIR=$PREFIX install
+        make distclean
+        ;;
+
+    sg)
+        cd $TOP/tpd/apps/sg
+        ./configure --prefix= --with-pic 
+        make 
+        make DESTDIR=$PREFIX install
+        ;;    
+
+    ms-app)  
+        echo "-----  app under development -------- "
+        ;;          
+
+    *)  
+        echo "Wrong app pack"
+        exit 1
+        ;;          
+    esac
+}
+
+function buildTPD_desktop_apps {
+
+    case "$1" in
+        apps)    
+            for pack in $tpd_apps_packages; do
+                buildTPD_desktop_apps_component $pack apps
+            done        
+            ;;          
+        *)  
+            echo "Wrong app"
+            exit 1
+            ;;          
+    esac
+}
+
+function make_appspack {
+
+    echo "--------- Making Apps Pack ---------------"
+
+    rm -rf $TOP/images/apps/DEBIAN
+    mkdir $TOP/images/apps/DEBIAN
+    echo "Package: cbirapps
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: all
+Maintainer: CBIR (info@cbir.in)
+Description: CBIR Apps
+    CBIR Apps" > $TOP/images/apps/DEBIAN/control
+
+    cd $TOP/images/apps/..
+    find ./apps -type d | xargs chmod 755
+    dpkg-deb --build apps
+    mv apps.deb /tmp/builds/cbirapps.deb
+}
+
+case "$BUILDMODE" in
+    full)
+        echo "--------- Starting TP Apps build ---------------------"
+        rm -rf $TOP/buildoutput/apps
+        rm -rf $TOP/images/apps
+        mkdir $TOP/buildoutput/apps
+        mkdir $TOP/images/apps
+        buildTPD_desktop_apps apps
+        make_appspack
+        ;;          
+    inc)
+        buildTPD_desktop_apps apps
+        make_appspack
+        ;;          
+    *)   
+        echo "Choices for apps are: full, inc"
+        exit 1
+        ;;
+    esac
+
+fi
+

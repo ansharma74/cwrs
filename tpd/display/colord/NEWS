@@ -1,0 +1,671 @@
+Version 0.1.27
+~~~~~~~~~~~~~~
+Released: 2013-01-08
+
+New Features:
+ - Add ColorMunki Smile defines and calibration attach image (Richard Hughes)
+ - Add Spyder4 calibration attach image (Richard Hughes)
+ - Add the ability to generate Rec. 709 gamma curves (Richard Hughes)
+ - Export a Device.Embedded property that is set for fixed hardware (Richard Hughes)
+ - Import shared-color-profiles into colord (Richard Hughes)
+ - Install a header with all the session helper defines (Richard Hughes)
+ - Support L* gamma encoding in cd-create-profile (Richard Hughes)
+ - Write the profile quality into to the .icc file as metadata (Richard Hughes)
+
+Bugfixes:
+ - Allow passing no value as properties to CreateDevice (Richard Hughes)
+ - Do not return zero profiles when the device is being calibrated or disabled (Richard Hughes)
+ - Ensure the color types are methods in GObject Introspection rather than functions (Richard Hughes)
+ - Fix build when srcdir != builddir (Colin Walters)
+ - Fix floating point number parsing in non C locale environments (Richard Hughes)
+ - Remove 'Monitor' suffix from display devices model string (Richard Hughes)
+
+Version 0.1.26
+~~~~~~~~~~~~~~
+Released: 2012-12-19
+
+New Features:
+ - Add 4 more defined sensor types (Richard Hughes)
+ - Add a create-temperature subcommand to colormgr to test VCGT generation (Richard Hughes)
+ - Add a 'SensorId' property to the sensor interface (Richard Hughes)
+ - Add a session helper that can be used to calibrate the screen (Richard Hughes)
+ - Add cd_it8_save_to_data() to save the data to some allocated memory (Richard Hughes)
+ - Add FindSensorById() to the main interface (Richard Hughes)
+ - Add some defines for the Spyder4 display colorimeter (John (J5) Palmieri)
+ - Add some device figures from gnome-color-manager used in KDE and GNOME (Richard Hughes)
+ - Add some example calibration ti1 files from gnome-color-manager (Richard Hughes)
+ - Add support for reading and writing .cal files to CdIt8 (Richard Hughes)
+ - Add the ability to 'disable' a device so that color management can be turned off (Richard Hughes)
+ - Export cd_color_rgb_interpolate() as it's useful to applications (Richard Hughes)
+ - Recognise the internal sensor on W700 laptops and set a property for the calibration tools (Richard Hughes)
+ - Use spotread when there is no native sensor driver (Richard Hughes)
+
+Bugfixes:
+ - Add some missing entries in cd_sensor_kind_from_string (John (J5) Palmieri)
+ - Create ICCv2 profiles when using cd-create-profile (Richard Hughes)
+ - Do 3 reads in quick succession for colormgr get-sensor-reading (Richard Hughes)
+ - Fix a crash when saving a ti3 file where white is not the last sample (Richard Hughes)
+ - Fix a critical warning when writing using cd_it8_add_data() with no XYZ value (Richard Hughes)
+ - If ti1 values are > 1.0 then assume they are normalized (Richard Hughes)
+ - Return class specific error codes if authentication fails (Richard Hughes)
+ - Scale the ti3 RGB values to 100 when writing with NORMALIZED_TO_Y_100 (Richard Hughes)
+ - Set DEVICE_CLASS when saving a cal IT8 file (Richard Hughes)
+ - Support doing sensor user actions when using 'colormgr get-sensor-reading' (Richard Hughes)
+ - Update the device scope if it changes at runtime (Richard Hughes)
+ - Use enumerated error values in the client library (Richard Hughes)
+
+Version 0.1.25
+~~~~~~~~~~~~~~
+Released: 2012-11-16
+
+New Features:
+ - Add a create-standard-space sub-command to cd-create-profile (Richard Hughes)
+ - Add a FAQ entry describing application support of color management (Richard Hughes)
+ - Add a 'make coverity' helper to scan the project for errors (Richard Hughes)
+ - Add a profile metadata key of 'License' (Richard Hughes)
+ - Add a profile warning if any of the primaries are outside of ROMM RGB (Richard Hughes)
+ - Add a set-version command to the cd-fix-profile command line tool (Richard Hughes)
+ - Add a warning if the profile calibration data is non-monotonic (Richard Hughes)
+ - Add a warning if the profile copyright is missing (Richard Hughes)
+ - Add a warning if the profile description is missing (Richard Hughes)
+ - Add a warning if the profile gray axis is invalid (Richard Hughes)
+ - Add a warning if the profile primaries are invalid (Richard Hughes)
+ - Add a warning if the profile primaries do not add to D50 (Richard Hughes)
+ - Add a warning if the profile RGB 255,255,255 does not return D50 (Richard Hughes)
+ - Add a warning if the profile would produce a scum-dot (Richard Hughes)
+ - Add a 'Warnings' property to the DBus interface for each profile (Richard Hughes)
+ - Add OutputPriority device metadata key to the specification (Richard Hughes)
+ - Move the named color examples to shared-color-profiles (Richard Hughes)
+ - Print if the profile is system-wide when doing 'colormgr get-profiles' (Richard Hughes)
+ - Show the primaries when dumping the profile using cd-fix-profile (Richard Hughes)
+ - Use syslog to be able to debug what the daemon is doing without restarting it (Richard Hughes)
+
+Bugfixes:
+ - Check the return value of mbstowcs before using the buffer (Richard Hughes)
+ - Convert cd-create-profile to using sub-commands to make it more modular (Richard Hughes)
+ - Create linear vcgt tables when using create-x11-gamma to match the xserver behaviour (Richard Hughes)
+ - Create version 2.2 ICC files when creating named color profiles (Richard Hughes)
+ - Do not ever manually set a ICC profile version when creating profiles (Richard Hughes)
+ - Do not try to connect to colord in cd-fix-profile until actually needed (Richard Hughes)
+ - Don't optimize the profile check transforms to speed up daemon startup (Richard Hughes)
+ - Don't set the StandardSpaces override, the generated profiles have the correct metadata now (Richard Hughes)
+ - Fix a crash in the example code if the device has a non-standard qualifier format (Richard Hughes)
+ - Fix GetStandardSpace so it can actually work (Richard Hughes)
+ - huey: Ensure we return an error if we ran out of retries (Richard Hughes)
+ - If the copyright string is not set when creating a profile use a good default (Richard Hughes)
+ - Improve the formatting of 'get-profiles' and 'get-devices' (Richard Hughes)
+ - libcolord: Fix up a warning if GetStandardSpace fails to find a profile (Richard Hughes)
+ - Return an error if the client does not set a profile or device id (Richard Hughes)
+ - Return an error if the client uses an unsupported scope value (Richard Hughes)
+ - Set a default copyright string when creating profiles without using --copyright (Richard Hughes)
+
+Version 0.1.24
+~~~~~~~~~~~~~~
+Released: 2012-10-26
+
+New Features:
+ - Add a extract-vcgt subcommand to cd-fix-profile (Richard Hughes)
+ - Add a general plugin interface for adding and removing devices (Richard Hughes)
+ - Add defines for the 'ColorHug Spectro' hardware (Richard Hughes)
+ - Add a 'seat' property to each device (Richard Hughes)
+ - Add FindProfileByProperty() to the main interface (Richard Hughes)
+ - Allow the user to specify a custom udev rules directory (Richard Hughes)
+
+Bugfixes:
+ - Append usernames to dbus object paths before sanitising the object path (Christopher James Halse Rogers)
+ - colorhug: Add support for firmware >= 1.2.0 by accepting a full HID buffer (Richard Hughes)
+ - colorhug: Update the private files to the latest libcolorhug code (Richard Hughes)
+ - Fix a critical warning when user tries to dump a non-icc file (Richard Hughes)
+ - Fix automatic dep on libusb (Pacho Ramos)
+ - Fix automatic dep on vala (Pacho Ramos)
+ - Fix a warning in the daemon if a device property is NULL at setup (Richard Hughes)
+ - Initialise global connection variable earlier (Christopher James Halse Rogers)
+ - More paranoia in construction of object paths (Christopher James Halse Rogers)
+ - Never use Werror by default in configure (Richard Hughes)
+ - Remove libsane support and rely only on udev for scanner device information (Richard Hughes)
+ - Set FILE_checksum on discovered system profiles (Richard Hughes)
+ - Set the seat for devices created in the session and from udev (Richard Hughes)
+
+Version 0.1.23
+~~~~~~~~~~~~~~
+Released: 2012-08-29
+
+New Features:
+ - Get udevrulesdir from pkg-config (Benedikt Morbach)
+
+Bugfixes:
+ - Assorted documentation fixes (Evan Nemerson)
+ - Do not try to add duplicate sysfs devices (Richard Hughes)
+
+Version 0.1.22
+~~~~~~~~~~~~~~
+Released: 2012-06-27
+
+New Features:
+ - Add a Vala version of cd-gtk-demo (Evan Nemerson)
+ - Split out colord-gtk to a new sub-project to prevent a dep loop (Richard Hughes)
+
+Bugfixes:
+ - Add many generic introspection type arguments (Evan Nemerson)
+ - Check any files in /usr/share/color/icc have the content type application/vnd.iccprofile (Richard Hughes)
+ - Do not try to create the same object paths if two sensors of the same type are plugged in (Richard Hughes)
+ - Fix the udev rules entry for the i1Display3 (Wolfgang Goetz)
+
+Version 0.1.21
+~~~~~~~~~~~~~~
+Released: 2012-05-22
+
+Bugfixes:
+ - Do not add sensors that are ignored or have no caps (Richard Hughes)
+ - Do not install any parts of colord-sane if --disable-sane is specified (Christoph Brill)
+ - Do not use 'WantedBy=graphical.target' in the shipped systemd file (Benedikt Morbach)
+ - Fix autotools when configuring without systemd (Benedikt Morbach)
+ - Fix InstallSystemWide() by not writing a private file (Richard Hughes)
+ - Fix srcdir != builddir with introspection enabled (Colin Walters)
+ - Fix the description in the systemd service file (Benedikt Morbach)
+ - Isolate gtk dependency to cd-convert (Yanko Kaneti)
+ - Save the CCMX and ITx files to be compatible with argyllcms (Richard Hughes)
+ - The ColorHug has a new VID and PID (Richard Hughes)
+
+Version 0.1.20
+~~~~~~~~~~~~~~
+Released: 2012-05-09
+
+New Features:
+ - Add a bash completion file for colormgr (Richard Hughes)
+ - Add a BUSY state value for sensor devices (Richard Hughes)
+ - Add a GObject Introspection example (Richard Hughes)
+ - Add a sensor-set-options command to the colormgr tool (Richard Hughes)
+ - Add async and sync methods in libcolord to support sensor options (Richard Hughes)
+ - Add CdIt8 as a helper for reading and writing ti1, ti3 and ccmx files (Richard Hughes)
+ - Add cd_it8_utils_calculate_ccmx() to libcolorhug (Richard Hughes)
+ - Add CdSampleWindow to libcolord-gtk (Richard Hughes)
+ - Add CdWindow which allows us to get the color profile for a GtkWidget (Richard Hughes)
+ - Add functionality to colord-convert to sample ti1 -> ti3 files (Richard Hughes)
+ - Add gio-2.0 to the requires line of colord.pc for GFile (Richard Hughes)
+ - Add the concept of 'options' on each color sensor device (Richard Hughes)
+ - colorhug: Allow saving the remote hash as a sensor option (Richard Hughes)
+ - Print any sensor options when doing 'colormgr get-sensors' (Richard Hughes)
+
+Bugfixes:
+ - colorhug: Save the EEPROM after setting sensor options (Richard Hughes)
+ - Enable gtk-doc in the default distro build (Richard Hughes)
+ - Fix build failure when colord is not installed system-wide (Craig Keogh)
+
+Version 0.1.19
+~~~~~~~~~~~~~~
+Released: 2012-04-17
+
+New Features:
+ - Add a user suffix to the object path of user-created devices and profiles (Richard Hughes)
+
+Bugfixes:
+ - Add User key to colord-sane's DBus service file (Christopher James Halse Rogers)
+ - Do not enable PrivateNetwork=yes as it breaks hotplugging devices (Richard Hughes)
+ - Ensure colord-sane can create devices and profiles (Christopher James Halse Rogers)
+ - Fix usage of CD_OBJECT_SCOPE_* enums (John Sheu)
+ - Honor aclocal flags (Craig Keogh)
+ - Remove the 'Default,' profile title prefix if legacy profiles are installed (Richard Hughes)
+
+Version 0.1.18
+~~~~~~~~~~~~~~
+Released: 2012-03-15
+
+New Features:
+ - Add a Manager.CreateProfileWithFd() method for QtDBus (Richard Hughes)
+ - Add the GAMUT_coverage metadata key to the spec (Richard Hughes)
+ - Add the GAMUT_volume metadata key to the spec (Richard Hughes)
+ - Depend on lcms2 >= 2.2 (Richard Hughes)
+ - Make cd-fix-profile add the GAMUT keys to the ICC file (Richard Hughes)
+ - Split out the SANE support into it's own process (Richard Hughes)
+
+Bugfixes:
+ - Do not delete 'disk' or 'normal' devices when the session exits (Richard Hughes)
+ - Ensure we return NULL for missing device properties (Richard Hughes)
+ - Fix a small leak when creating devices and profiles in clients (Richard Hughes)
+ - Fix cd-fix-profile to add and remove metadata entries (Richard Hughes)
+ - Install per-machine profiles in /var/lib/colord/icc (Richard Hughes)
+ - Show what DBus names have inhibited each device (Richard Hughes)
+ - When doing 'get-devices' show the profile ID and filename (Richard Hughes)
+
+Version 0.1.17
+~~~~~~~~~~~~~~
+Released: 2012-02-22
+
+New Features:
+ - Add an LED sample type (Richard Hughes)
+ - Add a metadata key to store the calibration brightness (Richard Hughes)
+ - Show the profile title when using colormgr get-profiles (Richard Hughes)
+
+Bugfixes:
+ - Add PrivateNetwork and PrivateTmp to the systemd service file (Richard Hughes)
+ - Don't leak a GVariantIter when setting the device metadata (Richard Hughes)
+ - Fix a critical warning if a client tries to get the profile metadata (Matthias Clasen)
+ - Fix InstallSystemWide() when running as the colord user (Richard Hughes)
+ - Increase the colorhug sample timeout to 5 seconds (Richard Hughes)
+ - Make underscores into spaces for the profile title (Richard Hughes)
+ - Return from cd_profile_has_access() with TRUE for virtual profiles (Richard Hughes)
+
+Version 0.1.16
+~~~~~~~~~~~~~~
+Released: 2012-01-17
+
+New Features:
+ - Add a device-inhibit command to the colormgr client (Richard Hughes)
+ - Add org.freedesktop.policykit.owner annotations to .policy file (Vincent Untz)
+ - Add profile metadata MAPPING_device_id for automatic profile mapping (Richard Hughes)
+ - Add some profile metadata keys discussed with Florian Höch (Richard Hughes)
+ - Install a systemd service file if systemd is used (Benedikt Morbach)
+ - Support 2nd generation Huey hardware (Richard Hughes)
+ - Use GUsb for the Huey sensor (Richard Hughes)
+
+Bugfixes:
+ - Fix a Wformat error when printing a gsize (Richard Hughes)
+ - If /usr/share/color appears at runtime, don't rescan the parent dir (Richard Hughes)
+ - Set the colorimeter sensor group so the dameon can access the sensor (Richard Hughes)
+ - Split the spyder hardware into different types (Richard Hughes)
+
+Version 0.1.15
+~~~~~~~~~~~~~~
+Released: 2011-11-26
+
+Notes:
+ - This release fixes an important security bug: CVE-2011-4349.
+ - It is recommended all users update to this version, or backport
+   these patches:
+    * http://gitorious.org/colord/master/commit/1fadd90afcb4bbc47513466ee9bb1e4a8632ac3b
+    * http://gitorious.org/colord/master/commit/36549e0ed255e7dfa7852d08a75dd5f00cbd270e
+
+New Features:
+ - Add a native driver for the Hughski ColorHug hardware (Richard Hughes)
+ - Export cd-math as three projects are now using it (Richard Hughes)
+
+Bugfixes:
+ - Documentation fixes and improvements (Laurent Martelli)
+ - Do not crash the daemon if adding the device to the db failed (Richard Hughes)
+ - Do not match any sensor device with a kernel driver (Richard Hughes)
+ - Don't be obscure when the user passes a device-id to colormgr (Richard Hughes)
+ - Fix a memory leak when getting properties from a device (Richard Hughes)
+ - Fix colormgr device-get-default-profile (Richard Hughes)
+ - Fix some conection bugs in colormgr (Florian Höch, Richard Hughes)
+ - Fix some potential SQL injections (Ludwig Nussel, Vincent Untz)
+ - Make gusb optional (Ludwig Nussel)
+ - Only use the udev USB helper if the PID and VID have matches (Richard Hughes)
+ - Output the Huey calibration matrices when dumping the sensor (Richard Hughes)
+
+Version 0.1.14
+~~~~~~~~~~~~~~
+Released: 2011-11-01
+
+Translations:
+New Features:
+ - Add defines for the i1 Display 3 (Richard Hughes)
+ - Add two more DATA_source values to the specification (Richard Hughes)
+ - Align the output from colormgr get-devices and get-profiles (Richard Hughes)
+ - Allow cd-fix-profile to append and edit new metadata (Richard Hughes)
+
+Bugfixes:
+ - Ensure non-native device are added with no driver module (Richard Hughes)
+ - Split the sensor and device udev code (Richard Hughes)
+
+Version 0.1.13
+~~~~~~~~~~~~~~
+Released: 2011-10-03
+
+New Features:
+ - Add an 'Owner' property on device and profile objects (Richard Hughes)
+ - Add cd_profile_has_access() to filter profiles from other user accounts (Richard Hughes)
+ - Add the crayon named color palette (Richard Hughes)
+ - Add --xorg-gamma to cd-create-profile to create custom gamma ramps (Richard Hughes)
+
+Bugfixes:
+ - Add a note in the naming specification about the username suffix (Richard Hughes)
+ - colormgr only needs one argument for find-device (Richard Hughes)
+ - Ensure remote DBus errors are registered at startup (Richard Hughes)
+ - Ensure uid 0 can always create devices and profiles (Richard Hughes)
+ - Fix an error in configure if there is no sane .pc file (Richard Hughes)
+ - Fix the --disable-polkit build (Richard Hughes)
+ - Fix up the docs; cd_device_get_modified() returns microseconds (Richard Hughes)
+ - Reduce the CPU load of clients when assigning profiles from the session (Richard Hughes)
+ - Return an error if a client tries to create a duplicate device (Richard Hughes)
+ - Return an error when trying to register a duplicate profile (Richard Hughes)
+
+Version 0.1.12
+~~~~~~~~~~~~~~
+Released: 2011-08-30
+
+New Features:
+ - Add a configure argument --enable-volume-search (Richard Hughes)
+ - Add a configure argument of --enable-fd-fallback (Richard Hughes)
+ - Add cd_client_import_profile() to be able to easily import a GFile (Richard Hughes)
+ - Allow the daemon to run with a different user (Richard Hughes)
+
+Bugfixes:
+ - Add daemon user to acl of sensor devices (Christopher James Halse Rogers)
+ - Add lcms2 to Requires.private (Richard Hughes)
+ - Check if a file is really an ICC profile before importing it (Richard Hughes)
+ - Detect libusb_strerror in configure rather than relying on the version (Richard Hughes)
+ - Do not fail make check if there is no available local colord process to use (Richard Hughes)
+ - Ensure the profiles are sorted by thier timestamp during login (Richard Hughes)
+ - Ensure the volume-sourced profiles are not marked as systemwide profiles (Richard Hughes)
+ - Exit with an error when trying to connect to a device that does not exist (Richard Hughes)
+ - Remove duplicate call to complete in libcolord (Alban Browaeys)
+ - Try harder to use the ICC profile checksum (Richard Hughes)
+
+Version 0.1.11
+~~~~~~~~~~~~~~
+Released: 2011-08-01
+
+Translations:
+ - Updated Russian translation (Alexandre Prokoudine)
+
+New Features:
+ - Enable GObject introspection generation on libcolord (Richard Hughes)
+ - Generate a Vala API binding from the GObject Introspection GIR (Richard Hughes)
+ - Move the project home to freedesktop.org (Richard Hughes)
+ - Ship generated man pages in tarballs (Vincent Untz)
+
+Bugfixes:
+ - Add all of the required GObject Introspection annotations required (Richard Hughes)
+ - Allow FindDeviceByProperty() to match on model, vendor and serial number (Richard Hughes)
+ - Don't crash the example program if there is no default profile assigned (Richard Hughes)
+ - Fix the bugzilla and mailing list links on the webpage. Fixes #39129 (Richard Hughes)
+ - Fix the licence headers in colord.h and cd-color.h (Richard Hughes)
+ - Fix up some translatable strings (Richard Hughes)
+ - Honor ACLOCAL_FLAGS when running autoreconf (Owen W. Taylor)
+ - Use the const formatter when unwrapping GVariants to reduce memory allocation (Richard Hughes)
+
+Version 0.1.10
+~~~~~~~~~~~~~~
+Released: 2011-07-06
+
+New Features:
+ - Add a find-profile-by-filename command to the colormgr client tool (Richard Hughes)
+ - Add the object scope to the DBus interface as a property (Richard Hughes)
+ - Write a document detailing the colord security attack surface (Richard Hughes)
+
+Bugfixes:
+ - Actually store the device ID in the mapping database (Richard Hughes)
+ - Fix include statements to search from current libcolord folder (Kenny Stuart)
+ - Fix mbstowcs usage (Colin Walters)
+ - Fix the build for old versions of lcms2 (Stef Walter)
+ - Fix up the location of the libcolord header files (Richard Hughes)
+ - Remove the DBus annotations in the introspection (Richard Hughes)
+
+Version 0.1.9
+~~~~~~~~~~~~~
+Released: 2011-06-13
+
+New Features:
+ - Add a 'Format' property to the device interface (Richard Hughes)
+ - Add a new method Client:FindDeviceByProperty for when only a property is known (Richard Hughes)
+ - Add methods to get the connected state of each object (Richard Hughes)
+ - Define the DATA_source profile metadata item (Richard Hughes)
+ - Define three metadata keys for the framework creator to set (Richard Hughes)
+ - Define two keys to allow the profile to contain the mapping parameters (Richard Hughes)
+
+Bugfixes:
+ - Allow GUDEV to be disabled at compile time (Richard Hughes)
+ - Autodetect SANE in configure (Richard Hughes)
+ - Fix 3 small memory leaks (Richard Hughes)
+ - Fix a bug that caused a critical warning in client code (Richard Hughes)
+ - Only warn if we fail to get the PolicyKit authority (Richard Hughes)
+ - Save any additional disk device metadata in the property database (Richard Hughes)
+ - Use upstream gettext instead the glib one (Javier Jardón)
+ - Write the new metadata entries in the utility programs (Richard Hughes)
+
+Version 0.1.8
+~~~~~~~~~~~~~
+Released: 2011-06-02
+
+Translations:
+ - Add Japanese translation (Ryo Fujita)
+
+New Features:
+ - Add a 'Created' property to the Profile interface (Richard Hughes)
+ - Add an basic ColorMunki native sensor driver (Richard Hughes)
+ - Add an explicit 'webcam' device kind (Richard Hughes)
+ - Add a timestamp when making profiles default (Richard Hughes)
+ - Add support for reading and writing ICC profile metadata (Richard Hughes)
+ - Allow the client to pass file descriptors out of band to CreateProfile (Richard Hughes)
+ - Manually remove the date from profiles to make them look nicer in the GUI (Richard Hughes)
+ - Prettify the device vendor and model names (Richard Hughes)
+ - Split out the sensors into runtime-loadable shared objects (Richard Hughes)
+ - libcolord: Add a cd_device_kind_to_profile_kind() utility function (Richard Hughes)
+ - libcolord: Add preprocessor defines for the device and profile property and metadata names (Richard Hughes)
+ - libcolord: Add some simple helpers to check objects for equality (Richard Hughes)
+ - libcolord: Add the helper function cd_profile_get_age() (Richard Hughes)
+ - libcolord: Provide some GIO async variants for the methods in CdClient (Richard Hughes)
+
+Bugfixes:
+ - Allow setting the 'Colorspace' property on profile objects (Richard Hughes)
+ - Bump glib requirement to 2.28 in configure.ac (Adrien Bustany)
+ - Do not return a 4-double triple for Sensor.GetSample() (Richard Hughes)
+ - Do not try to register a second identical instance of a device on the bus (Richard Hughes)
+ - Ensure empty strings are specially parsed as NULL (Richard Hughes)
+ - Ensure GPhoto2 devices get added to the device list (Richard Hughes)
+ - Fix the gtk-doc build (Richard Hughes)
+ - If the user tries to register a second identical profile don't return an error (Richard Hughes)
+ - Simplify vendor cleanup code (Bastien Nocera)
+ - Use the FILE_checksum metadata for profiles created without internal checksums (Richard Hughes)
+ - When creating a device with an existing virtual device promote it to a physical device (Richard Hughes)
+
+Version 0.1.7
+~~~~~~~~~~~~~
+Released: 2011-05-06
+
+New Features:
+ - Add sensor-lock to just lock the color sensor and listen for events
+
+Bugfixes:
+ - Create /var/lib/colord at buildtime not runtime for SELinux
+ - Ensure profiles with embedded profile checksums are parsed correctly
+ - Move the colorimeter rules to be run before 70-acl.rules
+ - Stop watching the client when the sensor is finalized
+ - Ensure the source is destroyed when we unref CdUsb to prevent a crash
+ - Only enable the volume mount tracking when searching volumes
+
+Version 0.1.6
+~~~~~~~~~~~~~
+Released: 2011-04-24
+
+Notes:
+ - Sensor devices are now being managed by colord to make calibration a
+   nicer experience in the desktop. At the moment only taking spot
+   colors is supported, and only the huey driver is available.
+ - Applications can now request profiles for standard color spaces such
+   as sRGB, AdobeRGB and ProPhotoRGB.
+ - Lots of system performance improvements, but be sure to use g-c-m
+   from git for the fastest session startup.
+
+New Features:
+ - Add 3 tools for reverse engineering the huey colorimeter
+ - Add a DBus interface designed so normal users can use color sensors
+ - Add a dummy sensor object that is enabled if 'CreateDummySensor' is set
+ - Add an async version of CdClient:Connect()
+ - Add a --verbose command line option to print the debugging in color
+ - Add CdColor to libcolord so we have some reusable GTypes to use
+ - Add cd-create-profile, which provides a way to build a NCP
+ - Add GetStandardSpace to the DBus API
+ - Add support for sensor devices in libcolord
+ - Add get-sensors and get-sensor-reading commands to the colormgr tool
+ - Add the native Huey sensor driver which is taken from gnome-color-manager
+ - Add two options to colord: --timed-exit and --immediate-exit
+ - Import the sensor udev rules file from gnome-color-manager
+ - Move gcm-fix-profile from GNOME Color Manager as cd-fix-profile
+ - Update the architecture plan to include sensor devices
+
+Bugfixes:
+ - Do not emit a critical warning if ID_MODEL doesn't exist for a device
+ - Remove any .icc suffix automatically from the encoded profile title
+ - Return an error if the user tries to create a persistent profile
+ - The DTP92 cannot profile LCDs, according to Graeme
+ - Use cmsOpenProfileFromFile() rather than getting the complete profile content
+ - Use the embedded profile-id if it is available, else fallback to the file MD5
+ - Use the FILE_checksum metadata if it is available to speed up session startup
+
+Version 0.1.5
+~~~~~~~~~~~~~
+Released: 2011-03-31
+
+New Features:
+ - Add a 'Metadata' property to the device object
+ - Draft a specification document for device and profile IDs
+ - Draft specification document explaining the metadata keys we're using
+ - Remove colorgui as gnome-color-manager and kolord will be sufficient
+
+Bugfixes:
+ - Add AC_PROG_LIBTOOL to configure.ac to prevent a warning in jhbuild
+ - Correct the spelling of colorimetric in the public API
+ - Enable the sane support by default, Simple Scan needs this
+ - Make any properties not understood by colord to be saved as metadata keys
+ - Mark some more strings as translatable in colormgr
+
+Version 0.1.4
+~~~~~~~~~~~~~
+Released: 2011-03-09
+
+Translations:
+ - Added Russian translation (Alexandre Prokoudine)
+
+New Features:
+ - Add Device.GetProfileRelation() so we can get the profile to device relationship type (Richard Hughes)
+ - Add Profile.Format so CUPS can tell us the qualifier format (Richard Hughes)
+ - Do not coldplug SANE devices unless UseSANE=true (Richard Hughes)
+ - Do not search external volumes unless SearchVolumes=true (Richard Hughes)
+
+Bugfixes:
+ - Clear the cached profiles and devices if the daemon is restarted (Richard Hughes)
+ - Only add local SANE devices to colord (Richard Hughes)
+ - Remove the 'Other CMS frameworks' from the website sources (Richard Hughes)
+ - Replace underscores with spaces when getting the model and vendor from SANE (Richard Hughes)
+ - Set a generic RGB profile qualifier if there is nothing already set (Richard Hughes)
+ - Use plain text enumerated values in CreateDevice and CreateProfile (Richard Hughes)
+
+Version 0.1.3
+~~~~~~~~~~~~~
+Released: 2011-02-28
+
+New Features:
+ - Add a architecture diagram how colord is going to work with printing (Richard Hughes)
+ - Add a 'relation' parameter to Device.AddProfile() (Richard Hughes)
+ - Add cd-dbus-use-qualifier as an example of how to use a qualifier using DBus (Richard Hughes)
+ - Add FindProfileByFilename() to the main DBus interface (Richard Hughes)
+ - Add gtk-doc support to libcolord (Richard Hughes)
+ - Add the EDID_md5 metadata from profiles created by GCM with lcms (Richard Hughes)
+
+Bugfixes:
+ - Do not emit PropertyChanged on a profile when not yet added (Richard Hughes)
+ - Do not return dummy data if an ICC file has no metadata (Richard Hughes)
+ - Ensure profile IDs with slashes are escaped (Richard Hughes)
+ - Ensure the Device.Profiles property returns no results when profiling (Richard Hughes)
+ - Logically, GetProfileForQualifier(*) matches anything (Richard Hughes)
+ - Modify GetProfileForQualifiers() so we can send multiple requests (Richard Hughes)
+ - Never call DeviceChanged before DeviceAdded when adding properties (Richard Hughes)
+ - Only add 'hard' devices to the mapping database (Richard Hughes)
+ - Return the 'hard' profiles before the 'soft' profiles  (Richard Hughes)
+ - Send a Device::Changed signal when a device is being calibrated (Richard Hughes)
+ - Use a custom qualifier matcher, as g_regex_match_simple() is expensive (Richard Hughes)
+
+Version 0.1.2
+~~~~~~~~~~~~~
+Released: 2011-02-07
+
+New Features:
+ - Add a 'Colorspace' property to all profile devices (Richard Hughes)
+ - Add a dictionary of properties to the CreateX() methods (Richard Hughes)
+ - Add a 'HasVcgt' property to all profile devices (Richard Hughes)
+ - Add a 'IsSystemWide' property to the profile interface (Richard Hughes)
+ - Add a 'Metadata' property to the profile object for the DICT ICC tag (Richard Hughes)
+ - Add a 'Mode' property to each device (Richard Hughes)
+ - Add an example to show how to use colord without using libcolord (Richard Hughes)
+ - Add async helpers to get the device and profile arrays (Richard Hughes)
+ - Add CdClient ::profile-added and ::profile-removed signals (Richard Hughes)
+ - Add cd_device_remove_profile_sync() (Richard Hughes)
+ - Add the website to revision control (Richard Hughes)
+ - Refactor out colormgr into a useful command line tool (Richard Hughes)
+ - Remove the 'Commit' API -- with properties we don't need this (Richard Hughes)
+ - When a device or profile changes, emit a signal on the base interface (Richard Hughes)
+
+Bugfixes:
+ - If available, use the profile file checksum in the DBus object (Richard Hughes)
+ - Replace underscores with spaces for the UDev model and vendor properties (Richard Hughes)
+ - Set the colorspace on V4L devices (Richard Hughes)
+
+Version 0.1.1
+~~~~~~~~~~~~~
+Released: 2011-01-26
+
+Notes:
+ - A small break in the DBus API this release: Commit() has been added.
+ - Many new properties are available on the interfaces.
+ - SANE and v4linux UDEV devices are now added as colord devices.
+ - The persistent storage code has been written so device and profiles
+   get auto-assigned when they appear.
+ - Be sure to rebuild the 'icc' branches of CUPS and gnome-color-manager
+   if you're trying out the new functionality.
+
+New Features:
+ - Add a commit method to the device and profile objects (Richard Hughes)
+ - Add a database for storing the device to profile mappings (Richard Hughes)
+ - Add a /etc/colord.conf file for future usage (Richard Hughes)
+ - Add a GetProfilesByKind() DBus method (Richard Hughes)
+ - Add a method to set a profile system-wide for all users (Richard Hughes)
+ - Add a modification time to the remote Device object (Richard Hughes)
+ - Add and remove UDEV devices as colord devices (Richard Hughes)
+ - Add a simple architecture plan of colord (Richard Hughes)
+ - Add cd_device_get_default_profile() client side method (Richard Hughes)
+ - Add devices and profiles prefixes to the DBus paths (Richard Hughes)
+ - Add methods to the daemon to allow device profiling (Richard Hughes)
+ - Add SANE devices as color managed devices (Richard Hughes)
+ - Add three more device properties: Serial, Vendor and Colorspace (Richard Hughes)
+ - Calculate the checksum of the parsed ICC file (Richard Hughes)
+ - Save 'disk' scope devices to a system-wide database (Richard Hughes)
+ - Track per-system profile stores (Richard Hughes)
+
+Bugfixes:
+ - Actually emit the CdClient::DeviceAdded signal (Richard Hughes)
+ - Actually emit the CdClient::DeviceRemoved signal (Richard Hughes)
+ - Don't print a blank line in colormgr if there is no qualifier (Richard Hughes)
+ - Make DeleteDevice take an ID, not an object (Richard Hughes)
+ - Make PolicyKit support optional to fix the build on Windows (Richard Hughes)
+ - Profiles do not have a created property, so don't try to display one (Richard Hughes)
+
+Version 0.1.0
+~~~~~~~~~~~~~
+Released: 2011-01-13
+
+Notes:
+ - Colord is a simple system activated daemon that maps devices to color
+   profiles.
+ - It is used by gnome-color-manager for CUPS integration and is also
+   used when there are no users logged in.
+ - The only real user at the moment is CUPS, but GNOME Color Manager
+   will start depending on colord when it is included in most mainstream
+   distributions.
+ - The DBus interface is not set in stone, and the libcolord library
+   will have new API added to it as required. If colord needs to break
+   public API at this stage for a specific use case, it will.
+ - The persistent storage code is not written yet, but that will come
+   with the next colord version.
+
+New Features:
+ - Add a 'Kind' attribute to the device objects (Richard Hughes)
+ - Add a libcolord shared library that can be used in the client tools (Richard Hughes)
+ - Add an example spec file (Richard Hughes)
+ - Add a simple colormgr man page (Richard Hughes)
+ - Add a simple GTK test GUI for testing the DBus interfaces (Richard Hughes)
+ - Add a simple script to create a test device (Richard Hughes)
+ - Add basic DBus interface (Richard Hughes)
+ - Add code for the DeleteDevice method (Richard Hughes)
+ - Add DeleteProfile() on the main interface (Richard Hughes)
+ - Add GetProfileForQualifier() code (Richard Hughes)
+ - Add MakeProfileDefault() implementation to CdDevice (Richard Hughes)
+ - Add qualifiers to profiles (Richard Hughes)
+ - Allow clients to set properties on the objects using SetProperty (Richard Hughes)
+ - Expose the device created time (Richard Hughes)
+ - Fixed typo in ColorManager API description (Tim Waugh)
+ - Open the profile using lcms2 after we set the profile filename (Richard Hughes)
+ - Provide a method to assign an ICC profile to a profile object (Richard Hughes)
+ - Provide methods for mapping the device ID to the object path (Richard Hughes)
+ - Use seporate PolicyKit authorisations for each action type (Richard Hughes)

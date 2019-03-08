@@ -1,0 +1,1108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpDBusPropertiesMixin</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="telepathy-glib-TpContactsMixin.html" title="TpContactsMixin">
+<link rel="next" href="TpExportableChannel.html" title="TpExportableChannel">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-TpContactsMixin.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="TpExportableChannel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-dbus-properties-mixin.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-dbus-properties-mixin.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-dbus-properties-mixin.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-dbus-properties-mixin"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-dbus-properties-mixin.top_of_page"></a>TpDBusPropertiesMixin</span></h2>
+<p>TpDBusPropertiesMixin — a mixin implementation of the DBus.Properties interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-dbus-properties-mixin.synopsis"></a><h2>Synopsis</h2>
+<a name="TpDBusPropertiesMixinFlags"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+enum                <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinFlags-enum" title="enum TpDBusPropertiesMixinFlags">TpDBusPropertiesMixinFlags</a>;
+#define             <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TP-TYPE-DBUS-PROPERTIES-MIXIN-FLAGS:CAPS" title="TP_TYPE_DBUS_PROPERTIES_MIXIN_FLAGS">TP_TYPE_DBUS_PROPERTIES_MIXIN_FLAGS</a>
+                    <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinIfaceInfo" title="TpDBusPropertiesMixinIfaceInfo">TpDBusPropertiesMixinIfaceInfo</a>;
+                    <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinPropInfo" title="TpDBusPropertiesMixinPropInfo">TpDBusPropertiesMixinPropInfo</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-svc-interface-set-dbus-properties-info" title="tp_svc_interface_set_dbus_properties_info ()">tp_svc_interface_set_dbus_properties_info</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> g_interface</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinIfaceInfo" title="TpDBusPropertiesMixinIfaceInfo"><span class="type">TpDBusPropertiesMixinIfaceInfo</span></a> *info</code></em>);
+<a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinIfaceInfo" title="TpDBusPropertiesMixinIfaceInfo"><span class="returnvalue">TpDBusPropertiesMixinIfaceInfo</span></a> * <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-svc-interface-get-dbus-properties-info" title="tp_svc_interface_get_dbus_properties_info ()">tp_svc_interface_get_dbus_properties_info</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> g_interface</code></em>);
+
+                    <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinClass" title="TpDBusPropertiesMixinClass">TpDBusPropertiesMixinClass</a>;
+                    <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinIfaceImpl" title="TpDBusPropertiesMixinIfaceImpl">TpDBusPropertiesMixinIfaceImpl</a>;
+                    <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinPropImpl" title="TpDBusPropertiesMixinPropImpl">TpDBusPropertiesMixinPropImpl</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinGetter" title="TpDBusPropertiesMixinGetter ()">*TpDBusPropertiesMixinGetter</a>)      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> getter_data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-getter-gobject-properties" title="tp_dbus_properties_mixin_getter_gobject_properties ()">tp_dbus_properties_mixin_getter_gobject_properties</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> getter_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinSetter" title="TpDBusPropertiesMixinSetter ()">*TpDBusPropertiesMixinSetter</a>)      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> setter_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-setter-gobject-properties" title="tp_dbus_properties_mixin_setter_gobject_properties ()">tp_dbus_properties_mixin_setter_gobject_properties</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> setter_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-class-init" title="tp_dbus_properties_mixin_class_init ()">tp_dbus_properties_mixin_class_init</a> (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *cls</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> offset</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-implement-interface" title="tp_dbus_properties_mixin_implement_interface ()">tp_dbus_properties_mixin_implement_interface</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *cls</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> iface</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinGetter" title="TpDBusPropertiesMixinGetter ()"><span class="type">TpDBusPropertiesMixinGetter</span></a> getter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinSetter" title="TpDBusPropertiesMixinSetter ()"><span class="type">TpDBusPropertiesMixinSetter</span></a> setter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinPropImpl" title="TpDBusPropertiesMixinPropImpl"><span class="type">TpDBusPropertiesMixinPropImpl</span></a> *props</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-iface-init" title="tp_dbus_properties_mixin_iface_init ()">tp_dbus_properties_mixin_iface_init</a> (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-get" title="tp_dbus_properties_mixin_get ()">tp_dbus_properties_mixin_get</a>        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *interface_name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-set" title="tp_dbus_properties_mixin_set ()">tp_dbus_properties_mixin_set</a>        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *interface_name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-fill-properties-hash" title="tp_dbus_properties_mixin_fill_properties_hash ()">tp_dbus_properties_mixin_fill_properties_hash</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *table</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_interface</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_property</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-make-properties-hash" title="tp_dbus_properties_mixin_make_properties_hash ()">tp_dbus_properties_mixin_make_properties_hash</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_interface</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_property</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-emit-properties-changed" title="tp_dbus_properties_mixin_emit_properties_changed ()">tp_dbus_properties_mixin_emit_properties_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *interface_name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> * const *properties</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-emit-properties-changed-varargs" title="tp_dbus_properties_mixin_emit_properties_changed_varargs ()">tp_dbus_properties_mixin_emit_properties_changed_varargs</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *interface_name</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-dbus-properties-mixin.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GFlags
+   +----TpDBusPropertiesMixinFlags
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-dbus-properties-mixin.description"></a><h2>Description</h2>
+<p>
+This mixin provides an implementation of the org.freedesktop.DBus.Properties
+interface. It relies on the auto-generated service-side GInterfaces from
+telepathy-glib &gt;= 0.7.3, or something similar, to register the abstract
+properties and their GTypes; classes with the mixin can then register
+an implementation of the properties.
+</p>
+<p>
+To register D-Bus properties in a GInterface to be implementable with this
+mixin, either use the code-generation tools from telepathy-glib &gt;= 0.7.3,
+or call <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-svc-interface-set-dbus-properties-info" title="tp_svc_interface_set_dbus_properties_info ()"><code class="function">tp_svc_interface_set_dbus_properties_info()</code></a> from a section of the
+base_init function that only runs once.
+</p>
+<p>
+To use this mixin, include a <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinClass" title="TpDBusPropertiesMixinClass"><span class="type">TpDBusPropertiesMixinClass</span></a> somewhere
+in your class structure, populate it with pointers to statically allocated
+(or duplicated and never freed) data, and call
+<a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-class-init" title="tp_dbus_properties_mixin_class_init ()"><code class="function">tp_dbus_properties_mixin_class_init()</code></a> from your class_init implementation.
+</p>
+<p>
+To use this mixin as the implementation of <a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties"><span class="type">TpSvcDBusProperties</span></a>,
+call <code class="literal">G_IMPLEMENT_INTERFACE (TP_TYPE_SVC_DBUS_PROPERTIES,
+tp_dbus_properties_mixin_iface_init)</code> in the fourth argument to
+<code class="literal">G_DEFINE_TYPE_WITH_CODE</code>.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-dbus-properties-mixin.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpDBusPropertiesMixinFlags-enum"></a><h3>enum TpDBusPropertiesMixinFlags</h3>
+<pre class="programlisting">typedef enum {
+ /*&lt; flags &gt;*/
+    TP_DBUS_PROPERTIES_MIXIN_FLAG_READ = 1,
+    TP_DBUS_PROPERTIES_MIXIN_FLAG_WRITE = 2,
+    TP_DBUS_PROPERTIES_MIXIN_FLAG_EMITS_CHANGED = 4,
+    TP_DBUS_PROPERTIES_MIXIN_FLAG_EMITS_INVALIDATED = 8
+} TpDBusPropertiesMixinFlags;
+</pre>
+<p>
+Bitfield representing allowed access to a property. At most one of
+<a class="link" href="telepathy-glib-dbus-properties-mixin.html#TP-DBUS-PROPERTIES-MIXIN-FLAG-EMITS-CHANGED:CAPS"><code class="literal">TP_DBUS_PROPERTIES_MIXIN_FLAG_EMITS_CHANGED</code></a> and
+<a class="link" href="telepathy-glib-dbus-properties-mixin.html#TP-DBUS-PROPERTIES-MIXIN-FLAG-EMITS-INVALIDATED:CAPS"><code class="literal">TP_DBUS_PROPERTIES_MIXIN_FLAG_EMITS_INVALIDATED</code></a> may be specified for a
+property.
+</p>
+<p>
+Since 0.11.5, there is a corresponding <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Enumeration-and-Flag-Types.html#GFlagsClass"><span class="type">GFlagsClass</span></a> type,
+<a class="link" href="telepathy-glib-dbus-properties-mixin.html#TP-TYPE-DBUS-PROPERTIES-MIXIN-FLAGS:CAPS" title="TP_TYPE_DBUS_PROPERTIES_MIXIN_FLAGS"><code class="literal">TP_TYPE_DBUS_PROPERTIES_MIXIN_FLAGS</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="TP-DBUS-PROPERTIES-MIXIN-FLAG-READ:CAPS"></a><span class="term"><code class="literal">TP_DBUS_PROPERTIES_MIXIN_FLAG_READ</code></span></p></td>
+<td>The property can be read using Get and
+ GetAll
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-DBUS-PROPERTIES-MIXIN-FLAG-WRITE:CAPS"></a><span class="term"><code class="literal">TP_DBUS_PROPERTIES_MIXIN_FLAG_WRITE</code></span></p></td>
+<td>The property can be written using Set
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-DBUS-PROPERTIES-MIXIN-FLAG-EMITS-CHANGED:CAPS"></a><span class="term"><code class="literal">TP_DBUS_PROPERTIES_MIXIN_FLAG_EMITS_CHANGED</code></span></p></td>
+<td>The property's new value is
+ included in emissions of PropertiesChanged
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-DBUS-PROPERTIES-MIXIN-FLAG-EMITS-INVALIDATED:CAPS"></a><span class="term"><code class="literal">TP_DBUS_PROPERTIES_MIXIN_FLAG_EMITS_INVALIDATED</code></span></p></td>
+<td>The property is announced
+ as invalidated, without its value, in emissions of PropertiesChanged
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-TYPE-DBUS-PROPERTIES-MIXIN-FLAGS:CAPS"></a><h3>TP_TYPE_DBUS_PROPERTIES_MIXIN_FLAGS</h3>
+<pre class="programlisting">#define TP_TYPE_DBUS_PROPERTIES_MIXIN_FLAGS (tp_dbus_properties_mixin_flags_get_type ())
+</pre>
+<p>
+The <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Enumeration-and-Flag-Types.html#GFlagsClass"><span class="type">GFlagsClass</span></a> type of <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinFlags"><span class="type">TpDBusPropertiesMixinFlags</span></a>.
+</p>
+<p class="since">Since 0.11.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpDBusPropertiesMixinIfaceInfo"></a><h3>TpDBusPropertiesMixinIfaceInfo</h3>
+<pre class="programlisting">typedef struct {
+    GQuark dbus_interface;
+    TpDBusPropertiesMixinPropInfo *props;
+} TpDBusPropertiesMixinIfaceInfo;
+</pre>
+<p>
+Semi-abstract description of an interface. Each service GInterface that
+has properties must have one of these attached to it via
+<a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-svc-interface-set-dbus-properties-info" title="tp_svc_interface_set_dbus_properties_info ()"><code class="function">tp_svc_interface_set_dbus_properties_info()</code></a> in its base_init function;
+service GInterfaces that do not have properties may have one of these
+with no properties.
+</p>
+<p>
+This structure must either be statically allocated, or duplicated and never
+freed, so it always remains valid.
+</p>
+<p>
+In addition to the documented members, there are two private pointers
+for future expansion, which must always be initialized to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> <em class="structfield"><code><a name="TpDBusPropertiesMixinIfaceInfo.dbus-interface"></a>dbus_interface</code></em>;</span></p></td>
+<td>Quark representing the interface's name</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinPropInfo" title="TpDBusPropertiesMixinPropInfo"><span class="type">TpDBusPropertiesMixinPropInfo</span></a> *<em class="structfield"><code><a name="TpDBusPropertiesMixinIfaceInfo.props"></a>props</code></em>;</span></p></td>
+<td>Array of property descriptions, terminated by one with
+<em class="parameter"><code>name</code></em> == <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpDBusPropertiesMixinPropInfo"></a><h3>TpDBusPropertiesMixinPropInfo</h3>
+<pre class="programlisting">typedef struct {
+    GQuark name;
+    TpDBusPropertiesMixinFlags flags;
+    gchar *dbus_signature;
+    GType type;
+} TpDBusPropertiesMixinPropInfo;
+</pre>
+<p>
+Semi-abstract description of a property, as attached to a service
+GInterface. This structure must either be statically allocated, or
+duplicated and never freed, so it always remains valid.
+</p>
+<p>
+In addition to the documented members, there are two private pointers
+for future expansion, which must always be initialized to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> <em class="structfield"><code><a name="TpDBusPropertiesMixinPropInfo.name"></a>name</code></em>;</span></p></td>
+<td>Quark representing the property's name</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinFlags"><span class="type">TpDBusPropertiesMixinFlags</span></a> <em class="structfield"><code><a name="TpDBusPropertiesMixinPropInfo.flags"></a>flags</code></em>;</span></p></td>
+<td>Flags representing read/write access to the property</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="TpDBusPropertiesMixinPropInfo.dbus-signature"></a>dbus_signature</code></em>;</span></p></td>
+<td>The D-Bus signature of the property</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> <em class="structfield"><code><a name="TpDBusPropertiesMixinPropInfo.type"></a>type</code></em>;</span></p></td>
+<td>The GType used in a GValue to implement the property</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-interface-set-dbus-properties-info"></a><h3>tp_svc_interface_set_dbus_properties_info ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_interface_set_dbus_properties_info
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> g_interface</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinIfaceInfo" title="TpDBusPropertiesMixinIfaceInfo"><span class="type">TpDBusPropertiesMixinIfaceInfo</span></a> *info</code></em>);</pre>
+<p>
+Declare that <em class="parameter"><code>g_interface</code></em> implements the given D-Bus interface, with the
+given properties. This may only be called once per GInterface, usually from
+a section of its base_init function that only runs once.
+</p>
+<p>
+This is typically only used within generated code; there is normally no
+reason to call it manually.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>g_interface</code></em> :</span></p></td>
+<td>The <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> of a service interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>an interface description</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-interface-get-dbus-properties-info"></a><h3>tp_svc_interface_get_dbus_properties_info ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinIfaceInfo" title="TpDBusPropertiesMixinIfaceInfo"><span class="returnvalue">TpDBusPropertiesMixinIfaceInfo</span></a> * tp_svc_interface_get_dbus_properties_info
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> g_interface</code></em>);</pre>
+<p>
+Retrieves the D-Bus property metadata for the given interface, if any.
+This function is typically not useful outside telepathy-glib itself, but may
+be useful for domain-specific variations on the theme of SetProperty. If in
+doubt, you probably don't need this function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>g_interface</code></em> :</span></p></td>
+<td>The <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> of a service interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>D-Bus property metadata for <em class="parameter"><code>g_interface</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if it has
+none.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpDBusPropertiesMixinClass"></a><h3>TpDBusPropertiesMixinClass</h3>
+<pre class="programlisting">typedef struct {
+    TpDBusPropertiesMixinIfaceImpl *interfaces;
+} TpDBusPropertiesMixinClass;
+</pre>
+<p>
+Structure representing all of a class's property implementations. One of
+these structures may be placed in the layout of an object class structure.
+</p>
+<p>
+In addition to the documented fields, there are 7 pointers reserved for
+future use, which must be initialized to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinIfaceImpl" title="TpDBusPropertiesMixinIfaceImpl"><span class="type">TpDBusPropertiesMixinIfaceImpl</span></a> *<em class="structfield"><code><a name="TpDBusPropertiesMixinClass.interfaces"></a>interfaces</code></em>;</span></p></td>
+<td>An array of interface implementations, terminated by one with
+<em class="parameter"><code>name</code></em> equal to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.7.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpDBusPropertiesMixinIfaceImpl"></a><h3>TpDBusPropertiesMixinIfaceImpl</h3>
+<pre class="programlisting">typedef struct {
+    const gchar *name;
+    TpDBusPropertiesMixinGetter getter;
+    TpDBusPropertiesMixinSetter setter;
+    TpDBusPropertiesMixinPropImpl *props;
+} TpDBusPropertiesMixinIfaceImpl;
+</pre>
+<p>
+Structure representing an implementation of an interface's properties.
+</p>
+<p>
+In addition to the documented fields, there are four pointers which must
+be initialized to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p>
+This structure must either be statically allocated, or duplicated and never
+freed, so it always remains valid.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="TpDBusPropertiesMixinIfaceImpl.name"></a>name</code></em>;</span></p></td>
+<td>The name of the interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinGetter" title="TpDBusPropertiesMixinGetter ()"><span class="type">TpDBusPropertiesMixinGetter</span></a> <em class="structfield"><code><a name="TpDBusPropertiesMixinIfaceImpl.getter"></a>getter</code></em>;</span></p></td>
+<td>A callback to get the current value of the property, to which
+the <em class="parameter"><code>getter_data</code></em> from each property implementation will be passed</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinSetter" title="TpDBusPropertiesMixinSetter ()"><span class="type">TpDBusPropertiesMixinSetter</span></a> <em class="structfield"><code><a name="TpDBusPropertiesMixinIfaceImpl.setter"></a>setter</code></em>;</span></p></td>
+<td>A callback to set a new value for the property, to which
+the <em class="parameter"><code>setter_data</code></em> from each property implementation will be passed</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinPropImpl" title="TpDBusPropertiesMixinPropImpl"><span class="type">TpDBusPropertiesMixinPropImpl</span></a> *<em class="structfield"><code><a name="TpDBusPropertiesMixinIfaceImpl.props"></a>props</code></em>;</span></p></td>
+<td>An array of property implementations, terminated by one with
+<em class="parameter"><code>name</code></em> equal to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpDBusPropertiesMixinPropImpl"></a><h3>TpDBusPropertiesMixinPropImpl</h3>
+<pre class="programlisting">typedef struct {
+    const gchar *name;
+    gpointer getter_data;
+    gpointer setter_data;
+} TpDBusPropertiesMixinPropImpl;
+</pre>
+<p>
+Structure representing an implementation of a property.
+</p>
+<p>
+In addition to the documented fields, there are three pointers which must
+be initialized to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p>
+This structure must either be statically allocated, or duplicated and never
+freed, so it always remains valid.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="TpDBusPropertiesMixinPropImpl.name"></a>name</code></em>;</span></p></td>
+<td>The name of the property as it appears on D-Bus</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> <em class="structfield"><code><a name="TpDBusPropertiesMixinPropImpl.getter-data"></a>getter_data</code></em>;</span></p></td>
+<td>Arbitrary user-supplied data for the getter function</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> <em class="structfield"><code><a name="TpDBusPropertiesMixinPropImpl.setter-data"></a>setter_data</code></em>;</span></p></td>
+<td>Arbitrary user-supplied data for the setter function</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpDBusPropertiesMixinGetter"></a><h3>TpDBusPropertiesMixinGetter ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpDBusPropertiesMixinGetter)      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> getter_data</code></em>);</pre>
+<p>
+Signature of a callback used to get the value of a property.
+</p>
+<p>
+For simplicity, in this mixin we don't allow getting a property to fail;
+implementations must always be prepared to return *something*.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>The exported object with the properties</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface</code></em> :</span></p></td>
+<td>A quark representing the D-Bus interface name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>A quark representing the D-Bus property name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>A GValue pre-initialized to the right type, into which to put
+the value</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>getter_data</code></em> :</span></p></td>
+<td>The getter_data from the <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinPropImpl" title="TpDBusPropertiesMixinPropImpl"><span class="type">TpDBusPropertiesMixinPropImpl</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-dbus-properties-mixin-getter-gobject-properties"></a><h3>tp_dbus_properties_mixin_getter_gobject_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_dbus_properties_mixin_getter_gobject_properties
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> getter_data</code></em>);</pre>
+<p>
+An implementation of <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinGetter" title="TpDBusPropertiesMixinGetter ()"><span class="type">TpDBusPropertiesMixinGetter</span></a> which assumes that
+the <em class="parameter"><code>getter_data</code></em> is the name of a readable <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> property of an
+appropriate type, and uses it for the value of the D-Bus property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>The exported object with the properties</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface</code></em> :</span></p></td>
+<td>A quark representing the D-Bus interface name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>A quark representing the D-Bus property name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>A GValue pre-initialized to the right type, into which to put
+the value</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>getter_data</code></em> :</span></p></td>
+<td>The getter_data from the <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinPropImpl" title="TpDBusPropertiesMixinPropImpl"><span class="type">TpDBusPropertiesMixinPropImpl</span></a>,
+which must be a string containing the GObject property's name</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpDBusPropertiesMixinSetter"></a><h3>TpDBusPropertiesMixinSetter ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpDBusPropertiesMixinSetter)      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> setter_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of a callback used to get the value of a property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>The exported object with the properties</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface</code></em> :</span></p></td>
+<td>A quark representing the D-Bus interface name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>A quark representing the D-Bus property name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>The new value for the property</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>setter_data</code></em> :</span></p></td>
+<td>The setter_data from the <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinPropImpl" title="TpDBusPropertiesMixinPropImpl"><span class="type">TpDBusPropertiesMixinPropImpl</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to return an error on failure</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> (setting <em class="parameter"><code>error</code></em>) on failure</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-dbus-properties-mixin-setter-gobject-properties"></a><h3>tp_dbus_properties_mixin_setter_gobject_properties ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_dbus_properties_mixin_setter_gobject_properties
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> setter_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+An implementation of <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinSetter" title="TpDBusPropertiesMixinSetter ()"><span class="type">TpDBusPropertiesMixinSetter</span></a> which assumes that the
+<em class="parameter"><code>setter_data</code></em> is the name of a writable <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> property of an appropriate
+type, and sets that property to the given value.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>The exported object with the properties</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface</code></em> :</span></p></td>
+<td>A quark representing the D-Bus interface name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>A quark representing the D-Bus property name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>The new value for the property</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>setter_data</code></em> :</span></p></td>
+<td>The setter_data from the <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinPropImpl" title="TpDBusPropertiesMixinPropImpl"><span class="type">TpDBusPropertiesMixinPropImpl</span></a>,
+which must be a string containing the GObject property's name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Not used</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td><a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-dbus-properties-mixin-class-init"></a><h3>tp_dbus_properties_mixin_class_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_dbus_properties_mixin_class_init (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *cls</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> offset</code></em>);</pre>
+<p>
+Initialize the class <em class="parameter"><code>cls</code></em> to use the D-Bus Properties mixin.
+The given struct member, of size sizeof(TpDBusPropertiesMixinClass),
+will be used to store property implementation information.
+</p>
+<p>
+Each property and each interface must have been declared as a member of
+a GInterface implemented by <em class="parameter"><code>cls</code></em>, using
+<a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-svc-interface-set-dbus-properties-info" title="tp_svc_interface_set_dbus_properties_info ()"><code class="function">tp_svc_interface_set_dbus_properties_info()</code></a>.
+</p>
+<p>
+Before calling this function, the array <em class="parameter"><code>interfaces</code></em> must have been
+placed in the <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinClass" title="TpDBusPropertiesMixinClass"><span class="type">TpDBusPropertiesMixinClass</span></a> structure; if it would be empty,
+it may instead be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p>
+This function should be called from the class_init callback in such a way
+that it will only be called once, even if the class is subclassed.
+</p>
+<p>
+Changed in 0.7.9: TpDBusPropertiesMixinClass::interfaces may now be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>,
+which means that only interfaces whose properties are set up using
+<a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-implement-interface" title="tp_dbus_properties_mixin_implement_interface ()"><code class="function">tp_dbus_properties_mixin_implement_interface()</code></a> will be used.
+</p>
+<p>
+Changed in 0.7.15: <em class="parameter"><code>offset</code></em> may now be 0, in which case the
+<a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinClass" title="TpDBusPropertiesMixinClass"><span class="type">TpDBusPropertiesMixinClass</span></a> can be omitted from <em class="parameter"><code>cls</code></em>.  It is treated as if
+it were present, but with all fields (including
+TpDBusPropertiesMixinClass::interfaces) being <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, so only interfaces
+whose properties are set using
+<a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-implement-interface" title="tp_dbus_properties_mixin_implement_interface ()"><code class="function">tp_dbus_properties_mixin_implement_interface()</code></a> will be used.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cls</code></em> :</span></p></td>
+<td>a subclass of <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>the offset within <em class="parameter"><code>cls</code></em> of a TpDBusPropertiesMixinClass structure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-dbus-properties-mixin-implement-interface"></a><h3>tp_dbus_properties_mixin_implement_interface ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_dbus_properties_mixin_implement_interface
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *cls</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> iface</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinGetter" title="TpDBusPropertiesMixinGetter ()"><span class="type">TpDBusPropertiesMixinGetter</span></a> getter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinSetter" title="TpDBusPropertiesMixinSetter ()"><span class="type">TpDBusPropertiesMixinSetter</span></a> setter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinPropImpl" title="TpDBusPropertiesMixinPropImpl"><span class="type">TpDBusPropertiesMixinPropImpl</span></a> *props</code></em>);</pre>
+<p>
+Declare that, in addition to any interfaces set in
+<a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-class-init" title="tp_dbus_properties_mixin_class_init ()"><code class="function">tp_dbus_properties_mixin_class_init()</code></a>, the given class (and its subclasses)
+will implement the properties of the interface <em class="parameter"><code>iface</code></em> using the callbacks
+<em class="parameter"><code>getter</code></em> and <em class="parameter"><code>setter</code></em> and the properties given by <em class="parameter"><code>props</code></em>.
+</p>
+<p>
+This function should be called from the class_init callback in such a way
+that it will only be called once, even if the class is subclassed.
+</p>
+<p>
+Typically, the static array <em class="parameter"><code>interfaces</code></em> in the <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinClass" title="TpDBusPropertiesMixinClass"><span class="type">TpDBusPropertiesMixinClass</span></a>
+should be used for interfaces whose properties are implemented directly by
+the class <em class="parameter"><code>cls</code></em>, and this function should be used for interfaces whose
+properties are implemented by mixins.
+</p>
+<p>
+It is an error for the same interface to appear in the array <em class="parameter"><code>interfaces</code></em>
+in the <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinClass" title="TpDBusPropertiesMixinClass"><span class="type">TpDBusPropertiesMixinClass</span></a>, and also be set up by this function.
+</p>
+<p>
+If a class C and a subclass S both implement the properties of the same
+interface, only the implementations from the subclass S will be used,
+regardless of whether the implementations in C and/or S were set up by
+this function or via the array <em class="parameter"><code>interfaces</code></em> in the
+<a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinClass" title="TpDBusPropertiesMixinClass"><span class="type">TpDBusPropertiesMixinClass</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cls</code></em> :</span></p></td>
+<td>a subclass of <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface</code></em> :</span></p></td>
+<td>a quark representing the the name of the interface to implement</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>getter</code></em> :</span></p></td>
+<td>a callback to get properties on this interface, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if they
+are all write-only</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>setter</code></em> :</span></p></td>
+<td>a callback to set properties on this interface, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if they
+are all read-only</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>props</code></em> :</span></p></td>
+<td>an array of <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinPropImpl" title="TpDBusPropertiesMixinPropImpl"><span class="type">TpDBusPropertiesMixinPropImpl</span></a> representing individual
+properties, terminated by one with <em class="parameter"><code>name</code></em> == <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-dbus-properties-mixin-iface-init"></a><h3>tp_dbus_properties_mixin_iface_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_dbus_properties_mixin_iface_init (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);</pre>
+<p>
+Declare that the DBus.Properties interface represented by <em class="parameter"><code>g_iface</code></em>
+is implemented using this mixin.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>g_iface</code></em> :</span></p></td>
+<td>a pointer to a <a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusPropertiesClass" title="TpSvcDBusPropertiesClass"><span class="type">TpSvcDBusPropertiesClass</span></a> structure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface_data</code></em> :</span></p></td>
+<td>ignored</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-dbus-properties-mixin-get"></a><h3>tp_dbus_properties_mixin_get ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_dbus_properties_mixin_get        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *interface_name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Initialize <em class="parameter"><code>value</code></em> with the type of the property <em class="parameter"><code>property_name</code></em> on
+<em class="parameter"><code>interface_name</code></em>, and write the value of that property into it as if
+by calling the D-Bus method org.freedesktop.DBus.Properties.Get.
+</p>
+<p>
+If Get would return a D-Bus error, <em class="parameter"><code>value</code></em> remains unset and <em class="parameter"><code>error</code></em>
+is filled in instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interface_name</code></em> :</span></p></td>
+<td>a D-Bus interface name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property_name</code></em> :</span></p></td>
+<td>a D-Bus property name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>an unset GValue (initialized to all zeroes)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>used to return an error on failure</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> (filling <em class="parameter"><code>value</code></em>) on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> (setting <em class="parameter"><code>error</code></em>)
+on failure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-dbus-properties-mixin-set"></a><h3>tp_dbus_properties_mixin_set ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_dbus_properties_mixin_set        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *interface_name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Sets a property to the value specified by <em class="parameter"><code>value</code></em>, as if by
+calling the D-Bus method org.freedesktop.DBus.Properties.Set.
+</p>
+<p>
+If Set would return a D-Bus error, sets <em class="parameter"><code>error</code></em> and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interface_name</code></em> :</span></p></td>
+<td>a D-Bus interface name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property_name</code></em> :</span></p></td>
+<td>a D-Bus property name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a GValue containing the new value for this property.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>used to return an error on failure</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success; <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> (setting <em class="parameter"><code>error</code></em>) on failure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-dbus-properties-mixin-fill-properties-hash"></a><h3>tp_dbus_properties_mixin_fill_properties_hash ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_dbus_properties_mixin_fill_properties_hash
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *table</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_interface</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_property</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Retrieves the values of several D-Bus properties from an object, and adds
+them to a hash mapping the fully-qualified name of the property to its
+value. This is equivalent to calling <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-get" title="tp_dbus_properties_mixin_get ()"><code class="function">tp_dbus_properties_mixin_get()</code></a> for
+each property and adding it to the table yourself, with the proviso that
+this function will <a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert"><code class="function">g_assert()</code></a> if retrieving a property fails (for instance,
+because it does not exist).
+</p>
+<p>
+Note that in particular, <em class="parameter"><code>table</code></em> does not have the same memory-allocation
+model as the hash tables required by <a class="link" href="telepathy-glib-asv.html#tp-asv-set-string" title="tp_asv_set_string ()"><code class="function">tp_asv_set_string()</code></a> and similar
+functions.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>an object which uses the D-Bus properties mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>table</code></em> :</span></p></td>
+<td>a hash table where the keys are
+strings copied with <a href="http://library.gnome.org/devel/glib/unstable/glib-String-Utility-Functions.html#g-strdup"><code class="function">g_strdup()</code></a> and the values are slice-allocated
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a>s. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_interface</code></em> :</span></p></td>
+<td>the interface of the first property to be retrieved</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_property</code></em> :</span></p></td>
+<td>the name of the first property to be retrieved</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>more (interface name, property name) pairs, terminated by <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-dbus-properties-mixin-make-properties-hash"></a><h3>tp_dbus_properties_mixin_make_properties_hash ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        tp_dbus_properties_mixin_make_properties_hash
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_interface</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_property</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Retrieves the values of several D-Bus properties from an object, and builds
+a hash mapping the fully-qualified name of the property to its value.  This
+is equivalent to calling <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-get" title="tp_dbus_properties_mixin_get ()"><code class="function">tp_dbus_properties_mixin_get()</code></a> for each property
+and building the table yourself, with the proviso that this function will
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert"><code class="function">g_assert()</code></a> if retrieving a property fails (for instance, because it does not
+exist).
+</p>
+<p>
+Additional keys and values can be inserted into the returned hash table;
+if this is done, the inserted keys and values will be freed when the
+hash table is destroyed. The keys must be allocated with <a href="http://library.gnome.org/devel/glib/unstable/glib-String-Utility-Functions.html#g-strdup"><code class="function">g_strdup()</code></a> or
+equivalent, and the values must be slice-allocated (for instance with
+<a class="link" href="telepathy-glib-util.html#tp-g-value-slice-new-string" title="tp_g_value_slice_new_string ()"><code class="function">tp_g_value_slice_new_string()</code></a> or a similar function).
+</p>
+<p>
+Note that in particular, <a class="link" href="telepathy-glib-asv.html#tp-asv-set-string" title="tp_asv_set_string ()"><code class="function">tp_asv_set_string()</code></a> and similar functions should
+not be used with this hash table.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>an object which uses the D-Bus properties mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_interface</code></em> :</span></p></td>
+<td>the interface of the first property to be retrieved</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_property</code></em> :</span></p></td>
+<td>the name of the first property to be retrieved</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>more (interface name, property name) pairs, terminated by <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a hash table mapping (gchar *) fully-qualified property names to
+GValues, which must be freed by the caller (at which point its
+contents will also be freed).</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-dbus-properties-mixin-emit-properties-changed"></a><h3>tp_dbus_properties_mixin_emit_properties_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_dbus_properties_mixin_emit_properties_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *interface_name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> * const *properties</code></em>);</pre>
+<p>
+Emits the PropertiesChanged signal for the provided properties. Depending on
+the EmitsChangedSignal annotations in the introspection XML, either the new
+value of the property will be included in the signal, or merely the fact
+that the property has changed.
+</p>
+<p>
+For example, the MPRIS specification defines a TrackList interface with two
+properties, one of which is annotated with EmitsChangedSignal=true and one
+annotated with EmitsChangedSignal=invalidates. The following call would
+include the new value of CanEditTracks and list Tracks as invalidated:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">const</span> gchar <span class="gtkdoc opt">*</span>properties<span class="gtkdoc opt">[] = {</span> <span class="string">&quot;CanEditTracks&quot;</span><span class="gtkdoc opt">,</span> <span class="string">&quot;Tracks&quot;</span><span class="gtkdoc opt">,</span> NULL <span class="gtkdoc opt">};</span>
+
+<span class="function"><a href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-emit-properties-changed">tp_dbus_properties_mixin_emit_properties_changed</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#G-OBJECT:CAPS">G_OBJECT</a></span> <span class="gtkdoc opt">(</span>self<span class="gtkdoc opt">),</span>
+    <span class="string">&quot;org.mpris.MediaPlayer2.TrackList&quot;</span><span class="gtkdoc opt">,</span> properties<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+It is an error to pass a property to this
+function if the property is annotated with EmitsChangedSignal=false, or is
+unannotated.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>an object which uses the D-Bus properties mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interface_name</code></em> :</span></p></td>
+<td>the interface on which properties have changed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>properties</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated array of (unqualified)
+property names whose values have changed. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-dbus-properties-mixin-emit-properties-changed-varargs"></a><h3>tp_dbus_properties_mixin_emit_properties_changed_varargs ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_dbus_properties_mixin_emit_properties_changed_varargs
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *interface_name</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+A shortcut for calling <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-emit-properties-changed" title="tp_dbus_properties_mixin_emit_properties_changed ()"><code class="function">tp_dbus_properties_mixin_emit_properties_changed()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>an object which uses the D-Bus properties mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interface_name</code></em> :</span></p></td>
+<td>the interface on which properties have changed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>property names (unqualified) whose values have changed, terminated by
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-dbus-properties-mixin.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties"><span class="type">TpSvcDBusProperties</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

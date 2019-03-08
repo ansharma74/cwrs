@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>org.gnome.evolution.dataserver.SourceManager</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Private">
+<link rel="up" href="ch02.html" title="D-Bus Interfaces">
+<link rel="prev" href="gdbus-org.gnome.evolution.dataserver.Source.RemoteDeletable.html" title="org.gnome.evolution.dataserver.Source.RemoteDeletable">
+<link rel="next" href="gdbus-org.gnome.evolution.dataserver.Authenticator.html" title="org.gnome.evolution.dataserver.Authenticator">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gdbus-org.gnome.evolution.dataserver.Source.RemoteDeletable.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Private</th>
+<td><a accesskey="n" href="gdbus-org.gnome.evolution.dataserver.Authenticator.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gdbus-org.gnome.evolution.dataserver.SourceManager.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gdbus-org.gnome.evolution.dataserver.SourceManager.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gdbus-org.gnome.evolution.dataserver.SourceManager"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gdbus-interface-org-gnome-evolution-dataserver-SourceManager.top_of_page"></a>org.gnome.evolution.dataserver.SourceManager</span></h2>
+<p>org.gnome.evolution.dataserver.SourceManager — SourceManager interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<h2>Methods</h2>
+<pre class="synopsis">
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.SourceManager.html#gdbus-method-org-gnome-evolution-dataserver-SourceManager.Authenticate" title="The Authenticate() method">Authenticate</a>  (IN  s     uid,
+               IN  s     prompt_title,
+               IN  s     prompt_message,
+               IN  s     prompt_description,
+               OUT s     object_path);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.SourceManager.html#gdbus-method-org-gnome-evolution-dataserver-SourceManager.CreateSources" title="The CreateSources() method">CreateSources</a> (IN  a{ss} array);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.SourceManager.html#gdbus-method-org-gnome-evolution-dataserver-SourceManager.Reload" title="The Reload() method">Reload</a>        ();
+</pre>
+</div>
+<div class="refsect1">
+<a name="gdbus-interface-org-gnome-evolution-dataserver-SourceManager"></a><h2>Description</h2>
+<p>    Interface for top-level manager singleton objects.
+</p>
+</div>
+<div class="refsect1">
+<a name="gdbus-methods-org.gnome.evolution.dataserver.SourceManager"></a><h2>Method Details</h2>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-SourceManager.Authenticate"></a><h3>The Authenticate() method</h3>
+<pre class="programlisting">
+Authenticate (IN  s uid,
+              IN  s prompt_title,
+              IN  s prompt_message,
+              IN  s prompt_description,
+              OUT s object_path);
+</pre>
+<p>      Initiates a new authentication session at the returned object
+      path.  The client should prepare to receive Response signals
+      from the Authenticator interface at that object path, then
+      call the interface's Ready method.
+</p>
+<p>      The <em class="parameter"><code>prompt_title</code></em>, <em class="parameter"><code>prompt_message</code></em> and <em class="parameter"><code>prompt_description</code></em>
+      arguments are used to construct an authentication prompt if
+      necessary.  (See #GcrPrompt for details.)
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>uid</code></em></code>:</span></p></td>
+<td><p>Unique identifier for the authenticating source</p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>prompt_title</code></em></code>:</span></p></td>
+<td><p>The title of the prompt</p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>prompt_message</code></em></code>:</span></p></td>
+<td><p>The prompt message for the user</p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>prompt_description</code></em></code>:</span></p></td>
+<td><p>The detailed description of the prompt</p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT s <em class="parameter"><code>object_path</code></em></code>:</span></p></td>
+<td><p>Object path of a new authentication session</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-SourceManager.CreateSources"></a><h3>The CreateSources() method</h3>
+<pre class="programlisting">
+CreateSources (IN  a{ss} array);
+</pre>
+<p>      Creates a new data source for each "uid" and "data" string pair in
+      <em class="parameter"><code>array</code></em> and adds them to the list of managed objects.  The "uid" part
+      is a unique identifier for the new source, and the "data" part is the
+      raw key file data describing the new source.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><code class="literal">IN a{ss} <em class="parameter"><code>array</code></em></code>:</span></p></td>
+<td><p>An array of "uid" and "data" pairs</p></td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-SourceManager.Reload"></a><h3>The Reload() method</h3>
+<pre class="programlisting">
+Reload ();
+</pre>
+<p>      Reloads the registry service as if it were stopped and restarted.
+      Client applications will see all exported objects suddenly removed
+      and replaced by a new and possibly different set of objects.
+</p>
+<p>      The primary use case for this method is to rerun the data migration
+      routines that run automatically on startup.
+</p>
+<p>      A reload can also be triggered by sending the SourceManager process
+      a SIGHUP on platforms that support it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

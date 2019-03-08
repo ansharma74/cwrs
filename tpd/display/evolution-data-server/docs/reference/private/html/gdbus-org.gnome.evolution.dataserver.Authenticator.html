@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>org.gnome.evolution.dataserver.Authenticator</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Private">
+<link rel="up" href="ch02.html" title="D-Bus Interfaces">
+<link rel="prev" href="gdbus-org.gnome.evolution.dataserver.SourceManager.html" title="org.gnome.evolution.dataserver.SourceManager">
+<link rel="next" href="api-index-full.html" title="Index">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gdbus-org.gnome.evolution.dataserver.SourceManager.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Private</th>
+<td><a accesskey="n" href="api-index-full.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gdbus-org.gnome.evolution.dataserver.Authenticator.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gdbus-org.gnome.evolution.dataserver.Authenticator.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gdbus-org.gnome.evolution.dataserver.Authenticator.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gdbus-org.gnome.evolution.dataserver.Authenticator"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gdbus-interface-org-gnome-evolution-dataserver-Authenticator.top_of_page"></a>org.gnome.evolution.dataserver.Authenticator</span></h2>
+<p>org.gnome.evolution.dataserver.Authenticator — Authentication interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<h2>Methods</h2>
+<pre class="synopsis">
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Authenticator.html#gdbus-method-org-gnome-evolution-dataserver-Authenticator.Ready" title="The Ready() method">Ready</a>    (IN  s encryption_key);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Authenticator.html#gdbus-method-org-gnome-evolution-dataserver-Authenticator.Cancel" title="The Cancel() method">Cancel</a>   ();
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Authenticator.html#gdbus-method-org-gnome-evolution-dataserver-Authenticator.Accepted" title="The Accepted() method">Accepted</a> ();
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Authenticator.html#gdbus-method-org-gnome-evolution-dataserver-Authenticator.Rejected" title="The Rejected() method">Rejected</a> ();
+</pre>
+</div>
+<div class="refsect1">
+<a name="idp3198144"></a><h2>Signals</h2>
+<pre class="synopsis">
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Authenticator.html#gdbus-signal-org-gnome-evolution-dataserver-Authenticator.Authenticate" title='The "Authenticate" signal'>Authenticate</a> (s encrypted_secret);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Authenticator.html#gdbus-signal-org-gnome-evolution-dataserver-Authenticator.Dismissed" title='The "Dismissed" signal'>Dismissed</a>    ();
+</pre>
+</div>
+<div class="refsect1">
+<a name="gdbus-interface-org-gnome-evolution-dataserver-Authenticator"></a><h2>Description</h2>
+<p>    Interface for an authentication session.
+</p>
+</div>
+<div class="refsect1">
+<a name="gdbus-methods-org.gnome.evolution.dataserver.Authenticator"></a><h2>Method Details</h2>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Authenticator.Ready"></a><h3>The Ready() method</h3>
+<pre class="programlisting">
+Ready (IN  s encryption_key);
+</pre>
+<p>      Indicates the client is ready to receive Response signals.
+      If this method is not called within a short duration after
+      the object path for this interface is exported, the object
+      path will be unexported.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>encryption_key</code></em></code>:</span></p></td>
+<td><p>Implementation defined encryption key</p></td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Authenticator.Cancel"></a><h3>The Cancel() method</h3>
+<pre class="programlisting">
+Cancel ();
+</pre>
+<p>      Indicates the client no longer wishes to authenticate.
+      Any active or pending authentication prompt will be cancelled,
+      and the object path for this interface will be unexported.
+</p>
+<p>      The object path for this interface will be unexported.
+</p>
+<p>      This method ends the authentication session.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Authenticator.Accepted"></a><h3>The Accepted() method</h3>
+<pre class="programlisting">
+Accepted ();
+</pre>
+<p>      Indicates the most-recently-passed secret was accepted.  If the
+      user wishes, the secret can be copied to a keyring for permanent
+      storage at this point.
+</p>
+<p>      The object path for this interface will be unexported.
+</p>
+<p>      This method ends the authentication session.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Authenticator.Rejected"></a><h3>The Rejected() method</h3>
+<pre class="programlisting">
+Rejected ();
+</pre>
+<p>      Indicates the most-recently-passed secret was rejected.  The
+      client should continue listening for a new Authenticate signal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdbus-signals-org.gnome.evolution.dataserver.Authenticator"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="gdbus-signal-org-gnome-evolution-dataserver-Authenticator.Authenticate"></a><h3>The "Authenticate" signal</h3>
+<pre class="programlisting">
+Authenticate (s encrypted_secret);
+</pre>
+<p>      Emitted when the user has responded to an authentication prompt.
+</p>
+<p>      The client should attempt to authenticate using the provided
+      secret and then respond by calling either Accepted, Rejected
+      or Cancel.  The Authenticate signal will not be emitted again
+      until the client has responded.
+</p>
+<p>      If at any time the user cancels the authentication prompt, the
+      Dismissed signal is emitted immediately.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><code class="literal">s <em class="parameter"><code>encrypted_secret</code></em></code>:</span></p></td>
+<td><p>Encrypted secret string</p></td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-signal-org-gnome-evolution-dataserver-Authenticator.Dismissed"></a><h3>The "Dismissed" signal</h3>
+<pre class="programlisting">
+Dismissed ();
+</pre>
+<p>      Emitted when the user has declined to provide a secret.
+</p>
+<p>      Any further attempts to authenticate the Source will emit a
+      Dismissed signal without interrupting the user.  This state
+      persists until the ResetAuthDismissal method is called.
+</p>
+<p>      This signal ends the authentication session.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

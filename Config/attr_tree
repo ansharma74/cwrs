@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Place yourself outside of the ATTR source tree.  In
+# this example, the environment variable ATTR_SOURCE
+# is assumed to contain the absolute ATTR source directory.
+
+(cd $ATTR_SOURCE; find . -type f) | while read F; do
+	mkdir -p `dirname $F`
+	ln -s $ATTR_SOURCE/$F $F
+done
+

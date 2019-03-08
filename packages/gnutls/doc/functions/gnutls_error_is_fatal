@@ -1,0 +1,19 @@
+
+
+@subheading gnutls_error_is_fatal
+@anchor{gnutls_error_is_fatal}
+@deftypefun {int} {gnutls_error_is_fatal} (int @var{error})
+@var{error}: is a GnuTLS error code, a negative error code
+
+If a GnuTLS function returns a negative error code you may feed that
+value to this function to see if the error condition is fatal. 
+Note that you may also want to check the error code manually, since some
+non-fatal errors to the protocol (such as a warning alert or
+a rehandshake request) may be fatal for your program.
+
+This function is only useful if you are dealing with errors from
+the record layer or the handshake layer.
+
+@strong{Returns:} 1 if the error code is fatal, for positive  @code{error} values,
+0 is returned.  For unknown  @code{error} values, -1 is returned.
+@end deftypefun

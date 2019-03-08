@@ -1,0 +1,795 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EServerSideSource</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Backend Utilities (libebackend)">
+<link rel="up" href="ch02.html" title="Registry Service Classes">
+<link rel="prev" href="ECollectionBackendFactory.html" title="ECollectionBackendFactory">
+<link rel="next" href="ESourceRegistryServer.html" title="ESourceRegistryServer">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ECollectionBackendFactory.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Backend Utilities (libebackend)</th>
+<td><a accesskey="n" href="ESourceRegistryServer.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#EServerSideSource.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#EServerSideSource.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#EServerSideSource.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#EServerSideSource.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#EServerSideSource.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="EServerSideSource"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="EServerSideSource.top_of_page"></a>EServerSideSource</span></h2>
+<p>EServerSideSource — A server-side data source</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="EServerSideSource.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;libebackend/libebackend.h&gt;
+
+struct              <a class="link" href="EServerSideSource.html#EServerSideSource-struct" title="struct EServerSideSource">EServerSideSource</a>;
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="EServerSideSource.html#e-server-side-source-get-user-dir" title="e_server_side_source_get_user_dir ()">e_server_side_source_get_user_dir</a>   (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="returnvalue">GFile</span></a> *             <a class="link" href="EServerSideSource.html#e-server-side-source-new-user-file" title="e_server_side_source_new_user_file ()">e_server_side_source_new_user_file</a>  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="EServerSideSource.html#e-server-side-source-uid-from-file" title="e_server_side_source_uid_from_file ()">e_server_side_source_uid_from_file</a>  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> *file</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           <a class="link" href="EServerSideSource.html#e-server-side-source-new" title="e_server_side_source_new ()">e_server_side_source_new</a>            (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> *file</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           <a class="link" href="EServerSideSource.html#e-server-side-source-new-memory-only" title="e_server_side_source_new_memory_only ()">e_server_side_source_new_memory_only</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EServerSideSource.html#e-server-side-source-load" title="e_server_side_source_load ()">e_server_side_source_load</a>           (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="returnvalue">GFile</span></a> *             <a class="link" href="EServerSideSource.html#e-server-side-source-get-file" title="e_server_side_source_get_file ()">e_server_side_source_get_file</a>       (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-N-ary-Trees.html#GNode"><span class="returnvalue">GNode</span></a> *             <a class="link" href="EServerSideSource.html#e-server-side-source-get-node" title="e_server_side_source_get_node ()">e_server_side_source_get_node</a>       (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>);
+<a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="returnvalue">ESourceRegistryServer</span></a> * <a class="link" href="EServerSideSource.html#e-server-side-source-get-server" title="e_server_side_source_get_server ()">e_server_side_source_get_server</a> (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EServerSideSource.html#e-server-side-source-get-allow-auth-prompt" title="e_server_side_source_get_allow_auth_prompt ()">e_server_side_source_get_allow_auth_prompt</a>
+                                                        (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EServerSideSource.html#e-server-side-source-set-allow-auth-prompt" title="e_server_side_source_set_allow_auth_prompt ()">e_server_side_source_set_allow_auth_prompt</a>
+                                                        (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> allow_auth_prompt</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EServerSideSource.html#e-server-side-source-get-exported" title="e_server_side_source_get_exported ()">e_server_side_source_get_exported</a>   (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="EServerSideSource.html#e-server-side-source-get-write-directory" title="e_server_side_source_get_write_directory ()">e_server_side_source_get_write_directory</a>
+                                                        (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EServerSideSource.html#e-server-side-source-set-write-directory" title="e_server_side_source_set_write_directory ()">e_server_side_source_set_write_directory</a>
+                                                        (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *write_directory</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EServerSideSource.html#e-server-side-source-set-removable" title="e_server_side_source_set_removable ()">e_server_side_source_set_removable</a>  (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> removable</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EServerSideSource.html#e-server-side-source-set-writable" title="e_server_side_source_set_writable ()">e_server_side_source_set_writable</a>   (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> writable</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EServerSideSource.html#e-server-side-source-set-remote-creatable" title="e_server_side_source_set_remote_creatable ()">e_server_side_source_set_remote_creatable</a>
+                                                        (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> remote_creatable</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EServerSideSource.html#e-server-side-source-set-remote-deletable" title="e_server_side_source_set_remote_deletable ()">e_server_side_source_set_remote_deletable</a>
+                                                        (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> remote_deletable</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="EServerSideSource.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="/usr/share/gtk-doc/html/libedataserver/ESource.html">ESource</a>
+         +----EServerSideSource
+</pre>
+</div>
+<div class="refsect1">
+<a name="EServerSideSource.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+EServerSideSource implements
+ <a href="http://library.gnome.org/devel/gio/unstable/GInitable.html">GInitable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="EServerSideSource.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="EServerSideSource.html#EServerSideSource--allow-auth-prompt" title='The "allow-auth-prompt" property'>allow-auth-prompt</a>"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct
+  "<a class="link" href="EServerSideSource.html#EServerSideSource--exported" title='The "exported" property'>exported</a>"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+  "<a class="link" href="EServerSideSource.html#EServerSideSource--file" title='The "file" property'>file</a>"                     <a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a>*                : Read / Write / Construct Only
+  "<a class="link" href="EServerSideSource.html#EServerSideSource--remote-creatable" title='The "remote-creatable" property'>remote-creatable</a>"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="EServerSideSource.html#EServerSideSource--remote-deletable" title='The "remote-deletable" property'>remote-deletable</a>"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="EServerSideSource.html#EServerSideSource--removable" title='The "removable" property'>removable</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="EServerSideSource.html#EServerSideSource--server" title='The "server" property'>server</a>"                   <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>*  : Read / Write / Construct Only
+  "<a class="link" href="EServerSideSource.html#EServerSideSource--writable" title='The "writable" property'>writable</a>"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="EServerSideSource.html#EServerSideSource--write-directory" title='The "write-directory" property'>write-directory</a>"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="EServerSideSource.description"></a><h2>Description</h2>
+<p>
+An <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> is an <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> with some additional capabilities
+exclusive to the registry D-Bus service.
+</p>
+</div>
+<div class="refsect1">
+<a name="EServerSideSource.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="EServerSideSource-struct"></a><h3>struct EServerSideSource</h3>
+<pre class="programlisting">struct EServerSideSource;</pre>
+<p>
+Contains only private data that should be read and manipulated using the
+functions below.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-get-user-dir"></a><h3>e_server_side_source_get_user_dir ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_server_side_source_get_user_dir   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Returns the directory where user-specific data source files are stored.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the user-specific data source directory</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-new-user-file"></a><h3>e_server_side_source_new_user_file ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="returnvalue">GFile</span></a> *             e_server_side_source_new_user_file  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
+<p>
+Generates a unique file name for a new user-specific data source.
+If <em class="parameter"><code>uid</code></em> is non-<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> it will be used in the basename of the file,
+otherwise a unique basename will be generated using <a href="/usr/share/gtk-doc/html/libedataserver/libedataserver-e-uid.html#e-uid-new"><code class="function">e_uid_new()</code></a>.
+</p>
+<p>
+The returned <a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> can then be passed to <a class="link" href="EServerSideSource.html#e-server-side-source-new" title="e_server_side_source_new ()"><code class="function">e_server_side_source_new()</code></a>.
+Unreference the <a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.
+</p>
+<p>
+Note the data source file itself is not created here, only its name.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uid</code></em> :</span></p></td>
+<td>unique identifier for a data source, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> for a new data source</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-uid-from-file"></a><h3>e_server_side_source_uid_from_file ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_server_side_source_uid_from_file  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> *file</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Extracts a unique identity string from the base name of <em class="parameter"><code>file</code></em>.
+If the base name of <em class="parameter"><code>file</code></em> is missing a '.source' extension, the
+function sets <em class="parameter"><code>error</code></em> and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> for a data source</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the unique identity string for <em class="parameter"><code>file</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-new"></a><h3>e_server_side_source_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           e_server_side_source_new            (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> *file</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> which belongs to <em class="parameter"><code>server</code></em>.  If <em class="parameter"><code>file</code></em>
+is non-<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> and points to an existing file, the <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> is
+initialized from the file content.  If a read error occurs or the file
+contains syntax errors, the function sets <em class="parameter"><code>error</code></em> and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-new-memory-only"></a><h3>e_server_side_source_new_memory_only ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           e_server_side_source_new_memory_only
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> *server</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Creates a memory-only <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> which belongs to <em class="parameter"><code>server</code></em>.
+No on-disk key file is created for this data source, so it will not
+be remembered across sessions.
+</p>
+<p>
+Data source collections are often populated with memory-only data
+sources to serve as proxies for resources discovered on a remote server.
+These data sources are usually neither <a class="link" href="EServerSideSource.html#EServerSideSource--writable" title='The "writable" property'><span class="type">"writable"</span></a> nor
+<a class="link" href="EServerSideSource.html#EServerSideSource--removable" title='The "removable" property'><span class="type">"removable"</span></a> by clients, at least not directly.
+</p>
+<p>
+If an error occurs while instantiating the <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>, the
+function sets <em class="parameter"><code>error</code></em> and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.  Although at this time there
+are no known error conditions for memory-only data sources.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>server</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uid</code></em> :</span></p></td>
+<td>a unique identifier, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new memory-only <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-load"></a><h3>e_server_side_source_load ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_server_side_source_load           (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Reloads data source content from the file pointed to by the
+<a class="link" href="EServerSideSource.html#EServerSideSource--file" title='The "file" property'><span class="type">"file"</span></a> property.
+</p>
+<p>
+If the <a class="link" href="EServerSideSource.html#EServerSideSource--file" title='The "file" property'><span class="type">"file"</span></a> property is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> or the file it points
+to does not exist, the function does nothing and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.
+</p>
+<p>
+If a read error occurs or the file contains syntax errors, the function
+sets <em class="parameter"><code>error</code></em> and returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-get-file"></a><h3>e_server_side_source_get_file ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="returnvalue">GFile</span></a> *             e_server_side_source_get_file       (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>);</pre>
+<p>
+Returns the <a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> from which data source content is loaded and to
+which changes are saved.  Note the <em class="parameter"><code>source</code></em> may not have a <a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a> for <em class="parameter"><code>source</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-get-node"></a><h3>e_server_side_source_get_node ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-N-ary-Trees.html#GNode"><span class="returnvalue">GNode</span></a> *             e_server_side_source_get_node       (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>);</pre>
+<p>
+Returns the <a href="http://library.gnome.org/devel/glib/unstable/glib-N-ary-Trees.html#GNode"><span class="type">GNode</span></a> representing the <em class="parameter"><code>source</code></em>'s hierarchical placement,
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>source</code></em> has not been placed in the data source hierarchy.
+The data member of the <a href="http://library.gnome.org/devel/glib/unstable/glib-N-ary-Trees.html#GNode"><span class="type">GNode</span></a> points back to <em class="parameter"><code>source</code></em>.  This is an easy
+way to traverse ancestor and descendant data sources.
+</p>
+<p>
+Note that accessing other data sources this way is not thread-safe,
+and this therefore function may be replaced at some later date.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-N-ary-Trees.html#GNode"><span class="type">GNode</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-get-server"></a><h3>e_server_side_source_get_server ()</h3>
+<pre class="programlisting"><a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="returnvalue">ESourceRegistryServer</span></a> * e_server_side_source_get_server (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>);</pre>
+<p>
+Returns the <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> to which <em class="parameter"><code>source</code></em> belongs.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> for <em class="parameter"><code>source</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-get-allow-auth-prompt"></a><h3>e_server_side_source_get_allow_auth_prompt ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_server_side_source_get_allow_auth_prompt
+                                                        (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>);</pre>
+<p>
+Returns whether an authentication prompt is allowed to be shown
+for <em class="parameter"><code>source</code></em>.  <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> will honor this setting by
+dismissing the session if it can't find a valid stored password.
+</p>
+<p>
+See <a class="link" href="EServerSideSource.html#e-server-side-source-set-allow-auth-prompt" title="e_server_side_source_set_allow_auth_prompt ()"><code class="function">e_server_side_source_set_allow_auth_prompt()</code></a> for further
+discussion.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether auth prompts are allowed for <em class="parameter"><code>source</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-set-allow-auth-prompt"></a><h3>e_server_side_source_set_allow_auth_prompt ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_server_side_source_set_allow_auth_prompt
+                                                        (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> allow_auth_prompt</code></em>);</pre>
+<p>
+Sets whether an authentication prompt is allowed to be shown for <em class="parameter"><code>source</code></em>.
+<a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a> will honor this setting by dismissing the session
+if it can't find a valid stored password.
+</p>
+<p>
+If the user declines to provide a password for <em class="parameter"><code>source</code></em> when prompted
+by an <a class="link" href="EAuthenticationSession.html" title="EAuthenticationSession"><span class="type">EAuthenticationSession</span></a>, the <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> will set this
+property to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> to suppress any further prompting, which would likely
+annoy the user.  However when an <a href="/usr/share/gtk-doc/html/libedataserver/ESourceRegistry.html"><span class="type">ESourceRegistry</span></a> instance is created by
+a client application, the first thing it does is reset this property to
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> for all registered data sources.  So suppressing authentication
+prompts is only ever temporary.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>allow_auth_prompt</code></em> :</span></p></td>
+<td>whether auth prompts are allowed for <em class="parameter"><code>source</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-get-exported"></a><h3>e_server_side_source_get_exported ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_server_side_source_get_exported   (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>);</pre>
+<p>
+Returns whether <em class="parameter"><code>source</code></em> has been exported over D-Bus.
+</p>
+<p>
+The function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> after <em class="parameter"><code>source</code></em> is initially created, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>
+after passing <em class="parameter"><code>source</code></em> to <code class="function">e_source_registry_add_source()</code> (provided that
+<em class="parameter"><code>source</code></em>'s <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html#ESource--parent"><span class="type">"parent"</span></a> is also exported), and <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> after passing
+<em class="parameter"><code>source</code></em> to <code class="function">e_source_registry_remove_source()</code>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether <em class="parameter"><code>source</code></em> has been exported</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-get-write-directory"></a><h3>e_server_side_source_get_write_directory ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_server_side_source_get_write_directory
+                                                        (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>);</pre>
+<p>
+Returns the local directory path where changes to <em class="parameter"><code>source</code></em> are written.
+</p>
+<p>
+By default, changes are written to the local directory path returned by
+<a class="link" href="EServerSideSource.html#e-server-side-source-get-user-dir" title="e_server_side_source_get_user_dir ()"><code class="function">e_server_side_source_get_user_dir()</code></a>, but an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> may wish
+to override this to use its own private cache directory for data sources
+it creates automatically.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the directory where changes are written</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-set-write-directory"></a><h3>e_server_side_source_set_write_directory ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_server_side_source_set_write_directory
+                                                        (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *write_directory</code></em>);</pre>
+<p>
+Sets the local directory path where changes to <em class="parameter"><code>source</code></em> are to be written.
+</p>
+<p>
+By default, changes are written to the local directory path returned by
+<a class="link" href="EServerSideSource.html#e-server-side-source-get-user-dir" title="e_server_side_source_get_user_dir ()"><code class="function">e_server_side_source_get_user_dir()</code></a>, but an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> may wish
+to override this to use its own private cache directory for data sources
+it creates automatically.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>write_directory</code></em> :</span></p></td>
+<td>the directory where changes are to be written</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-set-removable"></a><h3>e_server_side_source_set_removable ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_server_side_source_set_removable  (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> removable</code></em>);</pre>
+<p>
+Sets whether to allow registry clients to remove <em class="parameter"><code>source</code></em> and its
+descendants.  If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the Removable D-Bus interface is exported at
+the object path for <em class="parameter"><code>source</code></em>.  If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, the Removable D-Bus interface
+is unexported at the object path for <em class="parameter"><code>source</code></em>, and any attempt by clients
+to call <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html#e-source-remove"><code class="function">e_source_remove()</code></a> will fail.
+</p>
+<p>
+Note this is only enforced for clients of the registry D-Bus service.
+The service itself may remove any data source at any time.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>removable</code></em> :</span></p></td>
+<td>whether to export the Removable interface</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-set-writable"></a><h3>e_server_side_source_set_writable ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_server_side_source_set_writable   (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> writable</code></em>);</pre>
+<p>
+Sets whether to allow registry clients to alter the content of <em class="parameter"><code>source</code></em>.
+If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the Writable D-Bus interface is exported at the object path
+for <em class="parameter"><code>source</code></em>.  If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, the Writable D-Bus interface is unexported at
+the object path for <em class="parameter"><code>source</code></em>, and any attempt by clients to call
+<a href="/usr/share/gtk-doc/html/libedataserver/ESource.html#e-source-write"><code class="function">e_source_write()</code></a> will fail.
+</p>
+<p>
+Note this is only enforced for clients of the registry D-Bus service.
+The service itself can write to any data source at any time.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>writable</code></em> :</span></p></td>
+<td>whether to export the Writable interface</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-set-remote-creatable"></a><h3>e_server_side_source_set_remote_creatable ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_server_side_source_set_remote_creatable
+                                                        (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> remote_creatable</code></em>);</pre>
+<p>
+Indicates whether <em class="parameter"><code>source</code></em> can be used to create resources on a remote
+server.  Typically this is only set to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> for collection sources.
+</p>
+<p>
+If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the RemoteCreatable D-Bus interface is exported at the object
+path for <em class="parameter"><code>source</code></em>.  If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, the RemoteCreatable D-Bus interface is
+unexported at the object path for <em class="parameter"><code>source</code></em>, and any attempt by clients
+to call <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html#e-source-remote-create"><code class="function">e_source_remote_create()</code></a> will fail.
+</p>
+<p>
+Unlike the <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html#ESource--removable"><span class="type">"removable"</span></a> and <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html#ESource--writable"><span class="type">"writable"</span></a> properties, this
+is enforced for both clients of the registry D-Bus service and within
+the registry D-Bus service itself.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>remote_creatable</code></em> :</span></p></td>
+<td>whether to export the RemoteCreatable interface</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-server-side-source-set-remote-deletable"></a><h3>e_server_side_source_set_remote_deletable ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_server_side_source_set_remote_deletable
+                                                        (<em class="parameter"><code><a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> remote_deletable</code></em>);</pre>
+<p>
+Indicates whether <em class="parameter"><code>source</code></em> can be used to delete resources on a remote
+server.  Typically this is only set to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> for sources created by an
+<a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> to represent a remote resource.
+</p>
+<p>
+If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the RemoteDeletable D-Bus interface is exported at the object
+path for <em class="parameter"><code>source</code></em>.  If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, the RemoteDeletable D-Bus interface is
+unexported at the object path for <em class="parameter"><code>source</code></em>, and any attempt by clients
+to call <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html#e-source-remote-delete"><code class="function">e_source_remote_delete()</code></a> will fail.
+</p>
+<p>
+Unlike the <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html#ESource--removable"><span class="type">"removable"</span></a> and <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html#ESource--writable"><span class="type">"writable"</span></a> properties, this
+is enforced for both clients of the registry D-Bus server and within
+the registry D-Bus service itself.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>remote_deletable</code></em> :</span></p></td>
+<td>whether to export the RemoteDeletable interface</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="EServerSideSource.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="EServerSideSource--allow-auth-prompt"></a><h3>The <code class="literal">"allow-auth-prompt"</code> property</h3>
+<pre class="programlisting">  "allow-auth-prompt"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct</pre>
+<p>Whether authentication sessions may interrupt the user for a password.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EServerSideSource--exported"></a><h3>The <code class="literal">"exported"</code> property</h3>
+<pre class="programlisting">  "exported"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>Whether the source has been exported over D-Bus.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EServerSideSource--file"></a><h3>The <code class="literal">"file"</code> property</h3>
+<pre class="programlisting">  "file"                     <a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a>*                : Read / Write / Construct Only</pre>
+<p>The key file for the data source.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EServerSideSource--remote-creatable"></a><h3>The <code class="literal">"remote-creatable"</code> property</h3>
+<pre class="programlisting">  "remote-creatable"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Whether the data source can create remote resources.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EServerSideSource--remote-deletable"></a><h3>The <code class="literal">"remote-deletable"</code> property</h3>
+<pre class="programlisting">  "remote-deletable"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Whether the data source can delete remote resources.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EServerSideSource--removable"></a><h3>The <code class="literal">"removable"</code> property</h3>
+<pre class="programlisting">  "removable"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Whether the data source is removable.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EServerSideSource--server"></a><h3>The <code class="literal">"server"</code> property</h3>
+<pre class="programlisting">  "server"                   <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>*  : Read / Write / Construct Only</pre>
+<p>The server to which the data source belongs.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EServerSideSource--writable"></a><h3>The <code class="literal">"writable"</code> property</h3>
+<pre class="programlisting">  "writable"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Whether the data source is writable.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EServerSideSource--write-directory"></a><h3>The <code class="literal">"write-directory"</code> property</h3>
+<pre class="programlisting">  "write-directory"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>Directory in which to write changes to disk.</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

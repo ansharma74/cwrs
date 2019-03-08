@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Connection manager life cycle</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="ch-service-base.html" title="Service-side implementation">
+<link rel="next" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch-service-base.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="TpBaseConnectionManager.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-run.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-run.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-run"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-run.top_of_page"></a>Connection manager life cycle</span></h2>
+<p>Connection manager life cycle — entry point for telepathy-glib connection managers</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-run.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+<a href="https://www.gnu.org/software/gnutls/reference/gnutls-crypto.html#int"><span class="returnvalue">int</span></a>                 <a class="link" href="telepathy-glib-run.html#tp-run-connection-manager" title="tp_run_connection_manager ()">tp_run_connection_manager</a>           (<em class="parameter"><code>const <span class="type">char</span> *prog_name</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *version</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a>* (*construct_cm) (void)</code></em>,
+                                                         <em class="parameter"><code><a href="https://www.gnu.org/software/gnutls/reference/gnutls-crypto.html#int"><span class="type">int</span></a> argc</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **argv</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-run.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="telepathy-glib-run.html#tp-run-connection-manager" title="tp_run_connection_manager ()"><code class="function">tp_run_connection_manager()</code></a> provides a convenient entry point for
+telepathy-glib connection managers. It initializes most of the
+functionality the CM will need, constructs a connection manager object
+and lets it run.
+</p>
+<p>
+This function also manages the connection manager's lifetime - if there
+are no new connections for a while, it times out and exits.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-run.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="tp-run-connection-manager"></a><h3>tp_run_connection_manager ()</h3>
+<pre class="programlisting"><a href="https://www.gnu.org/software/gnutls/reference/gnutls-crypto.html#int"><span class="returnvalue">int</span></a>                 tp_run_connection_manager           (<em class="parameter"><code>const <span class="type">char</span> *prog_name</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *version</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a>* (*construct_cm) (void)</code></em>,
+                                                         <em class="parameter"><code><a href="https://www.gnu.org/software/gnutls/reference/gnutls-crypto.html#int"><span class="type">int</span></a> argc</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **argv</code></em>);</pre>
+<p>
+Run the connection manager by initializing libraries, constructing
+a main loop, instantiating a connection manager and running the main
+loop. When this function returns, the program should exit.
+</p>
+<p>
+If the connection manager does not create a connection within a
+short arbitrary time (currently 5 seconds), either on startup or after
+the last open connection is disconnected, and the PERSIST debug
+flag is not set, return 0.
+</p>
+<p>
+If registering the connection manager on D-Bus fails, return 1.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>prog_name</code></em> :</span></p></td>
+<td>The program name to be used in debug messages etc.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>version</code></em> :</span></p></td>
+<td>The program version</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>construct_cm</code></em> :</span></p></td>
+<td>A function which will return the connection manager
+object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>argc</code></em> :</span></p></td>
+<td>The number of arguments passed to the program</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>argv</code></em> :</span></p></td>
+<td>The arguments passed to the program</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the status code with which the process should exit</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

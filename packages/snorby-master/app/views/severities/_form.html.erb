@@ -1,0 +1,50 @@
+<% content_for :footer do %>
+	<script type="text/javascript">
+		$('#severity-color-bg div').css('backgroundColor', $('input#severity_bg_color').attr('value'));
+		$('#severity-color-text div').css('backgroundColor', $('input#severity_text_color').attr('value'));
+	</script>
+<% end %>
+
+<div id='severity-form' class='grid_12 boxit page'>
+	<%= form_for @severity, :html => { :class => 'validate' } do |f| %>
+	  
+		<%= error_messages_for(@severity) %>
+	
+		<p>
+			<%= f.label 'Severity Name' %><br />
+	  	<%= f.text_field :name, :class => 'required', :placeholder => 'Name', :autocomplete => :off %>
+		</p>
+		
+		<p>
+			<%= f.label 'Severity Priority' %> <i>(The priority of the ids event you want to represent)</i><br />
+	  	<%= f.text_field :sig_id, :class => 'required number', :placeholder => 'Priority', :autocomplete => :off %>
+		</p>
+		
+		<p>
+			<%= f.label 'Example' %>:
+			<span class="severity" style='background-color: <%= @severity.bg_color %>;color: <%= @severity.text_color %>;'>Example</span><br />
+		</p>
+		
+		<br />
+		
+		<p>
+			<%= f.label 'Severity Background' %><br />
+	  	<%= f.text_field :bg_color, :class => 'required hex-color', :id => 'severity-color-bg', :placeholder => 'Background Color', :autocomplete => :off %>
+		</p>
+		
+		<p>
+			<%= f.label 'Severity Text' %><br />
+	  	<%= f.text_field :text_color, :class => 'required hex-color', :id => 'severity-color-text', :placeholder => 'Text Color', :autocomplete => :off %>
+		</p>
+	
+		<%= form_actions do %>
+
+			<%= button "Save Severity", :class => 'success' %>
+
+			<%= button "Cancel", :class => 'warning cancel' %>
+
+		<% end %>
+	
+	<% end %>
+	
+</div>

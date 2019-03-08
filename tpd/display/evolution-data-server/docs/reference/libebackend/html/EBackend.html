@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EBackend</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Backend Utilities (libebackend)">
+<link rel="up" href="ch01.html" title="Base Classes for Backends">
+<link rel="prev" href="ch01.html" title="Base Classes for Backends">
+<link rel="next" href="EBackendFactory.html" title="EBackendFactory">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch01.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Backend Utilities (libebackend)</th>
+<td><a accesskey="n" href="EBackendFactory.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#EBackend.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#EBackend.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#EBackend.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#EBackend.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="EBackend"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="EBackend.top_of_page"></a>EBackend</span></h2>
+<p>EBackend — An abstract base class for backends</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="EBackend.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;libebackend/libebackend.h&gt;
+
+struct              <a class="link" href="EBackend.html#EBackend-struct" title="struct EBackend">EBackend</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EBackend.html#e-backend-get-online" title="e_backend_get_online ()">e_backend_get_online</a>                (<em class="parameter"><code><a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> *backend</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBackend.html#e-backend-set-online" title="e_backend_set_online ()">e_backend_set_online</a>                (<em class="parameter"><code><a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> online</code></em>);
+<a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           <a class="link" href="EBackend.html#e-backend-get-source" title="e_backend_get_source ()">e_backend_get_source</a>                (<em class="parameter"><code><a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> *backend</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EBackend.html#e-backend-authenticate-sync" title="e_backend_authenticate_sync ()">e_backend_authenticate_sync</a>         (<em class="parameter"><code><a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBackend.html#e-backend-authenticate" title="e_backend_authenticate ()">e_backend_authenticate</a>              (<em class="parameter"><code><a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EBackend.html#e-backend-authenticate-finish" title="e_backend_authenticate_finish ()">e_backend_authenticate_finish</a>       (<em class="parameter"><code><a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="EBackend.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----EBackend
+         +----<a class="link" href="ECollectionBackend.html" title="ECollectionBackend">ECollectionBackend</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="EBackend.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="EBackend.html#EBackend--online" title='The "online" property'>online</a>"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct
+  "<a class="link" href="EBackend.html#EBackend--source" title='The "source" property'>source</a>"                   <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a>*              : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1">
+<a name="EBackend.description"></a><h2>Description</h2>
+<p>
+An <a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> is paired with an <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> to facilitate performing
+actions on the local or remote resource described by the <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a>.
+</p>
+<p>
+In other words, whereas a certain backend type knows how to talk to a
+certain type of server or data store, the <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> fills in configuration
+details such as host name, user name, resource path, etc.
+</p>
+<p>
+All <a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> instances are created by an <a class="link" href="EBackendFactory.html" title="EBackendFactory"><span class="type">EBackendFactory</span></a>.
+</p>
+</div>
+<div class="refsect1">
+<a name="EBackend.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="EBackend-struct"></a><h3>struct EBackend</h3>
+<pre class="programlisting">struct EBackend;</pre>
+<p>
+Contains only private data that should be read and manipulated using the
+functions below.
+</p>
+<p class="since">Since 3.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-backend-get-online"></a><h3>e_backend_get_online ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_backend_get_online                (<em class="parameter"><code><a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> *backend</code></em>);</pre>
+<p>
+Returns the online state of <em class="parameter"><code>backend</code></em>: <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>backend</code></em> is online,
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if offline.  The online state of each backend is bound to the
+online state of the <a class="link" href="EDataFactory.html" title="EDataFactory"><span class="type">EDataFactory</span></a> that created it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td>an <a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the online state</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-backend-set-online"></a><h3>e_backend_set_online ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_backend_set_online                (<em class="parameter"><code><a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> online</code></em>);</pre>
+<p>
+Sets the online state of <em class="parameter"><code>backend</code></em>: <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>backend</code></em> is online,
+<em class="parameter"><code>FALSE</code></em> if offline.  The online state of each backend is bound to
+the online state of the <a class="link" href="EDataFactory.html" title="EDataFactory"><span class="type">EDataFactory</span></a> that created it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td>an <a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>online</code></em> :</span></p></td>
+<td>the online state</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-backend-get-source"></a><h3>e_backend_get_source ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           e_backend_get_source                (<em class="parameter"><code><a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> *backend</code></em>);</pre>
+<p>
+Returns the <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> to which <em class="parameter"><code>backend</code></em> is paired.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td>an <a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> to which <em class="parameter"><code>backend</code></em> is paired</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-backend-authenticate-sync"></a><h3>e_backend_authenticate_sync ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_backend_authenticate_sync         (<em class="parameter"><code><a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Convenience function providing a consistent authentication interface
+for backends running in either the registry service itself or a client
+process communicating with the registry service over D-Bus.
+</p>
+<p>
+Authenticates <em class="parameter"><code>backend</code></em>'s <a class="link" href="EBackend.html#EBackend--source" title='The "source" property'><span class="type">"source"</span></a>, using <em class="parameter"><code>auth</code></em> to handle
+authentication attempts.  The <em class="parameter"><code>backend</code></em> and <em class="parameter"><code>auth</code></em> arguments may be one
+and the same if <em class="parameter"><code>backend</code></em> implements the <a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a> interface.
+The operation loops until authentication is successful or the user aborts
+further authentication attempts.  If an error occurs, the function will
+set <em class="parameter"><code>error</code></em> and return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td>an <a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>auth</code></em> :</span></p></td>
+<td>an <a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-backend-authenticate"></a><h3>e_backend_authenticate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_backend_authenticate              (<em class="parameter"><code><a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a> *auth</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Convenience function providing a consistent authentication interface
+for backends running in either the registry service itself or a client
+process communicating with the registry service over D-Bus.
+</p>
+<p>
+Asynchronously authenticates <em class="parameter"><code>backend</code></em>'s <a class="link" href="EBackend.html#EBackend--source" title='The "source" property'><span class="type">"source"</span></a>, using <em class="parameter"><code>auth</code></em>
+to handle authentication attempts.  The <em class="parameter"><code>backend</code></em> and <em class="parameter"><code>auth</code></em> arguments may
+be one and the same if <em class="parameter"><code>backend</code></em> implements the <a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a>
+interface.  The operation loops until authentication is succesful or the
+user aborts further authentication attempts.
+</p>
+<p>
+When the operation is finished, <em class="parameter"><code>callback</code></em> will be called.  You can then
+call <a class="link" href="EBackend.html#e-backend-authenticate-finish" title="e_backend_authenticate_finish ()"><code class="function">e_backend_authenticate_finish()</code></a> to get the result of the operation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td>an <a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>auth</code></em> :</span></p></td>
+<td>an <a href="/usr/share/gtk-doc/html/libedataserver/ESourceAuthenticator.html"><span class="type">ESourceAuthenticator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to the callback function</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-backend-authenticate-finish"></a><h3>e_backend_authenticate_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_backend_authenticate_finish       (<em class="parameter"><code><a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes the operation started with <a class="link" href="EBackend.html#e-backend-authenticate" title="e_backend_authenticate ()"><code class="function">e_backend_authenticate()</code></a>.  If
+an error occurred, the function will set <em class="parameter"><code>error</code></em> and return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td>an <a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="EBackend.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="EBackend--online"></a><h3>The <code class="literal">"online"</code> property</h3>
+<pre class="programlisting">  "online"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct</pre>
+<p>Whether the backend is online.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBackend--source"></a><h3>The <code class="literal">"source"</code> property</h3>
+<pre class="programlisting">  "source"                   <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a>*              : Read / Write / Construct Only</pre>
+<p>The data source being acted upon.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

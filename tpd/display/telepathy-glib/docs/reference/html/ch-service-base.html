@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Service-side implementation</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="prev" href="telepathy-glib-svc-tls.html" title="Service-side TLS interfaces">
+<link rel="next" href="telepathy-glib-run.html" title="Connection manager life cycle">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2"><tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-svc-tls.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td> </td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-run.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="chapter">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="ch-service-base"></a>Service-side implementation</h2></div></div></div>
+<div class="toc"><dl>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-run.html">Connection manager life cycle</a></span><span class="refpurpose"> — entry point for telepathy-glib connection managers</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseConnectionManager.html">TpBaseConnectionManager</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-connection-manager.html#TpSvcConnectionManager"><span class="type">TpSvcConnectionManager</span></a> implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-base-protocol.html">TpBaseProtocol</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocol"><span class="type">TpSvcProtocol</span></a> implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseConnection.html">TpBaseConnection</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnection"><span class="type">TpSvcConnection</span></a> implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpChannelManager.html">TpChannelManager</a></span><span class="refpurpose"> — interface for creating and tracking channels</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-base-contact-list.html">TpBaseContactList</a></span><span class="refpurpose"> — channel manager for ContactList channels</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-TpContactsMixin.html">TpContactsMixin</a></span><span class="refpurpose"> — a mixin implementation of the contacts connection
+interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-dbus-properties-mixin.html">TpDBusPropertiesMixin</a></span><span class="refpurpose"> — a mixin implementation of the DBus.Properties interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpExportableChannel.html">TpExportableChannel</a></span><span class="refpurpose"> — interface representing channels with several standard
+                    properties</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseChannel.html">TpBaseChannel</a></span><span class="refpurpose"> — base class for <a class="link" href="TpExportableChannel.html" title="TpExportableChannel"><span class="type">TpExportableChannel</span></a> implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-TpPresenceMixin.html">TpPresenceMixin</a></span><span class="refpurpose"> — a mixin implementation of the Presence connection
+ interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-TpPropertiesMixin.html">TpPropertiesMixin</a></span><span class="refpurpose"> — a mixin implementation of the Telepathy.Properties
+ interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseRoomConfig.html">TpBaseRoomConfig</a></span><span class="refpurpose"> — implements the RoomConfig interface for chat rooms.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-TpGroupMixin.html">TpGroupMixin</a></span><span class="refpurpose"> — a mixin implementation of the groups interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-TpMessageMixin.html">TpMessageMixin</a></span><span class="refpurpose"> — a mixin implementation of the text channel type and the
+ Messages interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpMessage.html">TpMessage</a></span><span class="refpurpose"> — a message in the Telepathy message interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpCMMessage.html">TpCMMessage</a></span><span class="refpurpose"> — a message in the Telepathy message interface, CM side</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-base-password-channel.html">TpBasePasswordChannel</a></span><span class="refpurpose"> — a simple X-TELEPATHY-PASSWORD channel</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-simple-password-manager.html">TpSimplePasswordManager</a></span><span class="refpurpose"> — a simple X-TELEPATHY-PASSWORD channel manager</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-base-client.html">TpBaseClient</a></span><span class="refpurpose"> — base class for Telepathy clients on D-Bus</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-observe-channels-context.html">TpObserveChannelsContext</a></span><span class="refpurpose"> — context of a Observer.ObserveChannels() call</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-add-dispatch-operation-context.html">TpAddDispatchOperationContext</a></span><span class="refpurpose"> — context of a Approver.AddDispatchOperation() call</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-handle-channels-context.html">TpHandleChannelsContext</a></span><span class="refpurpose"> — context of a Handler.HandleChannels() call</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-simple-observer.html">TpSimpleObserver</a></span><span class="refpurpose"> — a subclass of <a class="link" href="telepathy-glib-base-client.html#TpBaseClient"><span class="type">TpBaseClient</span></a> implementing
+a simple Observer</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-simple-approver.html">TpSimpleApprover</a></span><span class="refpurpose"> — a subclass of <a class="link" href="telepathy-glib-base-client.html#TpBaseClient"><span class="type">TpBaseClient</span></a> implementing
+a simple Approver</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-simple-handler.html">TpSimpleHandler</a></span><span class="refpurpose"> — a subclass of <a class="link" href="telepathy-glib-base-client.html#TpBaseClient"><span class="type">TpBaseClient</span></a> implementing
+a simple Handler</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="telepathy-glib-dtmf.html">DTMF dialstring interpreter</a></span><span class="refpurpose"> — Converts a dialstring into a timed sequence of events</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseCallChannel.html">TpBaseCallChannel</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcChannelTypeCall"><span class="type">TpSvcChannelTypeCall</span></a> implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseMediaCallChannel.html">TpBaseMediaCallChannel</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcChannelTypeCall"><span class="type">TpSvcChannelTypeCall</span></a> RTP media implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseCallContent.html">TpBaseCallContent</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallContent"><span class="type">TpSvcCallContent</span></a> implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseMediaCallContent.html">TpBaseMediaCallContent</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallContentInterfaceMedia"><span class="type">TpSvcCallContentInterfaceMedia</span></a>
+ implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpCallContentMediaDescription.html">TpCallContentMediaDescription</a></span><span class="refpurpose"> — implementation of <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallContentMediaDescription"><span class="type">TpSvcCallContentMediaDescription</span></a></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseCallStream.html">TpBaseCallStream</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallStream"><span class="type">TpSvcCallStream</span></a> implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpBaseMediaCallStream.html">TpBaseMediaCallStream</a></span><span class="refpurpose"> — base class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallStreamInterfaceMedia"><span class="type">TpSvcCallStreamInterfaceMedia</span></a>
+ implementations</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="TpCallStreamEndpoint.html">TpCallStreamEndpoint</a></span><span class="refpurpose"> — class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallStreamEndpoint"><span class="type">TpSvcCallStreamEndpoint</span></a> implementations</span>
+</dt>
+</dl></div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

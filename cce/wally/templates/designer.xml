@@ -1,0 +1,100 @@
+<app outputxsl="xsl/aws2html.xsl">
+  <client>
+    <header>
+      <title>AWS XMS</title>
+      <metas>
+        <element http-equiv="Content-Type" content="text/html; charset=iso-8859-1">text/html; charset=iso-8859-1</element>
+      </metas>
+      <load type="text/javascript" src="js/jquery/jquery-1.3.2.min.js"/>
+      <style rel="stylesheet" type="text/css" href="css/redmond/jquery-ui-1.7.2.custom.css" id="jquitheme"/>
+      <load type="text/javascript" src="js/jquery/jquery-ui-1.7.2.custom.min.js"/><load type="text/javascript" src="js/jquery/jquery.dialog.minimize.js"/>
+      <load type="text/javascript" src="js/jquery/hotkeys/jquery.hotkeys-0.7.9.min.js"/>
+      <load type="text/javascript" src="importer.php?what=js/tweaks.js"/>
+      <load type="text/javascript" src="importer.php?what=js/awsNativeDomXpath.js"/>
+      <style rel="stylesheet" type="text/css" href="css/kvaTree.css"/>
+      <load type="text/javascript" src="importer.php?what=js/jquery/kvaTree.js"/>
+      <load type="text/javascript" src="importer.php?what=js/xmlEditor.js"/>
+      <load type="text/javascript" src="importer.php?what=js/jsUtils.js"/>
+      <style type="text/css"> 
+				body { font-size: 10px; margin: 0px; padding: 0 0 0 0;}
+				button {border: none; -moz-border-radius: 6px;  -webkit-border-radius: 6px; font-weight:bold;}
+				select input textarea {border: none; -moz-border-radius: 6px;  -webkit-border-radius: 6px;}
+				fieldset { padding:0; -moz-border-radius: 6px; -webkit-border-radius: 6px;}
+				h1 { font-size: 1.2em; margin: .6em 0; }
+				legend {font-weight:bold; -moz-border-radius: 6px; -webkit-border-radius: 6px;}
+			</style>
+    </header>
+    <content>
+      <import xpath="//app/templates/offsession/*">
+        <runfirst><?aws if($_SESSION["xmleditoradmin"]==AWS_DESIGNER_ADMIN)
+{
+$GLOBALS["HTMLPARSER"]->q("//header")->append('<load type="text/javascript" src="importer.php?what=js/xmlEditorRunner.js" />');
+$el->setAttribute("xpath","//app/templates/onsession/*");
+}
+else
+$GLOBALS["HTMLPARSER"]->q("//header")->append('<load type="text/javascript" src="importer.php?what=js/xmleditorlogin.js" />');?></runfirst>
+      </import>
+    </content>
+  </client>
+  <templates>
+    <offsession>
+		    	<center>
+
+<script type="text/javascript">$(document).ready(function(){
+$("body").css("background","#FFFFFF");
+
+$("#inForm").height($(document).height());
+$("#inForm").width($(document).width());
+
+$("#user").css("font-size","1.5em");
+$("#pass").css("font-size","1.5em");
+})
+</script>
+	
+	<div id="inForm" align="center" class="ui-widget">
+		<table id="inputFormsContainer" style="width: 98%; height: 98%; margin: 0 0 0 0; padding: 0 0 0 0;">
+					<tbody><tr>
+						<td valign="middle" align="center"><img src="images/face.jpg"/><br/><input name="user" id="user" size="24" class="ui-corner-all" style="text-align:center;" type="text" focused="" hkid="user"/></td>
+					</tr>
+					<tr style="display: none; ">
+						<td valign="middle" align="center"><img src="images/key.jpg"/><br/><input name="pass" id="pass" size="24" class="ui-corner-all" style="text-align:center;" type="password" hkid="pass"/><div id="allowed" class="ui-widget" style="display: none;">
+				<div class="ui-state-highlight ui-corner-all"> 
+					<p><span class="ui-icon ui-icon-info"/>
+					<strong>Access Granted</strong></p>
+				</div>
+			</div><div id="denied" class="ui-widget" style="display: none;">
+				<div class="ui-state-error ui-corner-all"> 
+					<p><span class="ui-icon ui-icon-alert"/> 
+					<strong>Access denied!!</strong></p>
+				</div>
+			</div></td>
+					</tr>
+		</tbody></table>
+
+
+			
+
+
+						
+			
+
+
+
+	</div>
+	
+	
+</center></offsession>
+    <onsession>
+      <exec><?aws if($_GET["REDIRECT"])
+header("Location: ".$_GET["REDIRECT"]); ?></exec><div id="xmlEditorContainer"><runhere><?aws if($_GET["datasrc"])
+$el->setAttribute("dataSrc",$_GET["datasrc"]);?></runhere></div>
+    </onsession>
+  </templates>
+  <parsers>
+    <item>
+      <xpath>//style[@rel="stylesheet"][@id="jquitheme"]</xpath>
+      <callback><?aws $el->setAttribute("href","css/".AWS_DESIGNER_THEME."/jquery-ui-1.7.2.custom.css");?></callback>
+      <!--THEME SELECTOR BASED ON defaults/AWS_DESIGNER_THEME-->
+    </item>
+  </parsers>
+<bookmarks/></app>

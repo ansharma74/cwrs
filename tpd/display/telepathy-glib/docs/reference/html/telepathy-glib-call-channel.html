@@ -1,0 +1,1339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpCallChannel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-client.html" title="Client-side proxies">
+<link rel="prev" href="telepathy-glib-file-transfer-channel.html" title="TpFileTransferChannel">
+<link rel="next" href="telepathy-glib-call-content.html" title="TpCallContent">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-file-transfer-channel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-client.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-call-content.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-call-channel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-call-channel.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-call-channel.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-call-channel.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#telepathy-glib-call-channel.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#telepathy-glib-call-channel.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-call-channel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-call-channel.top_of_page"></a>TpCallChannel</span></h2>
+<p>TpCallChannel — proxy object for a call channel</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-call-channel.synopsis"></a><h2>Synopsis</h2>
+<a name="TpCallChannel"></a><a name="TpCallStateReason"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+struct              <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel-struct" title="struct TpCallChannel">TpCallChannel</a>;
+struct              <a class="link" href="telepathy-glib-call-channel.html#TpCallChannelClass" title="struct TpCallChannelClass">TpCallChannelClass</a>;
+#define             <a class="link" href="telepathy-glib-call-channel.html#TP-CALL-CHANNEL-FEATURE-CORE:CAPS" title="TP_CALL_CHANNEL_FEATURE_CORE">TP_CALL_CHANNEL_FEATURE_CORE</a>
+
+struct              <a class="link" href="telepathy-glib-call-channel.html#TpCallStateReason-struct" title="struct TpCallStateReason">TpCallStateReason</a>;
+
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-get-contents" title="tp_call_channel_get_contents ()">tp_call_channel_get_contents</a>        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>);
+<a class="link" href="telepathy-glib-enums.html#TpCallState" title="enum TpCallState"><span class="returnvalue">TpCallState</span></a>         <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-get-state" title="tp_call_channel_get_state ()">tp_call_channel_get_state</a>           (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpCallFlags" title="enum TpCallFlags"><span class="type">TpCallFlags</span></a> *flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> **details</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallStateReason"><span class="type">TpCallStateReason</span></a> **reason</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-has-hardware-streaming" title="tp_call_channel_has_hardware_streaming ()">tp_call_channel_has_hardware_streaming</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-has-initial-audio" title="tp_call_channel_has_initial_audio ()">tp_call_channel_has_initial_audio</a>   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **initial_audio_name</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-has-initial-video" title="tp_call_channel_has_initial_video ()">tp_call_channel_has_initial_video</a>   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **initial_video_name</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-has-mutable-contents" title="tp_call_channel_has_mutable_contents ()">tp_call_channel_has_mutable_contents</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-get-members" title="tp_call_channel_get_members ()">tp_call_channel_get_members</a>         (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>);
+
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-has-dtmf" title="tp_call_channel_has_dtmf ()">tp_call_channel_has_dtmf</a>            (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-has-hold" title="tp_call_channel_has_hold ()">tp_call_channel_has_hold</a>            (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-send-tones-async" title="tp_call_channel_send_tones_async ()">tp_call_channel_send_tones_async</a>    (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tones</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-send-tones-finish" title="tp_call_channel_send_tones_finish ()">tp_call_channel_send_tones_finish</a>   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-set-ringing-async" title="tp_call_channel_set_ringing_async ()">tp_call_channel_set_ringing_async</a>   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-set-ringing-finish" title="tp_call_channel_set_ringing_finish ()">tp_call_channel_set_ringing_finish</a>  (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-set-queued-async" title="tp_call_channel_set_queued_async ()">tp_call_channel_set_queued_async</a>    (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-set-queued-finish" title="tp_call_channel_set_queued_finish ()">tp_call_channel_set_queued_finish</a>   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-accept-async" title="tp_call_channel_accept_async ()">tp_call_channel_accept_async</a>        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-accept-finish" title="tp_call_channel_accept_finish ()">tp_call_channel_accept_finish</a>       (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-hangup-async" title="tp_call_channel_hangup_async ()">tp_call_channel_hangup_async</a>        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpCallStateChangeReason" title="enum TpCallStateChangeReason"><span class="type">TpCallStateChangeReason</span></a> reason</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *detailed_reason</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-hangup-finish" title="tp_call_channel_hangup_finish ()">tp_call_channel_hangup_finish</a>       (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-add-content-async" title="tp_call_channel_add_content_async ()">tp_call_channel_add_content_async</a>   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpMediaStreamType" title="enum TpMediaStreamType"><span class="type">TpMediaStreamType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpMediaStreamDirection" title="enum TpMediaStreamDirection"><span class="type">TpMediaStreamDirection</span></a> initial_direction</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a class="link" href="telepathy-glib-call-content.html#TpCallContent"><span class="returnvalue">TpCallContent</span></a> *     <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-add-content-finish" title="tp_call_channel_add_content_finish ()">tp_call_channel_add_content_finish</a>  (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-request-hold-async" title="tp_call_channel_request_hold_async ()">tp_call_channel_request_hold_async</a>  (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> hold</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-request-hold-finish" title="tp_call_channel_request_hold_finish ()">tp_call_channel_request_hold_finish</a> (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-call-channel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="telepathy-glib-proxy.html#TpProxy">TpProxy</a>
+         +----<a class="link" href="telepathy-glib-channel.html#TpChannel">TpChannel</a>
+               +----TpCallChannel
+</pre>
+<pre class="synopsis">
+  GBoxed
+   +----TpCallStateReason
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-call-channel.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+TpCallChannel implements
+ <a class="link" href="TpChannelIface.html" title="TpChannelIface">TpChannelIface</a>.</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-call-channel.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--contents" title='The "contents" property'>contents</a>"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>*            : Read
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--flags" title='The "flags" property'>flags</a>"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--hardware-streaming" title='The "hardware-streaming" property'>hardware-streaming</a>"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--hold-state" title='The "hold-state" property'>hold-state</a>"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--hold-state-reason" title='The "hold-state-reason" property'>hold-state-reason</a>"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--initial-audio" title='The "initial-audio" property'>initial-audio</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--initial-audio-name" title='The "initial-audio-name" property'>initial-audio-name</a>"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--initial-video" title='The "initial-video" property'>initial-video</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--initial-video-name" title='The "initial-video-name" property'>initial-video-name</a>"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--mutable-contents" title='The "mutable-contents" property'>mutable-contents</a>"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--state" title='The "state" property'>state</a>"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--state-details" title='The "state-details" property'>state-details</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a>*           : Read
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--state-reason" title='The "state-reason" property'>state-reason</a>"             <a class="link" href="telepathy-glib-call-channel.html#TpCallStateReason"><span class="type">TpCallStateReason</span></a>*    : Read
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-call-channel.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel-content-added" title='The "content-added" signal'>content-added</a>"                                  : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel-content-removed" title='The "content-removed" signal'>content-removed</a>"                                : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel-members-changed" title='The "members-changed" signal'>members-changed</a>"                                : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel-state-changed" title='The "state-changed" signal'>state-changed</a>"                                  : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-call-channel.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> is a sub-class of <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> providing convenient API
+to make calls
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-call-channel.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpCallChannel-struct"></a><h3>struct TpCallChannel</h3>
+<pre class="programlisting">struct TpCallChannel;</pre>
+<p>
+Data structure representing a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannelClass"></a><h3>struct TpCallChannelClass</h3>
+<pre class="programlisting">struct TpCallChannelClass {
+};
+</pre>
+<p>
+The class of a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-CALL-CHANNEL-FEATURE-CORE:CAPS"></a><h3>TP_CALL_CHANNEL_FEATURE_CORE</h3>
+<pre class="programlisting">#define             TP_CALL_CHANNEL_FEATURE_CORE</pre>
+<p>
+Expands to a call to a function that returns a quark for the "core"
+feature on a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>.
+</p>
+<p>
+One can ask for a feature to be prepared using the <a class="link" href="telepathy-glib-proxy.html#tp-proxy-prepare-async" title="tp_proxy_prepare_async ()"><code class="function">tp_proxy_prepare_async()</code></a>
+function, and waiting for it to trigger the callback.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStateReason-struct"></a><h3>struct TpCallStateReason</h3>
+<pre class="programlisting">struct TpCallStateReason {
+  TpHandle actor;
+  TpCallStateChangeReason reason;
+  gchar *dbus_reason;
+  gchar *message;
+};
+</pre>
+<p>
+Data structure representing the reason for a call state change.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> <em class="structfield"><code><a name="TpCallStateReason-struct.actor"></a>actor</code></em>;</span></p></td>
+<td>the contact responsible for the change, or 0 if no contact was
+responsible</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-enums.html#TpCallStateChangeReason" title="enum TpCallStateChangeReason"><span class="type">TpCallStateChangeReason</span></a> <em class="structfield"><code><a name="TpCallStateReason-struct.reason"></a>reason</code></em>;</span></p></td>
+<td>the reason for the change. If
+<a class="link" href="telepathy-glib-enums.html#TP-CALL-STATE-CHANGE-REASON-USER-REQUESTED:CAPS"><span class="type">TP_CALL_STATE_CHANGE_REASON_USER_REQUESTED</span></a> then the <em class="parameter"><code>actor</code></em> member will
+dictate whether it was the local user or a remote contact responsible</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="TpCallStateReason-struct.dbus-reason"></a>dbus_reason</code></em>;</span></p></td>
+<td>A specific reason for the change, which may be a D-Bus error in
+the Telepathy namespace, a D-Bus error in any other namespace
+(for implementation-specific errors), or the empty string to indicate that
+the state change was not an error</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="TpCallStateReason-struct.message"></a>message</code></em>;</span></p></td>
+<td>A developer readable debug message giving the reason for the state
+change.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-get-contents"></a><h3>tp_call_channel_get_contents ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         tp_call_channel_get_contents        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--contents" title='The "contents" property'><span class="type">"contents"</span></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Override the parsed C type with given type"><span class="acronym">type</span></acronym> GLib.PtrArray][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> TelepathyGLib.CallContent]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-get-state"></a><h3>tp_call_channel_get_state ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-enums.html#TpCallState" title="enum TpCallState"><span class="returnvalue">TpCallState</span></a>         tp_call_channel_get_state           (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpCallFlags" title="enum TpCallFlags"><span class="type">TpCallFlags</span></a> *flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> **details</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallStateReason"><span class="type">TpCallStateReason</span></a> **reason</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>a place to set the value of
+<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--flags" title='The "flags" property'><span class="type">"flags"</span></a>. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>details</code></em> :</span></p></td>
+<td>a place to set the value of
+<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--state-details" title='The "state-details" property'><span class="type">"state-details"</span></a>. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>a place to set the value of
+<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--state-reason" title='The "state-reason" property'><span class="type">"state-reason"</span></a>. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--state" title='The "state" property'><span class="type">"state"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-has-hardware-streaming"></a><h3>tp_call_channel_has_hardware_streaming ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_call_channel_has_hardware_streaming
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--hardware-streaming" title='The "hardware-streaming" property'><span class="type">"hardware-streaming"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-has-initial-audio"></a><h3>tp_call_channel_has_initial_audio ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_call_channel_has_initial_audio   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **initial_audio_name</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>initial_audio_name</code></em> :</span></p></td>
+<td>a place to set the
+value of <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--initial-audio-name" title='The "initial-audio-name" property'><span class="type">"initial-audio-name"</span></a>. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--initial-audio" title='The "initial-audio" property'><span class="type">"initial-audio"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-has-initial-video"></a><h3>tp_call_channel_has_initial_video ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_call_channel_has_initial_video   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **initial_video_name</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>initial_video_name</code></em> :</span></p></td>
+<td>a place to set the
+value of <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--initial-video-name" title='The "initial-video-name" property'><span class="type">"initial-video-name"</span></a>. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--initial-video" title='The "initial-video" property'><span class="type">"initial-video"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-has-mutable-contents"></a><h3>tp_call_channel_has_mutable_contents ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_call_channel_has_mutable_contents
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--mutable-contents" title='The "mutable-contents" property'><span class="type">"mutable-contents"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-get-members"></a><h3>tp_call_channel_get_members ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        tp_call_channel_get_members         (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>);</pre>
+<p>
+Get the members of this call.
+</p>
+<p>
+The <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> objects are guaranteed to have all of the features
+previously passed to <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-contact-features" title="tp_simple_client_factory_add_contact_features ()"><code class="function">tp_simple_client_factory_add_contact_features()</code></a>
+prepared.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> mapping <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> to its new <a class="link" href="telepathy-glib-enums.html#TpCallMemberFlags" title="enum TpCallMemberFlags"><span class="type">TpCallMemberFlags</span></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Override the parsed C type with given type"><span class="acronym">type</span></acronym> GLib.HashTable][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> TelepathyGLib.Contact uint]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-has-dtmf"></a><h3>tp_call_channel_has_dtmf ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_call_channel_has_dtmf            (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>);</pre>
+<p>
+Whether or not <em class="parameter"><code>self</code></em> can send DTMF tones using
+<a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-send-tones-async" title="tp_call_channel_send_tones_async ()"><code class="function">tp_call_channel_send_tones_async()</code></a>. To be able to send DTMF tones, at least
+one of <em class="parameter"><code>self</code></em>'s <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--contents" title='The "contents" property'><span class="type">"contents"</span></a> must implement
+<a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CALL-CONTENT-INTERFACE-DTMF:CAPS" title="TP_IFACE_CALL_CONTENT_INTERFACE_DTMF"><code class="literal">TP_IFACE_CALL_CONTENT_INTERFACE_DTMF</code></a> interface.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether or not <em class="parameter"><code>self</code></em> can send DTMF tones.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-has-hold"></a><h3>tp_call_channel_has_hold ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_call_channel_has_hold            (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>);</pre>
+<p>
+Whether or not <em class="parameter"><code>self</code></em> has the <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CHANNEL-INTERFACE-HOLD:CAPS" title="TP_IFACE_CHANNEL_INTERFACE_HOLD"><code class="literal">TP_IFACE_CHANNEL_INTERFACE_HOLD</code></a>
+interfaces
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether or not <em class="parameter"><code>self</code></em> supports Hold</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-send-tones-async"></a><h3>tp_call_channel_send_tones_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_call_channel_send_tones_async    (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tones</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Send <em class="parameter"><code>tones</code></em> on every of <em class="parameter"><code>self</code></em>'s contents which have the
+<a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CALL-CONTENT-INTERFACE-DTMF:CAPS" title="TP_IFACE_CALL_CONTENT_INTERFACE_DTMF"><code class="literal">TP_IFACE_CALL_CONTENT_INTERFACE_DTMF</code></a> interface.
+</p>
+<p>
+For more details, see <a class="link" href="telepathy-glib-call-content.html#tp-call-content-send-tones-async" title="tp_call_content_send_tones_async ()"><code class="function">tp_call_content_send_tones_async()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tones</code></em> :</span></p></td>
+<td>a string representation of one or more DTMF events.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>optional <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to ignore</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the operation finishes</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-send-tones-finish"></a><h3>tp_call_channel_send_tones_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_call_channel_send_tones_finish   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-send-tones-async" title="tp_call_channel_send_tones_async ()"><code class="function">tp_call_channel_send_tones_async()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-set-ringing-async"></a><h3>tp_call_channel_set_ringing_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_call_channel_set_ringing_async   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Indicate that the local user has been alerted about the incoming call.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the operation finishes</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-set-ringing-finish"></a><h3>tp_call_channel_set_ringing_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_call_channel_set_ringing_finish  (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-set-ringing-async" title="tp_call_channel_set_ringing_async ()"><code class="function">tp_call_channel_set_ringing_async()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-set-queued-async"></a><h3>tp_call_channel_set_queued_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_call_channel_set_queued_async    (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Notifies the CM that the local user is already in a call, so this call has
+been put in a call-waiting style queue.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the operation finishes</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-set-queued-finish"></a><h3>tp_call_channel_set_queued_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_call_channel_set_queued_finish   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-set-queued-async" title="tp_call_channel_set_queued_async ()"><code class="function">tp_call_channel_set_queued_async()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-accept-async"></a><h3>tp_call_channel_accept_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_call_channel_accept_async        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+For incoming calls with <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--state" title='The "state" property'><span class="type">"state"</span></a> set to
+<a class="link" href="telepathy-glib-enums.html#TP-CALL-STATE-INITIALISED:CAPS"><code class="literal">TP_CALL_STATE_INITIALISED</code></a>, accept the incoming call. This changes
+<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--state" title='The "state" property'><span class="type">"state"</span></a> to <a class="link" href="telepathy-glib-enums.html#TP-CALL-STATE-ACCEPTED:CAPS"><code class="literal">TP_CALL_STATE_ACCEPTED</code></a>.
+</p>
+<p>
+For outgoing calls with <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--state" title='The "state" property'><span class="type">"state"</span></a> set to
+<a class="link" href="telepathy-glib-enums.html#TP-CALL-STATE-PENDING-INITIATOR:CAPS"><code class="literal">TP_CALL_STATE_PENDING_INITIATOR</code></a>, actually call the remote contact; this
+changes <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--state" title='The "state" property'><span class="type">"state"</span></a> to
+<a class="link" href="telepathy-glib-enums.html#TP-CALL-STATE-INITIALISING:CAPS"><code class="literal">TP_CALL_STATE_INITIALISING</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the operation finishes</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-accept-finish"></a><h3>tp_call_channel_accept_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_call_channel_accept_finish       (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-accept-async" title="tp_call_channel_accept_async ()"><code class="function">tp_call_channel_accept_async()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-hangup-async"></a><h3>tp_call_channel_hangup_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_call_channel_hangup_async        (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpCallStateChangeReason" title="enum TpCallStateChangeReason"><span class="type">TpCallStateChangeReason</span></a> reason</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *detailed_reason</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Request that the call is ended. All contents will be removed from <em class="parameter"><code>self</code></em> so
+that the <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--contents" title='The "contents" property'><span class="type">"contents"</span></a> property will be the empty list.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>a TpCallStateChangeReason</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>detailed_reason</code></em> :</span></p></td>
+<td>a more specific reason for the call hangup, if one is
+available, or an empty or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> string otherwise</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>a human-readable message to be sent to the remote contact(s)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the operation finishes</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-hangup-finish"></a><h3>tp_call_channel_hangup_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_call_channel_hangup_finish       (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-hangup-async" title="tp_call_channel_hangup_async ()"><code class="function">tp_call_channel_hangup_async()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-add-content-async"></a><h3>tp_call_channel_add_content_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_call_channel_add_content_async   (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpMediaStreamType" title="enum TpMediaStreamType"><span class="type">TpMediaStreamType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpMediaStreamDirection" title="enum TpMediaStreamDirection"><span class="type">TpMediaStreamDirection</span></a> initial_direction</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Request that a new Content of type <em class="parameter"><code>type</code></em> is added to <em class="parameter"><code>self</code></em>. Callers should
+check the value of the <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--mutable-contents" title='The "mutable-contents" property'><span class="type">"mutable-contents"</span></a> property before trying
+to add another content as it might not be allowed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the suggested name of the content to add</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the media stream type of the content to be added to the call, from
+<a class="link" href="telepathy-glib-enums.html#TpMediaStreamType" title="enum TpMediaStreamType"><span class="type">TpMediaStreamType</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>initial_direction</code></em> :</span></p></td>
+<td>The initial direction of the content</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the operation finishes</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-add-content-finish"></a><h3>tp_call_channel_add_content_finish ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-call-content.html#TpCallContent"><span class="returnvalue">TpCallContent</span></a> *     tp_call_channel_add_content_finish  (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes <a class="link" href="telepathy-glib-call-channel.html#tp-call-channel-add-content-async" title="tp_call_channel_add_content_async ()"><code class="function">tp_call_channel_add_content_async()</code></a>.
+</p>
+<p>
+The returned <a class="link" href="telepathy-glib-call-content.html#TpCallContent"><span class="type">TpCallContent</span></a> is NOT guaranteed to have
+<a class="link" href="telepathy-glib-call-content.html#TP-CALL-CONTENT-FEATURE-CORE:CAPS" title="TP_CALL_CONTENT_FEATURE_CORE"><code class="literal">TP_CALL_CONTENT_FEATURE_CORE</code></a> prepared.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>reference to the new <a class="link" href="telepathy-glib-call-content.html#TpCallContent"><span class="type">TpCallContent</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-request-hold-async"></a><h3>tp_call_channel_request_hold_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_call_channel_request_hold_async  (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> hold</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Requests that the connection manager holds or unholds the call. Watch
+<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--hold-state" title='The "hold-state" property'><span class="type">"hold-state"</span></a> property to know when the channel goes on
+hold or is unheld. Unholding may fail if the streaming implementation
+can not obtain all the resources needed to restart the call.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hold</code></em> :</span></p></td>
+<td>Whether to request a hold or a unhold</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the operation finishes</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-channel-request-hold-finish"></a><h3>tp_call_channel_request_hold_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_call_channel_request_hold_finish (<em class="parameter"><code><a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes tp_call_channel_request_hold_async
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-call-channel.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpCallChannel--contents"></a><h3>The <code class="literal">"contents"</code> property</h3>
+<pre class="programlisting">  "contents"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>*            : Read</pre>
+<p>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of <a class="link" href="telepathy-glib-call-content.html#TpCallContent"><span class="type">TpCallContent</span></a> objects. The list of content objects that are
+part of this call.
+</p>
+<p>
+It is NOT guaranteed that <a class="link" href="telepathy-glib-call-content.html#TP-CALL-CONTENT-FEATURE-CORE:CAPS" title="TP_CALL_CONTENT_FEATURE_CORE"><code class="literal">TP_CALL_CONTENT_FEATURE_CORE</code></a> is prepared on
+those objects.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannel--flags"></a><h3>The <code class="literal">"flags"</code> property</h3>
+<pre class="programlisting">  "flags"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>
+A <a class="link" href="telepathy-glib-enums.html#TpCallFlags" title="enum TpCallFlags"><span class="type">TpCallFlags</span></a> specifying the flags of the call state.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannel--hardware-streaming"></a><h3>The <code class="literal">"hardware-streaming"</code> property</h3>
+<pre class="programlisting">  "hardware-streaming"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>
+Whether or not the streaming is done by dedicated hardware.
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannel--hold-state"></a><h3>The <code class="literal">"hold-state"</code> property</h3>
+<pre class="programlisting">  "hold-state"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>
+A <a class="link" href="telepathy-glib-enums.html#TpLocalHoldState" title="enum TpLocalHoldState"><span class="type">TpLocalHoldState</span></a> specifying if the Call is currently held
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.17.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannel--hold-state-reason"></a><h3>The <code class="literal">"hold-state-reason"</code> property</h3>
+<pre class="programlisting">  "hold-state-reason"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>
+A <a class="link" href="telepathy-glib-enums.html#TpLocalHoldStateReason" title="enum TpLocalHoldStateReason"><span class="type">TpLocalHoldStateReason</span></a> specifying why the Call is currently held.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.17.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannel--initial-audio"></a><h3>The <code class="literal">"initial-audio"</code> property</h3>
+<pre class="programlisting">  "initial-audio"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>
+Whether or not the Call was started with audio.
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannel--initial-audio-name"></a><h3>The <code class="literal">"initial-audio-name"</code> property</h3>
+<pre class="programlisting">  "initial-audio-name"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read</pre>
+<p>
+If <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--initial-audio" title='The "initial-audio" property'><span class="type">"initial-audio"</span></a> is set to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, then this property will
+is the name of the intial audio content, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> otherwise.
+</p>
+<p>Default value: NULL</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannel--initial-video"></a><h3>The <code class="literal">"initial-video"</code> property</h3>
+<pre class="programlisting">  "initial-video"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>
+Whether or not the Call was started with video.
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannel--initial-video-name"></a><h3>The <code class="literal">"initial-video-name"</code> property</h3>
+<pre class="programlisting">  "initial-video-name"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read</pre>
+<p>
+If <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--initial-video" title='The "initial-video" property'><span class="type">"initial-video"</span></a> is set to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, then this property will
+is the name of the intial video content, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> otherwise.
+</p>
+<p>Default value: NULL</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannel--mutable-contents"></a><h3>The <code class="literal">"mutable-contents"</code> property</h3>
+<pre class="programlisting">  "mutable-contents"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>
+Whether or not call contents can be added or removed.
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannel--state"></a><h3>The <code class="literal">"state"</code> property</h3>
+<pre class="programlisting">  "state"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>
+A <a class="link" href="telepathy-glib-enums.html#TpCallState" title="enum TpCallState"><span class="type">TpCallState</span></a> specifying the state of the call.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannel--state-details"></a><h3>The <code class="literal">"state-details"</code> property</h3>
+<pre class="programlisting">  "state-details"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a>*           : Read</pre>
+<p>
+Detailed infoermation about <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--state" title='The "state" property'><span class="type">"state"</span></a>. It is a <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a>
+mapping gchar*-&gt;GValue, it can be accessed using the tp_asv_* functions.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannel--state-reason"></a><h3>The <code class="literal">"state-reason"</code> property</h3>
+<pre class="programlisting">  "state-reason"             <a class="link" href="telepathy-glib-call-channel.html#TpCallStateReason"><span class="type">TpCallStateReason</span></a>*    : Read</pre>
+<p>
+Reason why <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel--state" title='The "state" property'><span class="type">"state"</span></a> last changed.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-call-channel.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpCallChannel-content-added"></a><h3>The <code class="literal">"content-added"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>       *content,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>       user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+The ::content-added signal is emitted whenever a
+<a class="link" href="telepathy-glib-call-content.html#TpCallContent"><span class="type">TpCallContent</span></a> is added to <em class="parameter"><code>self</code></em>.
+</p>
+<p>
+It is NOT guaranteed that <a class="link" href="telepathy-glib-call-content.html#TP-CALL-CONTENT-FEATURE-CORE:CAPS" title="TP_CALL_CONTENT_FEATURE_CORE"><code class="literal">TP_CALL_CONTENT_FEATURE_CORE</code></a> is prepared on
+<em class="parameter"><code>content</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>content</code></em> :</span></p></td>
+<td>the newly added <a class="link" href="telepathy-glib-call-content.html#TpCallContent"><span class="type">TpCallContent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannel-content-removed"></a><h3>The <code class="literal">"content-removed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>     *self,
+                                                        <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>           *content,
+                                                        <a class="link" href="telepathy-glib-call-channel.html#TpCallStateReason"><span class="type">TpCallStateReason</span></a> *reason,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+The ::content-removed signal is emitted whenever a
+<a class="link" href="telepathy-glib-call-content.html#TpCallContent"><span class="type">TpCallContent</span></a> is removed from <em class="parameter"><code>self</code></em>.
+</p>
+<p>
+It is NOT guaranteed that <a class="link" href="telepathy-glib-call-content.html#TP-CALL-CONTENT-FEATURE-CORE:CAPS" title="TP_CALL_CONTENT_FEATURE_CORE"><code class="literal">TP_CALL_CONTENT_FEATURE_CORE</code></a> is prepared on
+<em class="parameter"><code>content</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>content</code></em> :</span></p></td>
+<td>the newly removed <a class="link" href="telepathy-glib-call-content.html#TpCallContent"><span class="type">TpCallContent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-call-channel.html#TpCallStateReason"><span class="type">TpCallStateReason</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannel-members-changed"></a><h3>The <code class="literal">"members-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>     *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a>        *updates,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>         *removed,
+                                                        <a class="link" href="telepathy-glib-call-channel.html#TpCallStateReason"><span class="type">TpCallStateReason</span></a> *reason,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+The ::members-changed signal is emitted whenever the call's members
+changes.
+</p>
+<p>
+The <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> objects are guaranteed to have all of the features
+previously passed to <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-contact-features" title="tp_simple_client_factory_add_contact_features ()"><code class="function">tp_simple_client_factory_add_contact_features()</code></a>
+prepared.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>updates</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> mapping <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> to its new <a class="link" href="telepathy-glib-enums.html#TpCallMemberFlags" title="enum TpCallMemberFlags"><span class="type">TpCallMemberFlags</span></a>. <span class="annotation">[<acronym title="Override the parsed C type with given type"><span class="acronym">type</span></acronym> GLib.HashTable][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> TelepathyGLib.Contact uint]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>removed</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> removed from the call members. <span class="annotation">[<acronym title="Override the parsed C type with given type"><span class="acronym">type</span></acronym> GLib.PtrArray][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> TelepathyGLib.Contact]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-call-channel.html#TpCallStateReason"><span class="type">TpCallStateReason</span></a> for the change</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallChannel-state-changed"></a><h3>The <code class="literal">"state-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>     *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>              state,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>              flags,
+                                                        <a class="link" href="telepathy-glib-call-channel.html#TpCallStateReason"><span class="type">TpCallStateReason</span></a> *reason,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a>        *details,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+The ::state-changed signal is emitted whenever the
+call state changes.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>state</code></em> :</span></p></td>
+<td>the new <a class="link" href="telepathy-glib-enums.html#TpCallState" title="enum TpCallState"><span class="type">TpCallState</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>the new <a class="link" href="telepathy-glib-enums.html#TpCallFlags" title="enum TpCallFlags"><span class="type">TpCallFlags</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-call-channel.html#TpCallStateReason"><span class="type">TpCallStateReason</span></a> for the change</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>details</code></em> :</span></p></td>
+<td>additional details as a
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> readable using the tp_asv_* functions. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

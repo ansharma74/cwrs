@@ -1,0 +1,116 @@
+<div class='section-title plus'>IP Header Information</div>
+
+<div class='ip plus'>
+	
+	<table class='default' border='0' cellspacing='0' cellpadding='0'>
+		<tr>
+			<th class='first'>Source</th>
+			<th>Destination</th>
+			<th>Ver</th>
+			<th>Hlen</th>
+			<th>Tos</th>
+			<th>Len</th>
+			<th>ID</th>
+			<th>Flags</th>
+			<th>Off</th>
+			<th>TTL</th>
+			<th>Proto</th>
+			<th class='last'>Csum</th>
+		</tr>
+		<tbody>
+			<tr>
+        
+        <td style='width:150px;' class='first'>
+          <a href='/events/lookup?address=<%= @event.ip.ip_src %>' 
+            data-address='<%= @event.ip.ip_src %>' class='ip-button has-event-menu' onclick="return false;">
+            
+            <%= @event.ip.ip_src %>
+            <%= clippy(@event.ip.ip_src, '#FFFFFF', "src-#{@event.id}") %>
+          </a>
+          
+          <dl class='event-sub-menu round shadow push-down' style='display:none;'>
+
+            <% if @current_user.admin %>
+
+            <dd>
+              <%= link_to "Edit Asset Name", "#",
+              :"data-ip_address" => @event.ip.ip_src,
+              :"data-agent_id" => @event.sensor.sid,
+              :"data-asset_global" => @event.ip.asset_names[:source].try(:global),
+              :"data-asset_agent_ids" => @event.ip.asset_names[:source].try(:agent_ids_string),
+              :"data-asset_name" => @event.ip.asset_names[:source].try(:name),
+              :"data-asset_id" => @event.ip.asset_names[:source].try(:id),
+              :class => 'edit-asset-name'
+            %>
+            </dd>
+
+            <% end %>
+
+            <dd><%= link_to 'Basic Source Lookup', "/events/lookup?address=#{@event.ip.ip_src}", :class => 'snorbybox' %></dd>
+
+            <% @lookups.each do |lookup| %>
+              <dd>
+              <%= link_to lookup.title, 
+                lookup.build(:ip => @event.ip.ip_src, :port => @event.source_port),
+                :target => '_blank' %>
+              </dd>
+            <% end %>
+
+            <dd><%= link_to "Snorby Search By Source", results_path(:title => "Source Address #{@event.ip.ip_src}", :match_all => true, :search => { :sip => { :column => :source_ip, :operator => :is, :value => @event.ip.ip_src}}) %></dd>
+          </dl>
+
+        </td>
+
+        <td style='width:150px;'>
+          <a href='/events/lookup?address=<%= @event.ip.ip_dst %>' 
+            data-address='<%= @event.ip.ip_dst %>' class='ip-button has-event-menu'>
+            
+            <%= @event.ip.ip_dst %>
+            <%= clippy(@event.ip.ip_dst, '#FFFFFF', "dst-#{@event.id}") %>
+          </a>
+
+          <dl class='event-sub-menu round shadow push-down' style='display:none;'>
+
+
+            <% if @current_user.admin %>
+            <dd>
+              <%= link_to "Edit Asset Name", "#",
+              :"data-ip_address" => @event.ip.ip_dst,
+              :"data-agent_id" => @event.sensor.sid,
+              :"data-asset_global" => @event.ip.asset_names[:destination].try(:global),
+              :"data-asset_agent_ids" => @event.ip.asset_names[:destination].try(:agent_ids_string),
+              :"data-asset_name" => @event.ip.asset_names[:destination].try(:name),
+              :"data-asset_id" => @event.ip.asset_names[:destination].try(:id),
+              :class => 'edit-asset-name' %>
+            </dd>
+            <% end %>
+
+            <dd><%= link_to 'Basic Destination Lookup', "/events/lookup?address=#{@event.ip.ip_dst}", :class => 'snorbybox' %></dd>
+            
+            <% @lookups.each do |lookup| %>
+              <dd>
+              <%= link_to lookup.title, 
+                lookup.build(:ip => @event.ip.ip_dst, :port => @event.destination_port),
+                :target => '_blank' %>
+              </dd>
+            <% end %>
+
+            <dd><%= link_to "Snorby Search By Destination", results_path(:title => "Destination Address #{@event.ip.ip_dst}", :match_all => true, :search => {:sip => { :column => :destination_ip, :operator => :is, :value => @event.ip.ip_dst}}) %></dd>
+          </dl
+        </td>
+        
+        <td><%= @event.ip.ip_ver %></td>
+				<td><%= @event.ip.ip_hlen %></td>
+				<td><%= @event.ip.ip_tos %></td>
+				<td><%= @event.ip.ip_len %></td>
+				<td><%= @event.ip.ip_id %></td>
+				<td><%= @event.ip.ip_flags %></td>
+				<td><%= @event.ip.ip_off %></td>
+				<td><%= @event.ip.ip_ttl %></td>
+				<td><%= @event.ip.ip_proto %></td>
+				<td class='last'><%= @event.ip.ip_csum %></td>
+			</tr>
+		</tbody>
+	</table>
+	
+</div>

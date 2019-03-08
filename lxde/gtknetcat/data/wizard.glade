@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
+<!--Generated with glade3 3.4.5 on Mon Jul  7 10:33:38 2008 -->
+<glade-interface>
+  <widget class="GtkAssistant" id="wizard">
+    <property name="title" translatable="yes">Inter-Computer File Transmission</property>
+    <property name="window_position">GTK_WIN_POS_CENTER</property>
+    <property name="default_width">512</property>
+    <property name="default_height">360</property>
+    <signal name="close" handler="on_close"/>
+    <signal name="cancel" handler="on_cancel"/>
+    <signal name="destroy" handler="on_destroy"/>
+    <signal name="apply" handler="on_apply"/>
+    <signal name="prepare" handler="on_prepare"/>
+    <child>
+      <widget class="GtkVBox" id="page1">
+        <property name="visible">True</property>
+        <property name="border_width">8</property>
+        <property name="spacing">4</property>
+        <child>
+          <widget class="GtkLabel" id="label1">
+            <property name="visible">True</property>
+            <property name="xalign">0</property>
+            <property name="label" translatable="yes">What do you want to do?</property>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkRadioButton" id="action_send">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="label" translatable="yes">Send files to another computer</property>
+            <property name="response_id">0</property>
+            <property name="draw_indicator">True</property>
+            <signal name="toggled" handler="on_send_toggled"/>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkRadioButton" id="action_recv">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="label" translatable="yes">Receive files from another computer</property>
+            <property name="response_id">0</property>
+            <property name="draw_indicator">True</property>
+            <property name="group">action_send</property>
+            <signal name="toggled" handler="on_recv_toggled"/>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </widget>
+      <packing>
+        <property name="page_type">GTK_ASSISTANT_PAGE_INTRO</property>
+        <property name="title">File Transmission</property>
+      </packing>
+    </child>
+    <child>
+      <widget class="GtkVBox" id="page2_send">
+        <property name="visible">True</property>
+        <property name="border_width">8</property>
+        <property name="spacing">4</property>
+        <child>
+          <widget class="GtkHBox" id="hbox2">
+            <property name="visible">True</property>
+            <child>
+              <widget class="GtkLabel" id="label4">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Destination Host:</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkEntry" id="dest_host">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="has_focus">True</property>
+              </widget>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="label5">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Port:</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkEntry" id="dest_port">
+                <property name="width_request">60</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+              </widget>
+              <packing>
+                <property name="position">3</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkLabel" id="label6">
+            <property name="visible">True</property>
+            <property name="xalign">0</property>
+            <property name="label" translatable="yes">Files to Send:</property>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkHBox" id="hbox4">
+            <property name="visible">True</property>
+            <property name="spacing">4</property>
+            <child>
+              <widget class="GtkScrolledWindow" id="scrolledwindow1">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+                <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+                <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
+                <child>
+                  <widget class="GtkTreeView" id="src_file_list">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="headers_clickable">True</property>
+                    <property name="rules_hint">True</property>
+                    <property name="search_column">1</property>
+                  </widget>
+                </child>
+              </widget>
+            </child>
+            <child>
+              <widget class="GtkVButtonBox" id="vbuttonbox1">
+                <property name="visible">True</property>
+                <property name="homogeneous">True</property>
+                <property name="layout_style">GTK_BUTTONBOX_START</property>
+                <child>
+                  <widget class="GtkButton" id="add_files">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="label" translatable="yes">Add File</property>
+                    <property name="xalign">0</property>
+                    <property name="response_id">0</property>
+                    <signal name="clicked" handler="on_add_send_files"/>
+                  </widget>
+                </child>
+                <child>
+                  <widget class="GtkButton" id="add_folders">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="label" translatable="yes">Add Folder</property>
+                    <property name="xalign">0</property>
+                    <property name="response_id">0</property>
+                    <signal name="clicked" handler="on_add_send_folders"/>
+                  </widget>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkButton" id="rm_files">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="label">gtk-remove</property>
+                    <property name="use_stock">True</property>
+                    <property name="xalign">0</property>
+                    <property name="response_id">0</property>
+                    <signal name="clicked" handler="on_remove_send_files"/>
+                  </widget>
+                  <packing>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </widget>
+      <packing>
+        <property name="title">Send Files</property>
+      </packing>
+    </child>
+    <child>
+      <widget class="GtkVBox" id="page2_recv">
+        <property name="visible">True</property>
+        <property name="border_width">8</property>
+        <property name="spacing">4</property>
+        <child>
+          <widget class="GtkHBox" id="hbox1">
+            <property name="visible">True</property>
+            <child>
+              <widget class="GtkLabel" id="label3">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Listen on Port:</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkEntry" id="listen_port">
+                <property name="width_request">60</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="has_focus">True</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkHBox" id="hbox3">
+            <property name="visible">True</property>
+            <child>
+              <widget class="GtkLabel" id="label2">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Save to Folder: </property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkFileChooserButton" id="recv_dir">
+                <property name="visible">True</property>
+                <property name="action">GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</property>
+              </widget>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </widget>
+      <packing>
+        <property name="title">Receive Files</property>
+      </packing>
+    </child>
+    <child>
+      <widget class="GtkVBox" id="page3">
+        <property name="visible">True</property>
+        <property name="border_width">8</property>
+        <child>
+          <widget class="GtkScrolledWindow" id="progress_scroll">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+            <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+            <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
+            <child>
+              <widget class="GtkTextView" id="progress_output">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="editable">False</property>
+                <property name="cursor_visible">False</property>
+              </widget>
+            </child>
+          </widget>
+        </child>
+      </widget>
+      <packing>
+        <property name="page_type">GTK_ASSISTANT_PAGE_PROGRESS</property>
+        <property name="title">Transfering...</property>
+      </packing>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+  </widget>
+</glade-interface>

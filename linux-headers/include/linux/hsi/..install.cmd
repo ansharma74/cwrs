@@ -1,0 +1,1 @@
+cmd_/home/anil/cwrs/linux-headers/include/linux/hsi/.install := perl scripts/headers_install.pl /home/anil/cwrs/linux-headers/include/linux/hsi x86  /home/anil/cwrs/linux/include/uapi/linux/hsi/hsi_char.h ; for F in ; do echo "\#include <asm-generic/$$F>" > /home/anil/cwrs/linux-headers/include/linux/hsi/$$F; done; touch /home/anil/cwrs/linux-headers/include/linux/hsi/.install

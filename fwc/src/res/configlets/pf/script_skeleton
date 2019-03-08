@@ -1,0 +1,72 @@
+## -*- mode: shell-script; -*- 
+##
+## To be able to make changes to the part of configuration created
+## from this configlet you need to copy this file to the directory
+## fwbuilder/configlets/pf/ in your home directory and modify it.
+## Double "##" comments are removed during processing but single "#"
+## comments are be retained and appear in the generated script. Empty
+## lines are removed as well.  
+##
+## Configlets support simple macro language with these constructs:
+## {{$var}} is variable expansion
+## {{if var}} is conditional operator.
+##
+{{$top_comment}}
+
+{{$errors_and_warnings}}
+
+{{$shell_debug}}
+
+FWDIR=`dirname $0`
+
+{{$tools}}
+
+{{$shell_functions}}
+
+verify_interfaces() {
+    :
+    {{$verify_interfaces}}
+}
+
+set_kernel_vars() {
+    :
+    {{$kernel_vars_commands}}
+}
+
+prolog_commands() {
+    :
+    {{$prolog_script}}
+}
+
+epilog_commands() {
+    :
+    {{$epilog_script}}
+}
+
+run_epilog_and_exit() {
+    epilog_commands
+    exit $1
+}
+
+configure_interfaces() {
+    :
+    {{$configure_interfaces}}
+}
+
+log "Activating firewall script generated {{$timestamp}} by {{$user}}"
+
+set_kernel_vars
+configure_interfaces
+prolog_commands
+
+{{$activation_commands}}
+
+{{if pf_version_ge_4_x}}
+{{if pf_flush_states}}
+$PFCTL -F states
+{{endif}}
+{{endif}}
+
+{{$routing_script}}
+
+epilog_commands

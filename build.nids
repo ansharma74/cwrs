@@ -1,0 +1,145 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+MINPARAMS=1
+if [ $# -lt "$MINPARAMS" ]
+then
+    echo usage:
+    echo   build.nids "package_type"
+    echo
+    echo i.e.:
+    echo   build.net "snort | full"
+    echo
+    exit 1
+fi
+
+BUILDTYPE=$1
+SURICATA=0
+
+case "$BUILDTYPE" in
+    full)
+        echo "Include Suricata"
+        SURICATA=1
+        ;;
+    snort)
+        ;;
+    *)
+        echo "Choices are as follows: snort | full"
+        exit 1
+        ;;
+esac
+
+
+TOP=`pwd`
+echo Source Base=$TOP
+
+echo "--------------Testing Build Tools--------------"
+
+$TOP/Config/buildpackageversion
+
+echo "----------Print Default Config----------------"
+
+$TOP/Config/envtest
+
+echo "----------Export Environment Variables-------"
+
+export PREFIX=$TOP/images/nids
+LNX_P=$TOP/images/linux
+
+export PATH=$LNX_P/bin:$PREFIX/bin:$PREFIX/lib:$PREFIX/include:$PREFIX/usr/lib:$PREFIX/usr/include:$PREFIX/usr/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+
+export PKG_CONFIG_PATH=$LNX_P/lib/pkgconfig:$PREFIX/lib/pkgconfig:$PREFIX/lib64/pkgconfig
+
+export LDFLAGS="-L$LNX_P/lib -L$PREFIX/lib -L$PREFIX/lib64"
+export CFLAGS="-fPIC -I$LNX_P/include -I$PREFIX/include"
+export CPPFLAGS="-fPIC -I$LNX_P/include -I$PREFIX/include"
+export LD_LIBRARY_PATH=$LNX_P/lib:$PREFIX/lib:$PREFIX/lib64
+export LIBRARY_PATH=$LNX_P/lib:$PREFIX/lib:$PREFIX/lib64
+export C_INCLUDE_PATH=$LNX_P/include:$PREFIX/include:$PREFIX/usr/include
+export CXX_INCLUDE_PATH=$LNX_P/include:$PREFIX/include:$PREFIX/usr/include
+
+echo "----------Print Build Config----------------"
+
+$TOP/Config/envtest
+
+function make_nidspack {
+
+    echo "---------------------------------------------------"
+    echo "------------------- Building nids --------------"
+    echo "---------------------------------------------------"
+
+    cd $TOP/packages/snort
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+    ./configure --prefix=$PREFIX
+    DEFINES=$CFLAGS DBM_INCLUDE=$PREFIX make
+    make DESTDIR=$PREFIX install
+    make distclean
+    export DESTDIR=
+
+    cd $TOP/packages/daq
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+    ./configure --prefix=$PREFIX --with-pic
+    make install
+    make distclean
+
+    cd $TOP/packages/sagan
+    if [ -f Makefile ]
+    then
+        make distclean
+    fi
+    ./configure --prefix=$PREFIX --with-pic
+    make install
+    make distclean
+
+    cd $TOP/packages/sagan-rules
+    cp * $PREFIX/etc/sagan
+
+    if [ $SURICATA == 1 ]
+    then
+        cd $TOP/packages/suricata
+        if [ -f Makefile ]
+        then
+            make distclean
+        fi
+        ./configure --prefix=$PREFIX --with-pic
+        make install
+        make distclean
+    fi
+ 
+    mkdir $PREFIX/GUI
+    cp -r $TOP/packages/snorby $PREFIX/GUI
+
+
+    echo "--------- Making NIDS Pack ---------------"
+
+    rm -rf $PREFIX/DEBIAN
+    mkdir $PREFIX/DEBIAN
+    echo "Package: cbirnids
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: all
+Maintainer: CBIR (info@cbir.in)
+Description: CBIR NIDS Manager
+    CBIR NIDS manager" > $PREFIX/DEBIAN/control
+
+    cd $PREFIX/..
+    find ./nids -type d | xargs chmod 755
+    dpkg-deb --build nids
+    if [! -d /tmp/builds ]
+    then
+        mkdir /tmp/builds
+    fi
+    mv nids.deb /tmp/builds/cbirnids.deb
+}
+
+make_nidspack
+

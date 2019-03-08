@@ -1,0 +1,808 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpChannelFactoryIface</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-obsolete.html" title="Obsolete modules">
+<link rel="prev" href="ch-obsolete.html" title="Obsolete modules">
+<link rel="next" href="telepathy-glib-debug-ansi.html" title="ANSI codes for debug messages">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch-obsolete.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-obsolete.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-debug-ansi.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#TpChannelFactoryIface.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#TpChannelFactoryIface.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#TpChannelFactoryIface.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#TpChannelFactoryIface.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="TpChannelFactoryIface"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="TpChannelFactoryIface.top_of_page"></a>TpChannelFactoryIface</span></h2>
+<p>TpChannelFactoryIface — interface for channel allocation/tracking</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="TpChannelFactoryIface.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/channel-factory-iface.h&gt;
+
+<span class="returnvalue">void</span>                (<a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryIfaceForeachImpl" title="TpChannelFactoryIfaceForeachImpl ()">*TpChannelFactoryIfaceForeachImpl</a>) (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpChannelIface.html#TpChannelFunc" title="TpChannelFunc ()"><span class="type">TpChannelFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryIfaceProc" title="TpChannelFactoryIfaceProc ()">*TpChannelFactoryIfaceProc</a>)        (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>);
+<a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryRequestStatus" title="enum TpChannelFactoryRequestStatus"><span class="returnvalue">TpChannelFactoryRequestStatus</span></a> (<a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryIfaceRequestImpl" title="TpChannelFactoryIfaceRequestImpl ()">*TpChannelFactoryIfaceRequestImpl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *chan_type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> handle_type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> handle</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> request</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpChannelIface.html" title="TpChannelIface"><span class="type">TpChannelIface</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+enum                <a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryRequestStatus" title="enum TpChannelFactoryRequestStatus">TpChannelFactoryRequestStatus</a>;
+                    <a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryIface-struct" title="TpChannelFactoryIface">TpChannelFactoryIface</a>;
+struct              <a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryIfaceClass" title="struct TpChannelFactoryIfaceClass">TpChannelFactoryIfaceClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-close-all" title="tp_channel_factory_iface_close_all ()">tp_channel_factory_iface_close_all</a>  (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-connecting" title="tp_channel_factory_iface_connecting ()">tp_channel_factory_iface_connecting</a> (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-connected" title="tp_channel_factory_iface_connected ()">tp_channel_factory_iface_connected</a>  (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-disconnected" title="tp_channel_factory_iface_disconnected ()">tp_channel_factory_iface_disconnected</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-foreach" title="tp_channel_factory_iface_foreach ()">tp_channel_factory_iface_foreach</a>    (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpChannelIface.html#TpChannelFunc" title="TpChannelFunc ()"><span class="type">TpChannelFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);
+<a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryRequestStatus" title="enum TpChannelFactoryRequestStatus"><span class="returnvalue">TpChannelFactoryRequestStatus</span></a> <a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-request" title="tp_channel_factory_iface_request ()">tp_channel_factory_iface_request</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *chan_type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> handle_type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> handle</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> request</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpChannelIface.html" title="TpChannelIface"><span class="type">TpChannelIface</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-emit-new-channel" title="tp_channel_factory_iface_emit_new_channel ()">tp_channel_factory_iface_emit_new_channel</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpChannelIface.html" title="TpChannelIface"><span class="type">TpChannelIface</span></a> *channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> request</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-emit-channel-error" title="tp_channel_factory_iface_emit_channel_error ()">tp_channel_factory_iface_emit_channel_error</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpChannelIface.html" title="TpChannelIface"><span class="type">TpChannelIface</span></a> *channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> request</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpChannelFactoryIface.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----TpChannelFactoryIface
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpChannelFactoryIface.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryIface-channel-error" title='The "channel-error" signal'>channel-error</a>"                                  : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryIface-new-channel" title='The "new-channel" signal'>new-channel</a>"                                    : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpChannelFactoryIface.description"></a><h2>Description</h2>
+<p>
+A channel factory is attached to a connection. It carries out channel
+requests from the connection, and responds to channel-related events
+on the underlying network connection (e.g. incoming calls).
+</p>
+<p>
+Deprecated since version 0.11.7. Use <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a>, a newer
+interface which can be used to implement modern D-Bus APIs, instead.
+</p>
+</div>
+<div class="refsect1">
+<a name="TpChannelFactoryIface.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpChannelFactoryIfaceForeachImpl"></a><h3>TpChannelFactoryIfaceForeachImpl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpChannelFactoryIfaceForeachImpl) (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpChannelIface.html#TpChannelFunc" title="TpChannelFunc ()"><span class="type">TpChannelFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">TpChannelFactoryIfaceForeachImpl</code> is deprecated and should not be used in newly-written code. 0.11.7</p>
+</div>
+<p>
+Signature of an implementation of foreach, which must call
+func(channel, data) for each channel managed by this factory.
+</p>
+<p>
+Deprecated since version 0.11.7. Use <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An object implementing <a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>func</code></em> :</span></p></td>
+<td>A function</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>Arbitrary data to pass to <em class="parameter"><code>func</code></em> as the second argument</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpChannelFactoryIfaceProc"></a><h3>TpChannelFactoryIfaceProc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpChannelFactoryIfaceProc)        (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">TpChannelFactoryIfaceProc</code> is deprecated and should not be used in newly-written code. 0.11.7</p>
+</div>
+<p>
+A virtual method on a channel factory that takes no extra parameters
+and returns nothing.
+</p>
+<p>
+Deprecated since version 0.11.7. Use <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An object implementing <a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpChannelFactoryIfaceRequestImpl"></a><h3>TpChannelFactoryIfaceRequestImpl ()</h3>
+<pre class="programlisting"><a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryRequestStatus" title="enum TpChannelFactoryRequestStatus"><span class="returnvalue">TpChannelFactoryRequestStatus</span></a> (*TpChannelFactoryIfaceRequestImpl)
+                                                        (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *chan_type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> handle_type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> handle</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> request</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpChannelIface.html" title="TpChannelIface"><span class="type">TpChannelIface</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">TpChannelFactoryIfaceRequestImpl</code> is deprecated and should not be used in newly-written code. 0.11.7</p>
+</div>
+<p>
+Signature of an implementation of RequestChannel.
+</p>
+<p>
+Deprecated since version 0.11.7. Use <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An object implementing <a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan_type</code></em> :</span></p></td>
+<td>The channel type, e.g. <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CHANNEL-TYPE-TEXT:CAPS" title="TP_IFACE_CHANNEL_TYPE_TEXT"><code class="literal">TP_IFACE_CHANNEL_TYPE_TEXT</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle_type</code></em> :</span></p></td>
+<td>The handle type of the channel's associated handle,
+or 0 if the channel has no associated handle</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td>The channel's associated handle, of type <em class="parameter"><code>handle_type</code></em>,
+or 0 if the channel has no associated handle</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>request</code></em> :</span></p></td>
+<td>An opaque data structure representing the channel request;
+if this request is satisfied by a newly created channel,
+this structure MUST be included in the new-channel signal
+if the newly created channel has handle 0, and MAY be
+included in the signal if the newly created channel has
+nonzero handle.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ret</code></em> :</span></p></td>
+<td>Set to the new channel if it is available immediately, as
+documented in the description of <a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryRequestStatus" title="enum TpChannelFactoryRequestStatus"><span class="type">TpChannelFactoryRequestStatus</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Set to the error if the return is
+<a class="link" href="TpChannelFactoryIface.html#TP-CHANNEL-FACTORY-REQUEST-STATUS-ERROR:CAPS"><code class="literal">TP_CHANNEL_FACTORY_REQUEST_STATUS_ERROR</code></a>, unset otherwise</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>one of the values of <a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryRequestStatus" title="enum TpChannelFactoryRequestStatus"><span class="type">TpChannelFactoryRequestStatus</span></a>, and
+behaves as documented for that return value</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpChannelFactoryRequestStatus"></a><h3>enum TpChannelFactoryRequestStatus</h3>
+<pre class="programlisting">typedef enum {
+ /*&lt; skip &gt;*/
+  TP_CHANNEL_FACTORY_REQUEST_STATUS_NOT_IMPLEMENTED = 0,
+  TP_CHANNEL_FACTORY_REQUEST_STATUS_NOT_AVAILABLE,
+  TP_CHANNEL_FACTORY_REQUEST_STATUS_INVALID_HANDLE,
+  TP_CHANNEL_FACTORY_REQUEST_STATUS_ERROR,
+  TP_CHANNEL_FACTORY_REQUEST_STATUS_CREATED,
+  TP_CHANNEL_FACTORY_REQUEST_STATUS_QUEUED,
+  TP_CHANNEL_FACTORY_REQUEST_STATUS_EXISTING
+} TpChannelFactoryRequestStatus;
+</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">TpChannelFactoryRequestStatus</code> is deprecated and should not be used in newly-written code. 0.11.7</p>
+</div>
+<p>
+Indicates the result of a channel request.
+</p>
+<p>
+Deprecated since version 0.11.7. Use <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="TP-CHANNEL-FACTORY-REQUEST-STATUS-NOT-IMPLEMENTED:CAPS"></a><span class="term"><code class="literal">TP_CHANNEL_FACTORY_REQUEST_STATUS_NOT_IMPLEMENTED</code></span></p></td>
+<td>Same as the Telepathy
+ error NotImplemented. The connection will try the next factory in its
+ list; if all return this, the overall result of the request will be
+ NotImplemented. *<em class="parameter"><code>ret</code></em> and *<em class="parameter"><code>error</code></em> are not set
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-CHANNEL-FACTORY-REQUEST-STATUS-NOT-AVAILABLE:CAPS"></a><span class="term"><code class="literal">TP_CHANNEL_FACTORY_REQUEST_STATUS_NOT_AVAILABLE</code></span></p></td>
+<td>Same as the Telepathy
+ error NotAvailable. *<em class="parameter"><code>ret</code></em> and *<em class="parameter"><code>error</code></em> are not set
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-CHANNEL-FACTORY-REQUEST-STATUS-INVALID-HANDLE:CAPS"></a><span class="term"><code class="literal">TP_CHANNEL_FACTORY_REQUEST_STATUS_INVALID_HANDLE</code></span></p></td>
+<td>Same as the Telepathy
+ error InvalidHandle. *<em class="parameter"><code>ret</code></em> and *<em class="parameter"><code>error</code></em> are not set
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-CHANNEL-FACTORY-REQUEST-STATUS-ERROR:CAPS"></a><span class="term"><code class="literal">TP_CHANNEL_FACTORY_REQUEST_STATUS_ERROR</code></span></p></td>
+<td>An error other than the above.
+ *<em class="parameter"><code>ret</code></em> is not set, *<em class="parameter"><code>error</code></em> is set
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-CHANNEL-FACTORY-REQUEST-STATUS-CREATED:CAPS"></a><span class="term"><code class="literal">TP_CHANNEL_FACTORY_REQUEST_STATUS_CREATED</code></span></p></td>
+<td>A new channel was created
+ (possibly in response to more than one request). new-channel has already
+ been emitted and *<em class="parameter"><code>ret</code></em> is set to the new channel.
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-CHANNEL-FACTORY-REQUEST-STATUS-QUEUED:CAPS"></a><span class="term"><code class="literal">TP_CHANNEL_FACTORY_REQUEST_STATUS_QUEUED</code></span></p></td>
+<td>A new channel will be created,
+ or was created but is not ready yet. Either new-channel or channel-error
+ will be emitted later. *<em class="parameter"><code>ret</code></em> and *<em class="parameter"><code>error</code></em> are not set.
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-CHANNEL-FACTORY-REQUEST-STATUS-EXISTING:CAPS"></a><span class="term"><code class="literal">TP_CHANNEL_FACTORY_REQUEST_STATUS_EXISTING</code></span></p></td>
+<td>An existing channel
+ satisfies the request: new-channel was not emitted. *<em class="parameter"><code>ret</code></em> is set to the
+ existing channel.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpChannelFactoryIface-struct"></a><h3>TpChannelFactoryIface</h3>
+<pre class="programlisting">typedef struct _TpChannelFactoryIface TpChannelFactoryIface;</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">TpChannelFactoryIface</code> is deprecated and should not be used in newly-written code. 0.11.7</p>
+</div>
+<p>
+Opaque typedef representing any channel factory implementation.
+</p>
+<p>
+Deprecated since version 0.11.7. Use <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> instead.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpChannelFactoryIfaceClass"></a><h3>struct TpChannelFactoryIfaceClass</h3>
+<pre class="programlisting">struct TpChannelFactoryIfaceClass {
+  GTypeInterface parent_class;
+
+  TpChannelFactoryIfaceProc close_all;
+  TpChannelFactoryIfaceProc connecting;
+  TpChannelFactoryIfaceProc connected;
+  TpChannelFactoryIfaceProc disconnected;
+  TpChannelFactoryIfaceForeachImpl foreach;
+  TpChannelFactoryIfaceRequestImpl request;
+};
+</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">TpChannelFactoryIfaceClass</code> is deprecated and should not be used in newly-written code. 0.11.7</p>
+</div>
+<p>
+The class structure and vtable for a channel factory implementation.
+</p>
+<p>
+Deprecated since version 0.11.7. Use <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GTypeInterface"><span class="type">GTypeInterface</span></a> <em class="structfield"><code><a name="TpChannelFactoryIfaceClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>Fields shared with GTypeInterface</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryIfaceProc" title="TpChannelFactoryIfaceProc ()"><span class="type">TpChannelFactoryIfaceProc</span></a> <em class="structfield"><code><a name="TpChannelFactoryIfaceClass.close-all"></a>close_all</code></em>;</span></p></td>
+<td>Close all channels and shut down the channel factory. It is not
+expected to be usable afterwards. This is called when the connection goes
+to disconnected state, before emitting the StatusChanged signal or calling
+<code class="function">disconnected()</code>. Must be filled in by implementations.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryIfaceProc" title="TpChannelFactoryIfaceProc ()"><span class="type">TpChannelFactoryIfaceProc</span></a> <em class="structfield"><code><a name="TpChannelFactoryIfaceClass.connecting"></a>connecting</code></em>;</span></p></td>
+<td>Called just after the connection goes from disconnected to
+connecting state. May be NULL if nothing special needs to happen.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryIfaceProc" title="TpChannelFactoryIfaceProc ()"><span class="type">TpChannelFactoryIfaceProc</span></a> <em class="structfield"><code><a name="TpChannelFactoryIfaceClass.connected"></a>connected</code></em>;</span></p></td>
+<td>Called just after the connection goes from connecting to
+connected state. May be NULL if nothing special needs to happen.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryIfaceProc" title="TpChannelFactoryIfaceProc ()"><span class="type">TpChannelFactoryIfaceProc</span></a> <em class="structfield"><code><a name="TpChannelFactoryIfaceClass.disconnected"></a>disconnected</code></em>;</span></p></td>
+<td>Called just after the connection goes to disconnected state.
+This is always called after <em class="parameter"><code>close_all</code></em>. May be NULL if nothing special
+needs to happen.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryIfaceForeachImpl" title="TpChannelFactoryIfaceForeachImpl ()"><span class="type">TpChannelFactoryIfaceForeachImpl</span></a> <em class="structfield"><code><a name="TpChannelFactoryIfaceClass.foreach"></a>foreach</code></em>;</span></p></td>
+<td>Call func(channel, data) for each channel managed by this
+factory. Must be filled in by implementations.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryIfaceRequestImpl" title="TpChannelFactoryIfaceRequestImpl ()"><span class="type">TpChannelFactoryIfaceRequestImpl</span></a> <em class="structfield"><code><a name="TpChannelFactoryIfaceClass.request"></a>request</code></em>;</span></p></td>
+<td>Respond to a request for a channel. Must be filled in by
+implementations. See <a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryIfaceRequestImpl" title="TpChannelFactoryIfaceRequestImpl ()"><span class="type">TpChannelFactoryIfaceRequestImpl</span></a> for details.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-channel-factory-iface-close-all"></a><h3>tp_channel_factory_iface_close_all ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_channel_factory_iface_close_all  (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_channel_factory_iface_close_all</code> is deprecated and should not be used in newly-written code. 0.11.7</p>
+</div>
+<p>
+Close all channels and shut down the channel factory. It is not expected
+to be usable afterwards. This is called when the connection goes to
+disconnected state, before either emitting the StatusChanged signal or
+calling <code class="function">disconnected()</code>.
+</p>
+<p>
+Deprecated since version 0.11.7. Use <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An object implementing <a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-channel-factory-iface-connecting"></a><h3>tp_channel_factory_iface_connecting ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_channel_factory_iface_connecting (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_channel_factory_iface_connecting</code> is deprecated and should not be used in newly-written code. 0.11.7</p>
+</div>
+<p>
+Indicate that the connection has gone from disconnected to connecting
+state.
+</p>
+<p>
+Deprecated since version 0.11.7. Use <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An implementation of the channel factory interface</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-channel-factory-iface-connected"></a><h3>tp_channel_factory_iface_connected ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_channel_factory_iface_connected  (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_channel_factory_iface_connected</code> is deprecated and should not be used in newly-written code. 0.11.7</p>
+</div>
+<p>
+Indicate that the connection has gone from connecting to connected state.
+</p>
+<p>
+Deprecated since version 0.11.7. Use <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An implementation of the channel factory interface</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-channel-factory-iface-disconnected"></a><h3>tp_channel_factory_iface_disconnected ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_channel_factory_iface_disconnected
+                                                        (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_channel_factory_iface_disconnected</code> is deprecated and should not be used in newly-written code. 0.11.7</p>
+</div>
+<p>
+Indicate that the connection has become disconnected.
+</p>
+<p>
+Deprecated since version 0.11.7. Use <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An implementation of the channel factory interface</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-channel-factory-iface-foreach"></a><h3>tp_channel_factory_iface_foreach ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_channel_factory_iface_foreach    (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpChannelIface.html#TpChannelFunc" title="TpChannelFunc ()"><span class="type">TpChannelFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_channel_factory_iface_foreach</code> is deprecated and should not be used in newly-written code. 0.11.7</p>
+</div>
+<p>
+Call func(channel, data) for each channel managed by this factory.
+</p>
+<p>
+Deprecated since version 0.11.7. Use <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An implementation of the channel factory interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>func</code></em> :</span></p></td>
+<td>A callback to be called once per channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>Extra data to be passed to <em class="parameter"><code>func</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-channel-factory-iface-request"></a><h3>tp_channel_factory_iface_request ()</h3>
+<pre class="programlisting"><a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryRequestStatus" title="enum TpChannelFactoryRequestStatus"><span class="returnvalue">TpChannelFactoryRequestStatus</span></a> tp_channel_factory_iface_request
+                                                        (<em class="parameter"><code><a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *chan_type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> handle_type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> handle</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> request</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpChannelIface.html" title="TpChannelIface"><span class="type">TpChannelIface</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_channel_factory_iface_request</code> is deprecated and should not be used in newly-written code. 0.11.7</p>
+</div>
+<p>
+Request a channel.
+</p>
+<p>
+Deprecated since version 0.11.7. Use <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An object implementing <a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan_type</code></em> :</span></p></td>
+<td>The channel type, e.g. <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CHANNEL-TYPE-TEXT:CAPS" title="TP_IFACE_CHANNEL_TYPE_TEXT"><code class="literal">TP_IFACE_CHANNEL_TYPE_TEXT</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle_type</code></em> :</span></p></td>
+<td>The handle type of the channel's associated handle,
+or 0 if the channel has no associated handle</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td>The channel's associated handle, of type <em class="parameter"><code>handle_type</code></em>,
+or 0 if the channel has no associated handle</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>request</code></em> :</span></p></td>
+<td>An opaque data structure representing the channel request;
+if this request is satisfied by a newly created channel,
+this structure MUST be included in the new-channel signal
+if the newly created channel has handle 0, and MAY be
+included in the signal if the newly created channel has
+nonzero handle.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ret</code></em> :</span></p></td>
+<td>Set to the new channel if it is available immediately, as
+documented in the description of <a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryRequestStatus" title="enum TpChannelFactoryRequestStatus"><span class="type">TpChannelFactoryRequestStatus</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Set to the error if the return is
+<a class="link" href="TpChannelFactoryIface.html#TP-CHANNEL-FACTORY-REQUEST-STATUS-ERROR:CAPS"><code class="literal">TP_CHANNEL_FACTORY_REQUEST_STATUS_ERROR</code></a>, unset otherwise</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>one of the values of <a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryRequestStatus" title="enum TpChannelFactoryRequestStatus"><span class="type">TpChannelFactoryRequestStatus</span></a>, and
+behaves as documented for that return value</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-channel-factory-iface-emit-new-channel"></a><h3>tp_channel_factory_iface_emit_new_channel ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_channel_factory_iface_emit_new_channel
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpChannelIface.html" title="TpChannelIface"><span class="type">TpChannelIface</span></a> *channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> request</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_channel_factory_iface_emit_new_channel</code> is deprecated and should not be used in newly-written code. 0.11.7</p>
+</div>
+<p>
+Signal that a new channel has been created (new-channel signal).
+</p>
+<p>
+If the channel was created in response to a channel request, the request
+was for a nonzero handle type, and the channel has zero handle type,
+request will be the request context passed to
+<a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-request" title="tp_channel_factory_iface_request ()"><code class="function">tp_channel_factory_iface_request()</code></a>.
+</p>
+<p>
+Otherwise, request may either be
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> or a request that led to the channel's creation; callers are expected
+to determine which channels satisfy which requests based on the handle
+and handle-type.
+</p>
+<p>
+Deprecated since version 0.11.7. Use <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>An object implementing <a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channel</code></em> :</span></p></td>
+<td>The new channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>request</code></em> :</span></p></td>
+<td>A request context as passed to <a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-request" title="tp_channel_factory_iface_request ()"><code class="function">tp_channel_factory_iface_request()</code></a>,
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-channel-factory-iface-emit-channel-error"></a><h3>tp_channel_factory_iface_emit_channel_error ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_channel_factory_iface_emit_channel_error
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpChannelIface.html" title="TpChannelIface"><span class="type">TpChannelIface</span></a> *channel</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> request</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_channel_factory_iface_emit_channel_error</code> is deprecated and should not be used in newly-written code. 0.11.7</p>
+</div>
+<p>
+Signal that a new channel was created, but an error occurred before it
+could become useful.
+</p>
+<p>
+request is as for <a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-emit-new-channel" title="tp_channel_factory_iface_emit_new_channel ()"><code class="function">tp_channel_factory_iface_emit_new_channel()</code></a>.
+</p>
+<p>
+Deprecated since version 0.11.7. Use <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>An object implementing <a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channel</code></em> :</span></p></td>
+<td>The new channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>The error that made the channel request fail</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>request</code></em> :</span></p></td>
+<td>A request context as passed to <a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-request" title="tp_channel_factory_iface_request ()"><code class="function">tp_channel_factory_iface_request()</code></a>,
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpChannelFactoryIface.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpChannelFactoryIface-channel-error"></a><h3>The <code class="literal">"channel-error"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>               *channel,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               error,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               request_context,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)            : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+Emitted when a new channel has been created, but an error occurred
+before it could become useful.
+</p>
+<p>
+<em class="parameter"><code>request</code></em> is the same as for <a class="link" href="TpChannelFactoryIface.html#TpChannelFactoryIface-new-channel" title='The "new-channel" signal'><span class="type">"new-channel"</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object implementing <a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channel</code></em> :</span></p></td>
+<td>an object implementing <a class="link" href="TpChannelIface.html" title="TpChannelIface"><span class="type">TpChannelIface</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>the <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> that made the channel request fail</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>request_context</code></em> :</span></p></td>
+<td>a request context as passed to
+<a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-request" title="tp_channel_factory_iface_request ()"><code class="function">tp_channel_factory_iface_request()</code></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpChannelFactoryIface-new-channel"></a><h3>The <code class="literal">"new-channel"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>               *channel,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               request_context,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)            : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+Emitted when a new channel has been created.
+</p>
+<p>
+If the <em class="parameter"><code>channel</code></em> was created in response to a channel request, the
+request was for a nonzero handle type, and the channel has zero handle
+type, <em class="parameter"><code>request_context</code></em> will be the request context passed to
+<a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-request" title="tp_channel_factory_iface_request ()"><code class="function">tp_channel_factory_iface_request()</code></a>.
+</p>
+<p>
+Otherwise, request may either be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> or a request that led to
+<em class="parameter"><code>channel</code></em>'s creation; callers are expected to determine which channels
+satisfy which requests based on the handle and handle-type.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object implementing <a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channel</code></em> :</span></p></td>
+<td>a new channel (an object implementing <a class="link" href="TpChannelIface.html" title="TpChannelIface"><span class="type">TpChannelIface</span></a>)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>request_context</code></em> :</span></p></td>
+<td>a request context as passed to
+<a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-request" title="tp_channel_factory_iface_request ()"><code class="function">tp_channel_factory_iface_request()</code></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpChannelFactoryIface.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnection"><span class="type">TpSvcConnection</span></a>, <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

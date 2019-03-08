@@ -1,0 +1,3907 @@
+commit eccc25c3da04b39e13fa5c1675bbf609a46565ae
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Sep 29 12:11:42 2009 -0400
+
+    Slight cleanup to D-Bus detection in configure
+    
+    Put stuff that's only used inside an if, inside the if
+
+commit 135a5b682977d237e7e7e5c8cb0b044ab2328681
+Merge: 663871d... 5faa73b...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Sep 18 18:23:20 2009 -0400
+
+    Merge branch 'master' of git://github.com/apenwarr/wvstreams
+
+commit 5faa73bc30f0d4791f8f6ace7b0c3335ea66799c
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Sep 18 16:16:35 2009 -0400
+
+    wvurl.cc: include ldap/ldaps default port numbers.
+    
+    As submitted by Patrick Patterson <ppatters@gmail.com>
+
+commit 663871dfe7d0f2c0d957a68852e3d9eada040017
+Merge: 7bea740... 8abcbcf...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Sep 15 15:53:51 2009 -0400
+
+    Merge git://github.com/apenwarr/wvstreams into apenwarr-integration
+
+commit 8abcbcf78070316395a32f797f1010721c909cfd
+Merge: a81ca7a... 658701e...
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Tue Sep 15 15:48:01 2009 -0400
+
+    Merge commit 'origin/master'
+    
+    * commit 'origin/master':
+      git-grafts-setup: a script for fixing up the git history.
+      Makefile: add 'autodep-test' target for testing autodependencies.
+      Fix autodependencies, which were broken by changes to gen-cc.
+
+commit a81ca7a348c0f676dcbaf3ca53d78e77a759268a
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Tue Sep 15 15:47:17 2009 -0400
+
+    configure.ac: fix support for linking a dbus from wvbuild.
+
+commit 7bea7407661924d4fc59a66fe244211fa6bbec8d
+Merge: 000fd0a... 658701e...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Sep 15 14:23:42 2009 -0400
+
+    Merge git://github.com/apenwarr/wvstreams into apenwarr-integration
+
+commit 000fd0a2ed1c6b86634f99435272612a2635964c
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Sep 15 14:14:41 2009 -0400
+
+    Using an external dbus through pkg-config should now work
+    
+    This common case was not working before due to a misuse of the DBUS_LIBS
+    variable. We now set it in the right place, which will hopefully fix the
+    problem.
+
+commit 658701e2494ed4d363799173699f83daa7b7ca41
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 24 14:56:52 2009 -0400
+
+    git-grafts-setup: a script for fixing up the git history.
+    
+    The 'master' branch had a major bit of missing history (ie. everything
+    before 2007) due to a mis-import by git-svn.  This reattaches the missing
+    history to make things more linear.
+    
+    Of course, all the svn merges aren't known by git to be merges, so 'git
+    blame' will blame changes that appeared in a merge on the person who merged,
+    rather than the person who originally wrote them.  Oh well.
+
+commit 8166258e0e9acf88a775a5feb50d0ee4070b8deb
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 10 15:06:44 2009 -0400
+
+    Makefile: add 'autodep-test' target for testing autodependencies.
+    
+    People (including me, sometimes) keep on breaking header autodependencies
+    and not noticing, and it wastes a lot of time.  Now the Makefile has a
+    self-test to ensure the dependencies are (at least basically) working
+    correctly.
+    
+    'make test' now depends on the autodep-test target so that you can't forget
+    to run it.
+
+commit c47a91311b487bc2645d4bb9a28f20443bf16e41
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 10 14:46:48 2009 -0400
+
+    Fix autodependencies, which were broken by changes to gen-cc.
+    
+    These were broken earlier during the attempted portability fixes to gen-cc
+    by ppatters.  All it *really* needed was a change of $() syntax to backquote
+    syntax, but we got a terrible mess instead.
+
+commit 2da2550fec889b707e87931a01fcc096ba6027aa
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Jun 3 23:23:37 2009 -0400
+
+    Remove debugging messages around solaris/mac linking in wvrules.mk
+
+commit da0f399d1fb72771828874044f8a811e942e504a
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed May 20 11:03:21 2009 -0700
+
+    Further changes to make wvstreams compile with gcc 4.4.
+    
+    In particular, the usage of strchr is overloaded with this new version of the
+    compiler to enforce const correctness. Modify our type information
+    accordingly.
+
+commit 37dee9bc3e821c9a96e2bf8c634fd134212782af
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed May 20 12:54:13 2009 -0400
+
+    Make WvStreams compile with gcc 4.4.
+    
+    Patch provided by jue <jue@jue.li>.  I test-compiled it on my system, but I
+    don't have a way to confirm that it actually works in gcc 4.4.
+
+commit 7cf12b93bc867d80e019d94762d1aeda4a68f2d8
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu May 14 18:58:03 2009 -0400
+
+    Fix win32 build problems.
+
+commit 60d813523ee65baccf0d81de364ec68e8b45e9ef
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu May 14 18:40:38 2009 -0400
+
+    Fix some problems with autoconf detection of the need for argp on win32.
+
+commit 0e44abbadb51fe8c7a2d46e9854322ee490d556a
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu May 14 17:45:07 2009 -0400
+
+    configure.ac: work correctly with static libdbus.a.
+    
+    Static libraries should be in LIBS, not LDFLAGS, because they have to come
+    *after* the source/.o files.
+
+commit 33f6c7db187e4e9c890eb1b6aef2ebddab1686d6
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu May 14 17:15:58 2009 -0400
+
+    Update wvtestrunner.pl->wvtestrun from the WvTest project.
+    
+    The main improvement, other than the shorter script name, is that we now
+    report the amount of time taken by each test section.  Particularly slow
+    tests are highlighted in yellow or red, which helps to figure out (and
+    hopefully improve) why 'make test' is taking so darn long.
+
+commit e30d8af13a5f6cef776e7947db02ef3761d0bece
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu May 14 17:12:34 2009 -0400
+
+    Fix several warnings that appear in gcc 4.3.2.
+    
+    None of them seem very important, but this leaves us "almost" warning-free
+    
+    There's still a scary warning that remains:
+    
+    crypto/wvsslhacks.c: In function ‘wv_i2d_OCSP_REQUEST_bio’:
+    crypto/wvsslhacks.c:48: warning: function called through a non-compatible type
+    crypto/wvsslhacks.c:48: note: if this code is reached, the program will abort
+    
+    I have no idea what it's talking about.  'make test' passes, at least,
+    though I don't really know if it tests that function or not.
+
+commit e7a59777f53f1043f94e175b815e58e88ebf4c28
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu May 14 17:28:32 2009 -0300
+
+    Bump version to 4.6.
+
+commit ffef541a7f39432ff337702634409b82da384f02
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu May 14 17:24:39 2009 -0300
+
+    Remove deprecated and useless auto_accept API.
+    
+    For more information, see:
+    
+    http://groups.google.com/group/wvstreams-devel/browse_thread/thread/981ca4fb015fe90b/3aca4b7f7f630ab9?lnk=gst&q=auto_accept#3aca4b7f7f630ab9
+    
+    Also remove example code from wvstreamsdaemon comment at the same time. I'm
+    not comfortable having long-winded example code in comments, where it is
+    not tested for workingness. There are no less than two wvstreams daemon
+    tests that people can check out if they want something to build on.
+
+commit 1b2621c72dd208ac3af232d07c4d7c51f6f610df
+Merge: 65fb08c... 56b41a2...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed May 13 18:43:31 2009 -0300
+
+    Merge branch 'dbus-refactoring'
+
+commit 65fb08cb3b6de4b5a09338a7c1e8747867dd4b09
+Author: Patrick Patterson <ppatters@nymph.(none)>
+Date:   Wed Jan 7 05:45:10 2009 +0800
+
+    Ok - thanks to Avery, WvStreams Libraries and Tests now compile, run, and
+    are generally happy.
+    
+    Signed-off-by: William Lachance <wrlach@gmail.com>
+
+commit b2b0d1a509b807e45a7ca033177a88b3a44d820c
+Author: Patrick Patterson <ppatters@nymph.(none)>
+Date:   Mon Jan 5 10:01:38 2009 +0800
+
+    Add in a make target for debugging some of the crazy variables, and fix an embarrassing mistake in the evil gen-cc script.
+    
+    Signed-off-by: William Lachance <wrlach@gmail.com>
+
+commit eda58c0608b1ff4f9f3301c161bb3fdaa628d66a
+Author: Patrick Patterson <ppatters@nymph.(none)>
+Date:   Mon Jan 5 05:52:36 2009 +0800
+
+    Ok - I've got most of the tests compiling now, but I'm still fighting with a couple of them.
+    
+    Signed-off-by: William Lachance <wrlach@gmail.com>
+
+commit af1e147293d6f9ff3734d153911b96f3b156a90e
+Author: Patrick Patterson <ppatters@nymph.(none)>
+Date:   Mon Jan 5 05:01:32 2009 +0800
+
+    Ok - I think this has all of the bits working necessary to compile WvStreams
+    on MacOS. Now, let's see if there are any of the unit tests that don't
+    work...
+    
+    Signed-off-by: William Lachance <wrlach@gmail.com>
+
+commit cbb8f75cf55ca830be5fe574c2076d06acd7b115
+Author: Patrick Patterson <ppatters@nymph.(none)>
+Date:   Sun Jan 4 02:13:59 2009 +0800
+
+    A bunch of changes that make WvStreams mostly compile on MacOS. Still have a
+    couple of issues with libwvstreams.so, but it's getting close.
+    
+    Signed-off-by: William Lachance <wrlach@gmail.com>
+
+commit 6fb411f70dfb9405be7d306dcd4fe6e2645024b7
+Author: Patrick Patterson <ppatters@nymph.(none)>
+Date:   Fri Dec 5 10:15:13 2008 +0800
+
+    Ok - since I'm in the mood for porting things, let's get the MACOS port
+    going at the same time. This has the added advantage of finally cleaning up
+    more of the argp stuff. What a mess.
+    
+    Signed-off-by: William Lachance <wrlach@gmail.com>
+
+commit 871133dc3d6fe7002a43212cecc2796dd9b248ba
+Author: Patrick Patterson <ppatters@dryad.(none)>
+Date:   Fri Dec 5 03:53:21 2008 +0800
+
+    Fix up the argp configure script, and actually have it generated when you
+    call autogen.sh
+    
+    Signed-off-by: William Lachance <wrlach@gmail.com>
+
+commit 08e9f1116fe2d215b3c6e8ce12b640e4096a1f4a
+Author: Patrick Patterson <ppatters@dryad.(none)>
+Date:   Fri Dec 5 03:35:43 2008 +0800
+
+    Actually let the configure scripts tell which OS it is being built on, and
+    then set the variables used correctly.
+    
+    Signed-off-by: William Lachance <wrlach@gmail.com>
+
+commit bf369c3c4e85b529cfc9b2a3b43b563ea5412aa1
+Author: Patrick Patterson <ppatters@dryad.(none)>
+Date:   Fri Dec 5 01:35:26 2008 +0800
+
+    Fix gen-cc so that the backtick also works on Linux.
+    
+    Signed-off-by: William Lachance <wrlach@gmail.com>
+
+commit c5962df89c2fe457a23ade4531a775c3036b290e
+Author: Patrick Patterson <ppatters@dryad.(none)>
+Date:   Fri Dec 5 01:20:30 2008 +0800
+
+    A bunch of fixes to do a few things:
+    
+    First of which is to fix the distclean
+    target to actually clean up argp stuff properly.
+    
+    Second is to add proper detection of AR for argp.
+    
+    Third is to begin Solaris port, and get it to the point where at least it
+    compiles all of the code, and creates libwvstatic.a.
+    
+    Signed-off-by: William Lachance <wrlach@gmail.com>
+
+commit 56b41a2116b83e3cac492e21e1c324b2d984afaa
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed May 13 16:25:50 2009 -0300
+
+    Link with dbus dynamically, and insist at least 1.2.14 be installed
+    
+    1.2.14 is the first release with the symbols we need to do this.
+
+commit 28a24eb145931353bcd7ac49d48266eae80c9670
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri May 8 18:02:22 2009 -0300
+
+    Remove the old code that depends on a statically linked copy of D-Bus.
+    
+    On second thought, having two code paths like this is a recipe for insanity.
+
+commit ca788ceb74020fffab8762f6b2e92c7b094464da
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri May 8 17:25:54 2009 -0300
+
+    Ensure our bytes are aligned before demarshalling them in D-Bus.
+    
+    The way we do this is rather gross (allocating a temporary buffer), but
+    there's basically no other way of accomplishing this.
+
+commit cf54b4af7c5999195cf7bb4b73d6ba8dc9847633
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Jan 14 13:38:52 2009 -0400
+
+    Bring back forward declaration of custom marshalling functions, minor cleanups.
+    
+    I've decided to keep the custom marshalling functions in wvdbusmarshal_c.c
+    for now (as thin wrappers around calls into the actual dbus API), just in
+    case we need them later.
+
+commit f1c71278289fc43084f5a8879f637ce1ef789799
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Jan 14 13:21:44 2009 -0400
+
+    Add changes to wvdbus_marshal_c.c to only use (now public) dbus intefaces.
+
+commit 6e47d999d4c4fb91d43c35657da195b09fe3c6c9
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Jan 13 21:26:02 2009 -0400
+
+    Start work on a branch of wvstreams which doesn't depend on dbus internals.
+    
+    We use a new (written by me) function in dbus to demarshal stuff. Marshalling
+    stuff comes next.
+
+commit 3e1aac7e1afcee7465f05a182cf307af6d7400eb
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Dec 23 19:22:08 2008 -0400
+
+    Don't say that a temporary WvString object in a const char argument list.
+    
+    Not sure how this ever worked, quite frankly, but it sure was a giant bucket
+    of fail on OpenSUSE 11.1.
+
+commit 70b45c90a7eb19d1cd0e6ada8c9455ec775a4ca5
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Dec 23 19:21:33 2008 -0400
+
+    Fix inconsequential typo in unit test
+
+commit 60d4599d663e7c3b6f388b2663368d797802cda0
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Dec 23 19:20:53 2008 -0400
+
+    insist on using a uint32 for the crc in adler32/crc32 in wvdigest.
+
+commit 6710e7ab297f740f4f6633554c4647209f95ce9e
+Author: William Lachance <wlach@addiction.(none)>
+Date:   Tue Dec 23 16:40:11 2008 -0400
+
+    Replace a few printfs with wvcon->prints, helps remove compiler warnings
+
+commit 8ad48ff26e5b076f81e280f563b748ab75147e55
+Author: William Lachance <wrlach@gmail.com>
+Date:   Mon Dec 22 16:56:02 2008 -0400
+
+    Bump version to 4.5.1, in preparation for a release.
+
+commit 0d0bb796573b4f8cc1ebca90c465feb8302bad19
+Author: William Lachance <wrlach@gmail.com>
+Date:   Mon Dec 22 16:53:57 2008 -0400
+
+    Remove non-existence install-xplc target from install dependancies.
+
+commit 178b4e70c960a6e1f2d8ee260df0f0e343fbb36c
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Dec 17 10:58:10 2008 -0400
+
+    Remove extern keyword from deserialize function.
+    
+    Not sure why it was ever there (extern for functions is just supposed to be a
+    hint for humans), but it sure confused the heck out of gcc 4.3.
+
+commit e413f17001f825bd7ceb930135ae599cd168c688
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Dec 17 10:05:28 2008 -0400
+
+    Remove Debian packaging from WvStreams. Packaging should be done downstream.
+
+commit c9b9a3082dbeaba28d95e2f70d868b0fdd58f259
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Dec 17 08:49:59 2008 -0400
+
+    Make use of valgrind optional.
+    
+    Thanks to Peter Alfredson for the fix.
+
+commit d69b14e7fdb6af77828837e757d2442748135800
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Dec 17 08:44:31 2008 -0400
+
+    Search for qt3 using pkg-config (in addition to the other methods).
+    
+    Thanks to Peter Alfredson for the fix.
+
+commit 8a573160ccbdbeee2706db4a3e6a4fe2429c029b
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Dec 17 08:42:38 2008 -0400
+
+    Makes configure see --with-dbus as the same as the default.
+    
+    We use pkg-config to get the libdir. Thanks to Peter Alfredson for the
+    fix.
+
+commit d01ba5cfa8b4820de0c91c52650da73c82b73701
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Dec 17 08:37:45 2008 -0400
+
+    Unbreak finding of qt3 in configure.
+    
+    Autoconf swallowed the []s so we would never find  qt-3. Thanks to Peter
+    Alfredson for the fix.
+
+commit bfea1cf4a126cdad3250dce204d4ba897cf7beac
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Dec 17 08:35:58 2008 -0400
+
+    Apply some fixes from Fedora for compilation on gcc 4.3.
+    
+    Thanks to Peter Alfredson for pointing this out.
+
+commit b4311f7f18d0c010e7efd83d14bb1578b80d76a3
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Dec 17 08:26:19 2008 -0400
+
+    Use the moc that we find in configure, not the first one in path.
+    
+    Patch from Peter Alfredson of Gentoo.
+
+commit d19f208f2b86797e13bd2bba55cadb556cb135e4
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Dec 17 08:24:29 2008 -0400
+
+    Apply fix to unbreak compilation by no longer setting obsolete sa_restorer flag
+    
+    See: https://bugzilla.redhat.com/show_bug.cgi?id=402531. Thanks to Peter
+    Alfredson for pointing this out.
+
+commit 9aff60fa6d55a46440a8e4d6bf343753b2bdc1ec
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Mon Nov 24 17:28:39 2008 -0500
+
+    wvtestrunner: catch segfaults in the subprogram.
+    
+    wvtestrunner would notice if the subprogram returned a non-zero exit code,
+    but not if it died on a signal.  Thus, a unit test program dying on a
+    segfault was considered a success.  Oops!
+
+commit fedfb1c3e10781c250460206fb9a6f0c5b7a1cca
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Nov 21 04:49:54 2008 -0500
+
+    Oops, fix unit tests to match my recent dbus bool/byte format changes.
+
+commit 331198b0e7007d82cf2863dc07eeac4a70c746f9
+Merge: 73aa242... da6816d...
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Nov 21 02:33:10 2008 -0500
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams
+    
+    * 'master' of ssh://repo.or.cz/srv/git/wvstreams:
+      Make the copy constructor for WvX509 much more efficient.
+      get_signing_cert in ocsp response returns a reference to a cert, not a pointer
+      Fail more nicely when the "openssl" utility doesn't return correct results
+      Add static method to allow conversion of the ocsp response enum to a string
+      Fix incorrect comment in configure.ac
+      Update debian packaging for WvStreams 4.5.
+      Port over the new dist rule prototyped in wvdial.
+
+commit 73aa24224b81f3ed94cbf7ae8d6c19c6529fbabd
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Nov 21 02:31:19 2008 -0500
+
+    wvdbusmsg: don't prepend 'y' or 'b' to bytes and booleans in get_str().
+    
+    As pretty as it looks in debug output, it corrupts things for people who
+    expect an "int8" to come out as a parseable numeric string.
+
+commit da6816d195169fe21bee1115c1516860a5706376
+Merge: 30bf6e9... 8012f6c...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Oct 23 18:05:45 2008 -0300
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams
+
+commit 30bf6e907f65dd3921034972b07cf435a03cd121
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Oct 23 17:54:40 2008 -0300
+
+    Make the copy constructor for WvX509 much more efficient.
+
+commit 06e9a94c95fcb6df9e760a00bd47a8e5ab4ccd1f
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Oct 23 17:48:17 2008 -0300
+
+    get_signing_cert in ocsp response returns a reference to a cert, not a pointer
+    
+    If there is no signing cert, the cert will be "bad" and !isok(). Also add
+    an operator ! to WvX509 and WvX509Mgr for more concisely testing this sort of
+    thing.
+
+commit 8012f6c3afb3e5cece40a86157a961bf46d52512
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Thu Oct 23 18:55:17 2008 +0000
+
+    crypto/t/wvocsp.t.cc:  Fail out if 'openssl' binary is missing.
+    
+    Without the 'openssl' binary, there is no way to run OCSP unit tests.
+    If said binary isn't present fail and don't run the rest of the tests.
+
+commit 10441bae1a3b6660ecdb0e4afbfd010a4fd54890
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Oct 23 15:42:45 2008 -0300
+
+    Fail more nicely when the "openssl" utility doesn't return correct results
+
+commit 4674e54ba05ffa814d44730f1f0c45ba76f74816
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Oct 23 15:17:08 2008 -0300
+
+    Add static method to allow conversion of the ocsp response enum to a string
+
+commit e48b955ac4c78991a0049203ff5555244e34e262
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Oct 23 15:16:57 2008 -0300
+
+    Fix incorrect comment in configure.ac
+
+commit 7ffa23d0e866fd691973937affef4a7352e6f575
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Oct 22 19:22:00 2008 -0300
+
+    Update debian packaging for WvStreams 4.5.
+
+commit c9806257a5b1d1698e7de87aada88ff6deefa726
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Thu Oct 23 13:40:07 2008 -0400
+
+    wvrules.mk:  Stripped out xplc references here (missed them last time).
+
+commit c649de1097feda57102fb3b25479df7f596759e8
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Thu Oct 23 13:10:43 2008 -0400
+
+    config.mk.in/configure-mingw32:  Remove all traces of xplc configure.
+
+commit 42899a8c81cd27389ca709e965f02bfd55446060
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Oct 22 18:36:03 2008 -0300
+
+    Port over the new dist rule prototyped in wvdial.
+    
+    We can now easily prepare pristine tarballs with a nice fat
+    ChangeLog. Also, for wvstreams only (for now), invoke autogen.sh so
+    that distributables have a configure.
+
+commit ead6b6a31d145788d940101c73efaa1370817c41
+Merge: 5b21be4... 12e74a9...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Oct 22 18:32:11 2008 -0300
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams
+
+commit 5b21be433dc5f07b97a83442237785bf08f0bc6a
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Oct 22 18:30:16 2008 -0300
+
+    Make module loader addition conform to XPLC's proper coding style
+    
+    Also don't bother initializing the temporary void * symbol. It's an out
+    parameter, not an in/out.
+
+commit 12e74a90d859c82fe6d1f8d68e54bf3c656c84b8
+Merge: 7d17c34... ada063d...
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Tue Oct 21 16:31:57 2008 -0400
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams into HEAD
+    
+    * 'master' of ssh://repo.or.cz/srv/git/wvstreams:
+      Remove a useless, wrong comment.
+
+commit 7d17c34ab27077fa25d462ac530e11d862193854
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Tue Oct 21 16:31:34 2008 -0400
+
+    win32: Disabled a couple of test programs that don't work in win32.
+
+commit ada063d112b26c0c1be0ea1f1b17798b348a85be
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Tue Oct 21 02:07:54 2008 -0400
+
+    Remove a useless, wrong comment.
+    
+    It was wrong both before and after the code it refers to was changed, but
+    differently each time.  Oops.  This is a sign it wasn't really helpful.
+
+commit c9770de0f8452c51d34666fca6972f8660a7502f
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Oct 21 17:04:27 2008 -0300
+
+    Bump version to 4.5, in anticipation of a release.
+
+commit b1f489481b7fc98a87426f9a3f258ab0b886d141
+Merge: 3996315... 9a2ac75...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Oct 21 16:57:29 2008 -0300
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams
+
+commit 39963157bb141d26e4e9d8de836bef50eb137882
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Oct 21 16:55:54 2008 -0300
+
+    Make url_encode take a set of "unsafe characters" instead of a regex
+    
+    Unfortunately wvregex is not supported on win32 so we'll have to do make do
+    with something much more crude. In my case I only wanted to escape /'s and
+    %'s (for url encoding uniconf keys in human readable form), and this will work
+    fine for that.
+
+commit a8edda70b22ad922a2b3c7072baa532985c1afe6
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Oct 21 16:29:54 2008 -0300
+
+    "dist" target works again.
+
+commit 5f8aed0df7a6874ade5b0da87bd2063f7c1d25ce
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Oct 21 16:29:30 2008 -0300
+
+    Make build depend on config.mk.
+
+commit 9a2ac757cbc41b4f6c7f8967a5b01375c50281da
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Tue Oct 21 14:44:31 2008 -0400
+
+    xplc needs a patch to compile correctly on win32 with gcc 3.4.5.
+    
+    (And maybe other gcc versions.)  This patch was taken from wvports.
+
+commit 699aac46b50c001bb9236ef11a2219077d1b2303
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Oct 21 15:10:21 2008 -0300
+
+    Remove obsolete header.
+
+commit 77fa4ff7403951bf0fcef26eaa7628b56571ff9b
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Oct 21 13:59:18 2008 -0300
+
+    Remove the "death_notify" functionality from wvhttppool.
+    
+    It was generating a warning and the functionality can be better provided by
+    a close callback in any event...
+
+commit ed7e736ff5dc0c2a24bfc2a07f3aaef8e144eee3
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Oct 21 13:42:57 2008 -0300
+
+    Avoid a warning about type-punning in XPLC.
+    
+    Basically make it explicit that we won't type punn a pointer.
+
+commit ef43954ba5d9939396002cb6cbe53c03f24b3937
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Oct 21 13:40:02 2008 -0300
+
+    Add some virtual destructors to XPLC to suppress some warnings
+
+commit 0cc296ffe7cb04a4e154f4cab4eac477514b5c0a
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Oct 21 11:31:58 2008 -0300
+
+    Include and compile our own copy of xplc 0.3.13
+
+commit ff5ae062e689f39e7f9d1dc6d13759ebdcb3aed1
+Author: William Lachance <wrlach@gmail.com>
+Date:   Mon Oct 20 14:51:03 2008 -0300
+
+    url_encode now takes a regular expression to decide which characters to encode
+    
+    This expression defaults to [^A-Za-z0-9_.!~*'()-], the same as perl's
+    uri_escape function.
+
+commit f63b44e9e8e02a386e28f4c066b44c72290b0758
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Mon Oct 20 21:04:31 2008 -0400
+
+    wvtest.cc: consider it an error if 0 tests were run.
+    
+    When there's a linker problem of some sort, you might end up linking in
+    wvtestmain without any actual test programs, and 'make test' will succeed
+    because no tests failed.  But that's obviously not what you really wanted,
+    because no tests *passed* either.  We add a check at the end of run_all() to
+    ensure that at least one test was run; if not, we return a failure code.
+    
+    versaplexd had this problem for a while, and I'd rather not ever see it
+    again.
+
+commit 06991d81fdb5a0f9d5f0098628765df65fc1d546
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Mon Oct 20 21:01:02 2008 -0400
+
+    Oops, some Makefile rules depended on "WVSTREAMS=."
+    
+    If we had a dependency on $(WVSTREAMS_LIB)/libwvdbus.so, for example, it
+    wouldn't be satisfied by a rule for just "libwvdbus.so", but it works fine
+    if $(WVSTREAMS_LIB) is ".".  So change it back.
+    
+    To fix the LD_LIBRARY_PATH bug from earlier, just set it to `pwd` instead of
+    WVSTREAMS_LIB.
+
+commit d5a4b47ca50470774c99f3aa23ecc8837c032a16
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Mon Oct 20 20:55:12 2008 -0400
+
+    "wvtestmain ''" actually still runs all the tests, so skip the warning.
+    
+    wvtest.cc prints a message "WARNING: WvTest: only ran tests starting
+    with specifed prefix(es)" if you give it any parameters restricting the
+    tests to be run.  But 'make runtests' actually sometimes provides an
+    existing but empty parameter, which doesn't restrict anything because *any*
+    test starts with the empty string.  So suppress the warning in that case;
+    it's the desired behaviour.
+
+commit c7f9bdfd0203aee30c7aa33f2aaf803b7e8ee576
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Mon Oct 20 17:01:53 2008 -0400
+
+    Try to fix a timeout in wvstreamsdaemon.t.cc.
+    
+    The autobuilder machine is pretty busy, so the test might have timed out
+    rather than actually failing.
+
+commit 52f37ed729b00acf600564653c7f6e9411f211a5
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Mon Oct 20 15:29:22 2008 -0400
+
+    Remove the NULL-related check in wvstring.t.cc, and the warning it caused.
+    
+    WvString(NULL) actually produces a wvstring containing "0", because in C++
+    NULL is defined as 0, not (void *)0, and thus the pointer-based WvString
+    constructor doesn't run.  It has always been like that, since some version
+    of gcc where the correct C++ behaviour was added.  The unit test just
+    checked that this was in fact the case, in case it ever changed.
+    
+    Signs are that it might, in fact, change when C++0x comes out.  In any case,
+    checking the current behaviour is somewhat pointless, because anyone who
+    *relies* on the current behaviour is obviously crazy anyway, and it might
+    indeed change - for the better - when C++ changes.
+    
+    So let's git of this warning.  I've hated it for years anyway.
+
+commit 8978a2bfe5248b3ecd723b68c49905eec2514507
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Mon Oct 20 15:24:50 2008 -0400
+
+    Get rid of autoconf --datarootdir related warning.
+
+commit 430b1f6ba5b840a7bf8f2d7b2dabaffdc2ca00e9
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Mon Oct 20 15:08:05 2008 -0400
+
+    Set WVSTREAMS explicitly so that WVSTREAMS_LIB is right.
+    
+    Otherwise the unitest.sh script were failing, since they add WVSTREAMS_LIB
+    to the LD_LIBRARY_PATH, but that was just ".", and they were running from a
+    different directory.
+    
+    Hopefully this fixes "make test" for people who haven't set LD_LIBRARY_PATH
+    by hand.
+
+commit 917677a902dea23590fd7ae35f4e1a37807d66e1
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Mon Oct 20 15:01:48 2008 -0400
+
+    Fix some "non-virtual destructor" warnings in tests.
+
+commit d3560c1ab74d13f4051bb78c33fc01baa1a6a742
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Fri Oct 17 18:48:42 2008 -0400
+
+    Fix some compiler warnings from sending a long int to a %d printf format.
+
+commit 3acbddd1de7990bd6139723b2dbd467e868ad668
+Merge: 0c16c90... 1f74015...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Oct 17 12:33:31 2008 -0300
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams
+
+commit 0c16c9071bb1382fec462fd600eb1c5b452a6ec4
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Oct 17 12:32:23 2008 -0300
+
+    Fix typo in wvx509.h
+
+commit fb2675bbab064d1440ce8800c8ac8f83fd207bc0
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Oct 16 16:42:51 2008 -0300
+
+    Make OCSP response class much simpler (don't check signing of OCSP response)
+    
+    Also add a special method for getting the OCSP response certificate so you
+    can do this yourself, as well as a method for making sure that an OCSP
+    response is signed by a specific certificate.
+
+commit 1f74015b0d3f11dd43fa21f93d576b91b2a7118d
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Thu Oct 16 14:03:47 2008 -0400
+
+    crypto/wvocsp.cc:  Call wvsslhacks macro instead of openssl directly.
+    
+    In order to allow compilation with gcc 4.2, we wrapped
+    i2d_OCSP_REQUEST_bio in C code, and now call that from within
+    wvocsp.cc instead of the original openssl macro.  Don't ask why
+    this only breaks with gcc 4.2, as it probably should have broken
+    long before that.
+
+commit a70385ffc57263248b46cedac97c2572920ce9f5
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Thu Oct 16 14:01:34 2008 -0400
+
+    wvsslhacks.{c,h}:  Added a wrapper for i2d_OCSP_REQUEST_bio.
+    
+    i2d_OCSP_REQUEST_bio didn't work when called directly from C++, because
+    it calls an underlying macro which assumes a void * can be implictly
+    cast into an unsigned char *, which is not the case here, however, it
+    *is* the case in C.  Added a C wrapper.
+
+commit 3657ec4b91f0dd284c18c7f25abcfc80cbf1d29e
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Oct 15 18:22:00 2008 -0300
+
+    Fix unit tests which were broken by enum renaming.
+
+commit 9d28048e4c0639de54a056dc20c5bc2d330074ff
+Merge: 8d05762... 0917915...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Oct 15 17:54:21 2008 -0300
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams
+
+commit 8d05762daafbb6905bd50f606e9e36f52acc28ba
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Oct 15 17:53:20 2008 -0300
+
+    Delete X509 extensions before adding a new one of the same type
+    
+    Before it wasn't possible to rewrite X509 extensions once they had been set.
+    Boo.
+
+commit 319088469b8c2fd30c06fa36bcafd1d90456ddd8
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Oct 15 17:25:32 2008 -0300
+
+    New OCSP tests to make sure that key usage information is checked.
+    
+    Also add a copy constructor for WvX509Mgr, required by test.
+
+commit 09179154664859d39d9524c3dd863e8a8aeb3d8b
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Wed Oct 15 15:53:36 2008 -0400
+
+    wvocsp.{cc,h}:  Renamed enum Status members from all-uppercase.
+    
+    All-uppercase enum Status members caused compile errors (doubtless
+    conflicting with some Win32 macros) using mingw32.  Renamed the
+    members to begin with an uppercase letter and be all lowercase
+    otherwise, and the errors went away.
+
+commit 8412e68c53a4f5deb080ff79533322d830a7391a
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Oct 15 15:57:44 2008 -0300
+
+    Really remove wvdsp.cc
+
+commit 65beea7d1716cec1397439e7f2173f945b1b22c8
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Oct 14 14:04:27 2008 -0300
+
+    Use OpenSSL's pem decoding routine for decoding certificate requests
+    
+    Our routines to do this rejected some perfectly valid requests (specifically,
+    base64 that starts with MIH instead of MII...).
+
+commit 49ecb0fe2304690ba47bf7988ba4a5cac16a1618
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Oct 10 13:22:56 2008 -0300
+
+    Support 'file' urls in WvURL.
+    
+    This is kind of hacky, given that the class is intended for IP resolution, but
+    I can't really bring myself to try and come up with a general URI parsing
+    abstraction/strategy right now.
+
+commit b56d5388895f44a2011efef361e971317158e680
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Oct 10 12:47:31 2008 -0300
+
+    Correct misleading comment.
+
+commit d6e1f01cc6333dd427a25f3609e79d27f3185050
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Oct 10 12:47:03 2008 -0300
+
+    Fix edge case in url_decode. Add unit tests for url_decode/encode edge cases.
+
+commit dcd84fc941243d51ee00b6004331ab637a88c97c
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Oct 10 12:37:42 2008 -0300
+
+    Update win32.mk to no longer omit some objects which no longer exist
+
+commit e3b52b0e8bae4c1363196b20e6a9943444788e5b
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Oct 9 13:45:45 2008 -0300
+
+    Make sure CRL can still be signed by CA, even if the CA lacks an AKI.
+    
+    Also move some stuff which sets CRL information (version, time) into WvCRL
+    from WvX509Mgr.
+
+commit 1785c2fce931b443e363d3f7f1b18af0f3198ae3
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Oct 9 12:37:39 2008 -0300
+
+    Remove a bunch of header files for stuff that we no longer include.
+    
+    Also remove the remainder of the audio stuff, which isn't used by anything
+    (and probably doesn't even work anymore).
+
+commit e17f43e01c6bb68451cb029d1550f2c351a32fd3
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Oct 8 17:47:11 2008 -0300
+
+    We probably don't want the CA certificates we create to be used for OCSP
+    
+    Maybe in the future, I dunno. Seems like a case of YAGNI for now. You
+    should really be generating certificates you're actually using for stuff
+    in OpenSSL anyways...
+
+commit d9fc56a524e33703ada31a3ff9524006d7702b30
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Oct 8 16:12:48 2008 -0300
+
+    Move wvgrep from examples/ into utils/tests. Remove custom rule for it.
+
+commit 578f230b66a1da2c4f5fb37c681bf4ffa99ea5dc
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Oct 8 15:05:31 2008 -0300
+
+    Pull out support for having a seperate "trusted" responder certificate for ocsp
+    
+    Basically, there are two common cases for OCSP:
+    1. The issuer of the certificate signs OCSP responses as well.
+    2. The issuer of the certificate signs the certificate of the OCSP responder
+    (included with the response).
+    
+    In neither case do we need to support a seperate "trusted" responder
+    certificate (that's basically an extra provided by OpenSSL), so just take out
+    the complication of allowing one.
+
+commit 544bbe761ee71b761c9d6d02b89713f1a2fe0ef7
+Merge: f9b4f78... ac555f1...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Oct 8 11:28:41 2008 -0300
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams
+
+commit f9b4f780f82977827a26fe3765c28a627d3ea578
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Oct 7 13:24:02 2008 -0300
+
+    More tweaks to wvocsp and ocsptest
+
+commit ac555f139d97edbad2c5a427f418d9e12dc13741
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Wed Oct 8 02:03:15 2008 -0400
+
+    Makefile:  Moved some documentation around.  It was erroneous.
+
+commit 71f4703489693dbbdce667befa398dd5a34d366c
+Merge: acb6d2b... 128cf54...
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Wed Oct 8 02:01:45 2008 -0400
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams
+
+commit acb6d2bf67d35ca1ee10cde38604813f2f45a87c
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Wed Oct 8 01:59:51 2008 -0400
+
+    Makefile:  Massively clean-up argp inclusion in wvstreams.
+    
+    Hacks are a thing of the past with this new clean-up.  Pull in the
+    libargp.list file for libwvstatic.a, link the libargp.a library for
+    libwvutils.so.  No more @echo -n's, strange-case variables, or .PHONY
+    targets which look like they shouldn't be phony.
+    
+    Bonus:  works with -j2, though there are still other parts of the
+    Makefile which don't.
+
+commit 0c93852e5c88dff6f9585c6e436d832758727a1c
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Wed Oct 8 01:59:17 2008 -0400
+
+    argp/.gitignore:  Added libargp.list to .gitignore.
+
+commit c3da0fd01e4a3710787eaadb3ed91881748abba5
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Wed Oct 8 01:57:04 2008 -0400
+
+    argp/Makefile.in:  Add support for generating a .list file.
+    
+    Regarding support to use .list files for static libraries, argp can
+    now generate a .list file of the important objects we need from it.
+
+commit d95b30dbdbb1e0e7679fe550fa58e6e5177a0dd5
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Wed Oct 8 01:50:11 2008 -0400
+
+    WvStreams build system:  Add support for '.list' files and -EXTRA var.
+    
+    Two cool new features in the WvStreams build system for statically-
+    linked libraries:
+    .list files:  If you add a '.list' file as a dependency to a
+      library we statically link during the wvstreams build process,
+      and use the wvlink_ar macro to put it all together, the .list will
+      be processed correctly.  The .list file is a list of .o files to pull
+      in to said library; useful if, say, we're deconstructing another .a
+      file and want to pull its objects into this library.
+    
+      NOTE:  If you specify a .list file as a prerequsite for a dynamically
+        -linked object, the object will rebuild, but nothing more will
+        happen.  You mus still use the $1-LIBS variable for a particular
+        dynamically-linked library to pull in dependencies.
+    
+    $1-EXTRA variables:  If you absolutely need to specify some sort of
+      object file/list which you don't want the build system to use as a
+      rebuild dependency, specify the $1-EXTRA variable for a particular
+      .a (static library) to have it be included in the library, but
+      not the Make dependencies.
+    
+    ... also, I fixed the indentation on some of the shell scripting
+    craziness here.
+
+commit 128cf545c444d3d44db18b2cb563d7c7a84dd506
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Oct 8 00:34:12 2008 -0400
+
+    WSANOTINITIALISED is an okay error when shutting down WvStreams in win32.
+    
+    If someone shuts down winsock before closing wvcon, we can get this error.
+    But if winsock is shut down, it *doesn't* mean that someone accidentally
+    closed our socket, as the assertion in stream.cc suggests; it just means
+    we're shutting down.  So avoid asserting in that case.
+
+commit f5b862fbed285e3560a5b8c506df45faa25d55c6
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Oct 7 16:40:04 2008 -0400
+
+    Update argp .gitignore.
+
+commit f5c7ffbcf7301b5d11233e76d44ee69778ad38b7
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Oct 7 16:38:06 2008 -0400
+
+    wvstreams + argp:  I hate life and argp.
+    
+    Argp seems to require a few more .o files from its repository for
+    Win32... and naturally, they're generated from its own configure.
+    Add code that parses the resulting Makefile from argp to get
+    those objects which we need to throw into libwvstatic.a.
+
+commit 6ccd782b53ebaf6f582d4ced9c742f317781f136
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Oct 7 16:36:30 2008 -0400
+
+    wvstreams + argp:  Stupid autoconf variables screwed things up.
+    
+    We pass --host=i586-mingw32msvc to the wvstreams configure, but when
+    we run the argp configure from within it, the $ac_cv_host variable
+    has morphed into something else.  Use good ol'
+    $ac_cv_env_host_alias instead to fix the problem.
+
+commit af71f1131f36a0a09b72e9e9289a1c11f87c4678
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Oct 7 15:22:57 2008 -0400
+
+    argp now has a .gitignore file.
+
+commit 95540d2cf49f8e4bee95de63df6060e29fe44e75
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Oct 7 15:16:33 2008 -0400
+
+    WvStreams argp:  make WvStreams build and use argp.
+    
+    Based on the changes to the config.mk file, we no longer just
+    arbitrarily link -largp with our files, instead, we pick up whether
+    or not to use the WvStreams argp, and if so, include it directly
+    into libwvstatic (as .o files), or link it with libwvutils.so,
+    as needed.
+
+commit 7d00c09ffcdf6571c9390327516cd56d3d7bfa3e
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Oct 7 15:14:53 2008 -0400
+
+    WvStreams configures argp.
+    
+    WvStreams now configures argp for building during its own configure
+    process.  It also sets the USE_WVSTREAMS_ARGP flag in config.mk,
+    signifying whether or not we should recognize that the WvStreams
+    argp should be built and linked.  configure-mingw32 no longer
+    passes in argp flags for wvbuild.
+
+commit e252aa4039eea539355c2e47e26d3475f25ec0f1
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Oct 7 14:42:43 2008 -0400
+
+    argp:  Patch 08-use_fputc_instead_of_putc_on_win32.diff
+    
+    Patch description:
+      Mingw is stupid and seems to evaluate the 'stream' parameter to putc
+      in some strange way, which causes this program to abort.  We replace
+      instances of 'putc' with 'fputc' when building for WIN32, and
+      everything is happy.
+
+commit 8e897de234a50f345081954eb5394b47d7f75208
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Oct 7 14:41:21 2008 -0400
+
+    argp:  07-use_rand_instead_of_random_on_win32.diff
+    
+    Patch description:
+      Win32 doesn't have 'random.'  Use 'rand' there instead.
+
+commit b366bfb4284750e9126c951d67f1ca3601c4d4e8
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Oct 7 14:40:04 2008 -0400
+
+    argp:  Patch 06-include_malloc_h_for_win32_alloca.diff
+    
+    Patch description:
+      'alloca' is defined in malloc.h on Win32.
+
+commit 4a0623338d20145733e10f6406b5e7914c6703d3
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Oct 7 14:38:56 2008 -0400
+
+    argp:  Patch 05-use_winapi_for_sleep.diff
+    
+    Patch description:
+      There is no 'sleep(secs)' in win32; there is Sleep(millisecs).
+
+commit 6b8aa8f7b16f4530f584c49407d327517e283ada
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Oct 7 14:37:25 2008 -0400
+
+    argp:  Patch 04-remove_stuff_defined_by_mingw.diff
+    
+    Patch description:
+      Mingw32 defines __argc and __argv as (*__p__arg{c,v})() respectively.
+      Of course, this breaks the actual implementations of these functions
+      further on, which are not expecting a function pointer, but instead a
+      simple type.  We'll just add types with no names in these
+      declarations.
+
+commit 54ed4cb918ca95d23baf25d4c2ab7b9067a6b694
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Oct 7 14:29:20 2008 -0400
+
+    argp:  Patch 02-dont_include_linux_headers_on_mingw.diff
+    
+    Patch description:
+      Mingw32 has no sysexits.h file to work with.
+
+commit 6c6e0ed8385c778a23b8f2cbee6a0bf6e48d31ab
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Oct 7 14:09:36 2008 -0400
+
+    argp:  Patch 01-compile_with_new_gcc.diff from wvbuild.
+    
+    Patch description:
+      Remove __THROW (which expands to __attribute__ (__nothrow__) on my system)
+      from the function instantiations (as opposed to declarations) on a number of
+      functions, as GCC > 3.2 no longer supports such a thing.
+
+commit 3b3339cf6dc8ed912f844157db70966803e3a540
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Oct 7 00:48:23 2008 -0400
+
+    argp:  First commit of argp-standalone 1.3 to wvstreams.
+
+commit 39d2aaa80e4e4aae35fe15e1e148d529d56c6953
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Mon Oct 6 12:27:16 2008 -0400
+
+    Don't use 'tempfile' in the gen-cc script.
+    
+    It appears to be Debian specific.  Anyway, just naming the temp file with
+    '$$' (the shell's PID) in the name should work fine.
+
+commit 1117161d5fdb6769ffbc00762e4c6413765bcb94
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Oct 3 21:49:12 2008 -0300
+
+    Refactor wvocsp a bit to be more flexible and useful
+    
+    In particular, you no longer need to keep a request around in order to
+    check revocation of a certificate in the reply. You can use the request
+    to check the nonce seperately.
+
+commit 027198ec48b923e6be19725dabde3ab12d426405
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Oct 3 12:01:20 2008 -0300
+
+    Don't let httppool spin an infinite loop when it can't resolve a hostname
+    
+    It seemed like we had code which had the intention of doing this, but didn't
+    actually do it. Also added a unit test to make sure this problem doesn't crop
+    up again.
+
+commit 7eb04cc71c27bb0dc106ab09b515f85e01768d62
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Oct 1 10:54:25 2008 -0300
+
+    More refinements to the new OCSP abstraction.
+
+commit 49d3c1eab0e88581cfd55c95c2da30b23a38f6a2
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Sep 30 21:37:41 2008 -0300
+
+    Various cleanups to the new OCSP stuff.
+
+commit ea51e4ae109ec6e98af1a6ee682093e6320b870c
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Sep 30 16:44:39 2008 -0300
+
+    More exciting ocsp additions.
+
+commit 7237988c371012092c16f7026cf1ccd80fe86c17
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Sep 30 16:13:06 2008 -0300
+
+    New OCSP class needs access to WvX509's internals.
+
+commit ff32af5adda49fd5e0c69ba461763a6fe7dcb661
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Sep 30 15:59:10 2008 -0300
+
+    Send data as part of an http request as a buffer, not a string
+    
+    This enables us to send arbitrary data as part of an httppool request,
+    and has the side bonus of being simpler and more efficient.
+
+commit 71deac756591d2173432ed080d56c055d5278f04
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Sep 30 15:57:51 2008 -0300
+
+    Remove old artifact of SWIG python bindings
+
+commit 1c7ba301819efb08f37a68850e66ec0c656894d8
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Sep 30 14:51:08 2008 -0300
+
+    New OCSP abstraction for WvStreams.
+    
+    WvOCSPReq lets you create a request for an OCSP server.
+    WvOCSPResp lets you parse an OCSP response.
+
+commit 871ef701a8b165e36f091bbcdddd72bdc2de5dab
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Sep 30 13:53:21 2008 -0300
+
+    Insist that a version string be passed to WvDaemon/WvStreamsDaemon
+    
+    The old way was to default to a WEAVER version, which makes absolutely no
+    sense for projects outside of Nitix/Foundations. If IBM ever should want
+    to use our version of WvStreams, they can add the extra argument to their
+    WvStreams daemon constructor.
+
+commit c53e3f1cbd2849a075917071e39c383b5c2adbc8
+Merge: 30f7f93... a7889bc...
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Mon Sep 29 15:54:12 2008 -0400
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams
+    
+    * 'master' of ssh://repo.or.cz/srv/git/wvstreams:
+      WvDBusMsg: when printing REPLY packets, print the serial, not just rserial.
+      wvdbusserver: implement NameHasOwner request.
+      WvTCP: make *all* TCP streams low_delay().
+      wvgzip: use Z_BEST_SPEED instead of Z_DEFAULT_COMPRESSION.
+      Skip prociter objects in new streams directory when building under Win32
+      WvDBusConn: use delay_output() to make things go faster.
+      Add quick test for wvx509's copy constructor
+      Set the CRL's AKI when creating from a cacert.
+      Ripped wvprotectdata/wvunprotect data out of WvStreams.
+      Fix logic error (== => !=) in UniRegistryGen.exists().
+      Fix compile warning ("%d" -> "%ld" in printf) in uniregistrygen.cc
+
+commit c21c0bad420c81877042428abea855824b7c5141
+Author: William Lachance <wrlach@gmail.com>
+Date:   Mon Sep 29 16:14:12 2008 -0300
+
+    Use rm_rf instead of WvSystem("rm", "-rf", ...);
+
+commit a7889bc56699a9640cf723e4f926d71f2a8c66ea
+Merge: 8faa452... 287801e...
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Fri Sep 26 18:06:40 2008 +0000
+
+    Merge branch 'master' of /home/lkosewsk/versabanq/versabuild_win/wv/wvstreams
+    
+    Conflicts (very silly and fixed):
+    	include/wvstrutils.h
+    	utils/strutils.cc
+
+commit d318855e26ac225aacdcb94b6bac3d185e314aa8
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Sep 26 10:29:08 2008 -0300
+
+    Fix a misleading log message in WvX509::decode
+
+commit 30f7f93cd6af82aba0517501b8668d10dc9cd893
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu Sep 25 18:08:23 2008 -0400
+
+    wvdbusserver: implement NameHasOwner request.
+
+commit 8faa4521ab63a3517d722cf12215abb0c74a090d
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu Sep 25 18:08:43 2008 -0400
+
+    WvDBusMsg: when printing REPLY packets, print the serial, not just rserial.
+
+commit 46c05047cc54efa623532a8052ce9c425e655d28
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu Sep 25 18:08:23 2008 -0400
+
+    wvdbusserver: implement NameHasOwner request.
+
+commit a4dcd9de0a8725ce94146d5aadb64892ecc85b32
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 24 18:21:45 2008 -0400
+
+    WvTCP: make *all* TCP streams low_delay().
+    
+    The Nagle algorithm isn't really that great for modern systems, and
+    WvStreams has lots of better output buffering options, like delay_output().
+    Furthermore, it's actually easier to see from a tcpdump/wireshark dump that
+    you're being inefficient when you have Nagle turned *off*, because then you
+    have a bunch of tiny packets.  Otherwise you get random unexpected delays
+    that can be hard to see.
+    
+    Okay, I'm convinced.  We'll do low_delay() (ie. TCP_NODELAY) by default.
+    
+    This further speeds up versaplex.
+
+commit 58e5fb858503d151ef112bf0e47873fd440cf792
+Merge: f3b15cb... 5349165...
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 24 17:29:40 2008 -0400
+
+    Merge branch 'master' of git+ssh://repo.or.cz/srv/git/wvstreams into HEAD
+    
+    * 'master' of git+ssh://repo.or.cz/srv/git/wvstreams:
+      Skip prociter objects in new streams directory when building under Win32
+
+commit f3b15cb0d1e102f76bc00a331799b4b29cc2113e
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 24 17:28:00 2008 -0400
+
+    wvgzip: use Z_BEST_SPEED instead of Z_DEFAULT_COMPRESSION.
+    
+    Since this is WvStreams, we can assume people using WvGzip will want to use
+    it for network stuff, and in that case, speed is more important than
+    compression ratio.  The speed difference this makes is pretty huge.
+    
+    It might be better to add an option to let you set it, but it didn't seem
+    worth the trouble right now since hardly anyone uses WvGzip anyhow.
+
+commit 5349165ab213596c82fca07e7ac003854412fd8a
+Merge: a63f711... 7a4b1b6...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Sep 24 18:13:19 2008 -0300
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams
+
+commit a63f7114ca62e436dc875243c2c0a6158531cb04
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Sep 24 18:12:43 2008 -0300
+
+    Skip prociter objects in new streams directory when building under Win32
+    
+    Fixes build breakage.
+
+commit 7a4b1b687c4fd8f115a27ebd77cd80c88fe1349e
+Merge: 152b7ac... 2a86ba6...
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 24 17:06:22 2008 -0400
+
+    Merge branch 'master' of git+ssh://repo.or.cz/srv/git/wvstreams into HEAD
+    
+    * 'master' of git+ssh://repo.or.cz/srv/git/wvstreams:
+      Add quick test for wvx509's copy constructor
+      Set the CRL's AKI when creating from a cacert.
+
+commit 152b7ac811a2e73f583fe5a6bacc06b04f547701
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 24 17:04:12 2008 -0400
+
+    WvDBusConn: use delay_output() to make things go faster.
+    
+    Yeah, I know it sounds counterintuitive :)  This combines multiple packets
+    together when you're sending them, which uses fewer packets for the same job
+    and prevents Nagle from kicking in. More than doubles the speed of versaplex
+    with small queries.
+
+commit 2a86ba6d7f9649e12e3fdd4286bc110fdafcf255
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Sep 24 15:44:33 2008 -0300
+
+    Add quick test for wvx509's copy constructor
+
+commit c9cc5be5586198bd0e4b94fe743e5f2a9961c866
+Merge: 3c4c856... c4a7afc...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Sep 24 15:42:03 2008 -0300
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams
+
+commit c4a7afc69e38156cb5c83a5ae0fe5dfa64a9a01e
+Merge: 59dd32a... 121853e...
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 24 11:37:10 2008 -0400
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams into HEAD
+    
+    * 'master' of ssh://repo.or.cz/srv/git/wvstreams:
+      Add copy constructor for WvX509.
+      Move wvreadlink from strutils to fileutils.
+      sleep(1) -> wvdelay(100) in a bunch of unit tests. Speeds things up somewhat.
+      Move wvdelay to wvtimeutils, which is a much more sensible place for it.
+      Make url_encode encode according to a very strict interpretation of rfc3986
+      Add explanatory comment on why the dbus:system moniker doesn't often work
+      web_unescape -> url_decode (make it symetrical with url_encode!)
+      How about we not wait 1 sec for a client connection to work? That'd be swell.
+
+commit 59dd32a8011098f2e37cfab76bd48ecf8618dd34
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 24 11:34:39 2008 -0400
+
+    WvDBusServer: remove serial_to_conn map.
+    
+    That's weird; it turns out serial_to_conn is completely unnecessary, because
+    the destination of a reply message is always set to the person you're
+    replying to anyway.  I'm not sure why I thought otherwise.
+    
+    Remove the silly mapping function.  As a bonus, this gets rid of ridiculous
+    problems that can be caused when different clients produce messages with the
+    same serial number, which is not only possible, but common.
+
+commit 3c4c8561d2278d7538ad08a51040c8d866fc4732
+Author: William Lachance <wrlach@gmail.com>
+Date:   Tue Sep 23 17:37:29 2008 -0300
+
+    Set the CRL's AKI when creating from a cacert.
+
+commit 121853e231b1c5306592f54d6414eda141fc851b
+Author: William Lachance <wrlach@gmail.com>
+Date:   Mon Sep 22 16:25:54 2008 -0300
+
+    Add copy constructor for WvX509.
+
+commit 75caf3387ecd93eab231eab476add703ea7b1675
+Author: William Lachance <wrlach@gmail.com>
+Date:   Mon Sep 22 14:01:42 2008 -0300
+
+    Move wvreadlink from strutils to fileutils.
+    
+    Also move wvprociter into the streams/ at the same time because
+    it now uses wvfileutils. This makes more sense than before, since it uses
+    wvfile (a stream).
+
+commit 287801e99feb6020fa9ff1bc4a0d74d7fb76c384
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Fri Sep 19 20:34:16 2008 +0000
+
+    Ripped wvprotectdata/wvunprotect data out of WvStreams.
+    
+    Banished these Win32 functions which had only one user (not WvStreams)
+    out of here.
+
+commit 07962be4531087179bddaa88a14d92ff5501ca40
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Fri Sep 19 20:11:20 2008 +0000
+
+    Fix logic error (== => !=) in UniRegistryGen.exists().
+
+commit ab5507fd00ea265465d6f70b596f23160edd1a90
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Fri Sep 19 20:10:40 2008 +0000
+
+    Fix compile warning ("%d" -> "%ld" in printf) in uniregistrygen.cc
+
+commit 70334ad87ff2eb6006a8bfb0a56025ae049bba2b
+Merge: 70a88a8... 32a6a77...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Sep 19 00:36:02 2008 -0300
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams
+
+commit 70a88a881f42496439f7d503c56349d55aa69361
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Sep 19 00:33:56 2008 -0300
+
+    sleep(1) -> wvdelay(100) in a bunch of unit tests. Speeds things up somewhat.
+
+commit 5cc44a91a36137613d9669dd46b33c43ff60a5ab
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Sep 18 23:47:01 2008 -0300
+
+    Move wvdelay to wvtimeutils, which is a much more sensible place for it.
+
+commit f121f29fe5e06628e83472569eba87d28bbfa6e8
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Sep 18 23:46:20 2008 -0300
+
+    Make url_encode encode according to a very strict interpretation of rfc3986
+
+commit 8cffcf54f0b2a21be5cd85380eebdad4f6b5b5c3
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Sep 18 19:12:13 2008 -0300
+
+    Add explanatory comment on why the dbus:system moniker doesn't often work
+
+commit b14430633f679132df600c1ca7b2f307064f3662
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Sep 17 20:34:59 2008 -0300
+
+    web_unescape -> url_decode (make it symetrical with url_encode!)
+
+commit 091f9631be7f02e549ebfad2f1f442f45f954324
+Author: William Lachance <wrlach@gmail.com>
+Date:   Wed Sep 17 20:10:52 2008 -0300
+
+    How about we not wait 1 sec for a client connection to work? That'd be swell.
+
+commit 32a6a77de8a646f031214a085ee4de095067830f
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Tue Sep 16 02:38:21 2008 -0400
+
+    Add a new wvgzipstream.cc, just to implement the gzip: moniker.
+    
+    wvgzipstream.h already implemented the actual WvGzipStream, but there was no
+    moniker available.  Add it.  Now, like magic, wvdbus/wvdbusd support gzip
+    encoding.
+    
+    (Try "wvdbusd 'tcp:5555 gzip:'" and "wvdbus -m 'gzip:tcp:5555'")
+
+commit 525d2ddff4b48f8e293d51e853ab03f0e93ecdd2
+Author: William Lachance <wrlach@gmail.com>
+Date:   Sat Sep 13 18:07:54 2008 -0300
+
+    Set SIGPIPE to SIG_DFL before running every unit test.
+    
+    This ensures that tests where a socket connection is broken work correctly,
+    and don't assume that the signal handler is set by another test before it.
+    Strangely enough, there was only one test that made this fatal assumption (in
+    uniclientgen.t.cc), which was fixed in an earlier commit.
+
+commit d79e18cfccf406ef9c105a5db5d60ac8ef151c31
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Sep 12 17:03:20 2008 -0300
+
+    The "id" parameter is now mandatory when adding a stream to wvistreamlist
+    
+    We always want people to identify streams to a wvistreamlist. Don't let them
+    be lazy and make their programs hard to debug!
+
+commit c09babbd9c6e109b630a6e945c6cfa79918b76f2
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Sep 12 17:00:30 2008 -0300
+
+    Set time of ini file in uniclientgen test into the past instead of sleeping
+    
+    This both corrects a bug where the daemon subprocess would have a different
+    time than that of the unit test (possible in unix) and is faster than
+    sleeping. Thanks to pmccurdy/apenwarr for the suggestion.
+
+commit 59f650a9cd86a198a6b7f4e933ce7dfd5cc2cfeb
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Sep 12 16:01:39 2008 -0300
+
+    Remove reference to non-existent class in comment in wvdbusmsg.h
+
+commit d4b2aac74e225f7b0119de1939780b1624824a99
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Sep 12 15:46:48 2008 -0300
+
+    Make sure we ignore all SIGPIPE signals at the beginning of uniclientgen
+
+commit dd43625457e8aad997fc09dbcec3d1b76194e106
+Merge: a12ba4a... 402429a...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Sep 12 13:43:47 2008 -0300
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams
+
+commit 402429a3f6a926772ef54dce197cc8341de09c32
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Thu Sep 11 15:56:53 2008 -0400
+
+    Flush connections for all DBus server tests, not just the last one.
+    
+    WvDBusServer objects are refcounted for each open connection.  So they
+    don't necessarily go away immediately when you delete them.  This can
+    cause Valgrind to complain about memory leaks in the unit tests, and/or
+    the open file descriptor check to fail.
+    
+    The reason these things didn't normally happen is that, as it happened,
+    the last test in the file had code to run the globallist a few times to
+    clear everything out.  Move this code to the TestDBusServer destructor,
+    so now all the individual tests work as expected.
+
+commit a12ba4a5905d115d59ab3035f5db6371ff410ece
+Merge: a7d957d... ff9cd28...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Sep 11 16:33:10 2008 -0300
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams
+
+commit ff9cd2868155ff91201e457008a1bfe0da3e6e40
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 10 01:03:37 2008 -0400
+
+    Improvements to wvtestrunner.pl added for an internal project.
+    
+    We now time out if there are no test results for 120 seconds.  Also handle
+    surprise CRLFs in the input stream.
+
+commit de374a4cc2b749f434914a8baf64d6cd4c93afb9
+Merge: 49efbe2... b4eb2bb...
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Tue Sep 9 19:03:05 2008 -0400
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams into HEAD
+    
+    * 'master' of ssh://repo.or.cz/srv/git/wvstreams:
+      Extended WvDBusConn to allow setup function before send_and_wait.
+
+commit b4eb2bb63f96256333af298a2cee117b43c2c844
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Sep 9 18:15:47 2008 -0400
+
+    Extended WvDBusConn to allow setup function before send_and_wait.
+    
+    Added an optional serial_cb parameter to the send_and_wait function
+    in WvDBusConn which allows for some set-up based on the serial of
+    an outgoing DBus message before the runonce() loop is engaged.
+
+commit 49efbe24c148d69873ca78c05e9c5825d50ef49d
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Tue Sep 9 17:57:25 2008 -0400
+
+    Replaced wvtesthelper/meter/colour scripts with an all-new wvtestrunner.pl.
+    
+    This one is much smarter than previous versions: by default, it prints out
+    only the headers from "Testing blah blah:" lines and then prints just a "."
+    for each "! whatever  ok" line.  But, if a test does fail, it prints out
+    *all* the stdout/stderr that was produced by the test from the "Testing blah
+    blah" line all the way to the failing test.
+    
+    It also auto-colours ok/FAILED lines, but only if stdout is a tty, so you
+    don't need to decide whether you want it coloured or not.
+    
+    Finally, its output is actually compatible with itself: you can run a
+    top-level wvtestrunner and it'll further summarize the output of inner
+    wvtestrunners, because the complete output of a given testrunner is in a
+    single "Testing blah blah:" section.  But if a failure occurs, you'll still
+    get the more detailed results.
+
+commit 63d58ce6a85a26049efca35e050c4a7773cf2447
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Tue Sep 9 17:56:11 2008 -0400
+
+    Ugh.  Found out unitest.sh wasn't running as part of 'make test'.
+    
+    This has probably been the situation for *years*.  Sadly, enabling it found
+    at least two separate bugs, which I've added FIXMEs for but I don't have
+    time to fix right now.  Let's hope I don't get bitted by that someday...
+
+commit a7d957de07d3d869188e2866fa1c75895fbbf91d
+Author: William Lachance <wrlach@gmail.com>
+Date:   Mon Sep 8 15:03:19 2008 -0300
+
+    Fix comment referring to obsolete info in wvdbusconn.h.
+
+commit 3b551b568ca26fe488c70a0c0f1f8c8c47f8cb08
+Author: William Lachance <wrlach@gmail.com>
+Date:   Mon Sep 8 15:01:36 2008 -0300
+
+    Rename COPYING.LIB to LICENSE. Some source code comments mention the latter,
+    and the former was always a silly and non-standard name.
+
+commit 843f32cab70225afbe9b62fa05ae07f1e5f38bde
+Author: William Lachance <wrlach@gmail.com>
+Date:   Mon Sep 8 14:38:15 2008 -0300
+
+    Add pkg-config files for wvdbus.
+
+commit 857f6bccd84edfd17671f1ae7d265f0a46d12839
+Author: William Lachance <wrlach@gmail.com>
+Date:   Mon Sep 8 14:37:25 2008 -0300
+
+    Fix XPLC-related errors in our pkg-config files.
+
+commit 46fe035c2533109611074449551f6871fa89c094
+Author: William Lachance <wrlach@gmail.com>
+Date:   Mon Sep 8 14:22:42 2008 -0300
+
+    Fix typos in libwvqt pkg-config files.
+
+commit e59ba2411ea7c51e9a1b27c97c94b5106ff07fd4
+Merge: 0e1bee9... 8b3428b...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Mon Sep 8 12:48:51 2008 -0300
+
+    Merge branch 'x509-doc' into HEAD
+
+commit 8b3428b8b9fefcf66492615fcc4cb94d2328c1da
+Author: William Lachance <wrlach@gmail.com>
+Date:   Mon Sep 8 12:35:46 2008 -0300
+
+    Better comments for WvX509, WvX509Mgr, and WvCRL classes.
+
+commit 0e1bee97097a95b90e2636303a19cca631ea8046
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Sep 5 14:29:08 2008 -0400
+
+    valgrind: suppress more stupid errors in ld.so.
+
+commit 9c891a9fad6a1bb8c2e7d3fcf8f7195178142b32
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu Sep 4 20:04:23 2008 +0000
+
+    Clean up the one unit test that still fails with openssl 0.9.7.
+    
+    Can't figure out why it actually fails, but I did some cleanups and expansions
+    of the test while I was working on it.
+
+commit f0b5bd67d0fe4d7d094055468e1af6e8aab217e9
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu Sep 4 20:03:23 2008 +0000
+
+    Fix some unrelated unit tests when !HAVE_OPENSSL_POLICY_MAPPING.
+    
+    We were still checking some policy-related flags that openssl 0.9.7 doesn't
+    know how to set properly.
+
+commit c08fb6b8c733c77aefcaaea62ee04ef5f1c452f6
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu Sep 4 19:41:32 2008 +0000
+
+    Fix some lines that exceed 80 characters.
+
+commit 6386a208a9355390d7e215989bd21ce4e26bcbd0
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu Sep 4 19:24:20 2008 +0000
+
+    Add a global object in wvx509.cc to prevent SSL errors from getting unloaded.
+    
+    I suspect this is only needed in OpenSSL 0.9.7, so protect it with an ifdef.
+    This loads SSL error messages at the start of the program, which is kind of
+    lame since the program might not even need them.  But it's the only safe way
+    to delay *unloading* the messages until the end, assuming we still want
+    valgrind's memory leak checker to work in unit tests.
+
+commit dc8d6ed161005f5353dbfae1c42d4066fc67575b
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu Sep 4 19:21:41 2008 +0000
+
+    WvX509: fix calling of wvssl_init() and wvssl_free().
+    
+    We were calling wvssl_free() unnecessarily in one place, thus screwing up
+    the refcounts and causing potentially random problems.  Added an assert()
+    that will catch that in the future, and removed it.
+    
+    Also removed calls to wvssl_init()/free() in WvSSLStream's error printer;
+    the message should be initialized by WvSSLStream anyway.
+
+commit 31198b819435af4c3d79fcd77ab042d55fb41736
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu Sep 4 19:19:13 2008 +0000
+
+    x509-related error message: don't just say "there was an error."
+    
+    Now we call the SSL error message classes.
+    Thanks to a suggestion by wlach, rephrasing by me.
+
+commit 3a134c135f4b079d711e0fe6fe593fcdb2d031ca
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 3 23:15:18 2008 -0400
+
+    Include limits.h in a few more places where we use INT_MAX.
+    
+    Noticed by: thE_29 <bEhavEu@gmail.com>
+    as he tries to make wvstreams cross-compile under uClibc.
+
+commit 2937a6affc90f9106b2c96e1c51907486c5a43fc
+Merge: a180c8e... 48c7618...
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 3 17:57:46 2008 -0400
+
+    Merge branch 'wvassert-portability' into HEAD
+    
+    * wvassert-portability:
+      wvassert: default to old-fashioned assert if no __GLIBC__, not just on win32.
+
+commit a180c8ef6c5dbe22cdf1f38ce338a8949400dc10
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 3 21:31:40 2008 +0000
+
+    WvProcIter now gives a warning when /proc isn't mounted.
+    
+    Also made the unit test fail more gracefully in that case.
+
+commit 9ea89e45a277fa57461e457ed8c530c6a28cacf0
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 3 21:31:20 2008 +0000
+
+    Don't compile ipstreams/tests/wsd if there's no readline.
+
+commit 5a8b4a02744b531ff6990d1c8b2c4ceab98dd2ba
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 3 21:12:32 2008 +0000
+
+    When dbus isn't available, don't build an empty libdbus.so.
+    
+    Also don't build the wvdbus unit tests.
+
+commit 3b7dcc4c089faf956414a52971730adff2b9be9f
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 3 20:47:35 2008 +0000
+
+    Restore support for openssl 0.9.7 (Debian Sarge).
+    
+    This adds a HAVE_OPENSSL_POLICY_MAPPING autoconf setting, which is false on
+    0.9.7 but true on 0.9.8.  A few WvX509-related methods are #ifdef'd out when
+    this define is false, which is okay because wvstreams itself doesn't depend
+    on them anyway.
+
+commit bc5730c19b219aa4bd8daf18932dd78ec284535f
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 3 19:38:36 2008 +0000
+
+    configure.ac: if neither boost nor tr1 is available, die right away.
+    
+    Previously configure would succeed, but compilation would fail, which was
+    delaying the inevitable.
+
+commit 5c417be71550ec88e93706f4ee45c4006c7a80ad
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 3 19:29:22 2008 +0000
+
+    configure.ac: autodetect libxplc 0.3.11 vs 0.3.13.
+    
+    0.3.13 is the one we keep in wvports, but 0.3.11 was included with Debian
+    Sarge and works just fine, so we might as well support it.
+
+commit 4b4e5db49faf0a4e860d974f2b15e511d26b59c6
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Sep 3 20:47:13 2008 +0000
+
+    Add autogen.sh, which just runs autoheader and autoconf.
+    
+    Apparently this is fairly standard.
+
+commit 68f658d4d03ac279ed1eea9ef79e948b319752a1
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Tue Sep 2 21:25:23 2008 -0400
+
+    gen-cc: gcc autodependency generation doesn't work as documented, sigh.
+    
+    All our autodependencies weren't working (at least with Debian g++ 4.1.1-21)
+    because the default autodependency target is uselessly the *filename* of the
+    output file, not the *pathname* of the output file as the documentation
+    claims it is.  Force the situation by using the -MQ option.
+
+commit 48c7618b0efb68c4d6dfed87f83a3263617b2937
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Tue Sep 2 12:31:03 2008 -0400
+
+    wvassert: default to old-fashioned assert if no __GLIBC__, not just on win32.
+    
+    This hopefully helps with uclibc compile problems.
+
+commit 01b3d77b82d68797d7b27d75bab7a06f86f28135
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Fri Aug 29 10:46:46 2008 -0400
+
+    Added WvDBusMsg support to get the 'error' field out of DBus messages.
+
+commit fd10eccd7d90a575728bb9a5a4a9e9170ae8cda4
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Aug 20 19:40:22 2008 -0400
+
+    Try another fix for wvlinkerhack and static libraries.
+    
+    This time we use volatile ints instead of normal ints.  Theoretically, the
+    read of the WV_LINK() volatile int should not be allowed to be optimized
+    away, nor should the store to the WV_LINK_TO() volatile int.  Sadly, this
+    will generate actual init-time code in the program, unlike the old system
+    that just generated a symbol reference, but any compiler that optimizes it
+    away is broken.
+
+commit 0f94649a06d86a810f9f9f35bb435164b3387fc5
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Aug 20 18:57:43 2008 -0400
+
+    Revert "Fixed static linking with WvMonikers and Mingw32."
+    
+    This reverts commit 3a7be211e56cd3b350e900fca6a9c8aae5de36e3.
+    The new version is definitely not right; it creates static functions instead
+    of static ints, and static functions are *certifiably* possible to optimize
+    away.  I'm not sure how it ever worked, but doing it that way broke
+    wvlinkerhack on g++ 4.1.2 on Linux.
+
+commit 2240bf1565843c8af3cf1bbd529f24a872736fa7
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Aug 20 18:03:07 2008 -0400
+
+    The LIBS line was apparently accidentally deleted from configure-mingw32.
+    
+    Brokenness was introduced in 21f200872f0ae79063682256a80874febc5d0d32.
+
+commit 7dc3f9d6f408ba471e2dc381cb405ff5c8d5ca0f
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Thu Aug 14 17:28:29 2008 +0000
+
+    Added a template of a wvdbus.ini file to give WvDBusD SSL powers.
+
+commit 7824daca6d15d5b15d725af08d525f02b32702f1
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Mon Aug 18 18:49:25 2008 -0400
+
+    Added wvprotectdata/wvunprotect data to wvstrutils.
+    
+    Ever wanted data that only YOU can access under Windows?  Ever wanted
+    functions to encrypt and decrypt it for you in WvStreams?  Well...
+    now you've got 'em!  wvprotectdata and wvunprotect data wrap around
+    CryptProtectData and CryptUnprotectData respectively from the Win32
+    API.  WvStreams now links against libcrypt32 for these functions.
+
+commit 21f200872f0ae79063682256a80874febc5d0d32
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Mon Aug 18 20:13:18 2008 +0000
+
+    WvStreams support for building with wvports/win32api.
+    
+    Needed for newer Windows Crypt* functions.
+
+commit 84d15ddc883ff26e027982843f83dedb43211889
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Mon Aug 18 20:09:58 2008 +0000
+
+    @ac_libs@ => @LIBS@ in config.mk.in, as the former was never populated.
+
+commit 3a7be211e56cd3b350e900fca6a9c8aae5de36e3
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Mon Aug 18 16:49:41 2008 +0000
+
+    Fixed static linking with WvMonikers and Mingw32.
+    
+    Mingw32 had the awesome property (with version 4.2.1) that it optimised
+    out WV_LINK_TO lines, as the anonymous namespace contained therein was
+    no longer considered exported (gcc 4.2.x), and was unused in the local
+    file.  This has been changed into a static function, which, thanks to
+    the wonders of gcc, is /not/ optimised out until after designating that
+    we should link in other .o modules containing the monikers we want.
+    
+    The downside is that we use the GCC 'unused' attribute to prevent
+    compiler warnings, and so this isn't portable to Windows.  If anyonee
+    wants to fix WvStreams compilation on Windows, you should look at this!
+
+commit 3944679bf3b98351bbc06147a1fdf9735b8d8d69
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Thu Aug 14 13:32:05 2008 -0400
+
+    Fixed a warning under Win32 compiles in wvsslstream.cc.
+    
+    We don't need to define error_t, as it's already defined in
+    wvautoconf.h.
+
+commit 643bcac02e046c30a04970912faf795053e86bd6
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu Aug 14 18:18:24 2008 -0400
+
+    UniTempGen should have a WV_LINK for people who need to link statically.
+
+commit 355990dd0c72fdb1f3fb1618d368ebfe2a3b9e83
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Thu Aug 14 00:34:21 2008 -0400
+
+    Minor wvtestcolour tweaks.
+    
+    Colour both WvTest-style FAILED and WvTest.Net-style FAIL entries in red.
+    
+    Also change the blue regex for lines that start with exclamation marks
+    to properly deal with wvtesthelper's output - most other lines that
+    start with exclamation marks will start with "! filename:linenum",
+    but wvtesthelper's output is missing the line numbers.
+
+commit 9fa2c2e18c15d7b53cbe7c11df3913c85dd9c24d
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Thu Aug 14 00:52:03 2008 -0400
+
+    Wvdbusd now reads your SSL certificates!
+    
+    That's right.  Now YOU can generate a PEM-encoded SSL cert and
+    private RSA key, throw them in a file, and... voila, you've got
+    a WvX509Mgr object that wvdbusd will use for any ssl connections
+    it opens up.
+
+commit 624e892e2b7efcbb49dc0083b50c56ecddc0c1f2
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Thu Aug 14 00:48:55 2008 -0400
+
+    Never hurts to add a unit test (for string params passed to wvargs).
+
+commit c760c33d0f8e4cb625d4b59306fb1f0f3af27f3b
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Wed Aug 13 22:39:08 2008 -0400
+
+    Added GetConnectionCertFingerprint to WvDbusServer.
+    
+    ... for getting just fingerprints, not whole certificates over.  We
+    still support getting whole certificates for the super-paranoid.
+
+commit 0dcbb69ce86a02a00572a5cb2a615826bb7c3a30
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Wed Aug 13 17:24:39 2008 -0400
+
+    Oops!  Forgot how to trigger an assert; true -> false in wvmoniker.cc.
+
+commit 9efef4e0ab181ba86591c0f222292f7b394838a2
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Wed Aug 13 01:42:30 2008 -0400
+
+    Added WvDBusServer support for GetConnectionCert...
+    
+    The fancy pants way of grabbing a certificate for a particular
+    connection to WvDBusServer.  This is useful if, say, you are
+    Versaplexd and have a mapping of certificates to usernames.
+
+commit bbd5e2d2d5e00e8fbb838a1d55a039ae630d4d91
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Wed Aug 13 05:28:12 2008 +0000
+
+    Whitespace fix in WvDBusServer.cc
+
+commit 90879865aea7b90fed23c7681c7e468885f1ca24
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Wed Aug 13 05:25:51 2008 +0000
+
+    WvSSLStream now setattrs peer certificate when connection established.
+    
+    We can now get peer certificates out of WvSSLStream via
+    getattr("peercert").  This is great.  A few changes to the way
+    WvSSLStream calls underlying SSL API functions were made, namely,
+    the server /always/ requests certs from the client now, whether
+    vcb is set or not.
+
+commit 81f2a1746f907018e3efccda17392c63cb8f7fb1
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Wed Aug 13 05:20:52 2008 +0000
+
+    Added 'setattr' to WvStream and 'getattr' to WvStreamClone.
+
+commit 803aeaa25503d14df0523e00402fccc215cf729e
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Wed Aug 13 02:45:19 2008 +0000
+
+    WvDBusServer bugfix; need to release() on removing from all_conns().
+
+commit 90739db30317f014cf8df4bde1e1fea0488abdbe
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Aug 12 13:38:15 2008 -0400
+
+    Changed global_vcb in WvSSLStream.
+    
+    global_vcb, previously, was to be a function which returned a bool and
+    accepted a WvX509 * as a parameter.  I've extended it so that it also
+    takes a WvSSLStream *; this will be the stream which currently
+    triggered the callback.  That's just too useful.
+
+commit 74fa031e45a202f0305087abe0ca8c0f2609d5e3
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Thu Aug 7 17:51:34 2008 -0400
+
+    Added public static verifier callback for WvSSLStreams.
+    
+    No more problems creating WvSSLStreams via monikers with no verifier
+    callback!  Now, a solution exists; you can set a verifier callback
+    which will happily solve the problem for you.  Best of all, it's
+    public, so you can set it without being the stream itself, and none
+    of that pesky constructor business.  This turns out simplify callbacks
+    a fair bit.
+
+commit 660d21e3bfcf5e375dc9f705e148aa9a04a26d67
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Thu Aug 7 20:25:02 2008 +0000
+
+    WvMonikerRegistry needs 'override' flag to add monikers which exist.
+    
+    On apenwarr's advice, adding new monikers to replace existing ones
+    shouldn't be a very common operation, and is often unwise and unwanted.
+    An 'override' flag is now implemented, which must be set to true on
+    WvMoniker instantiation to permit this moniker from overriding previous
+    ones.
+
+commit f6cbef63474d69210afd895dc55c29d9e5931adc
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Thu Aug 7 20:23:56 2008 +0000
+
+    One-liner cleanup of WvMoniker.
+
+commit 7c2292ea9a8e6753b4a598106a89409f34953312
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Thu Aug 7 15:55:54 2008 -0400
+
+    Modified WvMonikerRegistry to allow multiple instances of a moniker.
+    
+    Allowed moniker overriding by changing the backing store of a
+    WvMonikerRegistry to a linked-list, instead of a hashtable, and
+    doing linear searches for a moniker, prepending new (overriding)
+    ones to the beginning.  It's not /perfect/ in that you can do
+    strange things and remove incorrect monikers (ie. not the ones
+    that you actually want) this way, but you'd have to be doing very
+    silly stuff.
+
+commit 7c74067f70111c0dd2b892fbb045350ee634f16c
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Thu Aug 7 15:53:46 2008 -0400
+
+    Updated a line of documentation which was wrong in WvLinkList.
+
+commit 80b35af92d0970e89f493b4cbaf4ced7a30d8fcb
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Aug 5 17:41:53 2008 -0400
+
+    Added a comment to explain use of WvDelayedCallback in wvdbusserver.cc
+
+commit ab3f21ad2bf96f2de7100d44ae80acd3fd965d93
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Aug 5 16:32:32 2008 -0400
+
+    Added sslcert listener to wvsslstream.
+    
+    We can now create a listener with a tcl_encode()d SSL certificate,
+    private RSA key, and listening moniker.  Yay!  This is fun!
+
+commit 0cf043c0e686f834f87dc804c2191429fc90539a
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Aug 5 16:29:44 2008 -0400
+
+    Fixed wvsslstream unit test which was never testing the sslcert moniker.
+
+commit 29727bed08e53834a31af668561ca3ef2f016e89
+Merge: 21433d6... f326bcd...
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Tue Aug 5 15:33:43 2008 +0000
+
+    Merge branch 'master' of ssh://192.168.1.95/home/lkosewsk/versabanq/versabuild/wv/wvstreams
+
+commit f326bcd30e4756fdf72ab832a15b2c676cb71091
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Fri Aug 1 19:51:42 2008 -0400
+
+    Added sslcert moniker to WvSSLStream.
+    
+    Now, as a client needing to pass a certificate into SSL, I can do so,
+    via this handy moniker which takes a WvTclString as an argument.
+    Given an SSL certificate in PEM format, and an RSA key, as well as a
+    connection moniker, we create an SSL stream which uses a WvX509Mgr
+    with the cert and RSA key, connected to the given moniker.
+
+commit 21433d6d0df1ba09bdb798180d8a807202be3b9b
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Aug 1 13:30:22 2008 -0300
+
+    Remove a stray '}'
+
+commit 7f2a748c01d7bbcb0994f75155ced582f0ef29b2
+Merge: 662830b... d1a51f6...
+Author: William Lachance <wrlach@gmail.com>
+Date:   Fri Aug 1 11:13:33 2008 -0300
+
+    Merge branch 'master' of ssh://repo.or.cz/srv/git/wvstreams
+
+commit 662830b6fc2e937abf47d273942a85c9ab46b56a
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Jul 31 20:51:28 2008 -0300
+
+    Don't create wvxplc pkg-config file, that was an artifact of the
+    (no longer present) built-in XPLC.
+
+commit 683d1389d9124fc1369bb6bd9bfa7fce6e32c91e
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Jul 31 20:44:56 2008 -0300
+
+    wvdbus is really rather self-explanatory, just takes out its (totally
+    outdated) descriptive comment and let the source be its own documentation.
+
+commit d63755e4aee04ade971dede6a9d82e8c4bbad6bd
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Jul 31 20:19:27 2008 -0300
+
+    if (foo) delete foo --> WVDELETE(foo)
+
+commit a6b5aecc2a780265e03f0c7aa0f5911f37f4ca76
+Author: William Lachance <wrlach@gmail.com>
+Date:   Thu Jul 31 20:16:26 2008 -0300
+
+    Make sure transaction generator really ignores key sets with trailing
+    slashes, like all the other generators. It was just creating
+    these keys but not setting any value for them. Also add a unit test
+    to the uniconfgen sanity tester to make sure this doesn't happen for
+    any other generators. Patch based on a problem description
+    from Theodore Opeiko (topeiko@ca.ibm.com).
+
+commit 4d9dbeb6c291d39f852cd29e7a475e056ec69d63
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Thu Jul 31 17:37:40 2008 -0400
+
+    Added 'fingerprint' grabbing to WvX509.
+    
+    Unbeknownst to me until today, openssl has a way of grabbing
+    the 'fingerprint' of an SSL certificate.  Since this is a
+    fairly good way of figuring out whether we have the certificate
+    we're looking for, it's handy to get this value out of
+    WvX509.  Done, via get_fingerprint(mode), where mode will
+    determine whether we get a SHA-1 or MD5 cert.
+
+commit d1a51f6196902f7843ebfce2a1221bdb7f30c918
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Jul 30 21:30:06 2008 -0400
+
+    Don't try to build ipstreams/tests/wsd on win32.
+
+commit 156d607824d471d846db50096b764af0bb59c22b
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Jul 30 21:20:24 2008 -0400
+
+    dbus/wvdbusserver.cc: fix a warning.
+
+commit 6d5c8234f6f58a0bfa8133cc94778c48a2faa6ed
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Jul 30 21:17:59 2008 -0400
+
+    win32/wvautoconf.h was zero-length and not used for anything.  Delete.
+
+commit 4f2c5147a03589bc28c798cfeb723c79ebdfc027
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Wed Jul 30 19:11:09 2008 -0400
+
+    Atomically create/update files generated by gen-cc.
+    
+    Running make -j2 would sometimes cause gen-cc to be run twice at once.
+    Since gen-cc removed the existing target file before rewriting it, the
+    second gen-cc instance would remove the file while the Makefiles were
+    trying to use it.  Now we write to a temp file, and atomically move it
+    on top of the target file.
+
+commit cc1c00b9c14211dfd99e9e6bc6d59848f0e33797
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Mon Jul 28 20:41:51 2008 +0000
+
+    Reordering functions in wvstreams.h header.
+    
+    The end of the wvstreams.h header was polluted immesurably by a
+    bunch of variables and functions intertwined with public/private/
+    protected macros.  This has been slightly rearranged and beautified...
+    of course, nobody /actually/ surfs wvstream.h without ctags.
+
+commit af1eaec7311661de98d340c26842ec8cbea167d4
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Mon Jul 28 20:26:03 2008 +0000
+
+    Changed .*PACKAGE.* defines to .*WVPACKAGE.*.
+    
+    Apparently, PACKAGE macros generated by autoconf occasionally
+    caused conflicts for us.  That's no big surprise, given that
+    the macros are always PACKAGE_* for many variables for every
+    project that uses autoconf.  Since we assign the variables into
+    variables of our own name in config.mk, I changed those into
+    WVPACKAGE variables, and added back a little 'sed' stub at the
+    end of config.ac to substitute variable names in wvautoconf.h.
+
+commit b0e47c0e95c104d73b9b64f577687c72eb80b670
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Mon Jul 28 19:13:07 2008 +0000
+
+    WvAttr get no longer returns "" but an empty WvString if no key.
+
+commit bcd54aba01801f85b3cacbc892127f569ad2219d
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Mon Jul 28 13:33:23 2008 -0400
+
+    Cleanup of WvAttrs.  Changed getattr/setattr to get/set.
+
+commit 24ed89f3e1e24778153441bb23081173e031aea4
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Mon Jul 28 16:55:00 2008 +0000
+
+    Added a WvAttrs object with getattr/setattr functions.
+    
+    Soon-to-be incorporated into WvStreams and WvListeners near you!
+    A framework for setting key, value pairs and retrieving the values.
+    Performance isn't great (don't overuse it!), but minimal overhead
+    (2 bytes per key/value pair + sizeof(key + value)).
+    
+    Unit testing also added.
+
+commit 9b81ffd48bc5bbcbd3718d3d5465011e082964de
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Sat Jul 26 16:40:35 2008 +0000
+
+    Removed lines that broke build from configure.ac.
+    
+    The very end of the file had a bunch of lines (which were never
+    executed), which I fixed to 'work properly.'  Basically, they
+    stripped 'PACKAGE_*' variables from wvautoconf.h.  When they
+    executed, though, we couldn't build.  Huh.  I've just removed
+    them entirely.
+
+commit 6c4d3e91371a87b20b191b2cc14535c31d241166
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Sat Jul 26 16:39:47 2008 +0000
+
+    Change wvdbusd.so and wvdbus/wvdbusd build order.
+    
+    Oops.  We really shouldn't be building programs without the
+    library they need to link against.  Changed build order.
+
+commit 5afa02833b7189df866fb367f7db0c3cca113c49
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Sat Jul 26 16:11:29 2008 +0000
+
+    Fixed building of ipstreams/tests/wsd.
+    
+    The convoluted logic of our Makefile for this program was strange...
+    in order to ensure that we were building it with readline, we ripped
+    it out of 'TESTS' and it used a custom build rule which didn't work.
+    Fixed by adding 'ipstreams/tests/wsd-LIBS+=-lreadline'.
+
+commit 8b55abe8a3f5f031998ea1d2a674fc84aa5f96c8
+Merge: 7d623f6... 05f1298...
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Sat Jul 26 02:27:37 2008 -0400
+
+    Merge branch 'build-system-rebase'
+    
+    This sequence completely rearranges the WvStreams Makefile system.  It's
+    way cleaner now.  Hopefully I haven't introduced any major/unfixable problems.
+    
+    install.mk still contains some old "make install" related stuff that needs
+    to be put somewhere and/or cleaned up, but most people never make install
+    wvstreams anyway, so it's not obvious exactly what we should do with it.
+    
+    * build-system-rebase:
+      UniRegistryGen unit test shouldn't use a global variable for no reason.
+      Fix building in win32, much much cleaner this time.
+      Fix ridiculous file layout in Win32WvStreams folder.
+      Change the %: %.in rule to %.subst to avoid conflicts with config.mk.in.
+      Use modern gcc's dependency generation (-MMD -MP -MF).
+      wvcc compiler macros now generate explicit CC and CXX scripts.
+      Make unit tests compile again.
+      Forget all those old .a files, just make a big libwvstatic.a.
+      Got rid of now-unused aclocal.m4 crap.
+      Saner handling if config.mk doesn't exist: use a default config.defaults.mk.
+      Remove redundant wvlink_ar declaration, and more Makefile cleaning.
+      Make the DEBUG_* flag stuff actually work as intended.
+      Merged most of the tiny crap Makefile fragments into Makefile.
+
+commit 7d623f6ddec367bb3b31d6dd058ae1e13cb0c5a1
+Merge: bbe084d... 4834436...
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Sat Jul 26 02:26:42 2008 -0400
+
+    A selection of relatively minor problems in the build system.
+    
+    I found these while doing more major surgery, but these fixes should be
+    harmless by themselves.
+    
+    * build-system-bugs:
+      Oops, wvdbusd.cc depended on WVSTREAMS_RELEASE define.
+      Fix compiler warnings in wvcallback.t.cc.
+      configure: remove code for generating 'reconfigure' script.
+      .gitignore for uniconf/daemon directory.
+      svn2cl is obviously no longer needed, since we're using git now.
+      Remove obsolete bindings/ directory.
+
+commit 05f129887aea4bd6bded5ecf22a7eed4199153b8
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 21:58:20 2008 -0400
+
+    UniRegistryGen unit test shouldn't use a global variable for no reason.
+
+commit 96e378df80f00b9ca739e16b95052957425f0617
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Sat Jul 26 01:26:01 2008 -0400
+
+    Fix building in win32, much much cleaner this time.
+    
+    No more need for stupid Makefile-win32, yay!
+
+commit b7d0d0e7a1a258e842231bb5610d0b09aa5eb0a5
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 15:24:49 2008 -0400
+
+    Fix ridiculous file layout in Win32WvStreams folder.
+
+commit c010ace31984a84bdc48f83dfd35e9be127b913e
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Sat Jul 26 01:19:10 2008 -0400
+
+    Change the %: %.in rule to %.subst to avoid conflicts with config.mk.in.
+    
+    Otherwise it "cleverly" auto-substitutes the file when it doesn't exist,
+    causing insanity.
+
+commit 5f978df5b8266b33efd292e41ca0d8f28e2ba5d6
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 23:53:14 2008 -0400
+
+    Use modern gcc's dependency generation (-MMD -MP -MF).
+    
+    This lets us finally avoid the stupid two-step dependency file generation,
+    so things can go a lot faster now.
+    
+    fixdep.pl is no longer needed.
+
+commit 4b5ef910a56fcc86f29ba9b2b3e02b48a4ad8e4c
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 23:40:38 2008 -0400
+
+    wvcc compiler macros now generate explicit CC and CXX scripts.
+    
+    This gets rid of the need for "make VERBOSE=1", at least for the
+    compilation stage if not the linking stage.  The commands look like a
+    simple "CC -c filename", and if you run that from the prompt, it'll
+    do exactly the same thing as when make does it.
+    
+    Borrowed this idea (but not implementation) from djb's Makefiles.
+
+commit e75f6ec25691a5594ef4692454a24c3551dfd47c
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 21:05:32 2008 -0400
+
+    Make unit tests compile again.
+    
+    Plus fix dependencies of various test programs.
+    
+    Improvements to "make clean", and fixed a few typos.
+
+commit 9e313eb26a3a466c98b94e3e215002eb6d466e9e
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 18:02:15 2008 -0400
+
+    Forget all those old .a files, just make a big libwvstatic.a.
+    
+    As a bonus, moved a bunch of related stuff together so Makefile actually
+    makes sense now.
+
+commit 4767557b37a88e0d93a084503f0a8abec4a16066
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 17:32:43 2008 -0400
+
+    Got rid of now-unused aclocal.m4 crap.
+    
+    That's right!  We no longer need aclocal at all when building WvStreams!
+    Death to automake!
+
+commit ad01fb037322a529f79a34c8a8c4b74698e60ee4
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 17:28:36 2008 -0400
+
+    Saner handling if config.mk doesn't exist: use a default config.defaults.mk.
+    
+    Stole this idea from git.  Basically, if you don't run configure, you might
+    still be able to compile, but maybe not.  And you can run ./configure if it
+    doesn't work.
+
+commit 37d75045a11b6c0578bbf496f4bcf235180c5e20
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 17:02:18 2008 -0400
+
+    Remove redundant wvlink_ar declaration, and more Makefile cleaning.
+
+commit 6ad49c0f6bf7a44a53fe84127321c792d6a20df6
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 17:02:18 2008 -0400
+
+    Make the DEBUG_* flag stuff actually work as intended.
+    
+    I don't know who intended it, but it didn't really work.
+
+commit a7eee5bd5f8d726ebb1197204d6f93a36f180157
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 13:49:23 2008 -0400
+
+    Merged most of the tiny crap Makefile fragments into Makefile.
+    
+    But left a few behind in crap*, to be cleaned up later.  Basically those are
+    the unit tests, which don't work for the moment.
+    
+    Remove weird support for building xplc as part of wvstreams.
+    
+    Remove old msvc build stuff.  I'm not sure anybody *ever* used it, but
+    I'm sure it's broken now, and it would have to be totally redone anyway.
+    
+    I *really* don't want to know why Makefile was setting VPATH.
+
+commit 4834436344c0ca17fd587f7ee24e91fa0da7fa87
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 23:43:50 2008 -0400
+
+    Oops, wvdbusd.cc depended on WVSTREAMS_RELEASE define.
+    
+    Use PACKAGE_VERSION from wvautoconf.h instead.
+
+commit e40626a415d12f3b932c6c864db12f74c5ee5629
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 21:58:55 2008 -0400
+
+    Fix compiler warnings in wvcallback.t.cc.
+
+commit 220f9eb8a6b5f820adbef7bfe59501bebd7f2587
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 21:23:13 2008 -0400
+
+    configure: remove code for generating 'reconfigure' script.
+    
+    Newer autoconf is insane and breaks it in a way I can't see how to resolve.
+    God, I hate these people.
+
+commit c4d5b7792e86bd0d8f373d37fdd94ac6e5837cf8
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 21:05:12 2008 -0400
+
+    .gitignore for uniconf/daemon directory.
+
+commit 011ad14480f7e316bd890cb99127cf31332007cb
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 15:20:31 2008 -0400
+
+    svn2cl is obviously no longer needed, since we're using git now.
+
+commit 4b22c1f02fc4b0d7db4d87d3fe5e21ad0952c30a
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 13:49:42 2008 -0400
+
+    Remove obsolete bindings/ directory.
+
+commit bbe084d4039538adfc9eb7db37be92e31f5f9d5e
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jul 25 13:23:11 2008 -0400
+
+    Fix missing library when linking libwvqt.
+
+commit 161dcc3dbdbfaec5440937a6f7811bf9f511b90c
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Mon Jul 21 20:45:47 2008 +0000
+
+    Modified wvdbusserver unit test to work with DBusServer fixes.
+    
+    The wvdbusserver unit test began failing because of two things:
+    a) It called 'delete' instead of WVRELEASE(...) on the
+       DBusServer object -> no good!
+    b) It didn't run the globallist anymore once the last connection
+       was dead, never invoking the callback which would remove it
+       (it's a delayed callback now), thus 'leaking memory' in
+       Valgrind's humble opinion.
+    
+    Fixed.
+
+commit 2388599c2aba70fc081945fd251afebe1500f094
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Mon Jul 21 20:41:43 2008 +0000
+
+    WvDBusServer no longer causes segfault when connection dies.
+    
+    WvDBusServer had a wonderful little glitch in it.  If a connection
+    died, a callback was invoked to remove it from the linked list of
+    all connections in the server.  This is fine, except one of the
+    places a connection could die was while we were in a 'broadcast'
+    loop running an iterator over all the connections.  Once we
+    removed a connection from the list in this loop, the poop hit the
+    fan, of course, as the iterator we were on was no longer meaningful.
+    
+    Solution?  WvDelayedCallback for removal!  Some other changes had to
+    be made, to refcount the connection (so that it doesn't get deleted
+    until we tell it to in the callback), as well as for the DBusServer
+    object itself (so that the delayed callback never runs on a deleted
+    DBusServer, trying to remove connections from its instance variables).
+
+commit b2fbaa6207463d6b1eb235a009cf79e4c6a78fc6
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Fri Jul 18 20:24:57 2008 +0000
+
+    Fixed wvdelayedcallback unit test.
+    
+    Based on recent changes to WvDelayedCallback, deleting a
+    wvdelayedcallback doesn't actually kill the stream inside it.  As such,
+    the test where a wvdelayedcallback is killed, globallist.runonce() is
+    executed, and the value of a variable updated by the contained stream
+    was expected to remain unchanged, will now actually change.  Unit test
+    updated.
+
+commit bc50c39c7c2132c48e07c91bfd51cb20b0c7687c
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Fri Jul 18 20:28:03 2008 +0000
+
+    Wvdelayedcallback no longer resets callback of stream within.
+    
+    When we kill a wvdelayedcallback, this no longer resets the callback
+    of the stream contained within to (0), had it been triggered.  We want
+    this behaviour so that we can assign delayedcallbacks to the
+    'setclosecallback' function, which immediately deletes the callback
+    after triggering (which, previously, meant that the stream contained
+    in a wvdelayedcallback would never go off if the callback was assigned
+    to setclosecallback).
+
+commit 0ad83ca27a79e75e2b1ae69a28b0073c7f50b103
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu Jul 17 19:13:28 2008 -0400
+
+    The callback should be called on a stream even if !isok().
+    
+    This set of bugs was causing trouble with WvDelayedCallback, and probably
+    other things.  It probably was causing a rare crash bug in WvHttpPool too.
+    
+    Basically, we would never call pre_select() or post_select() if !isok(),
+    which was unnecessarily "too safe."  It's their job to decide if they
+    don't want to do stuff because they're not isok(), and they were doing
+    pretty much fine at that job, so removing the checks was harmless.
+    
+    However, removing the checks changed the behaviour of the
+    IWvStreamList::sure_thing list subtly, revealing that we forgot to addRef()
+    a stream upon adding it to that list.  In rare conditions where a stream
+    would auto-remove itself from a streamlist in the middle of a select()
+    sequence, the stream would be deleted but still in sure_thing, causing weird
+    bugs.
+    
+    So now we addRef() before adding a stream to sure_thing, where we now set
+    auto_free=true so it will release() automatically.  We also have to addRef()
+    when taking it *out* of sure_thing to call it (since we've always
+    deliberately removed the stream from sure_thing *before* using it to avoid
+    other weird race conditions) and release() it when we're done.
+    
+    Added new unit tests that verify that alarm() will still work even after
+    a stream is close()d.  But only once, of course, since the stream is dropped
+    out of the list after that.
+
+commit 7b8ee9d9418d8f7a972cac3ac7a1650add2a54e6
+Author: William Lachance <wlach@addiction.(none)>
+Date:   Mon Jul 14 16:12:56 2008 -0300
+
+    Handle blank lockfiles correctly, don't think we're locked when we're
+    not.
+
+commit 58df272ef57c61d10b93663fc0f5d015416235b1
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Sun Jul 13 21:33:45 2008 +0000
+
+    Added missing -lz to libwvstreams.so.
+    
+    This was revealed by the earlier patch that adds -Wl,defs to the linker.
+
+commit 319035e4fa62fa2e9830a83f44ae1c8948f6b3f2
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Sun Jul 13 21:36:54 2008 +0000
+
+    Link with -Wl,defs to detect any undefined symbols right away.
+
+commit 7e68fbc8ef3e866e8fcf40c335356952782427bd
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Sun Jul 13 20:12:49 2008 +0000
+
+    Fix compilation with old g++ 3.3.5 and debian-sarge.
+    
+    A few too many things were private in unihashtree.h.
+    
+    wvdbusserver.h depended on <stdint.h>.
+
+commit 1c625871a8b6f0db415e069c16d9d14030a03628
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Sun Jul 13 21:36:36 2008 +0000
+
+    Autodetect whether __libc_stack_end is available or not.
+    
+    It's apparently not in Debian-sarge's libc, at least not if you're building
+    a shared library.  (For some reason, it *does* link okay if you're building
+    a normal binary.)
+
+commit 9b2b76f8767c6888b518f597d8b57abcba1df6a3
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Thu Jul 10 00:10:37 2008 -0400
+
+    Add wv::delayed(), an auto-typing alternative for WvDelayedCallback.
+    
+    Works more like wv::bind(), in that you don't have to specify the
+    template type explicitly.  You can just say wv::delayed(func) and it'll
+    work, instead of WvDelayedCallback<IWvStreamCallback>(func).
+
+commit 053e40ea2676650f1493fc94d43d31f1caa58c5c
+Merge: a7b8906... d1b842c...
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Sat Jul 5 00:51:40 2008 +0000
+
+    Merge branch 'master' of git+ssh://repo.or.cz/srv/git/wvstreams
+    
+    Conflicts:
+    
+    	streams/t/wvlog.t.cc
+
+commit a7b89066bb3c0345fed028bccdfbd4735d73d1a2
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Sat Jul 5 00:41:06 2008 +0000
+
+    Fixed wvargs.t.cc
+    
+    - Removed a stupid ifdef that checked if the "HAVE_POPT" flag was set
+    (we don't use this flag anymore, so it was never set).
+    - Fixed it so that it doesn't spew a million warnings with -Werr
+    using gcc 4.2.x.
+    - Used it to track down errors in the standalone argp library we
+    now use for Windows.
+
+commit 73b29a98adc8176bf1254599753683c62e0bf243
+Author: Lukasz Kosewski <lkosewsk@gmail.com>
+Date:   Wed Jul 2 03:06:07 2008 +0000
+
+    Make win32 builds use argp-standalone
+    
+    Make the configure scripts have a '--with-argp' argument for building
+    ie. on Windows (without argp in libc).
+
+commit d1b842c8e370264a679c6f5808a233e80f4fc7d5
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Mon Jun 30 15:06:03 2008 -0400
+
+    Fix the build on Unix, by hiding an incompatible call only needed for win32.
+
+commit 6602a48116ce0feb4fbfd45f190bae173456bae1
+Author: Lukasz Kosewski <lkosewsk@hermes.(none)>
+Date:   Sat Jun 28 02:19:20 2008 +0000
+
+    Removed gnulib entirely from wvstreams.
+    
+    Wvstreams no longer has gnulib.  It builds fine on Linux (as any modern
+    glibc has argp built in, which is the only function we used out of
+    gnulib), but of course will not build for Windows now.  Fixing that.
+
+commit 801df016d4f8e6cb0d407bb9eb624b4819c15319
+Author: Lukasz Kosewski <lkosewsk@hermes.(none)>
+Date:   Sat Jun 28 02:16:49 2008 +0000
+
+    Fixed 'mkdir' call to be 'wvmkdir' (and thus accept one parameter).
+
+commit 375cb8a0b0c8c6ef75a464ebc2949faab359581d
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jun 27 20:38:53 2008 -0400
+
+    wvrsa.t.cc: split a test into two parts for easier debugging.
+
+commit 69b7133df32f931240bfdaedc0cce5e3842ebbe3
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Fri Jun 27 19:47:58 2008 -0400
+
+    Fix problem with running wvlog.t.cc on win32.
+
+commit 98f1301adf5ba6defa23cdde0637792251f90cb3
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Fri Jun 27 17:46:26 2008 -0400
+
+    Fix a typo in a debug log message.
+
+commit 168049f7ba1de4d43ca3c78032342af7055c4e4c
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Thu Jun 26 16:12:55 2008 -0400
+
+    Fix the  wvstreamsdaemon.t.cc unit tests.
+    
+    These tests had been mis-updated to the new WvListener API.
+
+commit 19736e97ce35c702160f6c6c4d34fafbff1866b0
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Thu Jun 26 16:11:56 2008 -0400
+
+    Yet more char* const-correctness fixes for gcc 4.2.
+    
+    This is the last round, I promise; WvStreams now builds cleanly with
+    -Werr on gcc 4.2.3.
+
+commit f99c1e1d86148a01239eccdb81f7a5ee06b5a4f1
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Thu Jun 26 03:38:57 2008 -0400
+
+    Fix WvDBus unit tests.
+    
+    Previously, we were passing a unix: moniker to WvDBusServer.  However,
+    WvDBusServer didn't actually used to take a moniker, it would just pass
+    the string directly to a WvTCPListener, which interpreted it as an IP
+    address, and defaulted to 0.0.0.0 when given an
+    obviously-not-an-IP-address string like a unix: moniker.
+    WvDBusServer::listen() now takes a proper moniker, but this exposes the
+    fact that WvDBusServer::get_addr() only works for tcp: connections.  Oops.
+    
+    So the quick fix is to just specify a tcp:0.0.0.0 moniker off the bat,
+    as it's what we've always been using anyway.
+
+commit 30de1bf87ad93b6fa105593a27cb26b1c67c1e80
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Thu Jun 26 03:15:48 2008 -0400
+
+    Update .gitignore entry for the wsd binary.
+
+commit 2cfc2224afbc7e427f4d7d585f5bd67b4b36beca
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Thu Jun 26 03:12:07 2008 -0400
+
+    Placate gcc 4.2 with more char* const correctness fixes.
+    
+    This round is from the standalone test programs.
+
+commit e0225f05b14216d62f28598936fd8f880bfa8d23
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Thu Jun 26 03:02:59 2008 -0400
+
+    Suppress the usual round of Valgrind problems from libc 2.7.
+
+commit 0d998e288421f8251dc5fd8ee93b3371b3305067
+Author: Lukasz Kosewski <lkosewsk@persephone.(none)>
+Date:   Thu Jun 12 00:24:30 2008 -0400
+
+    Fixed a bunch of wvstreams tests for 64-bit Linux.  (sizeof(long) == sizeof(void *) under 64-bit; sizeof(int) != sizeof(void *), so it would be hard to case void *'s to ints).
+
+commit ea126abbb2b16148a6281e92ceba6bcb9185ee3d
+Merge: d3ede7b... e92261e...
+Author: Lukasz Kosewski <lkosewsk@persephone.(none)>
+Date:   Wed Jun 11 21:19:07 2008 +0000
+
+    Merge branch 'master' of http://repo.or.cz/r/wvstreams
+
+commit d3ede7b3d4e66e6ac36c1dd030d881203f80fd98
+Author: Lukasz Kosewski <lkosewsk@persephone.(none)>
+Date:   Wed Jun 11 21:01:16 2008 +0000
+
+    Changes to the configure script and wvargs.cc to make sure that we don't end up redefining "error_t" if it's already defined.
+
+commit e92261ef850d7b5389e1a9720ad4ae621f9f5e88
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Jun 11 02:21:51 2008 -0400
+
+    Add missing .gitignore entries for various test programs and data files.
+
+commit 49710dd0ffb28cbdfacee447fa99822b6bd4e60b
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Jun 11 02:22:18 2008 -0400
+
+    Fix various test programs that stopped compiling with recent WvListener changes.
+    
+    Oops; I guess I wasn't running "make test" enough.
+    In fact, "make test" still doesn't pass, as I seem to have completely
+    broken something in the dbus tests awhile ago.  But at least it compiles now.
+
+commit 22adfe81a7193729c4600d9bc7ac2185f2e7d1bb
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Jun 11 01:52:17 2008 -0400
+
+    Get rid of some warnings produced by newer autoconf versions.
+    
+    Based on suggestions found in:
+    http://www.nabble.com/new-AC_USE_SYSTEM_EXTENSIONS-breaks-Interix--td13297455.html
+    
+    Hopefully this doesn't break *older* autoconf versions.
+    Perhaps we should upgrade gnulib.
+
+commit 0dc65b47b18e17ce7f195601815a084446d262ed
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Jun 11 01:36:13 2008 -0400
+
+    Always compile with -fPIC.
+    
+    Avoids problems on x64 platforms, as discovered by George Washburn.
+
+commit 16acd050e7da35c9014fc8bcd6d43dee340d3fc1
+Author: Avery Pennarun <apenwarr@gmail.com>
+Date:   Wed Jun 11 01:29:07 2008 -0400
+
+    configure: properly find libdbus.a if it isn't in /usr/lib.
+    
+    Based on input from George Washburn.
+
+commit 4b5e4ea4c6f08fd11c45880faf653ae137c4b735
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Wed May 21 14:53:02 2008 -0400
+
+    Add some undefined overrides to prevent accidental WvString misuse.
+    
+    Recent changes to make some WvStreams functions take const char*s as id
+    parameters means that they now silently accept WvStrings due to WvString's
+    automatic const char* cast.  This is undesirable (and the original reason why
+    the id parameters were non-const char*s in the first place), as the functions
+    keep a long-term reference to the string, which doesn't agree with WvString's
+    reference counting.  These overrides ensure that users can't accidentally
+    send a WvString to these functions.
+
+commit dc55b909bf6274a7e6f5d24bb17b6ff805ea1e4a
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Wed May 21 14:44:59 2008 -0400
+
+    More char* const correctness fixes to keep GCC 4.2 from spewing warnings.
+
+commit 41a7fbc5c6d7e52fe7bf8dac455d0afb3da34ba0
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Thu May 15 16:54:56 2008 -0400
+
+    Fix the build for 32/64-bit multilib systems.
+    
+    Problem and patch originally reported by Axel Bergerhoff to
+    wvstreams-devel@googlegroups.com.
+
+commit 1c153171833ab8e4983f914793c036a5f7465392
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Thu May 15 16:51:34 2008 -0400
+
+    Fix more const char* warnings from GCC 4.2.
+    
+    Make some variables const char* where possible, so they can be assigned
+    string constants.  Where not possible, cast string constants to non-const
+    char*s.
+    
+    Remove an overload from WvIStreamList, as it already had a basically identical
+    overload that took a const char* instead of a char*.
+
+commit 6a913a644f615dc32b7b31834fce73610b48e837
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Thu May 15 15:39:01 2008 -0400
+
+    Fix building the unit tests.  They still don't quite run yet though.
+
+commit b4611b9810411ceb413ad6dcd8114d8c6be460fc
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Thu May 15 15:32:52 2008 -0400
+
+    Fix some warnings from GCC 4.2.
+    
+    GCC 4.2 complains when you assign a string constant to a char* variable.
+    Change some char*s to const char* to get it to calm down a bit.
+
+commit ea8d8f63d96eb6827dcd559d5961a7843fe71e44
+Author: Peter McCurdy <petermccurdy@alumni.uwaterloo.ca>
+Date:   Thu May 15 15:29:18 2008 -0400
+
+    Fix the build when using Valgrind 3.3.
+    
+    Valgrind 3.3 removed some macros that were apparently deprecated in version
+    3.2.  Update to the new macros, which work in version 3.2 and up, but also
+    maintain compatibility for 3.1 and before.
+
+commit ba02fb931b260dcf8d20869edc570e5c1dab5566
+Author: Avery Pennarun <apenwarr@versabanq.com>
+Date:   Fri Mar 21 15:31:14 2008 -0400
+
+    Fix building on win32.
+
+commit 92d309b41faab2c60544253251470a82080bb1ad
+Author: Avery Pennarun <apenwarr@versabanq.com>
+Date:   Thu Mar 6 00:56:47 2008 -0500
+
+    WvUnixListener, WvListener "wrapper" support, and SSL listeners.
+    
+    WvDBusServer and UniConfDaemon can now listen on any number of arbitrary
+    listen sockets, and can wrap in SSL, etc, automatically if you give them
+    the right moniker.
+    
+    Also fixed some problems with wvdbusd and the new php-dbus client.
+    
+    PWvStream now gives more useful error messages if a moniker can't be
+    constructed.
+    
+    Fix a bug in wvargs multiple required arguments support.
+
+commit 5bf67800a856cac0e7ec1d9d506874b9842efed5
+Author: Avery Pennarun <apenwarr@versabanq.com>
+Date:   Wed Mar 5 20:34:36 2008 -0500
+
+    More .gitignore files.
+
+commit 7bbf488141df9bf5d5ad44fdc8d216459b25ffff
+Author: Avery Pennarun <apenwarr@versabanq.com>
+Date:   Wed Mar 5 19:57:44 2008 -0500
+
+    .gitignore
+
+commit 19f4e9b225477309486a3b3fdcd012cc05ff40fe
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Jan 31 02:12:00 2008 +0000
+
+    WvDBusMsg::is_reply() had an unnecessary hack for message #1.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11863 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 04842e4ad13fa19b7083e61ffa2926dab0a41493
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Tue Jan 29 02:09:29 2008 +0000
+
+    In win32, don't link uniconfd.cc into libwvwin32.a.
+    
+    It results in multiple _main() functions.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11861 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit cf618adac3caab65c2882e389fe488f4a984c2a3
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sat Jan 26 01:18:59 2008 +0000
+
+    WvDBus: better error reporting.
+    
+    When printing REPLY DBus messages, print ERR#xx instead of REPLY#xx if it's
+    an error message.  In WvDBusServer, don't mark a message as "handled" if
+    there's no matching connection for a service; return false and let another
+    handler try to handle it.  When everything has failed, send back a
+    NameHasNoOwner error instead of just failing silently; this way clients can
+    recover gracefully.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11859 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 200db1b966224de75e57498a1f20ce0d09bd6351
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Jan 25 15:27:20 2008 +0000
+
+    andrei@versabanq.com: wvdbusd: handle *all* messages addressed to o.f.D.
+    
+    Before, wvdbusd would forward unrecognized methods onward to be proxied,
+    which was probably a security hole and also resulted in the strange "no
+    destination for service org.freedesktop.DBus" when it really meant
+    "unrecognized method xxx".  Now we handle *all* messages addressed to our
+    service, and never try to proxy them.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11857 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 7c9635abc81fc730f1c82196b324698c483e94f0
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Jan 25 15:14:23 2008 +0000
+
+    andrei@versabanq.com: wvdbusd: implement GetNameOwner call.
+    
+    This is needed for dbus-python support.  With this change, python seems
+    able to talk to versaplexd over wvdbusd.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11855 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit bf6c4069e8f86c1c67c230aad0492545bd67e921
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Jan 25 15:13:36 2008 +0000
+
+    andrei@versabanq.com: wvdbusd: name connections :%s.0 instead of :%s.
+    
+    This fixes some problems connecting to wvdbusd from python, which seems to
+    want to parse the opaque connection name string for some reason.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11854 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 1d324757252931bcfe70bb8558e64bab4cd5865d
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Jan 24 20:48:37 2008 +0000
+
+    Fix wvuid.cc compilation under Linux (of course).
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11852 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 7ca84c33d882662ad575452be27400b030cf327c
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Jan 24 20:35:35 2008 +0000
+
+    Fix uid portability.
+    
+    WvDBus's new unix uid/username stuff was not portable to Windows.  Add new
+    wvuid.h/wvuid.cc to make the API the same across Windows and Unix, but
+    didn't really implement it in Windows yet.  (Eventually, perhaps we should
+    do it by using SIDs, which are apparently strings, but the stub functions
+    make wvdbusd compile and work, at least.)
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11851 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 0047a21c721b12f328ad5999c61082223a88b7b8
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Jan 24 19:20:00 2008 +0000
+
+    Fixup a comment in wvdbusmarshal.cc.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11850 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 96e3038eee8da27850211e4bb592c0dc958b888b
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Jan 24 19:17:08 2008 +0000
+
+    GetConnectionUnixUser unit tests were misusing WvDBusConn callbacks.
+    
+    Sometimes they would respond to the wrong message, failing randomly.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11849 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit d80a58c169022f2e8c2be867d80357fadba4c9b2
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Jan 24 17:50:35 2008 +0000
+
+    Like in win32 build, wvdbus and wvdbusd should be built in unix automatically.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11848 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 8f612657fe1971987fa383232b4dd163adeb2f45
+Author: pmccurdy <pmccurdy@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Jan 24 02:21:34 2008 +0000
+
+    Add an extension to the GetConnectionUnixUser method on the
+    org.freedesktop.DBus object, GetConnectionUnixUserName.  This just
+    returns the name of the unix user id associated with a given connection.
+    Also implemented some basic unit tests for both methods.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11847 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit b13048b7d0b128df30917b6733552d341d8426a3
+Author: pmccurdy <pmccurdy@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sun Jan 13 07:01:32 2008 +0000
+
+    Implement the GetConnectionUnixUser method on the message bus.  In
+    keeping with the spirit of the rest of the authentication code, it can
+    charitably be described as "liberal" in terms of the values it accepts from
+    clients.  If it proves to be too difficult to make robust, we may want
+    to take it out later.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11846 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit ecf29168ee3637ae444584dc38dd775c23eace6c
+Author: pmccurdy <pmccurdy@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Jan 10 00:34:48 2008 +0000
+
+    The DBus bus has the responsibility of setting the sender of a message
+    when bridging a message to its recipient (not the sender's DBus
+    implementation, as one might think).  Do this in WvDbusServer so
+    recipients can know who's talking to them.
+    
+    Also added some basic unit test checks to ensure that the sender is at
+    least set to something, and renamed a variable that was shadowing
+    another.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11845 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit ba1333816cf091217cf505b4c30905de8a8f5213
+Author: pmccurdy <pmccurdy@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Jan 10 00:21:34 2008 +0000
+
+    Update the Valgrind suppressions file to account for the (totally
+    depressing number of) Valgrind warnings and errors that come out of a
+    Ubuntu 7.10 installation.  In particular, suppress some errors in zlib,
+    ld, and getgrnam(), and tell Valgrind to ignore some static members in
+    WvHashTable and UniConfKey that make it spam "possibly lost" messages to
+    the log file when running the unit tests.  This cuts the size of the
+    valgrind log file from 1.1 MB to 222 KB when running the full test
+    suite.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11844 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit b4601208343dcc5adfa13ba4d6242976ea0a16cf
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Wed Jan 9 20:01:03 2008 +0000
+
+    Via andrei@versabanq.com: make WvStreams-win32 compile with the latest
+    mingw32 in Ubuntu-gutsy.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11843 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 50ab57cb99c2d6f664fa883035220e3c419fcc9e
+Author: pmccurdy <pmccurdy@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Dec 20 07:31:56 2007 +0000
+
+    WvTest now checks the WVTEST_DISABLE_TIMEOUT environment variable.  If
+    it is set (and not set to "0"), then the standard 40 second test timeout
+    value is ignored, and tests are free to hang indefinitely.  This is
+    helpful when you want to run gdb on a hanging test, but don't want to
+    recompile WvStreams.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11839 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit fbf18c7da0cb6d3672b87d35f6052d7eed4a6c52
+Author: pmccurdy <pmccurdy@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Dec 20 07:02:35 2007 +0000
+
+    Support double values in WvDBusMsg, through an explicit get_double()
+    method, the conversion operators, and get_str() too.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11838 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 4177eff16813d4a6cefff9013fdd52d0e3f1921a
+Author: pmccurdy <pmccurdy@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Wed Nov 14 07:12:36 2007 +0000
+
+    Fix a memory leak if DBus authorization failed.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11837 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 8d8036626c6549ae5feec313c864a5c5e571f045
+Author: pmccurdy <pmccurdy@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Nov 2 18:47:41 2007 +0000
+
+    Add signed and unsigned 64-bit integer overloads to WvDBusMsg's append()
+    method, so you can send 64 bit numbers in addition to receiving them.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11836 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit dccccbdd9872e86b763919fd6ff397d2f016f51c
+Author: pmccurdy <pmccurdy@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Nov 2 02:42:00 2007 +0000
+
+    Fix a typo in a unit test.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11835 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit cbfa7617e7a01281e100c2d5f67aa10f31f73ff9
+Author: pmccurdy <pmccurdy@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Nov 2 01:31:42 2007 +0000
+
+    Fix WvDBusMsg's behaviour with append()ing unsigned chars.  DBus defines
+    a BYTE field to be an unsigned char, but append() was only accepting a
+    signed char.  This meant that calling append() on a variable of type
+    unsigned char would use append(int), which confused DBus.  Now there are
+    overloads for both types of char, so both will get sent as a single
+    byte.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11834 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 0c29878984d4a22da823deef7861891b6bdfce0f
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sat Oct 13 21:19:42 2007 +0000
+
+    Removed the --enable-exception and --enable-rtti options, and let the compiler use its default settings. The default of disabling RTTI didn't even compile (with the arrival of PWvStream), and this is the kind of stuff that people who worry about such things can just pass 'CXXFLAGS="-fno-rtti -fno-exception'" on the command-line of the configure script.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/wvstreams-ng@11823 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 8cde7b7e21965ccac0fe90d1de2f9d34ca41be79
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Wed Oct 10 16:46:49 2007 +0000
+
+    Don't let configure add "-L/usr/lib" to the compiler command line due to qt,
+    because then wvdial can't build if you have an old wvstreams-dev in
+    /usr/lib.  "-L/usr/lib" is implicit, but it's implicitly *last*, which is
+    what we want.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11818 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 5f3adc4b557d4dedd26466e164a5ef4e41113795
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Wed Oct 10 16:44:57 2007 +0000
+
+    Added boost 1.34.1 (just the headers, not the other 80% of the crap, which
+    turns out to be bloaty VC++ project files) to wvports.  Changed a couple of
+    minor things to make the win32 build work again and pass unit tests.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11817 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 923c85b10c1eebb369af88290b83ec7c01da97b4
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Tue Oct 9 04:54:00 2007 +0000
+
+    Merged in everything from the dbus-win32 branch using this command:
+    
+    svn merge svn+ssh://svn.alumnit.ca/svn/branches/{death_to_wvcallback@11813,dbus-win32@11815}
+    
+    The dbus-win32 branch is now obsolete.  This branch is now the basis for
+    what we hope will be WvStreams 5.
+    
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11816 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 9d9121ff49435b4f65e2b5fb1226ae6b4ac6d13a
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Tue Oct 9 04:49:28 2007 +0000
+
+    Makefile-win32 didn't run until you had run ./configure.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11814 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit dd9499548956e23f8429e2bd584155e1d77ff82e
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Mon Oct 8 05:04:58 2007 +0000
+
+    Simplified UniHashTree and friends a little bit, making more members of UniHashTreeBase private, removing "void *userdata" from a comparator function, removing a template parameter that was always being used the same way.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11813 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit debaaa45fa98b8e1d90ff077fc127624a87778c2
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Mon Oct 8 03:58:31 2007 +0000
+
+    Switched a usage of WvList to, well, uh, an std::set.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11812 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit f8a584780c074d32bf0e09c1a02f29880f01333d
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Mon Oct 8 03:11:59 2007 +0000
+
+    Removed WvMap, fixed up some unit tests to use std::map instead.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11811 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 4bd88d0316267ec9be5f83096126c2adbecfceb0
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Mon Oct 8 01:40:27 2007 +0000
+
+    Oops, left the #include for wvhashtable.h in wvstreamsdebugger.h...
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11809 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit ab81459ad92429fd8bcf8bffe760a70b3f2f299d
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Mon Oct 8 01:33:14 2007 +0000
+
+    Switched UniCallbackGen from WvMap to std::map.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11808 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 9218d84cd6e7739633ab2765ed6adc97cab8d648
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Mon Oct 8 01:15:18 2007 +0000
+
+    Switched WvStreamsDebugger from WvMap to std::map.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11807 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 0c077ea9ba7fd9c0f29d42a101be56a602e6f38d
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Mon Oct 8 00:28:32 2007 +0000
+
+    Replaced WvMap with std::map in wvstream.cc.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11806 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 0eaa08c931c6ef5c526185a952e510057e4d5c22
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Mon Oct 8 00:00:34 2007 +0000
+
+    Forgot to remove the now unneeded wvhashtable.h from wvstream.h, this being rather essential to the cutting down of recompiles.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11805 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 3287a26359fd5b0a956c1417fc7ba6eda9f1f0a5
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sun Oct 7 23:57:45 2007 +0000
+
+    Hiding your private parts is good policy. *And* it reduces recompilations too!
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11804 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit bebd2adbac3c375789f0459a61ca771c356fd1af
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sun Oct 7 23:35:29 2007 +0000
+
+    WvStreamsDebugger was using a very weird combination of putting a pointer in a WvMap, without using auto_free, while the data pointed at had perfectly cromulent value semantics (a small struct with three wv::function in it). Desincomplexifigulated it.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11803 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 317337f127cfbea507160d5cd48936223bdc82ee
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sun Oct 7 23:13:25 2007 +0000
+
+    Removed the auto_free feature of WvMap, in preparation for replacing it with std::map. Replaced the one use of it in uniconfd.cc with a combination of std::map and shared_ptr.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11802 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 6d883dfb5a226fa46f21e458dc7ebc4bbd6eb5b1
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sun Oct 7 21:58:24 2007 +0000
+
+    Hmm, looks like I forgot to commit a few files!
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11801 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit a95ee1ca0b9159cf658850f0563edf67f1066bf8
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sun Oct 7 21:42:39 2007 +0000
+
+    Added shared_ptr to wvtr1.h.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11800 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit ea7ab38124ff4f3da3f1e2b2d47d1f3b32df813c
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sun Oct 7 18:23:48 2007 +0000
+
+    Renamed wvcallback.{h,cc} to wvtr1.{h,cc}, as it will be used for more than just callbacks.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11799 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit cac80b9f151ee31cbb872915a181a8033ad6c613
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sun Oct 7 06:48:46 2007 +0000
+
+    Added autoconf test for TR1 and Boost, and put in a check in wvcallback.h that gives priority to TR1. Usage of binding placeholders changed, no need for the namespace prefix anymore, just _1 is sufficient (and by that, I mean that wv::_1 doesn't work anymore!).
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11796 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 05af0005936bfa4a3bbc371df9f60dca864e6c08
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Oct 5 15:06:30 2007 +0000
+
+    Merged /branches/modern-cxx@11779.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11786 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 45822ca2b1ea99fa3d38ed1eba8b33166277198e
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sun Sep 30 23:13:07 2007 +0000
+
+    Merged revisions 11760-11767 via svnmerge from
+    svn+ssh://svn.alumnit.ca/svn/trunk
+    
+    ........
+      r11767 | pphaneuf | 2007-09-30 19:05:28 -0400 (Sun, 30 Sep 2007) | 2 lines
+    
+      This fixes the build for me, but I must be getting old, since I don't really understand this piece of makefile. Or, rather, I know what it does, I just don't know WHY it wants to do that!
+    ........
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11769 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 9e97b47a049dd991d10927bb01d0b5ab768f32bc
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sun Sep 30 17:49:10 2007 +0000
+
+    Changed a number of wv::function typedefs (WvStream and WvDaemon related) to not take any parameters, letting people rely on wv::bind instead. No more "void *userdata"!
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11764 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 91d289c3c2e16ad3e752bc0734c2da62d978c32f
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Sep 27 20:44:12 2007 +0000
+
+    Had forgotten one typedef in wvqthook, fixed.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11763 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit e8b594560ba938c83e5e37cbb62d4aa0a3409955
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Wed Sep 26 03:03:36 2007 +0000
+
+    Removed WvCallback, replaced it with aliases to std::tr1::function. Also pulled in a few other things, like std::tr1::bind to replace WvBoundCallback (which is much simpler to use and powerful). Lacking autoconf detection of std::tr1 and fallback to Boost.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11761 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 935ed423b484336566feab5b5fa295ff58ba213a
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Mon Sep 24 00:50:14 2007 +0000
+
+    Merged revisions 11755-11759 via svnmerge from
+    svn+ssh://svn.alumnit.ca/svn/trunk
+    
+    ........
+      r11757 | pmccurdy | 2007-09-12 02:11:42 -0400 (Wed, 12 Sep 2007) | 5 lines
+    
+      Add Portugese, French, and Spanish translations.  Separate the label
+      used for the toolbar button from the menu entries, as the toolbar button
+      text often needs to be shortened in non-English languages.  Update
+      install.rdf a bit.
+    ........
+      r11758 | pmccurdy | 2007-09-12 03:31:21 -0400 (Wed, 12 Sep 2007) | 2 lines
+    
+      Add a todo list, as there's not enough problems to warrant a bug tracker.
+    ........
+      r11759 | pphaneuf | 2007-09-23 20:39:00 -0400 (Sun, 23 Sep 2007) | 2 lines
+    
+      Fixed a conflict in some unit tests with the inclusion of math.h.
+    ........
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/branches/death_to_wvcallback@11760 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 5ef054a4c6e11775f62a1380add060f919bfc42d
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Aug 30 03:10:25 2007 +0000
+
+    Update debian packaging.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11753 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 158a46abdc6834f5b9a3e3dad536fd212d12264a
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Aug 30 03:07:37 2007 +0000
+
+    Rename suppressions.wv to wvstreams.supp, to be consistent with other valgrind suppressions.x
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11752 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit e198b2ac854833f5acabdd6699707a1139451619
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Aug 30 02:46:40 2007 +0000
+
+    Install wvtesthelper stuff into /usr/bin, so people can run unit tests with all the graphical
+    goodness of the tcl out-of-tree.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11751 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit a55cd59c38ba79062ede3ce0bc49763dd8b03f20
+Author: apenwarr <apenwarr@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Aug 17 01:26:31 2007 +0000
+
+    Numerous changes to bring /trunk/wvstreams up to date with
+    /branches/wvstreams-win32-2007 (r11726).  That branch has already had
+    wvstreams-win32 and eithoneydew merged into it, so all three should now be
+    mostly safe to discard.  Unit tests pass in both win32-mingw32 and Linux
+    (although some unit tests are disabled in windows right now, mostly because
+    they use fork()).
+    
+    See the changelog in /branches/wvstreams-win32-2007 for more details.
+    
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11727 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 8c04c7e24624e3b0b84d75199a00d55b00120c01
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Jul 20 16:40:38 2007 +0000
+
+    Tweak wvrsa's encode methods to be const as well.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11661 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit a317ded78fe9c73801448cfada4ddba67b77b961
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Jul 20 16:39:16 2007 +0000
+
+    Some final tweaks to the crypto stuff: make WvCRL handle blank
+    (null) CRLs better, tweak WvCRL's API for const correctness,
+    a few more unit tests for wvcrl.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11660 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit adacb69970e9b4eea2fbe1fe32b3eace5693d0e8
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Jul 20 16:38:19 2007 +0000
+
+    Pull out redhat packaging from dist target.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11659 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 9783ef6752a4f83391243c4a221789ee30b281eb
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Jul 20 16:37:52 2007 +0000
+
+    Updated debian packaging stuff for WvStreams 4.4.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11658 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 2b0777a6753ad3a6b3db567303a4dcfbcd2eae2f
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Jul 20 16:32:44 2007 +0000
+
+    Fix a warning in the uniconfgen sanitytest.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11657 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 2b7b1e3cc0421a2a07638502cb2210bd8cf2c6d5
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Jul 20 16:32:17 2007 +0000
+
+    Remove a few more unused files/dirs in wvstreams.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11656 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 8ae3efb9bcc0b0d30527f34a5632c0276fee8444
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Jul 20 16:31:27 2007 +0000
+
+    Remove redhat packaging for wvstreams.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11655 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 3bfadddd9875a4be76d7d80f5243b1c30ccfc453
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Jul 19 21:28:23 2007 +0000
+
+    Merge the crypto_refactoring branch into trunk, adding a ton of
+    new X509 certificate management features, better CRL support,
+    and lots of other goodies.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11651 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 6ecd5e5afa0537fc0d26db63cdbf6901cc55f257
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Thu Jul 19 20:17:49 2007 +0000
+
+    Merge in inversion changes from 'wvstreams_inversion_2': pre_select
+    now returns void.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11646 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 475536e6fd8fe32d4a7c638317546429d7c2bd3b
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Mon Jul 2 20:27:31 2007 +0000
+
+    Apply sstasyuk's patch to make wvcrash.cc compile on 64bit machines.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11639 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 73894e1958b453b9195f2effd12310f3027ebfc8
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sun May 13 10:49:25 2007 +0000
+
+    There was still traces of the OpenSLP support, which prevented me from
+    building.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11624 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 3c3ce67459e6ee9d0c61b25cb2428b038fb37b69
+Author: pmccurdy <pmccurdy@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sat May 12 16:57:56 2007 +0000
+
+    GCC 4.1 compatibility fix taken from RedHat's wvstreams package.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11622 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 28190f0e96b53391e012dec1eb26cedcedb60f86
+Author: pmccurdy <pmccurdy@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sat May 12 16:55:35 2007 +0000
+
+    Patch from RedHat's wvstreams packages to make multiarch support work.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11621 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 5639b669715e90e90ad4f8f781a4606c6a5cfb45
+Author: pmccurdy <pmccurdy@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sat May 12 16:54:38 2007 +0000
+
+    Compiler compatibility fixes taken from RedHat's wvstreams package.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11620 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 5befa4a1e48c404a985a7ae3c806411b7296dbd7
+Author: pmccurdy <pmccurdy@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sat May 12 16:44:32 2007 +0000
+
+    Fix for GCC 4 compatibility: explicitly dereference this-> in a few
+    places so that we create a more obvious dependency for the template.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11619 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 25ea2b27c0c52a62c6b172f3fa4e2edbc91bdf57
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Wed Apr 11 17:45:31 2007 +0000
+
+    Pull out more ondisk hash stuff I forgot to remove.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11609 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit fab2e41276820bffaee69570e2019ae0d75a5a9b
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Wed Apr 11 04:19:20 2007 +0000
+
+    Remove one other artifact of the uniconf c bindings.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11608 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit ef1143772511d6f17d0163a39b42fafeb04e2d76
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Wed Apr 11 04:13:45 2007 +0000
+
+    Remove various bits of unfinished or otherwise deprecated code:
+    bdb hash, slp code, telephony code, SWIG wrappers, and UniConf C bindings.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11607 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit bf7e42eb21bb059101e9062588cc088a8a65f81a
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Wed Apr 11 03:42:50 2007 +0000
+
+    Add some suppressions for spurious valgrind errors in libdl and nss in modern
+    Linux distributions. Add unit tests now pass.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11606 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 169e667bc459b27b973d6981cbe31e4ff31e7a33
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Wed Apr 11 03:40:07 2007 +0000
+
+    Nuke wvhttp class, which is sort of broken and deprecated by wvhttppool.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11605 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 70eb95f6cb33187f4a070faa1ce091400c28bb4f
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Wed Mar 21 20:09:38 2007 +0000
+
+    Manually merge in wvstreams_inversion_preselect (it wasn't branched from
+    freesw, so this was unfortunately necessary).
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11588 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 166d3883578142c7891eced19634a118abf0554c
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Mon Mar 19 21:52:37 2007 +0000
+
+    Fix httptest. Sorry.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11585 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit bf3d7ff3a88ffdcfb192ea43501b0e653b3b457e
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Mon Mar 19 19:22:22 2007 +0000
+
+    Fix weird code in WvHTTPStream (not to be confused with WvHttpStream, sigh) which
+    dumped a backtrace of the stack every time it was closed or destroyed.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11578 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 66e2a17dc71150c5bfef3f2a47c235920424db2d
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Mon Mar 19 19:13:07 2007 +0000
+
+    Oops, fix a warning in my most recent commit.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11577 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit a904e82b69ce15e8cf4cae38758bd8373038082b
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Mon Mar 19 19:05:26 2007 +0000
+
+    wvhttpstream was completely broken. rewrite it and add a unit test that
+    verifies that it actually works.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11576 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 12887530e8b6cc5aeb6e31f4bf3ed486d81c46a3
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Mar 16 20:10:59 2007 +0000
+
+    RTTI should be enabled by default. I'm pretty sure this was a simple bug.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11569 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 291fecedf2e40cbf4322819f1787151bb7e729b6
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sun Mar 11 19:20:26 2007 +0000
+
+    No need to actually depend on libxplc-cxx.a, it doesn't change much. We still
+    link with it, though.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11560 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit e418e4238a4720e7205b7920ad1850f2562d4cab
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Wed Mar 7 15:46:43 2007 +0000
+
+    Fixed README.TESTS, which was using $PATH instead of $LD_LIBRARY_PATH in one
+    instance, and removed an extraneous step (there is no instance of PURIFY in
+    the OpenSSL headers, it's all in the internals of the implementation).
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11549 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 873a0f4de955f24cb1a89444df7ac4c676125591
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Tue Mar 6 22:57:47 2007 +0000
+
+    Merged from grapefruit.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11547 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 482ac649c7d68c24a432c88837b81ba7fc3f338c
+Author: pphaneuf <pphaneuf@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Sat Mar 3 12:09:32 2007 +0000
+
+    Merged in r11511, apparently the only change done to the wvstreams_4_3
+    branch.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11527 6619c942-59fa-0310-bf43-a07aaa81d9ac
+
+commit 17085388a723081806b2325557ec9a43841d02fc
+Author: wlach <wlach@6619c942-59fa-0310-bf43-a07aaa81d9ac>
+Date:   Fri Mar 2 07:26:17 2007 +0000
+
+    Make uniconfd's argument handling identical to that of wvdaemon's.
+    
+    
+    git-svn-id: file:///home/apenwarr/alumnit-svn/public/trunk@11510 6619c942-59fa-0310-bf43-a07aaa81d9ac

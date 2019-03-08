@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESourceRefresh</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
+<link rel="up" href="ch02.html" title="Data Source Extensions">
+<link rel="prev" href="ESourceOpenPGP.html" title="ESourceOpenPGP">
+<link rel="next" href="ESourceResource.html" title="ESourceResource">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ESourceOpenPGP.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Utilities (libedataserver)</th>
+<td><a accesskey="n" href="ESourceResource.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ESourceRefresh.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#ESourceRefresh.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#ESourceRefresh.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#ESourceRefresh.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="ESourceRefresh"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESourceRefresh.top_of_page"></a>ESourceRefresh</span></h2>
+<p>ESourceRefresh — <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> extension for refresh settings</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ESourceRefresh.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;libedataserver/libedataserver.h&gt;
+
+struct              <a class="link" href="ESourceRefresh.html#ESourceRefresh-struct" title="struct ESourceRefresh">ESourceRefresh</a>;
+#define             <a class="link" href="ESourceRefresh.html#E-SOURCE-EXTENSION-REFRESH:CAPS" title="E_SOURCE_EXTENSION_REFRESH">E_SOURCE_EXTENSION_REFRESH</a>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceRefresh.html#e-source-refresh-get-enabled" title="e_source_refresh_get_enabled ()">e_source_refresh_get_enabled</a>        (<em class="parameter"><code><a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRefresh.html#e-source-refresh-set-enabled" title="e_source_refresh_set_enabled ()">e_source_refresh_set_enabled</a>        (<em class="parameter"><code><a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enabled</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="ESourceRefresh.html#e-source-refresh-get-interval-minutes" title="e_source_refresh_get_interval_minutes ()">e_source_refresh_get_interval_minutes</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRefresh.html#e-source-refresh-set-interval-minutes" title="e_source_refresh_set_interval_minutes ()">e_source_refresh_set_interval_minutes</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> interval_minutes</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="ESourceRefresh.html#ESourceRefreshFunc" title="ESourceRefreshFunc ()">*ESourceRefreshFunc</a>)               (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="ESourceRefresh.html#e-source-refresh-add-timeout" title="e_source_refresh_add_timeout ()">e_source_refresh_add_timeout</a>        (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESourceRefresh.html#ESourceRefreshFunc" title="ESourceRefreshFunc ()"><span class="type">ESourceRefreshFunc</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceRefresh.html#e-source-refresh-force-timeout" title="e_source_refresh_force_timeout ()">e_source_refresh_force_timeout</a>      (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceRefresh.html#e-source-refresh-remove-timeout" title="e_source_refresh_remove_timeout ()">e_source_refresh_remove_timeout</a>     (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> refresh_timeout_id</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="ESourceRefresh.html#e-source-refresh-remove-timeouts-by-data" title="e_source_refresh_remove_timeouts_by_data ()">e_source_refresh_remove_timeouts_by_data</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceRefresh.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="ESourceExtension.html" title="ESourceExtension">ESourceExtension</a>
+         +----ESourceRefresh
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceRefresh.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="ESourceRefresh.html#ESourceRefresh--enabled" title='The "enabled" property'>enabled</a>"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct
+  "<a class="link" href="ESourceRefresh.html#ESourceRefresh--interval-minutes" title='The "interval-minutes" property'>interval-minutes</a>"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceRefresh.description"></a><h2>Description</h2>
+<p>
+The <a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a> extension tracks the interval for fetching
+updates from a remote server.
+</p>
+<p>
+Access the extension as follows:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc ppc">#include &lt;libedataserver/libedataserver.h&gt;</span>
+
+ESourceRefresh <span class="gtkdoc opt">*</span>extension<span class="gtkdoc opt">;</span>
+
+extension <span class="gtkdoc opt">=</span> <span class="function"><a href="ESource.html#e-source-get-extension">e_source_get_extension</a></span> <span class="gtkdoc opt">(</span>source<span class="gtkdoc opt">,</span> E_SOURCE_EXTENSION_REFRESH<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="ESourceRefresh.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="ESourceRefresh-struct"></a><h3>struct ESourceRefresh</h3>
+<pre class="programlisting">struct ESourceRefresh;</pre>
+<p>
+Contains only private data that should be read and manipulated using the
+functions below.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="E-SOURCE-EXTENSION-REFRESH:CAPS"></a><h3>E_SOURCE_EXTENSION_REFRESH</h3>
+<pre class="programlisting">#define E_SOURCE_EXTENSION_REFRESH "Refresh"
+</pre>
+<p>
+Pass this extension name to <a class="link" href="ESource.html#e-source-get-extension" title="e_source_get_extension ()"><code class="function">e_source_get_extension()</code></a> to access
+<a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a>.  This is also used as a group name in key files.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-get-enabled"></a><h3>e_source_refresh_get_enabled ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_refresh_get_enabled        (<em class="parameter"><code><a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a> *extension</code></em>);</pre>
+<p>
+Returns whether to periodically fetch updates from a remote server.
+</p>
+<p>
+The refresh interval is determined by the <a class="link" href="ESourceRefresh.html#ESourceRefresh--interval-minutes" title='The "interval-minutes" property'><span class="type">"interval-minutes"</span></a>
+property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether periodic refresh is enabled</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-set-enabled"></a><h3>e_source_refresh_set_enabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_refresh_set_enabled        (<em class="parameter"><code><a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enabled</code></em>);</pre>
+<p>
+Sets whether to periodically fetch updates from a remote server.
+</p>
+<p>
+The refresh interval is determined by the <a class="link" href="ESourceRefresh.html#ESourceRefresh--interval-minutes" title='The "interval-minutes" property'><span class="type">"interval-minutes"</span></a>
+property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>enabled</code></em> :</span></p></td>
+<td>whether to enable periodic refresh</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-get-interval-minutes"></a><h3>e_source_refresh_get_interval_minutes ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               e_source_refresh_get_interval_minutes
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a> *extension</code></em>);</pre>
+<p>
+Returns the interval for fetching updates from a remote server.
+</p>
+<p>
+Note this value is only effective when the <a class="link" href="ESourceRefresh.html#ESourceRefresh--enabled" title='The "enabled" property'><span class="type">"enabled"</span></a>
+property is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the interval in minutes</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-set-interval-minutes"></a><h3>e_source_refresh_set_interval_minutes ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_refresh_set_interval_minutes
+                                                        (<em class="parameter"><code><a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> interval_minutes</code></em>);</pre>
+<p>
+Sets the interval for fetching updates from a remote server.
+</p>
+<p>
+Note this value is only effective when the <a class="link" href="ESourceRefresh.html#ESourceRefresh--enabled" title='The "enabled" property'><span class="type">"enabled"</span></a>
+property is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval_minutes</code></em> :</span></p></td>
+<td>the interval in minutes</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRefreshFunc"></a><h3>ESourceRefreshFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*ESourceRefreshFunc)               (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-add-timeout"></a><h3>e_source_refresh_add_timeout ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               e_source_refresh_add_timeout        (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ESourceRefresh.html#ESourceRefreshFunc" title="ESourceRefreshFunc ()"><span class="type">ESourceRefreshFunc</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);</pre>
+<p>
+This is a simple way to schedule a periodic data source refresh.
+</p>
+<p>
+Adds a timeout <a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GSource"><span class="type">GSource</span></a> to <em class="parameter"><code>context</code></em> and handles all the bookkeeping
+if <em class="parameter"><code>source</code></em>'s refresh <a class="link" href="ESourceRefresh.html#ESourceRefresh--enabled" title='The "enabled" property'><span class="type">"enabled"</span></a> state or its refresh
+<a class="link" href="ESourceRefresh.html#ESourceRefresh--interval-minutes" title='The "interval-minutes" property'><span class="type">"interval-minutes"</span></a> value changes.  The <em class="parameter"><code>callback</code></em> is
+expected to dispatch an asynchronous job to connect to and fetch
+updates from a remote server.
+</p>
+<p>
+The returned ID can be passed to <a class="link" href="ESourceRefresh.html#e-source-refresh-remove-timeout" title="e_source_refresh_remove_timeout ()"><code class="function">e_source_refresh_remove_timeout()</code></a> to
+remove the timeout from <em class="parameter"><code>context</code></em>.  Note the ID is a private handle and
+cannot be passed to <a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#g-source-remove"><code class="function">g_source_remove()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> (if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, the default
+context will be used). <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>function to call on each timeout</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>notify</code></em> :</span></p></td>
+<td>function to call when the timeout is removed,
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a refresh timeout ID</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-force-timeout"></a><h3>e_source_refresh_force_timeout ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_refresh_force_timeout      (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<p>
+For all timeouts added with <a class="link" href="ESourceRefresh.html#e-source-refresh-add-timeout" title="e_source_refresh_add_timeout ()"><code class="function">e_source_refresh_add_timeout()</code></a>, invokes
+the <a class="link" href="ESourceRefresh.html#ESourceRefreshFunc" title="ESourceRefreshFunc ()"><span class="type">ESourceRefreshFunc</span></a> callback immediately and then, if the refresh
+<a class="link" href="ESourceRefresh.html#ESourceRefresh--enabled" title='The "enabled" property'><span class="type">"enabled"</span></a> state is TRUE, reschedules the timeout.
+</p>
+<p>
+This function is called automatically when the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> switches from
+disabled to enabled, but can also be useful when a network connection
+becomes available or when waking up from hibernation or suspend.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-remove-timeout"></a><h3>e_source_refresh_remove_timeout ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_refresh_remove_timeout     (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> refresh_timeout_id</code></em>);</pre>
+<p>
+Removes a timeout <a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GSource"><span class="type">GSource</span></a> added by <a class="link" href="ESourceRefresh.html#e-source-refresh-add-timeout" title="e_source_refresh_add_timeout ()"><code class="function">e_source_refresh_add_timeout()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>refresh_timeout_id</code></em> :</span></p></td>
+<td>a refresh timeout ID</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the timeout was found and removed</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-remove-timeouts-by-data"></a><h3>e_source_refresh_remove_timeouts_by_data ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               e_source_refresh_remove_timeouts_by_data
+                                                        (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Removes all timeout <a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GSource"><span class="type">GSource</span></a>'s added by <a class="link" href="ESourceRefresh.html#e-source-refresh-add-timeout" title="e_source_refresh_add_timeout ()"><code class="function">e_source_refresh_add_timeout()</code></a>
+whose callback data pointer matches <em class="parameter"><code>user_data</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data to match against timeout callbacks</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the number of timeouts found and removed</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ESourceRefresh.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="ESourceRefresh--enabled"></a><h3>The <code class="literal">"enabled"</code> property</h3>
+<pre class="programlisting">  "enabled"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct</pre>
+<p>Whether to periodically refresh.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRefresh--interval-minutes"></a><h3>The <code class="literal">"interval-minutes"</code> property</h3>
+<pre class="programlisting">  "interval-minutes"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct</pre>
+<p>Refresh interval in minutes.</p>
+<p>Default value: 60</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

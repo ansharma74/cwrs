@@ -1,0 +1,23 @@
+
+
+@subheading gnutls_pkcs11_obj_export2
+@anchor{gnutls_pkcs11_obj_export2}
+@deftypefun {int} {gnutls_pkcs11_obj_export2} (gnutls_pkcs11_obj_t @var{obj}, gnutls_datum_t * @var{out})
+@var{obj}: Holds the object
+
+@var{out}: will contain a certificate PEM or DER encoded
+
+This function will export the PKCS11 object data.  It is normal for
+data to be inaccesible and in that case @code{GNUTLS_E_INVALID_REQUEST} 
+will be returned.
+
+The output buffer is allocated using @code{gnutls_malloc()} .
+
+If the structure is PEM encoded, it will have a header
+of "BEGIN CERTIFICATE".
+
+@strong{Returns:} In case of failure a negative error code will be
+returned, and @code{GNUTLS_E_SUCCESS}  (0) on success.
+
+@strong{Since:} 3.1
+@end deftypefun

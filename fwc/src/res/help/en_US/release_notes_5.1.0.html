@@ -1,0 +1,128 @@
+<h1>Firewall Builder 5.1.0 Release Notes</h1>
+
+
+<p>
+  <a href="https://sourceforge.net/tracker/?atid=1129518&group_id=5314">SourceForge: Tickets</a>
+</p>
+
+<!-- Highlights for this release -->
+
+<a name="summary"></a>
+<h2>Summary</h2>
+
+<p>
+  Starting with 5.1.0, packages for Windows and Mac OS X are released
+  under the terms of GPL. The source code tree includes all files
+  necessary to build on Linux, *BSD, Windows and Mac OS X.
+</p>
+
+
+<hr style="display: block">     
+
+
+<!-- ######################################################################### -->
+<a name="gui"></a>
+<h2>GUI Updates</h2>
+
+<ul>
+
+  <li>
+    <p>
+      fixes #2685 "Clicking "Manage Members" in a vlan subinterface of a
+      cluster causes crash".
+    </p>
+  </li>
+
+</ul>
+
+
+<!-- ######################################################################### -->
+<a name="iptables"></a>
+<h2>Changes in support for iptables</h2>
+
+<ul>
+
+  <li>
+    <p>
+      fixed SF bug #3468358 "change in rule-compilation between 5.0.0
+      and 5.0.1". Rule with cluster interface in "Destination"
+      should compile into matching ip addresses assigned to the cluster
+      interface object and corresponding member firewall's interface
+      object, but in v5.0.1 it only matched member interface
+      address. This bug triggered when iptables version was set to
+      1.2.11 or greater. This was a regression from v5.0.0
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2686 "automatic rules for heartbeat are not generated for
+      vlan subinterfaces"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2684 "fix address deletion in configlet
+      update_addresses".  This only applies to Linux firewalls and
+      configurations where an interface has two or more ip
+      addresses. If user deleted one of the addresses that happens to
+      be the "primary" address of the interface in the GUI, generated
+      script deleted both addresses on the firewall machine instead of
+      just one and left interface with no addresses at all. The fix is
+      to use /proc variable
+      /proc/sys/net/ipv4/conf/all/promote_secondaries that makes the
+      kernel "promote" secondary address to a "primary" status when
+      primary address is deleted. Default behavior in Linux kernel is
+      to delete all addresses when primary address is deleted.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      using mktemp to create temporary directory in the generated
+      script. If mktemp is not available, fall back onto less secure
+      but guaranteed to work method where I generate randomized the
+      name of the temporary directory using process ID.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes SF bug 3489096 "dd-wrt-jffs: all routes are deleted if
+      there is an error". The problem affects all supported Linux-like
+      systems. Shell code that restores old static routing table
+      entries in case of an error with commands adding new routing
+      entries was broken and left the machine with no routes at all.
+    </p>
+  </li>
+
+</ul>
+
+
+<!-- ######################################################################### -->
+<a name="other"></a>
+<h2>Other changes</h2>
+
+<ul>
+
+  <li>
+    <p>
+      fix for SF bug #3468802.  Need to define macro
+      __STDC_FORMAT_MACROS. This still needs to be tested on all build
+      machines.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      running autoconf, configure as part of windows build. Merged
+      qmake .pro and .inc files for Windows, Mac and Linux
+      builds. Moved files needed for Windows and Mac packaging to the
+      "packaging" directory.
+    </p>
+  </li>
+</ul>
+
+
+

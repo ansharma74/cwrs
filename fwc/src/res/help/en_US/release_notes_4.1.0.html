@@ -1,0 +1,779 @@
+
+<h1>Firewall Builder 4.1.0 Release Notes</h1>
+
+<p>
+    This is the first official release for V4.1.  It has been tested
+    and we believe it to be stable, but you should test it prior to
+    using it in production.  If you find a bug please open a ticket in
+    our SourceForge project:
+</p>
+<p>
+    <a href="https://sourceforge.net/tracker/?atid=1129518&group_id=5314">SourceForge: Tickets for V4</a>
+</p>
+
+   <h2>What's new in V4.1?</h2>
+
+<p>
+    There are several new features in this version including:
+    <ul>
+        <li>Support for Address Table objects that use the iptables
+        ipset module
+        </li>
+        <li>Integrated SSH tools (plink.exe and pscp.exe) in Windows
+        installer package
+        </li>
+        <li>New toolbar shortcut to view complete generated firewall
+        configuration files in the GUI
+        </li>
+        <li>Shortcut buttons in the main window to help new users get
+        started more easily
+        </li>
+        <li>Updated many dialog window sizes to work better for users
+        with smaller displays (1024x768)
+        </li>
+        <li>Added a new mode for stopping the firewall script called
+        'block'
+        </li>
+    </ul>
+</p>
+
+<p>
+    In addition to providing new functionality one of the goals of this
+    release is to make Firewall Builder easier for new users to learn.
+    There are new buttons in the main window that are shortcuts to common
+    functions that new users need to get started like adding a new firewall
+    and importing policies from existing devices.  
+</p>
+
+<p>
+    The iptables ipset module support provides an efficient way to build 
+    iptables rules that match large sets of ip addresses and update these
+    addresses without reloading iptables rules.  Please not this function
+    requires that your firewall has the ipset module loaded. You can find 
+    more information about how to setup and use Firewall Builder to manage 
+    iptables IP sets in the Users Guide section for Address Table objects.
+</p>
+
+<p>
+<a href="http://www.fwbuilder.org/4.0/docs/users_guide/address-table-object.html">UsersGuide: Address Table Objects</a>
+</p>
+
+<a name="gui"></a>
+<h2>GUI Updates</h2>
+
+<ul>
+
+  <li>
+    <p>
+      fixed #1505 move "Clip comments in rules" checkbox to
+      "Appearance" tab.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1504 Added (optional) text to the toolbar buttons. Text
+      is turned on by default but can be turned off in the global
+      Preferences dialog.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      using separate settings object and file in the .ini format to
+      store instance uuid to ensure uuid persistence on windows across
+      upgrades done with complete deinstall. Fixes #1497
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1489 removed unnecessary debugging messages.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1490 compile problem with Qt 4.7
+    </p>
+  </li>
+    
+
+  <li>
+    <p>
+      fixed #1501 call qsrand(seed) to seed random generator before
+      generating new UUID
+    </p>
+  </li>
+    
+
+  <li>
+    <p>
+      applied patch from slif@bellsouth.net to fix compiler
+      warnings. Patch applied partially since not all fixes were
+      appropriate. fixes #1510
+    </p>
+  </li>
+    
+
+  <li>
+    <p>
+      fixed SF bug #3013532 "file chooser dialog for import policy
+      does not show all files".
+    </p>
+  </li>
+    
+  <li>
+    <p>
+	fixed SF bug #3013855 "various fixes for run_tests". Applied
+	patch suggested by Michael J. Slifcak (with changes).
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug #3013735 "invalid pixmap properties during
+      make". Fixed uic warnings.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1499 "GroupObjectDialogTest.cpp does not compile with gcc
+      3.4.6" and SF bug 3015307.  There is no reason to make method
+      insertObject() protected which caused problems (and hacky
+      workaround) in the unit test.
+    </p>
+  </li>
+
+  <li>
+    <p>added user work flow progress flags for an attempted install and
+      first successful install. Both flags are Boolean true/false
+      indicating that the even occurred. We do not track and do not
+      report any information about the firewall, platform, rules
+      etc. These flags will be used to determine how many users
+      abandon the program before even trying to run install for real
+      because it is too complicated or the UI is not good
+      enough. Fixes #1495
+    </p>
+  </li>
+    
+
+  <li>
+    <p>added user work flow flag indicating that ssh/scp have been
+      configured in the Preferences dialog. The flag is Boolean and
+      registers only the fact that something was entered in ssh and
+      scp fields. Actual path and programs used are not registered and
+      reported. Fixes #1496
+    </p>
+  </li>
+    
+
+  <li>
+    <p>
+      fixed bug 3016720 "import policy disabled after file
+      close". Menu items "File/Import Library" and "File/Import
+      policy" became disabled after user closed data file using
+      "File/Close" and never became enabled again.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1521 "GUI crashes upon exit on CentOS 5". This fixes
+      SourceForge bug reports 3016482 "segfault with RHEL5 pre-built
+      packages on CentOS 5.5" and 3015979 "fwbuilder not exiting in
+      centos 5.5"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1493 "workflow icons in the big empty space". The GUI
+      shows big buttons in the empty space in the right hand side of
+      the main window when no firewall policy is not opened yet. These
+      buttons provide simple shortcuts to the workflow functions
+      useful for the novice users. Currently this includes "Create new
+      firewall", "Import configuration of existing firewall" and
+      "Watch Getting Started Tutorial".
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug 3016680 "Vertical scrollbar issue" rules with a lot
+      of objects did not scroll properly vertically.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1520 ("Comment field display clips comment text"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1526 "Make sure GUI unit tests work in the environment
+      where user turned off tip of the day dialog". Unit tests now use
+      alternative settings file with all default values and do not
+      depend on user's preferences.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      See #1346. Viewer panel that can be used to inspect generated
+      firewall configuration files from within the GUI. The panel can
+      be opened using a button in the mini-toolbar above firewall
+      rules or as a page in the compile and install wizard.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      SF bugs 3020381 and 3027284: "Line failure should abort remote
+      firewall install". If network connection is lost during firewall
+      policy activation, policy installer should detect this,
+      disconnect and declare installation session a failure.  Prior to
+      this version, installer detected network failures during policy
+      copy (done with scp) or when it could not connect to the
+      firewall at all, but hang if connection was lost in the middle
+      of ssh session used to activate firewall policy. Now using ssh
+      parameter "ServerAliveInterval" to make it detect connection
+      failure.  Added an input field that defines inactivity timeout
+      value in seconds to the "Installer" tab of the global
+      preferences dialog. The same timeout value is used to set up
+      ServerAliveInterval parameter for ssh, ConnectTimeout parameter
+      for scp and registry entries required by plink and pscp on
+      Windows using putty session "fwb_session_with_keepalive".
+      Default value defines 30 sec timeout.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      All instllation commands should be on the single line in the
+      configlet so they are sent to the firewall as one line. When
+      these commands were on separate lines, linefeed characters
+      between them appeared on the standard input of command "sudo -S"
+      and broke installation process. This only happened in my tests
+      when I ran GUI installer on Windows and looked like some sort of
+      a race. When all commands are on the one line the problem
+      disappeared. Changed only configlets that used sudo as part of
+      installation script.
+    </p>
+  </li>
+
+
+  <li>
+    <p>
+      fixed SourceForge bug 3020761 "printing from command line causes
+      Segmentation fault". Fixes #1533
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed source forge bug #3028740 "inspect/install does not like
+      spaces in Firewall object name". compiling firewall objects with
+      name that contains white space produces files with spaces in the
+      name which confused "inspect generated files" function and
+      built-in policy installer. Names with spaces are now supported.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      sorting of filewall and cluster items in compile/install dialog
+	is now case insensitive.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      hiding "Select all" and "Select none" buttons in the first page
+      of the compile/install wizard when there is only one firewall in
+      list.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      renamed buttons  "All"  to "Select all" and "None" to "Select none"
+      in the first page of the compile/install wizard.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SourceForge bug #3027272: "default values taken from
+      unexpected sources". When new firewall object was created using
+      "Import Policy" function, parts of its configuration were taken
+      from default settings of an unexpected host OS.
+    </p>
+  </li>
+
+
+  <li>
+    <p>
+      fixed wrong display of non-ascii symbols in cluster member
+      compilation warning.
+    </p>
+  </li>
+
+
+  <li>
+    <p>
+      firewall names are now resolved to IP address in the SNMP
+      discovery. Added new input element for firewall IP address to
+      use for SNMP interface discovery when firewall object name does
+      not match DNS record..
+    </p>
+  </li>
+
+  <li>
+    <p>
+      Added "Cancell All" button to the installer options dialog to
+      stop all firewalls installations and renamed OK button to
+      "Install". The new "Cancel All" button lets user interrupt
+      installation process when they are in the middle of pushing
+      configuration to many firewalls.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1582 'tree is not refreshed after address substitutions
+      in "new firewall" wizard'
+    </p>
+  </li>
+
+  <li>
+    <p>
+      Most dialogs were adjusted to make sure they fit on the screen 1024x768
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1612 "File/Open should create
+      new project panel". If user has some unsaved changes in the
+      default project panel (the one with no associated file) and then
+      uses File/Open menu to open another data file, the file should
+      open in a new project panel.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1611 "File/New should create new project panel". Like
+      #1612, open new data file in a new project panel if current
+      project panel has no data file associated with it but has
+      unsaved changes.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1622 "Crash when configuring cluster". The GUI used to
+      crash if user created a cluster copying rules of one of the
+      cluster members while that rule set was opened in the rule set
+      view.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1632 "dependencies created by branching rule sets should
+      be processed recursively". In the case of multi-level branches
+      the GUI should trace all references to find all firewalls
+      affected by a change of an object used in the rule. This fixes
+      SourceForge bug 3033462 "nested shared branch rules between
+      servers not working".
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug 3035426 "canceled save writes .fwb ". The program
+      created file with name ".fwb" if user started with an empty
+      project paje, created some objects, then hit "Compile" but then
+      clicked "Cancel" when offered a chance to save objects into a
+      new data file.
+    </p>
+  </li>
+
+</ul>
+
+
+<a name="importer"></a>
+<h2>Changes in the policy importer</h2>
+
+<ul>
+  <li>
+    <p>
+      fixed #1511, SF bug 3012953: iptables import parse error
+      icmp_type any
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed sourceforge bug 3012953 name of UDP and TCP objects
+      created during import should follow the same pattern and not
+      include "0-0" for the source ports if they are equal to zero.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      policy importer for iptables can now parse numerical log levels.
+    </p>
+  </li>
+
+
+  <li>
+    <p>
+      bug 3012953: iptables importer sometimes does not recognize rule
+      with " ESTABLISHED,RELATED ". Parser properly processed iptables
+      rules with state "RELATED,ESTABLISHED" but not when states were
+      in the opposite order.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1513 iptables importer should check default policy in
+      standard chains. Importer creates rules at the bottom of the
+      policy rule set to reproduce default policies in the built-in
+      chains INPUT,OUTPUT,FORWARD.  These rules are added only when
+      default policy in these chains is set to ACCEPT because
+      generated iptables script always sets default policies to DROP.
+      Support for this in the mangle table is limited so far, only
+      default policies in PREROUTING, OUTPUT and POSTROUTING can be
+      implemented. Rules created for the commands that set default
+      policy in chains FORWARD and INPUT will generate commands in
+      PREROUTING chain instead. We will try to address this in the
+      future if there is sufficient demand.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1516 policy importer for iptables should not use
+      automatic ESTABLISHED rule. (See also SF bug 3012953).  Policy
+      importer for iptables always creates explicit rule to match
+      ESTABLISHED,RELATED to make sure it goes into the same chain as
+      the original rule. Also in the same fix, importer creates branch
+      for iptables rules that match both regular service and state
+      ESTABLISHED,RELATED. The service is matched in the main policy
+      rule set, while ESTABLISHED,RELATED state is matched in the
+      branch.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug 3015641 "imported REJECT rule changed during
+      compile". Importer of iptables rules did not handle properly
+      parameters of the REJECT target.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      Fixed SF bug 3016779: Policy importer for iptables should
+      understand module iprange
+    </p>
+  </li>
+
+  <li>
+    <p>
+      policy importer for iptables replaces --sport and --dport
+      parameters of module multiport with --source-ports and
+      --destination-ports to remove grammar ambiguity that arises from
+      the use of the same parameters --sport and --dport by different
+      iptables modules with different argument syntax.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug 3017084 "compiler adds extra quote characters to
+      log-prefix string".
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1544 "fwbuilder crashes during import of file with rtf
+      formatting data". The fix should prevent crashes in other cases
+      when import was unsuccessful.
+    </p>
+  </li>
+
+
+</ul>
+
+
+
+
+<a name="libfwbuilder"></a>
+<h2>Changes in libfwbuilder library</h2>
+
+<ul>
+  <li>
+    <p>
+      Added framework for creating data files with predictable and
+      repeatable object IDs and references. This is used in unit tests
+      so we can create data files that can be compared.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed missing class variable initialization in class CustomService
+    </p>
+  </li>
+
+</ul>
+
+
+
+<a name="compiler_lib"></a>
+<h2>Changes common for all policy compilers</h2>
+
+<ul>
+  <li>
+    <p>
+      fixed #1631 "Process branch rule sets recursively". Policy
+      compilers used to look only one level deep while processing
+      branching rules.  They should allow for arbitrary nesting and
+      correctly avoid infinite loops if user creates looped
+      branches. Compiler issues a warning when it detects looped
+      bracnhing.  This fixes SF bug 3033462 "nested shared branch
+      rules between servers not working".
+    </p>
+  </li>
+</ul>
+
+
+
+<a name="iptables"></a>
+<h2>Changes in support for iptables</h2>
+
+<ul>
+  <li>
+    <p>
+      fixed #1506 SF bug #3011516: generated iptables script tries to
+      update ip addresses of unnumbered interface.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1523 "outbound ipv6 rule matching multicast ipv6
+      destination is not generated". The rule with network object
+      fe80::/10 in source and ipv6 muticast ff00::/8 in destination
+      did not produce correspondign ip6tables command. The change
+      affects other cases with rules using broadcast or multicast
+      objects that should be considered matching the firewall object.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed bug 3001228 "v4.0.0 iptables: NAT not creating interface
+      addresses". Iptables script generated by fwbuilder used to
+      include commands to configure virtual ip addresses for NAT only
+      if option "configure interfaces" was turned on. Expected
+      behavior is to generate these commands when option "Add virtual
+      addresses for NAT" is turned on regardless of the setting of the
+      option "configure interfaces".
+    </p>
+  </li>
+
+  <li>
+    <p>
+      Added support for iptables module "set" used to generate
+      iptables command for rules with run-time AddressTable
+      objects. This module is only available in iptables 1.4.1.1 and
+      later, however some embedded platforms do not have it even
+      though they ship later versions of iptables (e.g. OpenWRT).  Use
+      of this module is controlled by a checkbox in the iptables
+      "advanced" settings dialog which is off by default. This
+      checkbox becomes disabled when iptables version is set to <
+      1.4.1.1. Supporting shell functions are generated by the
+      configlet run_time_address_tables. This includes shell function
+      that checks if data files used by run time address tables
+      objects are available, a function that loads these files if user
+      activated use of the ipset module using checkbox, a function
+      that checks if command line utility ipset is present and can
+      communicate with the kernel module. This configlet is included
+      in the script generated for all linux-based host os, even though
+      most of them do not support module ipset. If ipset is not
+      supported because iptables version is too old or the module is
+      simply not available for the platform, user can just uncheck the
+      checkbox in the firewall settings dialog and code generated by
+      the configlet will support method of loading addresses from the
+      file at run time based on script variables and a "while" loop.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      Implemented support for mixed address lists for run-time address
+      table objects using ipset module. Normally, one ipset set can
+      either contain individual ip addresses or subnets. We create a
+      "setlist" type set that includes two sub-sets, one for ip
+      addresses and the other for subnets. Function
+      reload_address_table in the configlet run_time_address_tables
+      takes care of managing these three sets automatically. Address
+      list file has the same format as for all other supported types
+      of Address Table object: one address per line, subnets are
+      defined using '/bitlength' or '/netmask' syntax, comments start
+      with '#' or ';' character.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1640 "default policy when the script is stopped should be
+      optional". The "stop" command used to be interpreted by the
+      iptables script generated by fwbuilder in a way that it blocked
+      all connections going to, from and through the firewall. Luc
+      Paulin <lpaulin@touchtunes.com> pointed out that this behavior
+      is incompatible with other firewall management scripts, such as
+      /etc/rc.d/init.d/iptables on Fedora Linux or ufw on Ubuntu,
+      where "stop" means disabling the firewall.  In v4.1 the "stop"
+      command flushed all chains in all tables and sets default policy
+      to ACCEPT. New command "block" does what "stop" used to do
+      before, that is, flushes all chains in all tables and sets
+      default policy to "DROP". The option to add a rule to permit ssh
+      access from the management workstation when firewall is stopped
+      now adds this rule when firewall script is run with "block"
+      command instead.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug 3034628 "iptables does not allow target REJECT in
+      mangle table". Iptables does not support target REJECT in mangle
+      table. Added check to the policy compiler to make it detect this
+      situation and issue an error.
+    </p>
+  </li>
+
+
+  <li>
+    <p>
+      fixed #1654 "Support for run-time Address Tables with empty file
+      in iptables". This is an implementation of the same feature we
+      already have for PF. If the file name in the configuration of
+      the run-time Address Table object is blank, policy compiler
+      generates firewall configuration that uses ipset with the name
+      the same as the name of the object but does not generate code to
+      load addresses from a file into it. All control of the ipset is
+      left for the user.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #1652 "support for adding single address to address table
+      in the generated script". Generated iptables script now provides
+      functions "add_to_address_table", "remove_from_address_table"
+      and "test_address_table" that let administrator add or remove
+      single ip address to a given address table.  Functions take
+      three arguments: set name, file name and address.  Functions add
+      and remove the address both from the set in memory and from the
+      given file so that when firewall reboots and the script reloads
+      the set, it is restored to the desired state. Another new
+      function "test_address_table" is a wrapper around "ipset -T"
+      command and tests if given address belongs to the set.  All
+      these functios take the name of the run-time Address Table
+      object used to create sets as an argument and perform actual
+      add, remove and test operations on the subsets created for ip
+      addresses and subnets.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug #3038636 "@v4.1b, 'iptables v1.4.8: unknown option
+      `--ra'"'. Ipv4options module has changed in iptables 1.4.3 and
+      now accepts different set of parameters.  Policy compiler
+      generates new parameters if user set version in the firewall
+      object dialog to "1.4.3 or later".
+    </p>
+  </li>
+
+</ul>
+
+
+
+<a name="pf"></a>
+<h2>Support for PF</h2>
+
+<ul>
+  <li>
+    <p>No changes for PF.
+    </p>
+  </li>
+</ul>
+
+<a name="ios"></a>
+<h2>Changes in support for for Cisco IOS ACL</h2>
+
+<ul>
+  <li>
+    <p>No changes for Cisco IOS ACL.
+    </p>
+  </li>
+</ul>
+
+
+<a name="pix"></a>
+<h2>Changes in support for for Cisco ASA (PIX)</h2>
+
+<ul>
+  <li>
+    <p>
+      fixed #1491 fwb_pix crashes trying to compile simple rule. Compiler
+      should check validity of the object used as network zone of an interface.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      do not verify network zones of unprotected interfaces. Compiler
+      does not allow the same obejct to be used as network zone of two
+      different interfaces, which caused problems when a vlan parent
+      interface has zone "Any". Vlan parent interface can not have
+      ACLs attached to it and does not need any meaningful network
+      zone, so "Any" is reasonable fill-in choice. However it
+      coinsides with network zone of the "outside" interface which
+      triggered this check.
+    </p>
+  </li>
+
+</ul>
+
+
+
+<a name="procurve"></a>
+<h2>Support for HP ProCurve</h2>
+
+<ul>
+  <li>
+    <p>No changes for HP ProCurve.
+    </p>
+  </li>
+</ul>
+
+
+
+
+

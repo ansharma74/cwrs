@@ -1,0 +1,84 @@
+<% content_for :footer do %>
+
+	<script type="text/javascript">
+		
+		chart = new Highcharts.Chart({
+		      chart: {
+		         renderTo: 'severity-graph',
+		         defaultSeriesType: 'spline',
+		         marginRight: 80,
+							marginLeft: 80,
+							marginTop: 50,
+		         marginBottom: 50
+		      },
+          credits: {
+            enabled: false
+          },
+		      title: {
+		         text: 'Severity Count vs Time',
+		         x: -20 //center
+		      },
+		      xAxis: {
+            categories: [<%= @axis.try(:html_safe) %>],
+		        title: {
+								margin: 10,
+								<% if (@range == 'year' || @range == 'quarter') %>
+									text: 'Month of Year'
+								<% elsif (@range == 'month' || @range == 'last_month') %>
+									text: 'Date of Month'
+								<% elsif (@range == 'week' || @range == 'last_week') %>
+									text: 'Date Of Week'
+                <% elsif @range == 'last_24' %>
+                  text: 'Last 24 Hours'
+								<% else %>
+									text: 'Hour of Day'
+								<% end %>
+		         }
+		      },
+		      yAxis: {
+		         title: {
+		            text: 'Severity Count'
+		         },
+		         plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		         }]
+		      },
+		      tooltip: {
+		         formatter: function() {
+		                   return '<b>'+ this.series.name +'</b><br/>'+ this.y + ' Events';
+		         }
+		      },
+		      legend: {
+		         layout: 'vertical',
+		         align: 'right',
+		         verticalAlign: 'top',
+		         x: 0,
+		         y: 0,
+		         borderWidth: 0,
+						 borderRadius: 0,
+						 borderColor: '#ddd',
+						 backgroundColor: '#fff'
+		      },
+		      series: [{
+            name: 'High Severity',
+            color: sev1_bg_color,
+						data: [<%= @high.join(', ') %>]
+					},{
+						name: 'Medium Severity',
+            color: sev2_bg_color,
+						data: [<%= @medium.join(', ') %>]
+					},{
+            name: 'Low Severity',
+            color: sev3_bg_color,
+						data: [<%= @low.join(', ') %>]
+					}]
+		   });
+		
+		
+	</script>
+
+<% end %>
+
+<div id='severity-graph' style='display:none;' class='dashboard-graph'></div>

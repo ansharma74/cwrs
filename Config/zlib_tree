@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Place yourself outside of the ZLIB source tree.  In
+# this example, the environment variable ZLIB_SOURCE
+# is assumed to contain the absolute ZLIB source directory.
+
+(cd $ZLIB_SOURCE; find . -type f) | while read F; do
+	mkdir -p `dirname $F`
+	ln -s $ZLIB_SOURCE/$F $F
+done
+

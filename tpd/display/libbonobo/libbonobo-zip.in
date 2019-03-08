@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# Build zipfiles for libbonobo on Win32. Separate runtime and
+# developer ones. Run after make install.
+
+ZIP=/tmp/libbonobo-@VERSION@.zip
+DEVZIP=/tmp/libbonobo-dev-@VERSION@.zip
+
+cd @prefix@
+rm $ZIP
+
+zip $ZIP -@ <<EOF
+COPYING
+COPYING.LIB-2
+bin/activation-client.exe
+bin/bonobo-activation-sysconf.exe
+bin/libbonobo-2-0.dll
+bin/libbonobo-activation-4.dll
+etc/bonobo-activation/bonobo-activation-config.xml
+lib/bonobo/monikers/libmoniker_std_2.dll
+lib/bonobo/servers/Bonobo_CosNaming_NamingContext.server
+lib/bonobo/servers/Bonobo_Moniker_std.server
+lib/orbit-2.0/Bonobo_module.dll
+libexec/bonobo-activation-server.exe
+sbin/bonobo-activation-sysconf.exe
+EOF
+
+if [ -f share/locale/de/LC_MESSAGES/libbonobo-2.0.mo ]; then
+  zip $ZIP share/locale/*/LC_MESSAGES/libbonobo-2.0.mo
+else
+  zip $ZIP lib/locale/*/LC_MESSAGES/libbonobo-2.0.mo
+fi
+
+rm $DEVZIP
+zip -r $DEVZIP -@ <<EOF
+bin/bonobo-activation-run-query.exe
+bin/echo-client-2.exe
+include/bonobo-activation-2.0
+include/libbonobo-2.0
+lib/bonobo-2.0/samples/bonobo-echo-2.exe
+lib/bonobo/servers/Bonobo_Sample_Echo.server
+lib/libbonobo-2.dll.a
+lib/libbonobo-activation.dll.a
+lib/pkgconfig/bonobo-activation-2.0.pc
+lib/pkgconfig/libbonobo-2.0.pc
+man/man1/bonobo-activation-server.1
+share/gtk-doc/html/bonobo-activation
+share/gtk-doc/html/libbonobo
+share/idl/bonobo-2.0
+share/idl/bonobo-activation-2.0
+EOF

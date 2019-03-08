@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Place yourself outside of the ALSAUTILS source tree.  In
+# this example, the environment variable ALSAUTILS_SOURCE
+# is assumed to contain the absolute ALSAUTILS source directory.
+
+(cd $ALSAUTILS_SOURCE; find . -type f) | while read F; do
+	mkdir -p `dirname $F`
+	ln -s $ALSAUTILS_SOURCE/$F $F
+done
+

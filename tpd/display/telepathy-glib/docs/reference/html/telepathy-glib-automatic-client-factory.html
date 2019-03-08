@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpAutomaticClientFactory</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-client.html" title="Client-side proxies">
+<link rel="prev" href="telepathy-glib-simple-client-factory.html" title="TpSimpleClientFactory">
+<link rel="next" href="TpClientMessage.html" title="TpClientMessage">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-simple-client-factory.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-client.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="TpClientMessage.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-automatic-client-factory.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-automatic-client-factory.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-automatic-client-factory.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-automatic-client-factory"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-automatic-client-factory.top_of_page"></a>TpAutomaticClientFactory</span></h2>
+<p>TpAutomaticClientFactory — Factory for specialized <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> subclasses.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-automatic-client-factory.synopsis"></a><h2>Synopsis</h2>
+<a name="TpAutomaticClientFactory"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+                    <a class="link" href="telepathy-glib-automatic-client-factory.html#TpAutomaticClientFactory-struct" title="TpAutomaticClientFactory">TpAutomaticClientFactory</a>;
+struct              <a class="link" href="telepathy-glib-automatic-client-factory.html#TpAutomaticClientFactoryClass" title="struct TpAutomaticClientFactoryClass">TpAutomaticClientFactoryClass</a>;
+<a class="link" href="telepathy-glib-automatic-client-factory.html#TpAutomaticClientFactory"><span class="returnvalue">TpAutomaticClientFactory</span></a> * <a class="link" href="telepathy-glib-automatic-client-factory.html#tp-automatic-client-factory-new" title="tp_automatic_client_factory_new ()">tp_automatic_client_factory_new</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a> *dbus</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-automatic-client-factory.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory">TpSimpleClientFactory</a>
+         +----TpAutomaticClientFactory
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-automatic-client-factory.description"></a><h2>Description</h2>
+<p>
+This factory overrides some <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> virtual methods to
+create specialized <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> subclasses.
+</p>
+<p>
+<a class="link" href="telepathy-glib-automatic-client-factory.html#TpAutomaticClientFactory"><span class="type">TpAutomaticClientFactory</span></a> will currently create <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> objects
+as follows:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>a <a class="link" href="telepathy-glib-stream-tube-channel.html#TpStreamTubeChannel"><span class="type">TpStreamTubeChannel</span></a>, if the channel is of type
+    <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CHANNEL-TYPE-STREAM-TUBE:CAPS" title="TP_IFACE_CHANNEL_TYPE_STREAM_TUBE"><code class="literal">TP_IFACE_CHANNEL_TYPE_STREAM_TUBE</code></a>;</p></li>
+<li class="listitem"><p>a <a class="link" href="telepathy-glib-dbus-tube-channel.html#TpDBusTubeChannel"><span class="type">TpDBusTubeChannel</span></a>, if the channel is of type
+    <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CHANNEL-TYPE-DBUS-TUBE:CAPS" title="TP_IFACE_CHANNEL_TYPE_DBUS_TUBE"><code class="literal">TP_IFACE_CHANNEL_TYPE_DBUS_TUBE</code></a>;</p></li>
+<li class="listitem"><p>a <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a>, if the channel is of type
+    <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CHANNEL-TYPE-TEXT:CAPS" title="TP_IFACE_CHANNEL_TYPE_TEXT"><code class="literal">TP_IFACE_CHANNEL_TYPE_TEXT</code></a> and implements
+    <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CHANNEL-INTERFACE-MESSAGES:CAPS" title="TP_IFACE_CHANNEL_INTERFACE_MESSAGES"><code class="literal">TP_IFACE_CHANNEL_INTERFACE_MESSAGES</code></a>;</p></li>
+<li class="listitem"><p>a <a class="link" href="telepathy-glib-file-transfer-channel.html#TpFileTransferChannel"><span class="type">TpFileTransferChannel</span></a>, if the channel is of type
+    <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CHANNEL-TYPE-FILE-TRANSFER:CAPS" title="TP_IFACE_CHANNEL_TYPE_FILE_TRANSFER"><code class="literal">TP_IFACE_CHANNEL_TYPE_FILE_TRANSFER</code></a>;</p></li>
+<li class="listitem"><p>a <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a>, if the channel is of type
+    <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CHANNEL-TYPE-CALL:CAPS" title="TP_IFACE_CHANNEL_TYPE_CALL"><code class="literal">TP_IFACE_CHANNEL_TYPE_CALL</code></a>;</p></li>
+<li class="listitem"><p>a plain <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a>, otherwise</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+It is guaranteed that the objects returned by future versions
+will be either the class that is currently used, or a more specific
+subclass of that class.
+</p>
+<p>
+This factory asks to prepare the following features:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p><a class="link" href="telepathy-glib-channel.html#TP-CHANNEL-FEATURE-CORE:CAPS" title="TP_CHANNEL_FEATURE_CORE"><code class="literal">TP_CHANNEL_FEATURE_CORE</code></a>, <a class="link" href="telepathy-glib-channel.html#TP-CHANNEL-FEATURE-GROUP:CAPS" title="TP_CHANNEL_FEATURE_GROUP"><code class="literal">TP_CHANNEL_FEATURE_GROUP</code></a>
+    and <a class="link" href="telepathy-glib-channel.html#TP-CHANNEL-FEATURE-PASSWORD:CAPS" title="TP_CHANNEL_FEATURE_PASSWORD"><code class="literal">TP_CHANNEL_FEATURE_PASSWORD</code></a> for all
+    type of channels.</p></li>
+<li class="listitem"><p><a class="link" href="telepathy-glib-text-channel.html#TP-TEXT-CHANNEL-FEATURE-INCOMING-MESSAGES:CAPS" title="TP_TEXT_CHANNEL_FEATURE_INCOMING_MESSAGES"><code class="literal">TP_TEXT_CHANNEL_FEATURE_INCOMING_MESSAGES</code></a> and
+    <a class="link" href="telepathy-glib-text-channel.html#TP-TEXT-CHANNEL-FEATURE-SMS:CAPS" title="TP_TEXT_CHANNEL_FEATURE_SMS"><code class="literal">TP_TEXT_CHANNEL_FEATURE_SMS</code></a> for <a class="link" href="telepathy-glib-text-channel.html#TpTextChannel"><span class="type">TpTextChannel</span></a></p></li>
+<li class="listitem"><p><a class="link" href="telepathy-glib-file-transfer-channel.html#TP-FILE-TRANSFER-CHANNEL-FEATURE-CORE:CAPS" title="TP_FILE_TRANSFER_CHANNEL_FEATURE_CORE"><code class="literal">TP_FILE_TRANSFER_CHANNEL_FEATURE_CORE</code></a>
+    for <a class="link" href="telepathy-glib-file-transfer-channel.html#TpFileTransferChannel"><span class="type">TpFileTransferChannel</span></a></p></li>
+<li class="listitem"><p><a class="link" href="telepathy-glib-call-channel.html#TP-CALL-CHANNEL-FEATURE-CORE:CAPS" title="TP_CALL_CHANNEL_FEATURE_CORE"><code class="literal">TP_CALL_CHANNEL_FEATURE_CORE</code></a>
+    for <a class="link" href="telepathy-glib-call-channel.html#TpCallChannel"><span class="type">TpCallChannel</span></a></p></li>
+<li class="listitem"><p><a class="link" href="telepathy-glib-dbus-tube-channel.html#TP-DBUS-TUBE-CHANNEL-FEATURE-CORE:CAPS" title="TP_DBUS_TUBE_CHANNEL_FEATURE_CORE"><code class="literal">TP_DBUS_TUBE_CHANNEL_FEATURE_CORE</code></a>
+    for <a class="link" href="telepathy-glib-dbus-tube-channel.html#TpDBusTubeChannel"><span class="type">TpDBusTubeChannel</span></a></p></li>
+</ul></div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-automatic-client-factory.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpAutomaticClientFactory-struct"></a><h3>TpAutomaticClientFactory</h3>
+<pre class="programlisting">typedef struct _TpAutomaticClientFactory TpAutomaticClientFactory;</pre>
+<p>
+Data structure representing a <a class="link" href="telepathy-glib-automatic-client-factory.html#TpAutomaticClientFactory"><span class="type">TpAutomaticClientFactory</span></a>
+</p>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpAutomaticClientFactoryClass"></a><h3>struct TpAutomaticClientFactoryClass</h3>
+<pre class="programlisting">struct TpAutomaticClientFactoryClass {
+    TpSimpleClientFactoryClass parent_class;
+};
+</pre>
+<p>
+The class of a <a class="link" href="telepathy-glib-automatic-client-factory.html#TpAutomaticClientFactory"><span class="type">TpAutomaticClientFactory</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactoryClass" title="struct TpSimpleClientFactoryClass"><span class="type">TpSimpleClientFactoryClass</span></a> <em class="structfield"><code><a name="TpAutomaticClientFactoryClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>the parent class</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-automatic-client-factory-new"></a><h3>tp_automatic_client_factory_new ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-automatic-client-factory.html#TpAutomaticClientFactory"><span class="returnvalue">TpAutomaticClientFactory</span></a> * tp_automatic_client_factory_new
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a> *dbus</code></em>);</pre>
+<p>
+Returns a new <a class="link" href="telepathy-glib-automatic-client-factory.html#TpAutomaticClientFactory"><span class="type">TpAutomaticClientFactory</span></a> instance. If <em class="parameter"><code>dbus</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>,
+<a class="link" href="telepathy-glib-dbus.html#tp-dbus-daemon-dup" title="tp_dbus_daemon_dup ()"><code class="function">tp_dbus_daemon_dup()</code></a> will be used.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dbus</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="telepathy-glib-automatic-client-factory.html#TpAutomaticClientFactory"><span class="type">TpAutomaticClientFactory</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-automatic-client-factory.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -1,0 +1,532 @@
+<h1>Firewall Builder 5.0.1 Release Notes</h1>
+
+
+<p>
+  <a href="https://sourceforge.net/tracker/?atid=1129518&group_id=5314">SourceForge: Tickets</a>
+</p>
+
+<!-- Highlights for this release -->
+
+<a name="summary"></a>
+<h2>Summary</h2>
+
+<p>
+  v 5.0.1 is a minor bug fix release.
+</p>
+
+
+<hr style="display: block">     
+
+
+<!-- ######################################################################### -->
+<a name="gui"></a>
+<h2>GUI Updates</h2>
+
+<ul>
+
+  <li>
+    <p>
+      moved "batch install" button from the main installer wizard to
+      the dialog where user enters their password. Now user can start
+      in a non-batch install mode but continue in batch install mode
+      at any time if all their firewalls authenticate with the same
+      user name and password.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      see #2628 fixed crash that happened if user create new firewall
+      object from a template and changed one of the ip addresses,
+      while another firewall object created from the same template
+      already existed in the tree.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      see #2635 Object type AttachedNetworks is not allowed in the
+      "interface" rule element.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      The drop-down list of interfaces for the "route-through" rule
+      option for PF and iptables should include not only cluster
+      interfaces, but also interfaces of all members. This way, we can
+      make compiler generate configuration "pass in quick on em0
+      route-to { ( em0 10.1.1.2 ) } ... " for a rule of a PF
+      cluster. Here "em0" is an interface of a member, not the
+      cluster.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2642 "GUI crashes if user cancels newFirewall dialog".
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2641 "newFirewall dialog does not accept ipv6 addresses
+      with long prefixes". The dialog did not allow ipv6 addresses of
+      inetrfaces with netmask > 64 bit.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2643 "GUI crashes when user cuts a rule, then right-mouse
+      click in any rule element of another"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      added check to make sure user does not enter netmask with zeroes
+      in the middle for the IPv4 network object. Netmasks like that
+      are not supported by fwbuilder.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2648 "right mouse click on firewall object in "Deleted
+      objects" library causes GUI crash"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes SF bug 3388055 Adding a "DNS Name" with a trailing space
+      causes failure.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes SF bug 3302121 "cosmetic mis-format in fwb Linux paths
+      dialog"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes SF bug 3247094 "Nomenclature of IP address edit dialog".
+      Network ipv6 dialog says "Prefix length".
+    </p>
+  </li>
+
+  <li>
+    <p>
+      see #2654 fixes GUI crash that occured if user copied a rule
+      from file A to file B, then closed file B, opened file C and
+      tried to copy the same rule from A to C'
+    </p>
+  </li>
+
+  <li>
+    <p>
+      see #2655 Interface names are not allowed to have dash "-" even
+      with interface verification off. We should allow "-" in the
+      interface name for Cisco IOS
+    </p>
+  </li>
+
+  <li>
+    <p>
+      see #2657 snmp network discovery crashed if option "Confine scan
+      to network" was used.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2658 "snmp network discovery creates duplicate address
+      and network objects"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      enable fwbuilder to take advantage of GSSAPIAuthentication with
+      openssh using suggestion by Matthias Witte witte@netzquadrat.de
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed a bug (no number): if the file name user entered in
+      "Output file name" field in the "advanced settings" dialog of a
+      firewall object ended with a white space, policy installer failed
+      with an error "No such file or directory"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug #3433587 "Manual edit of new service Destination
+      Port END value fails". This bug made it impossible to edit the
+      value of the end of the port range because as soon as the value
+      became less than the value of the beginning the range, the GUI
+      would reset it to be equal to the value of the beginning of the
+      range. This affected both TCP and UDP service object dialogs.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2665 "Adding text to comment causes rule to go from 2
+      rows to 1 row". Under certain circumstances, editing rule
+      comment caused the GUI to collapse corresponding row in the rule
+      set view so that only the first object of each rule element that
+      contained several objects was visible.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2669 "Cant inspect custom Service object in Standard
+      objects library".
+    </p>
+  </li>
+
+</ul>
+
+
+<!-- ######################################################################### -->
+<a name="import"></a>
+<h2>Changes in policy importer for all supported platforms</h2>
+
+<h3>Changes that affect import of PIX configurations</h3>
+<ul>
+
+  <li>
+    <p>
+      changed token name from "ESP" to "ESP_WORD" to avoid conflict
+      with macro "ESP" that happened during build on OpenSolaris
+    </p>
+  </li>
+
+  <li>
+    <p>
+      see #2662 "Crash when compiling ASA rule with IP range". Need to
+      split address range if it is used in "source" of a rule that
+      controls telnet, ssh or http to the firewall itself and
+      firewall's version is &gt;= 8.3.  Commands "ssh", "telnet" and
+      "http" (those that control access on the corresponding protocols
+      to the firewall itself) accept only ip address of a host or a
+      network as their argument. They do not accept address range,
+      named object or object group. This is so at least as of ASA
+      8.3. Since we expand address ranges only for versions &lt; 8.3
+      and use named object for 8.3 and later, we need to make this
+      additional check and still expand address ranges in rules that
+      will later convert to "ssh", "telnet" or "http"
+      command. Compiler still generates redundant object-group
+      statement with CIDR blocks generated from the address range but
+      does not use this group in the rule. This does not break
+      generated configuration but the object-group is redundant since
+      it is never used. This will be rectified in future versions.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2668 Remove "static routes" from the explanation text in
+      ASA/PIX import dialog.  We can not import PIX/ASA routing
+      configuration at this time.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2677 Policy importer for PIX/ASA could not parse command
+      "nat (inside) 1 0 0"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2679 Policy importer for PIX/ASA could not import "nat
+      exemption" rule (for example: "nat (inside) 0 access-list
+      EXEMPT")
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2678 Policy importer
+      for PIX/ASA could not parse nat command with parameter "outside"
+    </p>
+  </li>
+</ul>
+
+
+
+<!-- ######################################################################### -->
+<a name="libfwbuilder"></a>
+<h2>Changes and improvements in the API library libfwbuilder</h2>
+
+<ul>
+
+  <li>
+    <p>
+      function InetAddr::isValidV4Netmask() checks that netmask
+      represented by the object consists of a sequence of "1" bits,
+      followed by the sequence of "0" bits and therefore does not have
+      zeroes in the middle.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed bug #2670. Per RFC3021 network with netmask /31 has no
+      network and direct broadcast addresses. When interface of the
+      firewall is configured with netmask /31, policy compilers should
+      not treat the second address of this "subnet" as a broadcast.
+    </p>
+  </li>
+
+</ul>
+
+
+
+
+
+<!-- ######################################################################### -->
+<a name="iptables"></a>
+<h2>Changes in support for iptables</h2>
+
+<ul>
+
+  <li>
+    <p>
+      see #2639 "support for vlan subinterfaces of bridge interfaces
+      (e.g.  br0.5)". Currently fwbuilder can not generate script to
+      configure vlan subinterfaces of bridge interfaces, however if
+      user did not request this configuration script to be generated,
+      compiler should not abort when it encounters this combination.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2650 "rules with address range that includes firewall
+      address in Src are placed in OUTPUT chain even though addresses
+      that do not match the firewall should go in FORWARD"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes SF bug #3414382 "Segfault in fwb_ipt dealing with empty
+      groups". Compiler for iptables used to crash when an empty group
+      was used in the "Interface" column of a policy rule.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      see SF bug #3416900 "Replace `command` with `which`".  Generated
+      script (Linux/iptables) used to use "command -v" to check if
+      command line tools it needs are present on the system. This was
+      used to find iptables, lsmod, modprobe, ifconfig, vconfig,
+      logger and others. Some embedded Linux distributions, notably
+      TomatoUSB, come without support for "command". Switching to
+      "which" that is more ubuquitous and should be available pretty
+      much everywhere.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed #2663 "Rule with "old-broadcast" object results in invalid
+      iptables INPUT chain".  Compiler was choosing chain INPUT with
+      direction "outbound" for rules that had old broadcast address in
+      "Source", this lead to invalid iptables configuration with chain
+      INPUT and "-o eth0" interface match clause.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed bug in the rule processor that replaces AddressRange
+      object that represents single address with an IPv4 object. Also
+      eliminated code redundancy.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2664 Update error message when "which" command
+      fails. Generated iptables script uses "which" to check if all
+      utilities it uses exist on the machine.  We should also check if
+      "which" itself exists and issue meaningful error message if not.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      SF bug #3439613.  physdev module does not allow --physdev-out
+      for non-bridged traffic anymore. We should add
+      --physdev-is-bridged to make sure this matches only bridged
+      packets. Also adding "-i" / "-o" clause to match parent bridge
+      interface. This allows us to correctly match which bridge the
+      packet comes through in configurations using wildcard bridge
+      port interfaces. For example, when br0 and br1 have "vnet+"
+      bridge port interface, iptables can still correctly match which
+      bridge the packet went through using "-o br0" or "-o br1"
+      clause. This can be useful in installations with many bridged
+      interfaces that get created and destroyed dynamically, e.g.
+      with virtual machines. Note that the "-i br0" / "-o br0" clause
+      is only added when there is more than one bridge interface and
+      bridge port name ends with a wild card symbol "+"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug #3443609 Return of ID: 3059893": iptables "--set"
+      option deprecated".  Need to use --match-set instead of --set if
+      iptables version is >= 1.4.4. The fix done for #3059893 was only
+      in the policy compiler but needs to be done in both policy and
+      nat compilers.
+    </p>
+  </li>
+
+</ul>
+
+
+
+<!-- ######################################################################### -->
+<a name="pf"></a>
+<h2>Changes in support for PF (FreeBSD, OpenBSD)</h2>
+
+<ul>
+
+  <li>
+    <p>
+      see #2636 "carp : Incorrect output in rc.conf.local
+      format". Should use create_args_carp0 instead of ifconfig_carp0
+      to set up CARP interface vhid, pass and adskew parameters.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      see #2638 "When CARP password is empty the advskew value is not
+      read". Should skip "pass <word>" parameter of the ifconfig
+      command that creates carp interface if user did not set up any
+      password.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug #3429377 "PF: IPv6 rules are not added in IPv4/IPv6
+      ruleset (anchor)". Compiler for PF did not inlcude rules
+      generated for IPv6 in generated PF anchor configuration files.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug 3428992: "PF: rules order problem with IPv4 and
+      IPv6". Compiler for PF should group ipv4 and ipv6 NAT rules
+      together, before it generates ipv4 and ipv6 policy rules.
+    </p>
+  </li>
+
+  <li>
+    <p>
+      Several fixes in the algorithms used to process rules when
+      option "preserve group and addresses table object names" is in
+      effect
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixes #2674 NAT compiler for PF crashed when AttachedNetworks
+      object was used in Translated Source of a NAT rule.
+    </p>
+  </li>
+
+</ul>
+
+
+<!-- ######################################################################### -->
+<a name="iosacl"></a>
+<h2>Changes in support for Cisco IOS ACL</h2>
+
+<ul>
+
+  <li>
+    <p>
+      fixes #2660 "compiler for IOSACL crashed when address range
+      appears in a rule AND object-group option is turned ON"
+    </p>
+  </li>
+
+  <li>
+    <p>
+      fixed SF bug 3435004: "Empty lines in comment result in
+      "Incomplete Command" in IOS".
+    </p>
+  </li>
+
+</ul>
+
+
+<!-- ######################################################################### -->
+<a name="ipfw"></a>
+<h2>Changes in support for ipfw</h2>
+
+<ul>
+
+  <li>
+    <p>
+      fixed SF bug #3426843 "ipfw doesn't work for self-reference, in
+      5.0.0.3568 version".
+    </p>
+  </li>
+</ul>
+
+
+<!-- ######################################################################### -->
+<a name="pix"></a>
+<h2>Changes in support for Cisco ASA (PIX, FWSM)</h2>
+
+<ul>
+
+  <li>
+    <p>
+      see #2656 "Generated Cisco ASA access-list has duplicate entry".
+      Under certain circumstances policy compiler fwb_pix generated duplicate
+      access-list lines.
+    </p>
+  </li>
+</ul>
+
+
+<!-- ######################################################################### -->
+<a name="other"></a>
+<h2>Other changes</h2>
+
+<ul>
+
+  <li>
+    <p>
+      see #2646 and SF bug 3395658: Added few ipv4 and ipv6 network
+      objects to the Standard objects library: TEST-NET-2,
+      TEST-NET-3 (RFC 5735, RFC 5737), translated-ipv4, mapped-ipv4,
+      Teredo, unique-local and few others.
+    </p>
+  </li>
+
+</ul>
+
+
+

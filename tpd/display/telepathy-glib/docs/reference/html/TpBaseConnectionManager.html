@@ -1,0 +1,751 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpBaseConnectionManager</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="telepathy-glib-run.html" title="Connection manager life cycle">
+<link rel="next" href="telepathy-glib-base-protocol.html" title="TpBaseProtocol">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-run.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-base-protocol.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#TpBaseConnectionManager.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#TpBaseConnectionManager.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#TpBaseConnectionManager.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#TpBaseConnectionManager.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#TpBaseConnectionManager.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#TpBaseConnectionManager.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="TpBaseConnectionManager"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="TpBaseConnectionManager.top_of_page"></a>TpBaseConnectionManager</span></h2>
+<p>TpBaseConnectionManager — base class for <a class="link" href="telepathy-glib-svc-connection-manager.html#TpSvcConnectionManager"><span class="type">TpSvcConnectionManager</span></a> implementations</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="TpBaseConnectionManager.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="TpBaseConnectionManager.html#TpCMParamFilter" title="TpCMParamFilter ()">*TpCMParamFilter</a>)                  (<em class="parameter"><code>const <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="type">TpCMParamSpec</span></a> *paramspec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpBaseConnectionManager.html#tp-cm-param-filter-string-nonempty" title="tp_cm_param_filter_string_nonempty ()">tp_cm_param_filter_string_nonempty</a>  (<em class="parameter"><code>const <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="type">TpCMParamSpec</span></a> *paramspec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpBaseConnectionManager.html#tp-cm-param-filter-uint-nonzero" title="tp_cm_param_filter_uint_nonzero ()">tp_cm_param_filter_uint_nonzero</a>     (<em class="parameter"><code>const <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="type">TpCMParamSpec</span></a> *paramspec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="TpBaseConnectionManager.html#TpCMParamSetter" title="TpCMParamSetter ()">*TpCMParamSetter</a>)                  (<em class="parameter"><code>const <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="type">TpCMParamSpec</span></a> *paramspec</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> params</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseConnectionManager.html#tp-cm-param-setter-offset" title="tp_cm_param_setter_offset ()">tp_cm_param_setter_offset</a>           (<em class="parameter"><code>const <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="type">TpCMParamSpec</span></a> *paramspec</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> params</code></em>);
+struct              <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec">TpCMParamSpec</a>;
+                    <a class="link" href="TpBaseConnectionManager.html#TpCMProtocolSpec" title="TpCMProtocolSpec">TpCMProtocolSpec</a>;
+                    <a class="link" href="TpBaseConnectionManager.html#TpBaseConnectionManager-struct" title="TpBaseConnectionManager">TpBaseConnectionManager</a>;
+struct              <a class="link" href="TpBaseConnectionManager.html#TpBaseConnectionManagerClass" title="struct TpBaseConnectionManagerClass">TpBaseConnectionManagerClass</a>;
+<a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="returnvalue">TpBaseConnection</span></a> *  (<a class="link" href="TpBaseConnectionManager.html#TpBaseConnectionManagerNewConnFunc" title="TpBaseConnectionManagerNewConnFunc ()">*TpBaseConnectionManagerNewConnFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *proto</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *params_present</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *parsed_params</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (<a class="link" href="TpBaseConnectionManager.html#TpBaseConnectionManagerGetInterfacesFunc" title="TpBaseConnectionManagerGetInterfacesFunc ()">*TpBaseConnectionManagerGetInterfacesFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a> *self</code></em>);
+<a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="returnvalue">TpDBusDaemon</span></a> *      <a class="link" href="TpBaseConnectionManager.html#tp-base-connection-manager-get-dbus-daemon" title="tp_base_connection_manager_get_dbus_daemon ()">tp_base_connection_manager_get_dbus_daemon</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpBaseConnectionManager.html#tp-base-connection-manager-register" title="tp_base_connection_manager_register ()">tp_base_connection_manager_register</a> (<em class="parameter"><code><a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseConnectionManager.html#tp-base-connection-manager-add-protocol" title="tp_base_connection_manager_add_protocol ()">tp_base_connection_manager_add_protocol</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *protocol</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnectionManager.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----TpBaseConnectionManager
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnectionManager.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+TpBaseConnectionManager implements
+ <a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties">TpSvcDBusProperties</a> and  <a class="link" href="telepathy-glib-svc-connection-manager.html#TpSvcConnectionManager">TpSvcConnectionManager</a>.</p>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnectionManager.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="TpBaseConnectionManager.html#TpBaseConnectionManager--dbus-daemon" title='The "dbus-daemon" property'>dbus-daemon</a>"              <a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a>*         : Read / Write / Construct Only
+  "<a class="link" href="TpBaseConnectionManager.html#TpBaseConnectionManager--interfaces" title='The "interfaces" property'>interfaces</a>"               <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read
+  "<a class="link" href="TpBaseConnectionManager.html#TpBaseConnectionManager--protocols" title='The "protocols" property'>protocols</a>"                <span class="type">GHashTable_gchararray+GHashTable_gchararray+GValue__*</span>  : Read
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnectionManager.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="TpBaseConnectionManager.html#TpBaseConnectionManager-no-more-connections" title='The "no-more-connections" signal'>no-more-connections</a>"                            : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnectionManager.description"></a><h2>Description</h2>
+<p>
+This base class makes it easier to write <a class="link" href="telepathy-glib-svc-connection-manager.html#TpSvcConnectionManager"><span class="type">TpSvcConnectionManager</span></a>
+implementations by managing the D-Bus object path and bus name,
+and maintaining a table of active connections. Subclasses should usually
+only need to override the members of the class data structure.
+</p>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnectionManager.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpCMParamFilter"></a><h3>TpCMParamFilter ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpCMParamFilter)                  (<em class="parameter"><code>const <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="type">TpCMParamSpec</span></a> *paramspec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of a callback used to validate and/or normalize user-provided
+CM parameter values.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>paramspec</code></em> :</span></p></td>
+<td>The parameter specification. The filter is likely to use
+name (for the error message if the value is invalid) and filter_data.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>The value for that parameter provided by the user.
+May be changed to contain a different value of the same type, if
+some sort of normalization is required</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to raise <a class="link" href="telepathy-glib-errors.html#TP-ERROR-INVALID-ARGUMENT:CAPS"><code class="literal">TP_ERROR_INVALID_ARGUMENT</code></a> if the given value is
+rejected</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> to accept, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> (with <em class="parameter"><code>error</code></em> set) to reject</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cm-param-filter-string-nonempty"></a><h3>tp_cm_param_filter_string_nonempty ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_cm_param_filter_string_nonempty  (<em class="parameter"><code>const <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="type">TpCMParamSpec</span></a> *paramspec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+A <a class="link" href="TpBaseConnectionManager.html#TpCMParamFilter" title="TpCMParamFilter ()"><span class="type">TpCMParamFilter</span></a> which rejects empty strings.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>paramspec</code></em> :</span></p></td>
+<td>The parameter specification for a string parameter</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>A GValue containing a string, which will not be altered</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to return an error if the string is empty</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> to accept, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> (with <em class="parameter"><code>error</code></em> set) to reject</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cm-param-filter-uint-nonzero"></a><h3>tp_cm_param_filter_uint_nonzero ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_cm_param_filter_uint_nonzero     (<em class="parameter"><code>const <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="type">TpCMParamSpec</span></a> *paramspec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+A <a class="link" href="TpBaseConnectionManager.html#TpCMParamFilter" title="TpCMParamFilter ()"><span class="type">TpCMParamFilter</span></a> which rejects zero, useful for server port numbers.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>paramspec</code></em> :</span></p></td>
+<td>The parameter specification for a guint parameter</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>A GValue containing a guint, which will not be altered</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to return an error if the guint is 0</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> to accept, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> (with <em class="parameter"><code>error</code></em> set) to reject</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCMParamSetter"></a><h3>TpCMParamSetter ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpCMParamSetter)                  (<em class="parameter"><code>const <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="type">TpCMParamSpec</span></a> *paramspec</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> params</code></em>);</pre>
+<p>
+The signature of a callback used to set a parameter within the opaque
+data structure used for a protocol.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>paramspec</code></em> :</span></p></td>
+<td>The parameter specification.  The setter is likely to use
+some combination of the name, offset and setter_data fields.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>The value for that parameter provided by the user.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>params</code></em> :</span></p></td>
+<td>An opaque data structure, created by
+<a class="link" href="TpBaseConnectionManager.html#TpCMProtocolSpec.params-new"><span class="type">TpCMProtocolSpec.params_new</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-cm-param-setter-offset"></a><h3>tp_cm_param_setter_offset ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_cm_param_setter_offset           (<em class="parameter"><code>const <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="type">TpCMParamSpec</span></a> *paramspec</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> params</code></em>);</pre>
+<p>
+A <a class="link" href="TpBaseConnectionManager.html#TpCMParamSetter" title="TpCMParamSetter ()"><span class="type">TpCMParamSetter</span></a> which sets parameters by dereferencing an offset
+from <em class="parameter"><code>params</code></em>.  If <em class="parameter"><code>paramspec-&gt;offset</code></em> is G_MAXSIZE, the parameter is
+deemed obsolete, and is accepted but ignored.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>paramspec</code></em> :</span></p></td>
+<td>A parameter specification with offset set to some
+meaningful value.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>The value for that parameter, either provided by the user or
+constructed from the parameter's default.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>params</code></em> :</span></p></td>
+<td>An opaque data structure such that the address at (<em class="parameter"><code>params</code></em> +
+<em class="parameter"><code>paramspec-&gt;offset</code></em>) is a valid pointer to a variable of the
+appropriate type.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCMParamSpec"></a><h3>struct TpCMParamSpec</h3>
+<pre class="programlisting">struct TpCMParamSpec {
+    const gchar *name;
+    const gchar *dtype;
+    GType gtype;
+    guint flags;
+    gconstpointer def;
+    gsize offset;
+
+    TpCMParamFilter filter;
+    gconstpointer filter_data;
+
+    gconstpointer setter_data;
+};
+</pre>
+<p>
+Structure representing a connection manager parameter, as accepted by
+RequestConnection.
+</p>
+<p>
+In addition to the fields documented here, there is one gpointer field
+which must currently be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. A meaning may be defined for it in a
+future version of telepathy-glib.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="TpCMParamSpec.name"></a>name</code></em>;</span></p></td>
+<td>Name as passed over D-Bus</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="TpCMParamSpec.dtype"></a>dtype</code></em>;</span></p></td>
+<td>D-Bus type signature. We currently support 16- and 32-bit integers
+(<em class="parameter"><code>gtype</code></em> is INT), 16- and 32-bit unsigned integers (gtype is UINT),
+strings (gtype is STRING) and booleans (gtype is BOOLEAN).</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> <em class="structfield"><code><a name="TpCMParamSpec.gtype"></a>gtype</code></em>;</span></p></td>
+<td>GLib type, derived from <em class="parameter"><code>dtype</code></em> as above</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="TpCMParamSpec.flags"></a>flags</code></em>;</span></p></td>
+<td>Some combination of <a class="link" href="telepathy-glib-enums.html#TpConnMgrParamFlags" title="enum TpConnMgrParamFlags"><span class="type">TpConnMgrParamFlags</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> <em class="structfield"><code><a name="TpCMParamSpec.def"></a>def</code></em>;</span></p></td>
+<td>Default value, as a (const gchar *) for string parameters, or
+using <span class="type">GINT_TO_POINTER</span> or <span class="type">GUINT_TO_POINTER</span> for integer parameters</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">gsize</span> <em class="structfield"><code><a name="TpCMParamSpec.offset"></a>offset</code></em>;</span></p></td>
+<td>Offset of the parameter in the opaque data structure, if
+appropriate. The member at that offset is expected to be a gint,
+guint, (gchar *) or gboolean, depending on <em class="parameter"><code>gtype</code></em>. The default
+parameter setter, <a class="link" href="TpBaseConnectionManager.html#tp-cm-param-setter-offset" title="tp_cm_param_setter_offset ()"><span class="type">tp_cm_param_setter_offset</span></a>, uses this field.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseConnectionManager.html#TpCMParamFilter" title="TpCMParamFilter ()"><span class="type">TpCMParamFilter</span></a> <em class="structfield"><code><a name="TpCMParamSpec.filter"></a>filter</code></em>;</span></p></td>
+<td>A callback which is used to validate or normalize the user-provided
+value before it is written into the opaque data structure</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> <em class="structfield"><code><a name="TpCMParamSpec.filter-data"></a>filter_data</code></em>;</span></p></td>
+<td>Arbitrary opaque data intended for use by the filter function</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> <em class="structfield"><code><a name="TpCMParamSpec.setter-data"></a>setter_data</code></em>;</span></p></td>
+<td>Arbitrary opaque data intended for use by the setter function
+instead of or in addition to <em class="parameter"><code>offset</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCMProtocolSpec"></a><h3>TpCMProtocolSpec</h3>
+<pre class="programlisting">typedef struct {
+    const gchar *name;
+    const TpCMParamSpec *parameters;
+    gpointer (*params_new) (void);
+    void (*params_free) (gpointer);
+    TpCMParamSetter set_param;
+} TpCMProtocolSpec;
+</pre>
+<p>
+Structure representing a connection manager protocol.
+</p>
+<p>
+In addition to the fields documented here, there are three gpointer fields
+which must currently be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. A meaning may be defined for these in a
+future version of telepathy-glib.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="TpCMProtocolSpec.name"></a>name</code></em>;</span></p></td>
+<td>The name which should be passed to RequestConnection for this
+protocol.</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="type">TpCMParamSpec</span></a> *<em class="structfield"><code><a name="TpCMProtocolSpec.parameters"></a>parameters</code></em>;</span></p></td>
+<td>An array of <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="type">TpCMParamSpec</span></a> representing the valid parameters
+for this protocol, terminated by a <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="type">TpCMParamSpec</span></a> whose name
+entry is NULL.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpCMProtocolSpec.params-new"></a>params_new</code></em> ()</span></p></td>
+<td>A function which allocates an opaque data structure to store
+the parsed parameters for this protocol. The offset fields
+in the members of the <em class="parameter"><code>parameters</code></em> array refer to offsets
+within this opaque structure.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpCMProtocolSpec.params-free"></a>params_free</code></em> ()</span></p></td>
+<td>A function which deallocates the opaque data structure
+provided by <span class="type">params_new</span>, including deallocating its
+data members (currently, only strings) if necessary.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseConnectionManager.html#TpCMParamSetter" title="TpCMParamSetter ()"><span class="type">TpCMParamSetter</span></a> <em class="structfield"><code><a name="TpCMProtocolSpec.set-param"></a>set_param</code></em>;</span></p></td>
+<td>A function which sets a parameter within the opaque data
+structure provided by <span class="type">params_new</span>. If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>,
+<a class="link" href="TpBaseConnectionManager.html#tp-cm-param-setter-offset" title="tp_cm_param_setter_offset ()"><code class="function">tp_cm_param_setter_offset()</code></a> will be used. (New in 0.7.0 -
+previously, code equivalent to <a class="link" href="TpBaseConnectionManager.html#tp-cm-param-setter-offset" title="tp_cm_param_setter_offset ()"><code class="function">tp_cm_param_setter_offset()</code></a> was
+always used.)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnectionManager-struct"></a><h3>TpBaseConnectionManager</h3>
+<pre class="programlisting">typedef struct _TpBaseConnectionManager TpBaseConnectionManager;</pre>
+<p>
+A base class for connection managers. There are no interesting public
+fields in the instance structure.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnectionManagerClass"></a><h3>struct TpBaseConnectionManagerClass</h3>
+<pre class="programlisting">struct TpBaseConnectionManagerClass {
+    GObjectClass parent_class;
+
+    const char *cm_dbus_name;
+
+    TpBaseConnectionManagerGetInterfacesFunc get_interfaces;
+};
+</pre>
+<p>
+The class structure for <a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a>.
+</p>
+<p>
+In addition to the fields documented here, there are some gpointer fields
+which must currently be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> (a meaning may be defined for these in a
+future version of telepathy-glib).
+</p>
+<p>
+Changed in 0.7.1: it is a fatal error for <em class="parameter"><code>cm_dbus_name</code></em> not to conform to
+the specification.
+</p>
+<p>
+Changed in 0.11.11: protocol_params and new_connection may both be
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. If so, this connection manager is assumed to use Protocol objects
+instead. Since 0.19.2 those fields are deprecated and should not be
+used anymore.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> <em class="structfield"><code><a name="TpBaseConnectionManagerClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>The parent class</td>
+</tr>
+<tr>
+<td><p><span class="term">const <span class="type">char</span> *<em class="structfield"><code><a name="TpBaseConnectionManagerClass.cm-dbus-name"></a>cm_dbus_name</code></em>;</span></p></td>
+<td>The name of this connection manager, as used to construct
+D-Bus object paths and bus names. Must contain only letters, digits
+and underscores, and may not start with a digit. Must be filled in by
+subclasses in their class_init function.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseConnectionManager.html#TpBaseConnectionManagerGetInterfacesFunc" title="TpBaseConnectionManagerGetInterfacesFunc ()"><span class="type">TpBaseConnectionManagerGetInterfacesFunc</span></a> <em class="structfield"><code><a name="TpBaseConnectionManagerClass.get-interfaces"></a>get_interfaces</code></em>;</span></p></td>
+<td>Returns a <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of static strings of extra
+D-Bus interfaces implemented by instances of this class, which may be
+filled in by subclasses. The default is to list no additional interfaces.
+Implementations must first chainup on parent class implementation and then
+add extra interfaces to the <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>. Replaces <em class="parameter"><code>interfaces</code></em>. Since:
+0.19.4</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnectionManagerNewConnFunc"></a><h3>TpBaseConnectionManagerNewConnFunc ()</h3>
+<pre class="programlisting"><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="returnvalue">TpBaseConnection</span></a> *  (*TpBaseConnectionManagerNewConnFunc)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *proto</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *params_present</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *parsed_params</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+A function that will return a new connection according to the
+parsed parameters; used to implement RequestConnection.
+</p>
+<p>
+The connection manager base class will register the bus name for the
+new connection, and place a reference to it in its table of
+connections until the connection's shutdown process finishes.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The connection manager implementation</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proto</code></em> :</span></p></td>
+<td>The protocol name from the D-Bus request</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>params_present</code></em> :</span></p></td>
+<td>A set of integers representing the indexes into the
+array of <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="type">TpCMParamSpec</span></a> of those parameters that were
+present in the request</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parsed_params</code></em> :</span></p></td>
+<td>An opaque data structure as returned by the protocol's
+params_new function, populated according to the
+parameter specifications</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>if not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, used to indicate the error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the new connection object, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnectionManagerGetInterfacesFunc"></a><h3>TpBaseConnectionManagerGetInterfacesFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (*TpBaseConnectionManagerGetInterfacesFunc)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a> *self</code></em>);</pre>
+<p>
+Signature of an implementation of
+<a class="link" href="TpBaseConnectionManager.html#TpBaseConnectionManagerClass.get-interfaces"><span class="type">TpBaseConnectionManagerClass.get_interfaces</span></a> virtual function.
+</p>
+<p>
+Implementation must first chainup on parent class implementation and then
+add extra interfaces into the <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>.
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">static</span> GPtrArray <span class="gtkdoc opt">*</span>
+<span class="function">my_connection_manager_get_interfaces</span> <span class="gtkdoc opt">(</span>TpBaseConnectionManager <span class="gtkdoc opt">*</span>self<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  GPtrArray <span class="gtkdoc opt">*</span>interfaces<span class="gtkdoc opt">;</span>
+
+  interfaces <span class="gtkdoc opt">=</span> <span class="function">TP_BASE_CONNECTION_MANAGER_CLASS</span> <span class="gtkdoc opt">(</span>
+      my_connection_manager_parent_class<span class="gtkdoc opt">)-&gt;</span><span class="function">get_interfaces</span> <span class="gtkdoc opt">(</span>self<span class="gtkdoc opt">);</span>
+
+  <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#g-ptr-array-add">g_ptr_array_add</a></span> <span class="gtkdoc opt">(</span>interfaces<span class="gtkdoc opt">,</span> TP_IFACE_BADGERS<span class="gtkdoc opt">);</span>
+
+  <span class="keyword">return</span> interfaces<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of static strings for D-Bus
+interfaces implemented by this client. <span class="annotation">[<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-manager-get-dbus-daemon"></a><h3>tp_base_connection_manager_get_dbus_daemon ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="returnvalue">TpDBusDaemon</span></a> *      tp_base_connection_manager_get_dbus_daemon
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the connection manager</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of the
+<a class="link" href="TpBaseConnectionManager.html#TpBaseConnectionManager--dbus-daemon" title='The "dbus-daemon" property'><span class="type">"dbus-daemon"</span></a> property. The caller must reference
+the returned object with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-ref"><code class="function">g_object_ref()</code></a> if it will be kept. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-manager-register"></a><h3>tp_base_connection_manager_register ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_base_connection_manager_register (<em class="parameter"><code><a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a> *self</code></em>);</pre>
+<p>
+Register the connection manager with an appropriate object path as
+determined from its <em class="parameter"><code>cm_dbus_name</code></em>, and register the appropriate well-known
+bus name.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The connection manager implementation</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> (having emitted a warning to stderr)
+on failure</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-manager-add-protocol"></a><h3>tp_base_connection_manager_add_protocol ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_connection_manager_add_protocol
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *protocol</code></em>);</pre>
+<p>
+Add a protocol object to the set of supported protocols.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a connection manager object which has not yet registered on D-Bus
+(i.e. <a class="link" href="TpBaseConnectionManager.html#tp-base-connection-manager-register" title="tp_base_connection_manager_register ()"><code class="function">tp_base_connection_manager_register()</code></a> must not have been called)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>protocol</code></em> :</span></p></td>
+<td>a protocol object, which must not have the same protocol name as
+any that has already been added</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnectionManager.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpBaseConnectionManager--dbus-daemon"></a><h3>The <code class="literal">"dbus-daemon"</code> property</h3>
+<pre class="programlisting">  "dbus-daemon"              <a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a>*         : Read / Write / Construct Only</pre>
+<p>
+<a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a> object encapsulating this object's connection to D-Bus.
+Read-only except during construction.
+</p>
+<p>
+If this property is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> or omitted during construction, the object will
+automatically attempt to connect to the starter or session bus with
+<a class="link" href="telepathy-glib-dbus.html#tp-dbus-daemon-dup" title="tp_dbus_daemon_dup ()"><code class="function">tp_dbus_daemon_dup()</code></a> just after it is constructed; if this fails, a
+warning will be logged with <a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#g-warning"><code class="function">g_warning()</code></a>, and this property will remain
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p class="since">Since 0.11.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnectionManager--interfaces"></a><h3>The <code class="literal">"interfaces"</code> property</h3>
+<pre class="programlisting">  "interfaces"               <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read</pre>
+<p>
+The set of D-Bus interfaces available on this ConnectionManager, other
+than ConnectionManager itself.
+</p>
+<p class="since">Since 0.11.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnectionManager--protocols"></a><h3>The <code class="literal">"protocols"</code> property</h3>
+<pre class="programlisting">  "protocols"                <span class="type">GHashTable_gchararray+GHashTable_gchararray+GValue__*</span>  : Read</pre>
+<p>
+The Protocol objects available on this ConnectionManager.
+</p>
+<p class="since">Since 0.11.11</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnectionManager.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpBaseConnectionManager-no-more-connections"></a><h3>The <code class="literal">"no-more-connections"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a> *arg0,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                 user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+Emitted when the table of active connections becomes empty.
+<a class="link" href="telepathy-glib-run.html#tp-run-connection-manager" title="tp_run_connection_manager ()"><code class="function">tp_run_connection_manager()</code></a> uses this to detect when to shut down the
+connection manager.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnectionManager.see-also"></a><h2>See Also</h2>
+<a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>, <a class="link" href="telepathy-glib-svc-connection-manager.html#TpSvcConnectionManager"><span class="type">TpSvcConnectionManager</span></a>, <span class="type">run</span>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

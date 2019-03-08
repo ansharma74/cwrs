@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpHeap</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-utilities.html" title="Utilities">
+<link rel="prev" href="TpIntset.html" title="TpIntset">
+<link rel="next" href="ch-obsolete.html" title="Obsolete modules">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="TpIntset.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-utilities.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="ch-obsolete.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-TpHeap.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-TpHeap.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-TpHeap"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-TpHeap.top_of_page"></a>TpHeap</span></h2>
+<p>TpHeap — a heap queue of pointers</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-TpHeap.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+                    <a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap">TpHeap</a>;
+<a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="returnvalue">TpHeap</span></a> *            <a class="link" href="telepathy-glib-TpHeap.html#tp-heap-new" title="tp_heap_new ()">tp_heap_new</a>                         (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GCompareFunc"><span class="type">GCompareFunc</span></a> comparator</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destructor</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpHeap.html#tp-heap-destroy" title="tp_heap_destroy ()">tp_heap_destroy</a>                     (<em class="parameter"><code><a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a> *heap</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpHeap.html#tp-heap-clear" title="tp_heap_clear ()">tp_heap_clear</a>                       (<em class="parameter"><code><a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a> *heap</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpHeap.html#tp-heap-add" title="tp_heap_add ()">tp_heap_add</a>                         (<em class="parameter"><code><a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a> *heap</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> element</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpHeap.html#tp-heap-remove" title="tp_heap_remove ()">tp_heap_remove</a>                      (<em class="parameter"><code><a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a> *heap</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> element</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="telepathy-glib-TpHeap.html#tp-heap-peek-first" title="tp_heap_peek_first ()">tp_heap_peek_first</a>                  (<em class="parameter"><code><a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a> *heap</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="telepathy-glib-TpHeap.html#tp-heap-extract-first" title="tp_heap_extract_first ()">tp_heap_extract_first</a>               (<em class="parameter"><code><a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a> *heap</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="telepathy-glib-TpHeap.html#tp-heap-size" title="tp_heap_size ()">tp_heap_size</a>                        (<em class="parameter"><code><a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a> *heap</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpHeap.description"></a><h2>Description</h2>
+<p>
+A heap queue of pointers.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpHeap.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpHeap"></a><h3>TpHeap</h3>
+<pre class="programlisting">typedef struct _TpHeap TpHeap;</pre>
+<p>
+Structure representing the heap queue. All fields are private.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-heap-new"></a><h3>tp_heap_new ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="returnvalue">TpHeap</span></a> *            tp_heap_new                         (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GCompareFunc"><span class="type">GCompareFunc</span></a> comparator</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destructor</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>comparator</code></em> :</span></p></td>
+<td>Comparator by which to order the pointers in the heap</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destructor</code></em> :</span></p></td>
+<td>Function to call on the pointers when the heap is destroyed
+or cleared, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if this is not needed</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A new, empty heap queue.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-heap-destroy"></a><h3>tp_heap_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_heap_destroy                     (<em class="parameter"><code><a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a> *heap</code></em>);</pre>
+<p>
+Destroy a <a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a>. The destructor, if any, is called on all items.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>heap</code></em> :</span></p></td>
+<td>The heap queue</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-heap-clear"></a><h3>tp_heap_clear ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_heap_clear                       (<em class="parameter"><code><a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a> *heap</code></em>);</pre>
+<p>
+Remove all items from a <a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a>. The destructor, if any, is called on all
+items.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>heap</code></em> :</span></p></td>
+<td>The heap queue</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-heap-add"></a><h3>tp_heap_add ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_heap_add                         (<em class="parameter"><code><a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a> *heap</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> element</code></em>);</pre>
+<p>
+Add element to the heap queue, maintaining correct order.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>heap</code></em> :</span></p></td>
+<td>The heap queue</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>An element</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-heap-remove"></a><h3>tp_heap_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_heap_remove                      (<em class="parameter"><code><a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a> *heap</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> element</code></em>);</pre>
+<p>
+Remove <em class="parameter"><code>element</code></em> from <em class="parameter"><code>heap</code></em>, if it's present. The destructor, if any,
+is not called.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>heap</code></em> :</span></p></td>
+<td>The heap queue</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>An element in the heap</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-heap-peek-first"></a><h3>tp_heap_peek_first ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            tp_heap_peek_first                  (<em class="parameter"><code><a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a> *heap</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>heap</code></em> :</span></p></td>
+<td>The heap queue</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The first item in the queue, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the queue is empty</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-heap-extract-first"></a><h3>tp_heap_extract_first ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            tp_heap_extract_first               (<em class="parameter"><code><a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a> *heap</code></em>);</pre>
+<p>
+Remove and return the first element in the queue. The destructor, if any,
+is not called.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>heap</code></em> :</span></p></td>
+<td>The heap queue</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the removed element</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-heap-size"></a><h3>tp_heap_size ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               tp_heap_size                        (<em class="parameter"><code><a class="link" href="telepathy-glib-TpHeap.html#TpHeap" title="TpHeap"><span class="type">TpHeap</span></a> *heap</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>heap</code></em> :</span></p></td>
+<td>The heap queue</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The number of items in <em class="parameter"><code>heap</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

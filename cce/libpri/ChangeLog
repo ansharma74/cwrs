@@ -1,0 +1,1962 @@
+2012-10-09  Asterisk Development Team <asteriskteam@digium.com>
+
+	* libpri 1.4.13 Released.
+
+2012-09-26 15:46 +0000 [r2300]  Richard Mudgett <rmudgett@digium.com>
+
+	* Makefile: Allow passing compiler flags (CFLAGS, LDFLAGS) (closes
+	  issue PRI-144) Reported by: Tzafrir Cohen Patches: flags.diff
+	  (license #5035) patch uploaded by Tzafrir Cohen
+
+2012-09-10 15:52 +0000 [r2298]  Richard Mudgett <rmudgett@digium.com>
+
+	* pridump.c: Fix compile error in pridump.c. With gcc 4.6.3 it's
+	  possible to get the following error: $ make gcc -Wall -Werror
+	  -Wstrict-prototypes -Wmissing-prototypes -g -fPIC -O2 -MD -MT
+	  pridump.o -MF .pridump.o.d -MP -c -o pridump.o pridump.c
+	  pridump.c: In function \u2018pri_bridge\u2019: pridump.c:117:1:
+	  error: no return statement in function returning non-void
+	  [-Werror=return-type] cc1: all warnings being treated as errors
+	  make: *** [pridump.o] Error 1 Changing the function return value
+	  to void fixes the issue since there were no places in the code
+	  that used the return value. (closes issue PRI-143) Reported by:
+	  Birger "WIMPy" Harzenetter Patches:
+	  0001-Fix-no-return-statement-in-function-returning-non-vo.patch
+	  (license #5417) patch uploaded by Shaun Ruffell
+
+2012-08-11 01:38 +0000 [r2292-2295]  Richard Mudgett <rmudgett@digium.com>
+
+	* /: SVN ignore built utilities.
+
+	* Makefile: * Made no longer compile *.lo files they are identical
+	  to *.o files. * Made compile the pritest, rosetest, and
+	  testprilib utilities using the static libpri library. No more
+	  forgetting to install the library after a change and wondering
+	  why it still did not work. The pridump utility is still
+	  dynamically linked. * Made compile the utilities by default.
+
+	* pridump.c, testprilib.c: Make pridump and testprilib compile
+	  again.
+
+2012-07-30 16:20 +0000 [r2290]  Richard Mudgett <rmudgett@digium.com>
+
+	* q921.c: Removed MDL/TEI management configuration warning message.
+	  Some telco switches send out MDL messages even though they are
+	  configured for PTP. Usually they are checking for assigned TEI's.
+	  Since these switches periodically poll for assigned TEI's, the
+	  message needlessly fills up log files. * Changed message warning
+	  level to a normal debug message level and reworded. (closes issue
+	  PRI-137) Reported by: Bart Coninckx
+
+2012-06-28 00:16 +0000 [r2288]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, pri_internal.h, q931.c, libpri.h: Implement T316 to allow
+	  RESTART messages to be automatically retransmitted. Q.931 defines
+	  the T316 timer to retransmit RESTART messages if a RESTART
+	  ACKNOWLEDGE message is not received before the timer expires.
+	  Q.931 defaults the time of T316 to 2 minutes with the default
+	  number of consecutive RESTART failures as two. * To support
+	  legacy behavior, the T316 timer is disabled by default. It is
+	  also disabled because the user cannot configure it to disabled if
+	  it is enabled. * The N316 count is created to allow the number of
+	  RESTART attempts to be configurable. Note you will need to
+	  recompile Asterisk to be able to configure N316. (issue
+	  ASTERISK-19608) (issue AST-815) (closes issue PRI-133) Reported
+	  by: Mike Boylan Tested by: rmudgett
+
+2012-05-14 14:54 +0000 [r2286]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Make pri_pres2str() return correct string. * Fix
+	  pri_pres2str() mask creation. (closes issue PRI-139) Reported by:
+	  Pavel Troller Patches: q931.c.diff (license #6302) patch uploaded
+	  by Pavel Troller
+
+2012-03-23 19:35 +0000 [r2284]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, q931.c, pri_facility.c, pri_cc.c: Make number not
+	  available presentation also set screening to network provided.
+	  Q.951 indicates that when the presentation indicator is "Number
+	  not available due to interworking" for a number then the
+	  screening indicator field should be "Network provided". Released
+	  versions of Asterisk starting with v1.8 relesed before this patch
+	  only recognized the PRES_NUMBER_NOT_AVAILABLE value as an
+	  unavailable number. This patch improves compatibility as a
+	  result. * Made mask the presentation value for names and numbers
+	  from the upper layer. * Made pri_mwi_indicate_v2() also call
+	  q931_party_id_fixup() for completeness even though it is a noop
+	  in this case. * Made pri_pres2str() deceoode better.
+
+2012-02-03 23:12 +0000 [r2282]  Kinsey Moore <kmoore@digium.com>
+
+	* pri_q921.h, q921.c, pridump.c: Make PRI_DEBUG_Q921_RAW work
+	  independantly of PRI_DEBUG_Q921_DUMP Ensure that the DUMP and RAW
+	  flags work independently in q921_dump(). (closes issue PRI-119)
+	  Patch-by: wimpy
+
+2012-01-26 20:19 +0000 [r2280]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Use ie2str(full_ie) where possible in q931.c. Initial
+	  patch by Alec Davis. Review:
+	  https://reviewboard.asterisk.org/r/1633/
+
+2011-12-16 20:01 +0000 [r2277-2278]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_internal.h, q931.c: Remove nul octets from IE data that is
+	  normally treated as strings. Sometimes ie values received from
+	  carriers contain nul octets in values normally treated by libpri
+	  as nul terminated strings. A discussion on the asterisk-users
+	  list determined that the best thing to do in the situation is to
+	  delete the nul octets and unconditionally report/log when that
+	  happens. * Remove nul octets from the following ie's and generate
+	  an unconditional log message to the upper layer when they are
+	  removed: Connected Number Connected Address Redirecting Number
+	  Original Called Number Redirection Number Called Party Number
+	  Calling Party Number Display Keypad Facility (closes issue
+	  PRI-128) Reported by: phsultan Patches: jira_pri_128.patch
+	  (license #5621) patch uploaded by rmudgett (modified) Tested by:
+	  rmudgett
+
+	* pri_internal.h, q931.c: Implement handling a multi-channel
+	  RESTART request. The channel id ie can supply a slotmap or list
+	  of channels. For a RESTART message, this can be handy to indicate
+	  multiple channels that need to be restarted at the same time. An
+	  incoming RESTART request will now generate a PRI_EVENT_RESTART to
+	  the upper layer for each channel indicated in the request. If the
+	  event is successfully generated for all indicated channels then a
+	  RESTART_ACKNOWLEDGE is sent back to the peer indicating all
+	  channels restarted. * Add the ability to process a channel id ie
+	  channel list with a RESTART request. * Add the ability to process
+	  slotmaps with a RESTART request. (closes issue PRI-93) Reported
+	  by: Marcin Kowalczyk Patches: jira_pri_93.patch (license #5621)
+	  patch uploaded by rmudgett Tested by: zvision, rmudgett (closes
+	  issue PRI-71) Reported by: Torrey Searle Tested by: rmudgett
+
+2011-09-26 22:54 +0000 [r2275]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Fix message typo: Weird (closes issue PRI-126) Reported
+	  by: Tzafrir Cohen
+
+2011-08-17 15:48 +0000 [r2273]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, pri_internal.h, pri_q921.h, q921.c, libpri.h: Outgoing BRI
+	  calls fail when using Asterisk 1.8 with HA8, HB8, and B410P
+	  cards. France Telecom brings layer 2 and layer 1 down on BRI
+	  lines when the line is idle. When layer 1 goes down Asterisk
+	  cannot make outgoing calls and the HA8 and HB8 cards also get IRQ
+	  misses. The inability to make outgoing calls is because the line
+	  is in red alarm and Asterisk will not make calls over a line it
+	  considers unavailable. The IRQ misses for the HA8 and HB8 card
+	  are because the hardware is switching clock sources from the line
+	  which just brought layer 1 down to internal timing. There is a
+	  DAHDI option for the B410P card to not tell Asterisk that layer 1
+	  went down so Asterisk will allow outgoing calls: "modprobe
+	  wcb4xxp teignored=1". There is a similar DAHDI option for the HA8
+	  and HB8 cards: "modprobe wctdm24xxp bri_teignored=1".
+	  Unfortunately that will not clear up the IRQ misses when the
+	  telco brings layer 1 down. * Add layer 2 persistence option to
+	  customize the layer 2 behavior on BRI PTMP lines. The new option
+	  has three settings: 1) Use libpri default layer 2 setting. 2)
+	  Keep layer 2 up. Bring layer 2 back up when the peer brings it
+	  down. 3) Leave layer 2 down when the peer brings it down. Layer 2
+	  will be brought up as needed for outgoing calls. JIRA AST-598
+
+2011-07-05  Leif Madsen <lmadsen@digium.com>
+
+	* Release libpri 1.4.12
+
+2011-05-17 20:13 +0000 [r2266]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, pri_internal.h, q931.c, libpri.h: Option needed for
+	  Q931_IE_TIME_DATE to be optional in CONNECT message. The NEC
+	  SV8300 rejects the Q931_IE_TIME_DATE for Q.SIG. Add option to
+	  specify if and how much of the current time is put in
+	  Q931_IE_TIME_DATE. * Send date/time ie never. * Send date/time ie
+	  date only. * Send date/time ie date and hour. * Send date/time ie
+	  date, hour, and minute. * Send date/time ie date, hour, minute,
+	  and second. * Send date/time ie default: Libpri will send date
+	  and hhmm only when in NT PTMP mode to support ISDN phones.
+	  (closes issue #19221) Reported by: kenner JIRA SWP-3396
+
+2011-04-18 19:43 +0000 [r2262]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_internal.h, q931.c, pri_facility.c, libpri.h: Problems with
+	  ISDN MWI to phones. 1) The "controlling user number" is always
+	  the number of the voice mail box which is identical with the
+	  subscriber number itself. This number which is listed in the ISDN
+	  phone MWI menu cannot be called back to contact the voice mail
+	  box. The controlling user number should be made configurable. 2)
+	  The MWI indication is not restricted to a user (broadcast
+	  facility with dummy call reference). A called party IE should be
+	  added to address only the relevant MSN. (ETSI 300-196 Section
+	  8.3.2.4) JIRA ABE-2738 JIRA SWP-2846
+
+2011-03-18 01:59 +0000 [r2258]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_facility.c: CallRerouting response not sent if peer hangs up
+	  first. Send the CallRerouting response on the next message
+	  instead of only on the DISCONNECT message. The next message is
+	  either going to be a DISCONNECT or RELEASE depending on who
+	  initiates disconnection first.
+
+2011-03-01 00:50 +0000 [r2227-2238]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, pri_internal.h, pri_q931.h, q931.c, libpri.h: Implement
+	  the mandatory T312 timer for NT PTMP broadcast SETUP calls. *
+	  Fixed stopping T303 too early on a NT PTMP broadcast SETUP call
+	  if a subcall just receives a RELEASE_COMPLETE(busy). * Fixed a
+	  valgrind reported invalid read/write when hanging up a NT PTMP
+	  broadcast SETUP call. JIRA LIBPRI-32 JIRA SWP-2548
+
+	* q931.c, pri_facility.c: Miscellaneous cleanup before T312 branch
+	  merge.
+
+	* q931.c: Fix valgrind reported invalid read/write for display text
+	  feature.
+
+	* pri.c, pri_internal.h, q931.c, pri_cc.c: Improve the usefulness
+	  of pri_dump_info_str() output. * Add BRI and PTMP strings to node
+	  type config when configured that way. * Move Q.921 statistics to
+	  after configuration settings. * Add call and cc_record debug
+	  statistics to pri_dump_info_str().
+
+	* pri.c: Add determined remote node type to pri_dump_info_str().
+
+2011-02-17 21:12 +0000 [r2202-2207]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: B channel lost by incoming call in BRI NT PTMP mode. A
+	  phone's RELEASE_COMPLETE as a response to an initial broadcast
+	  SETUP blocks one B channel permantly when the call is cancelled.
+	  Scenario: A call to the ISDN Bus is acknowledged (ALERTING) by
+	  one phone/endpoint and rejected by another phone/endpoint with a
+	  RELEASE_COMPLETE. The call is then cancelled by the caller. If
+	  the whole procedure is repeated once again then any further call
+	  attempt is rejected (WARNING[5666]: app_dial.c:1546
+	  dial_exec_full: Unable to create channel of type 'DAHDI' (cause
+	  34 - Circuit/channel congestion)). It seems that receiving a
+	  RELEASE_COMPLETE in that state blocks one B channel permanently
+	  when the call is cancelled by the caller. Background: The ISDN
+	  phones (Siemens Gigaset 3035 or CX253) we use for testing
+	  additionally contain a DECT base station, which operates as a
+	  different endpoint on the ISDN Bus (TEI). If the DECT base
+	  station is not in use then there are no DECT phones registered to
+	  the base station. The DECT base station responds to an incoming
+	  call not directed toward it with (RELEASE_COMPLETE, cause: no
+	  user responding). * Made initiate_hangup_if_needed() also hangup
+	  the subcall if it is in the NULL state. * Simplified
+	  q931_set_subcall_winner(). JIRA ABE-2745 JIRA SWP-2954
+
+	* rose.c: DMS-100 not receiving caller name anymore. Looks like
+	  DMS-100 is using the same message as Q.SIG to receive the caller
+	  name. Add the ability to decode the ROSE calling name message
+	  defined for the Q.SIG switch on the DMS-100 switch. (closes issue
+	  #18822) Reported by: cmorford Patches: issue18822_v1.4.patch
+	  uploaded by rmudgett (license 664) Tested by: cmorford
+
+	* rose.c, pri_facility.c: * Added switchtype to ROSE invoke
+	  operation not handled message. * Reordered NI2 ROSE message table
+	  so any conflicts with the pirated Q.SIG messages will be in favor
+	  of the NI2 specific messages. This is precautionary only.
+
+	* pri_internal.h, prisched.c: Crash if NFAS swaps D channels on a
+	  call with an active timer. If a Q.931 call record related timer
+	  is started on one NFAS D channel expires after NFAS swaps to
+	  another D channel, then libpri could crash. For example: 1)
+	  Hangup a call. 1a) Send a DISCONNECT. 1b) Start the T305
+	  retransmit timer on the current D channel. 2) The RELEASE comes
+	  in on another D channel. 2a) The found call record switches its
+	  assignment to the new D channel. 2b) Attempt to stop T305.
+	  Unfortunately, the timer was started on another D channel so the
+	  attempt does not find the timer to stop. 3) The hangup sequence
+	  continues normally and the call record is freed since there is
+	  only one call record pool. 4) T305 expires on the original D
+	  channel and crashes the system when it uses the stale call record
+	  pointer it has saved. Made each D channel timer pool have a
+	  unique range of valid timer identifiers. If a given timer
+	  identifier is not in the range for the current NFAS D channel,
+	  then search the D channel group for the original D channel. JIRA
+	  LIBPRI-58 JIRA SWP-2721
+
+2011-02-14 23:33 +0000 [r2200]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_q921.h, q921.c: Fix I-frame retransmission quirks. Revamped
+	  the I-frame retransmission queue to better comply with Q.921:
+	  Figure B.7/Q.921 (sheet 1 of 10) and Figure B.9/Q.921 (Sheet 5 of
+	  5). The changes prevent retransmitting I-frames when the peer is
+	  busy (RNR) (Q.921 Section 5.6.5) and eliminate an unnecessary
+	  delay sending new I-frames after an I-frame retransmission.
+	  Related to JIRA LIBPRI-60
+
+2011-02-08 16:44 +0000 [r2192]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c: Swap of master/slave in pri_enslave() incorrect. Thank
+	  you. All I can say is oops. (closes issue #18769) Reported by:
+	  jcollie Patches: libpri-1.4.12-beta3-swap.patch uploaded by
+	  jcollie (license 412)
+
+2011-02-04 19:59 +0000 [r2187-2190]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, pri_internal.h, q931.c, pri_facility.c, libpri.h: Add
+	  display ie text handling options. The display ie handling can be
+	  controlled independently in the send and receive directions with
+	  the following options: * Block display text data. * Use display
+	  text in SETUP/CONNECT messages for name. * Use display text for
+	  COLP name updates (FACILITY/NOTIFY as appropriate). * Pass
+	  arbitrary display text during a call. Sent in INFORMATION
+	  messages. Received from any message that the display text was not
+	  used as a name. If the display options are not set then the
+	  options default to legacy behavior.
+
+	* q931.c: Add Q931_IE_TIME_DATE to CONNECT message when in network
+	  mode. Add the Q931_IE_TIME_DATE with the current date/time of the
+	  system to the Q.931 CONNECT message when in network mode. The
+	  date/time IE allows attached equipment to synchronize their clock
+	  with the network. Most notably, ISDN phones can display the
+	  current date/time. See issue #18047 about a concern with
+	  non-conforming Siemens terminals. (closes issue #18047) Reported
+	  by: wuwu Patches: timedate.patch uploaded by rmudgett (license
+	  664) Tested by: rmudgett JIRA SWP-2955 JIRA ABE-2747
+
+2011-02-01 00:37 +0000 [r2183]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, pri_internal.h, Makefile, q921.c, q931.c: Enable
+	  LIBPRI_COUNTERS code by default. Removed the conditional
+	  LIBPRI_COUNTERS to include the code unconditionally. Patches:
+	  enable_LIBPRI_COUNTERS_LIBPRI-61.diff uploaded by jbigelow JIRA
+	  LIBPRI-61
+
+2010-12-21 19:46 +0000 [r2169-2175]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, q931.c: Invalid PTMP redirecting signaling as TE towards
+	  NT. * The PTMP redirection signaling (NOTIFY redirection number
+	  and notification code, SETUP redirecting number) is also sent in
+	  PTMP/TE mode. It should only apply in PTMP/NT mode. The call
+	  setup proceeds but the network (Deutsche Telekom) reacts with
+	  ugly ISDN STATUS messages. * Don't send the redirecting number ie
+	  when PTP is also sending the DivertingLegInformation2 facility.
+	  The redirecting number ie is redundant and the network (Deutsche
+	  Telekom) complains about it. JIRA LIBPRI-53 JIRA SWP-2543
+
+	* q931.c: Fix Q.931 retried SETUP not sending facility ies. Resend
+	  standard facility ies when the SETUP is retried by Q.931.
+	  However, one time facility ies are no longer available to add to
+	  a retried SETUP message.
+
+	* pri.c, pri_internal.h, q931.c, pri_facility.c, pri_facility.h:
+	  Add call transfer exchange of subaddresses support and fix PTMP
+	  call transfer signaling. * Add the ability to exchange
+	  subaddresses for ETSI PTMP, ETSI PTP, and Q.SIG for call
+	  transfer. * Fix ETSI PTMP to send the correct messages depending
+	  on the call state for call transfer. NOTE: Some ISDN phones only
+	  handle the NOTIFY message that the EN 300-369 spec says should be
+	  sent only if the call has not connected yet. JIRA LIBPRI-47 JIRA
+	  SWP-2363 Review: https://reviewboard.asterisk.org/r/1051/
+
+	* pri_internal.h, q931.c: Better HOLD/RETRIEVE collision handling.
+	  The upper layer is now initiating HOLD/RETRIEVE signaling. These
+	  changes are needed to help preserve the correct channel id after
+	  a collision.
+
+	* q931.c: Fix regression when reorganized for struct pri and struct
+	  q921_link.
+
+2010-12-14 01:09 +0000 [r2166-2167]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Return error if q931_notify() cannot send NOTIFY.
+
+	* q931.c: Fix bizarre logic to work as originally intended in
+	  q931_notify(). In revision 238: Don't allow notification codes
+	  outside of the Q.931 spec for switches other than EuroISDN.
+
+2010-11-12 02:31 +0000 [r2113]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_internal.h, pri_q921.h, q921.c: Asterisk is getting a "No
+	  D-channels available!" warning message every 4 seconds. For PTP
+	  links, libpri generated the PRI_EVENT_DCHAN_DOWN event every time
+	  it failed to bring layer 2 up because the physical layer is down.
+	  For PTP links, made generate the
+	  PRI_EVENT_DCHAN_UP/PRI_EVENT_DCHAN_DOWN only when it enters/exits
+	  the Q.921 superstate consisting of states
+	  7(Q921_MULTI_FRAME_ESTABLISHED) and 8(Q921_TIMER_RECOVERY). Also
+	  changed the PTP link restart delay to be link specific instead of
+	  D channel specific because the GR-303 PTP switch types have more
+	  than one Q.921 link. (closes issue #17270) Reported by: jmls
+
+2010-11-11 00:30 +0000 [r2109-2111]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_internal.h, q921.c: SABME flood on backup D-channel in NFAS
+	  configuration. Made delay restarting the PTP layer 2 link by the
+	  T200 time instead of immediately. Q.921 does not specify any
+	  particular time to restart the layer 2 link. Q.921 leaves it up
+	  to the upper layers to decide when or if another attempt to bring
+	  layer 2 up is made. Earlier versions of libpri used the T200 time
+	  to restart the link. This is a reimplementaion of -r1878. (closes
+	  issue #18255) Reported by: bklang JIRA SWP-2508
+
+	* q921.c: Minor MDL handler changes. * Clear mdl_error in case we
+	  could not schedule the handler callback. * Change MDL handlers to
+	  not return the handled state since the caller did not care.
+
+2010-11-05 20:05 +0000 [r2098-2105]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, pri_internal.h, pri_q921.h, q921.c: Added TEI identity
+	  check feature to reclaim dead TEIs. This is the new feature
+	  portion of JIRA LIBPRI-51/SWP-2453.
+
+	* q921.c: Q.921 TEI assignment procedure corrections. * We should
+	  send the TEI identity denied message with TEI=127 when the TEI
+	  pool is exhausted. * We should remove our TEI if we see a TEI
+	  identity assign message assigning our TEI to someone else.
+
+	* pri_q921.h, q921.c: Convert TEI identity defines to enum and
+	  create 2str() function.
+
+	* pri_q921.h, q921.c: Remove unneeded struct
+	  q921_link.mdl_error_state member.
+
+	* q921.c: Remove all TEIs when NT PTMP starts. Remove all TEIs when
+	  a NT PTMP link is started and there are no other links to make
+	  sure there are no devices that think they have a TEI. A device
+	  may think it has a TEI if the upper layer program is restarted or
+	  the system reboots. This fixes the bug portion of JIRA
+	  LIBPRI-51/SWP-2453.
+
+	* q921.c: Mainly put space after switch and while keywords.
+
+2010-11-02 19:11 +0000 [r2088]  Richard Mudgett <rmudgett@digium.com>
+
+	* q921.c: B410P gets incoming call packets on ISDN but Asterisk
+	  doesn't see the call. The Cisco 1751 with VIC 2-BRI ports sends
+	  out SETUP messages on the broadcast TEI as if the BRI were PTMP
+	  even though it is configured for PTP mode. Make PTP mode also
+	  accept frames on SAPI=0, TEI=127 (Broadcast). (closes issue
+	  #18232) Reported by: lelio Patches: issue18232_v1.4.patch
+	  uploaded by rmudgett (license 664) Tested by: lelio
+
+2010-10-21 18:00 +0000 [r2063-2079]  Richard Mudgett <rmudgett@digium.com>
+
+	* doc/cc_ptmp_agent.fsm, pri_internal.h, q931.c,
+	  doc/cc_ptp_agent.fsm, doc/cc_qsig_agent.fsm, pri_cc.c,
+	  doc/cc_ptmp_agent_flattened.fsm, doc/cc_ptp_agent_flattened.fsm,
+	  doc/cc_qsig_agent_flattened.fsm: Fixes CC agents not
+	  automatically clearing if T309 clears the original call. Incoming
+	  calls with CC enabled will not automatically clear the CC offer
+	  record when the call is aborted by T309 processing. All CC agent
+	  FSM's have this problem (PTMP, PTP, and Q.SIG). To reproduce: 1)
+	  Place incoming call to Asterisk/libpri 2) Either before or after
+	  the call is answered, bring the ISDN link down. 3) T309
+	  processing, T309 timeout, or TEI removal will leave the CC agent
+	  FSM in the CC available state. The problem is indicated by the
+	  "cc report status" CLI command showing a status of CC offered to
+	  caller but it will never timeout. The FSM's can be manually
+	  cleared by using the "cc cancel all" or "cc cancel core" CLI
+	  commands. JIRA LIBPRI-46 JIRA SWP-2241
+
+	* pri.c, pri_internal.h: Partial support for dynamic interfaces
+	  with NFAS. To have some support for dynamic interfaces, the
+	  master NFAS D channel control structure will always exist even if
+	  it is abandoned/deleted by the upper layer. The master/slave
+	  pointers ensure that the correct master will be used.
+
+	* pri.c, pri_internal.h, pri_q921.h, pri_aoc.c, pri_q931.h, q921.c,
+	  q931.c, pri_facility.c, pri_cc.c, prisched.c: Extract the layer 2
+	  link structure out of struct pri. This completes the layer 2 link
+	  and Q.931 call control restructuring. Some code is now simplified
+	  since there is only one D channel control structure and the
+	  amount of allocated memory is reduced.
+
+	* pri.c, pri_internal.h, pri_q921.h, pri_q931.h, q921.c, q931.c,
+	  pri_facility.c: Restructure the Q.931 call record to layer 2 link
+	  association. This is in anticipation of extracting a layer 2 link
+	  structure out of struct pri. Also completes fixing timer value
+	  access for the rest of libpri. The timer access must always be on
+	  the D channel control structure (Master). May have fixed some
+	  events from timeouts not being passed to the upper layer. The
+	  timeout events must always be on the D channel control structure
+	  (Master).
+
+	* pri_q921.h, q921.c: Logically separate Q.921 TEI link processing
+	  from D channel control. This is in anticipation of extracting a
+	  layer 2 link structure out of struct pri. Also fixes Q.921 timer
+	  value access. The timer access must always be on the D channel
+	  control structure (Master).
+
+2010-10-16 04:34 +0000 [r2015-2042]  Richard Mudgett <rmudgett@digium.com>
+
+	* q921.c: Dump Q.931 message using the TEI value the message came
+	  in with.
+
+	* pri_internal.h, q931.c: Create two versions of call ptr verify.
+	  One gripes and one does not.
+
+	* q931.c: Crash when receiving an unknown/unsupported message type.
+	  Fix double free of a call record and the subsequent continued use
+	  of the freed call record when receiving an unsupported/unknown
+	  message type. (closes issue #17968) Reported by: gelo Patches:
+	  issue_17968_v1.4.patch uploaded by rmudgett (license 664)
+
+	* pri.c, pri_internal.h, pri_aoc.c, q931.c, pri_facility.c,
+	  pri_cc.c: Segfault in pri_schedule_del() - ctrl value is invalid.
+	  Validate the given call pointer in libpri API calls. If the call
+	  pointer is not an active call record then a complaint message is
+	  issued and the API call aborts. The call pointer is likely stale.
+	  This patch is defensive. More information is needed to figure out
+	  why Asterisk still has a call pointer during its hangup sequence.
+	  (closes issue #17522) (closes issue #18032) Reported by:
+	  schmoozecom Patches: issue_18032_v1.4.patch uploaded by rmudgett
+	  (license 664) Tested by: rmudgett
+
+2010-10-07 04:00 +0000 [r2009]  Tilghman Lesher <tilghman@meg.abyt.es>
+
+	* Makefile: Minor changes to make libpri build on Mac OS X
+
+2010-09-16 21:24 +0000 [r2001]  Russell Bryant <russell@digium.com>
+
+	* Makefile: Makefile tweaks to allow building for code coverage
+	  analysis.
+
+2010-09-13 21:21 +0000 [r1982-1991]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_q931.h, q921.c, q931.c: PRI links do not retain active calls
+	  if the link comes back before T309 expires. The DL-ESTABLISH
+	  confirm event was not passed from Q.921 to Q.931 so Q.931 never
+	  cancelled the T309 timer. Refactored q931_dl_tei_removal() and
+	  q931_dl_indication() into q931_dl_event() to allow the
+	  DL-ESTABLISH confirm/indication and DL-RELEASE confirm/indication
+	  events to be passed to Q.931.
+
+	* pri.c, pri_internal.h, pri_q931.h, q921.c, q931.c, prisched.c:
+	  BRI PTMP: Active channels not cleared when the interface goes
+	  down. If the connection to the terminal is lost while there are
+	  open channels on the interface, red alarm is reported, but the
+	  open channels are never cleared. Additionally, if you manually
+	  try to channel request hangup, Asterisk crashes. For PTMP, the
+	  T309 processing was not searching the call pool on the master
+	  control record. Additionally, for NT PTMP, the timeout events
+	  were not passed to the upper layer because the events were not
+	  put on the master control record where timer processing expects
+	  them. (closes issue #17865) Reported by: wimpy Patches:
+	  issue17865_v1.4.patch uploaded by rmudgett (license 664) Tested
+	  by: rmudgett, wimpy
+
+2010-09-10 23:15 +0000 [r1976]  Richard Mudgett <rmudgett@digium.com>
+
+	* doc/cc_ptmp_agent.fsm, doc/cc_ptmp_agent_flattened.fsm: Fix
+	  spelling error in PTMP agent FSM files.
+
+2010-09-08 21:43 +0000 [r1958-1965]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c: Added more parameter checks to pri_set_timer() and
+	  pri_get_timer(). Made pri_dump_info_str() output a line for each
+	  Q.921 TEI Tx queue when LIBPRI_COUNTERS is defined.
+
+	* q921.c, q931.c: Made Q.921 delay events to Q.931 if the event
+	  could immediately generate response frames. Q.921 was passing a
+	  q931_dl_indication(up) event to Q.931 before it was finished
+	  processing the frame. The q931_dl_indication(up) event could
+	  immediately send STATUS messages in the Q.921 intermediate state
+	  that would then get stuck in the tx queue with an invalid N(S).
+	  Q.921 was passing i-frames to Q.931 before it was finished
+	  processing the frame. The i-frames could cause Q.931 to
+	  immediately generate a response message that may cause the peer
+	  to see the P/F bit as incorrect. Delayed passing
+	  q931_dl_indication(up) events and i-frames to Q.931 until Q.921
+	  has completed processing the frame event. (The Q.921 SDL diagrams
+	  were designed with this assumption.) (closes issue #17360)
+	  Reported by: shawkris Patches: issue17360_v1.4.patch uploaded by
+	  rmudgett (license 664) Tested by: shawkris, rmudgett
+
+	* q931.c: Prevent a CONNECT message from sending a CONNECT
+	  ACKNOWLEDGE in the wrong state. Filter the processing of the
+	  CONNECT message to prevent libpri from sending a CONNECT
+	  ACKNOWLEDGE when the call is in an inappropriate state. This can
+	  happen when we hang up an outgoing call after the other end has
+	  sent a CONNECT but before we have processed the CONNECT. (issue
+	  #17360) Reported by: shawkris Patches:
+	  issue17360_con_ack_v1.4.patch uploaded by rmudgett (license 664)
+
+	* q931.c: Balance curly braces in post_handle_q931_message().
+
+2010-09-02 17:33 +0000 [r1955]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c: Don't crash in __pri_new_tei() if a GR303 subchannel
+	  creation fails.
+
+2010-08-30 20:49 +0000 [r1918-1929]  Richard Mudgett <rmudgett@digium.com>
+
+	* q921.c: Reduced fake MDL-ERROR (Z) message severity to be visible
+	  only when debugging enabled.
+
+	* q921.c, q931.c: Q.921/Q.931 message debug output improvements.
+	  The Q.931 message decode debug output now will follow the correct
+	  Q.921 header decode if Q.921 message dumping is enabled. Also the
+	  Q.931 message decode will happen when the message actually goes
+	  out on the line instead of when Q.931 passes the message to
+	  Q.921. Q.921 may have to request a TEI, bring the connection up,
+	  or retransmit previous frames before it can actually send the new
+	  message.
+
+	* q921.c: Q.921 improvements from comparing Q.921 SDL diagrams with
+	  implementation. * Handle sending and receiving DM response frames
+	  as needed. * Added handling of received FRMR frames. * Completed
+	  implementation of Q921_AWAITING_RELEASE state. (State is
+	  currently unreachable since we have no API to initiate sending
+	  the DISC message.) * Better NT PTMP TEI allocation. * Reduced
+	  more ERROR level severity messages so users will stop panicking
+	  when they see ERROR. This is especially true for the Q.921
+	  MDL-ERROR messages. * Added better Q.921 visibility when normal
+	  debug message level is enabled.
+
+	* q921.c: ISDN BRI does not recover from line faults Q.921 was
+	  getting stuck in state 2 (Q921_ASSIGN_AWAITING_TEI). For some
+	  reason the network was removing the TEI. Libpri then immediately
+	  tried to get a new TEI assigned. The network did not reply to the
+	  N202(3) attempts to get a new TEI. Libpri then just gave up
+	  trying but did not leave the state. Some paths in Q.921 Figure
+	  B.3 were not implemented. Q.921 now transitions to the
+	  Q921_TEI_UNASSIGNED state when the N202 count is exceeded. Q.921
+	  will wait there until an incoming or outgoing call is attempted.
+	  * Fixed initializing the n202_counter. Not initializing the
+	  n202_counter would cause the Q921_TEI_IDENTITY_REQUEST to
+	  unexpectedly not go out and due to how state transitions were
+	  done, Q.921 would get stuck in the Q921_ASSIGN_AWAITING_TEI
+	  state. * Fixed start T202 timer fail causing Q.921 to get stuck
+	  in the Q921_ASSIGN_AWAITING_TEI state if the network did not
+	  respond to the request. * Fixed handling of
+	  Q921_TEI_IDENTITY_REMOVE to do the MDL-REMOVE primitive
+	  (q921_mdl_remove()) instead of transitioning directly to the
+	  Q921_TEI_UNASSIGNED state. Necessary state clean-up was not
+	  getting done. * Minor tweaks to q921_mdl_remove(). The worst
+	  problem was erroneously generating an error message. * Fixed
+	  potential for sending I-frames with an invalid TEI. The I-frame
+	  could have been queued when Q.921 did not have an assigned TEI. *
+	  Fixed testing of the q931_receive() return value when a UI-frame
+	  is received. (closes issue #17570) Reported by: jcovert Patches:
+	  issue17570_v1.4.11.3_v3.patch uploaded by rmudgett (license 664)
+	  issue17570_v1.4_v3.patch uploaded by rmudgett (license 664)
+	  Tested by: jcovert, rmudgett
+
+2010-08-27 23:37 +0000 [r1894-1912]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, q931.c: Convert most references of Q931_MAX_TEI to use
+	  ARRAY_LEN(). * Minor comment correction in q931_destroycall(). *
+	  Redundant logic removal q931_destroycall(). "W && X && (Y || W &&
+	  Z)" is the same as "W && X && (Y || Z)"
+
+	* rose.c, rosetest.c: Add support to receive ECMA-164 2nd edition
+	  OID name ROSE messages. NOTE: To add support to send the old
+	  style name messages will require implementing them as new ROSE
+	  operation message types. NOTE: To actually use them would likely
+	  require implementing another version of the Q.SIG switch type.
+	  Like (NI1 & NI2) and (4ess & 5ess) for example. Patches:
+	  libpri37.patch uploaded by rmudgett (license 664) JIRA SWP-2100
+	  JIRA LIBPRI-37
+
+	* pri.c: Make pri_dump_event() only print the event name.
+
+2010-08-25 17:17 +0000 [r1883-1884]  Richard Mudgett <rmudgett@digium.com>
+
+	* rosetest.c: Added gripe check to rosetest for invalid operation
+	  and error codes.
+
+	* q921.c: Don't silently fail to post our fake MDL-ERROR(Z).
+
+2010-08-23 22:13 +0000 [r1878]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: Add silly fake MDL error Z for kicking L2 to reactivate
+	  if a DISC or DM is received in proper states on PTP links.
+
+2010-08-06 18:35 +0000 [r1852-1853]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: No audio on inbound J1 calls. Incoming calls specifying
+	  the channel using a slot map could not negotiate a B channel
+	  correctly. Libpri historically has handled this as an any channel
+	  request. However, when chan_dahdi picked a new channel, libpri
+	  sent out the recorded slot map and not the new channel selected.
+	  Thus the two endpoints would be attached to different B channels
+	  and the parties would not hear anything or would hear the wrong
+	  parties. This patch restores the historical preference of sending
+	  out the channel id using the channel number method if a channel
+	  number is available. JIRA LIBPRI-35 Patches:
+	  libpri-35_v1.4.11.3.patch uploaded by rmudgett (license 664)
+	  libpri-35_v1.4.patch uploaded by rmudgett (license 664) Tested
+	  by: rmudgett
+
+	* q921.c: Learn (AGAIN!) why state 7 and state 8 transitions were
+	  suppressed.
+
+2010-08-03 23:04 +0000 [r1842-1848]  Richard Mudgett <rmudgett@digium.com>
+
+	* q921.c, q931.c: Improved Q.921/Q.931 debug output. * Debug output
+	  for a sent Q.931 message in TE PTMP now uses the best available
+	  TEI number instead of always using 127. It could still be wrong
+	  if layer 2 does not have a TEI assigned. * Q.921 debug output is
+	  grouped better so a decoded message is not split by a blank line.
+	  * The Q.921 state is also decoded to a name.
+
+	* q921.c: Q921_TIMER_RECOVERY SDL issue in q921_rnr_rx() Added
+	  missing code specified by Q.921 (Figure B.8 Page 85) when receive
+	  RNR in "Timer Recovery" state. (closes issue #16791) Reported by:
+	  alecdavis Patches: rnr_timer_recovery.diff.txt uploaded by
+	  alecdavis (license 585)
+
+	* q921.c: Renamed local struct pri *pri variables to struct pri
+	  *ctrl in q921.c. The context tagging for my editor is much
+	  happier now that the struct and the variable do not have the same
+	  name. (At least for this file.)
+
+2010-07-22 17:59 +0000 [r1836]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, libpri.h: Add pri_new_bri_cb() API - Create BRI D-channel
+	  with user defined I/O callbacks and data There currently exists a
+	  pri_new_cb() API call that allows you to create a PRI with
+	  user-defined I/O read and write callbacks, and option userdata.
+	  Add the same capability for BRI interfaces by adding a
+	  pri_new_bri_cb() API function. (closes issue #16477) Reported by:
+	  nic_bellamy Patches: pri_new_bri_cb_api.patch uploaded by nic
+	  bellamy (license 299) (with minor cosmetic changes)
+
+2010-07-16 22:55 +0000 [r1828-1833]  Richard Mudgett <rmudgett@digium.com>
+
+	* pritest.c, Makefile: pritest hadn't been ported to DAHDI pritest
+	  hadn't been ported to DAHDI, made the trivial changes to make it
+	  work. (I haven't found the equivalent to zap_playf, so changed
+	  the behaviour to an echo box) (closes issue #17274) Reported by:
+	  horape Patches: pritest.diff uploaded by horape (license 1035)
+	  (with minor cosmetic changes)
+
+	* rosetest.c: Only need to output one version of the version
+	  message.
+
+	* rosetest.c: Added a libpri version output line as a sanity check
+	  for rosetest.
+
+	* rosetest.c, rose_qsig_name.c: Calling name not successfully
+	  processed on inbound QSIG PRI calls from Mitel PBX The alternate
+	  form of the Q.SIG Name sequence that allows manufacturer
+	  extensions for CallingName, CalledName, ConnectedName, and
+	  BusyName was not consuming the next ASN.1 tag. The code that
+	  processed the ASN.1 Name structure was then using a stale tag
+	  value. The stale tag value was then rejected with the "Did not
+	  expect" message. I have added a test case using the supplied PRI
+	  debug output to the rosetest utility to verify that this
+	  alternate encoding is tested in the future. (closes issue #17619)
+	  Reported by: jims8650 Patches: issue17619_v1.4.11.3.patch
+	  uploaded by rmudgett (license 664) Tested by: rmudgett
+
+2010-06-29 16:15 +0000 [r1823]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_internal.h, q931.c: [regression] Calling Number assignment
+	  logic change in libpri 1.4.11. Restored the old behaviour if
+	  there is more than one calling number in the incoming SETUP
+	  message. A network provided number is reported as ANI. (closes
+	  issue #17495) Reported by: ibercom Patches:
+	  issue_17495_v1.4.11.2.patch uploaded by rmudgett (license 664)
+	  issue_17495_v1.4.patch uploaded by rmudgett (license 664) Tested
+	  by: ibercom
+
+2010-06-25 20:22 +0000 [r1818]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: PRI: XXX Missing handling for mandatory IE 12 The switch
+	  is sending the Connected Address ie (12) and there was no handler
+	  for that ie. That is why the reporter was getting the "Missing
+	  mandatory ie" message. The simple fix is to just add the missing
+	  receive handler for that ie. Since connected line (COLP)
+	  functionality has been added and this is just an alternate for
+	  the Connected Number ie (0x4C), the handler was already written.
+	  I also changed the ie name to what Q.931 calls it: Connected
+	  Address. Also some minor code clean up in q931_handle_ie() and
+	  ie2str(). JIRA SWP-1678 (closes issue #16915) Reported by: kobaz
+
+2010-06-04 22:45 +0000 [r1810]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_facility.c: Q.SIG calling name in FACILITY message not
+	  reported to the upper layer. Q.SIG can send the CallingName,
+	  CalledName, and ConnectedName in stand alone FACILITY messages.
+	  If the CallingName was not sent in the SETUP message, the caller
+	  id name was not reported to the upper layer. (closes issue
+	  #17458) Reported by: jsmith Patches:
+	  issue17458_post_qsig_name.patch uploaded by rmudgett (license
+	  664) issue17458_post_qsig_name_v1.4.11.1.patch uploaded by
+	  rmudgett (license 664) Tested by: rmudgett, jsmith
+
+2010-06-01 22:59 +0000 [r1785-1794]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c: Inband disconnect setting does nothing on BRI spans. The
+	  acceptinbanddisconnect flag is not inherited when creating a new
+	  TEI and thus rendering the setting (and its respective equivalent
+	  in Asterisk) a no-op on BRI setups. (closes issue #15265)
+	  Reported by: paravoid Patches: inband-bri.diff uploaded by
+	  paravoid (license 200) Tested by: paravoid
+
+	* rose.c, rosetest.c, q931.c: Multi component FACILITY messages
+	  only process the first component. The code was only processing
+	  the first ROSE component in the facility message. I also updated
+	  rosetest.c to have a multiple component ROSE message test.
+	  (closes issue #17428) Reported by: patrol-cz Patches:
+	  issue17428.patch uploaded by rmudgett (license 664) Tested by:
+	  rmudgett, patrol-cz
+
+2010-05-28 22:34 +0000 [r1776]  David Vossel <dvossel@digium.com>
+
+	* pri_internal.h, pri_aoc.c, q931.c, pri_facility.c,
+	  pri_facility.h, libpri.h: support for sending ETSI advice of
+	  charge Review: https://reviewboard.asterisk.org/r/619/
+
+2010-05-28 21:50 +0000 [r1723-1767]  Richard Mudgett <rmudgett@digium.com>
+
+	* rose_etsi_mwi.c (added), rose.c, rosetest.c, rose_internal.h,
+	  Makefile, rose.h, pri_facility.c, libpri.h, rose_qsig_mwi.c: ETSI
+	  Message Waiting Indication (MWI) support. Add the ability to
+	  report waiting messages to ISDN endpoints (phones). Relevant
+	  specification: EN 300 650 and EN 300 745 Review:
+	  https://reviewboard.asterisk.org/r/600/
+
+	* rose.c, rosetest.c, pri_internal.h, rose.h, pri_facility.c,
+	  libpri.h: ETSI Malicious Call ID support. Add the ability to
+	  report malicious callers. Relevant specification: EN 300 180
+	  Review: https://reviewboard.asterisk.org/r/575/
+
+	* pri.c, pri_internal.h, pri_q931.h, q931.c, libpri.h: ETSI Call
+	  Waiting support. Add the ability to announce a call to an
+	  endpoint when there are no B channels available. A call waiting
+	  call is a SETUP message with no B channel selected. Relevant
+	  specification: EN 300 056, EN 300 057, EN 300 058 Review:
+	  https://reviewboard.asterisk.org/r/569/
+
+	* pri_internal.h, pri_aoc.c (added), Makefile, pri_facility.c,
+	  rose_etsi_aoc.c, pri_facility.h, libpri.h: ETSI Advice Of Charge
+	  (AOC) event reporting. This feature passes ETSI AOC-S, AOC-D, and
+	  AOC-E message information to the upper layer (i.e. Asterisk) for
+	  processing. Relevant specification: EN 300 182 Consideration was
+	  made for the possible future addition of Q.SIG AOC support
+	  (ECMA-212) with the events passed to the upper layer. Review:
+	  https://reviewboard.asterisk.org/r/538/
+
+	* pri.c, pri_internal.h, q931.c, pri_facility.c, pri_facility.h,
+	  libpri.h: Added ETSI Explicit Call Transfer (ECT) support. Added
+	  ability to send and receive ETSI ECT messages to eliminate
+	  tromboned calls. Added ETSI support to an existing API call to
+	  send ECT messages when the upper level indicates to transfer
+	  specified calls. The libpri API was extended to indicate to the
+	  upper layer that the far end requests the transfer of the
+	  indicated calls. Review: https://reviewboard.asterisk.org/r/521/
+
+2010-05-26 16:01 +0000 [r1714]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, doc/cc_ptmp_monitor_flattened.fsm, pri_internal.h,
+	  Makefile, q931.c, doc/cc_ptp_agent.fsm, doc/cc_qsig_agent.fsm,
+	  pri_cc.c (added), rose_qsig_cc.c (added), prisched.c,
+	  doc/cc_ptmp_agent_flattened.fsm, rose_etsi_cc.c (added),
+	  doc/cc_ptmp_monitor.fsm, rosetest.c, rose.c, rose_internal.h,
+	  doc/cc_ptmp_agent.fsm, pri_q931.h,
+	  doc/cc_qsig_monitor_flattened.fsm,
+	  doc/cc_ptp_monitor_flattened.fsm, rose.h, pri_facility.c,
+	  pri_facility.h, doc/cc_qsig_agent_flattened.fsm,
+	  doc/cc_ptp_agent_flattened.fsm, doc (added), libpri.h,
+	  doc/cc_qsig_monitor.fsm, doc/cc_ptp_monitor.fsm: Add Call
+	  Completion Suppplementary Service Call Completion Supplementary
+	  Service (CCSS) added for the following switch types: ETSI PTMP,
+	  ETSI PTP, Q.SIG. Specifications: ETS 300 359 CCBS for PTMP and
+	  PTP ETS 301 065 CCNR for PTMP and PTP ECMA-186 Call Completion
+	  for Q.SIG Several support services were added to support CC:
+	  Dummy Call Reference. Q.931 REGISTER message. Dynamic expansion
+	  of the number of available timers (up to 8192). Enhanced facility
+	  message handling. Current implementation limitations preclude the
+	  following: CC service retention is not supported. Q.SIG path
+	  reservation is not supported. (closes issue #14292) Reported by:
+	  tomaso Tested by: rmudgett JIRA SWP-1493 Review:
+	  https://reviewboard.asterisk.org/r/522/
+
+2010-05-20 Russell Bryant <russell@digium.com>
+
+	* libpri 1.4.11 released.
+
+2010-05-19 21:50 +0000 [r1703]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: T309 should not do anything with the global call
+	  reference call record.
+
+2010-05-19 21:30 +0000 [r1702]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: It's amazing what a tiny bug in the Q.921 SDL diagram can
+	  do to cause trouble.... Fix issue where V_R was not reset and N_R
+	  was consequentially transmitted incorrectly. Particularly in
+	  layer 2 initiated re-establishments.
+
+2010-05-11 22:14 +0000 [r1688]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, pri_internal.h, q931.c, libpri.h: Dialing an invalid
+	  extension causes incomplete hangup sequence. Revision -r1489
+	  corrected a deviation from Q.931 Section 5.3.2. However, this
+	  resulted in an unexpected behaviour change to the upper layer
+	  (Asterisk). This change restores the legacy hangup behaviour if
+	  the new API call is not used. Use pri_hangup_fix_enable() to
+	  follow Q.931 Section 5.3.2 call hangup better. (closes issue
+	  #17104) Reported by: shawkris Tested by: rmudgett
+
+2010-04-26 19:54 +0000 [r1664-1675]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Simplified some protocol discriminator handling code.
+
+	* q931.c: Garbage on the end of Q.931 messages causing calls to
+	  fail to connect. The DAHDI driver had a bug where an extra byte
+	  appeared on the end of Q.931 messages. This garbage byte caused
+	  the message to be discarded with the diagnostic "XXX Message
+	  longer than it should be?? XXX". The Q.931 message will no longer
+	  be discarded if there were earlier ie's in the message. This
+	  patch also addresses the potential problem of reading beyond the
+	  buffer when trying to parse the garbage data. Thanks to roeften
+	  for the base patch. (closes issue #14378) Reported by: timking
+
+	* q921.c: Avoid using a cast.
+
+	* q931.c: Cleanup some pri debug output line presentation.
+
+2010-04-19 22:40 +0000 [r1625-1630]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_internal.h, pri_q931.h, q931.c, pridump.c: PTMP NT mode call
+	  reference value ambiguity. Since the TE side can pick CR values
+	  independently, the TE CR needs to be qualified by TEI to
+	  distinguish CR values from other devices. Without doing this,
+	  multiple phones on the BRI line will have intermittent call
+	  failures. JIRA LIBPRI-30 Also eliminated some wierdness in
+	  q931_status() and several places where it is called.
+
+	* q921.c: Fix potential crash when pridump.c calls q921_dump() with
+	  NULL pri ptr.
+
+2010-04-15 18:43 +0000 [r1596]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, pri_internal.h: Make some internal routines available to
+	  other libpri components.
+
+2010-04-09 21:43 +0000 [r1577]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Only one PROCEEDING message per call please.
+
+2010-03-18 15:50 +0000 [r1534-1547]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Move a comment closer to where it has relevance.
+
+	* pri.c, pri_internal.h, q921.c, q931.c, pri_facility.c:
+	  Miscellaneous simple reorganization. 1) Make PRI_MASTER() no
+	  longer check for a NULL parameter. It is the caller's
+	  responsibility. Not many callers could have passed a NULL without
+	  crashing before or after anyway. 2) Replace calls to
+	  q931_is_ptmp() with PTMP_MODE(). They were equivalent. 3) Made
+	  the following boolean config options bit fields: sendfacility,
+	  overlapdial, chan_mapping_logical, and service_message_support.
+
+2010-03-02 23:47 +0000 [r1511]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, pri_internal.h, q921.c: Restore ability to change the
+	  Q.921 K value. The Q.921 rewrite only used value of PRI_TIMER_K
+	  right after it was set to the default. The Q.921 window size was
+	  thus no longer alterable by the user. (closes issue #16909)
+	  Reported by: alecdavis Patches: pritimer.libpri.diff.txt uploaded
+	  by alecdavis (license 585) Tested by: alecdavis
+
+2010-02-11 21:47 +0000 [r1488-1489]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Must send DISCONNECT if we have sent a response to a
+	  SETUP message. Q.931 Section 5.3.2 a) says we send a
+	  RELEASE_COMPLETE to reject a call SETUP if we have not already
+	  sent a message in response to the SETUP message.
+
+	* pri.c, libpri.h: Minor comment changes.
+
+2010-02-11 17:35 +0000 [r1482]  Wendell Thompson <wthompson@digium.com>
+
+	* Makefile: Added CPUARCH option for selecting a 32-bit build from
+	  the command line.
+
+2010-02-08 23:29 +0000 [r1470-1476]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: Revert useless check of pri->t200_timer value, since
+	  scheduler routines check the value anyways.
+
+	* q921.c: Make sure we set the l3initiated flag when PTP links are
+	  attempted to be re-established
+
+2010-02-05 23:34 +0000 [r1464]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c: pri_restart() is no longer needed since the Q.921 rewrite.
+	  Don't output error message for a deprecated function.
+
+2010-01-29 21:55 +0000 [r1457]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: Sense of statement was inverted from what it should have
+	  been. Might have caused false T200 operation on reception of
+	  I-frames.
+
+2010-01-29 19:32 +0000 [r1451]  Richard Mudgett <rmudgett@digium.com>
+
+	* q921.c: Only set eres if there actually is an event to pass up.
+	  (issue 16713)
+
+2010-01-29 17:27 +0000 [r1445]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: Fix bug in which an event was lost if an I-frame was
+	  received during a timer recovery state (related to #16713)
+
+2010-01-26 21:04 +0000 [r1439]  Richard Mudgett <rmudgett@digium.com>
+
+	* q921.c: Don't be so noisy when D channel is down.
+
+2010-01-19 21:53 +0000 [r1426]  Richard Mudgett <rmudgett@digium.com>
+
+	* q921.c, q931.c: Fix TE PTMP side sending FACILITY messages on the
+	  dummy call reference. Only the NT PTMP side can send Q.931
+	  broadcast messages. Also removed an inaccurate comment in Q.921
+	  and made q921_mdl_handle_error_callback() call the correct struct
+	  pri free function.
+
+2010-01-15 18:28 +0000 [r1414]  Richard Mudgett <rmudgett@digium.com>
+
+	* q921.c, q931.c: Make some debugging messages conditional and some
+	  minor reformating changes.
+
+2010-01-13 19:37 +0000 [r1406]  Matthew Fredrickson <creslin@digium.com>
+
+	* pri.c, pri_internal.h, pri_q921.h, Makefile, pri_q931.h, q921.c,
+	  q931.c: Merge of Q.921 rewrite branch for wider testing.
+
+2009-12-09 20:59 +0000 [r1374]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Extracted q931_fill_ring_event() from
+	  post_handle_q931_message(). Done so it is easier to see what was
+	  done in ccbs branch.
+
+2009-11-21 02:40 +0000 [r1345-1351]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, pri_internal.h: Fix debug output so built up output lines
+	  are readable again. A recent change to Asterisk put the span
+	  number at the begining of each line. This is a good thing if you
+	  need to debug multiple spans or forget which span you are
+	  debugging. Unfortunately, any pri_message() output that is not a
+	  complete line is messed up. The pri_message() function now will
+	  accumulate line output until a '\n' is seen on the end.
+
+	* pri_internal.h, q931.c, pri_facility.c: Delay processing of
+	  facility ie's after all other ie's are processed. * Some ROSE
+	  message processing depends on the presence of other ies. The
+	  DivertingLegInformation1, and 3 messages will be used as the
+	  default connected line number if the connected number ie is not
+	  present. The redirecting number ie is used as a default to the
+	  redirecting number in the DivertingLegInformation2 message if the
+	  ROSE message does not contain it and the redirecting number ie is
+	  present. * Some ROSE message processing depends upon other ie
+	  values. The StatusRequest, CCBS-T-Call, and CcRingout messages
+	  collectively need the BC, HLC, LLC, called number, called
+	  subaddress, calling number, and calling subaddress ie information
+	  to be available.
+
+2009-11-18 00:36 +0000 [r1331]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Merged revision 1328 from
+	  https://origsvn.digium.com/svn/libpri/team/mattf/libpri-1.4-q921-rewrite
+	  .......... r1328 | mattf | 2009-11-17 15:16:11 -0600 (Tue, 17 Nov
+	  2009) | 1 line outboundbroadcast isn't set at this time, since it
+	  is set after the message is transmited, so we must use other
+	  criteria to determine the need for broadcast on a setup
+	  ..........
+
+2009-11-14 00:20 +0000 [r1310-1322]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, pri_internal.h, q931.c, pri_facility.c, pri_facility.h,
+	  libpri.h: Reimplement callback mechanism to handle APDU response
+	  messages that we care about. 1) No sent messages will remain in
+	  the APDU queue unless they have an active timer to remove them.
+	  The dummy call reference call and global call reference call
+	  structures will not act like a memory leak to sent messages. 2)
+	  The new T-RESPONSE timer will be the generic response guard if
+	  the standards do not otherwise specify a timer for a message
+	  response. 3) The callback will be called. If it is called because
+	  of a response message, then the callback has an opportunity to
+	  indicate if more responses are expected.
+
+	* libpri.h: We now have 32 timers. No need to reserve minimum space
+	  anymore.
+
+	* pri_internal.h, pri_facility.c: There must be only one source for
+	  the invoke id values per D channel group. If there are
+	  potentially multiple sources for the invoke id sequence then we
+	  could get confused if there are multiple outstanding messages
+	  with the same invoke id that get responses.
+
+2009-11-11 00:22 +0000 [r1291]  Matthew Fredrickson <creslin@digium.com>
+
+	* pri_internal.h, q921.c: Make sure we also revive links for PRIs,
+	  not just PTMP TE BRIs when we get a disconnect message
+
+2009-11-10 21:51 +0000 [r1283]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_internal.h, q931.c, pri_facility.c, pri_facility.h: The
+	  facility ie queue needs to remove facilities that have been sent.
+	  The facility ie queue needs to remove facilities that have been
+	  sent. Otherwise, the queue just grows until the call is
+	  terminated. AOC messages can clog the queue during a long call
+	  and the dummy call reference may never be deleted. Also removed
+	  unneeded elements of struct apdu_event. The callback function was
+	  not a good idea since many facility messages do not have
+	  responses and the callback would prevents removal of events from
+	  the list.
+
+2009-11-10 20:25 +0000 [r1276]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: Re-add back in support for TE initiated layer 2
+	  activation
+
+2009-11-10 19:27 +0000 [r1268-1275]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, pri_internal.h, q931.c, libpri.h: Add dummy call reference
+	  support. Fixes problem where PTMP NT mode responds erroneously to
+	  a FACILITY message from a phone on the dummy call reference.
+	  LibPRI behaved as if the dummy call reference were an invalid
+	  call reference and proceeded to respond on the global call
+	  reference.
+
+	* pri_internal.h: Remove unused callingsubaddr[].
+
+2009-11-03 17:19 +0000 [r1255-1261]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_q931.h, q931.c: Unknown IE 50 (cs5, Unknown Information
+	  Element) Add code to recognize the code set 5 ie 50 (calling
+	  party category) to suppress the unknown IE message. (closes issue
+	  #13828) Reported by: fdecher Patches:
+	  libpri_ie50_cs5-trunk.diff3.txt uploaded by alecdavis (license
+	  585) Tested by: alecdavis
+
+	* q931.c: NT PTMP did not report busy when calling a busy phone.
+	  The caller would not get a busy indication when calling a busy
+	  phone. Timer T303 is not supposed to be stopped when
+	  RELEASE_COMPLETE received. When T303 expires we will now report
+	  the last clearing cause code to the caller if we received one.
+
+2009-10-23 23:47 +0000 [r1242-1249]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_internal.h, pri_facility.c: Add subaddress handling to
+	  existing messages and functions. Connected line updates when
+	  transfering calls does not completely support subaddresses yet.
+
+	* pri.c, pri_internal.h, pri_q921.h, pri_q931.h, q921.c, q931.c,
+	  pri_facility.c, pri_facility.h, libpri.h: Add BRI PTMP NT mode,
+	  HOLD/RETRIEVE, Call rerouting/deflection, and keypad facility
+	  support. * Added support for BRI PTMP NT mode. (Overlap dialing
+	  NT -> TE not supported.) * Added handling of received
+	  HOLD/RETRIEVE messages and the optional ability to transfer a
+	  held call on disconnect similar to an analog phone. * Added
+	  CallRerouting/CallDeflection support for Q.SIG, ETSI PTP, ETSI
+	  PTMP. Will reroute/deflect an outgoing call when receive the
+	  message. Can use the DAHDISendCallreroutingFacility to send the
+	  message for the supported switches. * Added ability to
+	  send/receive keypad digits in the SETUP message. Send keypad
+	  digits in SETUP message:
+	  Dial(DAHDI/g1[/K<keypad_digits>][/extension]) Access any received
+	  keypad digits in SETUP message by: ${CHANNEL(keypad_digits)}
+	  (closes issue #15048) Tested by: rmudgett, mattf
+
+2009-10-22 16:16 +0000 [r1230]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, pri_internal.h, pri_q931.h, q931.c, libpri.h: Add support
+	  for calling and called subaddress. Partial support for COLP
+	  subaddress. The Telecom Specs in NZ suggests that SUB ADDRESS is
+	  always on, so doing "desk to desk" between offices each with an
+	  asterisk box over the ISDN should then be possible, without a
+	  whole load of DDI numbers required. (closes issue #15604)
+	  Reported by: alecdavis Patches: libpri_subaddr_trunk.diff11.txt
+	  uploaded by alecdavis (license 585) Some minor modificatons were
+	  made. Tested by: alecdavis, rmudgett Review:
+	  https://reviewboard.asterisk.org/r/406/
+
+2009-10-19 22:49 +0000 [r1219-1220]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Fix call state ie transmission. Sending a STATUS message
+	  failed to include the call state ie for some reason. We will now
+	  always send a call state ie when a message ie list includes one.
+
+	* q931.c: Fix comparision of invalid party name and number structs
+	  in comparison functions.
+
+2009-10-15 22:34 +0000 [r1212]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_facility.c: Take diverted-to-number from DivLegInfo1 and use
+	  it as connected number. If no connected number is signaled in the
+	  CONNECT message we will use the last diverted to number. (issue
+	  #14292) Reported by: tomaso Patches:
+	  divleginfo1_to_connectednum.patch uploaded by tomaso (license
+	  564) (Used as a guide since it no longer will apply.) (This patch
+	  is unrelated to the issue.)
+
+2009-10-14 19:03 +0000 [r1191-1205]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: In q931_getcall(): Simplify test and add related switch
+	  types.
+
+	* q931.c: Reduce future conflicts when adding ie's to the SETUP
+	  message.
+
+2009-10-12 17:17 +0000 [r1177]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c, pri_internal.h, pri_q931.h, q931.c, pri_facility.c:
+	  Miscellaneous changes: * Removed unnecessary
+	  Q931_IE_CONNECTED_NUM ie from setup_ack_ies[]. * Added internal
+	  state Q931_CALL_STATE_NOT_SET to Q.931 state enum. * Made
+	  q931_is_ptmp() take a const pointer. * pri_facility.c: Some
+	  preparations for subaddressing. * pri.c: Eliminate use of a magic
+	  number.
+
+2009-10-09 23:20 +0000 [r1169]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Conditional out noisy and redundant ASN.1 parse dump of
+	  facility ie contents. 1) Outgoing messages have the facility ie
+	  ASN.1 decoded and dumped when the ie is added to the message. The
+	  whole message is then dumped. 2) Incoming messages have the
+	  facility ie ASN.1 decoded and dumped when the ie is processed.
+	  The whole message has already been dumped.
+
+2009-10-07 18:34 +0000 [r1151-1152]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_facility.c: Sent Q.SIG call rerouting message fixes. a)
+	  Account for pSS1InfoElement where the bearer capability for the
+	  new rerouted call is described. The call could be a fax or data
+	  call, let's use the appropriate signaling to avoid call rejects
+	  on the other end. b) Handle calling number appropriately, number
+	  can be prohibited or non-existent. c) Add calling name if
+	  available. d) Use the diversion counter from DivLegInfo2 (if was
+	  present in the incoming Setup) and increment. (issue #14292)
+	  Reported by: tomaso Patches:
+	  libpri-1.4-2009-01-29-rerouting-0.1.9.patch uploaded by tomaso
+	  (license 564) (Used as a guide since it no longer will apply.)
+	  (This patch is unrelated to the issue.)
+
+	* pri.c, pri_q921.h, q921.c: Merged revisions 1143, 1144 from
+	  https://origsvn.digium.com/svn/libpri/tags/1.4.10.2 ..........
+	  r1144 | mattf | 2009-09-29 10:32:23 -0500 (Tue, 29 Sep 2009) | 1
+	  line This fix is more like the fix that was used to resolve the
+	  issue for the PRI case .......... r1143 | mattf | 2009-09-28
+	  14:07:01 -0500 (Mon, 28 Sep 2009) | 1 line Changes for 1.4.10.2
+	  ..........
+
+2009-09-22 17:12 +0000 [r1120]  Jeff Peeler <jpeeler@digium.com>
+
+	* q931.c: Fix call reference to be associated with the D channel
+	  message was received The problem is that once a call reference
+	  was associated with a particular D channel, it always was. This
+	  created an issue with NFAS when the secondary D channel became
+	  active as the messages were still being sent on the non-active D
+	  channel. (closes issue #14959) Reported by: remiq Patches:
+	  bug14959.patch uploaded by jpeeler (license 325) Tested by: remiq
+
+2009-09-22 02:23 +0000 [r1107]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c: Update pri_event2str() to current defined events.
+
+2009-09-18 00:31 +0000 [r1097]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Another place where timeout events with subcmds should
+	  clear any old subcmds.
+
+2009-09-15 22:24 +0000 [r1084]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Timeout events with subcmds should clear any old subcmds.
+
+2009-09-14 22:32 +0000 [r1077]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: Output multiline output with multiple calls to
+	  pri_message, so that logs look normal in Asterisk
+
+2009-09-13 22:54 +0000 [r1072]  Dwayne M. Hubbard <dwayne.hubbard@gmail.com>
+
+	* pri_q931.h, q931.c: Add SERVICE message support for the
+	  'national' switchtype This set of changes integrates SERVICE
+	  message support for the 'national' switchtype. The 'national'
+	  switchtype uses the 0x43 protocol discriminator. The 'national'
+	  SERVICE/SERVICE ACKNOWLEDGE and AT&T SERVICE/SERVICE ACKNOWLEDGE
+	  message values are opposite of each other. This is handled by
+	  first determining which protocol discriminator is in use, then
+	  responding with the appropriate SERVICE ACKNOWLEDGE value. AT&T
+	  SERVICE messages use the 0x3 protocol discriminator. (closes
+	  issue #15803) Reported by: dhubbard Review:
+	  https://reviewboard.asterisk.org/r/347/
+
+2009-09-02 20:19 +0000 [r1059-1061]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_internal.h, pri_q931.h, q931.c: Converted Q931_CALL_STATE_xxx
+	  defines to an enum.
+
+	* q921.c, q931.c: Optimized calls to pri_schedule_del(). There is
+	  no need to test if a scheduled event is running before calling
+	  pri_schedule_del().
+
+	* prisched.c: Cleaned up scheduled events handling code. * Fixed
+	  pri_schedule_event() to return 0 on error instead of -1. Zero is
+	  a safer value to return. Users would not think that a timer was
+	  scheduled. * Fixed potential for pri_schedule_del() to write out
+	  of bounds of pri_sched[]. The out of bounds access could occur
+	  when pri_schedule_event() returned -1. * Made use all pri_sched[]
+	  entries. pri_sched[0] was previously unused. * Removed some
+	  unneeded code and recursion since scheduling only runs on master
+	  D channel structures. * Added doxygen comments. * Renamed struct
+	  pri *pri variables to struct pri *ctrl in this file.
+
+2009-08-31 22:57 +0000 [r1042-1051]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c, libpri.h: Make event channel parameter encoding
+	  consistent. Also make sure that service maintenance messages have
+	  the channel id parameters reinitialized for each message since
+	  they are sent over the global call reference.
+
+	* pri.c, pri_internal.h, q931.c, libpri.h: Split justsignalling
+	  into cis_call and cis_auto_disconnect functionality.
+
+2009-08-26 15:24 +0000 [r1006-1028]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Fix BRI PTP broken by -r790.
+
+	* q931.c: Put connected name in display ie for CONNECT message.
+
+	* q931.c: Fix ie ordering in some ie lists for send_message().
+
+	* q931.c: Make dump_channel_id() handle variable length fields.
+	  Also did some other minor miscellaneous changes.
+
+	* q931.c: Make sure reversecharge is initialized.
+
+2009-08-21 19:51 +0000 [r1000]  Jason Parker <jparker@digium.com>
+
+	* Makefile: Add -n to ldconfig on HURD too. (closes issue #15130)
+	  Reported by: tzafrir Patches: osarch_hurd.diff uploaded by
+	  tzafrir (license 46)
+
+2009-08-20 15:52 +0000 [r994]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Made the call state to string table use the state
+	  defines.
+
+2009-08-18 23:53 +0000 [r982]  Richard Mudgett <rmudgett@digium.com>
+
+	* rose.c, rosetest.c, rose_internal.h, pri.c, pri_internal.h,
+	  Makefile, q931.c, rose.h, rose_etsi_diversion.c (added),
+	  pri_facility.c, pri_facility.h, libpri.h, rose_etsi_ect.c
+	  (added): Add COLP support to libpri for ETSI PTP, ETSI PTMP, and
+	  Q.SIG. Add Connected Line Presentation (COLP) support to
+	  chan_dahdi/libpri as an addition to issue 8824. This is the
+	  libpri portion. COLP support is now available for ETSI PTP, ETSI
+	  PTMP, and Q.SIG with this patch. (closes issue #14068) Tested by:
+	  rmudgett Review: https://reviewboard.asterisk.org/r/339/
+
+2009-08-18 20:59 +0000 [r976]  Jeff Peeler <jpeeler@digium.com>
+
+	* Makefile: Allow custom CPU optimization flags Added make variable
+	  LIBPRI_OPT to set optimization level. By default the optimization
+	  level is now set to -O2. (closes issue #12676) Reported by:
+	  tzafrir Patches: libpri_opt.diff uploaded by tzafrir (license 46)
+
+2009-08-07 15:53 +0000 [r968]  Richard Mudgett <rmudgett@digium.com>
+
+	* rose_qsig_diversion.c: Corrected standard document reference.
+
+2009-07-23 20:53 +0000 [r952]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_facility.c: Fixed potential NULL pointer dereference.
+
+2009-06-26 19:50 +0000 [r914-921]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri.c: Fix potential buffer overflow in pri_dump_info_str(). *
+	  Created pri_snprintf() to prevent buffer overflow in
+	  pri_dump_info_str(). * Extracted timer name to timer number table
+	  from pri_timer2idx() so pri_dump_info_str() can use it.
+
+	* pri_internal.h: Eliminate local version of PRI_MAX_TIMERS.
+
+	* libpri.h: Doxygenify the timer comments.
+
+	* pri_internal.h, q931.c: Added printf format attribute to
+	  pri_message() and pri_error() and fixed some detected errors.
+
+2009-06-25 18:53 +0000 [r907]  Sean Bright <sean@malleable.com>
+
+	* pri.c, pri_internal.h, q931.c, libpri.h: Add support for sending
+	  Reverse Charging Indication IE on ISDN PRI. Add the ability to
+	  transmit a Reverse Charging Indication IE during a SETUP message.
+	  In passing, re-work some of the receive logic to be forwards
+	  compatible with new RCI values that may be added in the future.
+	  Also removed the PRI_REVERSECHARGE_SUPPORT define that I added on
+	  the last commit since we can just check for
+	  PRI_REVERSECHARGE_NONE or _REQUESTED on the Asterisk side to
+	  determine support for this. Special thanks to rmudgett who could
+	  have written this in half the time he spent reviewing it, but
+	  instead talked me through it. Much appreciated! (issue #13760)
+	  Reported by: mrgabu Review:
+	  https://reviewboard.asterisk.org/r/292/
+
+2009-06-25 17:35 +0000 [r894-901]  Richard Mudgett <rmudgett@digium.com>
+
+	* libpri.h: Convert PRI_TIMER_xxx to an enum so PRI_MAX_TIMERS can
+	  be automatically adjusted.
+
+	* pri.c, pri_timers.h (removed), libpri.h: Make it easier to add
+	  more timers/counters and vary the defaults based upon switchtype.
+
+2009-06-24 18:19 +0000 [r878-885]  Sean Bright <sean@malleable.com>
+
+	* pri_internal.h, q931.c, libpri.h: Capture and expose the Reverse
+	  Charging Indication IE on ISDN PRI. (issue #13760) Reported by:
+	  mrgabu Patches: 20090619_libpri_1.4.patch uploaded by seanbright
+	  (license 71) Tested by: seanbright, pruonckk Review:
+	  https://reviewboard.asterisk.org/r/291/
+
+	* pri_internal.h, q931.c, libpri.h: Revert unintentional changes
+
+	* pri_internal.h, q931.c, /, libpri.h: Set reviewboard property.
+
+2009-06-12 14:29 +0000 [r865]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_facility.c: Miscellaneous minor changes.
+
+2009-06-09 19:47 +0000 [r859]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: There are two changes in this commit that are bug fixes
+	  for various Q.921 issues found in internal testing. Both were
+	  exposed/introduced by the TBR4 compliance patch for bug #12861,
+	  in changing how retransmissions and in how the transmission queue
+	  was maintained. TX-RX message flow and acknowledgement was
+	  severely restricted, since the patch changed the behavior so that
+	  pending untransmitted frames would not actually be send until the
+	  next RR was received in normal circumstances, or REJ when a
+	  reject frame was received. On busy links, this can severly limit
+	  the amount of useful traffic that is sent, and can slow down
+	  message transmission. Until someone can point out where in Q.921
+	  it is mandated for us to wait for RR frames to start sending
+	  untransmitted messages, the first change is to allow us to send
+	  untransmitted frames when we receive new I frames as well, with
+	  updated N(R). The other bug fixed is a situation caused by the
+	  restricted traffic flow, if an outside process tries to send an
+	  I-frame asynchronous to an RR frame, when the transmit window was
+	  previously closed and then opened up but an RR has not been
+	  received yet. A bug was found with the integration of the old
+	  transmit code with the new reject handling code which caused the
+	  new frame to be sent immediately, regardless if there were any
+	  pending untransmitted I-frames in the queue to be sent and
+	  causing an out of order I-frame to be sent to the other side.
+	  This bug is also fixed in this patch.
+
+2009-06-03 22:51 +0000 [r836-848]  Richard Mudgett <rmudgett@digium.com>
+
+	* asn1_primitive.c: Made ASN.1 memory dump also display printable
+	  characters.
+
+	* q931.c: Renamed callstate2str() to q931_call_state_str().
+
+	* q931.c: Made transmit_facility() debug message indiate to which
+	  message the facility ie is being added.
+
+2009-05-29 15:39 +0000 [r824]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Renamed local struct pri *pri variables to struct pri
+	  *ctrl in q931.c. The context tagging for my editor is much
+	  happier now that the struct and the variable do not have the same
+	  name. (At least for this file.)
+
+2009-05-20 15:03 +0000 [r804]  Richard Mudgett <rmudgett@digium.com>
+
+	* q931.c: Removed usage of FUNC_DUMP(), FUNC_RECV(), and
+	  FUNC_SEND() defines. They did not really help and hindered easy
+	  lookup of parameter types.
+
+2009-05-13 15:17 +0000 [r798]  Kevin P. Fleming <kpfleming@digium.com>
+
+	* pri.c, pri_q931.h, q931.c, libpri.h: Add 'const' qualifier to
+	  character string argument to keypad facility API calls These API
+	  calls do not modify the string supplied, and should not be
+	  allowed to modify it, so this patch adds a 'const' qualifier to
+	  that argument to allow the compiler to enforce this restriction
+	  (and allow callers of the API that already have a 'const' pointer
+	  to be able to pass it to this API).
+
+2009-05-07 16:21 +0000 [r790-794]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_internal.h, pri_q931.h, q931.c: Minor code clean up.
+
+	* q931.c: Avoid a stale pointer crash if the TE BRI TEI is removed
+	  when active calls exist. Made the q931_call record point to the
+	  master D channel control structure instead of the BRI TEI
+	  subchannel control structure. When a layer 3 message is sent, the
+	  current TEI subchannel control structure is used.
+
+2009-05-05 22:25 +0000 [r786]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_q931.h: Added Q.931 call state description comments.
+
+2009-05-01 22:47 +0000 [r782]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_q931.h, q921.c: Comment changes.
+
+2009-04-21 23:32 +0000 [r766-772]  Richard Mudgett <rmudgett@digium.com>
+
+	* rose.c, rosetest.c, rose_internal.h, Makefile, rose.h,
+	  rose_qsig_aoc.c (added), pri_facility.c: Added Q.SIG
+	  Advice-Of-Charge encode/decode routines.
+
+	* asn1_primitive.c (added), pri_internal.h, rose_qsig_name.c
+	  (added), Makefile, q931.c, asn1.h (added), rose_qsig_mwi.c
+	  (added), rose.c (added), rosetest.c (added), rose_internal.h
+	  (added), rose_other.c (added), rose.h (added), rose_address.c
+	  (added), rose_qsig_diversion.c (added), rose_etsi_aoc.c (added),
+	  pri_facility.c, rose_qsig_ct.c (added), pri_facility.h,
+	  rose_q931.c (added), libpri.h: ROSE ASN.1 facility encode and
+	  decode rewrite of existing messages. Several components are now
+	  parsed correctly. Most notably: PartyNumber and Q.SIG Name.
+
+2009-04-14 15:05 +0000 [r732]  Jeff Peeler <jpeeler@digium.com>
+
+	* pri.c, pri_internal.h, pri_q921.h, pri_q931.h, q921.c, q931.c,
+	  libpri.h: Add service maintenance message support This adds
+	  support for two new message types: Service and Service
+	  Acknowledge. When a channel receives a service message it will
+	  either take the channel in or out of service and then send a
+	  service acknowledgment. Although not enforced here (enforced in
+	  chan_dahdi), the service messages are only supported with switch
+	  types 4ess/5ess. The required Asterisk changes will be coming
+	  next. (issue #3450) Reported by: cmaj
+
+2009-04-02 19:33 +0000 [r726]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_facility.c: Comment changes and some string content
+	  corrections.
+
+2009-04-18 Matthew Fredrickson <creslin@digium.com>
+
+	* libpri 1.4.10 released.
+
+2009-04-02 19:33 +0000 [r726]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_facility.c: Comment changes and some string content
+	  corrections.
+
+2009-03-26 16:01 +0000 [r715]  Richard Mudgett <rmudgett@digium.com>
+
+	* libpri.h: Comment changes to note what ISDN message type causes
+	  the event.
+
+2009-03-19 01:39 +0000 [r711]  Richard Mudgett <rmudgett@digium.com>
+
+	* pri_facility.c: Added pSS1InfoElement comments in
+	  qsig_cf_callrerouting().
+
+2009-03-13 01:05 +0000 [r705]  Richard Mudgett <rmudgett@digium.com>
+
+	* build_tools/make_version: Use the correct branch integrated
+	  property when generating the version string. Update the
+	  make_version file to the latest Asterisk version with the
+	  appropriate libpri required chage.
+
+2009-03-04 20:31 +0000 [r701]  Joshua Colp <jcolp@digium.com>
+
+	* q931.c: Make sure we only have 4 octects on unrestricted 64k data
+	  calls. (closes issue #14507) Reported by: jsmith Patches:
+	  64k-data.patch uploaded by jsmith (license 15) Tested by: jsmith
+	  (closes issue #13118) Reported by: radpeter
+
+2009-02-02 20:18 +0000 [r687]  Leif Madsen <lmadsen@digium.com>
+
+	* libpri.h: Fix a small spelling error. (closes issue #14375)
+	  Reported by: jeremy1
+
+2009-01-27 23:22 +0000 [r680]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: A couple of last BRI fixes in libpri... don't discard
+	  pending iframes when we call the q921_dchannel_up routine, since
+	  we need to be able to send the ones that were queued up while the
+	  D-channel went down and is being reactivated. Also fix some buggy
+	  logic in the frame transmission decision code.
+
+2009-01-22 21:48 +0000 [r675]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: Change behavior so that we do not send I-frames when link
+	  is down, but instead queue them up until the link comes up and
+	  send them out then.
+
+2009-01-09 Matthew Fredrickson <creslin@digium.com>
+
+	* libpri 1.4.9 released.
+
+2009-01-09 17:58 +0000 [r656]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: Add additional case where T200 expires greater than N200
+	  times and we need to release and reacquire the TEI.
+
+2008-12-23 21:38 +0000 [r653]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c, q931.c: Add some additional debug for Q.921 MDL messages
+	  as well as fix a bug in RESTART messages on BRI
+
+2008-11-22 Matthew Fredrickson <creslin@digium.com>
+
+	* libpri 1.4.8 released.
+
+2008-11-22 00:34 +0000 [r645]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: Fix a number of Q.921 bugs, found doing TBR4 compliance
+	  testing, thanks to Tzafrir, Xorcom, and co. (#12861). Thanks!
+
+2008-10-17 16:13 +0000 [r636]  Matthew Fredrickson <creslin@digium.com>
+
+	* pri.c, pri_internal.h, pri_q931.h, q931.c, pri_facility.c,
+	  pri_facility.h, libpri.h: Merging in additional Q.SIG features in
+	  #13454. Includes Q.SIG physical/logical channel mapping support,
+	  extended coding of Q.SIG name operations (calling name), and call
+	  rerouting support via added dialplan application.
+
+2008-08-06 18:20 +0000 [r616]  Jason Parker <jparker@digium.com>
+
+	* Makefile: Make install paths use libdir, like libss7
+
+2008-08-05 Kevin P. Fleming <kpfleming@digium.com>
+
+	* libpri 1.4.7 released.
+
+2008-08-05 22:18 +0000 [r611]  Kevin P. Fleming <kpfleming@digium.com>
+
+	* pritest.c, pri.c, pri_internal.h, q921.c, q931.c, copy_string.c,
+	  prisched.c, pri_q921.h, pri_q931.h, pri_facility.c, /,
+	  compiler.h, pridump.c, testprilib.c, pri_timers.h,
+	  pri_facility.h, libpri.h: Merged revisions 610 via svnmerge from
+	  https://origsvn.digium.com/svn/libpri/branches/1.2 ........ r610
+	  | kpfleming | 2008-08-05 17:16:58 -0500 (Tue, 05 Aug 2008) | 2
+	  lines clean up license headers, and explicitly grant additional
+	  permissions when used with Asterisk ........
+
+2008-07-30 15:43 +0000 [r606-607]  Kevin P. Fleming <kpfleming@digium.com>
+
+	* /: update ignore list
+
+	* Makefile, mkdep (removed): use better version.c creation process,
+	  and better dependency tracking process too
+
+2008-07-29 22:47 +0000 [r598-602]  Jason Parker <jparker@digium.com>
+
+	* build_tools/make_version: I believe this is what was meant. (it
+	  matches how Asterisk does it)
+
+	* build_tools/make_version: libpri is not libss7 :D
+
+2008-07-22 22:36 +0000 [r594]  Kevin P. Fleming <kpfleming@digium.com>
+
+	* pri_internal.h, libpri.h: correct comments to match code
+
+2008-07-22 Kevin P. Fleming <kpfleming@digium.com>
+
+	* Libpri 1.4.6 released.
+
+2008-07-22 19:43 +0000 [r589]  Kevin P. Fleming <kpfleming@digium.com>
+
+	* pri.c, pri_internal.h, q931.c, libpri.h: rename API call and
+	  option (nothing has been released to use it yet so this should be
+	  safe) to be more accurate in describing what it does (closes
+	  issue #13042)
+
+2008-07-11 Jason Parker <jparker@digium.com>
+
+	* Libpri 1.4.5 released.
+
+2008-07-11 16:44 +0000 [r574-579]  Kevin P. Fleming <kpfleming@digium.com>
+
+	* /: ignore generated files
+
+	* pri.c, pri_internal.h, q931.c, libpri.h: modify work done for
+	  issue #10552, making the support of inband audio after RELEASE a
+	  configurable option, since it is causing problems for a number of
+	  users (closes issue #13042)
+
+2008-06-04 17:02 +0000 [r562]  Dwayne M. Hubbard <dhubbard@digium.com>
+
+	* q931.c: While working on issue 3450 I noticed that the
+	  information channel selection field in the channel identification
+	  IE was displayed incorrectly when using 'pri intense debug'. I
+	  wanted another pair of eyes to look at the code because
+	  everything looked correct until Shaun Ruffell noticed the missing
+	  comma in the msg_chan_sel array.
+
+2008-05-07 19:51 +0000 [r557]  Matthew Fredrickson <creslin@digium.com>
+
+	* pri.c, pritest.c, pri_internal.h, pri_q921.h, Makefile, q921.c,
+	  q931.c, pri_facility.c, prisched.c, testprilib.c, pri_timers.h,
+	  pri_facility.h, libpri.h: Moving trunk changes back into 1.4
+
+2008-05-07 Matthew Fredrickson <creslin@digium.com>
+
+	* Libpri 1.4.4 released.
+
+2008-05-06 16:43 +0000 [r553-555]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c, pri.c: Remove some unnecessary debug messages
+
+	* q931.c: We passed TBR3 layer 2 and layer 3 testing with this
+	  commit in for BRI-TE PTMP.
+
+	* q931.c: Final patch to pass certification
+
+2008-04-22 15:30 +0000 [r546]  Russell Bryant <russell@digium.com>
+
+	* Makefile: All versions of libpri have been installed as
+	  libpri.so.1.0, even though the API and ABI have changed over
+	  time. This patch changes the Makefile to install the library as
+	  libpri.so.1.4 to indicate that this is not compatible with
+	  previous versions. In the future, this should be changed as we
+	  make ABI changes. (closes issue #10376) Reported by: tzafrir
+	  Patches: libpri-soname.diff uploaded by tzafrir (license 46) --
+	  with very minor changes by me
+
+2008-03-15 19:57 +0000 [r541-543]  Matthew Fredrickson <creslin@digium.com>
+
+	* libpri.h, pri.c: Remove some useless event items
+
+	* q921.c, pri_internal.h: Make sure if we're a bri and in PTMP mode
+	  that we release the TEI and try to get a new one with the other
+	  end when we lose activity in multiframe mode
+
+	* q921.c, pri.c, pri_q921.h: When we recieve a UA in any TEI
+	  established state other than awaiting establishement make sure we
+	  drop the TEI and get a new one. For passing tests PC37.2 - PC41.2
+	  in Q.921
+
+2008-03-06 23:43 +0000 [r538-539]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: Make sure we are sending as command not as response
+
+	* q921.c: Make sure C/R bit is correct
+
+2008-03-01 23:30 +0000 [r531-535]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: Remove some (currently) useless code
+
+	* q921.c, pri.c, pri_internal.h: Some more updates to add code for
+	  passing PC 27.1 in Q.921
+
+	* q921.c, pri.c: Various coding style cleanups as well as a bug fix
+	  for TEI removal
+
+	* q921.c, q931.c, pri.c, pri_internal.h: Initial checkin of code to
+	  pass Q.921 PC25 and PC26
+
+	* q921.c: Add support for responding to TEI requests (Q.921 PC23.x)
+
+2008-02-18 20:31 +0000 [r525]  Matthew Fredrickson <creslin@digium.com>
+
+	* q931.c, libpri.h: Improve transmission, receiving, and dumping of
+	  bearer capability IE (#11593)
+
+2008-01-16 18:06 +0000 [r518]  Jason Parker <jparker@digium.com>
+
+	* Makefile, /: Add logging for 'make update' command (also fixes
+	  updates in some places). Issue #11766, initial patch by jmls.
+
+2007-12-26 17:35 +0000 [r505]  Russell Bryant <russell@digium.com>
+
+	* libpri.h: Remove unnecessary usage of the extern keyword.
+
+2007-12-06 22:16 +0000 [r494-496]  Russell Bryant <russell@digium.com>
+
+	* q921.c, q931.c, pri_facility.c, pri.c: Change malloc+memset to
+	  calloc. Also, handle allocation failures early to reduce
+	  indentation. (closes issue #11469) Reported by: eliel Patches:
+	  pri.c.patch uploaded by eliel (license 64) q931.c.patch uploaded
+	  by eliel (license 64) q921.c.patch uploaded by eliel (license 64)
+	  pri_facility.c.patch uploaded by eliel (license 64)
+
+	* pri.c: Change a use of malloc+memset to calloc. Also, reduce
+	  indentation of a function by doing the check for memory
+	  allocation failure at the beginning.
+
+	* pri.c: Change the table used to hold the default timers to be
+	  global and const, instead of allocating it on the stack each time
+	  the function is called.
+
+2007-12-05 00:20 +0000 [r491-493]  Matthew Fredrickson <creslin@digium.com>
+
+	* q931.c: Improve the parameter name to better reflect its use
+
+	* q921.c, q931.c: More PTMP fixes. Stand by, more changes to come
+
+	* q921.c, q931.c, testprilib.c: More magic to make BRI CPE PTMP
+	  work
+
+2007-11-21 22:30 +0000 [r486-487]  Matthew Fredrickson <creslin@digium.com>
+
+	* q931.c: Make sure we loop BRI call references for one byte CREFs
+	  instead of two
+
+	* q921.c, q931.c, libpri.h, pri.c, pritest.c, pri_internal.h: Add
+	  BRI support to libpri
+
+2007-10-13 16:00 +0000 [r473]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: Make sure that we only output the message handling debug
+	  when we're actually debugging
+
+2007-09-25 21:56 +0000 [r469]  Matthew Fredrickson <creslin@digium.com>
+
+	* q931.c: Fix user-user IE order in setup message (#10705)
+
+2007-06-20 15:18 +0000 [r428-430]  Matthew Fredrickson <creslin@digium.com>
+
+	* Makefile: Revert that back to how it was
+
+	* Makefile, q921.c, q931.c, prisched.c, testprilib.c, pri_timers.h,
+	  libpri.h, pri.c, pri_internal.h, pri_q921.h: Patch to add PTMP
+	  mode (BRI support)
+
+2007-06-06 21:59 +0000 [r417-425]  Matthew Fredrickson <creslin@digium.com>
+
+	* q931.c, pri_facility.c, pri_facility.h, pri.c, pri_internal.h:
+	  Preliminary patch plus mods for Q.SIG Path Replacement (Q.SIG
+	  version of 2BCT) #7778
+
+2007-05-25 17:36 +0000 [r413]  Matthew Fredrickson <creslin@digium.com>
+
+	* q931.c, pri_facility.c, pri_facility.h, libpri.h: Commit path for
+	  ROSE-12 and ROSE-13 support (#9076)
+
+2006-11-03 18:16 +0000 [r382]  Matthew Fredrickson <creslin@digium.com>
+
+	* q921.c: Remove pointless recursion. (#8281)
+
+2008-05-07 19:51 +0000 [r557]  Matthew Fredrickson <creslin@digium.com>
+
+	* pri.c, pritest.c, pri_internal.h, pri_q921.h, Makefile, q921.c,
+	  q931.c, pri_facility.c, prisched.c, testprilib.c, pri_timers.h,
+	  pri_facility.h, libpri.h: Moving trunk changes back into 1.4
+
+2008-05-02 20:21 +0000 [r552]  Brett Bryant <bbryant@digium.com>
+
+	* Makefile, build_tools (added), build_tools/make_version (added),
+	  build_tools/make_version_c (added), libpri.h: Add new API call
+	  (pri_get_version) to show the current version of the branch for
+	  support purposes.
+
+2008-04-16 00:21 +0000 [r544]  Kevin P. Fleming <kpfleming@digium.com>
+
+	* q921.c: fix the indentation in this function so that it is
+	  actually possible to read it and understand the logic and flow
+
+2008-02-21 16:38 +0000 [r528]  Joshua Colp <jcolp@digium.com>
+
+	* q931.c: If inband audio is being provided with a disconnect
+	  message let the audio be heard before releasing the channel.
+	  (closes issue #10552) Reported by: paravoid Patches:
+	  disconnect-audio.diff uploaded by paravoid (license 200)
+
+2008-02-18 20:31 +0000 [r524]  Matthew Fredrickson <creslin@digium.com>
+
+	* q931.c, libpri.h: Improve transmission, receiving, and dumping of
+	  bearer capability IE (#11593)
+
+2008-01-11 16:34 +0000 [r514]  Matthew Fredrickson <creslin@digium.com>
+
+	* q931.c, /: Merged revisions 513 via svnmerge from
+	  https://origsvn.digium.com/svn/libpri/branches/1.2 ........ r513
+	  | mattf | 2008-01-11 10:33:52 -0600 (Fri, 11 Jan 2008) | 1 line
+	  We should not be parsing further into the bearer capability IE if
+	  the length does not confirm that there actually is data present
+	  ........
+
+2007-12-13  Russell Bryant  <russell@digium.com>
+
+	* libpri 1.4.3 released.
+
+2007-10-22 15:10 +0000 [r479]  Kevin P. Fleming <kpfleming@digium.com>
+
+	* pri_internal.h, /: Merged revisions 478 via svnmerge from
+	  https://origsvn.digium.com/svn/libpri/branches/1.2 ........ r478
+	  | kpfleming | 2007-10-22 10:09:27 -0500 (Mon, 22 Oct 2007) | 3
+	  lines we need to include stddef.h for 'size_t' ........
+
+2007-10-16  Matthew Fredrickson  <creslin@digium.com>
+
+	* libpri 1.4.2 released.
+
+2007-10-05 16:45 +0000 [r470]  Jason Parker <jparker@digium.com>
+
+	* libpri.h: Fix an incorrect pri_event structure definition. Issue
+	  10832, patch by flefoll
+
+2007-09-25 21:37 +0000 [r468]  Matthew Fredrickson <creslin@digium.com>
+
+	* q931.c: Fix user-user IE order in setup message (#10705)
+
+2007-09-14 21:32 +0000 [r465]  Matthew Fredrickson <creslin@digium.com>
+
+	* q931.c, libpri.h: Fix for #10189. Make sure we properly report
+	  the user layer 1 for H.223 and H.245
+
+2007-09-06 15:11 +0000 [r462]  Matthew Fredrickson <creslin@digium.com>
+
+	* pri.c, pri_facility.c, /: Merged revisions 460 via svnmerge from
+	  https://origsvn.digium.com/svn/libpri/branches/1.2 ........ r460
+	  | mattf | 2007-09-06 10:06:42 -0500 (Thu, 06 Sep 2007) | 1 line
+	  TBCT now works. It should work for NI2, 4E, and 5E. This code was
+	  tested on NI2. ........
+
+2007-08-27 19:21 +0000 [r446]  Jason Parker <jparker@digium.com>
+
+	* Makefile, /: Merged revisions 445 via svnmerge from
+	  https://origsvn.digium.com/svn/libpri/branches/1.2 ........ r445
+	  | qwell | 2007-08-27 14:20:23 -0500 (Mon, 27 Aug 2007) | 2 lines
+	  Make sure we build both the static and shared modules with -fPIC.
+	  ........
+
+2007-08-06 19:58 +0000 [r441]  Jason Parker <jparker@digium.com>
+
+	* Makefile: Allow setting CC to something with a space, such as
+	  `make CC="gcc -m32"` Issue 10253.
+
+2007-07-09  Russell Bryant  <russell@digium.com>
+
+	* libpri 1.4.1 released.
+
+2007-06-19 18:23 +0000 [r427]  Matthew Fredrickson <creslin@digium.com>
+
+	* q931.c, /: Merged revisions 426 via svnmerge from
+	  https://origsvn.digium.com/svn/libpri/branches/1.2 ........ r426
+	  | mattf | 2007-06-19 13:22:33 -0500 (Tue, 19 Jun 2007) | 1 line
+	  Try to send pending facility messages if we receive alerting (for
+	  when we don't get proceeding) (#9651) ........
+
+2007-06-06 21:58 +0000 [r416-424]  Matthew Fredrickson <creslin@digium.com>
+
+	* pri_facility.c, /: Merged revisions 423 via svnmerge from
+	  https://origsvn.digium.com/svn/libpri/branches/1.2 ........ r423
+	  | mattf | 2007-06-06 16:57:15 -0500 (Wed, 06 Jun 2007) | 1 line
+	  Oops, that should not be on one line ........
+
+	* pri_facility.c, /: Merged revisions 415 via svnmerge from
+	  https://origsvn.digium.com/svn/libpri/branches/1.2 ........ r415
+	  | mattf | 2007-06-06 08:20:05 -0500 (Wed, 06 Jun 2007) | 2 lines
+	  Make sure we only send the NFE when we are talking QSIG ........
+
+2007-01-22 22:29 +0000 [r390]  Matthew Fredrickson <creslin@digium.com>
+
+	* q931.c, /: Merged revisions 389 via svnmerge from
+	  https://origsvn.digium.com/svn/libpri/branches/1.2 ........ r389
+	  | mattf | 2007-01-22 16:20:59 -0600 (Mon, 22 Jan 2007) | 2 lines
+	  Make sure we send DISCONNECT if we reached the active state and a
+	  call is disconnected, regardless of cause code. ........
+
+2006-12-30 19:17 +0000 [r386]  Joshua Colp <jcolp@digium.com>
+
+	* Makefile, /: Merged revisions 385 via svnmerge from
+	  https://origsvn.digium.com/svn/libpri/branches/1.2 ........ r385
+	  | file | 2006-12-30 14:16:17 -0500 (Sat, 30 Dec 2006) | 2 lines
+	  Specify full path to restorecon instead of assuming it will be
+	  available from what is in $PATH. (issue #8670 reported by djflux)
+	  ........
+
+2006-12-23  Kevin P. Fleming  <kpfleming@digium.com>
+
+	* libpri 1.4.0 released.
+	
+2006-09-20  Kevin P. Fleming  <kpfleming@digium.com>
+
+	* libpri 1.4.0-beta1 released.

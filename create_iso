@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+MINPARAMS=2
+if [ $# -lt "$MINPARAMS" ]
+then
+    echo usage:
+    echo   create_iso "image" "path"
+    echo
+    echo i.e.:
+    echo   create_usb_iso cbirnos.iso nos
+    echo
+    exit 1
+fi
+
+TOP=`pwd`
+cd $TOP/images/$2
+mkisofs -r -N -L -d -D -J -o $1 -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -V linuxdisk .
+mv $1 /tmp/builds

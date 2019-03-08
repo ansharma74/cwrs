@@ -1,0 +1,64 @@
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT(configure.in)
+AM_INIT_AUTOMAKE(lxmusic, 0.4.1)
+AM_CONFIG_HEADER(config.h)
+AM_MAINTAINER_MODE
+
+# Required Packages
+m4_define([gtk_minimum_version], [2.14.0])
+m4_define([gmodule_export_minimum_version], [2.0])
+m4_define([xmms2_minimum_version], [0.6])
+m4_define([xmms2_client_glib_minimum_version], [0.6])
+
+# Optional Packages
+m4_define([libnotify_minimum_version], [0.4.1])
+
+AC_ISC_POSIX
+AC_PROG_CC
+AM_PROG_CC_STDC
+AC_HEADER_STDC
+
+AC_PROG_INTLTOOL(, [no-xml])
+
+dnl check for mandatory modules
+PKG_CHECK_MODULES(LXMUSIC,
+        [gtk+-2.0 >= gtk_minimum_version
+	gmodule-export-2.0 >= gmodule_export_minimum_version
+	xmms2-client >= xmms2_minimum_version
+	xmms2-client-glib >= xmms2_client_glib_minimum_version])
+
+dnl check for optional modules
+LIBNOTIFY_CFLAGS=
+LIBNOTIFY_LIBS=
+PKG_CHECK_MODULES(LIBNOTIFY, libnotify >= libnotify_minimum_version, HAVE_LIBNOTIFY="yes", HAVE_LIBNOTIFY="no")
+if test "x$HAVE_LIBNOTIFY" = "xyes"; then
+	AC_DEFINE(HAVE_LIBNOTIFY, 1, [libnotify available])
+	libnotify="libnotify"
+else
+	libnotify=""
+fi
+
+AC_SUBST(LIBNOTIFY_CFLAGS)
+AC_SUBST(LIBNOTIFY_LIBS)
+
+AM_CONDITIONAL(HAVE_LIBNOTIFY, test "x$HAVE_LIBNOTIFY" = "xyes")
+
+
+
+GETTEXT_PACKAGE=lxmusic
+
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package.])
+
+dnl Add the languages which your application supports here.
+ALL_LINGUAS="af ar cs da de es et eu fa fi fr gl hu id it ja ko lt ml ms nb nl nn pl ps pt pt_BR ru sk sl sv tr uk ur ur_PK vi zh_CN zh_TW"
+AM_GLIB_GNU_GETTEXT
+
+AC_OUTPUT([
+Makefile
+data/Makefile
+src/Makefile
+po/Makefile.in
+])
+

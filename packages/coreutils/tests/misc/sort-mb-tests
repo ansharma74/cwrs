@@ -1,0 +1,58 @@
+#! /bin/sh
+case $# in
+  0) xx='../src/sort';;
+  *) xx="$1";;
+esac
+test "$VERBOSE" && echo=echo || echo=:
+$echo testing program: $xx
+errors=0
+test "$srcdir" || srcdir=.
+test "$VERBOSE" && $xx --version 2> /dev/null
+
+export LC_ALL=en_US.UTF-8
+locale -k LC_CTYPE 2>&1 | grep -q charmap.*UTF-8 || exit 77
+errors=0
+
+$xx -t ＠ -k2 -n misc/mb1.I > misc/mb1.O
+code=$?
+if test $code != 0; then
+  $echo "Test mb1 failed: $xx return code $code differs from expected value 0"
+  errors=`expr $errors + 1`
+else
+  cmp misc/mb1.O $srcdir/misc/mb1.X > /dev/null 2>&1
+  case $? in
+    0) if test "$VERBOSE"; then $echo "passed mb1"; fi;;
+    1) $echo "Test mb1 failed: files misc/mb1.O and $srcdir/misc/mb1.X differ" 1>&2
+       (diff -c misc/mb1.O $srcdir/misc/mb1.X) 2> /dev/null
+       errors=`expr $errors + 1`;;
+    2) $echo "Test mb1 may have failed." 1>&2
+       $echo The command "cmp misc/mb1.O $srcdir/misc/mb1.X" failed. 1>&2
+       errors=`expr $errors + 1`;;
+  esac
+fi
+
+$xx -t ＠ -k4 -n misc/mb2.I > misc/mb2.O
+code=$?
+if test $code != 0; then
+  $echo "Test mb2 failed: $xx return code $code differs from expected value 0" 1>&2
+  errors=`expr $errors + 1`
+else
+  cmp misc/mb2.O $srcdir/misc/mb2.X > /dev/null 2>&1
+  case $? in
+    0) if test "$VERBOSE"; then $echo "passed mb2"; fi;;
+    1) $echo "Test mb2 failed: files misc/mb2.O and $srcdir/misc/mb2.X differ" 1>&2
+       (diff -c misc/mb2.O $srcdir/misc/mb2.X) 2> /dev/null
+       errors=`expr $errors + 1`;;
+    2) $echo "Test mb2 may have failed." 1>&2
+       $echo The command "cmp misc/mb2.O $srcdir/misc/mb2.X" failed. 1>&2
+       errors=`expr $errors + 1`;;
+  esac
+fi
+
+if test $errors = 0; then
+  $echo Passed all 113 tests. 1>&2
+else
+  $echo Failed $errors tests. 1>&2
+fi
+test $errors = 0 || errors=1
+exit $errors

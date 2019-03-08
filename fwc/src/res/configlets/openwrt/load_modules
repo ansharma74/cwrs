@@ -1,0 +1,22 @@
+## -*- mode: shell-script; -*- 
+##
+## This configlet is a variant of linux24/load_modules except it uses insmod
+## instead of modprobe because modprobe is not available on OpenWRT. See
+## linux24/load_modules for more comments.
+
+{{if load_modules}}
+    OPTS=$1
+    MODULES_DIR="{{$modules_dir}}"
+    MODULES=$(find $MODULES_DIR -name '*conntrack*' \! -name '*ipv6*'|sed  -e 's/^.*\///' -e 's/\([^\.]\)\..*/\1/')
+    echo $OPTS | grep -q nat && {
+        MODULES="$MODULES $(find $MODULES_DIR -name '*nat*'|sed  -e 's/^.*\///' -e 's/\([^\.]\)\..*/\1/')"
+    }
+    echo $OPTS | grep -q ipv6 && {
+        MODULES="$MODULES $(find $MODULES_DIR -name nf_conntrack_ipv6|sed  -e 's/^.*\///' -e 's/\([^\.]\)\..*/\1/')"
+    }
+    for module in $MODULES; do 
+        if $LSMOD | grep ${module} >/dev/null; then continue; fi
+        insmod ${module} ||  exit 1 
+    done
+{{endif}}
+

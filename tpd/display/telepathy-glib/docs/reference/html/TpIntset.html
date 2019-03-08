@@ -1,0 +1,979 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpIntset</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-utilities.html" title="Utilities">
+<link rel="prev" href="telepathy-glib-debug-sender.html" title="TpDebugSender">
+<link rel="next" href="telepathy-glib-TpHeap.html" title="TpHeap">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-debug-sender.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-utilities.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-TpHeap.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#TpIntset.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#TpIntset.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#TpIntset.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="TpIntset"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="TpIntset.top_of_page"></a>TpIntset</span></h2>
+<p>TpIntset — a set of unsigned integers</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="TpIntset.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+                    <a class="link" href="TpIntset.html#TpIntset-struct" title="TpIntset">TpIntset</a>;
+#define             <a class="link" href="TpIntset.html#TP-TYPE-INTSET:CAPS" title="TP_TYPE_INTSET">TP_TYPE_INTSET</a>
+<span class="returnvalue">void</span>                (<a class="link" href="TpIntset.html#TpIntFunc" title="TpIntFunc ()">*TpIntFunc</a>)                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> i</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> userdata</code></em>);
+<a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          <a class="link" href="TpIntset.html#tp-intset-sized-new" title="tp_intset_sized_new ()">tp_intset_sized_new</a>                 (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size</code></em>);
+<a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          <a class="link" href="TpIntset.html#tp-intset-new" title="tp_intset_new ()">tp_intset_new</a>                       (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          <a class="link" href="TpIntset.html#tp-intset-new-containing" title="tp_intset_new_containing ()">tp_intset_new_containing</a>            (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> element</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpIntset.html#tp-intset-destroy" title="tp_intset_destroy ()">tp_intset_destroy</a>                   (<em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpIntset.html#tp-intset-clear" title="tp_intset_clear ()">tp_intset_clear</a>                     (<em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpIntset.html#tp-intset-add" title="tp_intset_add ()">tp_intset_add</a>                       (<em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> element</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpIntset.html#tp-intset-remove" title="tp_intset_remove ()">tp_intset_remove</a>                    (<em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> element</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpIntset.html#tp-intset-is-member" title="tp_intset_is_member ()">tp_intset_is_member</a>                 (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> element</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpIntset.html#tp-intset-foreach" title="tp_intset_foreach ()">tp_intset_foreach</a>                   (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpIntset.html#TpIntFunc" title="TpIntFunc ()"><span class="type">TpIntFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> userdata</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="returnvalue">GArray</span></a> *            <a class="link" href="TpIntset.html#tp-intset-to-array" title="tp_intset_to_array ()">tp_intset_to_array</a>                  (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);
+<a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          <a class="link" href="TpIntset.html#tp-intset-from-array" title="tp_intset_from_array ()">tp_intset_from_array</a>                (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *array</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpIntset.html#tp-intset-is-empty" title="tp_intset_is_empty ()">tp_intset_is_empty</a>                  (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="TpIntset.html#tp-intset-size" title="tp_intset_size ()">tp_intset_size</a>                      (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpIntset.html#tp-intset-is-equal" title="tp_intset_is_equal ()">tp_intset_is_equal</a>                  (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *left</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *right</code></em>);
+<a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          <a class="link" href="TpIntset.html#tp-intset-copy" title="tp_intset_copy ()">tp_intset_copy</a>                      (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *orig</code></em>);
+<a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          <a class="link" href="TpIntset.html#tp-intset-intersection" title="tp_intset_intersection ()">tp_intset_intersection</a>              (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *left</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *right</code></em>);
+<a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          <a class="link" href="TpIntset.html#tp-intset-union" title="tp_intset_union ()">tp_intset_union</a>                     (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *left</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *right</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpIntset.html#tp-intset-union-update" title="tp_intset_union_update ()">tp_intset_union_update</a>              (<em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *other</code></em>);
+<a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          <a class="link" href="TpIntset.html#tp-intset-difference" title="tp_intset_difference ()">tp_intset_difference</a>                (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *left</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *right</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpIntset.html#tp-intset-difference-update" title="tp_intset_difference_update ()">tp_intset_difference_update</a>         (<em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *other</code></em>);
+<a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          <a class="link" href="TpIntset.html#tp-intset-symmetric-difference" title="tp_intset_symmetric_difference ()">tp_intset_symmetric_difference</a>      (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *left</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *right</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="TpIntset.html#tp-intset-dump" title="tp_intset_dump ()">tp_intset_dump</a>                      (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);
+                    <a class="link" href="TpIntset.html#TpIntsetFastIter" title="TpIntsetFastIter">TpIntsetFastIter</a>;
+<span class="returnvalue">void</span>                <a class="link" href="TpIntset.html#tp-intset-fast-iter-init" title="tp_intset_fast_iter_init ()">tp_intset_fast_iter_init</a>            (<em class="parameter"><code><a class="link" href="TpIntset.html#TpIntsetFastIter" title="TpIntsetFastIter"><span class="type">TpIntsetFastIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpIntset.html#tp-intset-fast-iter-next" title="tp_intset_fast_iter_next ()">tp_intset_fast_iter_next</a>            (<em class="parameter"><code><a class="link" href="TpIntset.html#TpIntsetFastIter" title="TpIntsetFastIter"><span class="type">TpIntsetFastIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *output</code></em>);
+#define             <a class="link" href="TpIntset.html#TP-INTSET-ITER-INIT:CAPS" title="TP_INTSET_ITER_INIT()">TP_INTSET_ITER_INIT</a>                 (set)
+                    <a class="link" href="TpIntset.html#TpIntsetIter" title="TpIntsetIter">TpIntsetIter</a>;
+<span class="returnvalue">void</span>                <a class="link" href="TpIntset.html#tp-intset-iter-init" title="tp_intset_iter_init ()">tp_intset_iter_init</a>                 (<em class="parameter"><code><a class="link" href="TpIntset.html#TpIntsetIter" title="TpIntsetIter"><span class="type">TpIntsetIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpIntset.html#tp-intset-iter-next" title="tp_intset_iter_next ()">tp_intset_iter_next</a>                 (<em class="parameter"><code><a class="link" href="TpIntset.html#TpIntsetIter" title="TpIntsetIter"><span class="type">TpIntsetIter</span></a> *iter</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpIntset.html#tp-intset-iter-reset" title="tp_intset_iter_reset ()">tp_intset_iter_reset</a>                (<em class="parameter"><code><a class="link" href="TpIntset.html#TpIntsetIter" title="TpIntsetIter"><span class="type">TpIntsetIter</span></a> *iter</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpIntset.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GBoxed
+   +----TpIntset
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpIntset.description"></a><h2>Description</h2>
+<p>
+A <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> is a set of unsigned integers, implemented as a
+dynamically-allocated sparse bitfield.
+</p>
+</div>
+<div class="refsect1">
+<a name="TpIntset.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpIntset-struct"></a><h3>TpIntset</h3>
+<pre class="programlisting">typedef struct _TpIntset TpIntset;</pre>
+<p>
+Opaque type representing a set of unsigned integers.
+</p>
+<p>
+Before 0.11.16, this type was called <span class="type">TpIntSet</span>, which is
+now a backwards compatibility typedef.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-TYPE-INTSET:CAPS"></a><h3>TP_TYPE_INTSET</h3>
+<pre class="programlisting">#define TP_TYPE_INTSET (tp_intset_get_type ())
+</pre>
+<p>
+The boxed type of a <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a>.
+</p>
+<p class="since">Since 0.11.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpIntFunc"></a><h3>TpIntFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpIntFunc)                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> i</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> userdata</code></em>);</pre>
+<p>
+A callback function acting on unsigned integers.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>i</code></em> :</span></p></td>
+<td>The relevant integer</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>userdata</code></em> :</span></p></td>
+<td>Opaque user data</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-sized-new"></a><h3>tp_intset_sized_new ()</h3>
+<pre class="programlisting"><a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          tp_intset_sized_new                 (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size</code></em>);</pre>
+<p>
+Allocate a new integer set.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>ignored (it was previously 1 more than the largest integer you
+expect to store)</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new, empty integer set to be destroyed with <a class="link" href="TpIntset.html#tp-intset-destroy" title="tp_intset_destroy ()"><code class="function">tp_intset_destroy()</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-new"></a><h3>tp_intset_new ()</h3>
+<pre class="programlisting"><a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          tp_intset_new                       (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Allocate a new integer set.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new, empty integer set to be destroyed with <a class="link" href="TpIntset.html#tp-intset-destroy" title="tp_intset_destroy ()"><code class="function">tp_intset_destroy()</code></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-new-containing"></a><h3>tp_intset_new_containing ()</h3>
+<pre class="programlisting"><a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          tp_intset_new_containing            (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> element</code></em>);</pre>
+<p>
+Allocate a new integer set containing the given integer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>integer to add to a new set</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new integer set containing <em class="parameter"><code>element</code></em>, to be destroyed with
+<a class="link" href="TpIntset.html#tp-intset-destroy" title="tp_intset_destroy ()"><code class="function">tp_intset_destroy()</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.26</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-destroy"></a><h3>tp_intset_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_intset_destroy                   (<em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);</pre>
+<p>
+Free all memory used by the set.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>set</code></em> :</span></p></td>
+<td>set</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-clear"></a><h3>tp_intset_clear ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_intset_clear                     (<em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);</pre>
+<p>
+Unset every integer in the set.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>set</code></em> :</span></p></td>
+<td>set</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-add"></a><h3>tp_intset_add ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_intset_add                       (<em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> element</code></em>);</pre>
+<p>
+Add an integer into a TpIntset.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>set</code></em> :</span></p></td>
+<td>set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>integer to add</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-remove"></a><h3>tp_intset_remove ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_intset_remove                    (<em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> element</code></em>);</pre>
+<p>
+Remove an integer from a TpIntset
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>set</code></em> :</span></p></td>
+<td>set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>integer to add</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>element</code></em> was previously in <em class="parameter"><code>set</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-is-member"></a><h3>tp_intset_is_member ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_intset_is_member                 (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> element</code></em>);</pre>
+<p>
+Tests if <em class="parameter"><code>element</code></em> is a member of <em class="parameter"><code>set</code></em>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>set</code></em> :</span></p></td>
+<td>set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>integer to test</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>element</code></em> is in <em class="parameter"><code>set</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-foreach"></a><h3>tp_intset_foreach ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_intset_foreach                   (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpIntset.html#TpIntFunc" title="TpIntFunc ()"><span class="type">TpIntFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> userdata</code></em>);</pre>
+<p>
+Call <em class="parameter"><code>func</code></em>(element, <em class="parameter"><code>userdata</code></em>) for each element of <em class="parameter"><code>set</code></em>, in order.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>set</code></em> :</span></p></td>
+<td>set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>func</code></em> :</span></p></td>
+<td>
+<em class="parameter"><code>TpIntFunc</code></em> to use to iterate the set. <span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>userdata</code></em> :</span></p></td>
+<td>user data to pass to each call of <em class="parameter"><code>func</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-to-array"></a><h3>tp_intset_to_array ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="returnvalue">GArray</span></a> *            tp_intset_to_array                  (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>set</code></em> :</span></p></td>
+<td>set to convert</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a GArray of guint (which must
+be freed by the caller) containing the same integers as <em class="parameter"><code>set</code></em>. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> uint][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-from-array"></a><h3>tp_intset_from_array ()</h3>
+<pre class="programlisting"><a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          tp_intset_from_array                (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *array</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>array</code></em> :</span></p></td>
+<td>An array of guint. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> uint]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A set containing the same integers as <em class="parameter"><code>array</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-is-empty"></a><h3>tp_intset_is_empty ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_intset_is_empty                  (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);</pre>
+<p>
+Return the same thing as <code class="code">(tp_intset_size (set) == 0)</code>,
+but calculated more efficiently.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>set</code></em> :</span></p></td>
+<td>a set of integers</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>set</code></em> is empty</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-size"></a><h3>tp_intset_size ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               tp_intset_size                      (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>set</code></em> :</span></p></td>
+<td>A set of integers</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The number of integers in <em class="parameter"><code>set</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-is-equal"></a><h3>tp_intset_is_equal ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_intset_is_equal                  (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *left</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *right</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>left</code></em> :</span></p></td>
+<td>A set of integers</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>right</code></em> :</span></p></td>
+<td>A set of integers</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>left</code></em> and <em class="parameter"><code>right</code></em> contain the same bits</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-copy"></a><h3>tp_intset_copy ()</h3>
+<pre class="programlisting"><a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          tp_intset_copy                      (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *orig</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>orig</code></em> :</span></p></td>
+<td>A set of integers</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A set containing the same integers as <em class="parameter"><code>orig</code></em>, to be freed with
+<a class="link" href="TpIntset.html#tp-intset-destroy" title="tp_intset_destroy ()"><code class="function">tp_intset_destroy()</code></a> by the caller</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-intersection"></a><h3>tp_intset_intersection ()</h3>
+<pre class="programlisting"><a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          tp_intset_intersection              (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *left</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *right</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>left</code></em> :</span></p></td>
+<td>The left operand</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>right</code></em> :</span></p></td>
+<td>The right operand</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The set of those integers which are in both <em class="parameter"><code>left</code></em> and <em class="parameter"><code>right</code></em>
+(analogous to the bitwise operation left &amp; right), to be freed with
+<a class="link" href="TpIntset.html#tp-intset-destroy" title="tp_intset_destroy ()"><code class="function">tp_intset_destroy()</code></a> by the caller</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-union"></a><h3>tp_intset_union ()</h3>
+<pre class="programlisting"><a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          tp_intset_union                     (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *left</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *right</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>left</code></em> :</span></p></td>
+<td>The left operand</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>right</code></em> :</span></p></td>
+<td>The right operand</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The set of those integers which are in either <em class="parameter"><code>left</code></em> or <em class="parameter"><code>right</code></em>
+(analogous to the bitwise operation left | right), to be freed with
+<a class="link" href="TpIntset.html#tp-intset-destroy" title="tp_intset_destroy ()"><code class="function">tp_intset_destroy()</code></a> by the caller</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-union-update"></a><h3>tp_intset_union_update ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_intset_union_update              (<em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *other</code></em>);</pre>
+<p>
+Add each integer in <em class="parameter"><code>other</code></em> to <em class="parameter"><code>self</code></em>, analogous to the bitwise operation
+self |= other.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the set to change</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>other</code></em> :</span></p></td>
+<td>members to add</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-difference"></a><h3>tp_intset_difference ()</h3>
+<pre class="programlisting"><a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          tp_intset_difference                (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *left</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *right</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>left</code></em> :</span></p></td>
+<td>The left operand</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>right</code></em> :</span></p></td>
+<td>The right operand</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The set of those integers which are in <em class="parameter"><code>left</code></em> and not in <em class="parameter"><code>right</code></em>
+(analogous to the bitwise operation left &amp; (~right)), to be freed with
+<a class="link" href="TpIntset.html#tp-intset-destroy" title="tp_intset_destroy ()"><code class="function">tp_intset_destroy()</code></a> by the caller</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-difference-update"></a><h3>tp_intset_difference_update ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_intset_difference_update         (<em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *other</code></em>);</pre>
+<p>
+Remove each integer in <em class="parameter"><code>other</code></em> from <em class="parameter"><code>self</code></em>, analogous to the bitwise
+operation self &amp;= (~other).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the set to change</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>other</code></em> :</span></p></td>
+<td>members to remove</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-symmetric-difference"></a><h3>tp_intset_symmetric_difference ()</h3>
+<pre class="programlisting"><a class="link" href="TpIntset.html" title="TpIntset"><span class="returnvalue">TpIntset</span></a> *          tp_intset_symmetric_difference      (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *left</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *right</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>left</code></em> :</span></p></td>
+<td>The left operand</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>right</code></em> :</span></p></td>
+<td>The right operand</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The set of those integers which are in either <em class="parameter"><code>left</code></em> or <em class="parameter"><code>right</code></em>
+but not both (analogous to the bitwise operation left ^ right), to be freed
+with <a class="link" href="TpIntset.html#tp-intset-destroy" title="tp_intset_destroy ()"><code class="function">tp_intset_destroy()</code></a> by the caller</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-dump"></a><h3>tp_intset_dump ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             tp_intset_dump                      (<em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>set</code></em> :</span></p></td>
+<td>An integer set</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a string which the caller must free with g_free, listing the
+numbers in <em class="parameter"><code>set</code></em> in a human-readable format</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpIntsetFastIter"></a><h3>TpIntsetFastIter</h3>
+<pre class="programlisting">typedef struct {
+} TpIntsetFastIter;
+</pre>
+<p>
+An opaque structure representing iteration in undefined order over a set of
+integers. Must be initialized with <a class="link" href="TpIntset.html#tp-intset-fast-iter-init" title="tp_intset_fast_iter_init ()"><code class="function">tp_intset_fast_iter_init()</code></a>.
+</p>
+<p>
+Before 0.11.16, this type was called <span class="type">TpIntSetFastIter</span>,
+which is now a backwards compatibility typedef.
+</p>
+<p>
+Usage is similar to <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTableIter"><span class="type">GHashTableIter</span></a>:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></td>
+        <td class="listing_code"><pre class="programlisting">TpIntsetFastIter iter<span class="gtkdoc opt">;</span>
+guint element<span class="gtkdoc opt">;</span>
+
+<span class="function"><a href="TpIntset.html#tp-intset-fast-iter-init">tp_intset_fast_iter_init</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">,</span> intset<span class="gtkdoc opt">);</span>
+
+<span class="keyword">while</span> <span class="gtkdoc opt">(</span><span class="function"><a href="TpIntset.html#tp-intset-fast-iter-next">tp_intset_fast_iter_next</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">, &amp;</span>element<span class="gtkdoc opt">))</span>
+<span class="gtkdoc opt">{</span>
+  <span class="function">printf</span> <span class="gtkdoc opt">(</span><span class="string">&quot;%u is in the intset</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">,</span> element<span class="gtkdoc opt">);</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p class="since">Since 0.11.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-fast-iter-init"></a><h3>tp_intset_fast_iter_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_intset_fast_iter_init            (<em class="parameter"><code><a class="link" href="TpIntset.html#TpIntsetFastIter" title="TpIntsetFastIter"><span class="type">TpIntsetFastIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);</pre>
+<p>
+Initialize <em class="parameter"><code>iter</code></em> to iterate over <em class="parameter"><code>set</code></em> in arbitrary order. <em class="parameter"><code>iter</code></em> will become
+invalid if <em class="parameter"><code>set</code></em> is modified.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>an iterator</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>set</code></em> :</span></p></td>
+<td>a set</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-fast-iter-next"></a><h3>tp_intset_fast_iter_next ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_intset_fast_iter_next            (<em class="parameter"><code><a class="link" href="TpIntset.html#TpIntsetFastIter" title="TpIntsetFastIter"><span class="type">TpIntsetFastIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *output</code></em>);</pre>
+<p>
+Advances <em class="parameter"><code>iter</code></em> and retrieves the integer it now points to. Iteration
+is not necessarily in numerical order.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>an iterator</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>output</code></em> :</span></p></td>
+<td>a location to store a new integer, in arbitrary order</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if the end of the set has been reached</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-INTSET-ITER-INIT:CAPS"></a><h3>TP_INTSET_ITER_INIT()</h3>
+<pre class="programlisting">#define TP_INTSET_ITER_INIT(set) { (set), (guint)(-1) }
+</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">TP_INTSET_ITER_INIT</code> is deprecated and should not be used in newly-written code. since 0.19.0. Use <a class="link" href="TpIntset.html#TpIntsetFastIter" title="TpIntsetFastIter"><span class="type">TpIntsetFastIter</span></a> instead</p>
+</div>
+<p>
+A suitable static initializer for a <a class="link" href="TpIntset.html#TpIntsetIter" title="TpIntsetIter"><span class="type">TpIntsetIter</span></a>, to be used as follows:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">void</span>
+<span class="function">do_something</span> <span class="gtkdoc opt">(</span><span class="gtkdoc kwb">const</span> TpIntset <span class="gtkdoc opt">*</span>intset<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  TpIntsetIter iter <span class="gtkdoc opt">=</span> <span class="function"><a href="TpIntset.html#TP-INTSET-ITER-INIT:CAPS">TP_INTSET_ITER_INIT</a></span> <span class="gtkdoc opt">(</span>intset<span class="gtkdoc opt">);</span>
+  <span class="comment">/* ... do something with iter ... */</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>set</code></em> :</span></p></td>
+<td>A set of integers</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpIntsetIter"></a><h3>TpIntsetIter</h3>
+<pre class="programlisting">typedef struct {
+    const TpIntset *set;
+    guint element;
+} TpIntsetIter;
+</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">TpIntsetIter</code> is deprecated and should not be used in newly-written code. since 0.19.0. Use <a class="link" href="TpIntset.html#TpIntsetFastIter" title="TpIntsetFastIter"><span class="type">TpIntsetFastIter</span></a> instead</p>
+</div>
+<p>
+A structure representing iteration over a set of integers. Must be
+initialized with either <a class="link" href="TpIntset.html#TP-INTSET-ITER-INIT:CAPS" title="TP_INTSET_ITER_INIT()"><code class="function">TP_INTSET_ITER_INIT()</code></a> or <a class="link" href="TpIntset.html#tp-intset-iter-init" title="tp_intset_iter_init ()"><code class="function">tp_intset_iter_init()</code></a>.
+</p>
+<p>
+Since 0.11.6, consider using <a class="link" href="TpIntset.html#TpIntsetFastIter" title="TpIntsetFastIter"><span class="type">TpIntsetFastIter</span></a> if iteration in
+numerical order is not required.
+</p>
+<p>
+Before 0.11.16, this type was called <span class="type">TpIntSetIter</span>,
+which is now a backwards compatibility typedef.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *<em class="structfield"><code><a name="TpIntsetIter.set"></a>set</code></em>;</span></p></td>
+<td>The set iterated over.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="TpIntsetIter.element"></a>element</code></em>;</span></p></td>
+<td>Must be (guint)(-1) before iteration starts. Set to the next
+element in the set by <a class="link" href="TpIntset.html#tp-intset-iter-next" title="tp_intset_iter_next ()"><code class="function">tp_intset_iter_next()</code></a>; undefined after
+<a class="link" href="TpIntset.html#tp-intset-iter-next" title="tp_intset_iter_next ()"><code class="function">tp_intset_iter_next()</code></a> returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-iter-init"></a><h3>tp_intset_iter_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_intset_iter_init                 (<em class="parameter"><code><a class="link" href="TpIntset.html#TpIntsetIter" title="TpIntsetIter"><span class="type">TpIntsetIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *set</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_intset_iter_init</code> is deprecated and should not be used in newly-written code. since 0.19.0. Use <a class="link" href="TpIntset.html#TpIntsetFastIter" title="TpIntsetFastIter"><span class="type">TpIntsetFastIter</span></a> instead</p>
+</div>
+<p>
+Reset the iterator <em class="parameter"><code>iter</code></em> to the beginning and make it iterate over <em class="parameter"><code>set</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>An integer set iterator to be initialized.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>set</code></em> :</span></p></td>
+<td>An integer set to be used by that iterator</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-iter-next"></a><h3>tp_intset_iter_next ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_intset_iter_next                 (<em class="parameter"><code><a class="link" href="TpIntset.html#TpIntsetIter" title="TpIntsetIter"><span class="type">TpIntsetIter</span></a> *iter</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_intset_iter_next</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+If there are integers in (<em class="parameter"><code>iter-&gt;set</code></em>) higher than (<em class="parameter"><code>iter-&gt;element</code></em>), set
+(iter-&gt;element) to the next one and return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>. Otherwise return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<p>
+Usage:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5</pre></td>
+        <td class="listing_code"><pre class="programlisting">TpIntsetIter iter <span class="gtkdoc opt">=</span> <span class="function">TP_INTSET_INIT</span> <span class="gtkdoc opt">(</span>intset<span class="gtkdoc opt">);</span>
+<span class="keyword">while</span> <span class="gtkdoc opt">(</span><span class="function"><a href="TpIntset.html#tp-intset-iter-next">tp_intset_iter_next</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">))</span>
+<span class="gtkdoc opt">{</span>
+  <span class="function">printf</span> <span class="gtkdoc opt">(</span><span class="string">&quot;%u is in the intset</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">,</span> iter<span class="gtkdoc opt">.</span>element<span class="gtkdoc opt">);</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+Since 0.11.6, consider using <a class="link" href="TpIntset.html#TpIntsetFastIter" title="TpIntsetFastIter"><span class="type">TpIntsetFastIter</span></a> if iteration in
+numerical order is not required.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>An iterator originally initialized with TP_INTSET_INIT(set)</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if (<em class="parameter"><code>iter-&gt;element</code></em>) has been advanced</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-intset-iter-reset"></a><h3>tp_intset_iter_reset ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_intset_iter_reset                (<em class="parameter"><code><a class="link" href="TpIntset.html#TpIntsetIter" title="TpIntsetIter"><span class="type">TpIntsetIter</span></a> *iter</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_intset_iter_reset</code> is deprecated and should not be used in newly-written code. since 0.19.0. Use <a class="link" href="TpIntset.html#TpIntsetFastIter" title="TpIntsetFastIter"><span class="type">TpIntsetFastIter</span></a> instead</p>
+</div>
+<p>
+Reset the iterator <em class="parameter"><code>iter</code></em> to the beginning. It must already be associated
+with a set.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>An integer set iterator to be reset.</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpIntset.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-handle-repo.html#TpHandleSet"><span class="type">TpHandleSet</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

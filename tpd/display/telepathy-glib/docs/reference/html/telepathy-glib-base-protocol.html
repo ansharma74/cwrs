@@ -1,0 +1,1033 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpBaseProtocol</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager">
+<link rel="next" href="TpBaseConnection.html" title="TpBaseConnection">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="TpBaseConnectionManager.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="TpBaseConnection.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-base-protocol.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-base-protocol.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-base-protocol.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-base-protocol.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#telepathy-glib-base-protocol.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-base-protocol"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-base-protocol.top_of_page"></a>TpBaseProtocol</span></h2>
+<p>TpBaseProtocol — base class for <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocol"><span class="type">TpSvcProtocol</span></a> implementations</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-base-protocol.synopsis"></a><h2>Synopsis</h2>
+<a name="TpBaseProtocol"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+struct              <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol-struct" title="struct TpBaseProtocol">TpBaseProtocol</a>;
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="telepathy-glib-base-protocol.html#tp-base-protocol-get-name" title="tp_base_protocol_get_name ()">tp_base_protocol_get_name</a>           (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        <a class="link" href="telepathy-glib-base-protocol.html#tp-base-protocol-get-immutable-properties" title="tp_base_protocol_get_immutable_properties ()">tp_base_protocol_get_immutable_properties</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);
+const <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="returnvalue">TpCMParamSpec</span></a> * <a class="link" href="telepathy-glib-base-protocol.html#tp-base-protocol-get-parameters" title="tp_base_protocol_get_parameters ()">tp_base_protocol_get_parameters</a>   (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);
+const <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatusSpec" title="struct TpPresenceStatusSpec"><span class="returnvalue">TpPresenceStatusSpec</span></a> * <a class="link" href="telepathy-glib-base-protocol.html#tp-base-protocol-get-statuses" title="tp_base_protocol_get_statuses ()">tp_base_protocol_get_statuses</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);
+<a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="returnvalue">TpBaseConnection</span></a> *  <a class="link" href="telepathy-glib-base-protocol.html#tp-base-protocol-new-connection" title="tp_base_protocol_new_connection ()">tp_base_protocol_new_connection</a>     (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+
+struct              <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolClass" title="struct TpBaseProtocolClass">TpBaseProtocolClass</a>;
+const <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="returnvalue">TpCMParamSpec</span></a> * (<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolGetParametersFunc" title="TpBaseProtocolGetParametersFunc ()">*TpBaseProtocolGetParametersFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);
+<a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="returnvalue">TpBaseConnection</span></a> *  (<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolNewConnectionFunc" title="TpBaseProtocolNewConnectionFunc ()">*TpBaseProtocolNewConnectionFunc</a>)  (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             (<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolNormalizeContactFunc" title="TpBaseProtocolNormalizeContactFunc ()">*TpBaseProtocolNormalizeContactFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *contact</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             (<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolIdentifyAccountFunc" title="TpBaseProtocolIdentifyAccountFunc ()">*TpBaseProtocolIdentifyAccountFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="returnvalue">GStrv</span></a>               (<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolGetInterfacesFunc" title="TpBaseProtocolGetInterfacesFunc ()">*TpBaseProtocolGetInterfacesFunc</a>)  (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolGetConnectionDetailsFunc" title="TpBaseProtocolGetConnectionDetailsFunc ()">*TpBaseProtocolGetConnectionDetailsFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a> *connection_interfaces</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> **channel_manager_types</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **icon_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **english_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **vcard_field</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolGetAvatarDetailsFunc" title="TpBaseProtocolGetAvatarDetailsFunc ()">*TpBaseProtocolGetAvatarDetailsFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a> *supported_mime_types</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *min_height</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *min_width</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *rec_height</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *rec_width</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *max_height</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *max_width</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *max_bytes</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolGetInterfacesArrayFunc" title="TpBaseProtocolGetInterfacesArrayFunc ()">*TpBaseProtocolGetInterfacesArrayFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);
+
+
+struct              <a class="link" href="telepathy-glib-base-protocol.html#TpProtocolAddressingInterface" title="struct TpProtocolAddressingInterface">TpProtocolAddressingInterface</a>;
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="returnvalue">GStrv</span></a>               (<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolDupSupportedVCardFieldsFunc" title="TpBaseProtocolDupSupportedVCardFieldsFunc ()">*TpBaseProtocolDupSupportedVCardFieldsFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="returnvalue">GStrv</span></a>               (<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolDupSupportedURISchemesFunc" title="TpBaseProtocolDupSupportedURISchemesFunc ()">*TpBaseProtocolDupSupportedURISchemesFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             (<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolNormalizeVCardAddressFunc" title="TpBaseProtocolNormalizeVCardAddressFunc ()">*TpBaseProtocolNormalizeVCardAddressFunc</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard_field</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard_address</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             (<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolNormalizeURIFunc" title="TpBaseProtocolNormalizeURIFunc ()">*TpBaseProtocolNormalizeURIFunc</a>)   (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uri</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-base-protocol.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----TpBaseProtocol
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-base-protocol.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+TpBaseProtocol implements
+ <a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties">TpSvcDBusProperties</a>,  <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocol">TpSvcProtocol</a>,  <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocolInterfacePresence">TpSvcProtocolInterfacePresence</a>,  <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocolInterfaceAvatars">TpSvcProtocolInterfaceAvatars</a> and  <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocolInterfaceAddressing">TpSvcProtocolInterfaceAddressing</a>.</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-base-protocol.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol--immutable-properties" title='The "immutable-properties" property'>immutable-properties</a>"     <span class="type">GHashTable_gchararray+GValue_*</span>  : Read
+  "<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol--name" title='The "name" property'>name</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-base-protocol.description"></a><h2>Description</h2>
+<p>
+Base class for Telepathy Protocol objects.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-base-protocol.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpBaseProtocol-struct"></a><h3>struct TpBaseProtocol</h3>
+<pre class="programlisting">struct TpBaseProtocol;</pre>
+<p>
+An object providing static details of the implementation of one real-time
+communications protocol.
+</p>
+<p class="since">Since 0.11.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-protocol-get-name"></a><h3>tp_base_protocol_get_name ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_base_protocol_get_name           (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a Protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol--name" title='The "name" property'><span class="type">"name"</span></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-protocol-get-immutable-properties"></a><h3>tp_base_protocol_get_immutable_properties ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        tp_base_protocol_get_immutable_properties
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);</pre>
+<p>
+Return a basic set of immutable properties for this Protocol object,
+by using <a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-make-properties-hash" title="tp_dbus_properties_mixin_make_properties_hash ()"><code class="function">tp_dbus_properties_mixin_make_properties_hash()</code></a>.
+</p>
+<p>
+Additional keys and values can be inserted into the returned hash table;
+if this is done, the inserted keys and values will be freed when the
+hash table is destroyed. The keys must be allocated with <a href="http://library.gnome.org/devel/glib/unstable/glib-String-Utility-Functions.html#g-strdup"><code class="function">g_strdup()</code></a> or
+equivalent, and the values must be slice-allocated (for instance with
+<a class="link" href="telepathy-glib-util.html#tp-g-value-slice-new-string" title="tp_g_value_slice_new_string ()"><code class="function">tp_g_value_slice_new_string()</code></a> or a similar function).
+</p>
+<p>
+Note that in particular, <a class="link" href="telepathy-glib-asv.html#tp-asv-set-string" title="tp_asv_set_string ()"><code class="function">tp_asv_set_string()</code></a> and similar functions should
+not be used with this hash table.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a Protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a hash table mapping (gchar *) fully-qualified property names to
+GValues, which must be freed by the caller (at which point its
+contents will also be freed).</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-protocol-get-parameters"></a><h3>tp_base_protocol_get_parameters ()</h3>
+<pre class="programlisting">const <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="returnvalue">TpCMParamSpec</span></a> * tp_base_protocol_get_parameters   (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);</pre>
+<p>
+Returns the parameters supported by this protocol, as an array of structs
+which must remain valid at least as long as <em class="parameter"><code>self</code></em> exists (it will typically
+be a global static array).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a Protocol object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a description of the
+parameters supported by this protocol. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-protocol-get-statuses"></a><h3>tp_base_protocol_get_statuses ()</h3>
+<pre class="programlisting">const <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatusSpec" title="struct TpPresenceStatusSpec"><span class="returnvalue">TpPresenceStatusSpec</span></a> * tp_base_protocol_get_statuses
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);</pre>
+<p>
+Get the statuses supported by this object. Subclasses implement this via
+the <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolClass.get-statuses"><span class="type">TpBaseProtocolClass.get_statuses</span></a> virtual method.
+</p>
+<p>
+If the object does not implement the Protocol.Interface.Presences
+interface, it need not implement this virtual method.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a Protocol object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>an array of <a class="link" href="telepathy-glib-TpPresenceMixin.html#TpPresenceStatusSpec" title="struct TpPresenceStatusSpec"><span class="type">TpPresenceStatusSpec</span></a> structs describing the
+standard statuses supported by this protocol, with a final element
+whose name element is guaranteed to be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. The array must remain
+valid at least as long as <em class="parameter"><code>self</code></em> does.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-protocol-new-connection"></a><h3>tp_base_protocol_new_connection ()</h3>
+<pre class="programlisting"><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="returnvalue">TpBaseConnection</span></a> *  tp_base_protocol_new_connection     (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Create a new connection using the <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolClass.get-parameters"><span class="type">TpBaseProtocolClass.get_parameters</span></a> and
+<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolClass.new-connection"><span class="type">TpBaseProtocolClass.new_connection</span></a> implementations provided by a subclass.
+This is used to implement the <code class="function">RequestConnection()</code> D-Bus method.
+</p>
+<p>
+If the parameters in <em class="parameter"><code>asv</code></em> do not fit the result of <em class="parameter"><code>get_parameters</code></em> (unknown
+parameters are given, types are inappropriate, required parameters are
+not given, or a <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec.filter"><span class="type">TpCMParamSpec.filter</span></a> fails), then this method raises an
+error and <em class="parameter"><code>new_connection</code></em> is not called.
+</p>
+<p>
+Otherwise, <em class="parameter"><code>new_connection</code></em> is called. Its <em class="parameter"><code>asv</code></em> argument is a copy of the
+<em class="parameter"><code>asv</code></em> given to this method, with default values for missing parameters
+filled in where available, and parameters' types converted to the <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a>
+specified by <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec.gtype"><span class="type">TpCMParamSpec.gtype</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a Protocol object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>the parameters
+provided via D-Bus. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>used to return an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new connection, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on error</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseProtocolClass"></a><h3>struct TpBaseProtocolClass</h3>
+<pre class="programlisting">struct TpBaseProtocolClass {
+  GObjectClass parent_class;
+  TpDBusPropertiesMixinClass dbus_properties_class;
+
+  gboolean is_stub;
+  const TpCMParamSpec *(*get_parameters) (TpBaseProtocol *self);
+  TpBaseConnection *(*new_connection) (TpBaseProtocol *self,
+      GHashTable *asv,
+      GError **error);
+
+  gchar *(*normalize_contact) (TpBaseProtocol *self,
+      const gchar *contact,
+      GError **error);
+  gchar *(*identify_account) (TpBaseProtocol *self,
+      GHashTable *asv,
+      GError **error);
+
+
+  void (*get_connection_details) (TpBaseProtocol *self,
+      GStrv *connection_interfaces,
+      GType **channel_manager_types,
+      gchar **icon_name,
+      gchar **english_name,
+      gchar **vcard_field);
+
+  const TpPresenceStatusSpec * (*get_statuses) (TpBaseProtocol *self);
+
+  TpBaseProtocolGetAvatarDetailsFunc get_avatar_details;
+
+  GStrv (*dup_authentication_types) (TpBaseProtocol *self);
+
+  TpBaseProtocolGetInterfacesArrayFunc get_interfaces_array;
+};
+</pre>
+<p>
+The class of a <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> <em class="structfield"><code><a name="TpBaseProtocolClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>the parent class</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinClass" title="TpDBusPropertiesMixinClass"><span class="type">TpDBusPropertiesMixinClass</span></a> <em class="structfield"><code><a name="TpBaseProtocolClass.dbus-properties-class"></a>dbus_properties_class</code></em>;</span></p></td>
+<td>a D-Bus properties mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> <em class="structfield"><code><a name="TpBaseProtocolClass.is-stub"></a>is_stub</code></em>;</span></p></td>
+<td>if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, this protocol will not be advertised on D-Bus (for
+internal use by <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpBaseProtocolClass.get-parameters"></a>get_parameters</code></em> ()</span></p></td>
+<td>a callback used to implement
+<a class="link" href="telepathy-glib-base-protocol.html#tp-base-protocol-get-parameters" title="tp_base_protocol_get_parameters ()"><code class="function">tp_base_protocol_get_parameters()</code></a>, which all subclasses must provide;
+see the documentation of that method for details</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpBaseProtocolClass.new-connection"></a>new_connection</code></em> ()</span></p></td>
+<td>a callback used to implement
+<a class="link" href="telepathy-glib-base-protocol.html#tp-base-protocol-new-connection" title="tp_base_protocol_new_connection ()"><code class="function">tp_base_protocol_new_connection()</code></a>, which all subclasses must provide;
+see the documentation of that method for details</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpBaseProtocolClass.normalize-contact"></a>normalize_contact</code></em> ()</span></p></td>
+<td>a callback used to implement the NormalizeContact
+D-Bus method; it must either return a newly allocated string that is the
+normalized version of <em class="parameter"><code>contact</code></em>, or raise an error via <em class="parameter"><code>error</code></em> and
+return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. If not implemented, <a class="link" href="telepathy-glib-errors.html#TP-ERROR-NOT-IMPLEMENTED:CAPS"><code class="literal">TP_ERROR_NOT_IMPLEMENTED</code></a> will be raised
+instead.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpBaseProtocolClass.identify-account"></a>identify_account</code></em> ()</span></p></td>
+<td>a callback used to implement the IdentifyAccount
+D-Bus method; it takes as input a map from strings to <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a>s,
+and must either return a newly allocated string that represents the
+"identity" of the parameters in <em class="parameter"><code>asv</code></em> (usually the "account" parameter),
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> with an error raised via <em class="parameter"><code>error</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpBaseProtocolClass.get-connection-details"></a>get_connection_details</code></em> ()</span></p></td>
+<td>a callback used to implement the Protocol D-Bus
+properties that represent details of the connections provided by this
+protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpBaseProtocolClass.get-statuses"></a>get_statuses</code></em> ()</span></p></td>
+<td>a callback used to implement the Protocol.Interface.Presence
+interface's Statuses property. Since 0.13.5</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolGetAvatarDetailsFunc" title="TpBaseProtocolGetAvatarDetailsFunc ()"><span class="type">TpBaseProtocolGetAvatarDetailsFunc</span></a> <em class="structfield"><code><a name="TpBaseProtocolClass.get-avatar-details"></a>get_avatar_details</code></em>;</span></p></td>
+<td>a callback used to implement the
+Protocol.Interface.Avatars interface's properties. Since 0.13.7</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpBaseProtocolClass.dup-authentication-types"></a>dup_authentication_types</code></em> ()</span></p></td>
+<td>a callback used to implement the
+AuthenticationTypes D-Bus property; it must return a newly allocated <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>
+containing D-Bus interface names. Since 0.13.9</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolGetInterfacesArrayFunc" title="TpBaseProtocolGetInterfacesArrayFunc ()"><span class="type">TpBaseProtocolGetInterfacesArrayFunc</span></a> <em class="structfield"><code><a name="TpBaseProtocolClass.get-interfaces-array"></a>get_interfaces_array</code></em>;</span></p></td>
+<td>a callback used to implement the Interfaces
+D-Bus property; The implementation must first chainup to parent
+class implementation and then add extra interfaces to the
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>. Replaces <em class="parameter"><code>get_interfaces</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseProtocolGetParametersFunc"></a><h3>TpBaseProtocolGetParametersFunc ()</h3>
+<pre class="programlisting">const <a class="link" href="TpBaseConnectionManager.html#TpCMParamSpec" title="struct TpCMParamSpec"><span class="returnvalue">TpCMParamSpec</span></a> * (*TpBaseProtocolGetParametersFunc)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);</pre>
+<p>
+Signature of a virtual method to get the allowed parameters for connections
+to a protocol.
+</p>
+<p>
+Returns the parameters supported by this protocol, as an array of structs
+which must remain valid at least as long as <em class="parameter"><code>self</code></em> exists (it will typically
+be a global static array).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a description of the
+parameters supported by this protocol. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseProtocolNewConnectionFunc"></a><h3>TpBaseProtocolNewConnectionFunc ()</h3>
+<pre class="programlisting"><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="returnvalue">TpBaseConnection</span></a> *  (*TpBaseProtocolNewConnectionFunc)  (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of a virtual method to create a new connection to this protocol.
+This is used to implement the RequestConnection D-Bus method.
+</p>
+<p>
+Implementations of <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolClass.new-connection"><span class="type">TpBaseProtocolClass.new_connection</span></a> may assume that
+the parameters in <em class="parameter"><code>asv</code></em> conform to the specifications given by
+<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolClass.get-parameters"><span class="type">TpBaseProtocolClass.get_parameters</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>the parameters
+provided via D-Bus. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>used to return an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new connection, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on error. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseProtocolNormalizeContactFunc"></a><h3>TpBaseProtocolNormalizeContactFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             (*TpBaseProtocolNormalizeContactFunc)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *contact</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of a virtual method to perform best-effort offline normalization
+of a contact's identifier. It must either return a newly allocated string
+that is the normalized form of <em class="parameter"><code>contact</code></em>, or raise an error and return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>contact</code></em> :</span></p></td>
+<td>a contact's identifier</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>used to return an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a normalized identifier, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on error. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseProtocolIdentifyAccountFunc"></a><h3>TpBaseProtocolIdentifyAccountFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             (*TpBaseProtocolIdentifyAccountFunc)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *asv</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of a virtual method to choose a unique name for an account whose
+connection parameters are <em class="parameter"><code>asv</code></em>. This will typically return a copy of
+the 'account' parameter from <em class="parameter"><code>asv</code></em>, but may do something more complex (for
+instance, on IRC it could combine the nickname and the IRC network).
+</p>
+<p>
+Implementations of <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolClass.identify-account"><span class="type">TpBaseProtocolClass.identify_account</span></a> may assume that
+the parameters in <em class="parameter"><code>asv</code></em> conform to the specifications given by
+<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolClass.get-parameters"><span class="type">TpBaseProtocolClass.get_parameters</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>asv</code></em> :</span></p></td>
+<td>parameters that might be passed to the RequestConnection D-Bus method</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>used to return an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a unique name for the account, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on error. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseProtocolGetInterfacesFunc"></a><h3>TpBaseProtocolGetInterfacesFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="returnvalue">GStrv</span></a>               (*TpBaseProtocolGetInterfacesFunc)  (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);</pre>
+<p>
+Signature of a virtual method to get the D-Bus interfaces implemented by
+<em class="parameter"><code>self</code></em>, in addition to the Protocol interface.
+</p>
+<p>
+If you implement <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolClass.get-statuses"><span class="type">TpBaseProtocolClass.get_statuses</span></a>, you should include
+<a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-PROTOCOL-INTERFACE-PRESENCE:CAPS" title="TP_IFACE_PROTOCOL_INTERFACE_PRESENCE"><code class="literal">TP_IFACE_PROTOCOL_INTERFACE_PRESENCE</code></a> in the returned array.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated array of D-Bus interface names. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseProtocolGetConnectionDetailsFunc"></a><h3>TpBaseProtocolGetConnectionDetailsFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpBaseProtocolGetConnectionDetailsFunc)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a> *connection_interfaces</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> **channel_manager_types</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **icon_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **english_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **vcard_field</code></em>);</pre>
+<p>
+Signature of a virtual method to get the D-Bus interfaces implemented by
+<em class="parameter"><code>self</code></em>, in addition to the Protocol interface.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection_interfaces</code></em> :</span></p></td>
+<td>used to return a
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated array of interfaces which might be implemented on
+connections to this protocol. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channel_manager_types</code></em> :</span></p></td>
+<td>used to return a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-TYPE-INVALID:CAPS"><code class="literal">G_TYPE_INVALID</code></a>-terminated array of types that implement
+<a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a>, which must include all channel managers that might be
+present on connections to this protocol; the channel managers should
+all implement <a class="link" href="TpChannelManager.html#TpChannelManagerIface.type-foreach-channel-class"><span class="type">TpChannelManagerIface.type_foreach_channel_class</span></a>. The
+array will be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> by the caller. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>icon_name</code></em> :</span></p></td>
+<td>used to return the name of an icon
+for this protocol, such as "im-icq", or an empty string. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>english_name</code></em> :</span></p></td>
+<td>used to return a human-readable
+but non-localized name for this protocol, or an empty string. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>vcard_field</code></em> :</span></p></td>
+<td>used to return the name of the vCard
+field typically used with this protocol, or an empty string. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseProtocolGetAvatarDetailsFunc"></a><h3>TpBaseProtocolGetAvatarDetailsFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpBaseProtocolGetAvatarDetailsFunc)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a> *supported_mime_types</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *min_height</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *min_width</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *rec_height</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *rec_width</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *max_height</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *max_width</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *max_bytes</code></em>);</pre>
+<p>
+Signature of a virtual method to get the supported avatar details for the
+protocol implemented by <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>supported_mime_types</code></em> :</span></p></td>
+<td>used to return a
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated array of supported avatar mime types. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>min_height</code></em> :</span></p></td>
+<td>used to return the minimum height in pixels of an
+avatar on this protocol, which may be 0. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>min_width</code></em> :</span></p></td>
+<td>used to return the minimum width in pixels of an avatar
+on this protocol, which may be 0. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rec_height</code></em> :</span></p></td>
+<td>used to return the rec height in pixels
+of an avatar on this protocol, or 0 if there is no preferred height. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rec_width</code></em> :</span></p></td>
+<td>used to return the rec width in pixels
+of an avatar on this protocol, or 0 if there is no preferred width. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>max_height</code></em> :</span></p></td>
+<td>used to return the maximum height in pixels of an
+avatar on this protocol, or 0 if there is no limit. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>max_width</code></em> :</span></p></td>
+<td>used to return the maximum width in pixels of an avatar
+on this protocol, or 0 if there is no limit. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>max_bytes</code></em> :</span></p></td>
+<td>used to return the maximum size in bytes of an avatar on
+this protocol, or 0 if there is no limit. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseProtocolGetInterfacesArrayFunc"></a><h3>TpBaseProtocolGetInterfacesArrayFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (*TpBaseProtocolGetInterfacesArrayFunc)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);</pre>
+<p>
+Signature of an implementation of
+<a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolClass.get-interfaces-array"><span class="type">TpBaseProtocolClass.get_interfaces_array</span></a> virtual function.
+</p>
+<p>
+Implementation must first chainup on parent class implementation and then
+add extra interfaces into the <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>.
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">static</span> GPtrArray <span class="gtkdoc opt">*</span>
+<span class="function">my_protocol_get_interfaces_array</span> <span class="gtkdoc opt">(</span>TpBaseProtocol <span class="gtkdoc opt">*</span>self<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  GPtrArray <span class="gtkdoc opt">*</span>interfaces<span class="gtkdoc opt">;</span>
+
+  interfaces <span class="gtkdoc opt">=</span> <span class="function">TP_BASE_PROTOCOL_CLASS</span> <span class="gtkdoc opt">(</span>
+      my_protocol_parent_class<span class="gtkdoc opt">)-&gt;</span><span class="function">get_interfaces_array</span> <span class="gtkdoc opt">(</span>self<span class="gtkdoc opt">);</span>
+
+  <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#g-ptr-array-add">g_ptr_array_add</a></span> <span class="gtkdoc opt">(</span>interfaces<span class="gtkdoc opt">,</span> TP_IFACE_BADGERS<span class="gtkdoc opt">);</span>
+
+  <span class="keyword">return</span> interfaces<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of static strings for D-Bus
+interfaces implemented by this client. <span class="annotation">[<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpProtocolAddressingInterface"></a><h3>struct TpProtocolAddressingInterface</h3>
+<pre class="programlisting">struct TpProtocolAddressingInterface {
+  GTypeInterface parent;
+
+  TpBaseProtocolDupSupportedVCardFieldsFunc dup_supported_vcard_fields;
+
+  TpBaseProtocolDupSupportedURISchemesFunc dup_supported_uri_schemes;
+
+  TpBaseProtocolNormalizeVCardAddressFunc normalize_vcard_address;
+
+  TpBaseProtocolNormalizeURIFunc normalize_contact_uri;
+};
+</pre>
+<p>
+The interface vtable for a <code class="literal">TP_TYPE_PROTOCOL_ADDRESSING</code>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GTypeInterface"><span class="type">GTypeInterface</span></a> <em class="structfield"><code><a name="TpProtocolAddressingInterface.parent"></a>parent</code></em>;</span></p></td>
+<td>the parent interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolDupSupportedVCardFieldsFunc" title="TpBaseProtocolDupSupportedVCardFieldsFunc ()"><span class="type">TpBaseProtocolDupSupportedVCardFieldsFunc</span></a> <em class="structfield"><code><a name="TpProtocolAddressingInterface.dup-supported-vcard-fields"></a>dup_supported_vcard_fields</code></em>;</span></p></td>
+<td>provides the supported vCard fields. Must
+always be implemented.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolDupSupportedURISchemesFunc" title="TpBaseProtocolDupSupportedURISchemesFunc ()"><span class="type">TpBaseProtocolDupSupportedURISchemesFunc</span></a> <em class="structfield"><code><a name="TpProtocolAddressingInterface.dup-supported-uri-schemes"></a>dup_supported_uri_schemes</code></em>;</span></p></td>
+<td>provides the supported URI schemes. Must always
+be implemented.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolNormalizeVCardAddressFunc" title="TpBaseProtocolNormalizeVCardAddressFunc ()"><span class="type">TpBaseProtocolNormalizeVCardAddressFunc</span></a> <em class="structfield"><code><a name="TpProtocolAddressingInterface.normalize-vcard-address"></a>normalize_vcard_address</code></em>;</span></p></td>
+<td>protocol-specific implementation for normalizing
+vCard addresses.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocolNormalizeURIFunc" title="TpBaseProtocolNormalizeURIFunc ()"><span class="type">TpBaseProtocolNormalizeURIFunc</span></a> <em class="structfield"><code><a name="TpProtocolAddressingInterface.normalize-contact-uri"></a>normalize_contact_uri</code></em>;</span></p></td>
+<td>protocol-specific implementation for normalizing contact URIs.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseProtocolDupSupportedVCardFieldsFunc"></a><h3>TpBaseProtocolDupSupportedVCardFieldsFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="returnvalue">GStrv</span></a>               (*TpBaseProtocolDupSupportedVCardFieldsFunc)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);</pre>
+<p>
+Signature of a virtual method to get the supported vCard fields supported by
+<span class="type">self</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a list of vCard fields in lower
+case, e.g. [x-sip, tel]. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseProtocolDupSupportedURISchemesFunc"></a><h3>TpBaseProtocolDupSupportedURISchemesFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="returnvalue">GStrv</span></a>               (*TpBaseProtocolDupSupportedURISchemesFunc)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>);</pre>
+<p>
+Signature of a virtual method to get the supported URI schemes supported by
+<span class="type">self</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a list of uri schemes, e.g. [sip, sips, tel]. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseProtocolNormalizeVCardAddressFunc"></a><h3>TpBaseProtocolNormalizeVCardAddressFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             (*TpBaseProtocolNormalizeVCardAddressFunc)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard_field</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard_address</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of a virtual method to perform best-effort offline normalization
+of a vCard address. It must either return a newly allocated string
+that is the normalized form of <em class="parameter"><code>vcard_address</code></em>, or raise an error and
+return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>vcard_field</code></em> :</span></p></td>
+<td>The vCard field of the address to be normalized.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>vcard_address</code></em> :</span></p></td>
+<td>The address to normalize.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>used to return an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a normalized identifier, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on error. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseProtocolNormalizeURIFunc"></a><h3>TpBaseProtocolNormalizeURIFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             (*TpBaseProtocolNormalizeURIFunc)   (<em class="parameter"><code><a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uri</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of a virtual method to perform best-effort offline normalization
+of a URI. It must either return a newly allocated string
+that is the normalized form of <em class="parameter"><code>uri</code></em>, or raise an error and return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td>The URI to normalize.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>used to return an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a normalized identifier, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on error. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.11</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-base-protocol.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpBaseProtocol--immutable-properties"></a><h3>The <code class="literal">"immutable-properties"</code> property</h3>
+<pre class="programlisting">  "immutable-properties"     <span class="type">GHashTable_gchararray+GValue_*</span>  : Read</pre>
+<p>
+The D-Bus properties to be announced in the ConnectionManager
+interface's Protocols property, as a map from
+interface.name.propertyname to GValue.
+</p>
+<p>
+A protocol's immutable properties are constant for its lifetime on the
+bus, so this property should never change. All of the D-Bus
+properties mentioned here should also be exposed through the D-Bus
+properties interface.
+</p>
+<p>
+The <a class="link" href="telepathy-glib-base-protocol.html#TpBaseProtocol"><span class="type">TpBaseProtocol</span></a> base class implements this property to be correct
+for the basic set of properties. It can be reimplemented by
+subclasses to have more immutable properties; if so, the subclass
+should use <a class="link" href="telepathy-glib-base-protocol.html#tp-base-protocol-get-immutable-properties" title="tp_base_protocol_get_immutable_properties ()"><code class="function">tp_base_protocol_get_immutable_properties()</code></a>,
+then augment the result using
+<a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-fill-properties-hash" title="tp_dbus_properties_mixin_fill_properties_hash ()"><code class="function">tp_dbus_properties_mixin_fill_properties_hash()</code></a>.
+</p>
+<p class="since">Since 0.11.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseProtocol--name"></a><h3>The <code class="literal">"name"</code> property</h3>
+<pre class="programlisting">  "name"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only</pre>
+<p>The Protocol from telepathy-spec, such as 'jabber' or 'local-xmpp'.</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-base-protocol.see-also"></a><h2>See Also</h2>
+<a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a>, <a class="link" href="telepathy-glib-svc-protocol.html#TpSvcProtocol"><span class="type">TpSvcProtocol</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

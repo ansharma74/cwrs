@@ -1,0 +1,1057 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpPropertiesMixin</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="telepathy-glib-TpPresenceMixin.html" title="TpPresenceMixin">
+<link rel="next" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-TpPresenceMixin.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="TpBaseRoomConfig.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-TpPropertiesMixin.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-TpPropertiesMixin.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-TpPropertiesMixin"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-TpPropertiesMixin.top_of_page"></a>TpPropertiesMixin</span></h2>
+<p>TpPropertiesMixin — a mixin implementation of the Telepathy.Properties
+ interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-TpPropertiesMixin.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/properties-mixin.h&gt;
+
+                    <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertySignature" title="TpPropertySignature">TpPropertySignature</a>;
+                    <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpProperty" title="TpProperty">TpProperty</a>;
+                    <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext">TpPropertiesContext</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesSetFunc" title="TpPropertiesSetFunc ()">*TpPropertiesSetFunc</a>)              (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+struct              <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesMixin" title="struct TpPropertiesMixin">TpPropertiesMixin</a>;
+struct              <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesMixinClass" title="struct TpPropertiesMixinClass">TpPropertiesMixinClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-class-init" title="tp_properties_mixin_class_init ()">tp_properties_mixin_class_init</a>      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *obj_cls</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#glong"><span class="type">glong</span></a> offset</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertySignature" title="TpPropertySignature"><span class="type">TpPropertySignature</span></a> *signatures</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> num_properties</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesSetFunc" title="TpPropertiesSetFunc ()"><span class="type">TpPropertiesSetFunc</span></a> set_func</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-init" title="tp_properties_mixin_init ()">tp_properties_mixin_init</a>            (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#glong"><span class="type">glong</span></a> offset</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-finalize" title="tp_properties_mixin_finalize ()">tp_properties_mixin_finalize</a>        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-list-properties" title="tp_properties_mixin_list_properties ()">tp_properties_mixin_list_properties</a> (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-get-properties" title="tp_properties_mixin_get_properties ()">tp_properties_mixin_get_properties</a>  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-set-properties" title="tp_properties_mixin_set_properties ()">tp_properties_mixin_set_properties</a>  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *properties</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-has-property" title="tp_properties_mixin_has_property ()">tp_properties_mixin_has_property</a>    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *property</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-context-has" title="tp_properties_context_has ()">tp_properties_context_has</a>           (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> property</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-context-has-other-than" title="tp_properties_context_has_other_than ()">tp_properties_context_has_other_than</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> property</code></em>);
+const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *      <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-context-get" title="tp_properties_context_get ()">tp_properties_context_get</a>           (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> property</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-context-get-value-count" title="tp_properties_context_get_value_count ()">tp_properties_context_get_value_count</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-context-remove" title="tp_properties_context_remove ()">tp_properties_context_remove</a>        (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> property</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-context-return" title="tp_properties_context_return ()">tp_properties_context_return</a>        (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-context-return-if-done" title="tp_properties_context_return_if_done ()">tp_properties_context_return_if_done</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-change-value" title="tp_properties_mixin_change_value ()">tp_properties_mixin_change_value</a>    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> prop_id</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *new_value</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *props</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-change-flags" title="tp_properties_mixin_change_flags ()">tp_properties_mixin_change_flags</a>    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> prop_id</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpPropertyFlags" title="enum TpPropertyFlags"><span class="type">TpPropertyFlags</span></a> add</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpPropertyFlags" title="enum TpPropertyFlags"><span class="type">TpPropertyFlags</span></a> del</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *props</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-emit-changed" title="tp_properties_mixin_emit_changed ()">tp_properties_mixin_emit_changed</a>    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *props</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-emit-flags" title="tp_properties_mixin_emit_flags ()">tp_properties_mixin_emit_flags</a>      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *props</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-is-readable" title="tp_properties_mixin_is_readable ()">tp_properties_mixin_is_readable</a>     (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> prop_id</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-is-writable" title="tp_properties_mixin_is_writable ()">tp_properties_mixin_is_writable</a>     (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> prop_id</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-iface-init" title="tp_properties_mixin_iface_init ()">tp_properties_mixin_iface_init</a>      (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);
+#define             <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TP-TYPE-PROPERTY-INFO-STRUCT:CAPS" title="TP_TYPE_PROPERTY_INFO_STRUCT">TP_TYPE_PROPERTY_INFO_STRUCT</a>
+#define             <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TP-TYPE-PROPERTY-INFO-LIST:CAPS" title="TP_TYPE_PROPERTY_INFO_LIST">TP_TYPE_PROPERTY_INFO_LIST</a>
+#define             <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TP-TYPE-PROPERTY-VALUE-STRUCT:CAPS" title="TP_TYPE_PROPERTY_VALUE_STRUCT">TP_TYPE_PROPERTY_VALUE_STRUCT</a>
+#define             <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TP-TYPE-PROPERTY-VALUE-LIST:CAPS" title="TP_TYPE_PROPERTY_VALUE_LIST">TP_TYPE_PROPERTY_VALUE_LIST</a>
+#define             <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TP-TYPE-PROPERTY-FLAGS-STRUCT:CAPS" title="TP_TYPE_PROPERTY_FLAGS_STRUCT">TP_TYPE_PROPERTY_FLAGS_STRUCT</a>
+#define             <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TP-TYPE-PROPERTY-FLAGS-LIST:CAPS" title="TP_TYPE_PROPERTY_FLAGS_LIST">TP_TYPE_PROPERTY_FLAGS_LIST</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpPropertiesMixin.description"></a><h2>Description</h2>
+<p>
+This mixin can be added to any GObject class to implement the properties
+interface in a general way.
+</p>
+<p>
+To use the properties mixin, include a <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesMixinClass" title="struct TpPropertiesMixinClass"><span class="type">TpPropertiesMixinClass</span></a> somewhere
+in your class structure and a <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesMixin" title="struct TpPropertiesMixin"><span class="type">TpPropertiesMixin</span></a> somewhere in your
+instance structure, and call <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-class-init" title="tp_properties_mixin_class_init ()"><code class="function">tp_properties_mixin_class_init()</code></a> from your
+class_init function, <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-init" title="tp_properties_mixin_init ()"><code class="function">tp_properties_mixin_init()</code></a> from your init function
+or constructor, and <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-finalize" title="tp_properties_mixin_finalize ()"><code class="function">tp_properties_mixin_finalize()</code></a> from your dispose
+or finalize function.
+</p>
+<p>
+To use the properties mixin as the implementation of
+<a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterface"><span class="type">TpSvcPropertiesInterface</span></a>, call
+<code class="literal">G_IMPLEMENT_INTERFACE (TP_TYPE_SVC_PROPERTIES_INTERFACE,
+tp_properties_mixin_iface_init)</code> in the fourth argument to
+<code class="literal">G_DEFINE_TYPE_WITH_CODE</code>.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpPropertiesMixin.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpPropertySignature"></a><h3>TpPropertySignature</h3>
+<pre class="programlisting">typedef struct {
+    gchar *name;
+    GType type;
+} TpPropertySignature;
+</pre>
+<p>
+Signature of a property in the Telepathy properties interface.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="TpPropertySignature.name"></a>name</code></em>;</span></p></td>
+<td>Name of the property as seen in the Telepathy D-Bus protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> <em class="structfield"><code><a name="TpPropertySignature.type"></a>type</code></em>;</span></p></td>
+<td>GType which the variant value must have. We currently support
+only <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-TYPE-UINT:CAPS"><code class="literal">G_TYPE_UINT</code></a>, <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-TYPE-INT:CAPS"><code class="literal">G_TYPE_INT</code></a>, <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-TYPE-STRING:CAPS"><code class="literal">G_TYPE_STRING</code></a>, <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-TYPE-BOOLEAN:CAPS"><code class="literal">G_TYPE_BOOLEAN</code></a>,
+corresponding to D-Bus signatures 'u', 'i', 's', 'b'.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpProperty"></a><h3>TpProperty</h3>
+<pre class="programlisting">typedef struct {
+    /* FIXME: if we ever break ABI, make this a (GValue) rather than a
+     * (GValue *) */
+    GValue *value;
+    guint flags;
+} TpProperty;
+</pre>
+<p>
+Structure representing the current state of a property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *<em class="structfield"><code><a name="TpProperty.value"></a>value</code></em>;</span></p></td>
+<td>The value of the property</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="TpProperty.flags"></a>flags</code></em>;</span></p></td>
+<td>
+<a class="link" href="telepathy-glib-enums.html#TpPropertyFlags" title="enum TpPropertyFlags"><span class="type">TpPropertyFlags</span></a> indicating the property's permissions</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpPropertiesContext"></a><h3>TpPropertiesContext</h3>
+<pre class="programlisting">typedef struct _TpPropertiesContext TpPropertiesContext;</pre>
+<p>
+Opaque pointer representing an incomplete property-setting operation, used
+in the implementation of SetProperties.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpPropertiesSetFunc"></a><h3>TpPropertiesSetFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpPropertiesSetFunc)              (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+A callback used to implement the SetProperties D-Bus method by setting
+properties in the underlying IM protocol.
+</p>
+<p>
+The callback must either:
+</p>
+<p>
+* return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> to indicate immediate failure
+* call <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-context-return" title="tp_properties_context_return ()"><code class="function">tp_properties_context_return()</code></a> with an error to indicate failure
+* call <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-context-remove" title="tp_properties_context_remove ()"><code class="function">tp_properties_context_remove()</code></a> to remove each property from the set
+  of pending properties, then call <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-context-return-if-done" title="tp_properties_context_return_if_done ()"><code class="function">tp_properties_context_return_if_done()</code></a>
+  or <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-context-return" title="tp_properties_context_return ()"><code class="function">tp_properties_context_return()</code></a> when all were set
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object with the properties mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ctx</code></em> :</span></p></td>
+<td>A properties context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Set to the error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on immediate failure, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> otherwise</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpPropertiesMixin"></a><h3>struct TpPropertiesMixin</h3>
+<pre class="programlisting">struct TpPropertiesMixin {
+    TpProperty *properties;
+
+    TpPropertiesMixinPrivate *priv;
+};
+</pre>
+<p>
+Structure to be placed in a GObject-derived structure containing
+instance data for the properties mixin (i.e. the properties). Initialize
+it using <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-init" title="tp_properties_mixin_init ()"><code class="function">tp_properties_mixin_init()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpProperty" title="TpProperty"><span class="type">TpProperty</span></a> *<em class="structfield"><code><a name="TpPropertiesMixin.properties"></a>properties</code></em>;</span></p></td>
+<td>Array of property values, of length klass-&gt;num_props.
+Should be considered read-only.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">TpPropertiesMixinPrivate</span> *<em class="structfield"><code><a name="TpPropertiesMixin.priv"></a>priv</code></em>;</span></p></td>
+<td>Pointer to opaque private data.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpPropertiesMixinClass"></a><h3>struct TpPropertiesMixinClass</h3>
+<pre class="programlisting">struct TpPropertiesMixinClass {
+  const TpPropertySignature *signatures;
+  guint num_props;
+
+  TpPropertiesSetFunc set_properties;
+
+  TpPropertiesMixinClassPrivate *priv;
+};
+</pre>
+<p>
+Structure to be placed in a GObjectClass-derived structure containing
+settings for the properties mixin. Initialize it using
+<a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-class-init" title="tp_properties_mixin_class_init ()"><code class="function">tp_properties_mixin_class_init()</code></a>.
+</p>
+<p>
+All fields should be considered read-only.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">const <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertySignature" title="TpPropertySignature"><span class="type">TpPropertySignature</span></a> *<em class="structfield"><code><a name="TpPropertiesMixinClass.signatures"></a>signatures</code></em>;</span></p></td>
+<td>Array of property signatures, as provided via
+<a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-class-init" title="tp_properties_mixin_class_init ()"><code class="function">tp_properties_mixin_class_init()</code></a>, of length <em class="parameter"><code>num_props</code></em>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="TpPropertiesMixinClass.num-props"></a>num_props</code></em>;</span></p></td>
+<td>Number of properties supported.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesSetFunc" title="TpPropertiesSetFunc ()"><span class="type">TpPropertiesSetFunc</span></a> <em class="structfield"><code><a name="TpPropertiesMixinClass.set-properties"></a>set_properties</code></em>;</span></p></td>
+<td>Properties setting function, as supplied to
+<a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-class-init" title="tp_properties_mixin_class_init ()"><code class="function">tp_properties_mixin_class_init()</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">TpPropertiesMixinClassPrivate</span> *<em class="structfield"><code><a name="TpPropertiesMixinClass.priv"></a>priv</code></em>;</span></p></td>
+<td>Pointer to opaque private data.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-mixin-class-init"></a><h3>tp_properties_mixin_class_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_properties_mixin_class_init      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *obj_cls</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#glong"><span class="type">glong</span></a> offset</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertySignature" title="TpPropertySignature"><span class="type">TpPropertySignature</span></a> *signatures</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> num_properties</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesSetFunc" title="TpPropertiesSetFunc ()"><span class="type">TpPropertiesSetFunc</span></a> set_func</code></em>);</pre>
+<p>
+Initialize the mixin. Should be called from the implementation's
+class_init function like so:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-class-init">tp_properties_mixin_class_init</a></span> <span class="gtkdoc opt">((</span>GObjectClass <span class="gtkdoc opt">*)</span> klass<span class="gtkdoc opt">,</span>
+                                <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#G-STRUCT-OFFSET:CAPS">G_STRUCT_OFFSET</a></span> <span class="gtkdoc opt">(</span>SomeObjectClass<span class="gtkdoc opt">,</span>
+                                 properties_mixin<span class="gtkdoc opt">));</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj_cls</code></em> :</span></p></td>
+<td>The class of an object that has this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>The offset of the TpPropertiesMixinClass structure in the class
+structure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>signatures</code></em> :</span></p></td>
+<td>An array of property signatures</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>num_properties</code></em> :</span></p></td>
+<td>The number of entries in <em class="parameter"><code>signatures</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>set_func</code></em> :</span></p></td>
+<td>Callback used to set the properties</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-mixin-init"></a><h3>tp_properties_mixin_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_properties_mixin_init            (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#glong"><span class="type">glong</span></a> offset</code></em>);</pre>
+<p>
+Initialize the mixin. Should be called from the implementation's
+instance init function like so:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-init">tp_properties_mixin_init</a></span> <span class="gtkdoc opt">((</span>GObject <span class="gtkdoc opt">*)</span> self<span class="gtkdoc opt">,</span>
+                          <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#G-STRUCT-OFFSET:CAPS">G_STRUCT_OFFSET</a></span> <span class="gtkdoc opt">(</span>SomeObject<span class="gtkdoc opt">,</span> properties_mixin<span class="gtkdoc opt">),</span>
+                          self<span class="gtkdoc opt">-&gt;</span>contact_repo<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object that has this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>The offset of the TpPropertiesMixin structure in the object
+structure</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-mixin-finalize"></a><h3>tp_properties_mixin_finalize ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_properties_mixin_finalize        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);</pre>
+<p>
+Free memory used by the TpPropertiesMixin.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object that has this mixin</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-mixin-list-properties"></a><h3>tp_properties_mixin_list_properties ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_properties_mixin_list_properties (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+List all available properties and their flags, as in the ListProperties
+D-Bus method.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ret</code></em> :</span></p></td>
+<td>Output parameter which will be set to a GPtrArray of D-Bus structures
+if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Set to the error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-mixin-get-properties"></a><h3>tp_properties_mixin_get_properties ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_properties_mixin_get_properties  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Retrieve the values of the given properties, as in the GetProperties
+D-Bus method.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>properties</code></em> :</span></p></td>
+<td>an array of integer property IDs</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ret</code></em> :</span></p></td>
+<td>set to an array of D-Bus structures if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Set to the error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-mixin-set-properties"></a><h3>tp_properties_mixin_set_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_properties_mixin_set_properties  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *properties</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Start to change properties in response to user request via D-Bus.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>properties</code></em> :</span></p></td>
+<td>An array of D-Bus structures containing property ID and value</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>A D-Bus method invocation context for the SetProperties method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-mixin-has-property"></a><h3>tp_properties_mixin_has_property ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_properties_mixin_has_property    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *property</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>an object with a properties mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the string name of the property</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property</code></em> :</span></p></td>
+<td>either <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, or a pointer to a location to receive the property
+index</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, setting <em class="parameter"><code>property</code></em>, if <em class="parameter"><code>obj</code></em> has a property of that name</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-context-has"></a><h3>tp_properties_context_has ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_properties_context_has           (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> property</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ctx</code></em> :</span></p></td>
+<td>the properties context representing a SetProperties call</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property</code></em> :</span></p></td>
+<td>the property ID</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>ctx</code></em> indicates that <em class="parameter"><code>property</code></em> still needs to be set on
+the server.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-context-has-other-than"></a><h3>tp_properties_context_has_other_than ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_properties_context_has_other_than
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> property</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ctx</code></em> :</span></p></td>
+<td>the properties context representing a SetProperties call</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property</code></em> :</span></p></td>
+<td>the property ID</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>ctx</code></em> has properties other than <em class="parameter"><code>property</code></em> that still
+need to be set on the server</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-context-get"></a><h3>tp_properties_context_get ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *      tp_properties_context_get           (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> property</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ctx</code></em> :</span></p></td>
+<td>the properties context representing a SetProperties call</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property</code></em> :</span></p></td>
+<td>a property ID</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value to be set on the server for the property <em class="parameter"><code>property</code></em>
+in <em class="parameter"><code>ctx</code></em> (whether it has been set already or not)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-context-get-value-count"></a><h3>tp_properties_context_get_value_count ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               tp_properties_context_get_value_count
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ctx</code></em> :</span></p></td>
+<td>the properties context representing a SetProperties call</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the number of properties in <em class="parameter"><code>ctx</code></em> which still need to be set on
+the server, or have already been set</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-context-remove"></a><h3>tp_properties_context_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_properties_context_remove        (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> property</code></em>);</pre>
+<p>
+Mark the given property as having been set successfully.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ctx</code></em> :</span></p></td>
+<td>the properties context representing a SetProperties call</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property</code></em> :</span></p></td>
+<td>a property ID</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-context-return"></a><h3>tp_properties_context_return ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_properties_context_return        (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);</pre>
+<p>
+Commit the property changes and return from the pending D-Bus call.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ctx</code></em> :</span></p></td>
+<td>the properties context representing a SetProperties call</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, return successfully; otherwise return this error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-context-return-if-done"></a><h3>tp_properties_context_return_if_done ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_properties_context_return_if_done
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-TpPropertiesMixin.html#TpPropertiesContext" title="TpPropertiesContext"><span class="type">TpPropertiesContext</span></a> *ctx</code></em>);</pre>
+<p>
+Return from the pending D-Bus call if there are no more properties to be
+dealt with.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ctx</code></em> :</span></p></td>
+<td>the properties context representing a SetProperties call</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if we returned from the D-Bus call.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-mixin-change-value"></a><h3>tp_properties_mixin_change_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_properties_mixin_change_value    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> prop_id</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *new_value</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *props</code></em>);</pre>
+<p>
+Change the value of the given property ID in response to a server state
+change.
+</p>
+<p>
+If the old and new values match, nothing happens; no signal is emitted and
+<em class="parameter"><code>props</code></em> is ignored. Otherwise, the following applies:
+</p>
+<p>
+If <em class="parameter"><code>props</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> the PropertiesChanged signal is emitted for this one
+property.
+</p>
+<p>
+Otherwise, the property ID is added to the set; the caller is responsible
+for passing the set to <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-emit-changed" title="tp_properties_mixin_emit_changed ()"><code class="function">tp_properties_mixin_emit_changed()</code></a> once a batch of
+properties have been changed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object with the properties mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>prop_id</code></em> :</span></p></td>
+<td>A property ID on which to act</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>new_value</code></em> :</span></p></td>
+<td>Property value</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>props</code></em> :</span></p></td>
+<td>either <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, or a pointer to a TpIntset</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-mixin-change-flags"></a><h3>tp_properties_mixin_change_flags ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_properties_mixin_change_flags    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> prop_id</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpPropertyFlags" title="enum TpPropertyFlags"><span class="type">TpPropertyFlags</span></a> add</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpPropertyFlags" title="enum TpPropertyFlags"><span class="type">TpPropertyFlags</span></a> del</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *props</code></em>);</pre>
+<p>
+Change the flags for the given property ID in response to a server state
+change.
+</p>
+<p>
+Flags removed by <em class="parameter"><code>del</code></em> override flags added by <em class="parameter"><code>add</code></em>. This should not be
+relied upon.
+</p>
+<p>
+If <em class="parameter"><code>props</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> the PropertyFlagsChanged signal is emitted for this
+single property.
+</p>
+<p>
+Otherwise, the property ID is added to the set; the caller is responsible
+for passing the set to <a class="link" href="telepathy-glib-TpPropertiesMixin.html#tp-properties-mixin-emit-flags" title="tp_properties_mixin_emit_flags ()"><code class="function">tp_properties_mixin_emit_flags()</code></a> once a batch of
+properties have been changed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object with the properties mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>prop_id</code></em> :</span></p></td>
+<td>A property ID on which to act</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>add</code></em> :</span></p></td>
+<td>Property flags to be added via bitwise OR</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>del</code></em> :</span></p></td>
+<td>Property flags to be removed via bitwise AND</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>props</code></em> :</span></p></td>
+<td>either <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, or a pointer to a TpIntset</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-mixin-emit-changed"></a><h3>tp_properties_mixin_emit_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_properties_mixin_emit_changed    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *props</code></em>);</pre>
+<p>
+Emit the PropertiesChanged signal to indicate that the values of the
+given property IDs have changed; the actual values are automatically
+added using their stored values.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>an object with the properties mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>props</code></em> :</span></p></td>
+<td>a set of property IDs</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-mixin-emit-flags"></a><h3>tp_properties_mixin_emit_flags ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_properties_mixin_emit_flags      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *props</code></em>);</pre>
+<p>
+Emit the PropertyFlagsChanged signal to indicate that the flags of the
+given property IDs have changed; the actual flags are automatically
+added using their stored values.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>an object with the properties mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>props</code></em> :</span></p></td>
+<td>a set of property IDs</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-mixin-is-readable"></a><h3>tp_properties_mixin_is_readable ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_properties_mixin_is_readable     (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> prop_id</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>an object with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>prop_id</code></em> :</span></p></td>
+<td>an integer property ID</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the given property has the READ flag</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-mixin-is-writable"></a><h3>tp_properties_mixin_is_writable ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_properties_mixin_is_writable     (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> prop_id</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>an object with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>prop_id</code></em> :</span></p></td>
+<td>an integer property ID</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the given property has the WRITE flag</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-properties-mixin-iface-init"></a><h3>tp_properties_mixin_iface_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_properties_mixin_iface_init      (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);</pre>
+<p>
+Fill in this mixin's method implementations in the given interface vtable.
+This function should usually be called via G_IMPLEMENT_INTERFACE
+inside the G_DEFINE_TYPE_WITH_CODE macro.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>g_iface</code></em> :</span></p></td>
+<td>A pointer to the <a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterfaceClass" title="TpSvcPropertiesInterfaceClass"><span class="type">TpSvcPropertiesInterfaceClass</span></a> in an object class</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface_data</code></em> :</span></p></td>
+<td>Ignored</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-TYPE-PROPERTY-INFO-STRUCT:CAPS"></a><h3>TP_TYPE_PROPERTY_INFO_STRUCT</h3>
+<pre class="programlisting">#define TP_TYPE_PROPERTY_INFO_STRUCT TP_STRUCT_TYPE_PROPERTY_SPEC
+</pre>
+<p>
+The GType of the structures with D-Bus signature '(ussu)' returned by
+ListProperties.
+</p>
+<p>
+<em class="parameter"><code>Deprecated</code></em>: Since 0.7.0. Use TP_STRUCT_TYPE_PROPERTY_SPEC instead.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-TYPE-PROPERTY-INFO-LIST:CAPS"></a><h3>TP_TYPE_PROPERTY_INFO_LIST</h3>
+<pre class="programlisting">#define TP_TYPE_PROPERTY_INFO_LIST TP_ARRAY_TYPE_PROPERTY_SPEC_LIST
+</pre>
+<p>
+The GType of the return from ListProperties (i.e. a GPtrArray
+of structures of type TP_TYPE_PROPERTY_INFO_STRUCT), corresponding to
+D-Bus signature 'a(ussu)'.
+</p>
+<p>
+<em class="parameter"><code>Deprecated</code></em>: Since 0.7.0. Use TP_ARRAY_TYPE_PROPERTY_SPEC_LIST instead.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-TYPE-PROPERTY-VALUE-STRUCT:CAPS"></a><h3>TP_TYPE_PROPERTY_VALUE_STRUCT</h3>
+<pre class="programlisting">#define TP_TYPE_PROPERTY_VALUE_STRUCT TP_STRUCT_TYPE_PROPERTY_VALUE
+</pre>
+<p>
+The GType of the structures with signature '(uv)' returned by
+GetProperties and emitted in PropertiesChanged.
+</p>
+<p>
+<em class="parameter"><code>Deprecated</code></em>: Since 0.7.0. Use TP_STRUCT_TYPE_PROPERTY_VALUE instead.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-TYPE-PROPERTY-VALUE-LIST:CAPS"></a><h3>TP_TYPE_PROPERTY_VALUE_LIST</h3>
+<pre class="programlisting">#define TP_TYPE_PROPERTY_VALUE_LIST TP_ARRAY_TYPE_PROPERTY_VALUE_LIST
+</pre>
+<p>
+The GType of the return from GetProperties and the parameter to
+PropertiesChanged (i.e. a GPtrArray of structures of type
+TP_TYPE_PROPERTY_VALUE_STRUCT), corresponding to D-Bus signature 'a(uv)'.
+</p>
+<p>
+<em class="parameter"><code>Deprecated</code></em>: Since 0.7.0. Use TP_ARRAY_TYPE_PROPERTY_VALUE_LIST instead.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-TYPE-PROPERTY-FLAGS-STRUCT:CAPS"></a><h3>TP_TYPE_PROPERTY_FLAGS_STRUCT</h3>
+<pre class="programlisting">#define TP_TYPE_PROPERTY_FLAGS_STRUCT TP_STRUCT_TYPE_PROPERTY_FLAGS_CHANGE
+</pre>
+<p>
+The GType of the structures with D-Bus signature '(uu)' emitted in
+PropertyFlagsChanged.
+</p>
+<p>
+<em class="parameter"><code>Deprecated</code></em>: Since 0.7.0. Use TP_STRUCT_TYPE_PROPERTY_FLAGS_CHANGE instead.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-TYPE-PROPERTY-FLAGS-LIST:CAPS"></a><h3>TP_TYPE_PROPERTY_FLAGS_LIST</h3>
+<pre class="programlisting">#define TP_TYPE_PROPERTY_FLAGS_LIST TP_ARRAY_TYPE_PROPERTY_FLAGS_CHANGE_LIST
+</pre>
+<p>
+The GType of the parameter to PropertyFlagsChanged (i.e. a GPtrArray of
+structures of type TP_TYPE_PROPERTY_FLAGS_STRUCT), corresponding to
+D-Bus signature 'a(uu)'.
+</p>
+<p>
+<em class="parameter"><code>Deprecated</code></em>: Since 0.7.0. Use TP_ARRAY_TYPE_PROPERTY_FLAGS_CHANGE_LIST
+ instead.
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpPropertiesMixin.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-svc-generic.html#TpSvcPropertiesInterface"><span class="type">TpSvcPropertiesInterface</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+#/bin/sh
+
+# USB Modem
+for I in /sys/bus/usb/devices/usb*/*; do
+	if [ ! -d $I ]; then
+		continue
+	fi
+
+	DENYDIR=${I##*/}
+	if [ "$DENYDIR" = "driver" ] || [ "$DENYDIR" = "power" ] || [ "$DENYDIR" = "subsystem" ] || [ "$DENYDIR" = "usb_device" ] || [ "$DENYDIR" = "usb_endpoint" ];then
+		continue
+	fi
+
+	. $I/uevent
+
+	PRODUCT=${PRODUCT%/*}
+	# vendor device
+read VENDOR DEVICE DEVTYPE DESC <<-EOF
+`grep "0x${PRODUCT%/*}	0x${PRODUCT#*/}" @prefix@/share/lxnm/usbmodem.ids`
+EOF
+	if [ ! A"$VENDOR" = A ]; then
+		for J in $I/*/ttyUSB[0-9]; do
+			if [ -x $J ]; then
+				DEVFILE=${J##*/}
+				echo "+$LXNM_CMDID ${DEVFILE} ${DEVTYPE}"
+				break
+			fi
+		done
+	fi
+done
+

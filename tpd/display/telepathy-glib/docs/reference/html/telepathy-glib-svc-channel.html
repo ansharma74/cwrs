@@ -1,0 +1,613 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Service-side Channel base interface</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-dbus.html" title="Service-side D-Bus interfaces">
+<link rel="prev" href="telepathy-glib-svc-generic.html" title="Generic service-side interfaces">
+<link rel="next" href="telepathy-glib-svc-channel-group.html" title="Service-side Channel Group and Conference interfaces">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-svc-generic.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-dbus.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-svc-channel-group.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-svc-channel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel.derived-interfaces" class="shortcut">Known Derived Interfaces</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel.implementations" class="shortcut">Known Implementations</a>
+                   | 
+                  <a href="#telepathy-glib-svc-channel.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-svc-channel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-svc-channel.top_of_page"></a>Service-side Channel base interface</span></h2>
+<p>Service-side Channel base interface — GInterface for Telepathy Channel objects</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-svc-channel.synopsis"></a><h2>Synopsis</h2>
+<a name="TpSvcChannel"></a><a name="TpSvcChannelInterfaceDestroyable"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib-dbus.h&gt;
+
+                    <a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannel-struct" title="TpSvcChannel">TpSvcChannel</a>;
+                    <a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelClass" title="TpSvcChannelClass">TpSvcChannelClass</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-close-impl" title="tp_svc_channel_close_impl ()">*tp_svc_channel_close_impl</a>)        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannel"><span class="type">TpSvcChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-implement-close" title="tp_svc_channel_implement_close ()">tp_svc_channel_implement_close</a>      (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelClass" title="TpSvcChannelClass"><span class="type">TpSvcChannelClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-close-impl" title="tp_svc_channel_close_impl ()"><span class="type">tp_svc_channel_close_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-return-from-close" title="tp_svc_channel_return_from_close ()">tp_svc_channel_return_from_close</a>    (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-get-channel-type-impl" title="tp_svc_channel_get_channel_type_impl ()">*tp_svc_channel_get_channel_type_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannel"><span class="type">TpSvcChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-implement-get-channel-type" title="tp_svc_channel_implement_get_channel_type ()">tp_svc_channel_implement_get_channel_type</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelClass" title="TpSvcChannelClass"><span class="type">TpSvcChannelClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-get-channel-type-impl" title="tp_svc_channel_get_channel_type_impl ()"><span class="type">tp_svc_channel_get_channel_type_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-return-from-get-channel-type" title="tp_svc_channel_return_from_get_channel_type ()">tp_svc_channel_return_from_get_channel_type</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *out_Channel_Type</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-get-handle-impl" title="tp_svc_channel_get_handle_impl ()">*tp_svc_channel_get_handle_impl</a>)   (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannel"><span class="type">TpSvcChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-implement-get-handle" title="tp_svc_channel_implement_get_handle ()">tp_svc_channel_implement_get_handle</a> (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelClass" title="TpSvcChannelClass"><span class="type">TpSvcChannelClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-get-handle-impl" title="tp_svc_channel_get_handle_impl ()"><span class="type">tp_svc_channel_get_handle_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-return-from-get-handle" title="tp_svc_channel_return_from_get_handle ()">tp_svc_channel_return_from_get_handle</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> out_Target_Handle_Type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> out_Target_Handle</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-get-interfaces-impl" title="tp_svc_channel_get_interfaces_impl ()">*tp_svc_channel_get_interfaces_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannel"><span class="type">TpSvcChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-implement-get-interfaces" title="tp_svc_channel_implement_get_interfaces ()">tp_svc_channel_implement_get_interfaces</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelClass" title="TpSvcChannelClass"><span class="type">TpSvcChannelClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-get-interfaces-impl" title="tp_svc_channel_get_interfaces_impl ()"><span class="type">tp_svc_channel_get_interfaces_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-return-from-get-interfaces" title="tp_svc_channel_return_from_get_interfaces ()">tp_svc_channel_return_from_get_interfaces</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out_Interfaces</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-emit-closed" title="tp_svc_channel_emit_closed ()">tp_svc_channel_emit_closed</a>          (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>);
+
+                    <a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelInterfaceDestroyable-struct" title="TpSvcChannelInterfaceDestroyable">TpSvcChannelInterfaceDestroyable</a>;
+                    <a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelInterfaceDestroyableClass" title="TpSvcChannelInterfaceDestroyableClass">TpSvcChannelInterfaceDestroyableClass</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-interface-destroyable-destroy-impl" title="tp_svc_channel_interface_destroyable_destroy_impl ()">*tp_svc_channel_interface_destroyable_destroy_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelInterfaceDestroyable"><span class="type">TpSvcChannelInterfaceDestroyable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-interface-destroyable-implement-destroy" title="tp_svc_channel_interface_destroyable_implement_destroy ()">tp_svc_channel_interface_destroyable_implement_destroy</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelInterfaceDestroyableClass" title="TpSvcChannelInterfaceDestroyableClass"><span class="type">TpSvcChannelInterfaceDestroyableClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-interface-destroyable-destroy-impl" title="tp_svc_channel_interface_destroyable_destroy_impl ()"><span class="type">tp_svc_channel_interface_destroyable_destroy_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-interface-destroyable-return-from-destroy" title="tp_svc_channel_interface_destroyable_return_from_destroy ()">tp_svc_channel_interface_destroyable_return_from_destroy</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcChannel
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcChannelInterfaceDestroyable
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel.derived-interfaces"></a><h2>Known Derived Interfaces</h2>
+<p>
+TpSvcChannel is required by
+ <a class="link" href="TpExportableChannel.html" title="TpExportableChannel">TpExportableChannel</a>.</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel.implementations"></a><h2>Known Implementations</h2>
+<p>
+TpSvcChannel is implemented by
+ <a class="link" href="TpBaseCallChannel.html" title="TpBaseCallChannel">TpBaseCallChannel</a>,  <a class="link" href="TpBaseChannel.html" title="TpBaseChannel">TpBaseChannel</a>,  <a class="link" href="TpBaseMediaCallChannel.html" title="TpBaseMediaCallChannel">TpBaseMediaCallChannel</a> and  <a class="link" href="telepathy-glib-base-password-channel.html#TpBasePasswordChannel">TpBasePasswordChannel</a>.</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannel-closed" title='The "closed" signal'>closed</a>"                                         : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel.description"></a><h2>Description</h2>
+<p>
+This interface (auto-generated from the Telepathy spec) makes it easier
+to export objects implementing the Telepathy Channel.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpSvcChannel-struct"></a><h3>TpSvcChannel</h3>
+<pre class="programlisting">typedef struct _TpSvcChannel TpSvcChannel;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelClass"></a><h3>TpSvcChannelClass</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelClass TpSvcChannelClass;</pre>
+<p>
+The class of TpSvcChannel.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_channel (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_channel_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (close);
+  IMPLEMENT (get_channel_type);
+  IMPLEMENT (get_handle);
+  IMPLEMENT (get_interfaces);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-close-impl"></a><h3>tp_svc_channel_close_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_close_impl)        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannel"><span class="type">TpSvcChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+Close on interface org.freedesktop.Telepathy.Channel.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-implement-close"></a><h3>tp_svc_channel_implement_close ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_implement_close      (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelClass" title="TpSvcChannelClass"><span class="type">TpSvcChannelClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-close-impl" title="tp_svc_channel_close_impl ()"><span class="type">tp_svc_channel_close_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the Close method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the Close D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-return-from-close"></a><h3>tp_svc_channel_return_from_close ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_return_from_close    (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-get-channel-type-impl"></a><h3>tp_svc_channel_get_channel_type_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_get_channel_type_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannel"><span class="type">TpSvcChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetChannelType on interface org.freedesktop.Telepathy.Channel.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-implement-get-channel-type"></a><h3>tp_svc_channel_implement_get_channel_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_implement_get_channel_type
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelClass" title="TpSvcChannelClass"><span class="type">TpSvcChannelClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-get-channel-type-impl" title="tp_svc_channel_get_channel_type_impl ()"><span class="type">tp_svc_channel_get_channel_type_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetChannelType method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetChannelType D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-return-from-get-channel-type"></a><h3>tp_svc_channel_return_from_get_channel_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_return_from_get_channel_type
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *out_Channel_Type</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Channel_Type</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-get-handle-impl"></a><h3>tp_svc_channel_get_handle_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_get_handle_impl)   (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannel"><span class="type">TpSvcChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetHandle on interface org.freedesktop.Telepathy.Channel.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-implement-get-handle"></a><h3>tp_svc_channel_implement_get_handle ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_implement_get_handle (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelClass" title="TpSvcChannelClass"><span class="type">TpSvcChannelClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-get-handle-impl" title="tp_svc_channel_get_handle_impl ()"><span class="type">tp_svc_channel_get_handle_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetHandle method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetHandle D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-return-from-get-handle"></a><h3>tp_svc_channel_return_from_get_handle ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_return_from_get_handle
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> out_Target_Handle_Type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> out_Target_Handle</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Target_Handle_Type</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Target_Handle</code></em> :</span></p></td>
+<td>guint  (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-get-interfaces-impl"></a><h3>tp_svc_channel_get_interfaces_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_get_interfaces_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannel"><span class="type">TpSvcChannel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+GetInterfaces on interface org.freedesktop.Telepathy.Channel.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-implement-get-interfaces"></a><h3>tp_svc_channel_implement_get_interfaces ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_implement_get_interfaces
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelClass" title="TpSvcChannelClass"><span class="type">TpSvcChannelClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-get-interfaces-impl" title="tp_svc_channel_get_interfaces_impl ()"><span class="type">tp_svc_channel_get_interfaces_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the GetInterfaces method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the GetInterfaces D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-return-from-get-interfaces"></a><h3>tp_svc_channel_return_from_get_interfaces ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_return_from_get_interfaces
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out_Interfaces</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Interfaces</code></em> :</span></p></td>
+<td>const gchar ** (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-emit-closed"></a><h3>tp_svc_channel_emit_closed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_emit_closed          (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+Closed signal on interface org.freedesktop.Telepathy.Channel.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceDestroyable-struct"></a><h3>TpSvcChannelInterfaceDestroyable</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelInterfaceDestroyable TpSvcChannelInterfaceDestroyable;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcChannelInterfaceDestroyableClass"></a><h3>TpSvcChannelInterfaceDestroyableClass</h3>
+<pre class="programlisting">typedef struct _TpSvcChannelInterfaceDestroyableClass TpSvcChannelInterfaceDestroyableClass;</pre>
+<p>
+The class of TpSvcChannelInterfaceDestroyable.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_channel_interface_destroyable (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_channel_interface_destroyable_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (destroy);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-destroyable-destroy-impl"></a><h3>tp_svc_channel_interface_destroyable_destroy_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_channel_interface_destroyable_destroy_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelInterfaceDestroyable"><span class="type">TpSvcChannelInterfaceDestroyable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+Destroy on interface org.freedesktop.Telepathy.Channel.Interface.Destroyable.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-destroyable-implement-destroy"></a><h3>tp_svc_channel_interface_destroyable_implement_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_destroyable_implement_destroy
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelInterfaceDestroyableClass" title="TpSvcChannelInterfaceDestroyableClass"><span class="type">TpSvcChannelInterfaceDestroyableClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-channel.html#tp-svc-channel-interface-destroyable-destroy-impl" title="tp_svc_channel_interface_destroyable_destroy_impl ()"><span class="type">tp_svc_channel_interface_destroyable_destroy_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the Destroy method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the Destroy D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-channel-interface-destroyable-return-from-destroy"></a><h3>tp_svc_channel_interface_destroyable_return_from_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_channel_interface_destroyable_return_from_destroy
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpSvcChannel-closed"></a><h3>The <code class="literal">"closed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannel"><span class="type">TpSvcChannel</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The Closed D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-channel.see-also"></a><h2>See Also</h2>
+<a class="link" href="TpChannelIface.html" title="TpChannelIface"><span class="type">TpChannelIface</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -1,0 +1,679 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Service-side Account interfaces</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-dbus.html" title="Service-side D-Bus interfaces">
+<link rel="prev" href="telepathy-glib-svc-account-manager.html" title="Service-side Account Manager interface">
+<link rel="next" href="telepathy-glib-svc-channel-dispatcher.html" title="Service-side Channel Dispatcher interface">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-svc-account-manager.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-dbus.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-svc-channel-dispatcher.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-svc-account.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-svc-account.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-svc-account.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-svc-account.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-svc-account"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-svc-account.top_of_page"></a>Service-side Account interfaces</span></h2>
+<p>Service-side Account interfaces — GInterfaces for Telepathy Account objects</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-svc-account.synopsis"></a><h2>Synopsis</h2>
+<a name="TpSvcAccount"></a><a name="TpSvcAccountInterfaceAvatar"></a><a name="TpSvcAccountInterfaceStorage"></a><a name="TpSvcAccountInterfaceAddressing"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib-dbus.h&gt;
+
+                    <a class="link" href="telepathy-glib-svc-account.html#TpSvcAccount-struct" title="TpSvcAccount">TpSvcAccount</a>;
+                    <a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountClass" title="TpSvcAccountClass">TpSvcAccountClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-emit-account-property-changed" title="tp_svc_account_emit_account_property_changed ()">tp_svc_account_emit_account_property_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Properties</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-emit-removed" title="tp_svc_account_emit_removed ()">tp_svc_account_emit_removed</a>         (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-reconnect-impl" title="tp_svc_account_reconnect_impl ()">*tp_svc_account_reconnect_impl</a>)    (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccount"><span class="type">TpSvcAccount</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-return-from-reconnect" title="tp_svc_account_return_from_reconnect ()">tp_svc_account_return_from_reconnect</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-implement-reconnect" title="tp_svc_account_implement_reconnect ()">tp_svc_account_implement_reconnect</a>  (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountClass" title="TpSvcAccountClass"><span class="type">TpSvcAccountClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-reconnect-impl" title="tp_svc_account_reconnect_impl ()"><span class="type">tp_svc_account_reconnect_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-remove-impl" title="tp_svc_account_remove_impl ()">*tp_svc_account_remove_impl</a>)       (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccount"><span class="type">TpSvcAccount</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-return-from-remove" title="tp_svc_account_return_from_remove ()">tp_svc_account_return_from_remove</a>   (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-implement-remove" title="tp_svc_account_implement_remove ()">tp_svc_account_implement_remove</a>     (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountClass" title="TpSvcAccountClass"><span class="type">TpSvcAccountClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-remove-impl" title="tp_svc_account_remove_impl ()"><span class="type">tp_svc_account_remove_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-update-parameters-impl" title="tp_svc_account_update_parameters_impl ()">*tp_svc_account_update_parameters_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccount"><span class="type">TpSvcAccount</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Set</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **in_Unset</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-return-from-update-parameters" title="tp_svc_account_return_from_update_parameters ()">tp_svc_account_return_from_update_parameters</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out_Reconnect_Required</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-implement-update-parameters" title="tp_svc_account_implement_update_parameters ()">tp_svc_account_implement_update_parameters</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountClass" title="TpSvcAccountClass"><span class="type">TpSvcAccountClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-update-parameters-impl" title="tp_svc_account_update_parameters_impl ()"><span class="type">tp_svc_account_update_parameters_impl</span></a> impl</code></em>);
+
+
+                    <a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountInterfaceAvatar-struct" title="TpSvcAccountInterfaceAvatar">TpSvcAccountInterfaceAvatar</a>;
+                    <a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountInterfaceAvatarClass" title="TpSvcAccountInterfaceAvatarClass">TpSvcAccountInterfaceAvatarClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-interface-avatar-emit-avatar-changed" title="tp_svc_account_interface_avatar_emit_avatar_changed ()">tp_svc_account_interface_avatar_emit_avatar_changed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>);
+
+
+                    <a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountInterfaceStorage-struct" title="TpSvcAccountInterfaceStorage">TpSvcAccountInterfaceStorage</a>;
+                    <a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountInterfaceStorageClass" title="TpSvcAccountInterfaceStorageClass">TpSvcAccountInterfaceStorageClass</a>;
+
+
+                    <a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountInterfaceAddressing-struct" title="TpSvcAccountInterfaceAddressing">TpSvcAccountInterfaceAddressing</a>;
+                    <a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountInterfaceAddressingClass" title="TpSvcAccountInterfaceAddressingClass">TpSvcAccountInterfaceAddressingClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-interface-addressing-implement-set-uri-scheme-association" title="tp_svc_account_interface_addressing_implement_set_uri_scheme_association ()">tp_svc_account_interface_addressing_implement_set_uri_scheme_association</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountInterfaceAddressingClass" title="TpSvcAccountInterfaceAddressingClass"><span class="type">TpSvcAccountInterfaceAddressingClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-interface-addressing-set-uri-scheme-association-impl" title="tp_svc_account_interface_addressing_set_uri_scheme_association_impl ()"><span class="type">tp_svc_account_interface_addressing_set_uri_scheme_association_impl</span></a> impl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-interface-addressing-return-from-set-uri-scheme-association" title="tp_svc_account_interface_addressing_return_from_set_uri_scheme_association ()">tp_svc_account_interface_addressing_return_from_set_uri_scheme_association</a>
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-interface-addressing-set-uri-scheme-association-impl" title="tp_svc_account_interface_addressing_set_uri_scheme_association_impl ()">*tp_svc_account_interface_addressing_set_uri_scheme_association_impl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountInterfaceAddressing"><span class="type">TpSvcAccountInterfaceAddressing</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_URI_Scheme</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> in_Association</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-account.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcAccount
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcAccountInterfaceAvatar
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcAccountInterfaceStorage
+</pre>
+<pre class="synopsis">
+  GInterface
+   +----TpSvcAccountInterfaceAddressing
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-account.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-svc-account.html#TpSvcAccount-account-property-changed" title='The "account-property-changed" signal'>account-property-changed</a>"                       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-account.html#TpSvcAccount-removed" title='The "removed" signal'>removed</a>"                                        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountInterfaceAvatar-avatar-changed" title='The "avatar-changed" signal'>avatar-changed</a>"                                 : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-account.description"></a><h2>Description</h2>
+<p>
+These interfaces (auto-generated from the Telepathy spec) make it easier
+to export objects implementing the Telepathy Account and its
+optional interfaces, with the correct method and signal signatures,
+and emit signals from those objects in a type-safe way.
+</p>
+<p>
+You don't need these interfaces unless you're implementing a
+Telepathy AccountManager, such as Mission Control.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-account.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpSvcAccount-struct"></a><h3>TpSvcAccount</h3>
+<pre class="programlisting">typedef struct _TpSvcAccount TpSvcAccount;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcAccountClass"></a><h3>TpSvcAccountClass</h3>
+<pre class="programlisting">typedef struct _TpSvcAccountClass TpSvcAccountClass;</pre>
+<p>
+The class of TpSvcAccount.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_account (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_account_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (remove);
+  IMPLEMENT (update_parameters);
+  IMPLEMENT (reconnect);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-account-emit-account-property-changed"></a><h3>tp_svc_account_emit_account_property_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_account_emit_account_property_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *arg_Properties</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+AccountPropertyChanged signal on interface org.freedesktop.Telepathy.Account.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Properties</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-account-emit-removed"></a><h3>tp_svc_account_emit_removed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_account_emit_removed         (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+Removed signal on interface org.freedesktop.Telepathy.Account.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-account-reconnect-impl"></a><h3>tp_svc_account_reconnect_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_account_reconnect_impl)    (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccount"><span class="type">TpSvcAccount</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+Reconnect on interface org.freedesktop.Telepathy.Account.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-account-return-from-reconnect"></a><h3>tp_svc_account_return_from_reconnect ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_account_return_from_reconnect
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-account-implement-reconnect"></a><h3>tp_svc_account_implement_reconnect ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_account_implement_reconnect  (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountClass" title="TpSvcAccountClass"><span class="type">TpSvcAccountClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-reconnect-impl" title="tp_svc_account_reconnect_impl ()"><span class="type">tp_svc_account_reconnect_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the Reconnect method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the Reconnect D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-account-remove-impl"></a><h3>tp_svc_account_remove_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_account_remove_impl)       (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccount"><span class="type">TpSvcAccount</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+Remove on interface org.freedesktop.Telepathy.Account.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-account-return-from-remove"></a><h3>tp_svc_account_return_from_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_account_return_from_remove   (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-account-implement-remove"></a><h3>tp_svc_account_implement_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_account_implement_remove     (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountClass" title="TpSvcAccountClass"><span class="type">TpSvcAccountClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-remove-impl" title="tp_svc_account_remove_impl ()"><span class="type">tp_svc_account_remove_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the Remove method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the Remove D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-account-update-parameters-impl"></a><h3>tp_svc_account_update_parameters_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_account_update_parameters_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccount"><span class="type">TpSvcAccount</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *in_Set</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **in_Unset</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+UpdateParameters on interface org.freedesktop.Telepathy.Account.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Set</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Unset</code></em> :</span></p></td>
+<td>const gchar ** (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-account-return-from-update-parameters"></a><h3>tp_svc_account_return_from_update_parameters ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_account_return_from_update_parameters
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out_Reconnect_Required</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_Reconnect_Required</code></em> :</span></p></td>
+<td>const gchar ** (FIXME, generate documentation)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-account-implement-update-parameters"></a><h3>tp_svc_account_implement_update_parameters ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_account_implement_update_parameters
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountClass" title="TpSvcAccountClass"><span class="type">TpSvcAccountClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-update-parameters-impl" title="tp_svc_account_update_parameters_impl ()"><span class="type">tp_svc_account_update_parameters_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the UpdateParameters method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the UpdateParameters D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcAccountInterfaceAvatar-struct"></a><h3>TpSvcAccountInterfaceAvatar</h3>
+<pre class="programlisting">typedef struct _TpSvcAccountInterfaceAvatar TpSvcAccountInterfaceAvatar;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcAccountInterfaceAvatarClass"></a><h3>TpSvcAccountInterfaceAvatarClass</h3>
+<pre class="programlisting">typedef struct _TpSvcAccountInterfaceAvatarClass TpSvcAccountInterfaceAvatarClass;</pre>
+<p>
+The class of TpSvcAccountInterfaceAvatar.
+This interface has no D-Bus methods, so an
+implementation can typically pass <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> as the interface
+initialization function.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-account-interface-avatar-emit-avatar-changed"></a><h3>tp_svc_account_interface_avatar_emit_avatar_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_account_interface_avatar_emit_avatar_changed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> instance</code></em>);</pre>
+<p>
+Type-safe wrapper around g_signal_emit to emit the
+AvatarChanged signal on interface org.freedesktop.Telepathy.Account.Interface.Avatar.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>instance</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcAccountInterfaceStorage-struct"></a><h3>TpSvcAccountInterfaceStorage</h3>
+<pre class="programlisting">typedef struct _TpSvcAccountInterfaceStorage TpSvcAccountInterfaceStorage;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcAccountInterfaceStorageClass"></a><h3>TpSvcAccountInterfaceStorageClass</h3>
+<pre class="programlisting">typedef struct _TpSvcAccountInterfaceStorageClass TpSvcAccountInterfaceStorageClass;</pre>
+<p>
+The class of TpSvcAccountInterfaceStorage.
+This interface has no D-Bus methods, so an
+implementation can typically pass <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> as the interface
+initialization function.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcAccountInterfaceAddressing-struct"></a><h3>TpSvcAccountInterfaceAddressing</h3>
+<pre class="programlisting">typedef struct _TpSvcAccountInterfaceAddressing TpSvcAccountInterfaceAddressing;</pre>
+<p>
+Dummy typedef representing any implementation of this interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcAccountInterfaceAddressingClass"></a><h3>TpSvcAccountInterfaceAddressingClass</h3>
+<pre class="programlisting">typedef struct _TpSvcAccountInterfaceAddressingClass TpSvcAccountInterfaceAddressingClass;</pre>
+<p>
+The class of TpSvcAccountInterfaceAddressing.
+</p>
+<p>
+In a full implementation of this interface (i.e. all
+methods implemented), the interface initialization
+function used in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> would
+typically look like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+static void
+implement_account_interface_addressing (gpointer klass,
+    gpointer unused G_GNUC_UNUSED)
+{
+#define IMPLEMENT(x) tp_svc_account_interface_addressing_implement_##x (\
+  klass, my_object_##x)
+  IMPLEMENT (set_uri_scheme_association);
+#undef IMPLEMENT
+}
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-account-interface-addressing-implement-set-uri-scheme-association"></a><h3>tp_svc_account_interface_addressing_implement_set_uri_scheme_association ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_account_interface_addressing_implement_set_uri_scheme_association
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountInterfaceAddressingClass" title="TpSvcAccountInterfaceAddressingClass"><span class="type">TpSvcAccountInterfaceAddressingClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#tp-svc-account-interface-addressing-set-uri-scheme-association-impl" title="tp_svc_account_interface_addressing_set_uri_scheme_association_impl ()"><span class="type">tp_svc_account_interface_addressing_set_uri_scheme_association_impl</span></a> impl</code></em>);</pre>
+<p>
+Register an implementation for the SetURISchemeAssociation method in the vtable
+of an implementation of this interface. To be called from
+the interface init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>A class whose instances implement this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>A callback used to implement the SetURISchemeAssociation D-Bus method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-account-interface-addressing-return-from-set-uri-scheme-association"></a><h3>tp_svc_account_interface_addressing_return_from_set_uri_scheme_association ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_svc_account_interface_addressing_return_from_set_uri_scheme_association
+                                                        (<em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+Return successfully by calling <code class="function">dbus_g_method_return()</code>.
+This inline function exists only to provide type-safety.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The D-Bus method invocation context</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-svc-account-interface-addressing-set-uri-scheme-association-impl"></a><h3>tp_svc_account_interface_addressing_set_uri_scheme_association_impl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*tp_svc_account_interface_addressing_set_uri_scheme_association_impl)
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountInterfaceAddressing"><span class="type">TpSvcAccountInterfaceAddressing</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in_URI_Scheme</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> in_Association</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<p>
+The signature of an implementation of the D-Bus method
+SetURISchemeAssociation on interface org.freedesktop.Telepathy.Account.Interface.Addressing.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The object implementing this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_URI_Scheme</code></em> :</span></p></td>
+<td>const gchar * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_Association</code></em> :</span></p></td>
+<td>gboolean  (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>Used to return values or throw an error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-svc-account.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpSvcAccount-account-property-changed"></a><h3>The <code class="literal">"account-property-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-account.html#TpSvcAccount"><span class="type">TpSvcAccount</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The AccountPropertyChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg_Properties</code></em> :</span></p></td>
+<td>GHashTable * (FIXME, generate documentation)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcAccount-removed"></a><h3>The <code class="literal">"removed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-account.html#TpSvcAccount"><span class="type">TpSvcAccount</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The Removed D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSvcAccountInterfaceAvatar-avatar-changed"></a><h3>The <code class="literal">"avatar-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-svc-account.html#TpSvcAccountInterfaceAvatar"><span class="type">TpSvcAccountInterfaceAvatar</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                     user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+The AvatarChanged D-Bus signal is emitted whenever this GObject signal is.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>an object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

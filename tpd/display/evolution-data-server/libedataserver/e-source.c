@@ -1,0 +1,2786 @@
+/*
+ * e-source.c
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with the program; if not, see <http://www.gnu.org/licenses/>
+ *
+ */
+
+/**
+ * SECTION: e-source
+ * @include: libedataserver/libedataserver.h
+ * @short_description: Hierarchical data sources
+ *
+ * An #ESource (or "data source") is a description of a file or network
+ * location where data can be obtained (such as a mail account), or a
+ * description of a resource at that location (such as a mail folder).
+ *
+ * In more concrete terms, it's an interface for a key file.  All such
+ * key files have a main group named [Data Source].  The keys in a
+ * [Data Source] group map to #GObject properties in an #ESource.
+ *
+ * Additional groups in the key file are referred to as "extensions".
+ * #ESourceExtension serves as the base class for writing interfaces
+ * for these additional key file groups.  The keys in one of these
+ * key file groups map to #GObject properties in some custom subclass
+ * of #ESourceExtension which was written specifically for that key
+ * file group.  For example, a key file might include a group named
+ * [Calendar], whose keys map to #GObject properties in an extension
+ * class named #ESourceCalendar.
+ *
+ * Each #ESource contains an internal dictionary of extension objects,
+ * accessible by their key file group name.  e_source_get_extension()
+ * can look up extension objects by name.
+ *
+ * An #ESource is identified by a unique identifier string, or "UID",
+ * which is also the basename of the corresponding key file.  Additional
+ * files related to the #ESource, such as cache files, are usually kept
+ * in a directory named after the UID of the #ESource.  Similarly, the
+ * password for an account described by an #ESource is kept in GNOME
+ * Keyring under the UID of the #ESource.  This makes finding these
+ * additional resources simple.
+ *
+ * Several extensions for common information such as authentication
+ * details are built into libedataserver (#ESourceAuthentication, for
+ * example).  Backend modules may also define their own extensions for
+ * information and settings unique to the backend.  #ESourceExtension
+ * subclasses written for specific backends are generally not available
+ * to applications and shared libraries.  This is by design, to try and
+ * keep backend-specific knowledge from creeping into places it doesn't
+ * belong.
+ **/
+
+#include "e-source.h"
+
+#include <config.h>
+#include <string.h>
+#include <glib/gi18n-lib.h>
+
+/* Private D-Bus classes. */
+#include <e-dbus-source.h>
+
+#include "e-data-server-util.h"
+#include "e-source-extension.h"
+#include "e-uid.h"
+
+/* built-in extension types */
+#include "e-source-address-book.h"
+#include "e-source-alarms.h"
+#include "e-source-authentication.h"
+#include "e-source-autocomplete.h"
+#include "e-source-calendar.h"
+#include "e-source-camel.h"
+#include "e-source-collection.h"
+#include "e-source-goa.h"
+#include "e-source-mail-account.h"
+#include "e-source-mail-composition.h"
+#include "e-source-mail-identity.h"
+#include "e-source-mail-signature.h"
+#include "e-source-mail-submission.h"
+#include "e-source-mail-transport.h"
+#include "e-source-mdn.h"
+#include "e-source-offline.h"
+#include "e-source-openpgp.h"
+#include "e-source-refresh.h"
+#include "e-source-resource.h"
+#include "e-source-security.h"
+#include "e-source-selectable.h"
+#include "e-source-smime.h"
+#include "e-source-webdav.h"
+
+#define E_SOURCE_GET_PRIVATE(obj) \
+	(G_TYPE_INSTANCE_GET_PRIVATE \
+	((obj), E_TYPE_SOURCE, ESourcePrivate))
+
+/* This forces the GType to be registered in a way that
+ * avoids a "statement with no effect" compiler warning. */
+#define REGISTER_TYPE(type) \
+	(g_type_class_unref (g_type_class_ref (type)))
+
+#define PRIMARY_GROUP_NAME	"Data Source"
+
+typedef struct _AsyncContext AsyncContext;
+
+struct _ESourcePrivate {
+	GDBusObject *dbus_object;
+	GMainContext *main_context;
+
+	GSource *changed;
+	GMutex *changed_lock;
+
+	GMutex *property_lock;
+
+	gchar *display_name;
+	gchar *collate_key;
+	gchar *parent;
+	gchar *uid;
+
+	/* The lock guards the key file and hash table. */
+
+	GKeyFile *key_file;
+	GStaticRecMutex lock;
+	GHashTable *extensions;
+
+	gboolean enabled;
+	gboolean initialized;
+};
+
+struct _AsyncContext {
+	ESource *scratch_source;
+};
+
+enum {
+	PROP_0,
+	PROP_DBUS_OBJECT,
+	PROP_DISPLAY_NAME,
+	PROP_ENABLED,
+	PROP_MAIN_CONTEXT,
+	PROP_PARENT,
+	PROP_REMOTE_CREATABLE,
+	PROP_REMOTE_DELETABLE,
+	PROP_REMOVABLE,
+	PROP_UID,
+	PROP_WRITABLE
+};
+
+enum {
+	CHANGED,
+	LAST_SIGNAL
+};
+
+static guint signals[LAST_SIGNAL];
+
+/* Forward Declarations */
+static void	e_source_initable_init		(GInitableIface *interface);
+
+G_DEFINE_TYPE_WITH_CODE (
+	ESource,
+	e_source,
+	G_TYPE_OBJECT,
+	G_IMPLEMENT_INTERFACE (
+		G_TYPE_INITABLE,
+		e_source_initable_init))
+
+static void
+async_context_free (AsyncContext *async_context)
+{
+	if (async_context->scratch_source != NULL)
+		g_object_unref (async_context->scratch_source);
+
+	g_slice_free (AsyncContext, async_context);
+}
+
+static void
+source_find_extension_classes_rec (GType parent_type,
+                                   GHashTable *hash_table)
+{
+	GType *children;
+	guint n_children, ii;
+
+	children = g_type_children (parent_type, &n_children);
+
+	for (ii = 0; ii < n_children; ii++) {
+		GType type = children[ii];
+		ESourceExtensionClass *class;
+		gpointer key;
+
+		/* Recurse over the child's children. */
+		source_find_extension_classes_rec (type, hash_table);
+
+		/* Skip abstract types. */
+		if (G_TYPE_IS_ABSTRACT (type))
+			continue;
+
+		class = g_type_class_ref (type);
+		key = (gpointer) class->name;
+
+		if (key != NULL)
+			g_hash_table_insert (hash_table, key, class);
+		else
+			g_type_class_unref (class);
+	}
+
+	g_free (children);
+}
+
+static GHashTable *
+source_find_extension_classes (void)
+{
+	GHashTable *hash_table;
+
+	hash_table = g_hash_table_new_full (
+		(GHashFunc) g_str_hash,
+		(GEqualFunc) g_str_equal,
+		(GDestroyNotify) NULL,
+		(GDestroyNotify) g_type_class_unref);
+
+	source_find_extension_classes_rec (
+		E_TYPE_SOURCE_EXTENSION, hash_table);
+
+	return hash_table;
+}
+
+static void
+source_localized_hack (GKeyFile *key_file,
+                       const gchar *group_name,
+                       const gchar *key,
+                       const gchar *new_value)
+{
+	const gchar * const *language_names;
+	gint ii;
+
+	/* XXX If we're changing a string key that has translations,
+	 *     set "key[$CURRENT_LOCALE]" (if available) to the new
+	 *     value so g_key_file_get_locale_string() will pick it
+	 *     up.  This is not a perfect solution however.  When a
+	 *     different locale is used the value may revert to its
+	 *     original localized string.  Good enough for now. */
+
+	language_names = g_get_language_names ();
+
+	for (ii = 0; language_names[ii] != NULL; ii++) {
+		gboolean has_localized_key;
+		gchar *localized_key;
+
+		localized_key = g_strdup_printf (
+			"%s[%s]", key, language_names[ii]);
+		has_localized_key = g_key_file_has_key (
+			key_file, group_name, localized_key, NULL);
+
+		if (has_localized_key)
+			g_key_file_set_string (
+				key_file, group_name,
+				localized_key, new_value);
+
+		g_free (localized_key);
+
+		if (has_localized_key)
+			return;
+	}
+
+	g_key_file_set_string (key_file, group_name, key, new_value);
+}
+
+static void
+source_set_key_file_from_property (GObject *object,
+                                   GParamSpec *pspec,
+                                   GKeyFile *key_file,
+                                   const gchar *group_name)
+{
+	GValue *pvalue;
+	GValue *svalue;
+	gchar *key;
+
+	pvalue = g_slice_new0 (GValue);
+	g_value_init (pvalue, pspec->value_type);
+	g_object_get_property (object, pspec->name, pvalue);
+
+	svalue = g_slice_new0 (GValue);
+	g_value_init (svalue, G_TYPE_STRING);
+
+	key = e_source_parameter_to_key (pspec->name);
+
+	/* For the most part we can just transform any supported
+	 * property type to a string, with a couple exceptions. */
+
+	/* Transforming a boolean GValue to a string results in
+	 * "TRUE" or "FALSE" (all uppercase), but GKeyFile only
+	 * recognizes "true" or "false" (all lowercase).  So we
+	 * have to use g_key_file_set_boolean(). */
+	if (G_VALUE_HOLDS_BOOLEAN (pvalue)) {
+		gboolean v_boolean = g_value_get_boolean (pvalue);
+		g_key_file_set_boolean (key_file, group_name, key, v_boolean);
+
+	/* Store UIN64 in hexa */
+	} else if (G_VALUE_HOLDS_UINT64 (pvalue)) {
+		gchar *v_str;
+
+		v_str = g_strdup_printf (
+			"%016" G_GINT64_MODIFIER "X",
+			g_value_get_uint64 (pvalue));
+		g_key_file_set_string (key_file, group_name, key, v_str);
+		g_free (v_str);
+
+	/* String GValues may contain characters that need escaping. */
+	} else if (G_VALUE_HOLDS_STRING (pvalue)) {
+		const gchar *v_string = g_value_get_string (pvalue);
+
+		if (v_string == NULL)
+			v_string = "";
+
+		/* Special case for localized "DisplayName" keys. */
+		source_localized_hack (key_file, group_name, key, v_string);
+
+	/* Transforming an enum GValue to a string results in
+	 * the GEnumValue name.  We want the shorter nickname. */
+	} else if (G_VALUE_HOLDS_ENUM (pvalue)) {
+		GParamSpecEnum *enum_pspec;
+		GEnumClass *enum_class;
+		GEnumValue *enum_value;
+		gint value;
+
+		enum_pspec = G_PARAM_SPEC_ENUM (pspec);
+		enum_class = enum_pspec->enum_class;
+
+		value = g_value_get_enum (pvalue);
+		enum_value = g_enum_get_value (enum_class, value);
+
+		if (enum_value == NULL) {
+			value = enum_pspec->default_value;
+			enum_value = g_enum_get_value (enum_class, value);
+		}
+
+		if (enum_value != NULL)
+			g_key_file_set_string (
+				key_file, group_name, key,
+				enum_value->value_nick);
+
+	} else if (G_VALUE_HOLDS (pvalue, G_TYPE_STRV)) {
+		const gchar **strv = g_value_get_boxed (pvalue);
+		guint length = 0;
+
+		if (strv != NULL)
+			length = g_strv_length ((gchar **) strv);
+		g_key_file_set_string_list (
+			key_file, group_name, key, strv, length);
+
+	/* For GValues holding a GFile object we save the URI. */
+	} else if (G_VALUE_HOLDS (pvalue, G_TYPE_FILE)) {
+		GFile *file = g_value_get_object (pvalue);
+		gchar *uri = NULL;
+
+		if (file != NULL)
+			uri = g_file_get_uri (file);
+		g_key_file_set_string (
+			key_file, group_name, key,
+			(uri != NULL) ? uri : "");
+		g_free (uri);
+
+	} else if (g_value_transform (pvalue, svalue)) {
+		const gchar *value = g_value_get_string (svalue);
+		g_key_file_set_value (key_file, group_name, key, value);
+	}
+
+	g_free (key);
+	g_value_unset (pvalue);
+	g_value_unset (svalue);
+	g_slice_free (GValue, pvalue);
+	g_slice_free (GValue, svalue);
+}
+
+static void
+source_set_property_from_key_file (GObject *object,
+                                   GParamSpec *pspec,
+                                   GKeyFile *key_file,
+                                   const gchar *group_name)
+{
+	gchar *key;
+	GValue *value;
+	GError *error = NULL;
+
+	value = g_slice_new0 (GValue);
+	key = e_source_parameter_to_key (pspec->name);
+
+	if (G_IS_PARAM_SPEC_CHAR (pspec) ||
+	    G_IS_PARAM_SPEC_UCHAR (pspec) ||
+	    G_IS_PARAM_SPEC_INT (pspec) ||
+	    G_IS_PARAM_SPEC_UINT (pspec) ||
+	    G_IS_PARAM_SPEC_LONG (pspec) ||
+	    G_IS_PARAM_SPEC_ULONG (pspec)) {
+		gint v_int;
+
+		v_int = g_key_file_get_integer (
+			key_file, group_name, key, &error);
+		if (error == NULL) {
+			g_value_init (value, G_TYPE_INT);
+			g_value_set_int (value, v_int);
+		}
+
+	} else if (G_IS_PARAM_SPEC_INT64 (pspec)) {
+		gint64 v_int64;
+
+		v_int64 = g_key_file_get_int64 (
+			key_file, group_name, key, &error);
+		if (error == NULL) {
+			g_value_init (value, G_TYPE_INT64);
+			g_value_set_int64 (value, v_int64);
+		}
+
+	} else if (G_IS_PARAM_SPEC_UINT64 (pspec)) {
+		guint64 v_uint64;
+		gchar *v_str;
+
+		v_str = g_key_file_get_string (
+			key_file, group_name, key, &error);
+		if (error == NULL) {
+			v_uint64 = g_ascii_strtoull (v_str, NULL, 16);
+
+			g_value_init (value, G_TYPE_UINT64);
+			g_value_set_uint64 (value, v_uint64);
+		}
+
+		g_free (v_str);
+
+	} else if (G_IS_PARAM_SPEC_BOOLEAN (pspec)) {
+		gboolean v_boolean;
+
+		v_boolean = g_key_file_get_boolean (
+			key_file, group_name, key, &error);
+		if (error == NULL) {
+			g_value_init (value, G_TYPE_BOOLEAN);
+			g_value_set_boolean (value, v_boolean);
+		}
+
+	} else if (G_IS_PARAM_SPEC_ENUM (pspec)) {
+		gchar *nick;
+
+		nick = g_key_file_get_string (
+			key_file, group_name, key, &error);
+		if (error == NULL) {
+			GParamSpecEnum *enum_pspec;
+			GEnumValue *enum_value;
+
+			enum_pspec = G_PARAM_SPEC_ENUM (pspec);
+			enum_value = g_enum_get_value_by_nick (
+				enum_pspec->enum_class, nick);
+			if (enum_value != NULL) {
+				g_value_init (value, pspec->value_type);
+				g_value_set_enum (value, enum_value->value);
+			}
+			g_free (nick);
+		}
+
+	} else if (G_IS_PARAM_SPEC_FLOAT (pspec) ||
+		   G_IS_PARAM_SPEC_DOUBLE (pspec)) {
+		gdouble v_double;
+
+		v_double = g_key_file_get_double (
+			key_file, group_name, key, &error);
+		if (error == NULL) {
+			g_value_init (value, G_TYPE_DOUBLE);
+			g_value_set_double (value, v_double);
+		}
+
+	} else if (G_IS_PARAM_SPEC_STRING (pspec)) {
+		gchar *v_string;
+
+		/* Get the localized string if present. */
+		v_string = g_key_file_get_locale_string (
+			key_file, group_name, key, NULL, &error);
+		if (error == NULL) {
+			g_value_init (value, G_TYPE_STRING);
+			g_value_take_string (value, v_string);
+		}
+
+	} else if (g_type_is_a (pspec->value_type, G_TYPE_STRV)) {
+		gchar **strv;
+
+		strv = g_key_file_get_string_list (
+			key_file, group_name, key, NULL, &error);
+		if (error == NULL) {
+			g_value_init (value, G_TYPE_STRV);
+			g_value_take_boxed (value, strv);
+		}
+
+	} else if (g_type_is_a (pspec->value_type, G_TYPE_FILE)) {
+		gchar *uri;
+
+		/* Create the GFile from the URI string. */
+		uri = g_key_file_get_locale_string (
+			key_file, group_name, key, NULL, &error);
+		if (error == NULL) {
+			GFile *file = NULL;
+			if (uri != NULL && *uri != '\0')
+				file = g_file_new_for_uri (uri);
+			g_value_init (value, pspec->value_type);
+			g_value_take_object (value, file);
+			g_free (uri);
+		}
+
+	} else {
+		g_warning (
+			"No GKeyFile-to-GValue converter defined "
+			"for type '%s'", G_PARAM_SPEC_TYPE_NAME (pspec));
+	}
+
+	/* If a value could not be retrieved from the key
+	 * file, restore the property to its default value. */
+	if (error != NULL) {
+		g_value_init (value, pspec->value_type);
+		g_param_value_set_default (pspec, value);
+		g_error_free (error);
+	}
+
+	if (G_IS_VALUE (value)) {
+		g_object_set_property (object, pspec->name, value);
+		g_value_unset (value);
+	}
+
+	g_slice_free (GValue, value);
+	g_free (key);
+}
+
+static void
+source_load_from_key_file (GObject *object,
+                           GKeyFile *key_file,
+                           const gchar *group_name)
+{
+	GObjectClass *class;
+	GParamSpec **properties;
+	guint n_properties, ii;
+
+	class = G_OBJECT_GET_CLASS (object);
+	properties = g_object_class_list_properties (class, &n_properties);
+
+	g_object_freeze_notify (object);
+
+	for (ii = 0; ii < n_properties; ii++) {
+		if (properties[ii]->flags & E_SOURCE_PARAM_SETTING) {
+			source_set_property_from_key_file (
+				object, properties[ii], key_file, group_name);
+		}
+	}
+
+	g_object_thaw_notify (object);
+
+	g_free (properties);
+}
+
+static void
+source_save_to_key_file (GObject *object,
+                         GKeyFile *key_file,
+                         const gchar *group_name)
+{
+	GObjectClass *class;
+	GParamSpec **properties;
+	guint n_properties, ii;
+
+	class = G_OBJECT_GET_CLASS (object);
+	properties = g_object_class_list_properties (class, &n_properties);
+
+	for (ii = 0; ii < n_properties; ii++) {
+		if (properties[ii]->flags & E_SOURCE_PARAM_SETTING) {
+			source_set_key_file_from_property (
+				object, properties[ii], key_file, group_name);
+		}
+	}
+
+	g_free (properties);
+}
+
+static gboolean
+source_parse_dbus_data (ESource *source,
+                        GError **error)
+{
+	GHashTableIter iter;
+	EDBusObject *dbus_object;
+	EDBusSource *dbus_source;
+	GKeyFile *key_file;
+	gpointer group_name;
+	gpointer extension;
+	gchar *data;
+	gboolean success;
+
+	dbus_object = E_DBUS_OBJECT (source->priv->dbus_object);
+
+	dbus_source = e_dbus_object_get_source (dbus_object);
+	data = e_dbus_source_dup_data (dbus_source);
+	g_object_unref (dbus_source);
+
+	g_return_val_if_fail (data != NULL, FALSE);
+
+	key_file = source->priv->key_file;
+
+	success = g_key_file_load_from_data (
+		key_file, data, strlen (data),
+		G_KEY_FILE_KEEP_COMMENTS |
+		G_KEY_FILE_KEEP_TRANSLATIONS,
+		error);
+
+	g_free (data);
+	data = NULL;
+
+	if (!success)
+		return FALSE;
+
+	/* Make sure the key file has a [Data Source] group. */
+	if (!g_key_file_has_group (key_file, PRIMARY_GROUP_NAME)) {
+		g_set_error (
+			error, G_KEY_FILE_ERROR,
+			G_KEY_FILE_ERROR_GROUP_NOT_FOUND,
+			_("Source file is missing a [%s] group"),
+			PRIMARY_GROUP_NAME);
+		return FALSE;
+	}
+
+	/* Load key file values from the [Data Source] group and from
+	 * any other groups for which an extension object has already
+	 * been created.  Note that not all the extension classes may
+	 * be registered at this point, so avoid attempting to create
+	 * new extension objects here.  Extension objects are created
+	 * on-demand in e_source_get_extension(). */
+
+	source_load_from_key_file (
+		G_OBJECT (source), key_file, PRIMARY_GROUP_NAME);
+
+	g_hash_table_iter_init (&iter, source->priv->extensions);
+	while (g_hash_table_iter_next (&iter, &group_name, &extension))
+		source_load_from_key_file (extension, key_file, group_name);
+
+	return TRUE;
+}
+
+static void
+source_notify_dbus_data_cb (EDBusSource *dbus_source,
+                            GParamSpec *pspec,
+                            ESource *source)
+{
+	GError *error = NULL;
+
+	g_static_rec_mutex_lock (&source->priv->lock);
+
+	/* Since the source data came from a GKeyFile structure on the
+	 * server-side, this should never fail.  But we'll print error
+	 * messages to the terminal just in case. */
+	if (!source_parse_dbus_data (source, &error)) {
+		g_return_if_fail (error != NULL);
+		g_warning ("%s", error->message);
+		g_error_free (error);
+	}
+
+	g_static_rec_mutex_unlock (&source->priv->lock);
+}
+
+static gboolean
+source_idle_changed_cb (gpointer user_data)
+{
+	ESource *source = E_SOURCE (user_data);
+
+	/* If the ESource is still initializing itself in a different
+	 * thread, skip the signal emission and try again on the next
+	 * main loop iteration.  This is a busy wait but it should be
+	 * a very short wait. */
+	if (!source->priv->initialized)
+		return TRUE;
+
+	g_mutex_lock (source->priv->changed_lock);
+	if (source->priv->changed != NULL) {
+		g_source_unref (source->priv->changed);
+		source->priv->changed = NULL;
+	}
+	g_mutex_unlock (source->priv->changed_lock);
+
+	g_signal_emit (source, signals[CHANGED], 0);
+
+	return FALSE;
+}
+
+static void
+source_set_dbus_object (ESource *source,
+                        EDBusObject *dbus_object)
+{
+	/* D-Bus object will be NULL when configuring a new source. */
+	if (dbus_object == NULL)
+		return;
+
+	g_return_if_fail (E_DBUS_IS_OBJECT (dbus_object));
+	g_return_if_fail (source->priv->dbus_object == NULL);
+
+	source->priv->dbus_object = g_object_ref (dbus_object);
+}
+
+static void
+source_set_main_context (ESource *source,
+                         GMainContext *main_context)
+{
+	g_return_if_fail (source->priv->main_context == NULL);
+
+	source->priv->main_context =
+		(main_context != NULL) ?
+		g_main_context_ref (main_context) :
+		g_main_context_ref_thread_default ();
+}
+
+static void
+source_set_uid (ESource *source,
+                const gchar *uid)
+{
+	/* The "uid" argument will usually be NULL unless called
+	 * from e_source_new_with_uid().  If NULL, we'll pick up
+	 * a UID in source_initable_init(). */
+
+	g_return_if_fail (source->priv->uid == NULL);
+
+	source->priv->uid = g_strdup (uid);
+}
+
+static void
+source_set_property (GObject *object,
+                     guint property_id,
+                     const GValue *value,
+                     GParamSpec *pspec)
+{
+	switch (property_id) {
+		case PROP_DBUS_OBJECT:
+			source_set_dbus_object (
+				E_SOURCE (object),
+				g_value_get_object (value));
+			return;
+
+		case PROP_DISPLAY_NAME:
+			e_source_set_display_name (
+				E_SOURCE (object),
+				g_value_get_string (value));
+			return;
+
+		case PROP_ENABLED:
+			e_source_set_enabled (
+				E_SOURCE (object),
+				g_value_get_boolean (value));
+			return;
+
+		case PROP_MAIN_CONTEXT:
+			source_set_main_context (
+				E_SOURCE (object),
+				g_value_get_boxed (value));
+			return;
+
+		case PROP_PARENT:
+			e_source_set_parent (
+				E_SOURCE (object),
+				g_value_get_string (value));
+			return;
+
+		case PROP_UID:
+			source_set_uid (
+				E_SOURCE (object),
+				g_value_get_string (value));
+			return;
+	}
+
+	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+}
+
+static void
+source_get_property (GObject *object,
+                     guint property_id,
+                     GValue *value,
+                     GParamSpec *pspec)
+{
+	switch (property_id) {
+		case PROP_DBUS_OBJECT:
+			g_value_take_object (
+				value, e_source_ref_dbus_object (
+				E_SOURCE (object)));
+			return;
+
+		case PROP_DISPLAY_NAME:
+			g_value_take_string (
+				value, e_source_dup_display_name (
+				E_SOURCE (object)));
+			return;
+
+		case PROP_ENABLED:
+			g_value_set_boolean (
+				value, e_source_get_enabled (
+				E_SOURCE (object)));
+			return;
+
+		case PROP_MAIN_CONTEXT:
+			g_value_take_boxed (
+				value, e_source_ref_main_context (
+				E_SOURCE (object)));
+			return;
+
+		case PROP_PARENT:
+			g_value_take_string (
+				value, e_source_dup_parent (
+				E_SOURCE (object)));
+			return;
+
+		case PROP_REMOTE_CREATABLE:
+			g_value_set_boolean (
+				value, e_source_get_remote_creatable (
+				E_SOURCE (object)));
+			return;
+
+		case PROP_REMOTE_DELETABLE:
+			g_value_set_boolean (
+				value, e_source_get_remote_deletable (
+				E_SOURCE (object)));
+			return;
+
+		case PROP_REMOVABLE:
+			g_value_set_boolean (
+				value, e_source_get_removable (
+				E_SOURCE (object)));
+			return;
+
+		case PROP_UID:
+			g_value_take_string (
+				value, e_source_dup_uid (
+				E_SOURCE (object)));
+			return;
+
+		case PROP_WRITABLE:
+			g_value_set_boolean (
+				value, e_source_get_writable (
+				E_SOURCE (object)));
+			return;
+	}
+
+	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+}
+
+static void
+source_dispose (GObject *object)
+{
+	ESourcePrivate *priv;
+
+	priv = E_SOURCE_GET_PRIVATE (object);
+
+	if (priv->dbus_object != NULL) {
+		EDBusObject *dbus_object;
+		EDBusSource *dbus_source;
+
+		dbus_object = E_DBUS_OBJECT (priv->dbus_object);
+
+		dbus_source = e_dbus_object_get_source (dbus_object);
+		if (dbus_source != NULL) {
+			g_signal_handlers_disconnect_matched (
+				dbus_source, G_SIGNAL_MATCH_DATA,
+				0, 0, NULL, NULL, object);
+			g_object_unref (dbus_source);
+		}
+
+		g_object_unref (priv->dbus_object);
+		priv->dbus_object = NULL;
+	}
+
+	if (priv->main_context != NULL) {
+		g_main_context_unref (priv->main_context);
+		priv->main_context = NULL;
+	}
+
+	/* XXX Maybe not necessary to acquire the lock? */
+	g_mutex_lock (priv->changed_lock);
+	if (priv->changed != NULL) {
+		g_source_destroy (priv->changed);
+		g_source_unref (priv->changed);
+		priv->changed = NULL;
+	}
+	g_mutex_unlock (priv->changed_lock);
+
+	g_hash_table_remove_all (priv->extensions);
+
+	/* Chain up to parent's dispose() method. */
+	G_OBJECT_CLASS (e_source_parent_class)->dispose (object);
+}
+
+static void
+source_finalize (GObject *object)
+{
+	ESourcePrivate *priv;
+
+	priv = E_SOURCE_GET_PRIVATE (object);
+
+	g_mutex_free (priv->changed_lock);
+	g_mutex_free (priv->property_lock);
+
+	g_free (priv->display_name);
+	g_free (priv->collate_key);
+	g_free (priv->parent);
+	g_free (priv->uid);
+
+	g_key_file_free (priv->key_file);
+	g_static_rec_mutex_free (&priv->lock);
+	g_hash_table_destroy (priv->extensions);
+
+	/* Chain up to parent's finalize() method. */
+	G_OBJECT_CLASS (e_source_parent_class)->finalize (object);
+}
+
+static void
+source_notify (GObject *object,
+               GParamSpec *pspec)
+{
+	if ((pspec->flags & E_SOURCE_PARAM_SETTING) != 0)
+		e_source_changed (E_SOURCE (object));
+}
+
+static gboolean
+source_remove_sync (ESource *source,
+                    GCancellable *cancellable,
+                    GError **error)
+{
+	EDBusObject *dbus_object;
+	EDBusSourceRemovable *dbus_source;
+	gboolean success;
+
+	dbus_object = E_DBUS_OBJECT (source->priv->dbus_object);
+
+	dbus_source = e_dbus_object_get_source_removable (dbus_object);
+
+	if (dbus_source == NULL) {
+		g_set_error (
+			error, G_IO_ERROR,
+			G_IO_ERROR_PERMISSION_DENIED,
+			_("Data source '%s' is not removable"),
+			e_source_get_display_name (source));
+		return FALSE;
+	}
+
+	success = e_dbus_source_removable_call_remove_sync (
+		dbus_source, cancellable, error);
+
+	g_object_unref (dbus_source);
+
+	return success;
+}
+
+/* Helper for source_remove() */
+static void
+source_remove_thread (GSimpleAsyncResult *simple,
+                      GObject *object,
+                      GCancellable *cancellable)
+{
+	GError *error = NULL;
+
+	e_source_remove_sync (E_SOURCE (object), cancellable, &error);
+
+	if (error != NULL)
+		g_simple_async_result_take_error (simple, error);
+}
+
+static void
+source_remove (ESource *source,
+               GCancellable *cancellable,
+               GAsyncReadyCallback callback,
+               gpointer user_data)
+{
+	GSimpleAsyncResult *simple;
+
+	simple = g_simple_async_result_new (
+		G_OBJECT (source), callback, user_data, source_remove);
+
+	g_simple_async_result_set_check_cancellable (simple, cancellable);
+
+	g_simple_async_result_run_in_thread (
+		simple, source_remove_thread,
+		G_PRIORITY_DEFAULT, cancellable);
+
+	g_object_unref (simple);
+}
+
+static gboolean
+source_remove_finish (ESource *source,
+                      GAsyncResult *result,
+                      GError **error)
+{
+	GSimpleAsyncResult *simple;
+
+	g_return_val_if_fail (
+		g_simple_async_result_is_valid (
+		result, G_OBJECT (source), source_remove), FALSE);
+
+	simple = G_SIMPLE_ASYNC_RESULT (result);
+
+	/* Assume success unless a GError is set. */
+	return !g_simple_async_result_propagate_error (simple, error);
+}
+
+static gboolean
+source_write_sync (ESource *source,
+                   GCancellable *cancellable,
+                   GError **error)
+{
+	EDBusObject *dbus_object;
+	EDBusSourceWritable *dbus_source;
+	gboolean success;
+	gchar *data;
+
+	dbus_object = E_DBUS_OBJECT (source->priv->dbus_object);
+
+	dbus_source = e_dbus_object_get_source_writable (dbus_object);
+
+	if (dbus_source == NULL) {
+		g_set_error (
+			error, G_IO_ERROR,
+			G_IO_ERROR_PERMISSION_DENIED,
+			_("Data source '%s' is not writable"),
+			e_source_get_display_name (source));
+		return FALSE;
+	}
+
+	data = e_source_to_string (source, NULL);
+
+	success = e_dbus_source_writable_call_write_sync (
+		dbus_source, data, cancellable, error);
+
+	g_free (data);
+
+	g_object_unref (dbus_source);
+
+	return success;
+}
+
+/* Helper for source_write() */
+static void
+source_write_thread (GSimpleAsyncResult *simple,
+                     GObject *object,
+                     GCancellable *cancellable)
+{
+	GError *error = NULL;
+
+	e_source_write_sync (E_SOURCE (object), cancellable, &error);
+
+	if (error != NULL)
+		g_simple_async_result_take_error (simple, error);
+}
+
+static void
+source_write (ESource *source,
+              GCancellable *cancellable,
+              GAsyncReadyCallback callback,
+              gpointer user_data)
+{
+	GSimpleAsyncResult *simple;
+
+	simple = g_simple_async_result_new (
+		G_OBJECT (source), callback, user_data, source_write);
+
+	g_simple_async_result_set_check_cancellable (simple, cancellable);
+
+	g_simple_async_result_run_in_thread (
+		simple, source_write_thread,
+		G_PRIORITY_DEFAULT, cancellable);
+
+	g_object_unref (simple);
+}
+
+static gboolean
+source_write_finish (ESource *source,
+                     GAsyncResult *result,
+                     GError **error)
+{
+	GSimpleAsyncResult *simple;
+
+	g_return_val_if_fail (
+		g_simple_async_result_is_valid (
+		result, G_OBJECT (source), source_write), FALSE);
+
+	simple = G_SIMPLE_ASYNC_RESULT (result);
+
+	/* Assume success unless a GError is set. */
+	return !g_simple_async_result_propagate_error (simple, error);
+}
+
+static gboolean
+source_remote_create_sync (ESource *source,
+                           ESource *scratch_source,
+                           GCancellable *cancellable,
+                           GError **error)
+{
+	EDBusSourceRemoteCreatable *dbus_interface = NULL;
+	GDBusObject *dbus_object;
+	gchar *uid, *data;
+	gboolean success;
+
+	dbus_object = e_source_ref_dbus_object (source);
+	if (dbus_object != NULL) {
+		dbus_interface =
+			e_dbus_object_get_source_remote_creatable (
+			E_DBUS_OBJECT (dbus_object));
+		g_object_unref (dbus_object);
+	}
+
+	if (dbus_interface == NULL) {
+		g_set_error (
+			error, G_IO_ERROR,
+			G_IO_ERROR_NOT_SUPPORTED,
+			_("Data source '%s' does not "
+			"support creating remote resources"),
+			e_source_get_display_name (source));
+		return FALSE;
+	}
+
+	uid = e_source_dup_uid (scratch_source);
+	data = e_source_to_string (scratch_source, NULL);
+
+	success = e_dbus_source_remote_creatable_call_create_sync (
+		dbus_interface, uid, data, cancellable, error);
+
+	g_free (data);
+	g_free (uid);
+
+	g_object_unref (dbus_interface);
+
+	return success;
+}
+
+/* Helper for source_remote_create() */
+static void
+source_remote_create_thread (GSimpleAsyncResult *simple,
+                             GObject *object,
+                             GCancellable *cancellable)
+{
+	AsyncContext *async_context;
+	GError *error = NULL;
+
+	async_context = g_simple_async_result_get_op_res_gpointer (simple);
+
+	e_source_remote_create_sync (
+		E_SOURCE (object),
+		async_context->scratch_source,
+		cancellable, &error);
+
+	if (error != NULL)
+		g_simple_async_result_take_error (simple, error);
+}
+
+static void
+source_remote_create (ESource *source,
+                      ESource *scratch_source,
+                      GCancellable *cancellable,
+                      GAsyncReadyCallback callback,
+                      gpointer user_data)
+{
+	GSimpleAsyncResult *simple;
+	AsyncContext *async_context;
+
+	async_context = g_slice_new0 (AsyncContext);
+	async_context->scratch_source = g_object_ref (scratch_source);
+
+	simple = g_simple_async_result_new (
+		G_OBJECT (source), callback,
+		user_data, source_remote_create);
+
+	g_simple_async_result_set_check_cancellable (simple, cancellable);
+
+	g_simple_async_result_set_op_res_gpointer (
+		simple, async_context, (GDestroyNotify) async_context_free);
+
+	g_simple_async_result_run_in_thread (
+		simple, source_remote_create_thread,
+		G_PRIORITY_DEFAULT, cancellable);
+
+	g_object_unref (simple);
+}
+
+static gboolean
+source_remote_create_finish (ESource *source,
+                             GAsyncResult *result,
+                             GError **error)
+{
+	GSimpleAsyncResult *simple;
+
+	g_return_val_if_fail (
+		g_simple_async_result_is_valid (
+		result, G_OBJECT (source), source_remote_create), FALSE);
+
+	simple = G_SIMPLE_ASYNC_RESULT (result);
+
+	/* Assume success unless a GError is set. */
+	return !g_simple_async_result_propagate_error (simple, error);
+}
+
+static gboolean
+source_remote_delete_sync (ESource *source,
+                           GCancellable *cancellable,
+                           GError **error)
+{
+	EDBusSourceRemoteDeletable *dbus_interface = NULL;
+	GDBusObject *dbus_object;
+	gboolean success;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+
+	dbus_object = e_source_ref_dbus_object (source);
+	if (dbus_object != NULL) {
+		dbus_interface =
+			e_dbus_object_get_source_remote_deletable (
+			E_DBUS_OBJECT (dbus_object));
+		g_object_unref (dbus_object);
+	}
+
+	if (dbus_interface == NULL) {
+		g_set_error (
+			error, G_IO_ERROR,
+			G_IO_ERROR_NOT_SUPPORTED,
+			_("Data source '%s' does not "
+			"support deleting remote resources"),
+			e_source_get_display_name (source));
+		return FALSE;
+	}
+
+	success = e_dbus_source_remote_deletable_call_delete_sync (
+		dbus_interface, cancellable, error);
+
+	g_object_unref (dbus_interface);
+
+	return success;
+}
+
+/* Helper for source_remote_delete() */
+static void
+source_remote_delete_thread (GSimpleAsyncResult *simple,
+                             GObject *object,
+                             GCancellable *cancellable)
+{
+	GError *error = NULL;
+
+	e_source_remote_delete_sync (
+		E_SOURCE (object), cancellable, &error);
+
+	if (error != NULL)
+		g_simple_async_result_take_error (simple, error);
+}
+
+static void
+source_remote_delete (ESource *source,
+                      GCancellable *cancellable,
+                      GAsyncReadyCallback callback,
+                      gpointer user_data)
+{
+	GSimpleAsyncResult *simple;
+
+	simple = g_simple_async_result_new (
+		G_OBJECT (source), callback,
+		user_data, source_remote_delete);
+
+	g_simple_async_result_set_check_cancellable (simple, cancellable);
+
+	g_simple_async_result_run_in_thread (
+		simple, source_remote_delete_thread,
+		G_PRIORITY_DEFAULT, cancellable);
+
+	g_object_unref (simple);
+}
+
+static gboolean
+source_remote_delete_finish (ESource *source,
+                             GAsyncResult *result,
+                             GError **error)
+{
+	GSimpleAsyncResult *simple;
+
+	g_return_val_if_fail (
+		g_simple_async_result_is_valid (
+		result, G_OBJECT (source), source_remote_delete), FALSE);
+
+	simple = G_SIMPLE_ASYNC_RESULT (result);
+
+	/* Assume success unless a GError is set. */
+	return !g_simple_async_result_propagate_error (simple, error);
+}
+
+static gboolean
+source_initable_init (GInitable *initable,
+                      GCancellable *cancellable,
+                      GError **error)
+{
+	ESource *source;
+	gboolean success = TRUE;
+
+	source = E_SOURCE (initable);
+
+	/* The D-Bus object has the unique identifier (UID). */
+	if (source->priv->dbus_object != NULL) {
+		EDBusObject *dbus_object;
+		EDBusSource *dbus_source;
+
+		dbus_object = E_DBUS_OBJECT (source->priv->dbus_object);
+
+		/* An EDBusObject lacking an EDBusSource
+		 * interface indicates a programmer error. */
+		dbus_source = e_dbus_object_get_source (dbus_object);
+		g_return_val_if_fail (E_DBUS_IS_SOURCE (dbus_source), FALSE);
+
+		/* Allow authentication prompts for a data source
+		 * when a new client-side proxy object is created.
+		 * The thought being if you cancel an authentication
+		 * prompt you won't be bothered again until you start
+		 * (or restart) a new E-D-S client app.
+		 *
+		 * Failure here is non-fatal, ignore errors.
+		 *
+		 * XXX Only GDBusProxy objects may call this.  Sources
+		 *     created server-side can't invoke remote methods.
+		 */
+		if (G_IS_DBUS_PROXY (dbus_source))
+			e_dbus_source_call_allow_auth_prompt_sync (
+				dbus_source, cancellable, NULL);
+
+		/* The UID never changes, so we can cache a copy.
+		 *
+		 * XXX Note, EServerSideSource may have already set this
+		 *     by way of the "uid" construct-only property, hence
+		 *     the g_free() call.  Not a problem, we'll just free
+		 *     our UID string and set it to the same value again. */
+		g_free (source->priv->uid);
+		source->priv->uid = e_dbus_source_dup_uid (dbus_source);
+
+		g_signal_connect (
+			dbus_source, "notify::data",
+			G_CALLBACK (source_notify_dbus_data_cb), source);
+
+		success = source_parse_dbus_data (source, error);
+
+		g_object_unref (dbus_source);
+
+	/* No D-Bus object implies we're configuring a new source,
+	 * so generate a new unique identifier (UID) unless one was
+	 * explicitly provided through e_source_new_with_uid(). */
+	} else if (source->priv->uid == NULL) {
+		source->priv->uid = e_uid_new ();
+	}
+
+	/* Try to avoid a spurious "changed" emission. */
+	g_mutex_lock (source->priv->changed_lock);
+	if (source->priv->changed != NULL) {
+		g_source_destroy (source->priv->changed);
+		g_source_unref (source->priv->changed);
+		source->priv->changed = NULL;
+	}
+	g_mutex_unlock (source->priv->changed_lock);
+
+	source->priv->initialized = TRUE;
+
+	return success;
+}
+
+static void
+e_source_class_init (ESourceClass *class)
+{
+	GObjectClass *object_class;
+
+	g_type_class_add_private (class, sizeof (ESourcePrivate));
+
+	object_class = G_OBJECT_CLASS (class);
+	object_class->set_property = source_set_property;
+	object_class->get_property = source_get_property;
+	object_class->dispose = source_dispose;
+	object_class->finalize = source_finalize;
+	object_class->notify = source_notify;
+
+	class->remove_sync = source_remove_sync;
+	class->remove = source_remove;
+	class->remove_finish = source_remove_finish;
+	class->write_sync = source_write_sync;
+	class->write = source_write;
+	class->write_finish = source_write_finish;
+	class->remote_create_sync = source_remote_create_sync;
+	class->remote_create = source_remote_create;
+	class->remote_create_finish = source_remote_create_finish;
+	class->remote_delete_sync = source_remote_delete_sync;
+	class->remote_delete = source_remote_delete;
+	class->remote_delete_finish = source_remote_delete_finish;
+
+	g_object_class_install_property (
+		object_class,
+		PROP_DBUS_OBJECT,
+		g_param_spec_object (
+			"dbus-object",
+			"D-Bus Object",
+			"The D-Bus object for the data source",
+			E_DBUS_TYPE_OBJECT,
+			G_PARAM_READWRITE |
+			G_PARAM_CONSTRUCT_ONLY |
+			G_PARAM_STATIC_STRINGS));
+
+	g_object_class_install_property (
+		object_class,
+		PROP_DISPLAY_NAME,
+		g_param_spec_string (
+			"display-name",
+			"Display Name",
+			"The human-readable name of the data source",
+			_("Unnamed"),
+			G_PARAM_READWRITE |
+			G_PARAM_CONSTRUCT |
+			G_PARAM_STATIC_STRINGS |
+			E_SOURCE_PARAM_SETTING));
+
+	g_object_class_install_property (
+		object_class,
+		PROP_ENABLED,
+		g_param_spec_boolean (
+			"enabled",
+			"Enabled",
+			"Whether the data source is enabled",
+			TRUE,
+			G_PARAM_READWRITE |
+			G_PARAM_CONSTRUCT |
+			G_PARAM_STATIC_STRINGS |
+			E_SOURCE_PARAM_SETTING));
+
+	g_object_class_install_property (
+		object_class,
+		PROP_MAIN_CONTEXT,
+		g_param_spec_boxed (
+			"main-context",
+			"Main Context",
+			"The GMainContext used for signal emissions",
+			G_TYPE_MAIN_CONTEXT,
+			G_PARAM_READWRITE |
+			G_PARAM_CONSTRUCT_ONLY |
+			G_PARAM_STATIC_STRINGS));
+
+	g_object_class_install_property (
+		object_class,
+		PROP_PARENT,
+		g_param_spec_string (
+			"parent",
+			"Parent",
+			"The unique identity of the parent data source",
+			NULL,
+			G_PARAM_READWRITE |
+			G_PARAM_STATIC_STRINGS |
+			E_SOURCE_PARAM_SETTING));
+
+	g_object_class_install_property (
+		object_class,
+		PROP_REMOTE_CREATABLE,
+		g_param_spec_boolean (
+			"remote-creatable",
+			"Remote Creatable",
+			"Whether the data source "
+			"can create remote resources",
+			FALSE,
+			G_PARAM_READABLE |
+			G_PARAM_STATIC_STRINGS));
+
+	g_object_class_install_property (
+		object_class,
+		PROP_REMOTE_DELETABLE,
+		g_param_spec_boolean (
+			"remote-deletable",
+			"Remote Deletable",
+			"Whether the data source "
+			"can delete remote resources",
+			FALSE,
+			G_PARAM_READABLE |
+			G_PARAM_STATIC_STRINGS));
+
+	g_object_class_install_property (
+		object_class,
+		PROP_REMOVABLE,
+		g_param_spec_boolean (
+			"removable",
+			"Removable",
+			"Whether the data source is removable",
+			FALSE,
+			G_PARAM_READABLE |
+			G_PARAM_STATIC_STRINGS));
+
+	g_object_class_install_property (
+		object_class,
+		PROP_UID,
+		g_param_spec_string (
+			"uid",
+			"UID",
+			"The unique identity of the data source",
+			NULL,
+			G_PARAM_READWRITE |
+			G_PARAM_CONSTRUCT_ONLY |
+			G_PARAM_STATIC_STRINGS));
+
+	g_object_class_install_property (
+		object_class,
+		PROP_WRITABLE,
+		g_param_spec_boolean (
+			"writable",
+			"Writable",
+			"Whether the data source is writable",
+			FALSE,
+			G_PARAM_READABLE |
+			G_PARAM_STATIC_STRINGS));
+
+	/**
+	 * ESource::changed:
+	 * @source: the #ESource that received the signal
+	 *
+	 * The ::changed signal is emitted when a property in @source or
+	 * one of its extension objects changes.  A common use for this
+	 * signal is to notify a #GtkTreeModel containing data collected
+	 * from #ESource<!-- -->s that it needs to update a row.
+	 **/
+	signals[CHANGED] = g_signal_new (
+		"changed",
+		G_TYPE_FROM_CLASS (class),
+		G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE,
+		G_STRUCT_OFFSET (ESourceClass, changed),
+		NULL, NULL,
+		g_cclosure_marshal_VOID__VOID,
+		G_TYPE_NONE, 0);
+
+	/* Register built-in ESourceExtension types. */
+	REGISTER_TYPE (E_TYPE_SOURCE_ADDRESS_BOOK);
+	REGISTER_TYPE (E_TYPE_SOURCE_ALARMS);
+	REGISTER_TYPE (E_TYPE_SOURCE_AUTHENTICATION);
+	REGISTER_TYPE (E_TYPE_SOURCE_AUTOCOMPLETE);
+	REGISTER_TYPE (E_TYPE_SOURCE_CALENDAR);
+	REGISTER_TYPE (E_TYPE_SOURCE_COLLECTION);
+	REGISTER_TYPE (E_TYPE_SOURCE_GOA);
+	REGISTER_TYPE (E_TYPE_SOURCE_MAIL_ACCOUNT);
+	REGISTER_TYPE (E_TYPE_SOURCE_MAIL_COMPOSITION);
+	REGISTER_TYPE (E_TYPE_SOURCE_MAIL_IDENTITY);
+	REGISTER_TYPE (E_TYPE_SOURCE_MAIL_SIGNATURE);
+	REGISTER_TYPE (E_TYPE_SOURCE_MAIL_SUBMISSION);
+	REGISTER_TYPE (E_TYPE_SOURCE_MAIL_TRANSPORT);
+	REGISTER_TYPE (E_TYPE_SOURCE_MDN);
+	REGISTER_TYPE (E_TYPE_SOURCE_MEMO_LIST);
+	REGISTER_TYPE (E_TYPE_SOURCE_OFFLINE);
+	REGISTER_TYPE (E_TYPE_SOURCE_OPENPGP);
+	REGISTER_TYPE (E_TYPE_SOURCE_REFRESH);
+	REGISTER_TYPE (E_TYPE_SOURCE_RESOURCE);
+	REGISTER_TYPE (E_TYPE_SOURCE_SECURITY);
+	REGISTER_TYPE (E_TYPE_SOURCE_SELECTABLE);
+	REGISTER_TYPE (E_TYPE_SOURCE_SMIME);
+	REGISTER_TYPE (E_TYPE_SOURCE_TASK_LIST);
+	REGISTER_TYPE (E_TYPE_SOURCE_WEBDAV);
+}
+
+static void
+e_source_initable_init (GInitableIface *interface)
+{
+	interface->init = source_initable_init;
+}
+
+static void
+e_source_init (ESource *source)
+{
+	GHashTable *extensions;
+
+	/* Don't do this as part of class initialization because it
+	 * loads Camel modules and can screw up introspection, which
+	 * occurs at compile-time before Camel modules are installed. */
+	e_source_camel_register_types ();
+
+	extensions = g_hash_table_new_full (
+		(GHashFunc) g_str_hash,
+		(GEqualFunc) g_str_equal,
+		(GDestroyNotify) g_free,
+		(GDestroyNotify) g_object_unref);
+
+	source->priv = E_SOURCE_GET_PRIVATE (source);
+	source->priv->changed_lock = g_mutex_new ();
+	source->priv->property_lock = g_mutex_new ();
+	source->priv->key_file = g_key_file_new ();
+	source->priv->extensions = extensions;
+
+	g_static_rec_mutex_init (&source->priv->lock);
+}
+
+/**
+ * e_source_new:
+ * @dbus_object: (allow-none): a #GDBusObject or %NULL
+ * @main_context: (allow-none): a #GMainContext or %NULL
+ * @error: return location for a #GError, or %NULL
+ *
+ * Creates a new #ESource instance.
+ *
+ * The #ESource::changed signal will be emitted from @main_context if given,
+ * or else from the thread-default #GMainContext at the time this function is
+ * called.
+ *
+ * The only time the function should be called outside of #ESourceRegistry
+ * is to create a so-called "scratch" #ESource for editing in a Properties
+ * window or an account setup assistant.
+ *
+ * FIXME: Elaborate on scratch sources.
+ *
+ * Returns: a new #ESource, or %NULL on error
+ *
+ * Since: 3.6
+ **/
+ESource *
+e_source_new (GDBusObject *dbus_object,
+              GMainContext *main_context,
+              GError **error)
+{
+	if (dbus_object != NULL)
+		g_return_val_if_fail (E_DBUS_IS_OBJECT (dbus_object), NULL);
+
+	return g_initable_new (
+		E_TYPE_SOURCE, NULL, error,
+		"dbus-object", dbus_object,
+		"main-context", main_context,
+		NULL);
+}
+
+/**
+ * e_source_new_with_uid:
+ * @uid: a new unique identifier string
+ * @main_context: (allow-none): a #GMainContext or %NULL
+ * @error: return location for a #GError, or %NULL
+ *
+ * Creates a new "scratch" #ESource with a predetermined unique identifier.
+ *
+ * The #ESource::changed signal will be emitted from @main_context if given,
+ * or else from the thread-default #GMainContext at the time this function is
+ * called.
+ *
+ * Returns: a new scratch #ESource, or %NULL on error
+ *
+ * Since: 3.6
+ **/
+ESource *
+e_source_new_with_uid (const gchar *uid,
+                       GMainContext *main_context,
+                       GError **error)
+{
+	g_return_val_if_fail (uid != NULL, NULL);
+
+	return g_initable_new (
+		E_TYPE_SOURCE, NULL, error,
+		"main-context", main_context,
+		"uid", uid, NULL);
+}
+
+/**
+ * e_source_hash:
+ * @source: an #ESource
+ *
+ * Generates a hash value for @source.  This function is intended for
+ * easily hashing an #ESource to add to a #GHashTable or similar data
+ * structure.
+ *
+ * Returns: a hash value for @source.
+ *
+ * Since: 3.6
+ **/
+guint
+e_source_hash (ESource *source)
+{
+	const gchar *uid;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), 0);
+
+	uid = e_source_get_uid (source);
+
+	return g_str_hash (uid);
+}
+
+/**
+ * e_source_equal:
+ * @source1: the first #ESource
+ * @source2: the second #ESource
+ *
+ * Checks two #ESource instances for equality.  #ESource instances are
+ * equal if their unique identifier strings are equal.
+ *
+ * Returns: %TRUE if @source1 and @source2 are equal
+ *
+ * Since: 3.6
+ **/
+gboolean
+e_source_equal (ESource *source1,
+                ESource *source2)
+{
+	const gchar *uid1, *uid2;
+
+	g_return_val_if_fail (E_IS_SOURCE (source1), FALSE);
+	g_return_val_if_fail (E_IS_SOURCE (source2), FALSE);
+
+	if (source1 == source2)
+		return TRUE;
+
+	uid1 = e_source_get_uid (source1);
+	uid2 = e_source_get_uid (source2);
+
+	return g_str_equal (uid1, uid2);
+}
+
+/**
+ * e_source_changed:
+ * @source: an #ESource
+ *
+ * Emits the #ESource::changed signal from an idle callback in
+ * @source's #ESource:main-context.
+ *
+ * This function is primarily intended for use by #ESourceExtension
+ * when emitting a #GObject::notify signal on one of its properties.
+ *
+ * Since: 3.6
+ **/
+void
+e_source_changed (ESource *source)
+{
+	g_return_if_fail (E_IS_SOURCE (source));
+
+	g_mutex_lock (source->priv->changed_lock);
+	if (source->priv->changed == NULL) {
+		source->priv->changed = g_idle_source_new ();
+		g_source_set_callback (
+			source->priv->changed,
+			source_idle_changed_cb,
+			source, (GDestroyNotify) NULL);
+		g_source_attach (
+			source->priv->changed,
+			source->priv->main_context);
+	}
+	g_mutex_unlock (source->priv->changed_lock);
+}
+
+/**
+ * e_source_get_uid:
+ * @source: an #ESource
+ *
+ * Returns the unique identifier string for @source.
+ *
+ * Returns: the UID for @source
+ *
+ * Since: 3.6
+ **/
+const gchar *
+e_source_get_uid (ESource *source)
+{
+	g_return_val_if_fail (E_IS_SOURCE (source), NULL);
+
+	return source->priv->uid;
+}
+
+/**
+ * e_source_dup_uid:
+ * @source: an #ESource
+ *
+ * Thread-safe variation of e_source_get_uid().
+ * Use this function when accessing @source from multiple threads.
+ *
+ * The returned string should be freed with g_free() when no longer needed.
+ *
+ * Returns: a newly-allocated copy of #ESource:uid
+ *
+ * Since: 3.6
+ **/
+gchar *
+e_source_dup_uid (ESource *source)
+{
+	const gchar *protected;
+	gchar *duplicate;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), NULL);
+
+	/* Perhaps we don't need to lock the mutex since
+	 * this is a read-only property but it can't hurt. */
+
+	g_mutex_lock (source->priv->property_lock);
+
+	protected = e_source_get_uid (source);
+	duplicate = g_strdup (protected);
+
+	g_mutex_unlock (source->priv->property_lock);
+
+	return duplicate;
+}
+
+/**
+ * e_source_get_parent:
+ * @source: an #ESource
+ *
+ * Returns the unique identifier string of the parent #ESource.
+ *
+ * Returns: the UID of the parent #ESource
+ *
+ * Since: 3.6
+ **/
+const gchar *
+e_source_get_parent (ESource *source)
+{
+	g_return_val_if_fail (E_IS_SOURCE (source), NULL);
+
+	return source->priv->parent;
+}
+
+/**
+ * e_source_dup_parent:
+ * @source: an #ESource
+ *
+ * Thread-safe variation of e_source_get_parent().
+ * Use this function when accessing @source from multiple threads.
+ *
+ * The returned string should be freed with g_free() when no longer needed.
+ *
+ * Returns: a newly-allocated copy of #ESource:parent
+ *
+ * Since: 3.6
+ **/
+gchar *
+e_source_dup_parent (ESource *source)
+{
+	const gchar *protected;
+	gchar *duplicate;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), NULL);
+
+	g_mutex_lock (source->priv->property_lock);
+
+	protected = e_source_get_parent (source);
+	duplicate = g_strdup (protected);
+
+	g_mutex_unlock (source->priv->property_lock);
+
+	return duplicate;
+}
+
+/**
+ * e_source_set_parent:
+ * @source: an #ESource
+ * @parent: (allow-none): the UID of the parent #ESource, or %NULL
+ *
+ * Identifies the parent of @source by its unique identifier string.
+ * This can only be set prior to adding @source to an #ESourceRegistry.
+ *
+ * The internal copy of #ESource:parent is automatically stripped of leading
+ * and trailing whitespace.  If the resulting string is empty, %NULL is set
+ * instead.
+ *
+ * Since: 3.6
+ **/
+void
+e_source_set_parent (ESource *source,
+                     const gchar *parent)
+{
+	g_return_if_fail (E_IS_SOURCE (source));
+
+	g_mutex_lock (source->priv->property_lock);
+
+	if (g_strcmp0 (source->priv->parent, parent) == 0) {
+		g_mutex_unlock (source->priv->property_lock);
+		return;
+	}
+
+	g_free (source->priv->parent);
+	source->priv->parent = e_util_strdup_strip (parent);
+
+	g_mutex_unlock (source->priv->property_lock);
+
+	g_object_notify (G_OBJECT (source), "parent");
+}
+
+/**
+ * e_source_get_enabled:
+ * @source: an #ESource
+ *
+ * Returns %TRUE if @source is enabled.
+ *
+ * An application should try to honor this setting if at all possible,
+ * even if it does not provide a way to change the setting through its
+ * user interface.  Disabled data sources should generally be hidden.
+ *
+ * Returns: whether @source is enabled
+ *
+ * Since: 3.6
+ **/
+gboolean
+e_source_get_enabled (ESource *source)
+{
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+
+	return source->priv->enabled;
+}
+
+/**
+ * e_source_set_enabled:
+ * @source: an #ESource
+ * @enabled: whether to enable @source
+ *
+ * Enables or disables @source.
+ *
+ * An application should try to honor this setting if at all possible,
+ * even if it does not provide a way to change the setting through its
+ * user interface.  Disabled data sources should generally be hidden.
+ *
+ * Since: 3.6
+ **/
+void
+e_source_set_enabled (ESource *source,
+                      gboolean enabled)
+{
+	g_return_if_fail (E_IS_SOURCE (source));
+
+	if (source->priv->enabled == enabled)
+		return;
+
+	source->priv->enabled = enabled;
+
+	g_object_notify (G_OBJECT (source), "enabled");
+}
+
+/**
+ * e_source_get_writable:
+ * @source: an #ESource
+ *
+ * Returns whether the D-Bus service will accept changes to @source.
+ * If @source is not writable, calls to e_source_write() will fail.
+ *
+ * Returns: whether @source is writable
+ *
+ * Since: 3.6
+ **/
+gboolean
+e_source_get_writable (ESource *source)
+{
+	EDBusObject *dbus_object;
+	EDBusSourceWritable *dbus_source;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+
+	dbus_object = E_DBUS_OBJECT (source->priv->dbus_object);
+	dbus_source = e_dbus_object_peek_source_writable (dbus_object);
+
+	return (dbus_source != NULL);
+}
+
+/**
+ * e_source_get_removable:
+ * @source: an #ESource
+ *
+ * Returns whether the D-Bus service will allow @source to be removed.
+ * If @source is not writable, calls to e_source_remove() will fail.
+ *
+ * Returns: whether @source is removable
+ *
+ * Since: 3.6
+ **/
+gboolean
+e_source_get_removable (ESource *source)
+{
+	EDBusObject *dbus_object;
+	EDBusSourceRemovable *dbus_source;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+
+	dbus_object = E_DBUS_OBJECT (source->priv->dbus_object);
+	dbus_source = e_dbus_object_peek_source_removable (dbus_object);
+
+	return (dbus_source != NULL);
+}
+
+/**
+ * e_source_get_remote_creatable:
+ * @source: an #ESource
+ *
+ * Returns whether new resources can be created on a remote server by
+ * calling e_source_remote_create() on @source.
+ *
+ * Generally this is only %TRUE if @source has an #ESourceCollection
+ * extension, which means there is an #ECollectionBackend in the D-Bus
+ * service that can handle create requests.  If @source does not have
+ * this capability, calls to e_source_remote_create() will fail.
+ *
+ * Returns: whether @source can create remote resources
+ *
+ * Since: 3.6
+ **/
+gboolean
+e_source_get_remote_creatable (ESource *source)
+{
+	EDBusObject *dbus_object;
+	EDBusSourceRemoteCreatable *dbus_source;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+
+	dbus_object = E_DBUS_OBJECT (source->priv->dbus_object);
+	dbus_source = e_dbus_object_peek_source_remote_creatable (dbus_object);
+
+	return (dbus_source != NULL);
+}
+
+/**
+ * e_source_get_remote_deletable:
+ * @source: an #ESource
+ *
+ * Returns whether the resource represented by @source can be deleted
+ * from a remote server by calling e_source_remote_delete().
+ *
+ * Generally this is only %TRUE if @source is a child of an #ESource
+ * which has an #ESourceCollection extension, which means there is an
+ * #ECollectionBackend in the D-Bus service that can handle delete
+ * requests.  If @source does not have this capability, calls to
+ * e_source_remote_delete() will fail.
+ *
+ * Returns: whether @source can delete remote resources
+ *
+ * Since: 3.6
+ **/
+gboolean
+e_source_get_remote_deletable (ESource *source)
+{
+	EDBusObject *dbus_object;
+	EDBusSourceRemoteDeletable *dbus_source;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+
+	dbus_object = E_DBUS_OBJECT (source->priv->dbus_object);
+	dbus_source = e_dbus_object_peek_source_remote_deletable (dbus_object);
+
+	return (dbus_source != NULL);
+}
+
+/**
+ * e_source_get_extension:
+ * @source: an #ESource
+ * @extension_name: an extension name
+ *
+ * Returns an instance of some #ESourceExtension subclass which registered
+ * itself under @extension_name.  If no such instance exists within @source,
+ * one will be created.  It is the caller's responsibility to know which
+ * subclass is being returned.
+ *
+ * If you just want to test for the existence of an extension within @source
+ * without creating it, use e_source_has_extension().
+ *
+ * Extension instances are owned by their #ESource and should not be
+ * referenced directly.  Instead, reference the #ESource instance and
+ * use this function to fetch the extension instance as needed.
+ *
+ * Returns: (type ESourceExtension) (transfer none): an instance of some
+ * #ESourceExtension subclass
+ *
+ * Since: 3.6
+ **/
+gpointer
+e_source_get_extension (ESource *source,
+                        const gchar *extension_name)
+{
+	ESourceExtension *extension;
+	GHashTable *hash_table;
+	GTypeClass *class;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), NULL);
+	g_return_val_if_fail (extension_name != NULL, NULL);
+
+	g_static_rec_mutex_lock (&source->priv->lock);
+
+	/* Check if we already have the extension. */
+	extension = g_hash_table_lookup (
+		source->priv->extensions, extension_name);
+	if (extension != NULL)
+		goto exit;
+
+	/* Find all subclasses of ESourceExtensionClass. */
+	hash_table = source_find_extension_classes ();
+	class = g_hash_table_lookup (hash_table, extension_name);
+
+	/* Create a new instance of the appropriate GType. */
+	if (class != NULL) {
+		extension = g_object_new (
+			G_TYPE_FROM_CLASS (class),
+			"source", source, NULL);
+		source_load_from_key_file (
+			G_OBJECT (extension),
+			source->priv->key_file,
+			extension_name);
+		g_hash_table_insert (
+			source->priv->extensions,
+			g_strdup (extension_name), extension);
+	} else {
+		/* XXX Tie this into a debug setting for ESources. */
+#ifdef DEBUG
+		g_critical (
+			"No registered GType for ESource "
+			"extension '%s'", extension_name);
+#endif
+	}
+
+	g_hash_table_destroy (hash_table);
+
+exit:
+	g_static_rec_mutex_unlock (&source->priv->lock);
+
+	return extension;
+}
+
+/**
+ * e_source_has_extension:
+ * @source: an #ESource
+ * @extension_name: an extension name
+ *
+ * Checks whether @source has an #ESourceExtension with the given name.
+ *
+ * Returns: %TRUE if @source has such an extension, %FALSE if not
+ *
+ * Since: 3.6
+ **/
+gboolean
+e_source_has_extension (ESource *source,
+                        const gchar *extension_name)
+{
+	ESourceExtension *extension;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+	g_return_val_if_fail (extension_name != NULL, FALSE);
+
+	g_static_rec_mutex_lock (&source->priv->lock);
+
+	/* Two cases to check for, either one is good enough:
+	 * 1) Our internal GKeyFile has a group named 'extension_name'.
+	 * 2) Our 'extensions' table has an entry for 'extension_name'.
+	 *
+	 * We have to check both data structures in case a new extension
+	 * not present in the GKeyFile was instantiated, but we have not
+	 * yet updated our internal GKeyFile.  A common occurrence when
+	 * editing a brand new data source.
+	 *
+	 * When checking the GKeyFile we want to actually fetch the
+	 * extension with e_source_get_extension() to make sure it's
+	 * a registered extension name and not just an arbitrary key
+	 * file group name. */
+
+	if (g_key_file_has_group (source->priv->key_file, extension_name)) {
+		extension = e_source_get_extension (source, extension_name);
+	} else {
+		GHashTable *hash_table = source->priv->extensions;
+		extension = g_hash_table_lookup (hash_table, extension_name);
+	}
+
+	g_static_rec_mutex_unlock (&source->priv->lock);
+
+	return (extension != NULL);
+}
+
+/**
+ * e_source_ref_dbus_object:
+ * @source: an #ESource
+ *
+ * Returns the #GDBusObject that was passed to e_source_new().
+ *
+ * The returned #GDBusObject is referenced for thread-safety and must be
+ * unreferenced with g_object_unref() when finished with it.
+ *
+ * Returns: (transfer full): the #GDBusObject for @source, or %NULL
+ *
+ * Since: 3.6
+ **/
+GDBusObject *
+e_source_ref_dbus_object (ESource *source)
+{
+	g_return_val_if_fail (E_IS_SOURCE (source), NULL);
+
+	if (source->priv->dbus_object == NULL)
+		return NULL;
+
+	return g_object_ref (source->priv->dbus_object);
+}
+
+/**
+ * e_source_ref_main_context:
+ * @source: an #ESource
+ *
+ * Returns the #GMainContext from which #ESource::changed signals are
+ * emitted.
+ *
+ * The returned #GMainContext is referenced for thread-safety and must be
+ * unreferenced with g_main_context_unref() when finished with it.
+ *
+ * Returns: (transfer full): the #GMainContext for signal emissions
+ *
+ * Since: 3.6
+ **/
+GMainContext *
+e_source_ref_main_context (ESource *source)
+{
+	g_return_val_if_fail (E_IS_SOURCE (source), NULL);
+
+	return g_main_context_ref (source->priv->main_context);
+}
+
+/**
+ * e_source_get_display_name:
+ * @source: an #ESource
+ *
+ * Returns the display name for @source.  Use the display name to
+ * represent the #ESource in a user interface.
+ *
+ * Returns: the display name for @source
+ *
+ * Since: 3.6
+ **/
+const gchar *
+e_source_get_display_name (ESource *source)
+{
+	g_return_val_if_fail (E_IS_SOURCE (source), NULL);
+
+	return source->priv->display_name;
+}
+
+/**
+ * e_source_dup_display_name:
+ * @source: an #ESource
+ *
+ * Thread-safe variation of e_source_get_display_name().
+ * Use this function when accessing @source from multiple threads.
+ *
+ * The returned string should be freed with g_free() when no longer needed.
+ *
+ * Returns: a newly-allocated copy of #ESource:display-name
+ *
+ * Since: 3.6
+ **/
+gchar *
+e_source_dup_display_name (ESource *source)
+{
+	const gchar *protected;
+	gchar *duplicate;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), NULL);
+
+	g_mutex_lock (source->priv->property_lock);
+
+	protected = e_source_get_display_name (source);
+	duplicate = g_strdup (protected);
+
+	g_mutex_unlock (source->priv->property_lock);
+
+	return duplicate;
+}
+
+/**
+ * e_source_set_display_name:
+ * @source: an #ESource
+ * @display_name: a display name
+ *
+ * Sets the display name for @source.  The @display_name argument must be a
+ * valid UTF-8 string.  Use the display name to represent the #ESource in a
+ * user interface.
+ *
+ * The internal copy of @display_name is automatically stripped of leading
+ * and trailing whitespace.
+ *
+ * Since: 3.6
+ **/
+void
+e_source_set_display_name (ESource *source,
+                           const gchar *display_name)
+{
+	g_return_if_fail (E_IS_SOURCE (source));
+	g_return_if_fail (display_name != NULL);
+	g_return_if_fail (g_utf8_validate (display_name, -1, NULL));
+
+	g_mutex_lock (source->priv->property_lock);
+
+	if (g_strcmp0 (source->priv->display_name, display_name) == 0) {
+		g_mutex_unlock (source->priv->property_lock);
+		return;
+	}
+
+	g_free (source->priv->display_name);
+	source->priv->display_name = g_strdup (display_name);
+
+	/* Strip leading and trailing whitespace. */
+	g_strstrip (source->priv->display_name);
+
+	/* This is used in e_source_compare_by_display_name(). */
+	g_free (source->priv->collate_key);
+	source->priv->collate_key = g_utf8_collate_key (display_name, -1);
+
+	g_mutex_unlock (source->priv->property_lock);
+
+	g_object_notify (G_OBJECT (source), "display-name");
+}
+
+/**
+ * e_source_compare_by_display_name:
+ * @source1: the first #ESource
+ * @source2: the second #ESource
+ *
+ * Compares two #ESource instances by their display names.  Useful for
+ * ordering sources in a user interface.
+ *
+ * Returns: a negative value if @source1 compares before @source2, zero if
+ *          they compare equal, or a positive value if @source1 compares
+ *          after @source2
+ *
+ * Since: 3.6
+ **/
+gint
+e_source_compare_by_display_name (ESource *source1,
+                                  ESource *source2)
+{
+	return g_strcmp0 (
+		source1->priv->collate_key,
+		source2->priv->collate_key);
+}
+
+/**
+ * e_source_to_string:
+ * @source: an #ESource
+ * @length: (allow-none): return location for the length of the returned
+ *          string, or %NULL
+ *
+ * Outputs the current contents of @source as a key file string.
+ * Free the returned string with g_free().
+ *
+ * Returns: a newly-allocated string
+ *
+ * Since: 3.6
+ **/
+gchar *
+e_source_to_string (ESource *source,
+                    gsize *length)
+{
+	GHashTableIter iter;
+	GKeyFile *key_file;
+	gpointer group_name;
+	gpointer extension;
+	gchar *data;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), NULL);
+
+	g_static_rec_mutex_lock (&source->priv->lock);
+
+	key_file = source->priv->key_file;
+
+	source_save_to_key_file (
+		G_OBJECT (source), key_file, PRIMARY_GROUP_NAME);
+
+	g_hash_table_iter_init (&iter, source->priv->extensions);
+	while (g_hash_table_iter_next (&iter, &group_name, &extension))
+		source_save_to_key_file (extension, key_file, group_name);
+
+	data = g_key_file_to_data (key_file, length, NULL);
+
+	g_static_rec_mutex_unlock (&source->priv->lock);
+
+	return data;
+}
+
+/**
+ * e_source_parameter_to_key:
+ * @param_name: a #GParamSpec name
+ *
+ * Converts a #GParamSpec name (e.g. "foo-bar" or "foo_bar")
+ * to "CamelCase" for use as a #GKeyFile key (e.g. "FooBar").
+ *
+ * This function is made public only to aid in account migration.
+ * Applications should not need to use this.
+ *
+ * Since: 3.6
+ **/
+gchar *
+e_source_parameter_to_key (const gchar *param_name)
+{
+	gboolean uppercase = TRUE;
+	gchar *key, *cp;
+	gint ii;
+
+	g_return_val_if_fail (param_name != NULL, NULL);
+
+	key = cp = g_malloc0 (strlen (param_name) + 1);
+
+	for (ii = 0; param_name[ii] != '\0'; ii++) {
+		if (g_ascii_isalnum (param_name[ii]) && uppercase) {
+			*cp++ = g_ascii_toupper (param_name[ii]);
+			uppercase = FALSE;
+		} else if (param_name[ii] == '-' || param_name[ii] == '_')
+			uppercase = TRUE;
+		else
+			*cp++ = param_name[ii];
+	}
+
+	return key;
+}
+
+/**
+ * e_source_remove_sync:
+ * @source: the #ESource to be removed
+ * @cancellable: (allow-none): optional #GCancellable object, or %NULL
+ * @error: return location for a #GError, or %NULL
+ *
+ * Requests the D-Bus service to delete the key files for @source and all of
+ * its descendants and broadcast their removal to all clients.  The @source
+ * must be #ESource:removable.
+ *
+ * If an error occurs, the functon will set @error and return %FALSE.
+ *
+ * Returns: %TRUE on success, %FALSE on failure
+ *
+ * Since: 3.6
+ **/
+gboolean
+e_source_remove_sync (ESource *source,
+                      GCancellable *cancellable,
+                      GError **error)
+{
+	ESourceClass *class;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+
+	class = E_SOURCE_GET_CLASS (source);
+	g_return_val_if_fail (class->remove_sync != NULL, FALSE);
+
+	return class->remove_sync (source, cancellable, error);
+}
+
+/**
+ * e_source_remove:
+ * @source: the #ESource to be removed
+ * @cancellable: (allow-none): optional #GCancellable object, or %NULL
+ * @callback: (scope async): a #GAsyncReadyCallback to call when the request
+ *            is satisfied
+ * @user_data: (closure): data to pass to the callback function
+ *
+ * Asynchronously requests the D-Bus service to delete the key files for
+ * @source and all of its descendants and broadcast their removal to all
+ * clients.  The @source must be #ESource:removable.
+ *
+ * When the operation is finished, @callback will be called.  You can then
+ * call e_source_remove_finish() to get the result of the operation.
+ *
+ * Since: 3.6
+ **/
+void
+e_source_remove (ESource *source,
+                 GCancellable *cancellable,
+                 GAsyncReadyCallback callback,
+                 gpointer user_data)
+{
+	ESourceClass *class;
+
+	g_return_if_fail (E_IS_SOURCE (source));
+
+	class = E_SOURCE_GET_CLASS (source);
+	g_return_if_fail (class->remove != NULL);
+
+	class->remove (source, cancellable, callback, user_data);
+}
+
+/**
+ * e_source_remove_finish:
+ * @source: the #ESource to be removed
+ * @result: a #GAsyncResult
+ * @error: return location for a #GError, or %NULL
+ *
+ * Finishes the operation started with e_source_remove().  If an
+ * error occurred, the function will set @error and return %FALSE.
+ *
+ * Returns: %TRUE on success, %FALSE of failure
+ *
+ * Since: 3.6
+ **/
+gboolean
+e_source_remove_finish (ESource *source,
+                        GAsyncResult *result,
+                        GError **error)
+{
+	ESourceClass *class;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), FALSE);
+
+	class = E_SOURCE_GET_CLASS (source);
+	g_return_val_if_fail (class->remove_finish != NULL, FALSE);
+
+	return class->remove_finish (source, result, error);
+}
+
+/**
+ * e_source_write_sync:
+ * @source: a writable #ESource
+ * @cancellable: (allow-none): optional #GCancellable object, or %NULL
+ * @error: return location for a #GError, or %NULL
+ *
+ * Submits the current contents of @source to the D-Bus service to be
+ * written to disk and broadcast to other clients.  The @source must
+ * be #ESource:writable.
+ *
+ * If an error occurs, the functon will set @error and return %FALSE.
+ *
+ * Returns: %TRUE on success, %FALSE on failure
+ *
+ * Since: 3.6
+ **/
+gboolean
+e_source_write_sync (ESource *source,
+                     GCancellable *cancellable,
+                     GError **error)
+{
+	ESourceClass *class;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+
+	class = E_SOURCE_GET_CLASS (source);
+	g_return_val_if_fail (class->write_sync != NULL, FALSE);
+
+	return class->write_sync (source, cancellable, error);
+}
+
+/**
+ * e_source_write:
+ * @source: a writable #ESource
+ * @cancellable: (allow-none): optional #GCancellable object, or %NULL
+ * @callback: (scope async): a #GAsyncReadyCallback to call when the request
+ *            is satisfied
+ * @user_data: (closure): data to pass to the callback function
+ *
+ * Asynchronously submits the current contents of @source to the D-Bus
+ * service to be written to disk and broadcast to other clients.  The
+ * @source must be #ESource:writable.
+ *
+ * When the operation is finished, @callback will be called.  You can then
+ * call e_source_write_finish() to get the result of the operation.
+ *
+ * Since: 3.6
+ **/
+void
+e_source_write (ESource *source,
+                GCancellable *cancellable,
+                GAsyncReadyCallback callback,
+                gpointer user_data)
+{
+	ESourceClass *class;
+
+	g_return_if_fail (E_IS_SOURCE (source));
+
+	class = E_SOURCE_GET_CLASS (source);
+	g_return_if_fail (class->write != NULL);
+
+	class->write (source, cancellable, callback, user_data);
+}
+
+/**
+ * e_source_write_finish:
+ * @source: a writable #ESource
+ * @result: a #GAsyncResult
+ * @error: return location for a #GError, or %NULL
+ *
+ * Finishes the operation started with e_source_write().  If an
+ * error occurred, the function will set @error and return %FALSE.
+ *
+ * Returns: %TRUE on success, %FALSE on failure
+ *
+ * Since: 3.6
+ **/
+gboolean
+e_source_write_finish (ESource *source,
+                       GAsyncResult *result,
+                       GError **error)
+{
+	ESourceClass *class;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+	g_return_val_if_fail (G_IS_ASYNC_RESULT (result), FALSE);
+
+	class = E_SOURCE_GET_CLASS (source);
+	g_return_val_if_fail (class->write_finish != NULL, FALSE);
+
+	return class->write_finish (source, result, error);
+}
+
+/**
+ * e_source_remote_create_sync:
+ * @source: an #ESource
+ * @scratch_source: an #ESource describing the resource to create
+ * @cancellable: (allow-none): optional #GCancellable object, or %NULL
+ * @error: return location for a #GError, or %NULL
+ *
+ * Creates a new remote resource by picking out relevant details from
+ * @scratch_source.  The @scratch_source must be an #ESource with no
+ * #GDBusObject.  The @source must be #ESource:remote-creatable.
+ *
+ * The details required to create the resource vary by #ECollectionBackend,
+ * but in most cases the @scratch_source need only define the resource type
+ * (address book, calendar, etc.), a display name for the resource, and
+ * possibly a server-side path or ID for the resource.
+ *
+ * If an error occurs, the function will set @error and return %FALSE.
+ *
+ * Returns: %TRUE on success, %FALSE on failure
+ *
+ * Since: 3.6
+ **/
+gboolean
+e_source_remote_create_sync (ESource *source,
+                             ESource *scratch_source,
+                             GCancellable *cancellable,
+                             GError **error)
+{
+	ESourceClass *class;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+	g_return_val_if_fail (E_IS_SOURCE (scratch_source), FALSE);
+
+	class = E_SOURCE_GET_CLASS (source);
+	g_return_val_if_fail (class->remote_create_sync != NULL, FALSE);
+
+	return class->remote_create_sync (
+		source, scratch_source, cancellable, error);
+}
+
+/**
+ * e_source_remote_create:
+ * @source: an #ESource
+ * @scratch_source: an #ESource describing the resource to create
+ * @cancellable: (allow-none): optional #GCancellable object, or %NULL
+ * @callback: (scope async): a #GAsyncReadyCallback to call when the request
+ *            is satisfied
+ * @user_data: (closure): data to pass to the callback function
+ *
+ * Asynchronously creates a new remote resource by picking out relevant
+ * details from @scratch_source.  The @scratch_source must be an #ESource
+ * with no #GDBusObject.  The @source must be #ESource:remote-creatable.
+ *
+ * The details required to create the resource vary by #ECollectionBackend,
+ * but in most cases the @scratch_source need only define the resource type
+ * (address book, calendar, etc.), a display name for the resource, and
+ * possibly a server-side path or ID for the resource.
+ *
+ * When the operation is finished, @callback will be called.  You can then
+ * call 3_source_remote_create_finish() to get the result of the operation.
+ *
+ * Since: 3.6
+ **/
+void
+e_source_remote_create (ESource *source,
+                        ESource *scratch_source,
+                        GCancellable *cancellable,
+                        GAsyncReadyCallback callback,
+                        gpointer user_data)
+{
+	ESourceClass *class;
+
+	g_return_if_fail (E_IS_SOURCE (source));
+	g_return_if_fail (E_IS_SOURCE (scratch_source));
+
+	class = E_SOURCE_GET_CLASS (source);
+	g_return_if_fail (class->remote_create != NULL);
+
+	class->remote_create (
+		source, scratch_source,
+		cancellable, callback, user_data);
+}
+
+/**
+ * e_source_remote_create_finish:
+ * @source: an #ESource
+ * @result: a #GAsyncResult
+ * @error: return location for a #GError, or %NULL
+ *
+ * Finishes the operation started with e_source_remote_create().  If
+ * an error occurred, the function will set @error and return %FALSE.
+ *
+ * Returns: %TRUE on success, %FALSE on failure
+ *
+ * Since: 3.6
+ **/
+gboolean
+e_source_remote_create_finish (ESource *source,
+                               GAsyncResult *result,
+                               GError **error)
+{
+	ESourceClass *class;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+
+	class = E_SOURCE_GET_CLASS (source);
+	g_return_val_if_fail (class->remote_create_finish != NULL, FALSE);
+
+	return class->remote_create_finish (source, result, error);
+}
+
+/**
+ * e_source_remote_delete_sync:
+ * @source: an #ESource
+ * @cancellable: (allow-none): optional #GCancellable object, or %NULL
+ * @error: return location for a #GError, or %NULL
+ *
+ * Deletes the resource represented by @source from a remote server.
+ * The @source must be #ESource:remote-deletable.  This will also delete
+ * the key file for @source and broadcast its removal to all clients,
+ * similar to e_source_remove_sync().
+ *
+ * If an error occurs, the function will set @error and return %FALSE.
+ *
+ * Returns: %TRUE on success, %FALSE on failure
+ *
+ * Since: 3.6
+ **/
+gboolean
+e_source_remote_delete_sync (ESource *source,
+                             GCancellable *cancellable,
+                             GError **error)
+{
+	ESourceClass *class;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+
+	class = E_SOURCE_GET_CLASS (source);
+	g_return_val_if_fail (class->remote_delete_sync != NULL, FALSE);
+
+	return class->remote_delete_sync (source, cancellable, error);
+}
+
+/**
+ * e_source_remote_delete:
+ * @source: an #ESource
+ * @cancellable: (allow-none): optional #GCancellable object, or %NULL
+ * @callback: (scope async): a #GAsyncReadyCallback to call when the request
+ *            is satisfied
+ * @user_data: (closure): data to pass to the callback function
+ *
+ * Asynchronously deletes the resource represented by @source from a remote
+ * server.  The @source must be #ESource:remote-deletable.  This will also
+ * delete the key file for @source and broadcast its removal to all clients,
+ * similar to e_source_remove().
+ *
+ * When the operation is finished, @callback will be called.  You can then
+ * call e_source_remote_delete_finish() to get the result of the operation.
+ *
+ * Since: 3.6
+ **/
+void
+e_source_remote_delete (ESource *source,
+                        GCancellable *cancellable,
+                        GAsyncReadyCallback callback,
+                        gpointer user_data)
+{
+	ESourceClass *class;
+
+	g_return_if_fail (E_IS_SOURCE (source));
+
+	class = E_SOURCE_GET_CLASS (source);
+	g_return_if_fail (class->remote_delete != NULL);
+
+	class->remote_delete (source, cancellable, callback, user_data);
+}
+
+/**
+ * e_source_remote_delete_finish:
+ * @source: an #ESource
+ * @result: a #GAsyncResult
+ * @error: return location for a #GError, or %NULL
+ *
+ * Finishes the operation started with e_source_remote_delete().  If
+ * an error occurred, the function will set @error and return %FALSE.
+ *
+ * Returns: %TRUE on success, %FALSE on failure
+ *
+ * Since: 3.6
+ **/
+gboolean
+e_source_remote_delete_finish (ESource *source,
+                               GAsyncResult *result,
+                               GError **error)
+{
+	ESourceClass *class;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+
+	class = E_SOURCE_GET_CLASS (source);
+	g_return_val_if_fail (class->remote_delete_finish != NULL, FALSE);
+
+	return class->remote_delete_finish (source, result, error);
+}
+

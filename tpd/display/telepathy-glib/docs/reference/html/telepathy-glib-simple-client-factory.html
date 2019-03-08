@@ -1,0 +1,1206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpSimpleClientFactory</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-client.html" title="Client-side proxies">
+<link rel="prev" href="telepathy-glib-automatic-proxy-factory.html" title="TpAutomaticProxyFactory">
+<link rel="next" href="telepathy-glib-automatic-client-factory.html" title="TpAutomaticClientFactory">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-automatic-proxy-factory.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-client.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-automatic-client-factory.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-simple-client-factory.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-simple-client-factory.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-simple-client-factory.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-simple-client-factory.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-simple-client-factory"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-simple-client-factory.top_of_page"></a>TpSimpleClientFactory</span></h2>
+<p>TpSimpleClientFactory — a factory for <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a>s and plain subclasses
+ of <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a></p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-simple-client-factory.synopsis"></a><h2>Synopsis</h2>
+<a name="TpSimpleClientFactory"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+                    <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory-struct" title="TpSimpleClientFactory">TpSimpleClientFactory</a>;
+struct              <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactoryClass" title="struct TpSimpleClientFactoryClass">TpSimpleClientFactoryClass</a>;
+<a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="returnvalue">TpSimpleClientFactory</span></a> * <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-new" title="tp_simple_client_factory_new ()">tp_simple_client_factory_new</a>    (<em class="parameter"><code><a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a> *dbus</code></em>);
+<a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="returnvalue">TpDBusDaemon</span></a> *      <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-get-dbus-daemon" title="tp_simple_client_factory_get_dbus_daemon ()">tp_simple_client_factory_get_dbus_daemon</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>);
+
+<a class="link" href="telepathy-glib-account.html#TpAccount"><span class="returnvalue">TpAccount</span></a> *         <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-ensure-account" title="tp_simple_client_factory_ensure_account ()">tp_simple_client_factory_ensure_account</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *immutable_properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="returnvalue">GArray</span></a> *            <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-account-features" title="tp_simple_client_factory_dup_account_features ()">tp_simple_client_factory_dup_account_features</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> *account</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-account-features" title="tp_simple_client_factory_add_account_features ()">tp_simple_client_factory_add_account_features</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> *features</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-account-features-varargs" title="tp_simple_client_factory_add_account_features_varargs ()">tp_simple_client_factory_add_account_features_varargs</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+
+<a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="returnvalue">TpConnection</span></a> *      <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-ensure-connection" title="tp_simple_client_factory_ensure_connection ()">tp_simple_client_factory_ensure_connection</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *immutable_properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="returnvalue">GArray</span></a> *            <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-connection-features" title="tp_simple_client_factory_dup_connection_features ()">tp_simple_client_factory_dup_connection_features</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *connection</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-connection-features" title="tp_simple_client_factory_add_connection_features ()">tp_simple_client_factory_add_connection_features</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> *features</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-connection-features-varargs" title="tp_simple_client_factory_add_connection_features_varargs ()">tp_simple_client_factory_add_connection_features_varargs</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+
+<a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="returnvalue">TpChannel</span></a> *         <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-ensure-channel" title="tp_simple_client_factory_ensure_channel ()">tp_simple_client_factory_ensure_channel</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *immutable_properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="returnvalue">GArray</span></a> *            <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-channel-features" title="tp_simple_client_factory_dup_channel_features ()">tp_simple_client_factory_dup_channel_features</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> *channel</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-channel-features" title="tp_simple_client_factory_add_channel_features ()">tp_simple_client_factory_add_channel_features</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> *features</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-channel-features-varargs" title="tp_simple_client_factory_add_channel_features_varargs ()">tp_simple_client_factory_add_channel_features_varargs</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+
+<a class="link" href="telepathy-glib-contact.html#TpContact"><span class="returnvalue">TpContact</span></a> *         <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-ensure-contact" title="tp_simple_client_factory_ensure_contact ()">tp_simple_client_factory_ensure_contact</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *identifier</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-upgrade-contacts-async" title="tp_simple_client_factory_upgrade_contacts_async ()">tp_simple_client_factory_upgrade_contacts_async</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_contacts</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> * const *contacts</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-upgrade-contacts-finish" title="tp_simple_client_factory_upgrade_contacts_finish ()">tp_simple_client_factory_upgrade_contacts_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> **contacts</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-ensure-contact-by-id-async" title="tp_simple_client_factory_ensure_contact_by_id_async ()">tp_simple_client_factory_ensure_contact_by_id_async</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *identifier</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a class="link" href="telepathy-glib-contact.html#TpContact"><span class="returnvalue">TpContact</span></a> *         <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-ensure-contact-by-id-finish" title="tp_simple_client_factory_ensure_contact_by_id_finish ()">tp_simple_client_factory_ensure_contact_by_id_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="returnvalue">GArray</span></a> *            <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-contact-features" title="tp_simple_client_factory_dup_contact_features ()">tp_simple_client_factory_dup_contact_features</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *connection</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-contact-features" title="tp_simple_client_factory_add_contact_features ()">tp_simple_client_factory_add_contact_features</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_features</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="telepathy-glib-contact.html#TpContactFeature"><span class="type">TpContactFeature</span></a> *features</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-contact-features-varargs" title="tp_simple_client_factory_add_contact_features_varargs ()">tp_simple_client_factory_add_contact_features_varargs</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-contact.html#TpContactFeature"><span class="type">TpContactFeature</span></a> feature</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-simple-client-factory.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----TpSimpleClientFactory
+         +----<a class="link" href="telepathy-glib-automatic-client-factory.html#TpAutomaticClientFactory">TpAutomaticClientFactory</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-simple-client-factory.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory--dbus-daemon" title='The "dbus-daemon" property'>dbus-daemon</a>"              <a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a>*         : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-simple-client-factory.description"></a><h2>Description</h2>
+<p>
+This factory constructs various <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> subclasses as well as <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a>,
+which guarantees that at most one instance of those objects will exist for a
+given remote object or contact. It also stores the desired features for
+contacts and each type of proxy.
+</p>
+<p>
+Note that the factory will not prepare the desired features: it is the
+caller's responsibility to do so. By default, only core features are
+requested.
+</p>
+<p>
+Currently supported classes are <a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a>, <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>,
+<a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> and <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a>. Those objects should always be acquired through a
+factory, rather than being constructed directly.
+</p>
+<p>
+One can subclass <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> and override some of its virtual
+methods to construct more specialized objects. See <a class="link" href="telepathy-glib-automatic-client-factory.html#TpAutomaticClientFactory"><span class="type">TpAutomaticClientFactory</span></a>
+for a subclass which automatically constructs subclasses of <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> for
+common channel types.
+</p>
+<p>
+An application using its own factory subclass would look like this:
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">int</span> <span class="function">main</span><span class="gtkdoc opt">(</span><span class="gtkdoc kwb">int</span> argc<span class="gtkdoc opt">,</span> <span class="gtkdoc kwb">char</span> <span class="gtkdoc opt">*</span>argv<span class="gtkdoc opt">[])</span>
+<span class="gtkdoc opt">{</span>
+  TpSimpleClientFactory <span class="gtkdoc opt">*</span>factory<span class="gtkdoc opt">;</span>
+  TpAccountManager <span class="gtkdoc opt">*</span>manager<span class="gtkdoc opt">;</span>
+
+  <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#g-type-init">g_type_init</a></span> <span class="gtkdoc opt">();</span>
+
+  factory <span class="gtkdoc opt">=</span> <span class="function">my_factory_new</span> <span class="gtkdoc opt">();</span>
+  manager <span class="gtkdoc opt">=</span> <span class="function"><a href="telepathy-glib-account-manager.html#tp-account-manager-new-with-factory">tp_account_manager_new_with_factory</a></span> <span class="gtkdoc opt">(</span>factory<span class="gtkdoc opt">);</span>
+  <span class="function"><a href="telepathy-glib-account-manager.html#tp-account-manager-set-default">tp_account_manager_set_default</a></span> <span class="gtkdoc opt">(</span>manager<span class="gtkdoc opt">);</span>
+
+  <span class="gtkdoc opt">...</span>
+  <span class="function"><a href="telepathy-glib-proxy.html#tp-proxy-prepare-async">tp_proxy_prepare_async</a></span> <span class="gtkdoc opt">(</span>manager<span class="gtkdoc opt">,</span> am_features<span class="gtkdoc opt">,</span> callback<span class="gtkdoc opt">,</span> user_data<span class="gtkdoc opt">);</span>
+  <span class="gtkdoc opt">...</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+The call to <a class="link" href="telepathy-glib-account-manager.html#tp-account-manager-set-default" title="tp_account_manager_set_default ()"><code class="function">tp_account_manager_set_default()</code></a> near the beginning of <code class="function">main()</code>
+will ensure that any libraries or plugins which also use Telepathy (and call
+<a class="link" href="telepathy-glib-account-manager.html#tp-account-manager-dup" title="tp_account_manager_dup ()"><code class="function">tp_account_manager_dup()</code></a>) will share your <a class="link" href="telepathy-glib-account-manager.html#TpAccountManager"><span class="type">TpAccountManager</span></a>.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-simple-client-factory.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpSimpleClientFactory-struct"></a><h3>TpSimpleClientFactory</h3>
+<pre class="programlisting">typedef struct _TpSimpleClientFactory TpSimpleClientFactory;</pre>
+<p>
+Data structure representing a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a>
+</p>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpSimpleClientFactoryClass"></a><h3>struct TpSimpleClientFactoryClass</h3>
+<pre class="programlisting">struct TpSimpleClientFactoryClass {
+    GObjectClass parent_class;
+
+    /* TpAccount */
+    TpAccount * (*create_account) (TpSimpleClientFactory *self,
+        const gchar *object_path,
+        const GHashTable *immutable_properties,
+        GError **error);
+    GArray * (*dup_account_features) (TpSimpleClientFactory *self,
+        TpAccount *account);
+
+    /* TpConnection */
+    TpConnection * (*create_connection) (TpSimpleClientFactory *self,
+        const gchar *object_path,
+        const GHashTable *immutable_properties,
+        GError **error);
+    GArray * (*dup_connection_features) (TpSimpleClientFactory *self,
+        TpConnection *connection);
+
+    /* TpChannel */
+    TpChannel * (*create_channel) (TpSimpleClientFactory *self,
+        TpConnection *conn,
+        const gchar *object_path,
+        const GHashTable *immutable_properties,
+        GError **error);
+    GArray * (*dup_channel_features) (TpSimpleClientFactory *self,
+        TpChannel *channel);
+
+    /* TpContact */
+    TpContact * (*create_contact) (TpSimpleClientFactory *self,
+        TpConnection *connection,
+        TpHandle handle,
+        const gchar *identifier);
+    GArray * (*dup_contact_features) (TpSimpleClientFactory *self,
+        TpConnection *connection);
+};
+</pre>
+<p>
+The class structure for <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a>.
+</p>
+<p>
+<a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> maintains a cache of previously-constructed proxy
+objects, so the implementations of <em class="parameter"><code>create_account</code></em>,
+<em class="parameter"><code>create_connection</code></em>, <em class="parameter"><code>create_channel</code></em>, and <em class="parameter"><code>create_contact</code></em> may assume that a
+new object should be created when they are called. The default
+implementations create unadorned instances of the relevant classes;
+subclasses of the factory may choose to create more interesting proxy
+subclasses.
+</p>
+<p>
+The default implementation of <em class="parameter"><code>dup_channel_features</code></em> returns
+<a class="link" href="telepathy-glib-channel.html#TP-CHANNEL-FEATURE-CORE:CAPS" title="TP_CHANNEL_FEATURE_CORE"><span class="type">TP_CHANNEL_FEATURE_CORE</span></a>, plus all features passed to
+<a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-channel-features" title="tp_simple_client_factory_add_channel_features ()"><code class="function">tp_simple_client_factory_add_channel_features()</code></a> by the application.
+Subclasses may override this method to prepare more interesting features
+from subclasses of <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a>, for instance. The default implementations of
+the other <code class="function">dup_x_features</code> methods behave similarly.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> <em class="structfield"><code><a name="TpSimpleClientFactoryClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>the parent</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpSimpleClientFactoryClass.create-account"></a>create_account</code></em> ()</span></p></td>
+<td>create a <a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a>;
+see <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-ensure-account" title="tp_simple_client_factory_ensure_account ()"><code class="function">tp_simple_client_factory_ensure_account()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpSimpleClientFactoryClass.dup-account-features"></a>dup_account_features</code></em> ()</span></p></td>
+<td>implementation of <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-account-features" title="tp_simple_client_factory_dup_account_features ()"><code class="function">tp_simple_client_factory_dup_account_features()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpSimpleClientFactoryClass.create-connection"></a>create_connection</code></em> ()</span></p></td>
+<td>create a <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>;
+see <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-ensure-connection" title="tp_simple_client_factory_ensure_connection ()"><code class="function">tp_simple_client_factory_ensure_connection()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpSimpleClientFactoryClass.dup-connection-features"></a>dup_connection_features</code></em> ()</span></p></td>
+<td>implementation of
+<a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-connection-features" title="tp_simple_client_factory_dup_connection_features ()"><code class="function">tp_simple_client_factory_dup_connection_features()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpSimpleClientFactoryClass.create-channel"></a>create_channel</code></em> ()</span></p></td>
+<td>create a <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a>;
+see <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-ensure-channel" title="tp_simple_client_factory_ensure_channel ()"><code class="function">tp_simple_client_factory_ensure_channel()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpSimpleClientFactoryClass.dup-channel-features"></a>dup_channel_features</code></em> ()</span></p></td>
+<td>implementation of <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-channel-features" title="tp_simple_client_factory_dup_channel_features ()"><code class="function">tp_simple_client_factory_dup_channel_features()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpSimpleClientFactoryClass.create-contact"></a>create_contact</code></em> ()</span></p></td>
+<td>create a <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a>;
+see <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-ensure-contact" title="tp_simple_client_factory_ensure_contact ()"><code class="function">tp_simple_client_factory_ensure_contact()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="TpSimpleClientFactoryClass.dup-contact-features"></a>dup_contact_features</code></em> ()</span></p></td>
+<td>implementation of <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-contact-features" title="tp_simple_client_factory_dup_contact_features ()"><code class="function">tp_simple_client_factory_dup_contact_features()</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-new"></a><h3>tp_simple_client_factory_new ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="returnvalue">TpSimpleClientFactory</span></a> * tp_simple_client_factory_new    (<em class="parameter"><code><a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a> *dbus</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> instance. If <em class="parameter"><code>dbus</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>,
+<a class="link" href="telepathy-glib-dbus.html#tp-dbus-daemon-dup" title="tp_dbus_daemon_dup ()"><code class="function">tp_dbus_daemon_dup()</code></a> will be used.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dbus</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-get-dbus-daemon"></a><h3>tp_simple_client_factory_get_dbus_daemon ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="returnvalue">TpDBusDaemon</span></a> *      tp_simple_client_factory_get_dbus_daemon
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of the <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory--dbus-daemon" title='The "dbus-daemon" property'><span class="type">"dbus-daemon"</span></a>
+property. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-ensure-account"></a><h3>tp_simple_client_factory_ensure_account ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-account.html#TpAccount"><span class="returnvalue">TpAccount</span></a> *         tp_simple_client_factory_ensure_account
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *immutable_properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Returns a <a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> proxy for the account at <em class="parameter"><code>object_path</code></em>. The returned
+<a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> is cached; the same <a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> object will be returned by this
+function repeatedly, as long as at least one reference exists.
+</p>
+<p>
+Note that the returned <a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> is not guaranteed to be ready; the caller
+is responsible for calling <a class="link" href="telepathy-glib-proxy.html#tp-proxy-prepare-async" title="tp_proxy_prepare_async ()"><code class="function">tp_proxy_prepare_async()</code></a> with the desired
+features (as given by <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-account-features" title="tp_simple_client_factory_dup_account_features ()"><code class="function">tp_simple_client_factory_dup_account_features()</code></a>).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object_path</code></em> :</span></p></td>
+<td>the object path of an account</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>immutable_properties</code></em> :</span></p></td>
+<td>the immutable properties of the account, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to raise an error if <em class="parameter"><code>object_path</code></em> is not valid</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a reference to a <a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a>;
+see <a class="link" href="telepathy-glib-account.html#tp-account-new" title="tp_account_new ()"><code class="function">tp_account_new()</code></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-dup-account-features"></a><h3>tp_simple_client_factory_dup_account_features ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="returnvalue">GArray</span></a> *            tp_simple_client_factory_dup_account_features
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> *account</code></em>);</pre>
+<p>
+Return a zero-terminated <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> containing the <a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> features that
+should be prepared on <em class="parameter"><code>account</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>account</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly allocated
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GLib.Quark]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-add-account-features"></a><h3>tp_simple_client_factory_add_account_features ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_simple_client_factory_add_account_features
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> *features</code></em>);</pre>
+<p>
+Add <em class="parameter"><code>features</code></em> to the desired features to be prepared on <a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a>
+objects. Those features will be added to the features already returned be
+<a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-account-features" title="tp_simple_client_factory_dup_account_features ()"><code class="function">tp_simple_client_factory_dup_account_features()</code></a>.
+</p>
+<p>
+It is not necessary to add <a class="link" href="telepathy-glib-account.html#TP-ACCOUNT-FEATURE-CORE:CAPS" title="TP_ACCOUNT_FEATURE_CORE"><code class="literal">TP_ACCOUNT_FEATURE_CORE</code></a> as it is already
+included by default.
+</p>
+<p>
+Note that these features will not be added to existing <a class="link" href="telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a>
+objects; the user must call <a class="link" href="telepathy-glib-proxy.html#tp-proxy-prepare-async" title="tp_proxy_prepare_async ()"><code class="function">tp_proxy_prepare_async()</code></a> themself.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>an array
+of desired features, ending with 0; <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is equivalent to an array
+containing only 0. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-add-account-features-varargs"></a><h3>tp_simple_client_factory_add_account_features_varargs ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_simple_client_factory_add_account_features_varargs
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+The same as <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-account-features" title="tp_simple_client_factory_add_account_features ()"><code class="function">tp_simple_client_factory_add_account_features()</code></a>, but with a more
+convenient calling convention from C.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature</code></em> :</span></p></td>
+<td>the first feature</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>the second and subsequent features, if any, ending with 0</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-ensure-connection"></a><h3>tp_simple_client_factory_ensure_connection ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="returnvalue">TpConnection</span></a> *      tp_simple_client_factory_ensure_connection
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *immutable_properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Returns a <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> proxy for the connection at <em class="parameter"><code>object_path</code></em>.
+The returned <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> is cached; the same <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> object
+will be returned by this function repeatedly, as long as at least one
+reference exists.
+</p>
+<p>
+Note that the returned <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> is not guaranteed to be ready; the
+caller is responsible for calling <a class="link" href="telepathy-glib-proxy.html#tp-proxy-prepare-async" title="tp_proxy_prepare_async ()"><code class="function">tp_proxy_prepare_async()</code></a> with the desired
+features (as given by <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-connection-features" title="tp_simple_client_factory_dup_connection_features ()"><code class="function">tp_simple_client_factory_dup_connection_features()</code></a>).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object_path</code></em> :</span></p></td>
+<td>the object path of a connection</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>immutable_properties</code></em> :</span></p></td>
+<td>the immutable properties of the connection. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to raise an error if <em class="parameter"><code>object_path</code></em> is not valid</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a reference to a <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>;
+see <a class="link" href="telepathy-glib-connection.html#tp-connection-new" title="tp_connection_new ()"><code class="function">tp_connection_new()</code></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-dup-connection-features"></a><h3>tp_simple_client_factory_dup_connection_features ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="returnvalue">GArray</span></a> *            tp_simple_client_factory_dup_connection_features
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *connection</code></em>);</pre>
+<p>
+Return a zero-terminated <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> containing the <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> features that
+should be prepared on <em class="parameter"><code>connection</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly allocated
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GLib.Quark]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-add-connection-features"></a><h3>tp_simple_client_factory_add_connection_features ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_simple_client_factory_add_connection_features
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> *features</code></em>);</pre>
+<p>
+Add <em class="parameter"><code>features</code></em> to the desired features to be prepared on <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>
+objects. Those features will be added to the features already returned be
+<a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-connection-features" title="tp_simple_client_factory_dup_connection_features ()"><code class="function">tp_simple_client_factory_dup_connection_features()</code></a>.
+</p>
+<p>
+It is not necessary to add <a class="link" href="telepathy-glib-connection.html#TP-CONNECTION-FEATURE-CORE:CAPS" title="TP_CONNECTION_FEATURE_CORE"><code class="literal">TP_CONNECTION_FEATURE_CORE</code></a> as it is already
+included by default.
+</p>
+<p>
+Note that these features will not be added to existing <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>
+objects; the user must call <a class="link" href="telepathy-glib-proxy.html#tp-proxy-prepare-async" title="tp_proxy_prepare_async ()"><code class="function">tp_proxy_prepare_async()</code></a> themself.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>an array
+of desired features, ending with 0; <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is equivalent to an array
+containing only 0. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-add-connection-features-varargs"></a><h3>tp_simple_client_factory_add_connection_features_varargs ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_simple_client_factory_add_connection_features_varargs
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+The same as <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-connection-features" title="tp_simple_client_factory_add_connection_features ()"><code class="function">tp_simple_client_factory_add_connection_features()</code></a>, but with a
+more convenient calling convention from C.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature</code></em> :</span></p></td>
+<td>the first feature</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>the second and subsequent features, if any, ending with 0</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-ensure-channel"></a><h3>tp_simple_client_factory_ensure_channel ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="returnvalue">TpChannel</span></a> *         tp_simple_client_factory_ensure_channel
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *immutable_properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Returns a <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> proxy for the channel at <em class="parameter"><code>object_path</code></em> on <em class="parameter"><code>connection</code></em>.
+The returned <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> is cached; the same <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> object
+will be returned by this function repeatedly, as long as at least one
+reference exists.
+</p>
+<p>
+Note that the returned <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> is not guaranteed to be ready; the
+caller is responsible for calling <a class="link" href="telepathy-glib-proxy.html#tp-proxy-prepare-async" title="tp_proxy_prepare_async ()"><code class="function">tp_proxy_prepare_async()</code></a> with the desired
+features (as given by <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-channel-features" title="tp_simple_client_factory_dup_channel_features ()"><code class="function">tp_simple_client_factory_dup_channel_features()</code></a>).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object_path</code></em> :</span></p></td>
+<td>the object path of a channel on <em class="parameter"><code>connection</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>immutable_properties</code></em> :</span></p></td>
+<td>the immutable properties of the channel. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GObject.Value]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to raise an error if <em class="parameter"><code>object_path</code></em> is not valid</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a reference to a <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a>;
+see <a class="link" href="telepathy-glib-channel.html#tp-channel-new-from-properties" title="tp_channel_new_from_properties ()"><code class="function">tp_channel_new_from_properties()</code></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-dup-channel-features"></a><h3>tp_simple_client_factory_dup_channel_features ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="returnvalue">GArray</span></a> *            tp_simple_client_factory_dup_channel_features
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> *channel</code></em>);</pre>
+<p>
+Return a zero-terminated <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> containing the <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> features that
+should be prepared on <em class="parameter"><code>channel</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channel</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly allocated
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GLib.Quark]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-add-channel-features"></a><h3>tp_simple_client_factory_add_channel_features ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_simple_client_factory_add_channel_features
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> *features</code></em>);</pre>
+<p>
+Add <em class="parameter"><code>features</code></em> to the desired features to be prepared on <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a>
+objects. Those features will be added to the features already returned be
+<a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-channel-features" title="tp_simple_client_factory_dup_channel_features ()"><code class="function">tp_simple_client_factory_dup_channel_features()</code></a>.
+</p>
+<p>
+It is not necessary to add <a class="link" href="telepathy-glib-channel.html#TP-CHANNEL-FEATURE-CORE:CAPS" title="TP_CHANNEL_FEATURE_CORE"><code class="literal">TP_CHANNEL_FEATURE_CORE</code></a> as it is already
+included by default.
+</p>
+<p>
+Note that these features will not be added to existing <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a>
+objects; the user must call <a class="link" href="telepathy-glib-proxy.html#tp-proxy-prepare-async" title="tp_proxy_prepare_async ()"><code class="function">tp_proxy_prepare_async()</code></a> themself.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>an array
+of desired features, ending with 0; <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is equivalent to an array
+containing only 0. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-add-channel-features-varargs"></a><h3>tp_simple_client_factory_add_channel_features_varargs ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_simple_client_factory_add_channel_features_varargs
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+The same as <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-channel-features" title="tp_simple_client_factory_add_channel_features ()"><code class="function">tp_simple_client_factory_add_channel_features()</code></a>, but with a
+more convenient calling convention from C.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature</code></em> :</span></p></td>
+<td>the first feature</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>the second and subsequent features, if any, ending with 0</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-ensure-contact"></a><h3>tp_simple_client_factory_ensure_contact ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-contact.html#TpContact"><span class="returnvalue">TpContact</span></a> *         tp_simple_client_factory_ensure_contact
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *identifier</code></em>);</pre>
+<p>
+Returns a <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> representing <em class="parameter"><code>identifier</code></em> (and <em class="parameter"><code>handle</code></em>) on <em class="parameter"><code>connection</code></em>.
+The returned <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> is cached; the same <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> object
+will be returned by this function repeatedly, as long as at least one
+reference exists.
+</p>
+<p>
+Note that the returned <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> is not guaranteed to be ready; the caller
+is responsible for calling <a class="link" href="telepathy-glib-contact.html#tp-connection-upgrade-contacts" title="tp_connection_upgrade_contacts ()"><code class="function">tp_connection_upgrade_contacts()</code></a> with the desired
+features (as given by <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-contact-features" title="tp_simple_client_factory_dup_contact_features ()"><code class="function">tp_simple_client_factory_dup_contact_features()</code></a>).
+</p>
+<p>
+For this function to work properly, <a class="link" href="telepathy-glib-connection.html#tp-connection-has-immortal-handles" title="tp_connection_has_immortal_handles ()"><code class="function">tp_connection_has_immortal_handles()</code></a>
+must return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> for <em class="parameter"><code>connection</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>identifier</code></em> :</span></p></td>
+<td>a string representing the contact's identifier</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a reference to a <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-upgrade-contacts-async"></a><h3>tp_simple_client_factory_upgrade_contacts_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_simple_client_factory_upgrade_contacts_async
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_contacts</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> * const *contacts</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Same as <a class="link" href="telepathy-glib-contact.html#tp-connection-upgrade-contacts-async" title="tp_connection_upgrade_contacts_async ()"><code class="function">tp_connection_upgrade_contacts_async()</code></a>, but prepare contacts with all
+features previously passed to
+<a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-contact-features" title="tp_simple_client_factory_add_contact_features ()"><code class="function">tp_simple_client_factory_add_contact_features()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_contacts</code></em> :</span></p></td>
+<td>The number of contacts in <em class="parameter"><code>contacts</code></em> (must be at least 1)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>contacts</code></em> :</span></p></td>
+<td>An array of <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> objects
+associated with <em class="parameter"><code>self</code></em>. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_contacts]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the operation finishes</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-upgrade-contacts-finish"></a><h3>tp_simple_client_factory_upgrade_contacts_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_simple_client_factory_upgrade_contacts_finish
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> **contacts</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-upgrade-contacts-async" title="tp_simple_client_factory_upgrade_contacts_async ()"><code class="function">tp_simple_client_factory_upgrade_contacts_async()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>contacts</code></em> :</span></p></td>
+<td>a location to set a <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of upgraded <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> TelepathyGLib.Contact][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>][<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-ensure-contact-by-id-async"></a><h3>tp_simple_client_factory_ensure_contact_by_id_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_simple_client_factory_ensure_contact_by_id_async
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *identifier</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Same as <a class="link" href="telepathy-glib-contact.html#tp-connection-dup-contact-by-id-async" title="tp_connection_dup_contact_by_id_async ()"><code class="function">tp_connection_dup_contact_by_id_async()</code></a>, but prepare the
+contact with all features previously passed to
+<a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-contact-features" title="tp_simple_client_factory_add_contact_features ()"><code class="function">tp_simple_client_factory_add_contact_features()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>identifier</code></em> :</span></p></td>
+<td>a string representing the contact's identifier</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the operation finishes</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-ensure-contact-by-id-finish"></a><h3>tp_simple_client_factory_ensure_contact_by_id_finish ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-contact.html#TpContact"><span class="returnvalue">TpContact</span></a> *         tp_simple_client_factory_ensure_contact_by_id_finish
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-ensure-contact-by-id-async" title="tp_simple_client_factory_ensure_contact_by_id_async ()"><code class="function">tp_simple_client_factory_ensure_contact_by_id_async()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a> or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on error. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-dup-contact-features"></a><h3>tp_simple_client_factory_dup_contact_features ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="returnvalue">GArray</span></a> *            tp_simple_client_factory_dup_contact_features
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> *connection</code></em>);</pre>
+<p>
+Return a <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> containing the <a class="link" href="telepathy-glib-contact.html#TpContactFeature"><span class="type">TpContactFeature</span></a> that should be prepared on
+all contacts of <em class="parameter"><code>connection</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly
+allocated <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> TelepathyGLib.ContactFeature]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-add-contact-features"></a><h3>tp_simple_client_factory_add_contact_features ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_simple_client_factory_add_contact_features
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_features</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="telepathy-glib-contact.html#TpContactFeature"><span class="type">TpContactFeature</span></a> *features</code></em>);</pre>
+<p>
+Add <em class="parameter"><code>features</code></em> to the desired features to be prepared on <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a>
+objects. Those features will be added to the features already returned be
+<a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-dup-contact-features" title="tp_simple_client_factory_dup_contact_features ()"><code class="function">tp_simple_client_factory_dup_contact_features()</code></a>.
+</p>
+<p>
+Note that these features will not be added to existing <a class="link" href="telepathy-glib-contact.html#TpContact"><span class="type">TpContact</span></a>
+objects; the user must call <a class="link" href="telepathy-glib-contact.html#tp-connection-upgrade-contacts" title="tp_connection_upgrade_contacts ()"><code class="function">tp_connection_upgrade_contacts()</code></a> themself.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_features</code></em> :</span></p></td>
+<td>The number of features in <em class="parameter"><code>features</code></em> (may be 0)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>an array of desired
+features (may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>n_features</code></em> is 0). <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_features][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-simple-client-factory-add-contact-features-varargs"></a><h3>tp_simple_client_factory_add_contact_features_varargs ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_simple_client_factory_add_contact_features_varargs
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-contact.html#TpContactFeature"><span class="type">TpContactFeature</span></a> feature</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+The same as <a class="link" href="telepathy-glib-simple-client-factory.html#tp-simple-client-factory-add-contact-features" title="tp_simple_client_factory_add_contact_features ()"><code class="function">tp_simple_client_factory_add_contact_features()</code></a>, but with a
+more convenient calling convention from C.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-simple-client-factory.html#TpSimpleClientFactory"><span class="type">TpSimpleClientFactory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature</code></em> :</span></p></td>
+<td>the first feature</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>the second and subsequent features, if any, ending with
+<a class="link" href="telepathy-glib-contact.html#TP-CONTACT-FEATURE-INVALID:CAPS" title="TP_CONTACT_FEATURE_INVALID"><code class="literal">TP_CONTACT_FEATURE_INVALID</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.15.5</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-simple-client-factory.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpSimpleClientFactory--dbus-daemon"></a><h3>The <code class="literal">"dbus-daemon"</code> property</h3>
+<pre class="programlisting">  "dbus-daemon"              <a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a>*         : Read / Write / Construct Only</pre>
+<p>
+The D-Bus daemon for this object.
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-simple-client-factory.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-automatic-client-factory.html#TpAutomaticClientFactory"><span class="type">TpAutomaticClientFactory</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

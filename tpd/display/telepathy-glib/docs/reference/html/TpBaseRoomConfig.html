@@ -1,0 +1,744 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpBaseRoomConfig</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="telepathy-glib-TpPropertiesMixin.html" title="TpPropertiesMixin">
+<link rel="next" href="telepathy-glib-TpGroupMixin.html" title="TpGroupMixin">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-TpPropertiesMixin.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-TpGroupMixin.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#TpBaseRoomConfig.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#TpBaseRoomConfig.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#TpBaseRoomConfig.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#TpBaseRoomConfig.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="TpBaseRoomConfig"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="TpBaseRoomConfig.top_of_page"></a>TpBaseRoomConfig</span></h2>
+<p>TpBaseRoomConfig — implements the RoomConfig interface for chat rooms.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="TpBaseRoomConfig.synopsis"></a><h2>Synopsis</h2>
+<a name="TpBaseRoomConfigProperty"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+                    <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig-struct" title="TpBaseRoomConfig">TpBaseRoomConfig</a>;
+struct              <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfigClass" title="struct TpBaseRoomConfigClass">TpBaseRoomConfigClass</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfigUpdateAsync" title="TpBaseRoomConfigUpdateAsync ()">*TpBaseRoomConfigUpdateAsync</a>)      (<em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *validated_properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfigUpdateFinish" title="TpBaseRoomConfigUpdateFinish ()">*TpBaseRoomConfigUpdateFinish</a>)     (<em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-register-class" title="tp_base_room_config_register_class ()">tp_base_room_config_register_class</a>  (<em class="parameter"><code><a class="link" href="TpBaseChannel.html#TpBaseChannelClass" title="struct TpBaseChannelClass"><span class="type">TpBaseChannelClass</span></a> *base_channel_class</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-iface-init" title="tp_base_room_config_iface_init ()">tp_base_room_config_iface_init</a>      (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);
+
+enum                <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfigProperty-enum" title="enum TpBaseRoomConfigProperty">TpBaseRoomConfigProperty</a>;
+#define             <a class="link" href="TpBaseRoomConfig.html#TP-TYPE-BASE-ROOM-CONFIG-PROPERTY:CAPS" title="TP_TYPE_BASE_ROOM_CONFIG_PROPERTY">TP_TYPE_BASE_ROOM_CONFIG_PROPERTY</a>
+
+<a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="returnvalue">TpBaseChannel</span></a> *     <a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-dup-channel" title="tp_base_room_config_dup_channel ()">tp_base_room_config_dup_channel</a>     (<em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-set-can-update-configuration" title="tp_base_room_config_set_can_update_configuration ()">tp_base_room_config_set_can_update_configuration</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> can_update_configuration</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-set-property-mutable" title="tp_base_room_config_set_property_mutable ()">tp_base_room_config_set_property_mutable</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfigProperty"><span class="type">TpBaseRoomConfigProperty</span></a> property_id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_mutable</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-emit-properties-changed" title="tp_base_room_config_emit_properties_changed ()">tp_base_room_config_emit_properties_changed</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-set-retrieved" title="tp_base_room_config_set_retrieved ()">tp_base_room_config_set_retrieved</a>   (<em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> *self</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseRoomConfig.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----TpBaseRoomConfig
+</pre>
+<pre class="synopsis">
+  GEnum
+   +----TpBaseRoomConfigProperty
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseRoomConfig.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--anonymous" title='The "anonymous" property'>anonymous</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--can-update-configuration" title='The "can-update-configuration" property'>can-update-configuration</a>" <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--channel" title='The "channel" property'>channel</a>"                  <a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a>*        : Read / Write / Construct Only
+  "<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--configuration-retrieved" title='The "configuration-retrieved" property'>configuration-retrieved</a>"  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+  "<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--description" title='The "description" property'>description</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--invite-only" title='The "invite-only" property'>invite-only</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--limit" title='The "limit" property'>limit</a>"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--moderated" title='The "moderated" property'>moderated</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--mutable-properties" title='The "mutable-properties" property'>mutable-properties</a>"       <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read
+  "<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--password" title='The "password" property'>password</a>"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--password-hint" title='The "password-hint" property'>password-hint</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--password-protected" title='The "password-protected" property'>password-protected</a>"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--persistent" title='The "persistent" property'>persistent</a>"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--private" title='The "private" property'>private</a>"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--title" title='The "title" property'>title</a>"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseRoomConfig.description"></a><h2>Description</h2>
+<p>
+This class implements the <a class="link" href="telepathy-glib-svc-channel-room.html#TpSvcChannelInterfaceRoomConfig"><span class="type">TpSvcChannelInterfaceRoomConfig</span></a> interface on
+multi-user chat room channels. CMs are expected to subclass this base class
+to implement the protocol-specific details of changing room configuration.
+Then, in the connection manager's subclass of <a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> for multi-user
+chats:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+<p>in <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-DEFINE-TYPE-WITH-CODE:CAPS"><span class="type">G_DEFINE_TYPE_WITH_CODE</span></a>, implement
+  <span class="type">TP_TYPE_SVC_CHANNEL_INTERFACE_ROOM_CONFIG</span> using
+  <a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-iface-init" title="tp_base_room_config_iface_init ()"><code class="function">tp_base_room_config_iface_init()</code></a>:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-DEFINE-TYPE-WITH-CODE:CAPS">G_DEFINE_TYPE_WITH_CODE</a></span> <span class="gtkdoc opt">(</span>MyMucChannel<span class="gtkdoc opt">,</span> my_muc_channel<span class="gtkdoc opt">,</span>
+    TP_TYPE_BASE_CHANNEL<span class="gtkdoc opt">,</span>
+    <span class="gtkdoc slc">// ...</span>
+    <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS">G_IMPLEMENT_INTERFACE</a></span> <span class="gtkdoc opt">(</span>TP_TYPE_SVC_CHANNEL_INTERFACE_ROOM_CONFIG<span class="gtkdoc opt">,</span>
+        tp_base_room_config_iface_init<span class="gtkdoc opt">)</span>
+    <span class="gtkdoc slc">// ...</span>
+    <span class="gtkdoc opt">)</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</li>
+<li class="listitem">
+<p>in the <code class="function">class_init</code> method, call
+   <a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-register-class" title="tp_base_room_config_register_class ()"><code class="function">tp_base_room_config_register_class()</code></a>:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">static void</span>
+<span class="function">my_muc_channel_class_init</span> <span class="gtkdoc opt">(</span>MyMucChannelClass <span class="gtkdoc opt">*</span>klass<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  <span class="gtkdoc slc">// ...</span>
+  <span class="function"><a href="TpBaseRoomConfig.html#tp-base-room-config-register-class">tp_base_room_config_register_class</a></span> <span class="gtkdoc opt">(</span><span class="function">TP_BASE_CHANNEL_CLASS</span> <span class="gtkdoc opt">(</span>klass<span class="gtkdoc opt">));</span>
+  <span class="gtkdoc slc">// ...</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</li>
+<li class="listitem"><p>include <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CHANNEL-INTERFACE-ROOM-CONFIG:CAPS" title="TP_IFACE_CHANNEL_INTERFACE_ROOM_CONFIG"><code class="literal">TP_IFACE_CHANNEL_INTERFACE_ROOM_CONFIG</code></a> in the return of
+   <a class="link" href="TpBaseChannel.html#TpBaseChannelClass.get-interfaces"><span class="type">TpBaseChannelClass.get_interfaces</span></a>.</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+If this protocol supports modifying some aspects of the room's
+configuration, the subclass should call
+<a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-set-property-mutable" title="tp_base_room_config_set_property_mutable ()"><code class="function">tp_base_room_config_set_property_mutable()</code></a> to mark appropriate properties as
+potentially-modifiable, call
+<a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-set-can-update-configuration" title="tp_base_room_config_set_can_update_configuration ()"><code class="function">tp_base_room_config_set_can_update_configuration()</code></a> to indicate whether the
+local user has permission to modify those properties at present, and
+implement <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfigClass.update-async"><span class="type">TpBaseRoomConfigClass.update_async</span></a>. When updates to properties
+are received from the network, they should be updated on this object using
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-set"><code class="function">g_object_set()</code></a>:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function">g_object_self</span> <span class="gtkdoc opt">(</span>room_config<span class="gtkdoc opt">,</span>
+   <span class="string">&quot;description&quot;</span><span class="gtkdoc opt">,</span> <span class="string">&quot;A place to bury strangers&quot;</span><span class="gtkdoc opt">,</span>
+   <span class="string">&quot;private&quot;</span><span class="gtkdoc opt">,</span> TRUE<span class="gtkdoc opt">,</span>
+   NULL<span class="gtkdoc opt">);</span>
+<span class="function"><a href="TpBaseRoomConfig.html#tp-base-room-config-emit-properties-changed">tp_base_room_config_emit_properties_changed</a></span> <span class="gtkdoc opt">(</span>room_config<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+On joining the room, once the entire room configuration has been retrieved
+from the network, the CM should call <a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-set-retrieved" title="tp_base_room_config_set_retrieved ()"><code class="function">tp_base_room_config_set_retrieved()</code></a>.
+</p>
+</div>
+<div class="refsect1">
+<a name="TpBaseRoomConfig.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpBaseRoomConfig-struct"></a><h3>TpBaseRoomConfig</h3>
+<pre class="programlisting">typedef struct _TpBaseRoomConfig TpBaseRoomConfig;</pre>
+<p>
+An object representing the configuration of a multi-user chat room.
+</p>
+<p>
+There are no public fields.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfigClass"></a><h3>struct TpBaseRoomConfigClass</h3>
+<pre class="programlisting">struct TpBaseRoomConfigClass {
+    TpBaseRoomConfigUpdateAsync update_async;
+    TpBaseRoomConfigUpdateFinish update_finish;
+};
+</pre>
+<p>
+Class structure for <a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a>. By default, <em class="parameter"><code>update_async</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>,
+indicating that updating room configuration is not implemented; subclasses
+should override it if they wish to support updating room configuration.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfigUpdateAsync" title="TpBaseRoomConfigUpdateAsync ()"><span class="type">TpBaseRoomConfigUpdateAsync</span></a> <em class="structfield"><code><a name="TpBaseRoomConfigClass.update-async"></a>update_async</code></em>;</span></p></td>
+<td>begins a request to modify the room's configuration.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfigUpdateFinish" title="TpBaseRoomConfigUpdateFinish ()"><span class="type">TpBaseRoomConfigUpdateFinish</span></a> <em class="structfield"><code><a name="TpBaseRoomConfigClass.update-finish"></a>update_finish</code></em>;</span></p></td>
+<td>completes a call to <em class="parameter"><code>update_async</code></em>; the default
+implementation may be used if <em class="parameter"><code>update_async</code></em> uses <a href="http://library.gnome.org/devel/gio/unstable/GSimpleAsyncResult.html"><span class="type">GSimpleAsyncResult</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfigUpdateAsync"></a><h3>TpBaseRoomConfigUpdateAsync ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpBaseRoomConfigUpdateAsync)      (<em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *validated_properties</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Signature for a function to begin a network request to update the room
+configuration. It is guaranteed that <em class="parameter"><code>validated_properties</code></em> will only contain
+properties which were marked as mutable when the D-Bus method invocation
+arrived.
+</p>
+<p>
+Note that <a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> will take care of applying the property updates
+to itself if the operation succeeds.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>validated_properties</code></em> :</span></p></td>
+<td>a mapping from <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfigProperty"><span class="type">TpBaseRoomConfigProperty</span></a> to <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a>,
+whose types have already been validated. The function should not modify
+this hash table.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call on success, failure or disconnection</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data for the callback</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfigUpdateFinish"></a><h3>TpBaseRoomConfigUpdateFinish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpBaseRoomConfigUpdateFinish)     (<em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature for a function to complete a call to a corresponding
+implementation of <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfigUpdateAsync" title="TpBaseRoomConfigUpdateAsync ()"><span class="type">TpBaseRoomConfigUpdateAsync</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>the result passed to the callback</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>used to return an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the room configuration update was accepted by the server;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, with <em class="parameter"><code>error</code></em> set, otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-room-config-register-class"></a><h3>tp_base_room_config_register_class ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_room_config_register_class  (<em class="parameter"><code><a class="link" href="TpBaseChannel.html#TpBaseChannelClass" title="struct TpBaseChannelClass"><span class="type">TpBaseChannelClass</span></a> *base_channel_class</code></em>);</pre>
+<p>
+Registers that D-Bus properties for the RoomConfig1 interface should be
+handled by a <a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> object associated with instances of
+<em class="parameter"><code>base_channel_class</code></em>.
+</p>
+<p>
+<em class="parameter"><code>base_channel_class</code></em> must implement <span class="type">TP_SVC_CHANNEL_INTERFACE_ROOM_CONFIG</span>
+using <a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-iface-init" title="tp_base_room_config_iface_init ()"><code class="function">tp_base_room_config_iface_init()</code></a>, and instances of <em class="parameter"><code>base_channel_class</code></em>
+must construct an instance of <a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a>, passing themself as
+<a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--channel" title='The "channel" property'><span class="type">"channel"</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>base_channel_class</code></em> :</span></p></td>
+<td>the class structure for a subclass of <a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a>
+which uses this object to implement <span class="type">TP_SVC_CHANNEL_INTERFACE_ROOM_CONFIG</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-room-config-iface-init"></a><h3>tp_base_room_config_iface_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_room_config_iface_init      (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);</pre>
+<p>
+Pass this as the second argument to <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS"><code class="function">G_IMPLEMENT_INTERFACE()</code></a> when defining a
+<a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> subclass to declare that TP_SVC_CHANNEL_INTERFACE_ROOM_CONFIG
+is implemented using this class. The <a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> subclass must also call
+<a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-register-class" title="tp_base_room_config_register_class ()"><code class="function">tp_base_room_config_register_class()</code></a> in its class_init function, and
+construct a <a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> object for each instance.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>g_iface</code></em> :</span></p></td>
+<td>a pointer to a <a class="link" href="telepathy-glib-svc-channel-room.html#TpSvcChannelInterfaceRoomConfigClass" title="TpSvcChannelInterfaceRoomConfigClass"><span class="type">TpSvcChannelInterfaceRoomConfigClass</span></a> structure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface_data</code></em> :</span></p></td>
+<td>ignored</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfigProperty-enum"></a><h3>enum TpBaseRoomConfigProperty</h3>
+<pre class="programlisting">typedef enum {
+    TP_BASE_ROOM_CONFIG_ANONYMOUS = 0, /*&lt; nick=Anonymous &gt;*/
+    TP_BASE_ROOM_CONFIG_INVITE_ONLY, /*&lt; nick=InviteOnly &gt;*/
+    TP_BASE_ROOM_CONFIG_LIMIT, /*&lt; nick=Limit &gt;*/
+    TP_BASE_ROOM_CONFIG_MODERATED, /*&lt; nick=Moderated &gt;*/
+    TP_BASE_ROOM_CONFIG_TITLE, /*&lt; nick=Title &gt;*/
+    TP_BASE_ROOM_CONFIG_DESCRIPTION, /*&lt; nick=Description &gt;*/
+    TP_BASE_ROOM_CONFIG_PERSISTENT, /*&lt; nick=Persistent &gt;*/
+    TP_BASE_ROOM_CONFIG_PRIVATE, /*&lt; nick=Private &gt;*/
+    TP_BASE_ROOM_CONFIG_PASSWORD_PROTECTED, /*&lt; nick=PasswordProtected &gt;*/
+    TP_BASE_ROOM_CONFIG_PASSWORD, /*&lt; nick=Password &gt;*/
+    TP_BASE_ROOM_CONFIG_PASSWORD_HINT, /*&lt; nick=PasswordHint &gt;*/
+
+    TP_NUM_BASE_ROOM_CONFIG_PROPERTIES /*&lt; skip &gt;*/
+} TpBaseRoomConfigProperty;
+</pre>
+<p>
+An enumeration of room configuration fields, corresponding to GObject
+properties and, in turn, to D-Bus properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="TP-BASE-ROOM-CONFIG-ANONYMOUS:CAPS"></a><span class="term"><code class="literal">TP_BASE_ROOM_CONFIG_ANONYMOUS</code></span></p></td>
+<td>corresponds to <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--anonymous" title='The "anonymous" property'><span class="type">"anonymous"</span></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-BASE-ROOM-CONFIG-INVITE-ONLY:CAPS"></a><span class="term"><code class="literal">TP_BASE_ROOM_CONFIG_INVITE_ONLY</code></span></p></td>
+<td>corresponds to <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--invite-only" title='The "invite-only" property'><span class="type">"invite-only"</span></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-BASE-ROOM-CONFIG-LIMIT:CAPS"></a><span class="term"><code class="literal">TP_BASE_ROOM_CONFIG_LIMIT</code></span></p></td>
+<td>corresponds to <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--limit" title='The "limit" property'><span class="type">"limit"</span></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-BASE-ROOM-CONFIG-MODERATED:CAPS"></a><span class="term"><code class="literal">TP_BASE_ROOM_CONFIG_MODERATED</code></span></p></td>
+<td>corresponds to <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--moderated" title='The "moderated" property'><span class="type">"moderated"</span></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-BASE-ROOM-CONFIG-TITLE:CAPS"></a><span class="term"><code class="literal">TP_BASE_ROOM_CONFIG_TITLE</code></span></p></td>
+<td>corresponds to <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--title" title='The "title" property'><span class="type">"title"</span></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-BASE-ROOM-CONFIG-DESCRIPTION:CAPS"></a><span class="term"><code class="literal">TP_BASE_ROOM_CONFIG_DESCRIPTION</code></span></p></td>
+<td>corresponds to <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--description" title='The "description" property'><span class="type">"description"</span></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-BASE-ROOM-CONFIG-PERSISTENT:CAPS"></a><span class="term"><code class="literal">TP_BASE_ROOM_CONFIG_PERSISTENT</code></span></p></td>
+<td>corresponds to <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--persistent" title='The "persistent" property'><span class="type">"persistent"</span></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-BASE-ROOM-CONFIG-PRIVATE:CAPS"></a><span class="term"><code class="literal">TP_BASE_ROOM_CONFIG_PRIVATE</code></span></p></td>
+<td>corresponds to <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--private" title='The "private" property'><span class="type">"private"</span></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-BASE-ROOM-CONFIG-PASSWORD-PROTECTED:CAPS"></a><span class="term"><code class="literal">TP_BASE_ROOM_CONFIG_PASSWORD_PROTECTED</code></span></p></td>
+<td>corresponds to <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--password-protected" title='The "password-protected" property'><span class="type">"password-protected"</span></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-BASE-ROOM-CONFIG-PASSWORD:CAPS"></a><span class="term"><code class="literal">TP_BASE_ROOM_CONFIG_PASSWORD</code></span></p></td>
+<td>corresponds to <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--password" title='The "password" property'><span class="type">"password"</span></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-BASE-ROOM-CONFIG-PASSWORD-HINT:CAPS"></a><span class="term"><code class="literal">TP_BASE_ROOM_CONFIG_PASSWORD_HINT</code></span></p></td>
+<td>corresponds to <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--password-hint" title='The "password-hint" property'><span class="type">"password-hint"</span></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="TP-NUM-BASE-ROOM-CONFIG-PROPERTIES:CAPS"></a><span class="term"><code class="literal">TP_NUM_BASE_ROOM_CONFIG_PROPERTIES</code></span></p></td>
+<td>the number of configuration properties
+ currently defined.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-TYPE-BASE-ROOM-CONFIG-PROPERTY:CAPS"></a><h3>TP_TYPE_BASE_ROOM_CONFIG_PROPERTY</h3>
+<pre class="programlisting">#define TP_TYPE_BASE_ROOM_CONFIG_PROPERTY (tp_base_room_config_property_get_type ())
+</pre>
+<p>
+The <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Enumeration-and-Flag-Types.html#GEnumClass"><span class="type">GEnumClass</span></a> type of <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfigProperty"><span class="type">TpBaseRoomConfigProperty</span></a>. (The nicknames are chosen
+to correspond to unqualified D-Bus property names.)
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-room-config-dup-channel"></a><h3>tp_base_room_config_dup_channel ()</h3>
+<pre class="programlisting"><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="returnvalue">TpBaseChannel</span></a> *     tp_base_room_config_dup_channel     (<em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> *self</code></em>);</pre>
+<p>
+Returns the channel to which <em class="parameter"><code>self</code></em> is attached.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--channel" title='The "channel" property'><span class="type">"channel"</span></a> property. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-room-config-set-can-update-configuration"></a><h3>tp_base_room_config_set_can_update_configuration ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_room_config_set_can_update_configuration
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> can_update_configuration</code></em>);</pre>
+<p>
+Specify whether or not the local user currently has permission to modify the
+room configuration.
+</p>
+<p>
+Changes made by calling this function are not signalled over D-Bus until
+<a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-emit-properties-changed" title="tp_base_room_config_emit_properties_changed ()"><code class="function">tp_base_room_config_emit_properties_changed()</code></a> is next called.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> object.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>can_update_configuration</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the local user has permission to modify
+properties marked as mutable.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-room-config-set-property-mutable"></a><h3>tp_base_room_config_set_property_mutable ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_room_config_set_property_mutable
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfigProperty"><span class="type">TpBaseRoomConfigProperty</span></a> property_id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_mutable</code></em>);</pre>
+<p>
+Specify whether it is possible for room members to modify the value of
+<em class="parameter"><code>property_id</code></em> (possibly dependent on them having channel-operator powers), or
+whether <em class="parameter"><code>property_id</code></em>'s value is an intrinsic fact about the protocol.
+</p>
+<p>
+For example, on IRC it is impossible to configure a channel to hide the
+identities of participants from others, so <a class="link" href="TpBaseRoomConfig.html#TP-BASE-ROOM-CONFIG-ANONYMOUS:CAPS"><code class="literal">TP_BASE_ROOM_CONFIG_ANONYMOUS</code></a>
+should be marked as immutable on IRC; whereas channel operators can mark
+rooms as invite-only, so <a class="link" href="TpBaseRoomConfig.html#TP-BASE-ROOM-CONFIG-INVITE-ONLY:CAPS"><code class="literal">TP_BASE_ROOM_CONFIG_INVITE_ONLY</code></a> should be marked as
+mutable on IRC.
+</p>
+<p>
+By default, all properties are considered immutable.
+</p>
+<p>
+Call <a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-set-can-update-configuration" title="tp_base_room_config_set_can_update_configuration ()"><code class="function">tp_base_room_config_set_can_update_configuration()</code></a> to specify whether or
+not it is currently possible for the local user to alter properties marked
+as mutable.
+</p>
+<p>
+Changes made by calling this function are not signalled over D-Bus until
+<a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-emit-properties-changed" title="tp_base_room_config_emit_properties_changed ()"><code class="function">tp_base_room_config_emit_properties_changed()</code></a> is next called.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> object.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property_id</code></em> :</span></p></td>
+<td>a property identifier (not including
+<a class="link" href="TpBaseRoomConfig.html#TP-NUM-BASE-ROOM-CONFIG-PROPERTIES:CAPS"><code class="literal">TP_NUM_BASE_ROOM_CONFIG_PROPERTIES</code></a>)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>is_mutable</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if it is possible for Telepathy clients to modify
+<em class="parameter"><code>property_id</code></em> when <a class="link" href="TpBaseRoomConfig.html#TpBaseRoomConfig--can-update-configuration" title='The "can-update-configuration" property'><span class="type">"can-update-configuration"</span></a> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-room-config-emit-properties-changed"></a><h3>tp_base_room_config_emit_properties_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_room_config_emit_properties_changed
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> *self</code></em>);</pre>
+<p>
+Signal the new values of properties which have been modified since the last
+call to this method, if any. This includes changes made by calling
+<a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-set-can-update-configuration" title="tp_base_room_config_set_can_update_configuration ()"><code class="function">tp_base_room_config_set_can_update_configuration()</code></a> and
+<a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-set-property-mutable" title="tp_base_room_config_set_property_mutable ()"><code class="function">tp_base_room_config_set_property_mutable()</code></a>, as well as changes to any of the
+(writeable) GObject properties on this object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> object.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-room-config-set-retrieved"></a><h3>tp_base_room_config_set_retrieved ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_room_config_set_retrieved   (<em class="parameter"><code><a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> *self</code></em>);</pre>
+<p>
+Signal that the room's configuration has been retrieved, as well as
+signalling any queued property changes. This function should be called once
+all properties have been set to meaningful values.
+</p>
+<p>
+It is safe to call this function more than once; second and subsequent calls
+are equivalent to calling <a class="link" href="TpBaseRoomConfig.html#tp-base-room-config-emit-properties-changed" title="tp_base_room_config_emit_properties_changed ()"><code class="function">tp_base_room_config_emit_properties_changed()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig"><span class="type">TpBaseRoomConfig</span></a> object</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpBaseRoomConfig.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpBaseRoomConfig--anonymous"></a><h3>The <code class="literal">"anonymous"</code> property</h3>
+<pre class="programlisting">  "anonymous"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>True if people may join the channel without other members being made aware of their identity.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfig--can-update-configuration"></a><h3>The <code class="literal">"can-update-configuration"</code> property</h3>
+<pre class="programlisting">  "can-update-configuration" <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>If True, the user may call UpdateConfiguration to change the values of the properties listed in MutableProperties.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfig--channel"></a><h3>The <code class="literal">"channel"</code> property</h3>
+<pre class="programlisting">  "channel"                  <a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a>*        : Read / Write / Construct Only</pre>
+<p>Parent TpBaseChannel.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfig--configuration-retrieved"></a><h3>The <code class="literal">"configuration-retrieved"</code> property</h3>
+<pre class="programlisting">  "configuration-retrieved"  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>Becomes True once the room config has been fetched from the network.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfig--description"></a><h3>The <code class="literal">"description"</code> property</h3>
+<pre class="programlisting">  "description"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>A human-readable description of the channel's overall purpose; if any.</p>
+<p>Default value: ""</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfig--invite-only"></a><h3>The <code class="literal">"invite-only"</code> property</h3>
+<pre class="programlisting">  "invite-only"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>True if people may not join the channel until they have been invited.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfig--limit"></a><h3>The <code class="literal">"limit"</code> property</h3>
+<pre class="programlisting">  "limit"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>The limit to the number of members; or 0 if there is no limit.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfig--moderated"></a><h3>The <code class="literal">"moderated"</code> property</h3>
+<pre class="programlisting">  "moderated"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>True if channel membership is not sufficient to allow participation.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfig--mutable-properties"></a><h3>The <code class="literal">"mutable-properties"</code> property</h3>
+<pre class="programlisting">  "mutable-properties"       <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read</pre>
+<p>A list of (unqualified) property names on this interface which may be modified using UpdateConfiguration (if CanUpdateConfiguration is True). Properties not listed here cannot be modified.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfig--password"></a><h3>The <code class="literal">"password"</code> property</h3>
+<pre class="programlisting">  "password"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>If PasswordProtected is True, the password required to enter the channel, if known. If the password is unknown, or PasswordProtected is False, the empty string.</p>
+<p>Default value: ""</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfig--password-hint"></a><h3>The <code class="literal">"password-hint"</code> property</h3>
+<pre class="programlisting">  "password-hint"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>If PasswordProtected is True, a hint for the password. If the passwordpassword is unknown, or PasswordProtected is False, the empty string.</p>
+<p>Default value: ""</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfig--password-protected"></a><h3>The <code class="literal">"password-protected"</code> property</h3>
+<pre class="programlisting">  "password-protected"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>True if contacts joining this channel must provide a password to be granted entry.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfig--persistent"></a><h3>The <code class="literal">"persistent"</code> property</h3>
+<pre class="programlisting">  "persistent"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>True if the channel will remain in existence on the server after all members have left it.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfig--private"></a><h3>The <code class="literal">"private"</code> property</h3>
+<pre class="programlisting">  "private"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>True if the channel is not visible to non-members.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseRoomConfig--title"></a><h3>The <code class="literal">"title"</code> property</h3>
+<pre class="programlisting">  "title"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>A human-visible name for the channel, if it differs from Room.DRAFT.RoomName; the empty string, otherwise.</p>
+<p>Default value: ""</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

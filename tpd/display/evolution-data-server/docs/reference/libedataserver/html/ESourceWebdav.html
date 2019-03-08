@@ -1,0 +1,803 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESourceWebdav</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
+<link rel="up" href="ch02.html" title="Data Source Extensions">
+<link rel="prev" href="ESourceTaskList.html" title="ESourceTaskList">
+<link rel="next" href="ch03.html" title="Miscellaneous Utilities">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ESourceTaskList.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Utilities (libedataserver)</th>
+<td><a accesskey="n" href="ch03.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ESourceWebdav.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#ESourceWebdav.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#ESourceWebdav.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#ESourceWebdav.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="ESourceWebdav"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESourceWebdav.top_of_page"></a>ESourceWebdav</span></h2>
+<p>ESourceWebdav — <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> extension for WebDAV settings</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ESourceWebdav.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;libedataserver/libedataserver.h&gt;
+
+struct              <a class="link" href="ESourceWebdav.html#ESourceWebdav-struct" title="struct ESourceWebdav">ESourceWebdav</a>;
+#define             <a class="link" href="ESourceWebdav.html#E-SOURCE-EXTENSION-WEBDAV-BACKEND:CAPS" title="E_SOURCE_EXTENSION_WEBDAV_BACKEND">E_SOURCE_EXTENSION_WEBDAV_BACKEND</a>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceWebdav.html#e-source-webdav-get-calendar-auto-schedule" title="e_source_webdav_get_calendar_auto_schedule ()">e_source_webdav_get_calendar_auto_schedule</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceWebdav.html#e-source-webdav-set-calendar-auto-schedule" title="e_source_webdav_set_calendar_auto_schedule ()">e_source_webdav_set_calendar_auto_schedule</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> calendar_auto_schedule</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESourceWebdav.html#e-source-webdav-get-display-name" title="e_source_webdav_get_display_name ()">e_source_webdav_get_display_name</a>    (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESourceWebdav.html#e-source-webdav-dup-display-name" title="e_source_webdav_dup_display_name ()">e_source_webdav_dup_display_name</a>    (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceWebdav.html#e-source-webdav-set-display-name" title="e_source_webdav_set_display_name ()">e_source_webdav_set_display_name</a>    (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *display_name</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESourceWebdav.html#e-source-webdav-get-email-address" title="e_source_webdav_get_email_address ()">e_source_webdav_get_email_address</a>   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESourceWebdav.html#e-source-webdav-dup-email-address" title="e_source_webdav_dup_email_address ()">e_source_webdav_dup_email_address</a>   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceWebdav.html#e-source-webdav-set-email-address" title="e_source_webdav_set_email_address ()">e_source_webdav_set_email_address</a>   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *email_address</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceWebdav.html#e-source-webdav-get-ignore-invalid-cert" title="e_source_webdav_get_ignore_invalid_cert ()">e_source_webdav_get_ignore_invalid_cert</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceWebdav.html#e-source-webdav-set-ignore-invalid-cert" title="e_source_webdav_set_ignore_invalid_cert ()">e_source_webdav_set_ignore_invalid_cert</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> ignore_invalid_cert</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESourceWebdav.html#e-source-webdav-get-resource-path" title="e_source_webdav_get_resource_path ()">e_source_webdav_get_resource_path</a>   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESourceWebdav.html#e-source-webdav-dup-resource-path" title="e_source_webdav_dup_resource_path ()">e_source_webdav_dup_resource_path</a>   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceWebdav.html#e-source-webdav-set-resource-path" title="e_source_webdav_set_resource_path ()">e_source_webdav_set_resource_path</a>   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *resource_path</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESourceWebdav.html#e-source-webdav-get-resource-query" title="e_source_webdav_get_resource_query ()">e_source_webdav_get_resource_query</a>  (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESourceWebdav.html#e-source-webdav-dup-resource-query" title="e_source_webdav_dup_resource_query ()">e_source_webdav_dup_resource_query</a>  (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceWebdav.html#e-source-webdav-set-resource-query" title="e_source_webdav_set_resource_query ()">e_source_webdav_set_resource_query</a>  (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *resource_query</code></em>);
+<a href="/usr/share/gtk-doc/html/libsoup-2.4/SoupURI.html"><span class="returnvalue">SoupURI</span></a> *           <a class="link" href="ESourceWebdav.html#e-source-webdav-dup-soup-uri" title="e_source_webdav_dup_soup_uri ()">e_source_webdav_dup_soup_uri</a>        (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceWebdav.html#e-source-webdav-set-soup-uri" title="e_source_webdav_set_soup_uri ()">e_source_webdav_set_soup_uri</a>        (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libsoup-2.4/SoupURI.html"><span class="type">SoupURI</span></a> *soup_uri</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceWebdav.html#e-source-webdav-get-avoid-ifmatch" title="e_source_webdav_get_avoid_ifmatch ()">e_source_webdav_get_avoid_ifmatch</a>   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceWebdav.html#e-source-webdav-set-avoid-ifmatch" title="e_source_webdav_set_avoid_ifmatch ()">e_source_webdav_set_avoid_ifmatch</a>   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> avoid_ifmatch</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceWebdav.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="ESourceExtension.html" title="ESourceExtension">ESourceExtension</a>
+         +----ESourceWebdav
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceWebdav.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="ESourceWebdav.html#ESourceWebdav--avoid-ifmatch" title='The "avoid-ifmatch" property'>avoid-ifmatch</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct
+  "<a class="link" href="ESourceWebdav.html#ESourceWebdav--calendar-auto-schedule" title='The "calendar-auto-schedule" property'>calendar-auto-schedule</a>"   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct
+  "<a class="link" href="ESourceWebdav.html#ESourceWebdav--display-name" title='The "display-name" property'>display-name</a>"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct
+  "<a class="link" href="ESourceWebdav.html#ESourceWebdav--email-address" title='The "email-address" property'>email-address</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct
+  "<a class="link" href="ESourceWebdav.html#ESourceWebdav--ignore-invalid-cert" title='The "ignore-invalid-cert" property'>ignore-invalid-cert</a>"      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct
+  "<a class="link" href="ESourceWebdav.html#ESourceWebdav--resource-path" title='The "resource-path" property'>resource-path</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct
+  "<a class="link" href="ESourceWebdav.html#ESourceWebdav--resource-query" title='The "resource-query" property'>resource-query</a>"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct
+  "<a class="link" href="ESourceWebdav.html#ESourceWebdav--soup-uri" title='The "soup-uri" property'>soup-uri</a>"                 <a href="/usr/share/gtk-doc/html/libsoup-2.4/SoupURI.html"><span class="type">SoupURI</span></a>*              : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceWebdav.description"></a><h2>Description</h2>
+<p>
+The <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> extension tracks settings for accessing resources
+on a remote WebDAV server.
+</p>
+<p>
+This class exists in libedataserver because we have several
+WebDAV-based backends.  Each of these backends is free to use
+this class directly or subclass it with additional settings.
+Subclasses should override the extension name.
+</p>
+<p>
+The <a href="/usr/share/gtk-doc/html/libsoup-2.4/SoupURI.html"><span class="type">SoupURI</span></a> is parsed into components and distributed across
+several other built-in extensions such as <a class="link" href="ESourceAuthentication.html" title="ESourceAuthentication"><span class="type">ESourceAuthentication</span></a>
+and <a class="link" href="ESourceSecurity.html" title="ESourceSecurity"><span class="type">ESourceSecurity</span></a>.
+</p>
+<p>
+Access the extension as follows:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc ppc">#include &lt;libedataserver/libedataserver.h&gt;</span>
+
+ESourceWebdav <span class="gtkdoc opt">*</span>extension<span class="gtkdoc opt">;</span>
+
+extension <span class="gtkdoc opt">=</span> <span class="function"><a href="ESource.html#e-source-get-extension">e_source_get_extension</a></span> <span class="gtkdoc opt">(</span>source<span class="gtkdoc opt">,</span> E_SOURCE_EXTENSION_WEBDAV_BACKEND<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="ESourceWebdav.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="ESourceWebdav-struct"></a><h3>struct ESourceWebdav</h3>
+<pre class="programlisting">struct ESourceWebdav;</pre>
+<p>
+Contains only private data that should be read and manipulated using the
+functions below.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="E-SOURCE-EXTENSION-WEBDAV-BACKEND:CAPS"></a><h3>E_SOURCE_EXTENSION_WEBDAV_BACKEND</h3>
+<pre class="programlisting">#define E_SOURCE_EXTENSION_WEBDAV_BACKEND "WebDAV Backend"
+</pre>
+<p>
+Pass this extension name to <a class="link" href="ESource.html#e-source-get-extension" title="e_source_get_extension ()"><code class="function">e_source_get_extension()</code></a> to access
+<a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>.  This is also used as a group name in key files.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-get-calendar-auto-schedule"></a><h3>e_source_webdav_get_calendar_auto_schedule ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_webdav_get_calendar_auto_schedule
+                                                        (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);</pre>
+<p>
+FIXME Document me!
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-set-calendar-auto-schedule"></a><h3>e_source_webdav_set_calendar_auto_schedule ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_webdav_set_calendar_auto_schedule
+                                                        (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> calendar_auto_schedule</code></em>);</pre>
+<p>
+FIXME Document me!
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>calendar_auto_schedule</code></em> :</span></p></td>
+<td>whether the server supports the
+"calendar-auto-schedule" feature of CalDAV</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-get-display-name"></a><h3>e_source_webdav_get_display_name ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_webdav_get_display_name    (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);</pre>
+<p>
+Returns the last known display name of a WebDAV resource, which may
+differ from the <a class="link" href="ESource.html#ESource--display-name" title='The "display-name" property'><span class="type">"display-name"</span></a> property of the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> to which
+<em class="parameter"><code>extension</code></em> belongs.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the display name of the WebDAV resource</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-dup-display-name"></a><h3>e_source_webdav_dup_display_name ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_webdav_dup_display_name    (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);</pre>
+<p>
+Thread-safe variation of <a class="link" href="ESourceWebdav.html#e-source-webdav-get-display-name" title="e_source_webdav_get_display_name ()"><code class="function">e_source_webdav_get_display_name()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em> from multiple threads.
+</p>
+<p>
+The returned string should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-allocated copy of <a class="link" href="ESourceWebdav.html#ESourceWebdav--display-name" title='The "display-name" property'><span class="type">"display-name"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-set-display-name"></a><h3>e_source_webdav_set_display_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_webdav_set_display_name    (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *display_name</code></em>);</pre>
+<p>
+Updates the last known display name of a WebDAV resource, which may
+differ from the <a class="link" href="ESource.html#ESource--display-name" title='The "display-name" property'><span class="type">"display-name"</span></a> property of the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> to which
+<em class="parameter"><code>extension</code></em> belongs.
+</p>
+<p>
+The internal copy of <em class="parameter"><code>display_name</code></em> is automatically stripped of leading
+and trailing whitespace.  If the resulting string is empty, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is set
+instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>display_name</code></em> :</span></p></td>
+<td>the display name of the WebDAV resource,
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-get-email-address"></a><h3>e_source_webdav_get_email_address ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_webdav_get_email_address   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);</pre>
+<p>
+Returns the user's email address which can be passed to a CalDAV server
+if the user wishes to receive scheduling messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the user's email address</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-dup-email-address"></a><h3>e_source_webdav_dup_email_address ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_webdav_dup_email_address   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);</pre>
+<p>
+Thread-safe variation of <a class="link" href="ESourceWebdav.html#e-source-webdav-get-email-address" title="e_source_webdav_get_email_address ()"><code class="function">e_source_webdav_get_email_address()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em> from multiple threads.
+</p>
+<p>
+The returned string should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the newly-allocated copy of <a class="link" href="ESourceWebdav.html#ESourceWebdav--email-address" title='The "email-address" property'><span class="type">"email-address"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-set-email-address"></a><h3>e_source_webdav_set_email_address ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_webdav_set_email_address   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *email_address</code></em>);</pre>
+<p>
+Sets the user's email address which can be passed to a CalDAV server if
+the user wishes to receive scheduling messages.
+</p>
+<p>
+The internal copy of <em class="parameter"><code>email_address</code></em> is automatically stripped of leading
+and trailing whitespace.  If the resulting string is empty, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is set
+instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>email_address</code></em> :</span></p></td>
+<td>the user's email address, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-get-ignore-invalid-cert"></a><h3>e_source_webdav_get_ignore_invalid_cert ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_webdav_get_ignore_invalid_cert
+                                                        (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);</pre>
+<p>
+Returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if invalid SSL certificates should be ignored.
+</p>
+<p>
+This option allows SSL certificates to be accepted even if they have
+signed by an unrecognized Certificate Authority.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether invalid SSL certificates should be ignored</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-set-ignore-invalid-cert"></a><h3>e_source_webdav_set_ignore_invalid_cert ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_webdav_set_ignore_invalid_cert
+                                                        (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> ignore_invalid_cert</code></em>);</pre>
+<p>
+Sets whether invalid SSL certificates should be ignored.
+</p>
+<p>
+This option allows SSL certificates to be accepted even if they have
+signed by an unrecognized Certificate Authority.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ignore_invalid_cert</code></em> :</span></p></td>
+<td>whether invalid SSL certificates should be ignored</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-get-resource-path"></a><h3>e_source_webdav_get_resource_path ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_webdav_get_resource_path   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);</pre>
+<p>
+Returns the absolute path to a resource on a WebDAV server.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the absolute path to a WebDAV resource</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-dup-resource-path"></a><h3>e_source_webdav_dup_resource_path ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_webdav_dup_resource_path   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);</pre>
+<p>
+Thread-safe variation of <a class="link" href="ESourceWebdav.html#e-source-webdav-get-resource-path" title="e_source_webdav_get_resource_path ()"><code class="function">e_source_webdav_get_resource_path()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em> from multiple threads.
+</p>
+<p>
+The returned string should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the newly-allocated copy of <a class="link" href="ESourceWebdav.html#ESourceWebdav--resource-path" title='The "resource-path" property'><span class="type">"resource-path"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-set-resource-path"></a><h3>e_source_webdav_set_resource_path ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_webdav_set_resource_path   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *resource_path</code></em>);</pre>
+<p>
+Sets the absolute path to a resource on a WebDAV server.
+</p>
+<p>
+The internal copy of <em class="parameter"><code>resource_path</code></em> is automatically stripped of leading
+and trailing whitespace.  If the resulting string is empty, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is set
+instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>resource_path</code></em> :</span></p></td>
+<td>the absolute path to a WebDAV resource,
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-get-resource-query"></a><h3>e_source_webdav_get_resource_query ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_webdav_get_resource_query  (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);</pre>
+<p>
+Returns the URI query required to access a resource on a WebDAV server.
+</p>
+<p>
+This is typically used when the <a class="link" href="ESourceWebdav.html#ESourceWebdav--resource-path" title='The "resource-path" property'><span class="type">"resource-path"</span></a> points not
+to the resource itself but to a web program that generates the resource
+content on-the-fly.  The <a class="link" href="ESourceWebdav.html#ESourceWebdav--resource-query" title='The "resource-query" property'><span class="type">"resource-query"</span></a> holds the input
+values for the program.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the query to access a WebDAV resource</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-dup-resource-query"></a><h3>e_source_webdav_dup_resource_query ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_webdav_dup_resource_query  (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);</pre>
+<p>
+Thread-safe variation of <a class="link" href="ESourceWebdav.html#e-source-webdav-get-resource-query" title="e_source_webdav_get_resource_query ()"><code class="function">e_source_webdav_get_resource_query()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em> from multiple threads.
+</p>
+<p>
+The returned string should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the newly-allocated copy of <a class="link" href="ESourceWebdav.html#ESourceWebdav--resource-query" title='The "resource-query" property'><span class="type">"resource-query"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-set-resource-query"></a><h3>e_source_webdav_set_resource_query ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_webdav_set_resource_query  (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *resource_query</code></em>);</pre>
+<p>
+Sets the URI query required to access a resource on a WebDAV server.
+</p>
+<p>
+This is typically used when the <a class="link" href="ESourceWebdav.html#ESourceWebdav--resource-path" title='The "resource-path" property'><span class="type">"resource-path"</span></a> points not
+to the resource itself but to a web program that generates the resource
+content on-the-fly.  The <a class="link" href="ESourceWebdav.html#ESourceWebdav--resource-query" title='The "resource-query" property'><span class="type">"resource-query"</span></a> holds the input
+values for the program.
+</p>
+<p>
+The internal copy of <em class="parameter"><code>resource_query</code></em> is automatically stripped of leading
+and trailing whitespace.  If the resulting string is empty, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is set
+instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>resource_query</code></em> :</span></p></td>
+<td>the query to access a WebDAV resource,
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-dup-soup-uri"></a><h3>e_source_webdav_dup_soup_uri ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libsoup-2.4/SoupURI.html"><span class="returnvalue">SoupURI</span></a> *           e_source_webdav_dup_soup_uri        (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);</pre>
+<p>
+This is a convenience function which returns a newly-allocated
+<a href="/usr/share/gtk-doc/html/libsoup-2.4/SoupURI.html"><span class="type">SoupURI</span></a>, its contents assembled from the <a class="link" href="ESourceAuthentication.html" title="ESourceAuthentication"><span class="type">ESourceAuthentication</span></a>
+extension, the <a class="link" href="ESourceSecurity.html" title="ESourceSecurity"><span class="type">ESourceSecurity</span></a> extension, and <em class="parameter"><code>extension</code></em> itself.
+Free the returned <a href="/usr/share/gtk-doc/html/libsoup-2.4/SoupURI.html"><span class="type">SoupURI</span></a> with <a href="/usr/share/gtk-doc/html/libsoup-2.4/SoupURI.html#soup-uri-free"><code class="function">soup_uri_free()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-allocated <a href="/usr/share/gtk-doc/html/libsoup-2.4/SoupURI.html"><span class="type">SoupURI</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-set-soup-uri"></a><h3>e_source_webdav_set_soup_uri ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_webdav_set_soup_uri        (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libsoup-2.4/SoupURI.html"><span class="type">SoupURI</span></a> *soup_uri</code></em>);</pre>
+<p>
+This is a convenience function which propagates the components of
+<em class="parameter"><code>uri</code></em> to the <a class="link" href="ESourceAuthentication.html" title="ESourceAuthentication"><span class="type">ESourceAuthentication</span></a> extension, the <a class="link" href="ESourceSecurity.html" title="ESourceSecurity"><span class="type">ESourceSecurity</span></a>
+extension, and <em class="parameter"><code>extension</code></em> itself.  (The "fragment" component of
+<em class="parameter"><code>uri</code></em> is ignored.)
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>soup_uri</code></em> :</span></p></td>
+<td>a <a href="/usr/share/gtk-doc/html/libsoup-2.4/SoupURI.html"><span class="type">SoupURI</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-get-avoid-ifmatch"></a><h3>e_source_webdav_get_avoid_ifmatch ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_webdav_get_avoid_ifmatch   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>);</pre>
+<p>
+This setting works around a
+&lt;ulink url="https://issues.apache.org/bugzilla/show_bug.cgi?id=38034"&gt;
+bug&lt;/ulink&gt; in older Apache mod_dav versions.
+</p>
+<p>
+&lt;note&gt;
+  &lt;para&gt;
+    We may deprecate this once Apache 2.2.8 or newer becomes
+    sufficiently ubiquitous, or we figure out a way to detect
+    and work around the bug automatically.
+  &lt;/para&gt;
+&lt;/note&gt;
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether the WebDAV server is known to exhibit the bug</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-webdav-set-avoid-ifmatch"></a><h3>e_source_webdav_set_avoid_ifmatch ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_webdav_set_avoid_ifmatch   (<em class="parameter"><code><a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> avoid_ifmatch</code></em>);</pre>
+<p>
+This setting works around a
+&lt;ulink url="https://issues.apache.org/bugzilla/show_bug.cgi?id=38034"&gt;
+bug&lt;/ulink&gt; in older Apache mod_dav versions.
+</p>
+<p>
+&lt;note&gt;
+  &lt;para&gt;
+    We may deprecate this once Apache 2.2.8 or newer becomes
+    sufficiently ubiquitous, or we figure out a way to detect
+    and work around the bug automatically.
+  &lt;/para&gt;
+&lt;/note&gt;
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceWebdav.html" title="ESourceWebdav"><span class="type">ESourceWebdav</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>avoid_ifmatch</code></em> :</span></p></td>
+<td>whether the WebDAV server is known to exhibit the bug</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ESourceWebdav.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="ESourceWebdav--avoid-ifmatch"></a><h3>The <code class="literal">"avoid-ifmatch"</code> property</h3>
+<pre class="programlisting">  "avoid-ifmatch"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct</pre>
+<p>Work around a bug in old Apache servers.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceWebdav--calendar-auto-schedule"></a><h3>The <code class="literal">"calendar-auto-schedule"</code> property</h3>
+<pre class="programlisting">  "calendar-auto-schedule"   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct</pre>
+<p>Whether the server handles meeting invitations (CalDAV-only).</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceWebdav--display-name"></a><h3>The <code class="literal">"display-name"</code> property</h3>
+<pre class="programlisting">  "display-name"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct</pre>
+<p>Display name of the WebDAV resource.</p>
+<p>Default value: ""</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceWebdav--email-address"></a><h3>The <code class="literal">"email-address"</code> property</h3>
+<pre class="programlisting">  "email-address"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct</pre>
+<p>The user's email address.</p>
+<p>Default value: ""</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceWebdav--ignore-invalid-cert"></a><h3>The <code class="literal">"ignore-invalid-cert"</code> property</h3>
+<pre class="programlisting">  "ignore-invalid-cert"      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct</pre>
+<p>Ignore invalid SSL certificates.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceWebdav--resource-path"></a><h3>The <code class="literal">"resource-path"</code> property</h3>
+<pre class="programlisting">  "resource-path"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct</pre>
+<p>Absolute path to a WebDAV resource.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceWebdav--resource-query"></a><h3>The <code class="literal">"resource-query"</code> property</h3>
+<pre class="programlisting">  "resource-query"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct</pre>
+<p>Query to access a WebDAV resource.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceWebdav--soup-uri"></a><h3>The <code class="literal">"soup-uri"</code> property</h3>
+<pre class="programlisting">  "soup-uri"                 <a href="/usr/share/gtk-doc/html/libsoup-2.4/SoupURI.html"><span class="type">SoupURI</span></a>*              : Read / Write</pre>
+<p>WebDAV service as a SoupURI.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

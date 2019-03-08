@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Place yourself outside of the Flac source tree.  In
+# this example, the environment variable FLAC_SOURCE
+# is assumed to contain the absolute FLAC source directory.
+
+(cd $FLAC_SOURCE; find . -type f) | while read F; do
+	mkdir -p `dirname $F`
+	ln -s $FLAC_SOURCE/$F $F
+done
+

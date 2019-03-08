@@ -1,0 +1,1595 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpBaseConnection</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="telepathy-glib-base-protocol.html" title="TpBaseProtocol">
+<link rel="next" href="TpChannelManager.html" title="TpChannelManager">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-base-protocol.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="TpChannelManager.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#TpBaseConnection.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#TpBaseConnection.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#TpBaseConnection.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#TpBaseConnection.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#TpBaseConnection.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#TpBaseConnection.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="TpBaseConnection"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="TpBaseConnection.top_of_page"></a>TpBaseConnection</span></h2>
+<p>TpBaseConnection — base class for <a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnection"><span class="type">TpSvcConnection</span></a> implementations</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="TpBaseConnection.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+#define             <a class="link" href="TpBaseConnection.html#TP-INTERNAL-CONNECTION-STATUS-NEW:CAPS" title="TP_INTERNAL_CONNECTION_STATUS_NEW">TP_INTERNAL_CONNECTION_STATUS_NEW</a>
+                    <a class="link" href="TpBaseConnection.html#TpBaseConnection-struct" title="TpBaseConnection">TpBaseConnection</a>;
+struct              <a class="link" href="TpBaseConnection.html#TpBaseConnectionClass" title="struct TpBaseConnectionClass">TpBaseConnectionClass</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (<a class="link" href="TpBaseConnection.html#TpBaseConnectionCreateChannelFactoriesImpl" title="TpBaseConnectionCreateChannelFactoriesImpl ()">*TpBaseConnectionCreateChannelFactoriesImpl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (<a class="link" href="TpBaseConnection.html#TpBaseConnectionCreateChannelManagersImpl" title="TpBaseConnectionCreateChannelManagersImpl ()">*TpBaseConnectionCreateChannelManagersImpl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="TpBaseConnection.html#TpBaseConnectionCreateHandleReposImpl" title="TpBaseConnectionCreateHandleReposImpl ()">*TpBaseConnectionCreateHandleReposImpl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle-repo.html#TpHandleRepoIface"><span class="type">TpHandleRepoIface</span></a> *repos[TP_NUM_HANDLE_TYPES]</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             (<a class="link" href="TpBaseConnection.html#TpBaseConnectionGetUniqueConnectionNameImpl" title="TpBaseConnectionGetUniqueConnectionNameImpl ()">*TpBaseConnectionGetUniqueConnectionNameImpl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (<a class="link" href="TpBaseConnection.html#TpBaseConnectionGetInterfacesImpl" title="TpBaseConnectionGetInterfacesImpl ()">*TpBaseConnectionGetInterfacesImpl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="TpBaseConnection.html#TpBaseConnectionProc" title="TpBaseConnectionProc ()">*TpBaseConnectionProc</a>)             (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="TpBaseConnection.html#TpBaseConnectionStartConnectingImpl" title="TpBaseConnectionStartConnectingImpl ()">*TpBaseConnectionStartConnectingImpl</a>)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="TpBaseConnection.html#tp-base-connection-get-bus-name" title="tp_base_connection_get_bus_name ()">tp_base_connection_get_bus_name</a>     (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="TpBaseConnection.html#tp-base-connection-get-object-path" title="tp_base_connection_get_object_path ()">tp_base_connection_get_object_path</a>  (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);
+<a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="returnvalue">TpDBusDaemon</span></a> *      <a class="link" href="TpBaseConnection.html#tp-base-connection-get-dbus-daemon" title="tp_base_connection_get_dbus_daemon ()">tp_base_connection_get_dbus_daemon</a>  (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpBaseConnection.html#tp-base-connection-register" title="tp_base_connection_register ()">tp_base_connection_register</a>         (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *cm_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **bus_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **object_path</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a class="link" href="telepathy-glib-handle-repo.html#TpHandleRepoIface"><span class="returnvalue">TpHandleRepoIface</span></a> * <a class="link" href="TpBaseConnection.html#tp-base-connection-get-handles" title="tp_base_connection_get_handles ()">tp_base_connection_get_handles</a>      (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> handle_type</code></em>);
+<a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="returnvalue">TpHandle</span></a>            <a class="link" href="TpBaseConnection.html#tp-base-connection-get-self-handle" title="tp_base_connection_get_self_handle ()">tp_base_connection_get_self_handle</a>  (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseConnection.html#tp-base-connection-set-self-handle" title="tp_base_connection_set_self_handle ()">tp_base_connection_set_self_handle</a>  (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> self_handle</code></em>);
+<a class="link" href="telepathy-glib-enums.html#TpConnectionStatus" title="enum TpConnectionStatus"><span class="returnvalue">TpConnectionStatus</span></a>  <a class="link" href="TpBaseConnection.html#tp-base-connection-get-status" title="tp_base_connection_get_status ()">tp_base_connection_get_status</a>       (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpBaseConnection.html#tp-base-connection-is-destroyed" title="tp_base_connection_is_destroyed ()">tp_base_connection_is_destroyed</a>     (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpBaseConnection.html#tp-base-connection-check-connected" title="tp_base_connection_check_connected ()">tp_base_connection_check_connected</a>  (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseConnection.html#tp-base-connection-change-status" title="tp_base_connection_change_status ()">tp_base_connection_change_status</a>    (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpConnectionStatus" title="enum TpConnectionStatus"><span class="type">TpConnectionStatus</span></a> status</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpConnectionStatusReason" title="enum TpConnectionStatusReason"><span class="type">TpConnectionStatusReason</span></a> reason</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseConnection.html#tp-base-connection-disconnect-with-dbus-error" title="tp_base_connection_disconnect_with_dbus_error ()">tp_base_connection_disconnect_with_dbus_error</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *error_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *details</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpConnectionStatusReason" title="enum TpConnectionStatusReason"><span class="type">TpConnectionStatusReason</span></a> reason</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseConnection.html#tp-base-connection-disconnect-with-dbus-error-vardict" title="tp_base_connection_disconnect_with_dbus_error_vardict ()">tp_base_connection_disconnect_with_dbus_error_vardict</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *error_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-GVariant.html#GVariant"><span class="type">GVariant</span></a> *details</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpConnectionStatusReason" title="enum TpConnectionStatusReason"><span class="type">TpConnectionStatusReason</span></a> reason</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseConnection.html#tp-base-connection-finish-shutdown" title="tp_base_connection_finish_shutdown ()">tp_base_connection_finish_shutdown</a>  (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseConnection.html#tp-base-connection-add-interfaces" title="tp_base_connection_add_interfaces ()">tp_base_connection_add_interfaces</a>   (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **interfaces</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseConnection.html#tp-base-connection-dbus-request-handles" title="tp_base_connection_dbus_request_handles ()">tp_base_connection_dbus_request_handles</a>
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnection"><span class="type">TpSvcConnection</span></a> *iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> handle_type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **names</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);
+#define             <a class="link" href="TpBaseConnection.html#TP-BASE-CONNECTION-ERROR-IF-NOT-CONNECTED:CAPS" title="TP_BASE_CONNECTION_ERROR_IF_NOT_CONNECTED()">TP_BASE_CONNECTION_ERROR_IF_NOT_CONNECTED</a>(conn,
+                                                         context)
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseConnection.html#tp-base-connection-register-with-contacts-mixin" title="tp_base_connection_register_with_contacts_mixin ()">tp_base_connection_register_with_contacts_mixin</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseConnection.html#tp-base-connection-add-possible-client-interest" title="tp_base_connection_add_possible_client_interest ()">tp_base_connection_add_possible_client_interest</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> token</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseConnection.html#tp-base-connection-add-client-interest" title="tp_base_connection_add_client_interest ()">tp_base_connection_add_client_interest</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *unique_name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *token</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> only_if_uninterested</code></em>);
+
+struct              <a class="link" href="TpBaseConnection.html#TpChannelManagerIter" title="struct TpChannelManagerIter">TpChannelManagerIter</a>;
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseConnection.html#tp-base-connection-channel-manager-iter-init" title="tp_base_connection_channel_manager_iter_init ()">tp_base_connection_channel_manager_iter_init</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html#TpChannelManagerIter" title="struct TpChannelManagerIter"><span class="type">TpChannelManagerIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpBaseConnection.html#tp-base-connection-channel-manager-iter-next" title="tp_base_connection_channel_manager_iter_next ()">tp_base_connection_channel_manager_iter_next</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html#TpChannelManagerIter" title="struct TpChannelManagerIter"><span class="type">TpChannelManagerIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> **manager_out</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnection.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----TpBaseConnection
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnection.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+TpBaseConnection implements
+ <a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnection">TpSvcConnection</a>,  <a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties">TpSvcDBusProperties</a> and  <a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnectionInterfaceRequests">TpSvcConnectionInterfaceRequests</a>.</p>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnection.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="TpBaseConnection.html#TpBaseConnection--dbus-daemon" title='The "dbus-daemon" property'>dbus-daemon</a>"              <a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a>*         : Read / Write / Construct Only
+  "<a class="link" href="TpBaseConnection.html#TpBaseConnection--dbus-status" title='The "dbus-status" property'>dbus-status</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+  "<a class="link" href="TpBaseConnection.html#TpBaseConnection--has-immortal-handles" title='The "has-immortal-handles" property'>has-immortal-handles</a>"     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+  "<a class="link" href="TpBaseConnection.html#TpBaseConnection--interfaces" title='The "interfaces" property'>interfaces</a>"               <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read
+  "<a class="link" href="TpBaseConnection.html#TpBaseConnection--protocol" title='The "protocol" property'>protocol</a>"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only
+  "<a class="link" href="TpBaseConnection.html#TpBaseConnection--self-handle" title='The "self-handle" property'>self-handle</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnection.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="TpBaseConnection.html#TpBaseConnection-clients-interested" title='The "clients-interested" signal'>clients-interested</a>"                             : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="TpBaseConnection.html#TpBaseConnection-clients-uninterested" title='The "clients-uninterested" signal'>clients-uninterested</a>"                           : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+  "<a class="link" href="TpBaseConnection.html#TpBaseConnection-shutdown-finished" title='The "shutdown-finished" signal'>shutdown-finished</a>"                              : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnection.description"></a><h2>Description</h2>
+<p>
+This base class makes it easier to write <a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnection"><span class="type">TpSvcConnection</span></a> implementations
+by managing connection status, channel factories and handle tracking.
+A subclass should often not need to implement any of the Connection
+methods itself.
+</p>
+<p>
+However, methods may be reimplemented if needed: for instance, Gabble
+overrides RequestHandles so it can validate MUC rooms, which must be done
+asynchronously.
+</p>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnection.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TP-INTERNAL-CONNECTION-STATUS-NEW:CAPS"></a><h3>TP_INTERNAL_CONNECTION_STATUS_NEW</h3>
+<pre class="programlisting">#   define TP_INTERNAL_CONNECTION_STATUS_NEW ((TpConnectionStatus)(-1))
+</pre>
+<p>
+A special value for <a class="link" href="telepathy-glib-enums.html#TpConnectionStatus" title="enum TpConnectionStatus"><span class="type">TpConnectionStatus</span></a>, used within GLib connection
+managers to indicate that the connection is disconnected because
+connection has never been attempted (as distinct from disconnected
+after connection has started, either by user request or an error).
+</p>
+<p>
+Must never be visible on the D-Bus - <a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-DISCONNECTED:CAPS"><code class="literal">TP_CONNECTION_STATUS_DISCONNECTED</code></a>
+is sent instead.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnection-struct"></a><h3>TpBaseConnection</h3>
+<pre class="programlisting">typedef struct _TpBaseConnection TpBaseConnection;</pre>
+<p>
+Data structure representing a generic <a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnection"><span class="type">TpSvcConnection</span></a> implementation.
+</p>
+<p>
+Since 0.19.1, accessing the fields of this structure is deprecated.
+Use <a class="link" href="TpBaseConnection.html#tp-base-connection-get-bus-name" title="tp_base_connection_get_bus_name ()"><code class="function">tp_base_connection_get_bus_name()</code></a>, <a class="link" href="TpBaseConnection.html#tp-base-connection-get-object-path" title="tp_base_connection_get_object_path ()"><code class="function">tp_base_connection_get_object_path()</code></a>,
+<a class="link" href="TpBaseConnection.html#tp-base-connection-get-status" title="tp_base_connection_get_status ()"><code class="function">tp_base_connection_get_status()</code></a>, <a class="link" href="TpBaseConnection.html#tp-base-connection-get-self-handle" title="tp_base_connection_get_self_handle ()"><code class="function">tp_base_connection_get_self_handle()</code></a>
+instead.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnectionClass"></a><h3>struct TpBaseConnectionClass</h3>
+<pre class="programlisting">struct TpBaseConnectionClass {
+    GObjectClass parent_class;
+
+#ifdef __GI_SCANNER__
+#else
+    TpBaseConnectionCreateHandleReposImpl create_handle_repos;
+#endif
+
+    TpBaseConnectionCreateChannelFactoriesImpl create_channel_factories;
+
+    TpBaseConnectionGetUniqueConnectionNameImpl get_unique_connection_name;
+
+    TpBaseConnectionProc connecting;
+    TpBaseConnectionProc connected;
+    TpBaseConnectionProc disconnected;
+
+    TpBaseConnectionProc shut_down;
+
+    TpBaseConnectionStartConnectingImpl start_connecting;
+
+    TpBaseConnectionCreateChannelManagersImpl create_channel_managers;
+
+    TpBaseConnectionGetInterfacesImpl get_interfaces_always_present;
+};
+</pre>
+<p>
+The class of a <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>. Many members are virtual methods etc.
+to be filled in in the subclass' class_init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> <em class="structfield"><code><a name="TpBaseConnectionClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>The superclass' structure</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseConnection.html#TpBaseConnectionCreateHandleReposImpl" title="TpBaseConnectionCreateHandleReposImpl ()"><span class="type">TpBaseConnectionCreateHandleReposImpl</span></a> <em class="structfield"><code><a name="TpBaseConnectionClass.create-handle-repos"></a>create_handle_repos</code></em>;</span></p></td>
+<td>Fill in suitable handle repositories in the
+given array for all those handle types this Connection supports.
+Must be set by subclasses to a non-<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> value; the function must create
+at least a CONTACT handle repository (failing to do so will cause a crash).</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseConnection.html#TpBaseConnectionCreateChannelFactoriesImpl" title="TpBaseConnectionCreateChannelFactoriesImpl ()"><span class="type">TpBaseConnectionCreateChannelFactoriesImpl</span></a> <em class="structfield"><code><a name="TpBaseConnectionClass.create-channel-factories"></a>create_channel_factories</code></em>;</span></p></td>
+<td>Create an array of channel factories for this
+Connection. At least one of this or <em class="parameter"><code>create_channel_managers</code></em> must be set by
+subclasses to a non-<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> value; in new code, setting this to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> and
+using channel managers exclusively is recommended.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseConnection.html#TpBaseConnectionGetUniqueConnectionNameImpl" title="TpBaseConnectionGetUniqueConnectionNameImpl ()"><span class="type">TpBaseConnectionGetUniqueConnectionNameImpl</span></a> <em class="structfield"><code><a name="TpBaseConnectionClass.get-unique-connection-name"></a>get_unique_connection_name</code></em>;</span></p></td>
+<td>Construct a unique name for this connection
+(for example using the protocol's format for usernames). If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> (the
+default), a unique name will be generated. Subclasses should usually
+override this to get more obvious names, to aid debugging and prevent
+multiple connections to the same account.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseConnection.html#TpBaseConnectionProc" title="TpBaseConnectionProc ()"><span class="type">TpBaseConnectionProc</span></a> <em class="structfield"><code><a name="TpBaseConnectionClass.connecting"></a>connecting</code></em>;</span></p></td>
+<td>If set by subclasses, will be called just after the state
+changes to CONNECTING. May be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if nothing special needs to happen.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseConnection.html#TpBaseConnectionProc" title="TpBaseConnectionProc ()"><span class="type">TpBaseConnectionProc</span></a> <em class="structfield"><code><a name="TpBaseConnectionClass.connected"></a>connected</code></em>;</span></p></td>
+<td>If set by subclasses, will be called just after the state
+changes to CONNECTED. May be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if nothing special needs to happen.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseConnection.html#TpBaseConnectionProc" title="TpBaseConnectionProc ()"><span class="type">TpBaseConnectionProc</span></a> <em class="structfield"><code><a name="TpBaseConnectionClass.disconnected"></a>disconnected</code></em>;</span></p></td>
+<td>If set by subclasses, will be called just after the state
+changes to DISCONNECTED. May be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if nothing special needs to happen.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseConnection.html#TpBaseConnectionProc" title="TpBaseConnectionProc ()"><span class="type">TpBaseConnectionProc</span></a> <em class="structfield"><code><a name="TpBaseConnectionClass.shut-down"></a>shut_down</code></em>;</span></p></td>
+<td>Called after <code class="function">disconnected()</code> is called, to clean up the
+connection. Must start the shutdown process for the underlying
+network connection, and arrange for <a class="link" href="TpBaseConnection.html#tp-base-connection-finish-shutdown" title="tp_base_connection_finish_shutdown ()"><code class="function">tp_base_connection_finish_shutdown()</code></a>
+to be called after the underlying connection has been closed. May not
+be left as <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseConnection.html#TpBaseConnectionStartConnectingImpl" title="TpBaseConnectionStartConnectingImpl ()"><span class="type">TpBaseConnectionStartConnectingImpl</span></a> <em class="structfield"><code><a name="TpBaseConnectionClass.start-connecting"></a>start_connecting</code></em>;</span></p></td>
+<td>Asynchronously start connecting - called to implement
+the Connect D-Bus method. See <a class="link" href="TpBaseConnection.html#TpBaseConnectionStartConnectingImpl" title="TpBaseConnectionStartConnectingImpl ()"><span class="type">TpBaseConnectionStartConnectingImpl</span></a> for
+details. May not be left as <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseConnection.html#TpBaseConnectionCreateChannelManagersImpl" title="TpBaseConnectionCreateChannelManagersImpl ()"><span class="type">TpBaseConnectionCreateChannelManagersImpl</span></a> <em class="structfield"><code><a name="TpBaseConnectionClass.create-channel-managers"></a>create_channel_managers</code></em>;</span></p></td>
+<td>Create an array of channel managers for this
+Connection. At least one of this or <em class="parameter"><code>create_channel_factories</code></em> must be set
+by subclasses to a non-<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> value. Since: 0.7.15</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseConnection.html#TpBaseConnectionGetInterfacesImpl" title="TpBaseConnectionGetInterfacesImpl ()"><span class="type">TpBaseConnectionGetInterfacesImpl</span></a> <em class="structfield"><code><a name="TpBaseConnectionClass.get-interfaces-always-present"></a>get_interfaces_always_present</code></em>;</span></p></td>
+<td>Returns a <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of extra D-Bus
+interfaces which are always implemented by instances of this class,
+which may be filled in by subclasses. The default is to list no
+additional interfaces. Individual instances may detect which
+additional interfaces they support and signal them before going
+to state CONNECTED by calling <a class="link" href="TpBaseConnection.html#tp-base-connection-add-interfaces" title="tp_base_connection_add_interfaces ()"><code class="function">tp_base_connection_add_interfaces()</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnectionCreateChannelFactoriesImpl"></a><h3>TpBaseConnectionCreateChannelFactoriesImpl ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (*TpBaseConnectionCreateChannelFactoriesImpl)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);</pre>
+<p>
+Signature of an implementation of the create_channel_factories method
+of <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The implementation, a subclass of TpBaseConnection</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a GPtrArray of objects implementing
+<a class="link" href="TpChannelFactoryIface.html" title="TpChannelFactoryIface"><span class="type">TpChannelFactoryIface</span></a> which, between them, implement all channel types
+this Connection supports. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnectionCreateChannelManagersImpl"></a><h3>TpBaseConnectionCreateChannelManagersImpl ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (*TpBaseConnectionCreateChannelManagersImpl)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);</pre>
+<p>
+Signature of an implementation of the create_channel_managers method
+of <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The implementation, a subclass of TpBaseConnection</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a GPtrArray of objects implementing
+<a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> which, between them, implement all channel types this
+Connection supports. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnectionCreateHandleReposImpl"></a><h3>TpBaseConnectionCreateHandleReposImpl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpBaseConnectionCreateHandleReposImpl)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle-repo.html#TpHandleRepoIface"><span class="type">TpHandleRepoIface</span></a> *repos[TP_NUM_HANDLE_TYPES]</code></em>);</pre>
+<p>
+Signature of an implementation of the create_handle_repos method
+of <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The connection object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>repos</code></em> :</span></p></td>
+<td>An array of pointers to be filled in; the implementation
+may assume all are initially NULL.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnectionGetUniqueConnectionNameImpl"></a><h3>TpBaseConnectionGetUniqueConnectionNameImpl ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             (*TpBaseConnectionGetUniqueConnectionNameImpl)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);</pre>
+<p>
+Signature of the <em class="parameter"><code>get_unique_connection_name</code></em> virtual method
+on <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The implementation, a subclass of TpBaseConnection</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a name for this connection which will be unique
+within this connection manager process, as a string which the caller must
+free with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><span class="type">g_free</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnectionGetInterfacesImpl"></a><h3>TpBaseConnectionGetInterfacesImpl ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (*TpBaseConnectionGetInterfacesImpl)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);</pre>
+<p>
+Signature of an implementation of
+<a class="link" href="TpBaseConnection.html#TpBaseConnectionClass.get-interfaces-always-present"><span class="type">TpBaseConnectionClass.get_interfaces_always_present</span></a> virtual
+function.
+</p>
+<p>
+Implementation must first chainup on parent class implementation and then
+add extra interfaces into the <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>.
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">static</span> GPtrArray <span class="gtkdoc opt">*</span>
+<span class="function">my_connection_get_interfaces_always_present</span> <span class="gtkdoc opt">(</span>TpBaseConnection <span class="gtkdoc opt">*</span>self<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  GPtrArray <span class="gtkdoc opt">*</span>interfaces<span class="gtkdoc opt">;</span>
+
+  interfaces <span class="gtkdoc opt">=</span> <span class="function">TP_BASE_CONNECTION_CLASS</span> <span class="gtkdoc opt">(</span>
+      my_connection_parent_class<span class="gtkdoc opt">)-&gt;</span><span class="function">get_interfaces_always_present</span> <span class="gtkdoc opt">(</span>self<span class="gtkdoc opt">);</span>
+
+  <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#g-ptr-array-add">g_ptr_array_add</a></span> <span class="gtkdoc opt">(</span>interfaces<span class="gtkdoc opt">,</span> TP_IFACE_BADGERS<span class="gtkdoc opt">);</span>
+
+  <span class="keyword">return</span> interfaces<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of static strings for D-Bus
+interfaces implemented by this client. <span class="annotation">[<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnectionProc"></a><h3>TpBaseConnectionProc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpBaseConnectionProc)             (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);</pre>
+<p>
+Signature of a virtual method on <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> that takes no
+additional parameters and returns nothing.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The connection object</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnectionStartConnectingImpl"></a><h3>TpBaseConnectionStartConnectingImpl ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpBaseConnectionStartConnectingImpl)
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of an implementation of the start_connecting method
+of <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>.
+</p>
+<p>
+On entry, the implementation may assume that it is in state NEW.
+</p>
+<p>
+If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> is returned, the Connect D-Bus method succeeds; the
+implementation must either have already set the status to CONNECTED by
+calling <a class="link" href="TpBaseConnection.html#tp-base-connection-change-status" title="tp_base_connection_change_status ()"><code class="function">tp_base_connection_change_status()</code></a>, or have arranged for a
+status change to either state DISCONNECTED or CONNECTED to be signalled by
+calling <a class="link" href="TpBaseConnection.html#tp-base-connection-change-status" title="tp_base_connection_change_status ()"><code class="function">tp_base_connection_change_status()</code></a> at some later time.
+If the status is still NEW after returning <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> will
+automatically change it to CONNECTING for reason REQUESTED.
+</p>
+<p>
+If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned, the error will be raised from Connect as an
+exception. If the status is not DISCONNECTED after <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned,
+<a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> will automatically change it to DISCONNECTED
+with a reason appropriate to the error; NetworkError results in
+NETWORK_ERROR, PermissionDenied results in AUTHENTICATION_FAILED, and all
+other errors currently result in NONE_SPECIFIED.
+</p>
+<p>
+All except the simplest connection managers are expected to implement this
+asynchronously, returning <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> in most cases and changing the status
+to CONNECTED or DISCONNECTED later.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The connection object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Set to the error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if failure has already occurred, else <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-get-bus-name"></a><h3>tp_base_connection_get_bus_name ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_base_connection_get_bus_name     (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);</pre>
+<p>
+Return the bus name starting with <a class="link" href="telepathy-glib-defs.html#TP-CONN-BUS-NAME-BASE:CAPS" title="TP_CONN_BUS_NAME_BASE"><code class="literal">TP_CONN_BUS_NAME_BASE</code></a> that represents
+this connection on D-Bus.
+</p>
+<p>
+The returned string belongs to the <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> and must be copied
+by the caller if it will be kept.
+</p>
+<p>
+If this connection has never been present on D-Bus
+(<a class="link" href="TpBaseConnection.html#tp-base-connection-register" title="tp_base_connection_register ()"><code class="function">tp_base_connection_register()</code></a> has never been called), return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the connection</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the bus name of this connection,
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-get-object-path"></a><h3>tp_base_connection_get_object_path ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_base_connection_get_object_path  (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);</pre>
+<p>
+Return the object path starting with <a class="link" href="telepathy-glib-defs.html#TP-CONN-OBJECT-PATH-BASE:CAPS" title="TP_CONN_OBJECT_PATH_BASE"><code class="literal">TP_CONN_OBJECT_PATH_BASE</code></a> that
+represents this connection on D-Bus.
+</p>
+<p>
+The returned string belongs to the <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> and must be copied
+by the caller if it will be kept.
+</p>
+<p>
+If this connection has never been present on D-Bus
+(<a class="link" href="TpBaseConnection.html#tp-base-connection-register" title="tp_base_connection_register ()"><code class="function">tp_base_connection_register()</code></a> has never been called), return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the connection</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the object path of this connection,
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-get-dbus-daemon"></a><h3>tp_base_connection_get_dbus_daemon ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="returnvalue">TpDBusDaemon</span></a> *      tp_base_connection_get_dbus_daemon  (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the connection manager</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of the
+<a class="link" href="TpBaseConnectionManager.html#TpBaseConnectionManager--dbus-daemon" title='The "dbus-daemon" property'><span class="type">"dbus-daemon"</span></a> property. The caller must reference
+the returned object with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-ref"><code class="function">g_object_ref()</code></a> if it will be kept. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-register"></a><h3>tp_base_connection_register ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_base_connection_register         (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *cm_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **bus_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **object_path</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Make the connection object appear on the bus, returning the bus
+name and object path used. If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> is returned, the connection owns the
+bus name, and will release it when destroyed.
+</p>
+<p>
+Since 0.11.11, <em class="parameter"><code>bus_name</code></em> and <em class="parameter"><code>object_path</code></em> may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the
+strings are not needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A connection</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cm_name</code></em> :</span></p></td>
+<td>The name of the connection manager in the Telepathy protocol</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bus_name</code></em> :</span></p></td>
+<td>Used to return the bus name corresponding to the connection
+if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> is returned. To be freed by the caller. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object_path</code></em> :</span></p></td>
+<td>Used to return the object path of the connection if
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> is returned. To be freed by the caller. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to return an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned; may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-get-handles"></a><h3>tp_base_connection_get_handles ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-handle-repo.html#TpHandleRepoIface"><span class="returnvalue">TpHandleRepoIface</span></a> * tp_base_connection_get_handles      (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> handle_type</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A connection</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle_type</code></em> :</span></p></td>
+<td>The handle type</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the handle repository corresponding to the given
+handle type, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><span class="type">NULL</span></a> if it's unsupported or invalid. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-get-self-handle"></a><h3>tp_base_connection_get_self_handle ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="returnvalue">TpHandle</span></a>            tp_base_connection_get_self_handle  (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);</pre>
+<p>
+Returns the <a class="link" href="TpBaseConnection.html#TpBaseConnection--self-handle" title='The "self-handle" property'><span class="type">"self-handle"</span></a> property, which is guaranteed not
+to be 0 once the connection has moved to the CONNECTED state.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A connection</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the current self handle of the connection.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.15</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-set-self-handle"></a><h3>tp_base_connection_set_self_handle ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_connection_set_self_handle  (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> self_handle</code></em>);</pre>
+<p>
+Sets the <a class="link" href="TpBaseConnection.html#TpBaseConnection--self-handle" title='The "self-handle" property'><span class="type">"self-handle"</span></a> property.  self_handle may not be 0
+once the connection has moved to the CONNECTED state.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A connection</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self_handle</code></em> :</span></p></td>
+<td>The new self handle for the connection.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.15</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-get-status"></a><h3>tp_base_connection_get_status ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-enums.html#TpConnectionStatus" title="enum TpConnectionStatus"><span class="returnvalue">TpConnectionStatus</span></a>  tp_base_connection_get_status       (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);</pre>
+<p>
+Return the status of this connection, as set by
+<a class="link" href="TpBaseConnection.html#tp-base-connection-change-status" title="tp_base_connection_change_status ()"><code class="function">tp_base_connection_change_status()</code></a> or similar functions like
+<a class="link" href="TpBaseConnection.html#tp-base-connection-disconnect-with-dbus-error" title="tp_base_connection_disconnect_with_dbus_error ()"><code class="function">tp_base_connection_disconnect_with_dbus_error()</code></a>.
+</p>
+<p>
+Like the corresponding D-Bus property, this method returns
+<a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-DISCONNECTED:CAPS"><code class="literal">TP_CONNECTION_STATUS_DISCONNECTED</code></a> in two situations:
+either the connection is newly-created (and has never emitted
+<a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnection-status-changed" title='The "status-changed" signal'><span class="type">"status-changed"</span></a>), or D-Bus clients have already been
+told that it has been destroyed (by the Disconnect D-Bus method,
+a failed attempt to connect, or loss of an established connection).
+Use <a class="link" href="TpBaseConnection.html#tp-base-connection-is-destroyed" title="tp_base_connection_is_destroyed ()"><code class="function">tp_base_connection_is_destroyed()</code></a> to distinguish between the two.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the connection</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="TpBaseConnection.html#TpBaseConnection--dbus-status" title='The "dbus-status" property'><span class="type">"dbus-status"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-is-destroyed"></a><h3>tp_base_connection_is_destroyed ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_base_connection_is_destroyed     (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);</pre>
+<p>
+Return whether this connection has already emitted the D-Bus signal
+indicating that it has been destroyed.
+</p>
+<p>
+In particular, this can be used to distinguish between the two reasons
+why <a class="link" href="TpBaseConnection.html#tp-base-connection-get-status" title="tp_base_connection_get_status ()"><code class="function">tp_base_connection_get_status()</code></a> would return
+<a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-DISCONNECTED:CAPS"><code class="literal">TP_CONNECTION_STATUS_DISCONNECTED</code></a>: it will return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if the
+connection is newly-created, and <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the Disconnect D-Bus method
+has been called, an attempt to connect has failed, or an established
+connection has encountered an error.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the connection</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if this connection is disappearing from D-Bus</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-check-connected"></a><h3>tp_base_connection_check_connected ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_base_connection_check_connected  (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Return whether this connection is fully active and connected.
+If it is not, raise <a class="link" href="telepathy-glib-errors.html#TP-ERROR-DISCONNECTED:CAPS"><code class="literal">TP_ERROR_DISCONNECTED</code></a>.
+</p>
+<p>
+This is equivalent to checking whether <a class="link" href="TpBaseConnection.html#tp-base-connection-get-status" title="tp_base_connection_get_status ()"><code class="function">tp_base_connection_get_status()</code></a>
+returns <a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-CONNECTED:CAPS"><code class="literal">TP_CONNECTION_STATUS_CONNECTED</code></a>; it is provided because methods
+on the connection often need to make this check, and return a
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> if it fails.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the connection</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>used to raise <a class="link" href="telepathy-glib-errors.html#TP-ERROR-DISCONNECTED:CAPS"><code class="literal">TP_ERROR_DISCONNECTED</code></a> if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if this connection is connected</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-change-status"></a><h3>tp_base_connection_change_status ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_connection_change_status    (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpConnectionStatus" title="enum TpConnectionStatus"><span class="type">TpConnectionStatus</span></a> status</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpConnectionStatusReason" title="enum TpConnectionStatusReason"><span class="type">TpConnectionStatusReason</span></a> reason</code></em>);</pre>
+<p>
+Change the status of the connection. The allowed state transitions are:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+<a class="link" href="TpBaseConnection.html#TP-INTERNAL-CONNECTION-STATUS-NEW:CAPS" title="TP_INTERNAL_CONNECTION_STATUS_NEW"><span class="type">TP_INTERNAL_CONNECTION_STATUS_NEW</span></a> →
+   <a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-CONNECTING:CAPS"><span class="type">TP_CONNECTION_STATUS_CONNECTING</span></a>
+</li>
+<li class="listitem">
+<a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-CONNECTING:CAPS"><span class="type">TP_CONNECTION_STATUS_CONNECTING</span></a> →
+   <a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-CONNECTED:CAPS"><span class="type">TP_CONNECTION_STATUS_CONNECTED</span></a>
+</li>
+<li class="listitem">
+<a class="link" href="TpBaseConnection.html#TP-INTERNAL-CONNECTION-STATUS-NEW:CAPS" title="TP_INTERNAL_CONNECTION_STATUS_NEW"><span class="type">TP_INTERNAL_CONNECTION_STATUS_NEW</span></a> →
+   <a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-CONNECTED:CAPS"><span class="type">TP_CONNECTION_STATUS_CONNECTED</span></a> (exactly equivalent to both of the above
+   one after the other; see below)</li>
+<li class="listitem">anything except <a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-DISCONNECTED:CAPS"><span class="type">TP_CONNECTION_STATUS_DISCONNECTED</span></a> →
+   <a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-DISCONNECTED:CAPS"><span class="type">TP_CONNECTION_STATUS_DISCONNECTED</span></a>
+</li>
+</ul></div>
+<p>
+</p>
+<p>
+Before the transition to <a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-CONNECTED:CAPS"><span class="type">TP_CONNECTION_STATUS_CONNECTED</span></a>, the implementation
+must have discovered the handle for the local user and passed it to
+<a class="link" href="TpBaseConnection.html#tp-base-connection-set-self-handle" title="tp_base_connection_set_self_handle ()"><code class="function">tp_base_connection_set_self_handle()</code></a>.
+</p>
+<p>
+Changing from NEW to CONNECTED is implemented by doing the transition from
+NEW to CONNECTING, followed by the transition from CONNECTING to CONNECTED;
+it's exactly equivalent to calling tp_base_connection_change_status for
+those two transitions one after the other.
+</p>
+<p>
+Any other valid transition does the following, in this order:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">Update <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>.status;</li>
+<li class="listitem">If the new state is <a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-DISCONNECTED:CAPS"><span class="type">TP_CONNECTION_STATUS_DISCONNECTED</span></a>, call
+   <a class="link" href="TpChannelFactoryIface.html#tp-channel-factory-iface-close-all" title="tp_channel_factory_iface_close_all ()"><code class="function">tp_channel_factory_iface_close_all()</code></a> on all channel factories</li>
+<li class="listitem">Emit the D-Bus StatusChanged signal;</li>
+<li class="listitem">Call <a class="link" href="TpBaseConnection.html#TpBaseConnectionClass.connecting"><span class="type">TpBaseConnectionClass.connecting</span></a>,
+   <a class="link" href="TpBaseConnection.html#TpBaseConnectionClass.connected"><span class="type">TpBaseConnectionClass.connected</span></a> or <a class="link" href="TpBaseConnection.html#TpBaseConnectionClass.disconnected"><span class="type">TpBaseConnectionClass.disconnected</span></a>
+   as appropriate;</li>
+<li class="listitem">Call the channel factories' status change callbacks;</li>
+<li class="listitem">If the new state is <a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-DISCONNECTED:CAPS"><span class="type">TP_CONNECTION_STATUS_DISCONNECTED</span></a>, call the
+   subclass' <a class="link" href="TpBaseConnection.html#TpBaseConnectionClass.shut-down"><span class="type">TpBaseConnectionClass.shut_down</span></a> callback.</li>
+</ul></div>
+<p>
+</p>
+<p>
+To provide more details about what happened when moving to <em class="parameter"><code>status</code></em>
+<a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-DISCONNECTED:CAPS"><span class="type">TP_CONNECTION_STATUS_DISCONNECTED</span></a> due to an error, consider calling
+<a class="link" href="TpBaseConnection.html#tp-base-connection-disconnect-with-dbus-error" title="tp_base_connection_disconnect_with_dbus_error ()"><code class="function">tp_base_connection_disconnect_with_dbus_error()</code></a> instead of this function.
+</p>
+<p>
+Changed in 0.7.35: the <em class="parameter"><code>self_handle</code></em> member of <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> was
+previously set to 0 at this stage. It now remains non-zero until the object
+is disposed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The connection</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>status</code></em> :</span></p></td>
+<td>The new status</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>The reason for the status change</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-disconnect-with-dbus-error"></a><h3>tp_base_connection_disconnect_with_dbus_error ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_connection_disconnect_with_dbus_error
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *error_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *details</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpConnectionStatusReason" title="enum TpConnectionStatusReason"><span class="type">TpConnectionStatusReason</span></a> reason</code></em>);</pre>
+<p>
+Changes the <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>.status of <em class="parameter"><code>self</code></em> to
+<a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-DISCONNECTED:CAPS"><code class="literal">TP_CONNECTION_STATUS_DISCONNECTED</code></a>, as if by a call to
+<a class="link" href="TpBaseConnection.html#tp-base-connection-change-status" title="tp_base_connection_change_status ()"><code class="function">tp_base_connection_change_status()</code></a>, but additionally emits the
+<code class="code">ConnectionError</code> D-Bus signal to provide more details about the
+error.
+</p>
+<p>
+Well-known keys for <em class="parameter"><code>details</code></em> are documented in the Telepathy specification's
+<a class="ulink" href="http://telepathy.freedesktop.org/spec/Connection.html#Signal:ConnectionError" target="_top">definition
+of the ConnectionError signal</a>, and include:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+<code class="code">"debug-message"</code>, whose value should have type
+   <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-TYPE-STRING:CAPS"><span class="type">G_TYPE_STRING</span></a>, for debugging information about the
+   disconnection which should not be shown to the user</li>
+<li class="listitem">
+<code class="code">"server-message"</code>, whose value should also have type
+   <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-TYPE-STRING:CAPS"><span class="type">G_TYPE_STRING</span></a>, for a human-readable error message from the server (in an
+   unspecified language) explaining why the user was
+   disconnected.</li>
+</ul></div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The connection</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error_name</code></em> :</span></p></td>
+<td>The D-Bus error with which the connection changed status to
+Disconnected</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>details</code></em> :</span></p></td>
+<td>Further details of the error, as a hash table where the keys
+are strings as defined in the Telepathy specification, and the
+values are <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a>s. <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is allowed, and treated as
+an empty hash table.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>The reason code to use in the StatusChanged signal
+(a less specific, non-extensible version of <em class="parameter"><code>error_name</code></em>)</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.24</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-disconnect-with-dbus-error-vardict"></a><h3>tp_base_connection_disconnect_with_dbus_error_vardict ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_connection_disconnect_with_dbus_error_vardict
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *error_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-GVariant.html#GVariant"><span class="type">GVariant</span></a> *details</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpConnectionStatusReason" title="enum TpConnectionStatusReason"><span class="type">TpConnectionStatusReason</span></a> reason</code></em>);</pre>
+<p>
+Changes the <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>.status of <em class="parameter"><code>self</code></em> to
+<a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-DISCONNECTED:CAPS"><code class="literal">TP_CONNECTION_STATUS_DISCONNECTED</code></a>, as if by a call to
+<a class="link" href="TpBaseConnection.html#tp-base-connection-change-status" title="tp_base_connection_change_status ()"><code class="function">tp_base_connection_change_status()</code></a>, but additionally emits the
+<code class="code">ConnectionError</code> D-Bus signal to provide more details about the
+error.
+</p>
+<p>
+Well-known keys for <em class="parameter"><code>details</code></em> are documented in the Telepathy specification's
+<a class="ulink" href="http://telepathy.freedesktop.org/spec/Connection.html#Signal:ConnectionError" target="_top">definition
+of the ConnectionError signal</a>, and include:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+<code class="code">"debug-message"</code>, whose value should have type
+   <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-TYPE-STRING:CAPS"><span class="type">G_TYPE_STRING</span></a>, for debugging information about the
+   disconnection which should not be shown to the user</li>
+<li class="listitem">
+<code class="code">"server-message"</code>, whose value should also have type
+   <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-TYPE-STRING:CAPS"><span class="type">G_TYPE_STRING</span></a>, for a human-readable error message from the server (in an
+   unspecified language) explaining why the user was
+   disconnected.</li>
+</ul></div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The connection</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error_name</code></em> :</span></p></td>
+<td>The D-Bus error with which the connection changed status to
+Disconnected</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>details</code></em> :</span></p></td>
+<td>Further details of the error, as a variant of
+type <a href="http://library.gnome.org/devel/glib/unstable/glib-GVariantType.html#G-VARIANT-TYPE-VARDICT:CAPS"><code class="literal">G_VARIANT_TYPE_VARDICT</code></a>. The keys
+are strings as defined in the Telepathy specification, and the
+values are of type <a href="http://library.gnome.org/devel/glib/unstable/glib-GVariantType.html#G-VARIANT-TYPE-VARIANT:CAPS"><code class="literal">G_VARIANT_TYPE_VARIANT</code></a>.
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is allowed, and treated as an empty dictionary.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>The reason code to use in the StatusChanged signal
+(a less specific, non-extensible version of <em class="parameter"><code>error_name</code></em>)</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.24</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-finish-shutdown"></a><h3>tp_base_connection_finish_shutdown ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_connection_finish_shutdown  (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);</pre>
+<p>
+Tell the connection manager that this Connection has been disconnected,
+has emitted StatusChanged and is ready to be removed from D-Bus.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The connection</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-add-interfaces"></a><h3>tp_base_connection_add_interfaces ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_connection_add_interfaces   (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **interfaces</code></em>);</pre>
+<p>
+Add some interfaces to the list supported by this Connection. If you're
+going to call this function at all, you must do so before moving to state
+CONNECTED (or DISCONNECTED); if you don't call it, only the set of
+interfaces always present (<em class="parameter"><code>get_interfaces_always_present</code></em> in
+<a class="link" href="TpBaseConnection.html#TpBaseConnectionClass" title="struct TpBaseConnectionClass"><span class="type">TpBaseConnectionClass</span></a>) will be supported.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A TpBaseConnection in state <a class="link" href="TpBaseConnection.html#TP-INTERNAL-CONNECTION-STATUS-NEW:CAPS" title="TP_INTERNAL_CONNECTION_STATUS_NEW"><span class="type">TP_INTERNAL_CONNECTION_STATUS_NEW</span></a>
+or <a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-CONNECTING:CAPS"><span class="type">TP_CONNECTION_STATUS_CONNECTING</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interfaces</code></em> :</span></p></td>
+<td>A <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated array of D-Bus interface names, which
+must remain valid at least until the connection enters state
+<a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-DISCONNECTED:CAPS"><span class="type">TP_CONNECTION_STATUS_DISCONNECTED</span></a> (in practice, you should either
+use static strings, or use strdup'd strings and free them in the dispose
+callback).</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-dbus-request-handles"></a><h3>tp_base_connection_dbus_request_handles ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_connection_dbus_request_handles
+                                                        (<em class="parameter"><code><a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnection"><span class="type">TpSvcConnection</span></a> *iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> handle_type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **names</code></em>,
+                                                         <em class="parameter"><code><span class="type">DBusGMethodInvocation</span> *context</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">tp_base_connection_dbus_request_handles</code> is deprecated and should not be used in newly-written code. 0.19.0</p>
+</div>
+<p>
+Implements D-Bus method RequestHandles on interface
+org.freedesktop.Telepathy.Connection.
+</p>
+<p>
+This was exported so subclasses could use it as a basis for their
+reimplementations, but reimplementing the method is now deprecated.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface</code></em> :</span></p></td>
+<td>A pointer to <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>, cast to a pointer to
+<a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnection"><span class="type">TpSvcConnection</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle_type</code></em> :</span></p></td>
+<td>The handle type (<a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a>) as a guint</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>names</code></em> :</span></p></td>
+<td>A strv of handle names</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The dbus-glib method invocation context</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-BASE-CONNECTION-ERROR-IF-NOT-CONNECTED:CAPS"></a><h3>TP_BASE_CONNECTION_ERROR_IF_NOT_CONNECTED()</h3>
+<pre class="programlisting">#define             TP_BASE_CONNECTION_ERROR_IF_NOT_CONNECTED(conn, context)</pre>
+<p>
+If <em class="parameter"><code>conn</code></em> is not in state <a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-CONNECTED:CAPS"><span class="type">TP_CONNECTION_STATUS_CONNECTED</span></a>, complete the
+D-Bus method invocation <em class="parameter"><code>context</code></em> by raising the Telepathy error
+<a class="link" href="telepathy-glib-errors.html#TP-ERROR-DISCONNECTED:CAPS"><span class="type">TP_ERROR_DISCONNECTED</span></a>, and return from the current function (which
+must be void). For use in D-Bus method implementations.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>conn</code></em> :</span></p></td>
+<td>A TpBaseConnection</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>A DBusGMethodInvocation</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-register-with-contacts-mixin"></a><h3>tp_base_connection_register_with_contacts_mixin ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_connection_register_with_contacts_mixin
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);</pre>
+<p>
+Register the Connection interface with the Contacts interface to make it
+inspectable. The Contacts mixin should be initialized before this function
+is called
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An instance of the <a href="TpBaseConnection.html"><span class="type">TpBaseConnections</span></a> that uses the Contacts
+mixin</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-add-possible-client-interest"></a><h3>tp_base_connection_add_possible_client_interest ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_connection_add_possible_client_interest
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> token</code></em>);</pre>
+<p>
+Add <em class="parameter"><code>token</code></em> to the set of tokens for which this connection will emit
+<a class="link" href="TpBaseConnection.html#TpBaseConnection-clients-interested" title='The "clients-interested" signal'><span class="type">"clients-interested"</span></a> and
+<a class="link" href="TpBaseConnection.html#TpBaseConnection-clients-uninterested" title='The "clients-uninterested" signal'><span class="type">"clients-uninterested"</span></a>.
+</p>
+<p>
+This method must be called from the <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a>.constructed or <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a>.constructor callback
+(otherwise, it will run too late to be useful).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a connection</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>token</code></em> :</span></p></td>
+<td>a quark corresponding to a D-Bus interface, or a token
+representing part of a D-Bus interface, for which this connection wishes
+to be notified when clients register an interest</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-add-client-interest"></a><h3>tp_base_connection_add_client_interest ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_connection_add_client_interest
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *unique_name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *token</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> only_if_uninterested</code></em>);</pre>
+<p>
+Add a "client interest" for <em class="parameter"><code>token</code></em> on behalf of the given client.
+</p>
+<p>
+This emits <a class="link" href="TpBaseConnection.html#TpBaseConnection-clients-interested" title='The "clients-interested" signal'><span class="type">"clients-interested"</span></a> if this was the first
+time a client expressed an interest in this token.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>unique_name</code></em> :</span></p></td>
+<td>the unique bus name of a D-Bus client</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>token</code></em> :</span></p></td>
+<td>a D-Bus interface or a token representing part of an interface,
+added with <a class="link" href="TpBaseConnection.html#tp-base-connection-add-possible-client-interest" title="tp_base_connection_add_possible_client_interest ()"><code class="function">tp_base_connection_add_possible_client_interest()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>only_if_uninterested</code></em> :</span></p></td>
+<td>only add to the interest count if the client is not
+already interested (appropriate for APIs that implicitly subscribe on first
+use if this has not been done already, like Location)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpChannelManagerIter"></a><h3>struct TpChannelManagerIter</h3>
+<pre class="programlisting">struct TpChannelManagerIter {
+};
+</pre>
+<p>
+An iterator over the <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> objects known to a <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>.
+It has no public fields.
+</p>
+<p>
+Use <a class="link" href="TpBaseConnection.html#tp-base-connection-channel-manager-iter-init" title="tp_base_connection_channel_manager_iter_init ()"><code class="function">tp_base_connection_channel_manager_iter_init()</code></a> to start iteration and
+<a class="link" href="TpBaseConnection.html#tp-base-connection-channel-manager-iter-next" title="tp_base_connection_channel_manager_iter_next ()"><code class="function">tp_base_connection_channel_manager_iter_next()</code></a> to continue.
+</p>
+<p class="since">Since 0.7.15</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-channel-manager-iter-init"></a><h3>tp_base_connection_channel_manager_iter_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_connection_channel_manager_iter_init
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html#TpChannelManagerIter" title="struct TpChannelManagerIter"><span class="type">TpChannelManagerIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *self</code></em>);</pre>
+<p>
+Initializes an iterator over the <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> objects known to
+<em class="parameter"><code>self</code></em>.  It is intended to be used as followed:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></td>
+        <td class="listing_code"><pre class="programlisting">TpChannelManagerIter iter<span class="gtkdoc opt">;</span>
+TpChannelManager <span class="gtkdoc opt">*</span>manager<span class="gtkdoc opt">;</span>
+
+<span class="function"><a href="TpBaseConnection.html#tp-base-connection-channel-manager-iter-init">tp_base_connection_channel_manager_iter_init</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">,</span> base_conn<span class="gtkdoc opt">);</span>
+<span class="keyword">while</span> <span class="gtkdoc opt">(</span><span class="function"><a href="TpBaseConnection.html#tp-base-connection-channel-manager-iter-next">tp_base_connection_channel_manager_iter_next</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">, &amp;</span>manager<span class="gtkdoc opt">))</span>
+  <span class="gtkdoc opt">{</span>
+    <span class="gtkdoc opt">...</span><span class="keyword">do</span> something with manager<span class="gtkdoc opt">...</span>
+  <span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>an uninitialized <a class="link" href="TpBaseConnection.html#TpChannelManagerIter" title="struct TpChannelManagerIter"><span class="type">TpChannelManagerIter</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a connection</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.15</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-connection-channel-manager-iter-next"></a><h3>tp_base_connection_channel_manager_iter_next ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_base_connection_channel_manager_iter_next
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseConnection.html#TpChannelManagerIter" title="struct TpChannelManagerIter"><span class="type">TpChannelManagerIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> **manager_out</code></em>);</pre>
+<p>
+Advances <em class="parameter"><code>iter</code></em>, and retrieves the <a class="link" href="TpChannelManager.html" title="TpChannelManager"><span class="type">TpChannelManager</span></a> it now points to.  If
+there are no more channel managers, <em class="parameter"><code>manager_out</code></em> is not set and <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is
+returned.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>an initialized <a class="link" href="TpBaseConnection.html#TpChannelManagerIter" title="struct TpChannelManagerIter"><span class="type">TpChannelManagerIter</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>manager_out</code></em> :</span></p></td>
+<td>a location to store the channel manager, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if there are no more channel managers; else <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.15</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnection.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpBaseConnection--dbus-daemon"></a><h3>The <code class="literal">"dbus-daemon"</code> property</h3>
+<pre class="programlisting">  "dbus-daemon"              <a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a>*         : Read / Write / Construct Only</pre>
+<p>
+<a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a> object encapsulating this object's connection to D-Bus.
+Read-only except during construction.
+</p>
+<p>
+If this property is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> or omitted during construction, the object will
+automatically attempt to connect to the starter or session bus with
+<a class="link" href="telepathy-glib-dbus.html#tp-dbus-daemon-dup" title="tp_dbus_daemon_dup ()"><code class="function">tp_dbus_daemon_dup()</code></a> just after it is constructed; if this fails, this
+property will remain <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, and <a class="link" href="TpBaseConnection.html#tp-base-connection-register" title="tp_base_connection_register ()"><code class="function">tp_base_connection_register()</code></a> will fail.
+</p>
+<p class="since">Since 0.11.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnection--dbus-status"></a><h3>The <code class="literal">"dbus-status"</code> property</h3>
+<pre class="programlisting">  "dbus-status"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>
+The Connection.Status as visible on D-Bus, which is the same as
+<a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>.status except that
+<a class="link" href="TpBaseConnection.html#TP-INTERNAL-CONNECTION-STATUS-NEW:CAPS" title="TP_INTERNAL_CONNECTION_STATUS_NEW"><code class="literal">TP_INTERNAL_CONNECTION_STATUS_NEW</code></a> is replaced by
+<a class="link" href="telepathy-glib-enums.html#TP-CONNECTION-STATUS-DISCONNECTED:CAPS"><code class="literal">TP_CONNECTION_STATUS_DISCONNECTED</code></a>.
+</p>
+<p>
+The <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject-notify"><span class="type">"notify"</span></a> signal is not currently emitted for this property.
+</p>
+<p>Allowed values: &lt;= 2</p>
+<p>Default value: 2</p>
+<p class="since">Since 0.11.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnection--has-immortal-handles"></a><h3>The <code class="literal">"has-immortal-handles"</code> property</h3>
+<pre class="programlisting">  "has-immortal-handles"     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>
+This property is not useful to use directly. Its value is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, to
+indicate that this version of telepathy-glib never unreferences handles
+until the connection becomes disconnected.
+</p>
+<p>Default value: TRUE</p>
+<p class="since">Since 0.13.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnection--interfaces"></a><h3>The <code class="literal">"interfaces"</code> property</h3>
+<pre class="programlisting">  "interfaces"               <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read</pre>
+<p>
+The set of D-Bus interfaces available on this Connection, other than
+Connection itself.
+</p>
+<p class="since">Since 0.11.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnection--protocol"></a><h3>The <code class="literal">"protocol"</code> property</h3>
+<pre class="programlisting">  "protocol"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only</pre>
+<p>
+Identifier used in the Telepathy protocol when this connection's protocol
+name is required.
+</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnection--self-handle"></a><h3>The <code class="literal">"self-handle"</code> property</h3>
+<pre class="programlisting">  "self-handle"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>
+The handle of type <a class="link" href="telepathy-glib-enums.html#TP-HANDLE-TYPE-CONTACT:CAPS"><code class="literal">TP_HANDLE_TYPE_CONTACT</code></a> representing the local user.
+Must be set nonzero by the subclass before moving to state CONNECTED.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.7.15</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnection.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpBaseConnection-clients-interested"></a><h3>The <code class="literal">"clients-interested"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *connection,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>            *token,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+Emitted when a client becomes interested in any token that was added with
+<a class="link" href="TpBaseConnection.html#tp-base-connection-add-possible-client-interest" title="tp_base_connection_add_possible_client_interest ()"><code class="function">tp_base_connection_add_possible_client_interest()</code></a>.
+</p>
+<p>
+The "signal detail" is a GQuark representing <em class="parameter"><code>token</code></em>. Modules implementing
+an interface (Location, say) should typically connect to a detailed signal
+like
+"clients-interested::org.freedesktop.Telepathy.Connection.Interface.Location"
+rather than receiving all emissions of this signal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection</code></em> :</span></p></td>
+<td>the <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>token</code></em> :</span></p></td>
+<td>the interface or part of an interface in which clients are newly
+interested</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnection-clients-uninterested"></a><h3>The <code class="literal">"clients-uninterested"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *connection,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>            *token,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+Emitted when no more clients are interested in an interface added with
+<a class="link" href="TpBaseConnection.html#tp-base-connection-add-possible-client-interest" title="tp_base_connection_add_possible_client_interest ()"><code class="function">tp_base_connection_add_possible_client_interest()</code></a>, for which
+<a class="link" href="TpBaseConnection.html#TpBaseConnection-clients-interested" title='The "clients-interested" signal'><span class="type">"clients-interested"</span></a> was previously emitted.
+</p>
+<p>
+As with <a class="link" href="TpBaseConnection.html#TpBaseConnection-clients-interested" title='The "clients-interested" signal'><span class="type">"clients-interested"</span></a>, the "signal detail" is a
+GQuark representing <em class="parameter"><code>token</code></em>. Modules implementing an interface (Location,
+say) should typically connect to a detailed signal like
+"clients-uninterested::org.freedesktop.Telepathy.Connection.Interface.Location"
+rather than receiving all emissions of this signal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection</code></em> :</span></p></td>
+<td>the <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>token</code></em> :</span></p></td>
+<td>the interface or part of an interface in which clients are no
+longer interested</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseConnection-shutdown-finished"></a><h3>The <code class="literal">"shutdown-finished"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *connection,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-DETAILED:CAPS"><code class="literal">Has Details</code></a></pre>
+<p>
+Emitted by <a class="link" href="TpBaseConnection.html#tp-base-connection-finish-shutdown" title="tp_base_connection_finish_shutdown ()"><code class="function">tp_base_connection_finish_shutdown()</code></a> when the underlying
+network connection has been closed; <a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a> listens
+for this signal and removes connections from its table of active
+connections when it is received.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection</code></em> :</span></p></td>
+<td>the <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpBaseConnection.see-also"></a><h2>See Also</h2>
+<a class="link" href="TpBaseConnectionManager.html" title="TpBaseConnectionManager"><span class="type">TpBaseConnectionManager</span></a>, <a class="link" href="telepathy-glib-svc-connection.html#TpSvcConnection"><span class="type">TpSvcConnection</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

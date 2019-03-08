@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>DTMF dialstring interpreter</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="telepathy-glib-simple-handler.html" title="TpSimpleHandler">
+<link rel="next" href="TpBaseCallChannel.html" title="TpBaseCallChannel">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-simple-handler.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="TpBaseCallChannel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-dtmf.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-dtmf.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#telepathy-glib-dtmf.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#telepathy-glib-dtmf.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-dtmf"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-dtmf.top_of_page"></a>DTMF dialstring interpreter</span></h2>
+<p>DTMF dialstring interpreter — Converts a dialstring into a timed sequence of events</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-dtmf.synopsis"></a><h2>Synopsis</h2>
+<a name="TpDTMFPlayer"></a><pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+struct              <a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer-struct" title="struct TpDTMFPlayer">TpDTMFPlayer</a>;
+<a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="returnvalue">TpDTMFPlayer</span></a> *      <a class="link" href="telepathy-glib-dtmf.html#tp-dtmf-player-new" title="tp_dtmf_player_new ()">tp_dtmf_player_new</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-dtmf.html#tp-dtmf-player-play" title="tp_dtmf_player_play ()">tp_dtmf_player_play</a>                 (<em class="parameter"><code><a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tones</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> tone_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> gap_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> pause_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-dtmf.html#tp-dtmf-player-cancel" title="tp_dtmf_player_cancel ()">tp_dtmf_player_cancel</a>               (<em class="parameter"><code><a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-dtmf.html#tp-dtmf-player-is-active" title="tp_dtmf_player_is_active ()">tp_dtmf_player_is_active</a>            (<em class="parameter"><code><a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a> *self</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-dtmf.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----TpDTMFPlayer
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-dtmf.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer-finished" title='The "finished" signal'>finished</a>"                                       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer-started-tone" title='The "started-tone" signal'>started-tone</a>"                                   : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer-stopped-tone" title='The "stopped-tone" signal'>stopped-tone</a>"                                   : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer-tones-deferred" title='The "tones-deferred" signal'>tones-deferred</a>"                                 : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-dtmf.description"></a><h2>Description</h2>
+<p>
+Telepathy offers two APIs for DTMF events: user interfaces can either
+call the StartTone and StopTone methods (appropriate if the user is
+pressing hardware or on-screen buttons in real time), or call
+MultipleTones or set InitialTones (appropriate if a stored dialstring
+is in use).
+</p>
+<p>
+<a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a> provides common code for connection managers that need to
+turn MultipleTones or InitialTones received from a UI into a sequence of
+start and stop events for the underlying protocol.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-dtmf.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpDTMFPlayer-struct"></a><h3>struct TpDTMFPlayer</h3>
+<pre class="programlisting">struct TpDTMFPlayer;</pre>
+<p>
+An object to convert a string of characters representing DTMF tones
+into timed start and stop events.
+</p>
+<p>
+Typically, a connection manager should instantiate one <a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a>
+for each StreamedMedia or Call channel that supports DTMF.
+</p>
+<p>
+The <a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer-started-tone" title='The "started-tone" signal'><span class="type">"started-tone"</span></a> and <a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer-stopped-tone" title='The "stopped-tone" signal'><span class="type">"stopped-tone"</span></a>
+signals should be connected to some way to play a tone, either directly
+or by emitting signals from the StreamHandler interface.
+</p>
+<p>
+The <a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer-tones-deferred" title='The "tones-deferred" signal'><span class="type">"tones-deferred"</span></a> signal should trigger emission of
+TonesDeferred.
+</p>
+<p>
+The <a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer-finished" title='The "finished" signal'><span class="type">"finished"</span></a> signal indicates that the current sequence
+of tones has finished.
+</p>
+<p class="since">Since 0.13.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-dtmf-player-new"></a><h3>tp_dtmf_player_new ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="returnvalue">TpDTMFPlayer</span></a> *      tp_dtmf_player_new                  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new DTMF interpreter. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.13.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-dtmf-player-play"></a><h3>tp_dtmf_player_play ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_dtmf_player_play                 (<em class="parameter"><code><a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tones</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> tone_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> gap_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> pause_ms</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Start to play a sequence of tones, by emitting the
+<a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer-started-tone" title='The "started-tone" signal'><span class="type">"started-tone"</span></a> and <a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer-stopped-tone" title='The "stopped-tone" signal'><span class="type">"stopped-tone"</span></a> signals.
+</p>
+<p>
+If <a class="link" href="telepathy-glib-dtmf.html#tp-dtmf-player-is-active" title="tp_dtmf_player_is_active ()"><code class="function">tp_dtmf_player_is_active()</code></a> would return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, this method raises
+<a class="link" href="telepathy-glib-errors.html#TP-ERROR-SERVICE-BUSY:CAPS"><code class="literal">TP_ERROR_SERVICE_BUSY</code></a> and does not play anything, and the previous
+sequence continues to play.
+</p>
+<p>
+The recognised characters are 0-9, A-D,
+# and * (which play the corresponding DTMF event), P, X and comma (which
+each pause for <em class="parameter"><code>pause_ms</code></em> milliseconds), and W
+(which stops interpretation of the string and emits
+<a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer-tones-deferred" title='The "tones-deferred" signal'><span class="type">"tones-deferred"</span></a> with the rest of the string). The
+corresponding lower-case letters are also allowed.
+If <em class="parameter"><code>tones</code></em> contains any other characters, this method raises
+<a class="link" href="telepathy-glib-errors.html#TP-ERROR-INVALID-ARGUMENT:CAPS"><code class="literal">TP_ERROR_INVALID_ARGUMENT</code></a> and does not play anything.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a DTMF interpreter</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tones</code></em> :</span></p></td>
+<td>a sequence of tones or other events</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tone_ms</code></em> :</span></p></td>
+<td>length of a tone (0-9, A-D, # or *) in milliseconds,
+which must be positive; typically 250</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gap_ms</code></em> :</span></p></td>
+<td>length of the gap between two tones, which must be positive;
+typically 100</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pause_ms</code></em> :</span></p></td>
+<td>length of the pause produced by P, X or comma, which must be
+positive; typically 3000</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>used to raise an error</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> (setting <em class="parameter"><code>error</code></em>) on failure</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-dtmf-player-cancel"></a><h3>tp_dtmf_player_cancel ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_dtmf_player_cancel               (<em class="parameter"><code><a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a> *self</code></em>);</pre>
+<p>
+If tones were being played, stop the current tone (if any),
+stop playing subsequent tones, and emit <a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer-finished" title='The "finished" signal'><span class="type">"finished"</span></a>.
+</p>
+<p>
+Otherwise, do nothing.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a DTMF interpreter</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.13.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-dtmf-player-is-active"></a><h3>tp_dtmf_player_is_active ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_dtmf_player_is_active            (<em class="parameter"><code><a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a DTMF interpreter</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if a sequence of tones is currently playing</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.3</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-dtmf.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpDTMFPlayer-finished"></a><h3>The <code class="literal">"finished"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>      cancelled,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted when playback stops, either because the end of the
+sequence was reached, <a class="link" href="telepathy-glib-dtmf.html#tp-dtmf-player-cancel" title="tp_dtmf_player_cancel ()"><code class="function">tp_dtmf_player_cancel()</code></a> was called, or a 'W'
+or 'w' character was encountered.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancelled</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if playback was cancelled with <a class="link" href="telepathy-glib-dtmf.html#tp-dtmf-player-cancel" title="tp_dtmf_player_cancel ()"><code class="function">tp_dtmf_player_cancel()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpDTMFPlayer-started-tone"></a><h3>The <code class="literal">"started-tone"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>         event,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted at the beginning of each tone.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-TYPE-UINT:CAPS"><code class="literal">G_TYPE_UINT</code></a> representing the tone being played</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpDTMFPlayer-stopped-tone"></a><h3>The <code class="literal">"stopped-tone"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted at the end of each tone.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.3</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpDTMFPlayer-tones-deferred"></a><h3>The <code class="literal">"tones-deferred"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>        *tones,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted just before <a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer-finished" title='The "finished" signal'><span class="type">"finished"</span></a> if a 'W' or 'w' character
+is encountered before the end of a dial string. The connection
+manager is expected to wait for the user to confirm, then call
+<a class="link" href="telepathy-glib-dtmf.html#tp-dtmf-player-play" title="tp_dtmf_player_play ()"><code class="function">tp_dtmf_player_play()</code></a> again, using this signal's argument as the new
+dial string.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="telepathy-glib-dtmf.html#TpDTMFPlayer"><span class="type">TpDTMFPlayer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tones</code></em> :</span></p></td>
+<td>the remaining tones, starting from just after the 'W' or 'w'</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.3</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

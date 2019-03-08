@@ -1,0 +1,761 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TplLogManager</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-logger Reference Manual">
+<link rel="up" href="ch-public.html" title="libtelepathy-logger API">
+<link rel="prev" href="ch-public.html" title="libtelepathy-logger API">
+<link rel="next" href="TplEvent.html" title="TplEvent">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch-public.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-public.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-logger Reference Manual</th>
+<td><a accesskey="n" href="TplEvent.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#TplLogManager.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#TplLogManager.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#TplLogManager.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="TplLogManager"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="TplLogManager.top_of_page"></a>TplLogManager</span></h2>
+<p>TplLogManager — Fetch and search through logs</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="TplLogManager.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="TplLogManager.html#TPL-LOG-MANAGER-ERROR:CAPS" title="TPL_LOG_MANAGER_ERROR">TPL_LOG_MANAGER_ERROR</a>
+#define             <a class="link" href="TplLogManager.html#TPL-TYPE-LOG-SEARCH-HIT:CAPS" title="TPL_TYPE_LOG_SEARCH_HIT">TPL_TYPE_LOG_SEARCH_HIT</a>
+enum                <a class="link" href="TplLogManager.html#TplEventTypeMask" title="enum TplEventTypeMask">TplEventTypeMask</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="TplLogManager.html#TplLogEventFilter" title="TplLogEventFilter ()">*TplLogEventFilter</a>)                (<em class="parameter"><code><a class="link" href="TplEvent.html" title="TplEvent"><span class="type">TplEvent</span></a> *event</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+struct              <a class="link" href="TplLogManager.html#TplLogManager-struct" title="struct TplLogManager">TplLogManager</a>;
+enum                <a class="link" href="TplLogManager.html#TplLogManagerError" title="enum TplLogManagerError">TplLogManagerError</a>;
+<a class="link" href="TplLogManager.html" title="TplLogManager"><span class="returnvalue">TplLogManager</span></a> *     <a class="link" href="TplLogManager.html#tpl-log-manager-dup-singleton" title="tpl_log_manager_dup_singleton ()">tpl_log_manager_dup_singleton</a>       (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>              <a class="link" href="TplLogManager.html#tpl-log-manager-errors-quark" title="tpl_log_manager_errors_quark ()">tpl_log_manager_errors_quark</a>        (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TplLogManager.html#tpl-log-manager-exists" title="tpl_log_manager_exists ()">tpl_log_manager_exists</a>              (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *manager</code></em>,
+                                                         <em class="parameter"><code><a href="http://telepathy.freedesktop.org/doc/telepathy-glib-0.20.x/telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> *account</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TplEntity.html" title="TplEntity"><span class="type">TplEntity</span></a> *target</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> type_mask</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TplLogManager.html#tpl-log-manager-get-dates-async" title="tpl_log_manager_get_dates_async ()">tpl_log_manager_get_dates_async</a>     (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *manager</code></em>,
+                                                         <em class="parameter"><code><a href="http://telepathy.freedesktop.org/doc/telepathy-glib-0.20.x/telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> *account</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TplEntity.html" title="TplEntity"><span class="type">TplEntity</span></a> *target</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> type_mask</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TplLogManager.html#tpl-log-manager-get-dates-finish" title="tpl_log_manager_get_dates_finish ()">tpl_log_manager_get_dates_finish</a>    (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **dates</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TplLogManager.html#tpl-log-manager-get-entities-async" title="tpl_log_manager_get_entities_async ()">tpl_log_manager_get_entities_async</a>  (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://telepathy.freedesktop.org/doc/telepathy-glib-0.20.x/telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> *account</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TplLogManager.html#tpl-log-manager-get-entities-finish" title="tpl_log_manager_get_entities_finish ()">tpl_log_manager_get_entities_finish</a> (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **entities</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TplLogManager.html#tpl-log-manager-get-events-for-date-async" title="tpl_log_manager_get_events_for_date_async ()">tpl_log_manager_get_events_for_date_async</a>
+                                                        (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *manager</code></em>,
+                                                         <em class="parameter"><code><a href="http://telepathy.freedesktop.org/doc/telepathy-glib-0.20.x/telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> *account</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TplEntity.html" title="TplEntity"><span class="type">TplEntity</span></a> *target</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> type_mask</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#GDate"><span class="type">GDate</span></a> *date</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TplLogManager.html#tpl-log-manager-get-events-for-date-finish" title="tpl_log_manager_get_events_for_date_finish ()">tpl_log_manager_get_events_for_date_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **events</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TplLogManager.html#tpl-log-manager-get-filtered-events-async" title="tpl_log_manager_get_filtered_events_async ()">tpl_log_manager_get_filtered_events_async</a>
+                                                        (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *manager</code></em>,
+                                                         <em class="parameter"><code><a href="http://telepathy.freedesktop.org/doc/telepathy-glib-0.20.x/telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> *account</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TplEntity.html" title="TplEntity"><span class="type">TplEntity</span></a> *target</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> type_mask</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> num_events</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TplLogManager.html#TplLogEventFilter" title="TplLogEventFilter ()"><span class="type">TplLogEventFilter</span></a> filter</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> filter_user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TplLogManager.html#tpl-log-manager-get-filtered-events-finish" title="tpl_log_manager_get_filtered_events_finish ()">tpl_log_manager_get_filtered_events_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **events</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TplLogManager.html#tpl-log-manager-search-async" title="tpl_log_manager_search_async ()">tpl_log_manager_search_async</a>        (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *manager</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *text</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> type_mask</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TplLogManager.html#tpl-log-manager-search-finish" title="tpl_log_manager_search_finish ()">tpl_log_manager_search_finish</a>       (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **hits</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TplLogManager.html#tpl-log-manager-search-free" title="tpl_log_manager_search_free ()">tpl_log_manager_search_free</a>         (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *hits</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="TplLogManager.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----TplLogManager
+</pre>
+</div>
+<div class="refsect1">
+<a name="TplLogManager.description"></a><h2>Description</h2>
+<p>
+The <a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> object allows user to fetch logs and make searches.
+</p>
+</div>
+<div class="refsect1">
+<a name="TplLogManager.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TPL-LOG-MANAGER-ERROR:CAPS"></a><h3>TPL_LOG_MANAGER_ERROR</h3>
+<pre class="programlisting">#define TPL_LOG_MANAGER_ERROR tpl_log_manager_errors_quark()
+</pre>
+<p>
+The error domain for the <a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TPL-TYPE-LOG-SEARCH-HIT:CAPS"></a><h3>TPL_TYPE_LOG_SEARCH_HIT</h3>
+<pre class="programlisting">#define TPL_TYPE_LOG_SEARCH_HIT (_tpl_log_manager_search_hit_get_type ())
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TplEventTypeMask"></a><h3>enum TplEventTypeMask</h3>
+<pre class="programlisting">typedef enum {
+  TPL_EVENT_MASK_TEXT         = 1 &lt;&lt; 0,
+  TPL_EVENT_MASK_CALL         = 1 &lt;&lt; 1,
+  TPL_EVENT_MASK_ANY          = 0xffff
+} TplEventTypeMask;
+</pre>
+<p>
+Mask used to filter type of <a class="link" href="TplEvent.html" title="TplEvent"><span class="type">TplEvent</span></a> returned.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="TPL-EVENT-MASK-TEXT:CAPS"></a><span class="term"><code class="literal">TPL_EVENT_MASK_TEXT</code></span></p></td>
+<td>Mask to <a class="link" href="TplTextEvent.html" title="TplTextEvent"><span class="type">TplTextEvent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="TPL-EVENT-MASK-CALL:CAPS"></a><span class="term"><code class="literal">TPL_EVENT_MASK_CALL</code></span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><a name="TPL-EVENT-MASK-ANY:CAPS"></a><span class="term"><code class="literal">TPL_EVENT_MASK_ANY</code></span></p></td>
+<td>Special value to select all type of <a class="link" href="TplEvent.html" title="TplEvent"><span class="type">TplEvent</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TplLogEventFilter"></a><h3>TplLogEventFilter ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TplLogEventFilter)                (<em class="parameter"><code><a class="link" href="TplEvent.html" title="TplEvent"><span class="type">TplEvent</span></a> *event</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>the <a class="link" href="TplEvent.html" title="TplEvent"><span class="type">TplEvent</span></a> to filter</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user-supplied data</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>event</code></em> should appear in the result</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TplLogManager-struct"></a><h3>struct TplLogManager</h3>
+<pre class="programlisting">struct TplLogManager;</pre>
+<p>
+An object used to access logs
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TplLogManagerError"></a><h3>enum TplLogManagerError</h3>
+<pre class="programlisting">typedef enum {
+  TPL_LOG_MANAGER_ERROR_ADD_EVENT
+} TplLogManagerError;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><a name="TPL-LOG-MANAGER-ERROR-ADD-EVENT:CAPS"></a><span class="term"><code class="literal">TPL_LOG_MANAGER_ERROR_ADD_EVENT</code></span></p></td>
+<td>Error return when adding logs fails
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tpl-log-manager-dup-singleton"></a><h3>tpl_log_manager_dup_singleton ()</h3>
+<pre class="programlisting"><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="returnvalue">TplLogManager</span></a> *     tpl_log_manager_dup_singleton       (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new reference on the log manager. <span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tpl-log-manager-errors-quark"></a><h3>tpl_log_manager_errors_quark ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>              tpl_log_manager_errors_quark        (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> associated with the error domain of <a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tpl-log-manager-exists"></a><h3>tpl_log_manager_exists ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tpl_log_manager_exists              (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *manager</code></em>,
+                                                         <em class="parameter"><code><a href="http://telepathy.freedesktop.org/doc/telepathy-glib-0.20.x/telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> *account</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TplEntity.html" title="TplEntity"><span class="type">TplEntity</span></a> *target</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> type_mask</code></em>);</pre>
+<p>
+Checks if logs exist for <em class="parameter"><code>target</code></em>.
+</p>
+<p>
+It applies for any registered TplLogStore with the <span class="type">"readable"</span>
+property <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>manager</code></em> :</span></p></td>
+<td>TplLogManager</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>account</code></em> :</span></p></td>
+<td>TpAccount</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>target</code></em> :</span></p></td>
+<td>a non-NULL <a class="link" href="TplEntity.html" title="TplEntity"><span class="type">TplEntity</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type_mask</code></em> :</span></p></td>
+<td>event type filter see <a class="link" href="TplLogManager.html#TplEventTypeMask" title="enum TplEventTypeMask"><span class="type">TplEventTypeMask</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> logs exist for <em class="parameter"><code>target</code></em>, otherwise <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tpl-log-manager-get-dates-async"></a><h3>tpl_log_manager_get_dates_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tpl_log_manager_get_dates_async     (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *manager</code></em>,
+                                                         <em class="parameter"><code><a href="http://telepathy.freedesktop.org/doc/telepathy-glib-0.20.x/telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> *account</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TplEntity.html" title="TplEntity"><span class="type">TplEntity</span></a> *target</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> type_mask</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Retrieves a list of <a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#GDate"><span class="type">GDate</span></a> corresponding to each day where
+at least one event exist for <em class="parameter"><code>target</code></em>.
+</p>
+<p>
+It applies for any registered TplLogStore with the <span class="type">"readable"</span>
+property <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>manager</code></em> :</span></p></td>
+<td>a <a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>account</code></em> :</span></p></td>
+<td>a <a href="http://telepathy.freedesktop.org/doc/telepathy-glib-0.20.x/telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>target</code></em> :</span></p></td>
+<td>a non-NULL <a class="link" href="TplEntity.html" title="TplEntity"><span class="type">TplEntity</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type_mask</code></em> :</span></p></td>
+<td>event type filter see <a class="link" href="TplLogManager.html#TplEventTypeMask" title="enum TplEventTypeMask"><span class="type">TplEventTypeMask</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the request is satisfied</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tpl-log-manager-get-dates-finish"></a><h3>tpl_log_manager_get_dates_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tpl_log_manager_get_dates_finish    (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **dates</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dates</code></em> :</span></p></td>
+<td>a pointer to a
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> used to return the list of <a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#GDate"><span class="type">GDate</span></a>. <span class="annotation">[<a href="http://foldoc.org/out"><span class="acronym">out</span></a>][<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>][<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> GLib.Date]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><span class="type">TRUE</span></a> if the operation was successful, otherwise <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><span class="type">FALSE</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tpl-log-manager-get-entities-async"></a><h3>tpl_log_manager_get_entities_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tpl_log_manager_get_entities_async  (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://telepathy.freedesktop.org/doc/telepathy-glib-0.20.x/telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> *account</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Start a query looking for all entities for which you have logs in the <em class="parameter"><code>account</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>account</code></em> :</span></p></td>
+<td>a <a href="http://telepathy.freedesktop.org/doc/telepathy-glib-0.20.x/telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the request is satisfied</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tpl-log-manager-get-entities-finish"></a><h3>tpl_log_manager_get_entities_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tpl_log_manager_get_entities_finish (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **entities</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entities</code></em> :</span></p></td>
+<td>a
+pointer to a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> used to return the list of <a class="link" href="TplEntity.html" title="TplEntity"><span class="type">TplEntity</span></a>, to be freed
+using something like g_list_free_full (lst, g_object_unref). <span class="annotation">[<a href="http://foldoc.org/out"><span class="acronym">out</span></a>][<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>][<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> TelepathyLogger.Entity]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><span class="type">TRUE</span></a> if the operation was successful, otherwise <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><span class="type">FALSE</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tpl-log-manager-get-events-for-date-async"></a><h3>tpl_log_manager_get_events_for_date_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tpl_log_manager_get_events_for_date_async
+                                                        (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *manager</code></em>,
+                                                         <em class="parameter"><code><a href="http://telepathy.freedesktop.org/doc/telepathy-glib-0.20.x/telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> *account</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TplEntity.html" title="TplEntity"><span class="type">TplEntity</span></a> *target</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> type_mask</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#GDate"><span class="type">GDate</span></a> *date</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Retrieve a list of <a class="link" href="TplEvent.html" title="TplEvent"><span class="type">TplEvent</span></a> at <em class="parameter"><code>date</code></em> with <em class="parameter"><code>target</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>manager</code></em> :</span></p></td>
+<td>a <a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>account</code></em> :</span></p></td>
+<td>a <a href="http://telepathy.freedesktop.org/doc/telepathy-glib-0.20.x/telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>target</code></em> :</span></p></td>
+<td>a non-NULL <a class="link" href="TplEntity.html" title="TplEntity"><span class="type">TplEntity</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type_mask</code></em> :</span></p></td>
+<td>event type filter see <a class="link" href="TplLogManager.html#TplEventTypeMask" title="enum TplEventTypeMask"><span class="type">TplEventTypeMask</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>date</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#GDate"><span class="type">GDate</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the request is satisfied</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tpl-log-manager-get-events-for-date-finish"></a><h3>tpl_log_manager_get_events_for_date_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tpl_log_manager_get_events_for_date_finish
+                                                        (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **events</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>events</code></em> :</span></p></td>
+<td>a
+pointer to a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> used to return the list of <a class="link" href="TplEvent.html" title="TplEvent"><span class="type">TplEvent</span></a>. <span class="annotation">[<a href="http://foldoc.org/out"><span class="acronym">out</span></a>][<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>][<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> TelepathyLogger.Event]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><span class="type">TRUE</span></a> if the operation was successful, otherwise <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><span class="type">FALSE</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tpl-log-manager-get-filtered-events-async"></a><h3>tpl_log_manager_get_filtered_events_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tpl_log_manager_get_filtered_events_async
+                                                        (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *manager</code></em>,
+                                                         <em class="parameter"><code><a href="http://telepathy.freedesktop.org/doc/telepathy-glib-0.20.x/telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a> *account</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TplEntity.html" title="TplEntity"><span class="type">TplEntity</span></a> *target</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> type_mask</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> num_events</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TplLogManager.html#TplLogEventFilter" title="TplLogEventFilter ()"><span class="type">TplLogEventFilter</span></a> filter</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> filter_user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Retrieve the most recent <em class="parameter"><code>num_event</code></em> events exchanged with <em class="parameter"><code>target</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>manager</code></em> :</span></p></td>
+<td>a <a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>account</code></em> :</span></p></td>
+<td>a <a href="http://telepathy.freedesktop.org/doc/telepathy-glib-0.20.x/telepathy-glib-account.html#TpAccount"><span class="type">TpAccount</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>target</code></em> :</span></p></td>
+<td>a non-NULL <a class="link" href="TplEntity.html" title="TplEntity"><span class="type">TplEntity</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type_mask</code></em> :</span></p></td>
+<td>event type filter see <a class="link" href="TplLogManager.html#TplEventTypeMask" title="enum TplEventTypeMask"><span class="type">TplEventTypeMask</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>num_events</code></em> :</span></p></td>
+<td>number of maximum events to fetch</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filter</code></em> :</span></p></td>
+<td>an optional filter function. <span class="annotation">[<a href="http://foldoc.org/scope%20call"><span class="acronym">scope call</span></a>][<a href="http://foldoc.org/allow-none"><span class="acronym">allow-none</span></a>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filter_user_data</code></em> :</span></p></td>
+<td>user data to pass to <em class="parameter"><code>filter</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when
+the request is satisfied. <span class="annotation">[<a href="http://foldoc.org/scope%20async"><span class="acronym">scope async</span></a>][<a href="http://foldoc.org/allow-none"><span class="acronym">allow-none</span></a>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tpl-log-manager-get-filtered-events-finish"></a><h3>tpl_log_manager_get_filtered_events_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tpl_log_manager_get_filtered_events_finish
+                                                        (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **events</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>events</code></em> :</span></p></td>
+<td>a pointer to a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> used to return the list <a class="link" href="TplEvent.html" title="TplEvent"><span class="type">TplEvent</span></a>. <span class="annotation">[<a href="http://foldoc.org/out"><span class="acronym">out</span></a>][<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>][<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> TelepathyLogger.Event]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><span class="type">TRUE</span></a> if the operation was successful, otherwise <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><span class="type">FALSE</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tpl-log-manager-search-async"></a><h3>tpl_log_manager_search_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tpl_log_manager_search_async        (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *manager</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *text</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> type_mask</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Search for all the conversations containing <em class="parameter"><code>text</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>manager</code></em> :</span></p></td>
+<td>a <a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td>the pattern to search</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type_mask</code></em> :</span></p></td>
+<td>event type filter see <a class="link" href="TplLogManager.html#TplEventTypeMask" title="enum TplEventTypeMask"><span class="type">TplEventTypeMask</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>a callback to call when the request is satisfied</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>callback</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tpl-log-manager-search-finish"></a><h3>tpl_log_manager_search_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tpl_log_manager_search_finish       (<em class="parameter"><code><a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **hits</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TplLogManager.html" title="TplLogManager"><span class="type">TplLogManager</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hits</code></em> :</span></p></td>
+<td>a
+pointer to a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> used to return the list of <span class="type">TplLogSearchHit</span>. <span class="annotation">[<a href="http://foldoc.org/out"><span class="acronym">out</span></a>][<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>][<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> TelepathyLogger.SearchHit]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><span class="type">TRUE</span></a> if the operation was successful, otherwise <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><span class="type">FALSE</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tpl-log-manager-search-free"></a><h3>tpl_log_manager_search_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tpl_log_manager_search_free         (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *hits</code></em>);</pre>
+<p>
+Free <em class="parameter"><code>hits</code></em> and its content.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>hits</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of <span class="type">TplLogSearchHit</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

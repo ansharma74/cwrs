@@ -1,0 +1,1062 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpBaseChannel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="TpExportableChannel.html" title="TpExportableChannel">
+<link rel="next" href="telepathy-glib-TpPresenceMixin.html" title="TpPresenceMixin">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="TpExportableChannel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-TpPresenceMixin.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#TpBaseChannel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#TpBaseChannel.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#TpBaseChannel.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#TpBaseChannel.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#TpBaseChannel.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="TpBaseChannel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="TpBaseChannel.top_of_page"></a>TpBaseChannel</span></h2>
+<p>TpBaseChannel — base class for <a class="link" href="TpExportableChannel.html" title="TpExportableChannel"><span class="type">TpExportableChannel</span></a> implementations</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="TpBaseChannel.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+                    <a class="link" href="TpBaseChannel.html#TpBaseChannel-struct" title="TpBaseChannel">TpBaseChannel</a>;
+struct              <a class="link" href="TpBaseChannel.html#TpBaseChannelClass" title="struct TpBaseChannelClass">TpBaseChannelClass</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="TpBaseChannel.html#TpBaseChannelFillPropertiesFunc" title="TpBaseChannelFillPropertiesFunc ()">*TpBaseChannelFillPropertiesFunc</a>)  (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *properties</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="TpBaseChannel.html#TpBaseChannelCloseFunc" title="TpBaseChannelCloseFunc ()">*TpBaseChannelCloseFunc</a>)           (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             (<a class="link" href="TpBaseChannel.html#TpBaseChannelGetPathFunc" title="TpBaseChannelGetPathFunc ()">*TpBaseChannelGetPathFunc</a>)         (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (<a class="link" href="TpBaseChannel.html#TpBaseChannelGetInterfacesFunc" title="TpBaseChannelGetInterfacesFunc ()">*TpBaseChannelGetInterfacesFunc</a>)   (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseChannel.html#tp-base-channel-register" title="tp_base_channel_register ()">tp_base_channel_register</a>            (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseChannel.html#tp-base-channel-close" title="tp_base_channel_close ()">tp_base_channel_close</a>               (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseChannel.html#tp-base-channel-destroyed" title="tp_base_channel_destroyed ()">tp_base_channel_destroyed</a>           (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseChannel.html#tp-base-channel-reopened" title="tp_base_channel_reopened ()">tp_base_channel_reopened</a>            (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> initiator</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseChannel.html#tp-base-channel-disappear" title="tp_base_channel_disappear ()">tp_base_channel_disappear</a>           (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpBaseChannel.html#tp-base-channel-reopened-with-requested" title="tp_base_channel_reopened_with_requested ()">tp_base_channel_reopened_with_requested</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> requested</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> initiator</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="TpBaseChannel.html#tp-base-channel-get-object-path" title="tp_base_channel_get_object_path ()">tp_base_channel_get_object_path</a>     (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+<a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="returnvalue">TpBaseConnection</span></a> *  <a class="link" href="TpBaseChannel.html#tp-base-channel-get-connection" title="tp_base_channel_get_connection ()">tp_base_channel_get_connection</a>      (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+<a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="returnvalue">TpHandle</span></a>            <a class="link" href="TpBaseChannel.html#tp-base-channel-get-self-handle" title="tp_base_channel_get_self_handle ()">tp_base_channel_get_self_handle</a>     (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+<a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="returnvalue">TpHandle</span></a>            <a class="link" href="TpBaseChannel.html#tp-base-channel-get-target-handle" title="tp_base_channel_get_target_handle ()">tp_base_channel_get_target_handle</a>   (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+<a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="returnvalue">TpHandle</span></a>            <a class="link" href="TpBaseChannel.html#tp-base-channel-get-initiator" title="tp_base_channel_get_initiator ()">tp_base_channel_get_initiator</a>       (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpBaseChannel.html#tp-base-channel-is-requested" title="tp_base_channel_is_requested ()">tp_base_channel_is_requested</a>        (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpBaseChannel.html#tp-base-channel-is-registered" title="tp_base_channel_is_registered ()">tp_base_channel_is_registered</a>       (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpBaseChannel.html#tp-base-channel-is-destroyed" title="tp_base_channel_is_destroyed ()">tp_base_channel_is_destroyed</a>        (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpBaseChannel.html#tp-base-channel-is-respawning" title="tp_base_channel_is_respawning ()">tp_base_channel_is_respawning</a>       (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseChannel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----TpBaseChannel
+         +----<a class="link" href="TpBaseCallChannel.html" title="TpBaseCallChannel">TpBaseCallChannel</a>
+         +----<a class="link" href="telepathy-glib-base-password-channel.html#TpBasePasswordChannel">TpBasePasswordChannel</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseChannel.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+TpBaseChannel implements
+ <a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties">TpSvcDBusProperties</a>,  <a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannel">TpSvcChannel</a>,  <a class="link" href="TpChannelIface.html" title="TpChannelIface">TpChannelIface</a> and  <a class="link" href="TpExportableChannel.html" title="TpExportableChannel">TpExportableChannel</a>.</p>
+</div>
+<div class="refsect1">
+<a name="TpBaseChannel.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="TpBaseChannel.html#TpBaseChannel--connection" title='The "connection" property'>connection</a>"               <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>*     : Read / Write / Construct Only
+  "<a class="link" href="TpBaseChannel.html#TpBaseChannel--initiator-handle" title='The "initiator-handle" property'>initiator-handle</a>"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct Only
+  "<a class="link" href="TpBaseChannel.html#TpBaseChannel--initiator-id" title='The "initiator-id" property'>initiator-id</a>"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read
+  "<a class="link" href="TpBaseChannel.html#TpBaseChannel--interfaces" title='The "interfaces" property'>interfaces</a>"               <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read
+  "<a class="link" href="TpBaseChannel.html#TpBaseChannel--requested" title='The "requested" property'>requested</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct Only
+  "<a class="link" href="TpBaseChannel.html#TpBaseChannel--target-id" title='The "target-id" property'>target-id</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpBaseChannel.description"></a><h2>Description</h2>
+<p>
+This base class makes it easier to write <a class="link" href="TpExportableChannel.html" title="TpExportableChannel"><span class="type">TpExportableChannel</span></a>
+implementations by implementing some of its properties, and defining other
+relevant properties.
+</p>
+<p>
+Subclasses should fill in <a class="link" href="TpBaseChannel.html#TpBaseChannelClass.channel-type"><span class="type">TpBaseChannelClass.channel_type</span></a> and
+<a class="link" href="TpBaseChannel.html#TpBaseChannelClass.target-handle-type"><span class="type">TpBaseChannelClass.target_handle_type</span></a>; and implement the
+<a class="link" href="TpBaseChannel.html#TpBaseChannelClass.get-interfaces"><span class="type">TpBaseChannelClass.get_interfaces</span></a> and
+<a class="link" href="TpBaseChannel.html#TpBaseChannelClass.close"><span class="type">TpBaseChannelClass.close</span></a> virtual functions.
+</p>
+<p>
+If the channel type and/or interfaces being implemented define immutable
+D-Bus properties besides those on the Channel interface, the subclass should
+implement the <a class="link" href="TpBaseChannel.html#TpBaseChannelClass.fill-immutable-properties"><span class="type">TpBaseChannelClass.fill_immutable_properties</span></a> virtual function.
+</p>
+<p>
+If the <a class="link" href="TpExportableChannel.html#TpExportableChannel--object-path" title='The "object-path" property'><span class="type">"object-path"</span></a> property is not set at construct
+time, the <a class="link" href="TpBaseChannel.html#TpBaseChannelClass.get-object-path-suffix"><span class="type">TpBaseChannelClass.get_object_path_suffix</span></a> virtual function will
+be called to determine the channel's path, whose default implementation
+simply generates a unique path based on the object's address in memory.
+</p>
+<p>
+<a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> also has the ability to remove the channel from the
+bus, but keep the object around. To close the channel and remove it
+from the bus, subclasses should call
+<a class="link" href="TpBaseChannel.html#tp-base-channel-disappear" title="tp_base_channel_disappear ()"><code class="function">tp_base_channel_disappear()</code></a>. To bring the channel back, subclasses
+use <a class="link" href="TpBaseChannel.html#tp-base-channel-reopened-with-requested" title="tp_base_channel_reopened_with_requested ()"><code class="function">tp_base_channel_reopened_with_requested()</code></a> and the channel
+should be re-announced with
+<a class="link" href="TpChannelManager.html#tp-channel-manager-emit-new-channel" title="tp_channel_manager_emit_new_channel ()"><code class="function">tp_channel_manager_emit_new_channel()</code></a>. Note that channels which can
+disappear but can also reopen due to pending messages need special
+casing by the channel manager:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">static void</span>
+<span class="function">channel_closed_cb</span> <span class="gtkdoc opt">(</span>TpBaseChannel <span class="gtkdoc opt">*</span>chan<span class="gtkdoc opt">,</span>
+    TpChannelManager <span class="gtkdoc opt">*</span>manager<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  MyChannelManager <span class="gtkdoc opt">*</span>self <span class="gtkdoc opt">=</span> <span class="function">MY_CHANNEL_MANAGER</span> <span class="gtkdoc opt">(</span>manager<span class="gtkdoc opt">);</span>
+  TpHandle handle <span class="gtkdoc opt">=</span> <span class="function"><a href="TpBaseChannel.html#tp-base-channel-get-target-handle">tp_base_channel_get_target_handle</a></span> <span class="gtkdoc opt">(</span>chan<span class="gtkdoc opt">);</span>
+
+  <span class="gtkdoc slc">// first, emit ChannelClosed if the channel is registered (it</span>
+  <span class="gtkdoc slc">// won't be registered if it is appearing from being hidden, so</span>
+  <span class="gtkdoc slc">// let's not emit the signal in this case)</span>
+  <span class="keyword">if</span> <span class="gtkdoc opt">(</span><span class="function"><a href="TpBaseChannel.html#tp-base-channel-is-registered">tp_base_channel_is_registered</a></span> <span class="gtkdoc opt">(</span>chan<span class="gtkdoc opt">))</span>
+    <span class="gtkdoc opt">{</span>
+      <span class="function"><a href="TpChannelManager.html#tp-channel-manager-emit-channel-closed">tp_channel_manager_emit_channel_closed</a></span> <span class="gtkdoc opt">(</span>manager<span class="gtkdoc opt">,</span>
+          <span class="function">TP_EXPORTABLE_CHANNEL</span> <span class="gtkdoc opt">(</span>chan<span class="gtkdoc opt">));</span>
+    <span class="gtkdoc opt">}</span>
+
+  <span class="keyword">if</span> <span class="gtkdoc opt">(</span><span class="function"><a href="TpBaseChannel.html#tp-base-channel-is-destroyed">tp_base_channel_is_destroyed</a></span> <span class="gtkdoc opt">(</span>chan<span class="gtkdoc opt">))</span>
+    <span class="gtkdoc opt">{</span>
+      <span class="gtkdoc slc">// destroyed() must have been called; forget this channel</span>
+      <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#g-hash-table-remove">g_hash_table_remove</a></span> <span class="gtkdoc opt">(</span>self<span class="gtkdoc opt">-&gt;</span>priv<span class="gtkdoc opt">-&gt;</span>channels<span class="gtkdoc opt">,</span> handle<span class="gtkdoc opt">);</span>
+    <span class="gtkdoc opt">}</span>
+  <span class="keyword">else if</span> <span class="gtkdoc opt">(</span><span class="function"><a href="TpBaseChannel.html#tp-base-channel-is-respawning">tp_base_channel_is_respawning</a></span> <span class="gtkdoc opt">(</span>chan<span class="gtkdoc opt">))</span>
+    <span class="gtkdoc opt">{</span>
+      <span class="gtkdoc slc">// reopened_with_requested() must have been called; re-announce the channel</span>
+      <span class="function"><a href="TpChannelManager.html#tp-channel-manager-emit-new-channel">tp_channel_manager_emit_new_channel</a></span> <span class="gtkdoc opt">(</span>manager<span class="gtkdoc opt">,</span> <span class="function">TP_EXPORTABLE_CHANNEL</span> <span class="gtkdoc opt">(</span>chan<span class="gtkdoc opt">));</span>
+    <span class="gtkdoc opt">}</span>
+  <span class="keyword">else</span>
+    <span class="gtkdoc opt">{</span>
+      <span class="gtkdoc slc">// disappear() must have been called, do nothing special</span>
+    <span class="gtkdoc opt">}</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+and the <a class="link" href="TpChannelManager.html#TpChannelManagerIface.foreach-channel"><span class="type">TpChannelManagerIface.foreach_channel</span></a> virtual function
+should be updated to only include registered channels:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">static void</span>
+<span class="function">foreach_channel</span> <span class="gtkdoc opt">(</span>TpChannelManager <span class="gtkdoc opt">*</span>manager<span class="gtkdoc opt">,</span>
+    TpChannelManagerChannelClassFunc func<span class="gtkdoc opt">,</span>
+    gpointer user_data<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  MyChannelManager <span class="gtkdoc opt">*</span>self <span class="gtkdoc opt">=</span> <span class="function">MY_CHANNEL_MANAGER</span> <span class="gtkdoc opt">(</span>manager<span class="gtkdoc opt">);</span>
+  GHashTableIter iter<span class="gtkdoc opt">;</span>
+  gpointer chan<span class="gtkdoc opt">;</span>
+
+  <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#g-hash-table-iter-init">g_hash_table_iter_init</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">,</span> self<span class="gtkdoc opt">-&gt;</span>priv<span class="gtkdoc opt">-&gt;</span>channels<span class="gtkdoc opt">);</span>
+  <span class="keyword">while</span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#g-hash-table-iter-next">g_hash_table_iter_next</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">,</span> NULL<span class="gtkdoc opt">, &amp;</span>chan<span class="gtkdoc opt">))</span>
+    <span class="gtkdoc opt">{</span>
+      <span class="keyword">if</span> <span class="gtkdoc opt">(</span><span class="function"><a href="TpBaseChannel.html#tp-base-channel-is-registered">tp_base_channel_is_registered</a></span> <span class="gtkdoc opt">(</span><span class="function">TP_BASE_CHANNEL</span> <span class="gtkdoc opt">(</span>chan<span class="gtkdoc opt">)))</span>
+        <span class="function">func</span> <span class="gtkdoc opt">(</span><span class="function">TP_EXPORTABLE_CHANNEL</span> <span class="gtkdoc opt">(</span>chan<span class="gtkdoc opt">),</span> user_data<span class="gtkdoc opt">);</span>
+    <span class="gtkdoc opt">}</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="TpBaseChannel.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpBaseChannel-struct"></a><h3>TpBaseChannel</h3>
+<pre class="programlisting">typedef struct _TpBaseChannel TpBaseChannel;</pre>
+<p>
+A base class for channel implementations
+</p>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseChannelClass"></a><h3>struct TpBaseChannelClass</h3>
+<pre class="programlisting">struct TpBaseChannelClass {
+  TpDBusPropertiesMixinClass dbus_props_class;
+
+  const gchar *channel_type;
+  TpHandleType target_handle_type;
+
+  TpBaseChannelCloseFunc close;
+  TpBaseChannelFillPropertiesFunc fill_immutable_properties;
+  TpBaseChannelGetPathFunc get_object_path_suffix;
+  TpBaseChannelGetInterfacesFunc get_interfaces;
+};
+</pre>
+<p>
+The class structure for <a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinClass" title="TpDBusPropertiesMixinClass"><span class="type">TpDBusPropertiesMixinClass</span></a> <em class="structfield"><code><a name="TpBaseChannelClass.dbus-props-class"></a>dbus_props_class</code></em>;</span></p></td>
+<td>The class structure for the DBus properties mixin</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="TpBaseChannelClass.channel-type"></a>channel_type</code></em>;</span></p></td>
+<td>The type of channel that instances of this class represent
+(e.g. <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-CHANNEL-TYPE-TEXT:CAPS" title="TP_IFACE_CHANNEL_TYPE_TEXT"><span class="type">TP_IFACE_CHANNEL_TYPE_TEXT</span></a>)</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-enums.html#TpHandleType" title="enum TpHandleType"><span class="type">TpHandleType</span></a> <em class="structfield"><code><a name="TpBaseChannelClass.target-handle-type"></a>target_handle_type</code></em>;</span></p></td>
+<td>The type of handle that is the target of channels of
+this type</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseChannel.html#TpBaseChannelCloseFunc" title="TpBaseChannelCloseFunc ()"><span class="type">TpBaseChannelCloseFunc</span></a> <em class="structfield"><code><a name="TpBaseChannelClass.close"></a>close</code></em>;</span></p></td>
+<td>A virtual function called to close the channel, which will be called
+by <a class="link" href="TpBaseChannel.html#tp-base-channel-close" title="tp_base_channel_close ()"><code class="function">tp_base_channel_close()</code></a> and by the implementation of the Closed D-Bus
+method.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseChannel.html#TpBaseChannelFillPropertiesFunc" title="TpBaseChannelFillPropertiesFunc ()"><span class="type">TpBaseChannelFillPropertiesFunc</span></a> <em class="structfield"><code><a name="TpBaseChannelClass.fill-immutable-properties"></a>fill_immutable_properties</code></em>;</span></p></td>
+<td>A virtual function called to add custom
+properties to the DBus properties hash.  Implementations must chain up to the
+parent class implementation and call
+<a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-fill-properties-hash" title="tp_dbus_properties_mixin_fill_properties_hash ()"><code class="function">tp_dbus_properties_mixin_fill_properties_hash()</code></a> on the supplied hash table</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseChannel.html#TpBaseChannelGetPathFunc" title="TpBaseChannelGetPathFunc ()"><span class="type">TpBaseChannelGetPathFunc</span></a> <em class="structfield"><code><a name="TpBaseChannelClass.get-object-path-suffix"></a>get_object_path_suffix</code></em>;</span></p></td>
+<td>Returns a string that will be appended to the
+Connection objects's object path to get the Channel's object path.  This
+function will only be called as a fallback if the
+<a class="link" href="TpExportableChannel.html#TpExportableChannel--object-path" title='The "object-path" property'><span class="type">"object-path"</span></a> property is not set.  The default
+implementation simply generates a unique path based on the object's address
+in memory.  The returned string will be freed automatically.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="TpBaseChannel.html#TpBaseChannelGetInterfacesFunc" title="TpBaseChannelGetInterfacesFunc ()"><span class="type">TpBaseChannelGetInterfacesFunc</span></a> <em class="structfield"><code><a name="TpBaseChannelClass.get-interfaces"></a>get_interfaces</code></em>;</span></p></td>
+<td>Extra interfaces provided by this channel (this SHOULD NOT
+include the channel type and interface itself). Implementation must first
+chainup on parent class implementation and then add extra interfaces into
+the <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>. Replaces <em class="parameter"><code>interfaces</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseChannelFillPropertiesFunc"></a><h3>TpBaseChannelFillPropertiesFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpBaseChannelFillPropertiesFunc)  (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *properties</code></em>);</pre>
+<p>
+Signature of an implementation of the
+<a class="link" href="TpBaseChannel.html#TpBaseChannelClass.fill-immutable-properties"><span class="type">TpBaseChannelClass.fill_immutable_properties</span></a>
+virtual function. A typical implementation, for a channel implementing
+<a class="link" href="telepathy-glib-svc-channel-contactsearch.html#TpSvcChannelTypeContactSearch"><span class="type">TpSvcChannelTypeContactSearch</span></a>, would be:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">static void</span>
+<span class="function">my_search_channel_fill_properties</span> <span class="gtkdoc opt">(</span>
+    TpBaseChannel <span class="gtkdoc opt">*</span>chan<span class="gtkdoc opt">,</span>
+    GHashTable <span class="gtkdoc opt">*</span>properties<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  TpBaseChannelClass <span class="gtkdoc opt">*</span>klass <span class="gtkdoc opt">=</span> <span class="function">TP_BASE_CHANNEL_CLASS</span> <span class="gtkdoc opt">(</span>my_search_channel_parent_class<span class="gtkdoc opt">);</span>
+
+  klass<span class="gtkdoc opt">-&gt;</span><span class="function">fill_immutable_properties</span> <span class="gtkdoc opt">(</span>chan<span class="gtkdoc opt">,</span> properties<span class="gtkdoc opt">);</span>
+
+  <span class="function"><a href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-fill-properties-hash">tp_dbus_properties_mixin_fill_properties_hash</a></span> <span class="gtkdoc opt">(</span>
+      <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#G-OBJECT:CAPS">G_OBJECT</a></span> <span class="gtkdoc opt">(</span>chan<span class="gtkdoc opt">),</span> properties<span class="gtkdoc opt">,</span>
+      TP_IFACE_CHANNEL_TYPE_CONTACT_SEARCH<span class="gtkdoc opt">,</span> <span class="string">&quot;Limit&quot;</span><span class="gtkdoc opt">,</span>
+      TP_IFACE_CHANNEL_TYPE_CONTACT_SEARCH<span class="gtkdoc opt">,</span> <span class="string">&quot;AvailableSearchKeys&quot;</span><span class="gtkdoc opt">,</span>
+      TP_IFACE_CHANNEL_TYPE_CONTACT_SEARCH<span class="gtkdoc opt">,</span> <span class="string">&quot;Server&quot;</span><span class="gtkdoc opt">,</span>
+      NULL<span class="gtkdoc opt">);</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+Note that the SearchState property is <span class="emphasis"><em>not</em></span> added to
+<em class="parameter"><code>properties</code></em>, since only immutable properties (whose value cannot change over
+the lifetime of <em class="parameter"><code>chan</code></em>) should be included.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>properties</code></em> :</span></p></td>
+<td>a dictionary of <em class="parameter"><code>chan</code></em>'s immutable properties, which the
+implementation may add to using
+<a class="link" href="telepathy-glib-dbus-properties-mixin.html#tp-dbus-properties-mixin-fill-properties-hash" title="tp_dbus_properties_mixin_fill_properties_hash ()"><code class="function">tp_dbus_properties_mixin_fill_properties_hash()</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseChannelCloseFunc"></a><h3>TpBaseChannelCloseFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpBaseChannelCloseFunc)           (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+Signature of an implementation of the <a class="link" href="TpBaseChannel.html#TpBaseChannelClass.close"><span class="type">TpBaseChannelClass.close</span></a> virtual
+function. Implementations should eventually call either
+<a class="link" href="TpBaseChannel.html#tp-base-channel-destroyed" title="tp_base_channel_destroyed ()"><code class="function">tp_base_channel_destroyed()</code></a> if the channel is really closed as a result, or
+<a class="link" href="TpBaseChannel.html#tp-base-channel-reopened" title="tp_base_channel_reopened ()"><code class="function">tp_base_channel_reopened()</code></a> if the channel will be re-spawned (for instance,
+due to unacknowledged messages on a text channel), but need not do so before
+returning. Note that channels that support re-spawning must also implement
+<a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannelInterfaceDestroyable"><span class="type">TpSvcChannelInterfaceDestroyable</span></a>.
+</p>
+<p>
+Implementations may assume that <a class="link" href="TpBaseChannel.html#tp-base-channel-is-destroyed" title="tp_base_channel_is_destroyed ()"><code class="function">tp_base_channel_is_destroyed()</code></a> is FALSE for
+<em class="parameter"><code>chan</code></em> when called.  Note that if this function is implemented
+asynchronously, it may be called more than once. A subclass which needs to
+perform some asynchronous clean-up in order to close might implement this
+function as follows:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">static void</span>
+<span class="function">my_channel_close</span> <span class="gtkdoc opt">(</span>TpBaseChannel <span class="gtkdoc opt">*</span>chan<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  MyChannel <span class="gtkdoc opt">*</span>self <span class="gtkdoc opt">=</span> <span class="function">MY_CHANNEL</span> <span class="gtkdoc opt">(</span>chan<span class="gtkdoc opt">);</span>
+
+  <span class="keyword">if</span> <span class="gtkdoc opt">(</span>self<span class="gtkdoc opt">-&gt;</span>priv<span class="gtkdoc opt">-&gt;</span>closing<span class="gtkdoc opt">)</span>
+    <span class="keyword">return</span><span class="gtkdoc opt">;</span>
+
+  self<span class="gtkdoc opt">-&gt;</span>priv<span class="gtkdoc opt">-&gt;</span>closing <span class="gtkdoc opt">=</span> TRUE<span class="gtkdoc opt">;</span>
+
+  <span class="gtkdoc slc">// some hypothetical channel-specific clean-up function:</span>
+  <span class="function">clean_up</span> <span class="gtkdoc opt">(</span>self<span class="gtkdoc opt">,</span> cleaned_up_cb<span class="gtkdoc opt">);</span>
+<span class="gtkdoc opt">}</span>
+
+<span class="gtkdoc kwb">static void</span>
+<span class="function">cleaned_up_cb</span> <span class="gtkdoc opt">(</span>MyChannel <span class="gtkdoc opt">*</span>self<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  <span class="gtkdoc slc">// all done, we can finish closing now</span>
+  <span class="function"><a href="TpBaseChannel.html#tp-base-channel-destroyed">tp_base_channel_destroyed</a></span> <span class="gtkdoc opt">(</span><span class="function">TP_BASE_CHANNEL</span> <span class="gtkdoc opt">(</span>self<span class="gtkdoc opt">));</span>
+<span class="gtkdoc opt">}</span>
+<span class="gtkdoc kwb">static void</span>
+<span class="function">my_channel_class_init</span> <span class="gtkdoc opt">(</span>MyChannelClass <span class="gtkdoc opt">*</span>klass<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  TpBaseChannelClass <span class="gtkdoc opt">*</span>base_channel_class <span class="gtkdoc opt">=</span> <span class="function">TP_BASE_CHANNEL_CLASS</span> <span class="gtkdoc opt">(</span>klass<span class="gtkdoc opt">);</span>
+
+  klass<span class="gtkdoc opt">-&gt;</span>close <span class="gtkdoc opt">=</span> my_channel_close<span class="gtkdoc opt">;</span>
+  <span class="gtkdoc slc">// ...</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+If a subclass does not need to do anything to clean itself up, it may
+implement <a class="link" href="TpBaseChannel.html#TpBaseChannelClass.close"><span class="type">TpBaseChannelClass.close</span></a> using <a class="link" href="TpBaseChannel.html#tp-base-channel-destroyed" title="tp_base_channel_destroyed ()"><code class="function">tp_base_channel_destroyed()</code></a>
+directly:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">static void</span>
+<span class="function">my_channel_class_init</span> <span class="gtkdoc opt">(</span>MyChannelClass <span class="gtkdoc opt">*</span>klass<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  TpBaseChannelClass <span class="gtkdoc opt">*</span>base_channel_class <span class="gtkdoc opt">=</span> <span class="function">TP_BASE_CHANNEL_CLASS</span> <span class="gtkdoc opt">(</span>klass<span class="gtkdoc opt">);</span>
+
+  klass<span class="gtkdoc opt">-&gt;</span>close <span class="gtkdoc opt">=</span> tp_base_channel_destroyed<span class="gtkdoc opt">;</span>
+  <span class="gtkdoc slc">// ...</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseChannelGetPathFunc"></a><h3>TpBaseChannelGetPathFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             (*TpBaseChannelGetPathFunc)         (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+Signature of an implementation of the
+<a class="link" href="TpBaseChannel.html#TpBaseChannelClass.get-object-path-suffix"><span class="type">TpBaseChannelClass.get_object_path_suffix</span></a> virtual function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a string that will be appended to the Connection
+objects's object path to get the Channel's object path. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseChannelGetInterfacesFunc"></a><h3>TpBaseChannelGetInterfacesFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         (*TpBaseChannelGetInterfacesFunc)   (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+Signature of an implementation of <a class="link" href="TpBaseChannel.html#TpBaseChannelClass.get-interfaces"><span class="type">TpBaseChannelClass.get_interfaces</span></a> virtual
+function.
+</p>
+<p>
+Implementation must first chainup on parent class implementation and then
+add extra interfaces into the <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>.
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">static</span> GPtrArray <span class="gtkdoc opt">*</span>
+<span class="function">my_channel_get_interfaces</span> <span class="gtkdoc opt">(</span>TpBaseChannel <span class="gtkdoc opt">*</span>self<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  GPtrArray <span class="gtkdoc opt">*</span>interfaces<span class="gtkdoc opt">;</span>
+
+  interfaces <span class="gtkdoc opt">=</span> <span class="function">TP_BASE_CHANNEL_CLASS</span> <span class="gtkdoc opt">(</span>my_channel_parent_class<span class="gtkdoc opt">)-&gt;</span><span class="function">get_interfaces</span> <span class="gtkdoc opt">(</span>self<span class="gtkdoc opt">);</span>
+
+  <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#g-ptr-array-add">g_ptr_array_add</a></span> <span class="gtkdoc opt">(</span>interfaces<span class="gtkdoc opt">,</span> TP_IFACE_BADGERS<span class="gtkdoc opt">);</span>
+
+  <span class="keyword">return</span> interfaces<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of static strings for D-Bus
+interfaces implemented by this client. <span class="annotation">[<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-channel-register"></a><h3>tp_base_channel_register ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_channel_register            (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+Make the channel appear on the bus.  <a class="link" href="TpExportableChannel.html#TpExportableChannel--object-path" title='The "object-path" property'><span class="type">"object-path"</span></a> must have been set
+to a valid path, which must not already be in use as another object's path.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-channel-close"></a><h3>tp_base_channel_close ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_channel_close               (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+Asks <em class="parameter"><code>chan</code></em> to close, just as if the Close D-Bus method had been called. If
+<a class="link" href="TpExportableChannel.html#TpExportableChannel--channel-destroyed" title='The "channel-destroyed" property'><span class="type">"channel-destroyed"</span></a> is TRUE, this is a no-op.
+</p>
+<p>
+Note that, depending on the subclass's implementation of
+<a class="link" href="TpBaseChannel.html#TpBaseChannelClass.close"><span class="type">TpBaseChannelClass.close</span></a> and internal behaviour, this may or may not be a
+suitable method to use during connection teardown. For instance, if the
+channel may respawn when Close is called, an equivalent of the Destroy D-Bus
+method would be more appropriate during teardown, since the intention is to
+forcibly terminate all channels.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-channel-destroyed"></a><h3>tp_base_channel_destroyed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_channel_destroyed           (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+Called by subclasses to indicate that this channel was destroyed and can be
+removed from the bus.  The "Closed" signal will be emitted and the
+<a class="link" href="TpExportableChannel.html#TpExportableChannel--channel-destroyed" title='The "channel-destroyed" property'><span class="type">"channel-destroyed"</span></a> property will be set.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-channel-reopened"></a><h3>tp_base_channel_reopened ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_channel_reopened            (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> initiator</code></em>);</pre>
+<p>
+Called by subclasses to indicate that this channel was closed but was
+re-opened due to pending messages.
+</p>
+<p>
+Calling this method is the same as calling
+<a class="link" href="TpBaseChannel.html#tp-base-channel-reopened-with-requested" title="tp_base_channel_reopened_with_requested ()"><code class="function">tp_base_channel_reopened_with_requested()</code></a> with a requested value of
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>initiator</code></em> :</span></p></td>
+<td>the handle of the contact that re-opened the channel</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-channel-disappear"></a><h3>tp_base_channel_disappear ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_channel_disappear           (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+Called by subclasses to indicate that this channel is closing and
+should be unregistered from the bus, but the actual object
+shouldn't be destroyed. The "Closed" signal will be emitted,
+the <a class="link" href="TpExportableChannel.html#TpExportableChannel--channel-destroyed" title='The "channel-destroyed" property'><span class="type">"channel-destroyed"</span></a> property will not be
+set, and the channel will be unregistered from the bus.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.19.7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-channel-reopened-with-requested"></a><h3>tp_base_channel_reopened_with_requested ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_base_channel_reopened_with_requested
+                                                        (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> requested</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> initiator</code></em>);</pre>
+<p>
+Called by subclasses to indicate that this channel was closed but
+was re-opened, either due to pending messages or from having
+disappeared (with <a class="link" href="TpBaseChannel.html#tp-base-channel-disappear" title="tp_base_channel_disappear ()"><code class="function">tp_base_channel_disappear()</code></a>). The "Closed" signal
+will be emitted, but the <a class="link" href="TpExportableChannel.html#TpExportableChannel--channel-destroyed" title='The "channel-destroyed" property'><span class="type">"channel-destroyed"</span></a>
+property will not be set.  The channel's
+<a class="link" href="TpBaseChannel.html#TpBaseChannel--initiator-handle" title='The "initiator-handle" property'><span class="type">"initiator-handle"</span></a> property will be set to <em class="parameter"><code>initiator</code></em>,
+and the <a class="link" href="TpBaseChannel.html#TpBaseChannel--requested" title='The "requested" property'><span class="type">"requested"</span></a> property will be set to
+<em class="parameter"><code>requested</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>requested</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the channel is requested, otherwise <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>initiator</code></em> :</span></p></td>
+<td>the handle of the contact that re-opened the channel</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-channel-get-object-path"></a><h3>tp_base_channel_get_object_path ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_base_channel_get_object_path     (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+Returns <em class="parameter"><code>chan</code></em>'s object path, as a shortcut for retrieving the
+<a class="link" href="TpChannelIface.html#TpChannelIface--object-path" title='The "object-path" property'><span class="type">"object-path"</span></a> property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<em class="parameter"><code>chan</code></em>'s object path. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-channel-get-connection"></a><h3>tp_base_channel_get_connection ()</h3>
+<pre class="programlisting"><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="returnvalue">TpBaseConnection</span></a> *  tp_base_channel_get_connection      (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+Returns the connection to which <em class="parameter"><code>chan</code></em> is attached, as a shortcut for
+retrieving the <a class="link" href="TpBaseChannel.html#TpBaseChannel--connection" title='The "connection" property'><span class="type">"connection"</span></a> property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the connection to which <em class="parameter"><code>chan</code></em> is attached. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-channel-get-self-handle"></a><h3>tp_base_channel_get_self_handle ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="returnvalue">TpHandle</span></a>            tp_base_channel_get_self_handle     (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+If <em class="parameter"><code>chan</code></em> has a <a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixin" title="struct TpGroupMixin"><span class="type">TpGroupMixin</span></a>, returns the value of group's self handle.
+Otherwise return the value of <a class="link" href="TpBaseConnection.html#TpBaseConnection--self-handle" title='The "self-handle" property'><span class="type">"self-handle"</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the self handle of <em class="parameter"><code>chan</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-channel-get-target-handle"></a><h3>tp_base_channel_get_target_handle ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="returnvalue">TpHandle</span></a>            tp_base_channel_get_target_handle   (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+Returns the target handle of <em class="parameter"><code>chan</code></em> (without a reference), which will be 0
+if <a class="link" href="TpBaseChannel.html#TpBaseChannelClass.target-handle-type"><span class="type">TpBaseChannelClass.target_handle_type</span></a> is <a class="link" href="telepathy-glib-enums.html#TP-HANDLE-TYPE-NONE:CAPS"><span class="type">TP_HANDLE_TYPE_NONE</span></a> for this
+class, and non-zero otherwise. This is a shortcut for retrieving the
+<a class="link" href="TpChannelIface.html#TpChannelIface--handle" title='The "handle" property'><span class="type">"handle"</span></a> property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the target handle of <em class="parameter"><code>chan</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-channel-get-initiator"></a><h3>tp_base_channel_get_initiator ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="returnvalue">TpHandle</span></a>            tp_base_channel_get_initiator       (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+Returns the initiator handle of <em class="parameter"><code>chan</code></em>, as a shortcut for retrieving the
+<a class="link" href="TpBaseChannel.html#TpBaseChannel--initiator-handle" title='The "initiator-handle" property'><span class="type">"initiator-handle"</span></a> property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the initiator handle of <em class="parameter"><code>chan</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-channel-is-requested"></a><h3>tp_base_channel_is_requested ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_base_channel_is_requested        (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+Returns whether or not <em class="parameter"><code>chan</code></em> was requested, as a shortcut for retrieving the
+<a class="link" href="TpBaseChannel.html#TpBaseChannel--requested" title='The "requested" property'><span class="type">"requested"</span></a> property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether or not <em class="parameter"><code>chan</code></em> was requested.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-channel-is-registered"></a><h3>tp_base_channel_is_registered ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_base_channel_is_registered       (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+Returns whether or not <em class="parameter"><code>chan</code></em> is visible on the bus; that is, whether
+<a class="link" href="TpBaseChannel.html#tp-base-channel-register" title="tp_base_channel_register ()"><code class="function">tp_base_channel_register()</code></a> has been called and <a class="link" href="TpBaseChannel.html#tp-base-channel-destroyed" title="tp_base_channel_destroyed ()"><code class="function">tp_base_channel_destroyed()</code></a>
+has not been called.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>chan</code></em> is visible on the bus</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-channel-is-destroyed"></a><h3>tp_base_channel_is_destroyed ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_base_channel_is_destroyed        (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+Returns the value of the <a class="link" href="TpExportableChannel.html#TpExportableChannel--channel-destroyed" title='The "channel-destroyed" property'><span class="type">"channel-destroyed"</span></a> property,
+which is TRUE if <a class="link" href="TpBaseChannel.html#tp-base-channel-destroyed" title="tp_base_channel_destroyed ()"><code class="function">tp_base_channel_destroyed()</code></a> has been called (and thus the
+channel has been removed from the bus).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <a class="link" href="TpBaseChannel.html#tp-base-channel-destroyed" title="tp_base_channel_destroyed ()"><code class="function">tp_base_channel_destroyed()</code></a> has been called.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.11.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-base-channel-is-respawning"></a><h3>tp_base_channel_is_respawning ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_base_channel_is_respawning       (<em class="parameter"><code><a class="link" href="TpBaseChannel.html" title="TpBaseChannel"><span class="type">TpBaseChannel</span></a> *chan</code></em>);</pre>
+<p>
+Returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the channel has been reopened, either by a
+subclass calling <a class="link" href="TpBaseChannel.html#tp-base-channel-reopened" title="tp_base_channel_reopened ()"><code class="function">tp_base_channel_reopened()</code></a> or
+<a class="link" href="TpBaseChannel.html#tp-base-channel-reopened-with-requested" title="tp_base_channel_reopened_with_requested ()"><code class="function">tp_base_channel_reopened_with_requested()</code></a>. This is useful for
+"closed" handlers to distinguish between channels really closing
+and channels that have been reopened due to pending messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chan</code></em> :</span></p></td>
+<td>a channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <a class="link" href="TpBaseChannel.html#tp-base-channel-reopened" title="tp_base_channel_reopened ()"><code class="function">tp_base_channel_reopened()</code></a> or
+<a class="link" href="TpBaseChannel.html#tp-base-channel-reopened-with-requested" title="tp_base_channel_reopened_with_requested ()"><code class="function">tp_base_channel_reopened_with_requested()</code></a> have been called.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.7</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpBaseChannel.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpBaseChannel--connection"></a><h3>The <code class="literal">"connection"</code> property</h3>
+<pre class="programlisting">  "connection"               <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>*     : Read / Write / Construct Only</pre>
+<p>Connection object that owns this channel.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseChannel--initiator-handle"></a><h3>The <code class="literal">"initiator-handle"</code> property</h3>
+<pre class="programlisting">  "initiator-handle"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct Only</pre>
+<p>The contact who initiated the channel.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseChannel--initiator-id"></a><h3>The <code class="literal">"initiator-id"</code> property</h3>
+<pre class="programlisting">  "initiator-id"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read</pre>
+<p>The string obtained by inspecting the initiator-handle.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseChannel--interfaces"></a><h3>The <code class="literal">"interfaces"</code> property</h3>
+<pre class="programlisting">  "interfaces"               <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a>                 : Read</pre>
+<p>Additional Channel.Interface.* interfaces.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseChannel--requested"></a><h3>The <code class="literal">"requested"</code> property</h3>
+<pre class="programlisting">  "requested"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct Only</pre>
+<p>True if this channel was requested by the local user.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpBaseChannel--target-id"></a><h3>The <code class="literal">"target-id"</code> property</h3>
+<pre class="programlisting">  "target-id"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read</pre>
+<p>The string obtained by inspecting the target handle.</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpBaseChannel.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-svc-channel.html#TpSvcChannel"><span class="type">TpSvcChannel</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

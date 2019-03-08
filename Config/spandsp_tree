@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Place yourself outside of the SPANDSP source tree.  In
+# this example, the environment variable SPANDSP_SOURCE
+# is assumed to contain the absolute SPANDSP source directory.
+
+(cd $SPANDSP_SOURCE; find . -type f) | while read F; do
+	mkdir -p `dirname $F`
+	ln -s $SPANDSP_SOURCE/$F $F
+done
+

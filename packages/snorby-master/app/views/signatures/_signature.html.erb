@@ -1,0 +1,28 @@
+<tr>
+  <td class='first' style='width:30px'>
+    <div class='severity small'>
+      <span class='severity sev<%= signature.severity_id %>'>
+        <%= signature.severity_id || 0 %>
+      </span>
+    </div>
+  </td>
+
+  <td class="" title="<%= signature.name %>"><%= truncate(signature.name, :length => 100) %></td>
+
+  <td class='chart-large add_tipsy' title="<%= signature.events_count %> of <%= pluralize(@total_event_count, "event") %>">
+		<%= css_chart(signature.event_percentage(false, @total_event_count), true) %>
+	</td>
+
+  <td class='last' style="width:45px;padding-right:6px;padding-left:0px;">
+    <%= link_to "View", results_path(:title => "#{signature.sig_name}",
+        :match_all => true,
+        :search => {
+        :signature => {
+          :column => :signature,
+          :operator => :is,
+          :value => signature.sig_id
+           }
+        }) %>
+  </td>
+</tr>
+

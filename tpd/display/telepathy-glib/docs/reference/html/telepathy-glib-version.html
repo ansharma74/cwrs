@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Version information</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-utilities.html" title="Utilities">
+<link rel="prev" href="ch-utilities.html" title="Utilities">
+<link rel="next" href="telepathy-glib-util.html" title="Utilities">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch-utilities.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-utilities.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-util.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-version.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-version.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-version"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-version.top_of_page"></a>Version information</span></h2>
+<p>Version information — Checking the telepathy-glib version</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-version.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+#define             <a class="link" href="telepathy-glib-version.html#TP-MAJOR-VERSION:CAPS" title="TP_MAJOR_VERSION">TP_MAJOR_VERSION</a>
+#define             <a class="link" href="telepathy-glib-version.html#TP-MINOR-VERSION:CAPS" title="TP_MINOR_VERSION">TP_MINOR_VERSION</a>
+#define             <a class="link" href="telepathy-glib-version.html#TP-MICRO-VERSION:CAPS" title="TP_MICRO_VERSION">TP_MICRO_VERSION</a>
+#define             <a class="link" href="telepathy-glib-version.html#TP-VERSION-0-16:CAPS" title="TP_VERSION_0_16">TP_VERSION_0_16</a>
+#define             <a class="link" href="telepathy-glib-version.html#TP-VERSION-0-18:CAPS" title="TP_VERSION_0_18">TP_VERSION_0_18</a>
+#define             <a class="link" href="telepathy-glib-version.html#TP-VERSION-0-20:CAPS" title="TP_VERSION_0_20">TP_VERSION_0_20</a>
+#define             <a class="link" href="telepathy-glib-version.html#TP-VERSION-MIN-REQUIRED:CAPS" title="TP_VERSION_MIN_REQUIRED">TP_VERSION_MIN_REQUIRED</a>
+#define             <a class="link" href="telepathy-glib-version.html#TP-VERSION-MAX-ALLOWED:CAPS" title="TP_VERSION_MAX_ALLOWED">TP_VERSION_MAX_ALLOWED</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-version.description"></a><h2>Description</h2>
+<p>
+Since 0.19.0, telepathy-glib provides version information similar
+to that used in GLib.
+</p>
+<p>
+Typical usage from configure.ac is similar to GLib's:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function">AC_DEFINE</span><span class="gtkdoc opt">([</span>TP_VERSION_MIN_REQUIRED<span class="gtkdoc opt">], [</span>TP_VERSION_0_18<span class="gtkdoc opt">],</span>
+  <span class="gtkdoc opt">[</span>Ignore deprecations newer than <span class="keyword">this</span> branch<span class="gtkdoc opt">])</span>
+<span class="function">AC_DEFINE</span><span class="gtkdoc opt">([</span>TP_VERSION_MAX_ALLOWED<span class="gtkdoc opt">], [</span>TP_VERSION_0_20<span class="gtkdoc opt">],</span>
+  <span class="gtkdoc opt">[</span>Prevent use of APIs newer than <span class="keyword">this</span> branch<span class="gtkdoc opt">])</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+or you can define the macros directly on the compiler command line
+if required:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4</pre></td>
+        <td class="listing_code"><pre class="programlisting">cc <span class="gtkdoc opt">-</span>o foo foo<span class="gtkdoc opt">.</span>c \
+    <span class="gtkdoc opt">-</span>DTP_VERSION_MIN_REQUIRED<span class="gtkdoc opt">=</span>TP_VERSION_0_18 \
+    <span class="gtkdoc opt">-</span>DTP_VERSION_MAX_ALLOWED<span class="gtkdoc opt">=</span>TP_VERSION_0_20 \
+    $<span class="gtkdoc opt">{</span>TP_CFLAGS<span class="gtkdoc opt">}</span> $<span class="gtkdoc opt">{</span>TP_LIBS<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+This functionality was added in telepathy-glib 0.19.0, but it
+is safe to define the TP_VERSION_MIN_REQUIRED and TP_VERSION_MAX_ALLOWED
+macros even for older versions of telepathy-glib, as long as you do
+not try to expand them.
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-version.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TP-MAJOR-VERSION:CAPS"></a><h3>TP_MAJOR_VERSION</h3>
+<pre class="programlisting">#define TP_MAJOR_VERSION 0
+</pre>
+<p>
+The major version of telepathy-glib (e.g. the 0 in 0.18.1) at the time your
+code was compiled.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-MINOR-VERSION:CAPS"></a><h3>TP_MINOR_VERSION</h3>
+<pre class="programlisting">#define TP_MINOR_VERSION 20
+</pre>
+<p>
+The minor version of telepathy-glib (e.g. the 18 in 0.18.1) at the time your
+code was compiled.
+</p>
+<p>
+Odd minor versions indicate a development branch; even minor versions
+indicate a stable branch.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-MICRO-VERSION:CAPS"></a><h3>TP_MICRO_VERSION</h3>
+<pre class="programlisting">#define TP_MICRO_VERSION 1
+</pre>
+<p>
+The micro version of telepathy-glib (e.g. the 1 in 0.18.1) at the time your
+code was compiled.
+</p>
+<p>
+Within a stable branch (even minor version), micro versions fix bugs
+but do not add features.
+</p>
+<p>
+Within a development branch (odd minor version), micro versions can
+fix bugs and/or add features.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-VERSION-0-16:CAPS"></a><h3>TP_VERSION_0_16</h3>
+<pre class="programlisting">#define TP_VERSION_0_16 (_TP_ENCODE_VERSION (0, 16))
+</pre>
+<p>
+A constant representing the telepathy-glib 0.16 stable branch,
+and the 0.15 development branch that led to it.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-VERSION-0-18:CAPS"></a><h3>TP_VERSION_0_18</h3>
+<pre class="programlisting">#define TP_VERSION_0_18 (_TP_ENCODE_VERSION (0, 18))
+</pre>
+<p>
+A constant representing the telepathy-glib 0.18 stable branch,
+and the 0.17 development branch that led to it.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-VERSION-0-20:CAPS"></a><h3>TP_VERSION_0_20</h3>
+<pre class="programlisting">#define TP_VERSION_0_20 (_TP_ENCODE_VERSION (0, 20))
+</pre>
+<p>
+A constant representing the telepathy-glib 0.20 stable branch,
+and the 0.19 development branch that led to it.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-VERSION-MIN-REQUIRED:CAPS"></a><h3>TP_VERSION_MIN_REQUIRED</h3>
+<pre class="programlisting"># define TP_VERSION_MIN_REQUIRED (_TP_VERSION_CUR_STABLE)
+</pre>
+<p>
+A version-number constant like <a class="link" href="telepathy-glib-version.html#TP-VERSION-0-18:CAPS" title="TP_VERSION_0_18"><code class="literal">TP_VERSION_0_18</code></a>.
+</p>
+<p>
+This may be defined to a value like <a class="link" href="telepathy-glib-version.html#TP-VERSION-0-18:CAPS" title="TP_VERSION_0_18"><code class="literal">TP_VERSION_0_18</code></a> by users of
+telepathy-glib, to set the minimum version they wish to
+require. Warnings will be issued for functions deprecated in or
+before that version.
+</p>
+<p>
+If not defined, the default value is the previous stable branch.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-VERSION-MAX-ALLOWED:CAPS"></a><h3>TP_VERSION_MAX_ALLOWED</h3>
+<pre class="programlisting"># define TP_VERSION_MAX_ALLOWED (_TP_VERSION_CUR_STABLE)
+</pre>
+<p>
+A version-number constant like <a class="link" href="telepathy-glib-version.html#TP-VERSION-0-18:CAPS" title="TP_VERSION_0_18"><code class="literal">TP_VERSION_0_18</code></a>.
+</p>
+<p>
+This may be defined to a value like <a class="link" href="telepathy-glib-version.html#TP-VERSION-0-18:CAPS" title="TP_VERSION_0_18"><code class="literal">TP_VERSION_0_18</code></a> by users of
+telepathy-glib, to set the maximum version they wish to
+depend on. Warnings will be issued for functions deprecated in or
+before that version.
+</p>
+<p>
+If not defined, the default value in stable branches is that stable
+branch, and the default value in development branches is the next
+stable branch.
+</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

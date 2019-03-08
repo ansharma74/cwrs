@@ -1,0 +1,1580 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpGroupMixin</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="TpBaseRoomConfig.html" title="TpBaseRoomConfig">
+<link rel="next" href="telepathy-glib-TpMessageMixin.html" title="TpMessageMixin">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="TpBaseRoomConfig.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="telepathy-glib-TpMessageMixin.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-TpGroupMixin.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-TpGroupMixin.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-TpGroupMixin"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-TpGroupMixin.top_of_page"></a>TpGroupMixin</span></h2>
+<p>TpGroupMixin — a mixin implementation of the groups interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-TpGroupMixin.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+#define             <a class="link" href="telepathy-glib-TpGroupMixin.html#TP-HAS-GROUP-MIXIN:CAPS" title="TP_HAS_GROUP_MIXIN()">TP_HAS_GROUP_MIXIN</a>                  (o)
+#define             <a class="link" href="telepathy-glib-TpGroupMixin.html#TP-HAS-GROUP-MIXIN-CLASS:CAPS" title="TP_HAS_GROUP_MIXIN_CLASS()">TP_HAS_GROUP_MIXIN_CLASS</a>            (cls)
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixinAddMemberFunc" title="TpGroupMixinAddMemberFunc ()">*TpGroupMixinAddMemberFunc</a>)        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixinRemMemberFunc" title="TpGroupMixinRemMemberFunc ()">*TpGroupMixinRemMemberFunc</a>)        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixinRemMemberWithReasonFunc" title="TpGroupMixinRemMemberWithReasonFunc ()">*TpGroupMixinRemMemberWithReasonFunc</a>)
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> reason</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+struct              <a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixin" title="struct TpGroupMixin">TpGroupMixin</a>;
+struct              <a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixinClass" title="struct TpGroupMixinClass">TpGroupMixinClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-class-init" title="tp_group_mixin_class_init ()">tp_group_mixin_class_init</a>           (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *obj_cls</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#glong"><span class="type">glong</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixinAddMemberFunc" title="TpGroupMixinAddMemberFunc ()"><span class="type">TpGroupMixinAddMemberFunc</span></a> add_func</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixinRemMemberFunc" title="TpGroupMixinRemMemberFunc ()"><span class="type">TpGroupMixinRemMemberFunc</span></a> rem_func</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-class-allow-self-removal" title="tp_group_mixin_class_allow_self_removal ()">tp_group_mixin_class_allow_self_removal</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *obj_cls</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-class-set-remove-with-reason-func" title="tp_group_mixin_class_set_remove_with_reason_func ()">tp_group_mixin_class_set_remove_with_reason_func</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *cls</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixinRemMemberWithReasonFunc" title="TpGroupMixinRemMemberWithReasonFunc ()"><span class="type">TpGroupMixinRemMemberWithReasonFunc</span></a> func</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-init" title="tp_group_mixin_init ()">tp_group_mixin_init</a>                 (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#glong"><span class="type">glong</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle-repo.html#TpHandleRepoIface"><span class="type">TpHandleRepoIface</span></a> *handle_repo</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> self_handle</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-finalize" title="tp_group_mixin_finalize ()">tp_group_mixin_finalize</a>             (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-get-self-handle" title="tp_group_mixin_get_self_handle ()">tp_group_mixin_get_self_handle</a>      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-get-group-flags" title="tp_group_mixin_get_group_flags ()">tp_group_mixin_get_group_flags</a>      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-add-members" title="tp_group_mixin_add_members ()">tp_group_mixin_add_members</a>          (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *contacts</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-remove-members" title="tp_group_mixin_remove_members ()">tp_group_mixin_remove_members</a>       (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *contacts</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-remove-members-with-reason" title="tp_group_mixin_remove_members_with_reason ()">tp_group_mixin_remove_members_with_reason</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *contacts</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> reason</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-get-members" title="tp_group_mixin_get_members ()">tp_group_mixin_get_members</a>          (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-get-local-pending-members" title="tp_group_mixin_get_local_pending_members ()">tp_group_mixin_get_local_pending_members</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-get-local-pending-members-with-info" title="tp_group_mixin_get_local_pending_members_with_info ()">tp_group_mixin_get_local_pending_members_with_info</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-get-remote-pending-members" title="tp_group_mixin_get_remote_pending_members ()">tp_group_mixin_get_remote_pending_members</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-get-all-members" title="tp_group_mixin_get_all_members ()">tp_group_mixin_get_all_members</a>      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> **members</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> **local_pending</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> **remote_pending</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-get-handle-owners" title="tp_group_mixin_get_handle_owners ()">tp_group_mixin_get_handle_owners</a>    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *handles</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-change-flags" title="tp_group_mixin_change_flags ()">tp_group_mixin_change_flags</a>         (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelGroupFlags" title="enum TpChannelGroupFlags"><span class="type">TpChannelGroupFlags</span></a> add</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelGroupFlags" title="enum TpChannelGroupFlags"><span class="type">TpChannelGroupFlags</span></a> del</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-change-members" title="tp_group_mixin_change_members ()">tp_group_mixin_change_members</a>       (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *add</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *del</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *add_local_pending</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *add_remote_pending</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> actor</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelGroupChangeReason" title="enum TpChannelGroupChangeReason"><span class="type">TpChannelGroupChangeReason</span></a> reason</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-change-members-detailed" title="tp_group_mixin_change_members_detailed ()">tp_group_mixin_change_members_detailed</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *add</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *del</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *add_local_pending</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *add_remote_pending</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *details</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-add-handle-owner" title="tp_group_mixin_add_handle_owner ()">tp_group_mixin_add_handle_owner</a>     (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> local_handle</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> owner_handle</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-iface-init" title="tp_group_mixin_iface_init ()">tp_group_mixin_iface_init</a>           (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-add-handle-owners" title="tp_group_mixin_add_handle_owners ()">tp_group_mixin_add_handle_owners</a>    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *local_to_owner_handle</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-get-dbus-property" title="tp_group_mixin_get_dbus_property ()">tp_group_mixin_get_dbus_property</a>    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> interface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> unused</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-init-dbus-properties" title="tp_group_mixin_init_dbus_properties ()">tp_group_mixin_init_dbus_properties</a> (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *cls</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-change-self-handle" title="tp_group_mixin_change_self_handle ()">tp_group_mixin_change_self_handle</a>   (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> new_self_handle</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-external-group-mixin-iface-init" title="tp_external_group_mixin_iface_init ()">tp_external_group_mixin_iface_init</a>  (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-external-group-mixin-init" title="tp_external_group_mixin_init ()">tp_external_group_mixin_init</a>        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj_with_mixin</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-external-group-mixin-finalize" title="tp_external_group_mixin_finalize ()">tp_external_group_mixin_finalize</a>    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-external-group-mixin-init-dbus-properties" title="tp_external_group_mixin_init_dbus_properties ()">tp_external_group_mixin_init_dbus_properties</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *cls</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-external-group-mixin-get-dbus-property" title="tp_external_group_mixin_get_dbus_property ()">tp_external_group_mixin_get_dbus_property</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> interface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> unused</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpGroupMixin.description"></a><h2>Description</h2>
+<p>
+This mixin can be added to a channel GObject class to implement the
+groups interface in a general way.
+</p>
+<p>
+To use the group mixin, include a <a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixinClass" title="struct TpGroupMixinClass"><span class="type">TpGroupMixinClass</span></a> somewhere in your
+class structure and a <a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixin" title="struct TpGroupMixin"><span class="type">TpGroupMixin</span></a> somewhere in your instance structure,
+and call <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-class-init" title="tp_group_mixin_class_init ()"><code class="function">tp_group_mixin_class_init()</code></a> from your class_init function,
+<a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-init" title="tp_group_mixin_init ()"><code class="function">tp_group_mixin_init()</code></a> from your init function or constructor, and
+<a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-finalize" title="tp_group_mixin_finalize ()"><code class="function">tp_group_mixin_finalize()</code></a> from your dispose or finalize function.
+</p>
+<p>
+To use the group mixin as the implementation of
+<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a>, call
+<code class="literal">G_IMPLEMENT_INTERFACE (TP_TYPE_SVC_CHANNEL_INTERFACE_GROUP,
+tp_group_mixin_iface_init)</code> in the fourth argument to
+<code class="literal">G_DEFINE_TYPE_WITH_CODE</code>.
+</p>
+<p>
+Since 0.5.13 you can also implement the group interface by forwarding all
+group operations to the group mixin of an associated object (mainly useful
+for Tubes channels). To do this, call <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-external-group-mixin-init" title="tp_external_group_mixin_init ()"><code class="function">tp_external_group_mixin_init()</code></a>
+in the constructor after the associated object has been set,
+<a class="link" href="telepathy-glib-TpGroupMixin.html#tp-external-group-mixin-finalize" title="tp_external_group_mixin_finalize ()"><code class="function">tp_external_group_mixin_finalize()</code></a> in the dispose or finalize function, and
+<code class="literal">G_IMPLEMENT_INTERFACE (TP_TYPE_SVC_CHANNEL_INTERFACE_GROUP,
+tp_external_group_mixin_iface_init)</code> in the fourth argument to
+<code class="literal">G_DEFINE_TYPE_WITH_CODE</code>.
+</p>
+<p>
+Since 0.7.10 you can also implement the properties of Group channels,
+by calling <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-init-dbus-properties" title="tp_group_mixin_init_dbus_properties ()"><code class="function">tp_group_mixin_init_dbus_properties()</code></a> or
+<a class="link" href="telepathy-glib-TpGroupMixin.html#tp-external-group-mixin-init-dbus-properties" title="tp_external_group_mixin_init_dbus_properties ()"><code class="function">tp_external_group_mixin_init_dbus_properties()</code></a> (as appropriate).
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpGroupMixin.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TP-HAS-GROUP-MIXIN:CAPS"></a><h3>TP_HAS_GROUP_MIXIN()</h3>
+<pre class="programlisting">#define TP_HAS_GROUP_MIXIN(o) (TP_GROUP_MIXIN_OFFSET (o) != 0)
+</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>o</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>o</code></em> (or one of its parent classes) has the group mixin.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-HAS-GROUP-MIXIN-CLASS:CAPS"></a><h3>TP_HAS_GROUP_MIXIN_CLASS()</h3>
+<pre class="programlisting">#define TP_HAS_GROUP_MIXIN_CLASS(cls) (TP_GROUP_MIXIN_CLASS_OFFSET (cls) != 0)
+</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cls</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> structure</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>cls</code></em> (or one of its parent classes) has the group mixin.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpGroupMixinAddMemberFunc"></a><h3>TpGroupMixinAddMemberFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpGroupMixinAddMemberFunc)        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of the callback used to add a member to the group.
+This should perform the necessary operations in the underlying IM protocol
+to cause the member to be added.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td>The handle of the contact to be added</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>A message to be sent if the protocol supports it</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to return a Telepathy D-Bus error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> with <em class="parameter"><code>error</code></em> set on error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpGroupMixinRemMemberFunc"></a><h3>TpGroupMixinRemMemberFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpGroupMixinRemMemberFunc)        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of the callback used to remove a member from the group.
+This should perform the necessary operations in the underlying IM protocol
+to cause the member to be removed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td>The handle of the contact to be removed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>A message to be sent if the protocol supports it</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to return a Telepathy D-Bus error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> with <em class="parameter"><code>error</code></em> set on error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpGroupMixinRemMemberWithReasonFunc"></a><h3>TpGroupMixinRemMemberWithReasonFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpGroupMixinRemMemberWithReasonFunc)
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> handle</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> reason</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of the callback used to remove a member from the group.
+This should perform the necessary operations in the underlying IM protocol
+to cause the member to be removed.
+</p>
+<p>
+Set this with <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-class-set-remove-with-reason-func" title="tp_group_mixin_class_set_remove_with_reason_func ()"><code class="function">tp_group_mixin_class_set_remove_with_reason_func()</code></a>, .
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle</code></em> :</span></p></td>
+<td>The handle of the contact to be removed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>A message to be sent if the protocol supports it</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-enums.html#TpChannelGroupChangeReason" title="enum TpChannelGroupChangeReason"><span class="type">TpChannelGroupChangeReason</span></a> indicating the reason</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to return a Telepathy D-Bus error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> with <em class="parameter"><code>error</code></em> set on error</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpGroupMixin"></a><h3>struct TpGroupMixin</h3>
+<pre class="programlisting">struct TpGroupMixin {
+  TpHandleRepoIface *handle_repo;
+  TpHandle self_handle;
+
+  TpChannelGroupFlags group_flags;
+
+  TpHandleSet *members;
+  TpHandleSet *local_pending;
+  TpHandleSet *remote_pending;
+
+  TpGroupMixinPrivate *priv;
+};
+</pre>
+<p>
+Structure representing the group mixin as used in a particular class.
+To be placed in the implementation's instance structure.
+</p>
+<p>
+All fields should be considered read-only.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-handle-repo.html#TpHandleRepoIface"><span class="type">TpHandleRepoIface</span></a> *<em class="structfield"><code><a name="TpGroupMixin.handle-repo"></a>handle_repo</code></em>;</span></p></td>
+<td>The connection's contact handle repository</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> <em class="structfield"><code><a name="TpGroupMixin.self-handle"></a>self_handle</code></em>;</span></p></td>
+<td>The local user's handle within this group, or 0 if none.
+Set using <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-init" title="tp_group_mixin_init ()"><code class="function">tp_group_mixin_init()</code></a> and <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-change-self-handle" title="tp_group_mixin_change_self_handle ()"><code class="function">tp_group_mixin_change_self_handle()</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-enums.html#TpChannelGroupFlags" title="enum TpChannelGroupFlags"><span class="type">TpChannelGroupFlags</span></a> <em class="structfield"><code><a name="TpGroupMixin.group-flags"></a>group_flags</code></em>;</span></p></td>
+<td>This group's flags. Set using <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-change-flags" title="tp_group_mixin_change_flags ()"><code class="function">tp_group_mixin_change_flags()</code></a>;
+defaults to 0.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-handle-repo.html#TpHandleSet"><span class="type">TpHandleSet</span></a> *<em class="structfield"><code><a name="TpGroupMixin.members"></a>members</code></em>;</span></p></td>
+<td>The members of the group. Alter using
+<a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-change-members" title="tp_group_mixin_change_members ()"><code class="function">tp_group_mixin_change_members()</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-handle-repo.html#TpHandleSet"><span class="type">TpHandleSet</span></a> *<em class="structfield"><code><a name="TpGroupMixin.local-pending"></a>local_pending</code></em>;</span></p></td>
+<td>Members awaiting the local user's approval to join the
+group. Alter using <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-change-members" title="tp_group_mixin_change_members ()"><code class="function">tp_group_mixin_change_members()</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-handle-repo.html#TpHandleSet"><span class="type">TpHandleSet</span></a> *<em class="structfield"><code><a name="TpGroupMixin.remote-pending"></a>remote_pending</code></em>;</span></p></td>
+<td>Members awaiting remote (e.g. remote user or server)
+approval to join the group. Alter using <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-change-members" title="tp_group_mixin_change_members ()"><code class="function">tp_group_mixin_change_members()</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">TpGroupMixinPrivate</span> *<em class="structfield"><code><a name="TpGroupMixin.priv"></a>priv</code></em>;</span></p></td>
+<td>Pointer to opaque private data</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpGroupMixinClass"></a><h3>struct TpGroupMixinClass</h3>
+<pre class="programlisting">struct TpGroupMixinClass {
+  TpGroupMixinAddMemberFunc add_member;
+  TpGroupMixinRemMemberFunc remove_member;
+  TpGroupMixinClassPrivate *priv;
+};
+</pre>
+<p>
+Structure representing the group mixin as used in a particular class.
+To be placed in the implementation's class structure.
+</p>
+<p>
+Initialize this with <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-class-init" title="tp_group_mixin_class_init ()"><code class="function">tp_group_mixin_class_init()</code></a>.
+</p>
+<p>
+All fields should be considered read-only.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixinAddMemberFunc" title="TpGroupMixinAddMemberFunc ()"><span class="type">TpGroupMixinAddMemberFunc</span></a> <em class="structfield"><code><a name="TpGroupMixinClass.add-member"></a>add_member</code></em>;</span></p></td>
+<td>The add-member function that was passed to
+<a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-class-init" title="tp_group_mixin_class_init ()"><code class="function">tp_group_mixin_class_init()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixinRemMemberFunc" title="TpGroupMixinRemMemberFunc ()"><span class="type">TpGroupMixinRemMemberFunc</span></a> <em class="structfield"><code><a name="TpGroupMixinClass.remove-member"></a>remove_member</code></em>;</span></p></td>
+<td>The remove-member function that was passed to
+<a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-class-init" title="tp_group_mixin_class_init ()"><code class="function">tp_group_mixin_class_init()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">TpGroupMixinClassPrivate</span> *<em class="structfield"><code><a name="TpGroupMixinClass.priv"></a>priv</code></em>;</span></p></td>
+<td>Pointer to opaque private data</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-class-init"></a><h3>tp_group_mixin_class_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_group_mixin_class_init           (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *obj_cls</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#glong"><span class="type">glong</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixinAddMemberFunc" title="TpGroupMixinAddMemberFunc ()"><span class="type">TpGroupMixinAddMemberFunc</span></a> add_func</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixinRemMemberFunc" title="TpGroupMixinRemMemberFunc ()"><span class="type">TpGroupMixinRemMemberFunc</span></a> rem_func</code></em>);</pre>
+<p>
+Configure the mixin for use with the given class.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj_cls</code></em> :</span></p></td>
+<td>The class of an object implementing the group interface using this
+mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>The offset of the TpGroupMixinClass structure within the class
+structure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>add_func</code></em> :</span></p></td>
+<td>A callback to be used to add contacts to this group</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rem_func</code></em> :</span></p></td>
+<td>A callback to be used to remove contacts from this group.
+This must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if you will subsequently call
+<a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-class-set-remove-with-reason-func" title="tp_group_mixin_class_set_remove_with_reason_func ()"><code class="function">tp_group_mixin_class_set_remove_with_reason_func()</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-class-allow-self-removal"></a><h3>tp_group_mixin_class_allow_self_removal ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_group_mixin_class_allow_self_removal
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *obj_cls</code></em>);</pre>
+<p>
+Configure the mixin to allow attempts to remove the SelfHandle from this
+Group, even if the group flags would otherwise disallow this. The
+channel's <a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixinRemMemberFunc" title="TpGroupMixinRemMemberFunc ()"><span class="type">TpGroupMixinRemMemberFunc</span></a> or
+<a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixinRemMemberWithReasonFunc" title="TpGroupMixinRemMemberWithReasonFunc ()"><span class="type">TpGroupMixinRemMemberWithReasonFunc</span></a> will be called as usual for such
+attempts, and may make them fail with <a class="link" href="telepathy-glib-errors.html#TP-ERROR-PERMISSION-DENIED:CAPS"><code class="literal">TP_ERROR_PERMISSION_DENIED</code></a> if
+required.
+</p>
+<p>
+This function should be called from the GObject <em class="parameter"><code>class_init</code></em> callback,
+after calling <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-class-init" title="tp_group_mixin_class_init ()"><code class="function">tp_group_mixin_class_init()</code></a>.
+</p>
+<p>
+(Recent telepathy-spec changes make it valid to try to remove the
+self-handle at all times, regardless of group flags. However, if this was
+implemented automatically in TpGroupMixin, this would risk crashing
+connection manager implementations that assume that TpGroupMixin will
+enforce the group flags strictly. As a result, connection managers should
+call this function to indicate to the TpGroupMixin that it may call their
+removal callback with the self-handle regardless of flag settings.)
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj_cls</code></em> :</span></p></td>
+<td>The class of an object implementing the group interface using this
+mixin</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.7.27</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-class-set-remove-with-reason-func"></a><h3>tp_group_mixin_class_set_remove_with_reason_func ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_group_mixin_class_set_remove_with_reason_func
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *cls</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpGroupMixin.html#TpGroupMixinRemMemberWithReasonFunc" title="TpGroupMixinRemMemberWithReasonFunc ()"><span class="type">TpGroupMixinRemMemberWithReasonFunc</span></a> func</code></em>);</pre>
+<p>
+Set a callback to be used to implement <code class="function">RemoveMembers()</code> and
+<code class="function">RemoveMembersWithReason()</code>. If this function is called during class
+initialization, the given callback will be used instead of the remove
+callback passed to <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-class-init" title="tp_group_mixin_class_init ()"><code class="function">tp_group_mixin_class_init()</code></a> (which must be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+in this case).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cls</code></em> :</span></p></td>
+<td>The class of an object implementing the group interface using this
+mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>func</code></em> :</span></p></td>
+<td>A callback to be used to remove contacts from this group with a
+specified reason.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.5.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-init"></a><h3>tp_group_mixin_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_group_mixin_init                 (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#glong"><span class="type">glong</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle-repo.html#TpHandleRepoIface"><span class="type">TpHandleRepoIface</span></a> *handle_repo</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> self_handle</code></em>);</pre>
+<p>
+Initialize the mixin.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface using this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>The offset of the TpGroupMixin structure within the instance
+structure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handle_repo</code></em> :</span></p></td>
+<td>The connection's handle repository for contacts</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self_handle</code></em> :</span></p></td>
+<td>The handle of the local user in this group, if any</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-finalize"></a><h3>tp_group_mixin_finalize ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_group_mixin_finalize             (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);</pre>
+<p>
+Unreference handles and free resources used by this mixin.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface using this mixin</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-get-self-handle"></a><h3>tp_group_mixin_get_self_handle ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_group_mixin_get_self_handle      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Set the guint pointed to by ret to the local user's handle in this
+group, or to 0 if the local user is not present in this group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group mixin using this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ret</code></em> :</span></p></td>
+<td>Used to return the local user's handle in this group</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Unused</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-get-group-flags"></a><h3>tp_group_mixin_get_group_flags ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_group_mixin_get_group_flags      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Set the guint pointed to by ret to this group's flags, to be
+interpreted according to TpChannelGroupFlags.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group mixin using this interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ret</code></em> :</span></p></td>
+<td>Used to return the flags</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Unused</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td><a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-add-members"></a><h3>tp_group_mixin_add_members ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_group_mixin_add_members          (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *contacts</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Request that the given contacts be added to the group as if in response
+to user action. If the group's flags prohibit this, raise
+PermissionDenied. If any of the handles is invalid, raise InvalidHandle.
+Otherwise attempt to add the contacts by calling the callbacks provided
+by the channel implementation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface using this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>contacts</code></em> :</span></p></td>
+<td>A GArray of guint representing contacts</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>A message associated with the addition request, if supported</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to return an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-remove-members"></a><h3>tp_group_mixin_remove_members ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_group_mixin_remove_members       (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *contacts</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Request that the given contacts be removed from the group as if in response
+to user action. If the group's flags prohibit this, raise
+PermissionDenied. If any of the handles is invalid, raise InvalidHandle.
+If any of the handles is absent from the group, raise NotAvailable.
+Otherwise attempt to remove the contacts by calling the callbacks provided
+by the channel implementation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface using this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>contacts</code></em> :</span></p></td>
+<td>A GArray of guint representing contacts</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>A message to be sent to those contacts, if supported</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to return an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-remove-members-with-reason"></a><h3>tp_group_mixin_remove_members_with_reason ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_group_mixin_remove_members_with_reason
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *contacts</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> reason</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Request that the given contacts be removed from the group as if in response
+to user action. If the group's flags prohibit this, raise
+PermissionDenied. If any of the handles is invalid, raise InvalidHandle.
+If any of the handles is absent from the group, raise NotAvailable.
+Otherwise attempt to remove the contacts by calling the callbacks provided
+by the channel implementation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface using this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>contacts</code></em> :</span></p></td>
+<td>A GArray of guint representing contacts</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>A message to be sent to those contacts, if supported</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-enums.html#TpChannelGroupChangeReason" title="enum TpChannelGroupChangeReason"><span class="type">TpChannelGroupChangeReason</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to return an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-get-members"></a><h3>tp_group_mixin_get_members ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_group_mixin_get_members          (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Get the group's current members
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface using this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ret</code></em> :</span></p></td>
+<td>Used to return a newly-allocated GArray of guint contact handles</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Unused</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td><a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-get-local-pending-members"></a><h3>tp_group_mixin_get_local_pending_members ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_group_mixin_get_local_pending_members
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Get the group's local-pending members.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface using this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ret</code></em> :</span></p></td>
+<td>Used to return a newly-allocated GArray of guint contact handles</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Unused</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td><a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-get-local-pending-members-with-info"></a><h3>tp_group_mixin_get_local_pending_members_with_info ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_group_mixin_get_local_pending_members_with_info
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Get the group's local-pending members and information about their
+requests to join the channel.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface using this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ret</code></em> :</span></p></td>
+<td>Used to return a newly-allocated GPtrArray of D-Bus structures each
+containing the handle of a local-pending contact, the handle of a contact
+responsible for adding them to the group (or 0), the reason code
+and a related message (e.g. their request to join the group)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Unused</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td><a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-get-remote-pending-members"></a><h3>tp_group_mixin_get_remote_pending_members ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_group_mixin_get_remote_pending_members
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Get the group's remote-pending members.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface using this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ret</code></em> :</span></p></td>
+<td>Used to return a newly-allocated GArray of guint representing the
+handles of the group's remote pending members</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Unused</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td><a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-get-all-members"></a><h3>tp_group_mixin_get_all_members ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_group_mixin_get_all_members      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> **members</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> **local_pending</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> **remote_pending</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Get the group's current and pending members.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface using this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>members</code></em> :</span></p></td>
+<td>Used to return a newly-allocated GArray of guint representing
+the handles of the group's members</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>local_pending</code></em> :</span></p></td>
+<td>Used to return a newly-allocated GArray of guint
+representing the handles of the group's local pending members</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>remote_pending</code></em> :</span></p></td>
+<td>Used to return a newly-allocated GArray of guint
+representing the handles of the group's remote pending members</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Unused</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td><a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-get-handle-owners"></a><h3>tp_group_mixin_get_handle_owners ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_group_mixin_get_handle_owners    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> *handles</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Arrays.html#GArray"><span class="type">GArray</span></a> **ret</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+If the mixin has the flag <a class="link" href="telepathy-glib-enums.html#TP-CHANNEL-GROUP-FLAG-CHANNEL-SPECIFIC-HANDLES:CAPS"><code class="literal">TP_CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES</code></a>,
+return the global owners of the given local handles, or 0 where
+unavailable.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handles</code></em> :</span></p></td>
+<td>An array of guint representing locally valid handles</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ret</code></em> :</span></p></td>
+<td>Used to return an array of guint representing globally valid
+handles, or 0 where unavailable, if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Used to return an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> (setting <em class="parameter"><code>ret</code></em>) on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> (setting <em class="parameter"><code>error</code></em>) on
+failure</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-change-flags"></a><h3>tp_group_mixin_change_flags ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_group_mixin_change_flags         (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelGroupFlags" title="enum TpChannelGroupFlags"><span class="type">TpChannelGroupFlags</span></a> add</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelGroupFlags" title="enum TpChannelGroupFlags"><span class="type">TpChannelGroupFlags</span></a> del</code></em>);</pre>
+<p>
+Request a change to be made to the flags. If any flags were actually
+set or cleared, emits the GroupFlagsChanged signal with the changes.
+</p>
+<p>
+It is an error to set any of the same bits in both <em class="parameter"><code>add</code></em> and <em class="parameter"><code>del</code></em>.
+</p>
+<p>
+Changed in 0.7.7: the signal is not emitted if adding <em class="parameter"><code>add</code></em> and
+ removing <em class="parameter"><code>del</code></em> had no effect on the existing group flags.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the groups interface using this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>add</code></em> :</span></p></td>
+<td>Flags to be added</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>del</code></em> :</span></p></td>
+<td>Flags to be removed</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-change-members"></a><h3>tp_group_mixin_change_members ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_group_mixin_change_members       (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *add</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *del</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *add_local_pending</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *add_remote_pending</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> actor</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelGroupChangeReason" title="enum TpChannelGroupChangeReason"><span class="type">TpChannelGroupChangeReason</span></a> reason</code></em>);</pre>
+<p>
+Change the sets of members as given by the arguments, and emit the
+MembersChanged and MembersChangedDetailed signals if the changes were not a
+no-op.
+</p>
+<p>
+This function must be called in response to events on the underlying
+IM protocol, and must not be called in direct response to user input;
+it does not respect the permissions flags, but changes the group directly.
+</p>
+<p>
+If any two of add, del, add_local_pending and add_remote_pending have
+a non-empty intersection, the result is undefined. Don't do that.
+</p>
+<p>
+Each of the TpIntset arguments may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, which is treated as
+equivalent to an empty set.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface using this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>A message to be sent to the affected contacts if possible;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is allowed, and is mapped to an empty string</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>add</code></em> :</span></p></td>
+<td>A set of contact handles to be added to the members (if not
+already present) and removed from local pending and remote pending
+(if present)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>del</code></em> :</span></p></td>
+<td>A set of contact handles to be removed from members,
+local pending or remote pending, wherever they are present</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>add_local_pending</code></em> :</span></p></td>
+<td>A set of contact handles to be added to local pending,
+and removed from members and remote pending</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>add_remote_pending</code></em> :</span></p></td>
+<td>A set of contact handles to be added to remote pending,
+and removed from members and local pending</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>actor</code></em> :</span></p></td>
+<td>The handle of the contact responsible for this change</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>The reason for this change</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the group was changed and the MembersChanged(Detailed)
+signals were emitted; <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if nothing actually changed and the signals
+were suppressed.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-change-members-detailed"></a><h3>tp_group_mixin_change_members_detailed ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_group_mixin_change_members_detailed
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *add</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *del</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *add_local_pending</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="TpIntset.html" title="TpIntset"><span class="type">TpIntset</span></a> *add_remote_pending</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *details</code></em>);</pre>
+<p>
+Change the sets of members as given by the arguments, and emit the
+MembersChanged and MembersChangedDetailed signals if the changes were not a
+no-op.
+</p>
+<p>
+This function must be called in response to events on the underlying
+IM protocol, and must not be called in direct response to user input;
+it does not respect the permissions flags, but changes the group directly.
+</p>
+<p>
+If any two of add, del, add_local_pending and add_remote_pending have
+a non-empty intersection, the result is undefined. Don't do that.
+</p>
+<p>
+Each of the TpIntset arguments may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, which is treated as
+equivalent to an empty set.
+</p>
+<p>
+details may contain, among other entries, the well-known
+keys (and corresponding type, wrapped in a GValue) defined by the
+Group.MembersChangedDetailed signal's specification; these include "actor"
+(a handle as G_TYPE_UINT), "change-reason" (an element of
+<a class="link" href="telepathy-glib-enums.html#TpChannelGroupChangeReason" title="enum TpChannelGroupChangeReason"><span class="type">TpChannelGroupChangeReason</span></a> as G_TYPE_UINT), "message" (G_TYPE_STRING),
+"error" (G_TYPE_STRING), "debug-message" (G_TYPE_STRING).
+</p>
+<p>
+If all of the information in details could be passed to
+<a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-change-members" title="tp_group_mixin_change_members ()"><code class="function">tp_group_mixin_change_members()</code></a> then calling this function instead provides
+no benefit. Calling this function without setting
+<a class="link" href="telepathy-glib-enums.html#TP-CHANNEL-GROUP-FLAG-MEMBERS-CHANGED-DETAILED:CAPS"><span class="type">TP_CHANNEL_GROUP_FLAG_MEMBERS_CHANGED_DETAILED</span></a> with
+<a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-change-members" title="tp_group_mixin_change_members ()"><code class="function">tp_group_mixin_change_members()</code></a> first is not very useful, as clients will
+not know to listen for MembersChangedDetailed and thus will miss the
+details.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface using this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>add</code></em> :</span></p></td>
+<td>A set of contact handles to be added to the members (if not
+already present) and removed from local pending and remote pending
+(if present)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>del</code></em> :</span></p></td>
+<td>A set of contact handles to be removed from members,
+local pending or remote pending, wherever they are present</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>add_local_pending</code></em> :</span></p></td>
+<td>A set of contact handles to be added to local pending,
+and removed from members and remote pending</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>add_remote_pending</code></em> :</span></p></td>
+<td>A set of contact handles to be added to remote pending,
+and removed from members and local pending</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>details</code></em> :</span></p></td>
+<td>a map from strings to GValues detailing the change</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the group was changed and the MembersChanged(Detailed)
+signals were emitted; <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if nothing actually changed and the signals
+were suppressed.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-add-handle-owner"></a><h3>tp_group_mixin_add_handle_owner ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_group_mixin_add_handle_owner     (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> local_handle</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> owner_handle</code></em>);</pre>
+<p>
+Note that the given local handle is an alias within this group
+for the given globally-valid handle. It will be returned from subsequent
+GetHandleOwner queries where appropriate.
+</p>
+<p>
+Changed in 0.7.10: The <em class="parameter"><code>owner_handle</code></em> may be 0. To comply with telepathy-spec
+ 0.17.6, before adding any channel-specific handle to the members,
+ local-pending members or remote-pending members, you must call either
+ this function or <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-add-handle-owners" title="tp_group_mixin_add_handle_owners ()"><code class="function">tp_group_mixin_add_handle_owners()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>A GObject implementing the group interface with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>local_handle</code></em> :</span></p></td>
+<td>A contact handle valid within this group (may not be 0)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>owner_handle</code></em> :</span></p></td>
+<td>A contact handle valid globally, or 0 if the owner of the
+<em class="parameter"><code>local_handle</code></em> is unknown</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-iface-init"></a><h3>tp_group_mixin_iface_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_group_mixin_iface_init           (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);</pre>
+<p>
+Fill in the vtable entries needed to implement the group interface using
+this mixin. This function should usually be called via
+G_IMPLEMENT_INTERFACE.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>g_iface</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface_data</code></em> :</span></p></td>
+<td>Unused</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-add-handle-owners"></a><h3>tp_group_mixin_add_handle_owners ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_group_mixin_add_handle_owners    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *local_to_owner_handle</code></em>);</pre>
+<p>
+Note that the given local handles are aliases within this group
+for the given globally-valid handles.
+</p>
+<p>
+To comply with telepathy-spec 0.17.6, before adding any channel-specific
+handle to the members, local-pending members or remote-pending members, you
+must call either this function or <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-add-handle-owner" title="tp_group_mixin_add_handle_owner ()"><code class="function">tp_group_mixin_add_handle_owner()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>A GObject implementing the group interface with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>local_to_owner_handle</code></em> :</span></p></td>
+<td>A map from contact handles valid within this group
+(which may not be 0) to either contact handles valid globally, or 0 if the
+owner of the corresponding key is unknown; all handles are stored using
+GUINT_TO_POINTER</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-get-dbus-property"></a><h3>tp_group_mixin_get_dbus_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_group_mixin_get_dbus_property    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> interface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> unused</code></em>);</pre>
+<p>
+An implementation of <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinGetter" title="TpDBusPropertiesMixinGetter ()"><span class="type">TpDBusPropertiesMixinGetter</span></a> which assumes that the
+<em class="parameter"><code>object</code></em> has the group mixin. It can only be used for the Group interface.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>An object with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interface</code></em> :</span></p></td>
+<td>Must be <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-QUARK-CHANNEL-INTERFACE-GROUP:CAPS" title="TP_IFACE_QUARK_CHANNEL_INTERFACE_GROUP"><code class="literal">TP_IFACE_QUARK_CHANNEL_INTERFACE_GROUP</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>A quark representing the D-Bus property name, either
+"GroupFlags", "HandleOwners", "LocalPendingMembers", "Members",
+"RemotePendingMembers" or "SelfHandle"</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>A GValue pre-initialized to the right type, into which to put the
+value</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>unused</code></em> :</span></p></td>
+<td>Ignored</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-init-dbus-properties"></a><h3>tp_group_mixin_init_dbus_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_group_mixin_init_dbus_properties (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *cls</code></em>);</pre>
+<p>
+Set up <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinClass" title="TpDBusPropertiesMixinClass"><span class="type">TpDBusPropertiesMixinClass</span></a> to use this mixin's implementation of
+the Group interface's properties.
+</p>
+<p>
+This uses <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-get-dbus-property" title="tp_group_mixin_get_dbus_property ()"><code class="function">tp_group_mixin_get_dbus_property()</code></a> as the property getter and
+sets up a list of the supported properties for it.  Having called this, you
+should add <a class="link" href="telepathy-glib-enums.html#TP-CHANNEL-GROUP-FLAG-PROPERTIES:CAPS"><span class="type">TP_CHANNEL_GROUP_FLAG_PROPERTIES</span></a> to any channels of this class
+with <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-change-flags" title="tp_group_mixin_change_flags ()"><code class="function">tp_group_mixin_change_flags()</code></a> to indicate that the DBus properties are
+available.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>cls</code></em> :</span></p></td>
+<td>The class of an object with this mixin</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.7.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-group-mixin-change-self-handle"></a><h3>tp_group_mixin_change_self_handle ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_group_mixin_change_self_handle   (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> new_self_handle</code></em>);</pre>
+<p>
+Change the self-handle for this group to the given value.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the group interface using this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>new_self_handle</code></em> :</span></p></td>
+<td>The new self-handle for this group</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-external-group-mixin-iface-init"></a><h3>tp_external_group_mixin_iface_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_external_group_mixin_iface_init  (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);</pre>
+<p>
+Fill in the vtable entries needed to implement the group interface using
+the group mixin of another object. This function should usually be called
+via G_IMPLEMENT_INTERFACE.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>g_iface</code></em> :</span></p></td>
+<td>A <a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroupClass" title="TpSvcChannelInterfaceGroupClass"><span class="type">TpSvcChannelInterfaceGroupClass</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface_data</code></em> :</span></p></td>
+<td>Unused</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.5.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-external-group-mixin-init"></a><h3>tp_external_group_mixin_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_external_group_mixin_init        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj_with_mixin</code></em>);</pre>
+<p>
+Fill in the qdata needed to implement the group interface using
+the group mixin of another object. This function should usually be called
+in the instance constructor.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the groups interface using an external group
+mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj_with_mixin</code></em> :</span></p></td>
+<td>A GObject with the group mixin</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.5.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-external-group-mixin-finalize"></a><h3>tp_external_group_mixin_finalize ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_external_group_mixin_finalize    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);</pre>
+<p>
+Remove the external group mixin. This function should usually be called
+in the dispose or finalize function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object implementing the groups interface using an external group
+mixin</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.5.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-external-group-mixin-init-dbus-properties"></a><h3>tp_external_group_mixin_init_dbus_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_external_group_mixin_init_dbus_properties
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *cls</code></em>);</pre>
+<p>
+Set up <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinClass" title="TpDBusPropertiesMixinClass"><span class="type">TpDBusPropertiesMixinClass</span></a> to use this mixin's implementation of
+the Group interface's properties.
+</p>
+<p>
+This uses <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-get-dbus-property" title="tp_group_mixin_get_dbus_property ()"><code class="function">tp_group_mixin_get_dbus_property()</code></a> as the property getter and
+sets up a list of the supported properties for it.  Having called this, you
+should add <a class="link" href="telepathy-glib-enums.html#TP-CHANNEL-GROUP-FLAG-PROPERTIES:CAPS"><span class="type">TP_CHANNEL_GROUP_FLAG_PROPERTIES</span></a> to channels containing the
+mixin used by this class with <a class="link" href="telepathy-glib-TpGroupMixin.html#tp-group-mixin-change-flags" title="tp_group_mixin_change_flags ()"><code class="function">tp_group_mixin_change_flags()</code></a> to indicate that
+the DBus properties are available.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>cls</code></em> :</span></p></td>
+<td>The class of an object with this mixin</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.7.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-external-group-mixin-get-dbus-property"></a><h3>tp_external_group_mixin_get_dbus_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_external_group_mixin_get_dbus_property
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> interface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> unused</code></em>);</pre>
+<p>
+An implementation of <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinGetter" title="TpDBusPropertiesMixinGetter ()"><span class="type">TpDBusPropertiesMixinGetter</span></a> which assumes that the
+<em class="parameter"><code>object</code></em> has the external group mixin. It can only be used for the Group
+interface.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>An object with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interface</code></em> :</span></p></td>
+<td>Must be <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-QUARK-CHANNEL-INTERFACE-GROUP:CAPS" title="TP_IFACE_QUARK_CHANNEL_INTERFACE_GROUP"><code class="literal">TP_IFACE_QUARK_CHANNEL_INTERFACE_GROUP</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>A quark representing the D-Bus property name, either
+"GroupFlags", "HandleOwners", "LocalPendingMembers", "Members",
+"RemotePendingMembers" or "SelfHandle"</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>A GValue pre-initialized to the right type, into which to put the
+value</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>unused</code></em> :</span></p></td>
+<td>Ignored</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.10</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpGroupMixin.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-svc-channel-group.html#TpSvcChannelInterfaceGroup"><span class="type">TpSvcChannelInterfaceGroup</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

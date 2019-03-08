@@ -1,0 +1,1438 @@
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/* Evolution calendar - iCalendar file backend
+ *
+ * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
+ * Copyright (C) 2003 Gergõ Érdi
+ *
+ * Authors: Federico Mena-Quintero <federico@ximian.com>
+ *          Rodrigo Moya <rodrigo@ximian.com>
+ *          Gergõ Érdi <cactus@cactus.rulez.org>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of version 2 of the GNU Lesser General Public
+ * License as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <string.h>
+
+#include "e-cal-backend-contacts.h"
+
+#include <glib/gi18n-lib.h>
+#include <libsoup/soup.h>
+
+#include <libebook/libebook.h>
+
+#include "e-source-contacts.h"
+
+#define E_CAL_BACKEND_CONTACTS_GET_PRIVATE(obj) \
+	(G_TYPE_INSTANCE_GET_PRIVATE \
+	((obj), E_TYPE_CAL_BACKEND_CONTACTS, ECalBackendContactsPrivate))
+
+#define EDC_ERROR(_code) e_data_cal_create_error (_code, NULL)
+
+G_DEFINE_TYPE (
+	ECalBackendContacts,
+	e_cal_backend_contacts,
+	E_TYPE_CAL_BACKEND_SYNC)
+
+typedef enum
+{
+	CAL_DAYS,
+	CAL_HOURS,
+	CAL_MINUTES
+} CalUnits;
+
+/* Private part of the ECalBackendContacts structure */
+struct _ECalBackendContactsPrivate {
+
+	GRecMutex rec_mutex;			/* guards 'addressbooks' */
+	GHashTable   *addressbooks;	/* UID -> BookRecord */
+	gboolean      addressbook_loaded;
+
+	EBookClientView *book_view;
+	GHashTable   *tracked_contacts;   /* UID -> ContactRecord */
+
+	GHashTable *zones;
+
+	/* properties related to track alarm settings for this backend */
+	GSettings *settings;
+	guint notifyid;
+	guint update_alarms_id;
+	gboolean alarm_enabled;
+	gint alarm_interval;
+	CalUnits alarm_units;
+};
+
+typedef struct _BookRecord {
+	volatile gint ref_count;
+
+	GMutex *lock;
+	ECalBackendContacts *cbc;
+	EBookClient *book_client;
+	EBookClientView *book_view;
+	gulong book_client_opened_id;
+} BookRecord;
+
+typedef struct _ContactRecord {
+	ECalBackendContacts *cbc;
+	EBookClient *book_client; /* where it comes from */
+	EContact	    *contact;
+	ECalComponent       *comp_birthday, *comp_anniversary;
+} ContactRecord;
+
+#define d(x)
+
+#define ANNIVERSARY_UID_EXT "-anniversary"
+#define BIRTHDAY_UID_EXT   "-birthday"
+
+static ECalComponent * create_birthday (ECalBackendContacts *cbc, EContact *contact);
+static ECalComponent * create_anniversary (ECalBackendContacts *cbc, EContact *contact);
+
+static void contacts_modified_cb (EBookClientView *book_view, const GSList *contacts, gpointer user_data);
+static void contacts_added_cb   (EBookClientView *book_view, const GSList *contacts, gpointer user_data);
+static void contacts_removed_cb (EBookClientView *book_view, const GSList *contact_ids, gpointer user_data);
+static void e_cal_backend_contacts_add_timezone (ECalBackendSync *backend, EDataCal *cal, GCancellable *cancellable, const gchar *tzobj, GError **perror);
+static void setup_alarm (ECalBackendContacts *cbc, ECalComponent *comp);
+
+static void book_client_opened_cb (EBookClient *book_client, const GError *error, BookRecord *br);
+
+static gboolean
+remove_by_book (gpointer key,
+                gpointer value,
+                gpointer user_data)
+{
+	ContactRecord *cr = value;
+	EBookClient *book_client = user_data;
+
+	return (cr && cr->book_client == book_client);
+}
+
+static BookRecord *
+book_record_new (ECalBackendContacts *cbc,
+                 ESource *source)
+{
+	BookRecord *br;
+	EBookClient *book_client;
+	GError *error = NULL;
+
+	book_client = e_book_client_new (source, &error);
+	if (error != NULL) {
+		g_warning ("%s: %s", G_STRFUNC, error->message);
+		g_error_free (error);
+		return NULL;
+	}
+
+	g_return_val_if_fail (E_IS_BOOK_CLIENT (book_client), NULL);
+
+	br = g_slice_new0 (BookRecord);
+	br->ref_count = 1;
+	br->lock = g_mutex_new ();
+	br->cbc = g_object_ref (cbc);
+	br->book_client = book_client;  /* takes ownership */
+
+	br->book_client_opened_id = g_signal_connect (
+		br->book_client, "opened",
+		G_CALLBACK (book_client_opened_cb), br);
+
+	return br;
+}
+
+static BookRecord *
+book_record_ref (BookRecord *br)
+{
+	g_return_val_if_fail (br != NULL, NULL);
+	g_return_val_if_fail (br->ref_count > 0, NULL);
+
+	g_atomic_int_inc (&br->ref_count);
+
+	return br;
+}
+
+static void
+book_record_unref (BookRecord *br)
+{
+	g_return_if_fail (br != NULL);
+	g_return_if_fail (br->ref_count > 0);
+
+	if (g_atomic_int_dec_and_test (&br->ref_count)) {
+		g_signal_handler_disconnect (
+			br->book_client,
+			br->book_client_opened_id);
+		g_hash_table_foreach_remove (
+			br->cbc->priv->tracked_contacts,
+			remove_by_book, br->book_client);
+
+		g_mutex_free (br->lock);
+		g_object_unref (br->cbc);
+		g_object_unref (br->book_client);
+
+		if (br->book_view != NULL)
+			g_object_unref (br->book_view);
+
+		g_slice_free (BookRecord, br);
+	}
+}
+
+static void
+book_record_set_book_view (BookRecord *br,
+                           EBookClientView *book_view)
+{
+	g_return_if_fail (br != NULL);
+
+	g_mutex_lock (br->lock);
+
+	if (book_view != NULL)
+		g_object_ref (book_view);
+
+	if (br->book_view != NULL)
+		g_object_unref (br->book_view);
+
+	br->book_view = book_view;
+
+	g_mutex_unlock (br->lock);
+}
+
+static void
+cal_backend_contacts_insert_book_record (ECalBackendContacts *cbc,
+                                         ESource *source,
+                                         BookRecord *br)
+{
+	g_rec_mutex_lock (&cbc->priv->rec_mutex);
+
+	g_hash_table_insert (
+		cbc->priv->addressbooks,
+		g_object_ref (source),
+		book_record_ref (br));
+
+	g_rec_mutex_unlock (&cbc->priv->rec_mutex);
+}
+
+static gboolean
+cal_backend_contacts_remove_book_record (ECalBackendContacts *cbc,
+                                         ESource *source)
+{
+	gboolean removed;
+
+	g_rec_mutex_lock (&cbc->priv->rec_mutex);
+
+	removed = g_hash_table_remove (cbc->priv->addressbooks, source);
+
+	g_rec_mutex_unlock (&cbc->priv->rec_mutex);
+
+	return removed;
+}
+
+static gpointer
+cbc_reopen_book_client_thread (gpointer user_data)
+{
+	EBookClient *book_client = user_data;
+	gboolean done = FALSE;
+
+	g_object_ref (book_client);
+
+	while (!done) {
+		done = TRUE;
+
+		if (!e_client_is_opened (E_CLIENT (book_client))) {
+			GError *error = NULL;
+
+			if (!e_client_open_sync (E_CLIENT (book_client), TRUE, NULL, &error) || error) {
+				if (g_error_matches (error, E_CLIENT_ERROR, E_CLIENT_ERROR_BUSY)) {
+					done = FALSE;
+					g_usleep (500000);
+				} else
+					g_warning ("%s: Failed to open book: %s", G_STRFUNC, error ? error->message : "Unknown error");
+			}
+
+			g_clear_error (&error);
+		}
+	}
+
+	g_object_unref (book_client);
+
+	return NULL;
+}
+
+static void
+cbc_reopen_book_client (BookRecord *br)
+{
+	GError *error = NULL;
+
+	g_mutex_lock (br->lock);
+
+	g_warn_if_fail (br->book_client_opened_id == 0);
+	br->book_client_opened_id = g_signal_connect (
+		br->book_client, "opened",
+		G_CALLBACK (book_client_opened_cb), br);
+
+	g_thread_create (
+		cbc_reopen_book_client_thread,
+		br->book_client, FALSE, &error);
+
+	if (error != NULL) {
+		g_warning (
+			"%s: Cannot create thread to reload source! (%s)",
+			G_STRFUNC, error->message);
+		g_error_free (error);
+	}
+
+	g_mutex_unlock (br->lock);
+}
+
+static void
+book_client_opened_cb (EBookClient *book_client,
+                       const GError *error,
+                       BookRecord *br)
+{
+	ESource *source;
+	const gchar *source_uid;
+
+	g_return_if_fail (book_client != NULL);
+	g_return_if_fail (br != NULL);
+
+	g_mutex_lock (br->lock);
+	g_signal_handler_disconnect (
+		br->book_client,
+		br->book_client_opened_id);
+	br->book_client_opened_id = 0;
+	g_mutex_unlock (br->lock);
+
+	source = e_client_get_source (E_CLIENT (book_client));
+	source_uid = e_source_get_uid (source);
+	g_return_if_fail (source_uid != NULL);
+
+	if (g_error_matches (error, E_CLIENT_ERROR, E_CLIENT_ERROR_AUTHENTICATION_FAILED)) {
+		cbc_reopen_book_client (br);
+	} else if (!error) {
+		EBookQuery *query;
+		EBookClientView *book_view;
+		gchar *query_sexp;
+		GError *error = NULL;
+
+		book_record_set_book_view (br, NULL);
+
+		query = e_book_query_andv (
+			e_book_query_orv (
+				e_book_query_field_exists (E_CONTACT_FILE_AS),
+				e_book_query_field_exists (E_CONTACT_FULL_NAME),
+				e_book_query_field_exists (E_CONTACT_GIVEN_NAME),
+				e_book_query_field_exists (E_CONTACT_NICKNAME),
+				NULL),
+			e_book_query_orv (
+				e_book_query_field_exists (E_CONTACT_BIRTH_DATE),
+				e_book_query_field_exists (E_CONTACT_ANNIVERSARY),
+				NULL),
+			NULL);
+		query_sexp = e_book_query_to_string (query);
+		e_book_query_unref (query);
+
+		if (!e_book_client_get_view_sync (book_client, query_sexp, &book_view, NULL, &error))
+			g_warning ("%s: Failed to get book view on '%s': %s", G_STRFUNC, e_source_get_display_name (source), error ? error->message : "Unknown error");
+		g_free (query_sexp);
+		g_clear_error (&error);
+
+		g_signal_connect (book_view, "objects-added", G_CALLBACK (contacts_added_cb), br->cbc);
+		g_signal_connect (book_view, "objects-removed", G_CALLBACK (contacts_removed_cb), br->cbc);
+		g_signal_connect (book_view, "objects-modified", G_CALLBACK (contacts_modified_cb), br->cbc);
+
+		e_book_client_view_start (book_view, NULL);
+
+		book_record_set_book_view (br, book_view);
+
+		g_object_unref (book_view);
+	}
+}
+
+static void
+client_open_cb (GObject *source_object,
+                GAsyncResult *result,
+                gpointer user_data)
+{
+	BookRecord *br = user_data;
+	EClient *client;
+	GError *error = NULL;
+
+	client = E_CLIENT (source_object);
+
+	e_client_open_finish (client, result, &error);
+
+	if (error != NULL) {
+		ESource *source;
+
+		g_mutex_lock (br->lock);
+		g_signal_handler_disconnect (
+			br->book_client,
+			br->book_client_opened_id);
+		br->book_client_opened_id = 0;
+		g_mutex_unlock (br->lock);
+
+		g_warning (
+			"%s: Failed to open book: %s",
+			G_STRFUNC, error->message);
+		g_error_free (error);
+
+		source = e_client_get_source (client);
+		cal_backend_contacts_remove_book_record (br->cbc, source);
+	}
+
+	book_record_unref (br);
+}
+
+/* BookRecord methods */
+static void
+create_book_record (ECalBackendContacts *cbc,
+                    ESource *source)
+{
+	BookRecord *br;
+
+	br = book_record_new (cbc, source);
+
+	if (br != NULL) {
+		cal_backend_contacts_insert_book_record (cbc, source, br);
+
+		e_client_open (
+			E_CLIENT (br->book_client), TRUE, NULL,
+			client_open_cb, book_record_ref (br));
+
+		book_record_unref (br);
+	}
+}
+
+/* ContactRecord methods */
+static ContactRecord *
+contact_record_new (ECalBackendContacts *cbc,
+                    EBookClient *book_client,
+                    EContact *contact)
+{
+	ContactRecord *cr = g_new0 (ContactRecord, 1);
+
+	cr->cbc = cbc;
+	cr->book_client = book_client;
+	cr->contact = contact;
+	cr->comp_birthday = create_birthday (cbc, contact);
+	cr->comp_anniversary = create_anniversary (cbc, contact);
+
+	if (cr->comp_birthday)
+		e_cal_backend_notify_component_created (E_CAL_BACKEND (cbc), cr->comp_birthday);
+
+	if (cr->comp_anniversary)
+		e_cal_backend_notify_component_created (E_CAL_BACKEND (cbc), cr->comp_anniversary);
+
+	g_object_ref (G_OBJECT (contact));
+
+	return cr;
+}
+
+static void
+contact_record_free (ContactRecord *cr)
+{
+	ECalComponentId *id;
+
+	g_object_unref (G_OBJECT (cr->contact));
+
+	/* Remove the birthday event */
+	if (cr->comp_birthday) {
+		id = e_cal_component_get_id (cr->comp_birthday);
+		e_cal_backend_notify_component_removed (E_CAL_BACKEND (cr->cbc), id, cr->comp_birthday, NULL);
+
+		e_cal_component_free_id (id);
+		g_object_unref (G_OBJECT (cr->comp_birthday));
+	}
+
+	/* Remove the anniversary event */
+	if (cr->comp_anniversary) {
+		id = e_cal_component_get_id (cr->comp_anniversary);
+
+		e_cal_backend_notify_component_removed (E_CAL_BACKEND (cr->cbc), id, cr->comp_anniversary, NULL);
+
+		e_cal_component_free_id (id);
+		g_object_unref (G_OBJECT (cr->comp_anniversary));
+	}
+
+	g_free (cr);
+}
+
+/* ContactRecordCB methods */
+typedef struct _ContactRecordCB {
+        ECalBackendContacts *cbc;
+        ECalBackendSExp     *sexp;
+	gboolean	     as_string;
+        GSList              *result;
+} ContactRecordCB;
+
+static ContactRecordCB *
+contact_record_cb_new (ECalBackendContacts *cbc,
+                       ECalBackendSExp *sexp,
+                       gboolean as_string)
+{
+	ContactRecordCB *cb_data = g_new (ContactRecordCB, 1);
+
+	cb_data->cbc = cbc;
+	cb_data->sexp = sexp;
+	cb_data->as_string = as_string;
+	cb_data->result = NULL;
+
+	return cb_data;
+}
+
+static void
+contact_record_cb_free (ContactRecordCB *cb_data)
+{
+	if (cb_data->as_string)
+		g_slist_foreach (cb_data->result, (GFunc) g_free, NULL);
+	g_slist_free (cb_data->result);
+
+	g_free (cb_data);
+}
+
+static void
+contact_record_cb (gpointer key,
+                   gpointer value,
+                   gpointer user_data)
+{
+	ContactRecordCB *cb_data = user_data;
+	ContactRecord   *record = value;
+	gpointer data;
+
+	if (record->comp_birthday && e_cal_backend_sexp_match_comp (cb_data->sexp, record->comp_birthday, E_CAL_BACKEND (cb_data->cbc))) {
+		if (cb_data->as_string)
+			data = e_cal_component_get_as_string (record->comp_birthday);
+		else
+			data = record->comp_birthday;
+
+		cb_data->result = g_slist_prepend (cb_data->result, data);
+	}
+
+	if (record->comp_anniversary && e_cal_backend_sexp_match_comp (cb_data->sexp, record->comp_anniversary, E_CAL_BACKEND (cb_data->cbc))) {
+		if (cb_data->as_string)
+			data = e_cal_component_get_as_string (record->comp_anniversary);
+		else
+			data = record->comp_anniversary;
+
+		cb_data->result = g_slist_prepend (cb_data->result, data);
+	}
+}
+
+static void
+source_added_cb (ESourceRegistry *registry,
+                 ESource *source,
+                 ECalBackendContacts *cbc)
+{
+	ESourceContacts *extension;
+	const gchar *extension_name;
+
+	/* We're only interested in address books. */
+	extension_name = E_SOURCE_EXTENSION_ADDRESS_BOOK;
+	if (!e_source_has_extension (source, extension_name))
+		return;
+
+	extension_name = E_SOURCE_EXTENSION_CONTACTS_BACKEND;
+	extension = e_source_get_extension (source, extension_name);
+
+	if (extension == NULL)
+		return;
+
+	if (e_source_contacts_get_include_me (extension))
+		create_book_record (cbc, source);
+}
+
+static void
+source_removed_cb (ESourceRegistry *registry,
+                   ESource *source,
+                   ECalBackendContacts *cbc)
+{
+	cal_backend_contacts_remove_book_record (cbc, source);
+}
+
+static gboolean
+cal_backend_contacts_load_sources (gpointer user_data)
+{
+	ESourceRegistry *registry;
+	ECalBackend *backend;
+	GList *list, *link;
+	const gchar *extension_name;
+
+	backend = E_CAL_BACKEND (user_data);
+	registry = e_cal_backend_get_registry (backend);
+
+	/* Query all address book sources from the registry. */
+
+	extension_name = E_SOURCE_EXTENSION_ADDRESS_BOOK;
+	list = e_source_registry_list_sources (registry, extension_name);
+	for (link = list; link != NULL; link = g_list_next (link))
+		source_added_cb (
+			registry, E_SOURCE (link->data),
+			E_CAL_BACKEND_CONTACTS (backend));
+	g_list_free_full (list, (GDestroyNotify) g_object_unref);
+
+	g_signal_connect (
+		registry, "source-added",
+		G_CALLBACK (source_added_cb), backend);
+
+	g_signal_connect (
+		registry, "source-removed",
+		G_CALLBACK (source_removed_cb), backend);
+
+	return FALSE;
+}
+
+/************************************************************************************/
+
+static void
+contacts_modified_cb (EBookClientView *book_view,
+                      const GSList *contacts,
+                      gpointer user_data)
+{
+	ECalBackendContacts *cbc = E_CAL_BACKEND_CONTACTS (user_data);
+	EBookClient *book_client = e_book_client_view_get_client (book_view);
+	const GSList *ii;
+
+	for (ii = contacts; ii; ii = ii->next) {
+		EContact *contact = E_CONTACT (ii->data);
+		const gchar *uid = e_contact_get_const (contact, E_CONTACT_UID);
+		EContactDate *birthday, *anniversary;
+
+		/* Because this is a change of contact, then always remove old tracked data
+		 * and if possible, add with (possibly) new values.
+		*/
+		g_hash_table_remove (cbc->priv->tracked_contacts, (gchar *) uid);
+
+		birthday = e_contact_get (contact, E_CONTACT_BIRTH_DATE);
+		anniversary = e_contact_get (contact, E_CONTACT_ANNIVERSARY);
+
+		if (birthday || anniversary) {
+			ContactRecord *cr = contact_record_new (cbc, book_client, contact);
+			g_hash_table_insert (cbc->priv->tracked_contacts, g_strdup (uid), cr);
+		}
+
+		e_contact_date_free (birthday);
+		e_contact_date_free (anniversary);
+	}
+}
+
+static void
+contacts_added_cb (EBookClientView *book_view,
+                   const GSList *contacts,
+                   gpointer user_data)
+{
+	ECalBackendContacts *cbc = E_CAL_BACKEND_CONTACTS (user_data);
+	EBookClient *book_client = e_book_client_view_get_client (book_view);
+	const GSList *ii;
+
+	/* See if any new contacts have BIRTHDAY or ANNIVERSARY fields */
+	for (ii = contacts; ii; ii = ii->next) {
+		EContact *contact = E_CONTACT (ii->data);
+		EContactDate *birthday, *anniversary;
+
+		birthday = e_contact_get (contact, E_CONTACT_BIRTH_DATE);
+		anniversary = e_contact_get (contact, E_CONTACT_ANNIVERSARY);
+
+		if (birthday || anniversary) {
+			ContactRecord *cr = contact_record_new (cbc, book_client, contact);
+			const gchar    *uid = e_contact_get_const (contact, E_CONTACT_UID);
+
+			g_hash_table_insert (cbc->priv->tracked_contacts, g_strdup (uid), cr);
+		}
+
+		e_contact_date_free (birthday);
+		e_contact_date_free (anniversary);
+	}
+}
+
+static void
+contacts_removed_cb (EBookClientView *book_view,
+                     const GSList *contact_ids,
+                     gpointer user_data)
+{
+	ECalBackendContacts *cbc = E_CAL_BACKEND_CONTACTS (user_data);
+	const GSList *ii;
+
+	/* Stop tracking these */
+	for (ii = contact_ids; ii; ii = ii->next)
+		g_hash_table_remove (cbc->priv->tracked_contacts, ii->data);
+}
+
+/************************************************************************************/
+static struct icaltimetype
+cdate_to_icaltime (EContactDate *cdate)
+{
+	struct icaltimetype ret = icaltime_null_time ();
+
+	ret.year = cdate->year;
+	ret.month = cdate->month;
+	ret.day = cdate->day;
+	ret.is_date = TRUE;
+	ret.is_utc = FALSE;
+	ret.zone = NULL;
+	ret.is_daylight = FALSE;
+
+	ret.hour = ret.minute = ret.second = 0;
+
+	return ret;
+}
+
+static void
+manage_comp_alarm_update (ECalBackendContacts *cbc,
+                          ECalComponent *comp)
+{
+	gchar *old_comp_str, *new_comp_str;
+	ECalComponent *old_comp;
+
+	g_return_if_fail (cbc != NULL);
+	g_return_if_fail (comp != NULL);
+
+	old_comp = e_cal_component_clone (comp);
+	setup_alarm (cbc, comp);
+
+	old_comp_str = e_cal_component_get_as_string (old_comp);
+	new_comp_str = e_cal_component_get_as_string (comp);
+
+	/* check if component changed and notify if so */
+	if (old_comp_str && new_comp_str && !g_str_equal (old_comp_str, new_comp_str))
+		e_cal_backend_notify_component_modified (E_CAL_BACKEND (cbc), old_comp, comp);
+
+	g_free (old_comp_str);
+	g_free (new_comp_str);
+	g_object_unref (old_comp);
+}
+
+static void
+update_alarm_cb (gpointer key,
+                 gpointer value,
+                 gpointer user_data)
+{
+	ECalBackendContacts *cbc = user_data;
+	ContactRecord   *record = value;
+
+	g_return_if_fail (cbc != NULL);
+	g_return_if_fail (record != NULL);
+
+	if (record->comp_birthday)
+		manage_comp_alarm_update (cbc, record->comp_birthday);
+
+	if (record->comp_anniversary)
+		manage_comp_alarm_update (cbc, record->comp_anniversary);
+}
+
+static gboolean
+update_tracked_alarms_cb (gpointer user_data)
+{
+	ECalBackendContacts *cbc = user_data;
+
+	g_return_val_if_fail (cbc != NULL, FALSE);
+
+	g_hash_table_foreach (cbc->priv->tracked_contacts, update_alarm_cb, cbc);
+	cbc->priv->update_alarms_id = 0;
+
+	return FALSE;
+}
+
+#define BA_CONF_ENABLED		"contacts-reminder-enabled"
+#define BA_CONF_INTERVAL	"contacts-reminder-interval"
+#define BA_CONF_UNITS		"contacts-reminder-units"
+
+static void
+alarm_config_changed_cb (GSettings *settings,
+                         const gchar *key,
+                         gpointer user_data)
+{
+	ECalBackendContacts *cbc = user_data;
+
+	g_return_if_fail (cbc != NULL);
+
+	if (g_strcmp0 (key, BA_CONF_ENABLED) != 0 &&
+	    g_strcmp0 (key, BA_CONF_INTERVAL) != 0 &&
+	    g_strcmp0 (key, BA_CONF_UNITS) != 0)
+		return;
+
+	setup_alarm (cbc, NULL);
+
+	if (!cbc->priv->update_alarms_id)
+		cbc->priv->update_alarms_id = g_idle_add (update_tracked_alarms_cb, cbc);
+}
+
+/* When called with NULL, then just refresh local static variables on setup change from the user. */
+static void
+setup_alarm (ECalBackendContacts *cbc,
+             ECalComponent *comp)
+{
+	ECalComponentAlarm *alarm;
+	ECalComponentAlarmTrigger trigger;
+	ECalComponentText summary;
+
+	g_return_if_fail (cbc != NULL);
+
+	if (!comp || cbc->priv->alarm_interval == -1) {
+		gchar *str;
+
+		if (cbc->priv->alarm_interval == -1) {
+			/* initial setup, hook callback for changes too */
+			cbc->priv->notifyid = g_signal_connect (cbc->priv->settings,
+				"changed", G_CALLBACK (alarm_config_changed_cb), cbc);
+		}
+
+		cbc->priv->alarm_enabled = g_settings_get_boolean (cbc->priv->settings, BA_CONF_ENABLED);
+		cbc->priv->alarm_interval = g_settings_get_int (cbc->priv->settings, BA_CONF_INTERVAL);
+
+		str = g_settings_get_string (cbc->priv->settings, BA_CONF_UNITS);
+		if (str && !strcmp (str, "days"))
+			cbc->priv->alarm_units = CAL_DAYS;
+		else if (str && !strcmp (str, "hours"))
+			cbc->priv->alarm_units = CAL_HOURS;
+		else
+			cbc->priv->alarm_units = CAL_MINUTES;
+
+		g_free (str);
+
+		if (cbc->priv->alarm_interval <= 0)
+			cbc->priv->alarm_interval = 1;
+
+		if (!comp)
+			return;
+	}
+
+	/* ensure no alarms left */
+	e_cal_component_remove_all_alarms (comp);
+
+	/* do not want alarms, return */
+	if (!cbc->priv->alarm_enabled)
+		return;
+
+	alarm = e_cal_component_alarm_new ();
+	e_cal_component_get_summary (comp, &summary);
+	e_cal_component_alarm_set_description (alarm, &summary);
+	e_cal_component_alarm_set_action (alarm, E_CAL_COMPONENT_ALARM_DISPLAY);
+
+	trigger.type = E_CAL_COMPONENT_ALARM_TRIGGER_RELATIVE_START;
+
+	memset (&trigger.u.rel_duration, 0, sizeof (trigger.u.rel_duration));
+
+	trigger.u.rel_duration.is_neg = TRUE;
+
+	switch (cbc->priv->alarm_units) {
+	case CAL_MINUTES:
+		trigger.u.rel_duration.minutes = cbc->priv->alarm_interval;
+		break;
+
+	case CAL_HOURS:
+		trigger.u.rel_duration.hours = cbc->priv->alarm_interval;
+		break;
+
+	case CAL_DAYS:
+		trigger.u.rel_duration.days = cbc->priv->alarm_interval;
+		break;
+
+	default:
+		g_warning ("%s: wrong units %d\n", G_STRFUNC, cbc->priv->alarm_units);
+		e_cal_component_alarm_free (alarm);
+		return;
+	}
+
+	e_cal_component_alarm_set_trigger (alarm, trigger);
+	e_cal_component_add_alarm (comp, alarm);
+	e_cal_component_alarm_free (alarm);
+}
+
+#undef BA_CONF_ENABLED
+#undef BA_CONF_INTERVAL
+#undef BA_CONF_UNITS
+
+/* Contact -> Event creator */
+static ECalComponent *
+create_component (ECalBackendContacts *cbc,
+                  const gchar *uid,
+                  EContactDate *cdate,
+                  const gchar *summary)
+{
+	ECalComponent             *cal_comp;
+	ECalComponentText          comp_summary;
+	icalcomponent             *ical_comp;
+	icalproperty		  *prop;
+	struct icaltimetype        itt;
+	ECalComponentDateTime      dt;
+	struct icalrecurrencetype  r;
+	gchar			  *since_year;
+	GSList recur_list;
+
+	g_return_val_if_fail (E_IS_CAL_BACKEND_CONTACTS (cbc), NULL);
+
+	if (!cdate)
+		return NULL;
+
+	ical_comp = icalcomponent_new (ICAL_VEVENT_COMPONENT);
+
+	since_year = g_strdup_printf ("%04d", cdate->year);
+	prop = icalproperty_new_x (since_year);
+	icalproperty_set_x_name (prop, "X-EVOLUTION-SINCE-YEAR");
+	icalcomponent_add_property (ical_comp, prop);
+	g_free (since_year);
+
+	/* Create the event object */
+	cal_comp = e_cal_component_new ();
+	e_cal_component_set_icalcomponent (cal_comp, ical_comp);
+
+	/* Set uid */
+	d (g_message ("Creating UID: %s", uid));
+	e_cal_component_set_uid (cal_comp, uid);
+
+	/* Set all-day event's date from contact data */
+	itt = cdate_to_icaltime (cdate);
+	dt.value = &itt;
+	dt.tzid = NULL;
+	e_cal_component_set_dtstart (cal_comp, &dt);
+
+	itt = cdate_to_icaltime (cdate);
+	icaltime_adjust (&itt, 1, 0, 0, 0);
+	dt.value = &itt;
+	dt.tzid = NULL;
+	/* We have to add 1 day to DTEND, as it is not inclusive. */
+	e_cal_component_set_dtend (cal_comp, &dt);
+
+	/* Create yearly recurrence */
+	icalrecurrencetype_clear (&r);
+	r.freq = ICAL_YEARLY_RECURRENCE;
+	r.interval = 1;
+	recur_list.data = &r;
+	recur_list.next = NULL;
+	e_cal_component_set_rrule_list (cal_comp, &recur_list);
+
+	/* Create summary */
+	comp_summary.value = summary;
+	comp_summary.altrep = NULL;
+	e_cal_component_set_summary (cal_comp, &comp_summary);
+
+	/* Set category and visibility */
+	if (g_str_has_suffix (uid, ANNIVERSARY_UID_EXT))
+		e_cal_component_set_categories (cal_comp, _("Anniversary"));
+	else if (g_str_has_suffix (uid, BIRTHDAY_UID_EXT))
+		e_cal_component_set_categories (cal_comp, _("Birthday"));
+
+	e_cal_component_set_classification (cal_comp, E_CAL_COMPONENT_CLASS_PRIVATE);
+
+	/* Birthdays/anniversaries are shown as free time */
+	e_cal_component_set_transparency (cal_comp, E_CAL_COMPONENT_TRANSP_TRANSPARENT);
+
+	/* setup alarms if required */
+	setup_alarm (cbc, cal_comp);
+
+	/* Don't forget to call commit()! */
+	e_cal_component_commit_sequence (cal_comp);
+
+	return cal_comp;
+}
+
+static ECalComponent *
+create_birthday (ECalBackendContacts *cbc,
+                 EContact *contact)
+{
+	EContactDate  *cdate;
+	ECalComponent *cal_comp;
+	gchar          *summary;
+	const gchar    *name;
+	gchar *uid;
+
+	cdate = e_contact_get (contact, E_CONTACT_BIRTH_DATE);
+	name = e_contact_get_const (contact, E_CONTACT_FILE_AS);
+	if (!name || !*name)
+		name = e_contact_get_const (contact, E_CONTACT_FULL_NAME);
+	if (!name || !*name)
+		name = e_contact_get_const (contact, E_CONTACT_NICKNAME);
+	if (!name)
+		name = "";
+
+	uid = g_strdup_printf ("%s%s", (gchar *) e_contact_get_const (contact, E_CONTACT_UID), BIRTHDAY_UID_EXT);
+	summary = g_strdup_printf (_("Birthday: %s"), name);
+
+	cal_comp = create_component (cbc, uid, cdate, summary);
+
+	e_contact_date_free (cdate);
+	g_free (uid);
+	g_free (summary);
+
+	return cal_comp;
+}
+
+static ECalComponent *
+create_anniversary (ECalBackendContacts *cbc,
+                    EContact *contact)
+{
+	EContactDate  *cdate;
+	ECalComponent *cal_comp;
+	gchar          *summary;
+	const gchar    *name;
+	gchar *uid;
+
+	cdate = e_contact_get (contact, E_CONTACT_ANNIVERSARY);
+	name = e_contact_get_const (contact, E_CONTACT_FILE_AS);
+	if (!name || !*name)
+		name = e_contact_get_const (contact, E_CONTACT_FULL_NAME);
+	if (!name || !*name)
+		name = e_contact_get_const (contact, E_CONTACT_NICKNAME);
+	if (!name)
+		name = "";
+
+	uid = g_strdup_printf ("%s%s", (gchar *) e_contact_get_const (contact, E_CONTACT_UID), ANNIVERSARY_UID_EXT);
+	summary = g_strdup_printf (_("Anniversary: %s"), name);
+
+	cal_comp = create_component (cbc, uid, cdate, summary);
+
+	e_contact_date_free (cdate);
+	g_free (uid);
+	g_free (summary);
+
+	return cal_comp;
+}
+
+/************************************************************************************/
+/* Calendar backend method implementations */
+
+/* First the empty stubs */
+
+static gboolean
+e_cal_backend_contacts_get_backend_property (ECalBackendSync *backend,
+                                             EDataCal *cal,
+                                             GCancellable *cancellable,
+                                             const gchar *prop_name,
+                                             gchar **prop_value,
+                                             GError **perror)
+{
+	gboolean processed = TRUE;
+
+	g_return_val_if_fail (prop_name != NULL, FALSE);
+	g_return_val_if_fail (prop_value != NULL, FALSE);
+
+	if (g_str_equal (prop_name, CLIENT_BACKEND_PROPERTY_CAPABILITIES)) {
+		*prop_value = NULL;
+	} else if (g_str_equal (prop_name, CAL_BACKEND_PROPERTY_CAL_EMAIL_ADDRESS) ||
+		   g_str_equal (prop_name, CAL_BACKEND_PROPERTY_ALARM_EMAIL_ADDRESS)) {
+		/* A contact backend has no particular email address associated
+		 * with it (although that would be a useful feature some day).
+		 */
+		*prop_value = NULL;
+	} else if (g_str_equal (prop_name, CAL_BACKEND_PROPERTY_DEFAULT_OBJECT)) {
+		g_propagate_error (perror, EDC_ERROR (UnsupportedMethod));
+	} else {
+		processed = FALSE;
+	}
+
+	return processed;
+}
+
+static void
+e_cal_backend_contacts_get_object (ECalBackendSync *backend,
+                                   EDataCal *cal,
+                                   GCancellable *cancellable,
+                                   const gchar *uid,
+                                   const gchar *rid,
+                                   gchar **object,
+                                   GError **perror)
+{
+	ECalBackendContacts *cbc = E_CAL_BACKEND_CONTACTS (backend);
+	ECalBackendContactsPrivate *priv = cbc->priv;
+	ContactRecord *record;
+	gchar *real_uid;
+
+	if (!uid) {
+		g_propagate_error (perror, EDC_ERROR (ObjectNotFound));
+		return;
+	} else if (g_str_has_suffix (uid, ANNIVERSARY_UID_EXT))
+		real_uid = g_strndup (uid, strlen (uid) - strlen (ANNIVERSARY_UID_EXT));
+	else if (g_str_has_suffix (uid, BIRTHDAY_UID_EXT))
+		real_uid = g_strndup (uid, strlen (uid) - strlen (BIRTHDAY_UID_EXT));
+	else {
+		g_propagate_error (perror, EDC_ERROR (ObjectNotFound));
+		return;
+	}
+
+	record = g_hash_table_lookup (priv->tracked_contacts, real_uid);
+	g_free (real_uid);
+
+	if (!record) {
+		g_propagate_error (perror, EDC_ERROR (ObjectNotFound));
+		return;
+	}
+
+	if (record->comp_birthday && g_str_has_suffix (uid, BIRTHDAY_UID_EXT)) {
+		*object = e_cal_component_get_as_string (record->comp_birthday);
+
+		d (g_message ("Return birthday: %s", *object));
+		return;
+	}
+
+	if (record->comp_anniversary && g_str_has_suffix (uid, ANNIVERSARY_UID_EXT)) {
+		*object = e_cal_component_get_as_string (record->comp_anniversary);
+
+		d (g_message ("Return anniversary: %s", *object));
+		return;
+	}
+
+	d (g_message ("Returning nothing for uid: %s", uid));
+
+	g_propagate_error (perror, EDC_ERROR (ObjectNotFound));
+}
+
+static void
+e_cal_backend_contacts_get_free_busy (ECalBackendSync *backend,
+                                      EDataCal *cal,
+                                      GCancellable *cancellable,
+                                      const GSList *users,
+                                      time_t start,
+                                      time_t end,
+                                      GSList **freebusy,
+                                      GError **perror)
+{
+	/* Birthdays/anniversaries don't count as busy time */
+
+	icalcomponent *vfb = icalcomponent_new_vfreebusy ();
+	icaltimezone *utc_zone = icaltimezone_get_utc_timezone ();
+	gchar *calobj;
+
+#if 0
+	icalproperty *prop;
+	icalparameter *param;
+
+	prop = icalproperty_new_organizer (address);
+	if (prop != NULL && cn != NULL) {
+		param = icalparameter_new_cn (cn);
+		icalproperty_add_parameter (prop, param);
+	}
+	if (prop != NULL)
+		icalcomponent_add_property (vfb, prop);
+#endif
+
+	icalcomponent_set_dtstart (vfb, icaltime_from_timet_with_zone (start, FALSE, utc_zone));
+	icalcomponent_set_dtend (vfb, icaltime_from_timet_with_zone (end, FALSE, utc_zone));
+
+	calobj = icalcomponent_as_ical_string_r (vfb);
+	*freebusy = g_slist_append (NULL, calobj);
+	icalcomponent_free (vfb);
+
+	/* WRITE ME */
+	/* Success */
+}
+
+static void
+e_cal_backend_contacts_receive_objects (ECalBackendSync *backend,
+                                        EDataCal *cal,
+                                        GCancellable *cancellable,
+                                        const gchar *calobj,
+                                        GError **perror)
+{
+	g_propagate_error (perror, EDC_ERROR (PermissionDenied));
+}
+
+static void
+e_cal_backend_contacts_send_objects (ECalBackendSync *backend,
+                                     EDataCal *cal,
+                                     GCancellable *cancellable,
+                                     const gchar *calobj,
+                                     GSList **users,
+                                     gchar **modified_calobj,
+                                     GError **perror)
+{
+	*users = NULL;
+	*modified_calobj = NULL;
+	/* TODO: Investigate this */
+	g_propagate_error (perror, EDC_ERROR (PermissionDenied));
+}
+
+/* Then the real implementations */
+
+static void
+e_cal_backend_contacts_notify_online_cb (ECalBackend *backend,
+                                         gboolean is_online)
+{
+	gboolean online;
+
+	online = e_backend_get_online (E_BACKEND (backend));
+	e_cal_backend_notify_online (backend, online);
+	e_cal_backend_notify_readonly (backend, TRUE);
+}
+
+static void
+e_cal_backend_contacts_open (ECalBackendSync *backend,
+                             EDataCal *cal,
+                             GCancellable *cancellable,
+                             gboolean only_if_exists,
+                             GError **perror)
+{
+	ECalBackendContacts *cbc = E_CAL_BACKEND_CONTACTS (backend);
+	ECalBackendContactsPrivate *priv = cbc->priv;
+
+	if (priv->addressbook_loaded)
+		return;
+
+	priv->addressbook_loaded = TRUE;
+	e_cal_backend_notify_readonly (E_CAL_BACKEND (backend), TRUE);
+	e_cal_backend_notify_online (E_CAL_BACKEND (backend), TRUE);
+	e_cal_backend_notify_opened (E_CAL_BACKEND (backend), NULL);
+}
+
+/* Add_timezone handler for the file backend */
+static void
+e_cal_backend_contacts_add_timezone (ECalBackendSync *backend,
+                                     EDataCal *cal,
+                                     GCancellable *cancellable,
+                                     const gchar *tzobj,
+                                     GError **error)
+{
+	ECalBackendContacts *cbcontacts;
+	ECalBackendContactsPrivate *priv;
+	icalcomponent *tz_comp;
+	icaltimezone *zone;
+	const gchar *tzid;
+
+	cbcontacts = (ECalBackendContacts *) backend;
+
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_CONTACTS (cbcontacts), InvalidArg);
+	e_return_data_cal_error_if_fail (tzobj != NULL, InvalidArg);
+
+	priv = cbcontacts->priv;
+
+	tz_comp = icalparser_parse_string (tzobj);
+	if (!tz_comp) {
+		g_propagate_error (error, EDC_ERROR (InvalidObject));
+		return;
+	}
+
+	if (icalcomponent_isa (tz_comp) != ICAL_VTIMEZONE_COMPONENT) {
+		g_propagate_error (error, EDC_ERROR (InvalidObject));
+		return;
+	}
+
+	zone = icaltimezone_new ();
+	icaltimezone_set_component (zone, tz_comp);
+	tzid = icaltimezone_get_tzid (zone);
+
+	if (g_hash_table_lookup (priv->zones, tzid)) {
+		icaltimezone_free (zone, TRUE);
+	} else {
+		g_hash_table_insert (priv->zones, g_strdup (tzid), zone);
+	}
+}
+
+static void
+e_cal_backend_contacts_get_object_list (ECalBackendSync *backend,
+                                        EDataCal *cal,
+                                        GCancellable *cancellable,
+                                        const gchar *sexp_string,
+                                        GSList **objects,
+                                        GError **perror)
+{
+	ECalBackendContacts *cbc = E_CAL_BACKEND_CONTACTS (backend);
+	ECalBackendContactsPrivate *priv = cbc->priv;
+	ECalBackendSExp *sexp = e_cal_backend_sexp_new (sexp_string);
+	ContactRecordCB *cb_data;
+
+	if (!sexp) {
+		g_propagate_error (perror, EDC_ERROR (InvalidQuery));
+		return;
+	}
+
+	cb_data = contact_record_cb_new (cbc, sexp, TRUE);
+	g_hash_table_foreach (priv->tracked_contacts, contact_record_cb, cb_data);
+	*objects = cb_data->result;
+
+	/* Don't call cb_data_free as that would destroy the results
+	 * in *objects */
+	g_free (cb_data);
+}
+
+static void
+e_cal_backend_contacts_start_view (ECalBackend *backend,
+                                   EDataCalView *query)
+{
+	ECalBackendContacts *cbc = E_CAL_BACKEND_CONTACTS (backend);
+	ECalBackendContactsPrivate *priv = cbc->priv;
+	ECalBackendSExp *sexp;
+	ContactRecordCB *cb_data;
+
+	sexp = e_data_cal_view_get_object_sexp (query);
+	if (!sexp) {
+		GError *error = EDC_ERROR (InvalidQuery);
+		e_data_cal_view_notify_complete (query, error);
+		g_error_free (error);
+		return;
+	}
+
+	cb_data = contact_record_cb_new (cbc, sexp, FALSE);
+
+	g_hash_table_foreach (priv->tracked_contacts, contact_record_cb, cb_data);
+	e_data_cal_view_notify_components_added (query, cb_data->result);
+
+	contact_record_cb_free (cb_data);
+
+	e_data_cal_view_notify_complete (query, NULL /* Success */);
+}
+
+static icaltimezone *
+e_cal_backend_contacts_internal_get_timezone (ECalBackend *backend,
+                                              const gchar *tzid)
+{
+	ECalBackendContacts *cbc = E_CAL_BACKEND_CONTACTS (backend);
+
+	return g_hash_table_lookup (cbc->priv->zones, tzid ? tzid : "");
+}
+
+/***********************************************************************************
+ */
+
+static void
+free_zone (gpointer data)
+{
+	icaltimezone_free (data, TRUE);
+}
+
+/* Finalize handler for the contacts backend */
+static void
+e_cal_backend_contacts_finalize (GObject *object)
+{
+	ECalBackendContactsPrivate *priv;
+
+	priv = E_CAL_BACKEND_CONTACTS_GET_PRIVATE (object);
+
+	if (priv->update_alarms_id) {
+		g_source_remove (priv->update_alarms_id);
+		priv->update_alarms_id = 0;
+	}
+
+	g_hash_table_destroy (priv->addressbooks);
+	g_hash_table_destroy (priv->tracked_contacts);
+	g_hash_table_destroy (priv->zones);
+	if (priv->notifyid)
+		g_signal_handler_disconnect (priv->settings, priv->notifyid);
+
+	g_object_unref (priv->settings);
+	g_rec_mutex_clear (&priv->rec_mutex);
+
+	/* Chain up to parent's finalize() method. */
+	G_OBJECT_CLASS (e_cal_backend_contacts_parent_class)->finalize (object);
+}
+
+static void
+e_cal_backend_contacts_dispose (GObject *object)
+{
+	ESourceRegistry *registry;
+
+	registry = e_cal_backend_get_registry (E_CAL_BACKEND (object));
+	g_signal_handlers_disconnect_by_data (registry, object);
+
+	/* Chain up to parent's dispose() method. */
+	G_OBJECT_CLASS (e_cal_backend_contacts_parent_class)->dispose (object);
+}
+
+static void
+e_cal_backend_contacts_constructed (GObject *object)
+{
+	/* Load address book sources from an idle callback
+	 * to avoid deadlocking e_data_factory_ref_backend(). */
+	g_idle_add_full (
+		G_PRIORITY_DEFAULT_IDLE,
+		cal_backend_contacts_load_sources,
+		g_object_ref (object),
+		(GDestroyNotify) g_object_unref);
+
+	/* Chain up to parent's constructed() method. */
+	G_OBJECT_CLASS (e_cal_backend_contacts_parent_class)->
+		constructed (object);
+}
+
+/* Object initialization function for the contacts backend */
+static void
+e_cal_backend_contacts_init (ECalBackendContacts *cbc)
+{
+	cbc->priv = E_CAL_BACKEND_CONTACTS_GET_PRIVATE (cbc);
+
+	g_rec_mutex_init (&cbc->priv->rec_mutex);
+
+	cbc->priv->addressbooks = g_hash_table_new_full (
+		(GHashFunc) e_source_hash,
+		(GEqualFunc) e_source_equal,
+		(GDestroyNotify) g_object_unref,
+		(GDestroyNotify) book_record_unref);
+
+	cbc->priv->tracked_contacts = g_hash_table_new_full (
+		(GHashFunc) g_str_hash,
+		(GEqualFunc) g_str_equal,
+		(GDestroyNotify) g_free,
+		(GDestroyNotify) contact_record_free);
+
+	cbc->priv->zones = g_hash_table_new_full (
+		(GHashFunc) g_str_hash,
+		(GEqualFunc) g_str_equal,
+		(GDestroyNotify) g_free,
+		(GDestroyNotify) free_zone);
+
+	cbc->priv->settings = g_settings_new ("org.gnome.evolution-data-server.calendar");
+	cbc->priv->notifyid = 0;
+	cbc->priv->update_alarms_id = 0;
+	cbc->priv->alarm_enabled = FALSE;
+	cbc->priv->alarm_interval = -1;
+	cbc->priv->alarm_units = CAL_MINUTES;
+
+	e_cal_backend_sync_set_lock (E_CAL_BACKEND_SYNC (cbc), TRUE);
+
+	g_signal_connect (
+		cbc, "notify::online",
+		G_CALLBACK (e_cal_backend_contacts_notify_online_cb), NULL);
+}
+
+static void
+e_cal_backend_contacts_create_objects (ECalBackendSync *backend,
+                                       EDataCal *cal,
+                                       GCancellable *cancellable,
+                                       const GSList *calobjs,
+                                       GSList **uids,
+                                       GSList **new_components,
+                                       GError **perror)
+{
+	g_propagate_error (perror, EDC_ERROR (PermissionDenied));
+}
+
+/* Class initialization function for the contacts backend */
+static void
+e_cal_backend_contacts_class_init (ECalBackendContactsClass *class)
+{
+	GObjectClass *object_class;
+	ECalBackendClass *backend_class;
+	ECalBackendSyncClass *sync_class;
+
+	g_type_class_add_private (class, sizeof (ECalBackendContactsPrivate));
+
+	object_class = (GObjectClass *) class;
+	backend_class = (ECalBackendClass *) class;
+	sync_class = (ECalBackendSyncClass *) class;
+
+	object_class->finalize = e_cal_backend_contacts_finalize;
+	object_class->dispose = e_cal_backend_contacts_dispose;
+	object_class->constructed = e_cal_backend_contacts_constructed;
+
+	sync_class->get_backend_property_sync	= e_cal_backend_contacts_get_backend_property;
+	sync_class->open_sync			= e_cal_backend_contacts_open;
+	sync_class->create_objects_sync		= e_cal_backend_contacts_create_objects;
+	sync_class->receive_objects_sync	= e_cal_backend_contacts_receive_objects;
+	sync_class->send_objects_sync		= e_cal_backend_contacts_send_objects;
+	sync_class->get_object_sync		= e_cal_backend_contacts_get_object;
+	sync_class->get_object_list_sync	= e_cal_backend_contacts_get_object_list;
+	sync_class->add_timezone_sync		= e_cal_backend_contacts_add_timezone;
+	sync_class->get_free_busy_sync		= e_cal_backend_contacts_get_free_busy;
+
+	backend_class->start_view		= e_cal_backend_contacts_start_view;
+	backend_class->internal_get_timezone	= e_cal_backend_contacts_internal_get_timezone;
+
+	/* Register our ESource extension. */
+	E_TYPE_SOURCE_CONTACTS;
+}

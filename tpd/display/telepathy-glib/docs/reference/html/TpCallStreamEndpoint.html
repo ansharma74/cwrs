@@ -1,0 +1,533 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpCallStreamEndpoint</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream">
+<link rel="next" href="ch-service-handles.html" title="Service-side handle repositories">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="TpBaseMediaCallStream.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="ch-service-handles.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#TpCallStreamEndpoint.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#TpCallStreamEndpoint.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#TpCallStreamEndpoint.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#TpCallStreamEndpoint.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#TpCallStreamEndpoint.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#TpCallStreamEndpoint.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="TpCallStreamEndpoint"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="TpCallStreamEndpoint.top_of_page"></a>TpCallStreamEndpoint</span></h2>
+<p>TpCallStreamEndpoint — class for <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallStreamEndpoint"><span class="type">TpSvcCallStreamEndpoint</span></a> implementations</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="TpCallStreamEndpoint.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+                    <a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint-struct" title="TpCallStreamEndpoint">TpCallStreamEndpoint</a>;
+struct              <a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpointClass" title="struct TpCallStreamEndpointClass">TpCallStreamEndpointClass</a>;
+<a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="returnvalue">TpCallStreamEndpoint</span></a> * <a class="link" href="TpCallStreamEndpoint.html#tp-call-stream-endpoint-new" title="tp_call_stream_endpoint_new ()">tp_call_stream_endpoint_new</a>      (<em class="parameter"><code><a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a> *dbus_daemon</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpStreamTransportType" title="enum TpStreamTransportType"><span class="type">TpStreamTransportType</span></a> transport</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_ice_lite</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="TpCallStreamEndpoint.html#tp-call-stream-endpoint-get-object-path" title="tp_call_stream_endpoint_get_object_path ()">tp_call_stream_endpoint_get_object_path</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *self</code></em>);
+<a class="link" href="telepathy-glib-enums.html#TpStreamEndpointState" title="enum TpStreamEndpointState"><span class="returnvalue">TpStreamEndpointState</span></a> <a class="link" href="TpCallStreamEndpoint.html#tp-call-stream-endpoint-get-state" title="tp_call_stream_endpoint_get_state ()">tp_call_stream_endpoint_get_state</a> (<em class="parameter"><code><a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpStreamComponent" title="enum TpStreamComponent"><span class="type">TpStreamComponent</span></a> component</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpCallStreamEndpoint.html#tp-call-stream-endpoint-add-new-candidates" title="tp_call_stream_endpoint_add_new_candidates ()">tp_call_stream_endpoint_add_new_candidates</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *candidates</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpCallStreamEndpoint.html#tp-call-stream-endpoint-add-new-candidate" title="tp_call_stream_endpoint_add_new_candidate ()">tp_call_stream_endpoint_add_new_candidate</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpStreamComponent" title="enum TpStreamComponent"><span class="type">TpStreamComponent</span></a> component</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *address</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> port</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *info_hash</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpCallStreamEndpoint.html#tp-call-stream-endpoint-set-remote-credentials" title="tp_call_stream_endpoint_set_remote_credentials ()">tp_call_stream_endpoint_set_remote_credentials</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *username</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *password</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpCallStreamEndpoint.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----TpCallStreamEndpoint
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpCallStreamEndpoint.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+TpCallStreamEndpoint implements
+ <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallStreamEndpoint">TpSvcCallStreamEndpoint</a> and  <a class="link" href="telepathy-glib-svc-generic.html#TpSvcDBusProperties">TpSvcDBusProperties</a>.</p>
+</div>
+<div class="refsect1">
+<a name="TpCallStreamEndpoint.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--controlling" title='The "controlling" property'>controlling</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+  "<a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--dbus-daemon" title='The "dbus-daemon" property'>dbus-daemon</a>"              <a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a>*         : Read / Write / Construct Only
+  "<a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--endpoint-state" title='The "endpoint-state" property'>endpoint-state</a>"           <span class="type">GHashTable_guint+guint_*</span>  : Read
+  "<a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--is-ice-lite" title='The "is-ice-lite" property'>is-ice-lite</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct Only
+  "<a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--object-path" title='The "object-path" property'>object-path</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only
+  "<a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--remote-candidates" title='The "remote-candidates" property'>remote-candidates</a>"        <span class="type">GPtrArray_GValueArray_guint+gchararray+guint+GHashTable_gchararray+GValue___*</span>  : Read
+  "<a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--remote-credentials" title='The "remote-credentials" property'>remote-credentials</a>"       <span class="type">GValueArray_gchararray+gchararray_*</span>  : Read
+  "<a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--selected-candidate-pairs" title='The "selected-candidate-pairs" property'>selected-candidate-pairs</a>" <span class="type">GPtrArray_GValueArray_GValueArray_guint+gchararray+guint+GHashTable_gchararray+GValue__+GValueArray_guint+gchararray+guint+GHashTable_gchararray+GValue____*</span>  : Read
+  "<a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--transport" title='The "transport" property'>transport</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpCallStreamEndpoint.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint-candidate-accepted" title='The "candidate-accepted" signal'>candidate-accepted</a>"                             : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint-candidate-rejected" title='The "candidate-rejected" signal'>candidate-rejected</a>"                             : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint-candidate-selected" title='The "candidate-selected" signal'>candidate-selected</a>"                             : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpCallStreamEndpoint.description"></a><h2>Description</h2>
+<p>
+This class makes it easier to write <a class="link" href="telepathy-glib-svc-channel-call.html#TpSvcCallStreamEndpoint"><span class="type">TpSvcCallStreamEndpoint</span></a>
+implementations by implementing its properties and methods.
+</p>
+</div>
+<div class="refsect1">
+<a name="TpCallStreamEndpoint.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpCallStreamEndpoint-struct"></a><h3>TpCallStreamEndpoint</h3>
+<pre class="programlisting">typedef struct _TpCallStreamEndpoint TpCallStreamEndpoint;</pre>
+<p>
+A class for call stream endpoint implementations
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStreamEndpointClass"></a><h3>struct TpCallStreamEndpointClass</h3>
+<pre class="programlisting">struct TpCallStreamEndpointClass {
+};
+</pre>
+<p>
+The class structure for <a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a>
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-stream-endpoint-new"></a><h3>tp_call_stream_endpoint_new ()</h3>
+<pre class="programlisting"><a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="returnvalue">TpCallStreamEndpoint</span></a> * tp_call_stream_endpoint_new      (<em class="parameter"><code><a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a> *dbus_daemon</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpStreamTransportType" title="enum TpStreamTransportType"><span class="type">TpStreamTransportType</span></a> transport</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_ice_lite</code></em>);</pre>
+<p>
+Create a new <a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> object. It is registered on the bus
+at construction, and is unregistered at dispose.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dbus_daemon</code></em> :</span></p></td>
+<td>value of <a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--dbus-daemon" title='The "dbus-daemon" property'><span class="type">"dbus-daemon"</span></a> property</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object_path</code></em> :</span></p></td>
+<td>value of <a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--object-path" title='The "object-path" property'><span class="type">"object-path"</span></a> property</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>transport</code></em> :</span></p></td>
+<td>value of <a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--transport" title='The "transport" property'><span class="type">"transport"</span></a> property</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>is_ice_lite</code></em> :</span></p></td>
+<td>value of <a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--is-ice-lite" title='The "is-ice-lite" property'><span class="type">"is_ice_lite"</span></a> property</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-stream-endpoint-get-object-path"></a><h3>tp_call_stream_endpoint_get_object_path ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_call_stream_endpoint_get_object_path
+                                                        (<em class="parameter"><code><a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *self</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--object-path" title='The "object-path" property'><span class="type">"object-path"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-stream-endpoint-get-state"></a><h3>tp_call_stream_endpoint_get_state ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-enums.html#TpStreamEndpointState" title="enum TpStreamEndpointState"><span class="returnvalue">TpStreamEndpointState</span></a> tp_call_stream_endpoint_get_state (<em class="parameter"><code><a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpStreamComponent" title="enum TpStreamComponent"><span class="type">TpStreamComponent</span></a> component</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>component</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-enums.html#TpStreamComponent" title="enum TpStreamComponent"><span class="type">TpStreamComponent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the state of <em class="parameter"><code>self</code></em>'s <em class="parameter"><code>component</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-stream-endpoint-add-new-candidates"></a><h3>tp_call_stream_endpoint_add_new_candidates ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_call_stream_endpoint_add_new_candidates
+                                                        (<em class="parameter"><code><a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *candidates</code></em>);</pre>
+<p>
+Add <em class="parameter"><code>candidates</code></em> to the <a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--remote-candidates" title='The "remote-candidates" property'><span class="type">"remote-candidates"</span></a> property.
+See Also: <a class="link" href="TpCallStreamEndpoint.html#tp-call-stream-endpoint-add-new-candidate" title="tp_call_stream_endpoint_add_new_candidate ()"><code class="function">tp_call_stream_endpoint_add_new_candidate()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>candidates</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a> defining the candidates to add</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-stream-endpoint-add-new-candidate"></a><h3>tp_call_stream_endpoint_add_new_candidate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_call_stream_endpoint_add_new_candidate
+                                                        (<em class="parameter"><code><a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpStreamComponent" title="enum TpStreamComponent"><span class="type">TpStreamComponent</span></a> component</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *address</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> port</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *info_hash</code></em>);</pre>
+<p>
+Add a candidate to the <a class="link" href="TpCallStreamEndpoint.html#TpCallStreamEndpoint--remote-candidates" title='The "remote-candidates" property'><span class="type">"remote-candidates"</span></a> property.
+See Also: <a class="link" href="TpCallStreamEndpoint.html#tp-call-stream-endpoint-add-new-candidates" title="tp_call_stream_endpoint_add_new_candidates ()"><code class="function">tp_call_stream_endpoint_add_new_candidates()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>component</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-enums.html#TpStreamComponent" title="enum TpStreamComponent"><span class="type">TpStreamComponent</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>address</code></em> :</span></p></td>
+<td>an IP address</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>port</code></em> :</span></p></td>
+<td>a port number</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info_hash</code></em> :</span></p></td>
+<td>string -&gt; <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> mapping for extra info</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-call-stream-endpoint-set-remote-credentials"></a><h3>tp_call_stream_endpoint_set_remote_credentials ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_call_stream_endpoint_set_remote_credentials
+                                                        (<em class="parameter"><code><a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *username</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *password</code></em>);</pre>
+<p>
+Set the username and password to use for <em class="parameter"><code>self</code></em>'s crendentials.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>username</code></em> :</span></p></td>
+<td>the username</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>password</code></em> :</span></p></td>
+<td>the password</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpCallStreamEndpoint.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpCallStreamEndpoint--controlling"></a><h3>The <code class="literal">"controlling"</code> property</h3>
+<pre class="programlisting">  "controlling"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>
+Whether or not the local side is taking the controlling role.
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStreamEndpoint--dbus-daemon"></a><h3>The <code class="literal">"dbus-daemon"</code> property</h3>
+<pre class="programlisting">  "dbus-daemon"              <a class="link" href="telepathy-glib-dbus.html#TpDBusDaemon"><span class="type">TpDBusDaemon</span></a>*         : Read / Write / Construct Only</pre>
+<p>
+The connection to the DBus daemon owning the CM.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStreamEndpoint--endpoint-state"></a><h3>The <code class="literal">"endpoint-state"</code> property</h3>
+<pre class="programlisting">  "endpoint-state"           <span class="type">GHashTable_guint+guint_*</span>  : Read</pre>
+<p>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a>{<a class="link" href="telepathy-glib-enums.html#TpStreamComponent" title="enum TpStreamComponent"><span class="type">TpStreamComponent</span></a> -&gt; <a class="link" href="telepathy-glib-enums.html#TpStreamEndpointState" title="enum TpStreamEndpointState"><span class="type">TpStreamEndpointState</span></a>}
+The state of this endpoint.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStreamEndpoint--is-ice-lite"></a><h3>The <code class="literal">"is-ice-lite"</code> property</h3>
+<pre class="programlisting">  "is-ice-lite"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct Only</pre>
+<p>
+Whether or not the Remote side is an ICE Lite endpoint.
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStreamEndpoint--object-path"></a><h3>The <code class="literal">"object-path"</code> property</h3>
+<pre class="programlisting">  "object-path"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only</pre>
+<p>
+The D-Bus object path used for this object on the bus.
+</p>
+<p>Default value: NULL</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStreamEndpoint--remote-candidates"></a><h3>The <code class="literal">"remote-candidates"</code> property</h3>
+<pre class="programlisting">  "remote-candidates"        <span class="type">GPtrArray_GValueArray_guint+gchararray+guint+GHashTable_gchararray+GValue___*</span>  : Read</pre>
+<p>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>{candidate <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a>}
+The remote candidates of this endpoint.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStreamEndpoint--remote-credentials"></a><h3>The <code class="literal">"remote-credentials"</code> property</h3>
+<pre class="programlisting">  "remote-credentials"       <span class="type">GValueArray_gchararray+gchararray_*</span>  : Read</pre>
+<p>
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a>{username string, password string}
+The remote credentials of this endpoint.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStreamEndpoint--selected-candidate-pairs"></a><h3>The <code class="literal">"selected-candidate-pairs"</code> property</h3>
+<pre class="programlisting">  "selected-candidate-pairs" <span class="type">GPtrArray_GValueArray_GValueArray_guint+gchararray+guint+GHashTable_gchararray+GValue__+GValueArray_guint+gchararray+guint+GHashTable_gchararray+GValue____*</span>  : Read</pre>
+<p>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>{local-candidate <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a>, remote-candidate <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a>}
+The candidate pairs selected for this endpoint.
+</p>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStreamEndpoint--transport"></a><h3>The <code class="literal">"transport"</code> property</h3>
+<pre class="programlisting">  "transport"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct Only</pre>
+<p>
+The <a class="link" href="telepathy-glib-enums.html#TpStreamTransportType" title="enum TpStreamTransportType"><span class="type">TpStreamTransportType</span></a> for the content of this endpoint.
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.17.5</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpCallStreamEndpoint.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="TpCallStreamEndpoint-candidate-accepted"></a><h3>The <code class="literal">"candidate-accepted"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+The ::candidate-accepted signal is emitted whenever
+AcceptSelectedCandidatePair DBus method has been called on this object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>local_candidate</code></em> :</span></p></td>
+<td>the local candidate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>remote_candidate</code></em> :</span></p></td>
+<td>the remote candidate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStreamEndpoint-candidate-rejected"></a><h3>The <code class="literal">"candidate-rejected"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+The ::candidate-rejected signal is emitted whenever
+RejectSelectedCandidatePair DBus method has been called on this object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>local_candidate</code></em> :</span></p></td>
+<td>the local candidate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>remote_candidate</code></em> :</span></p></td>
+<td>the remote candidate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpCallStreamEndpoint-candidate-selected"></a><h3>The <code class="literal">"candidate-selected"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a> *self,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+The ::candidate-selected signal is emitted whenever
+SetSelectedCandidatePair DBus method has been called on this object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="TpCallStreamEndpoint.html" title="TpCallStreamEndpoint"><span class="type">TpCallStreamEndpoint</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>local_candidate</code></em> :</span></p></td>
+<td>the local candidate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>remote_candidate</code></em> :</span></p></td>
+<td>the remote candidate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.17.5</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpCallStreamEndpoint.see-also"></a><h2>See Also</h2>
+<a class="link" href="TpBaseMediaCallStream.html" title="TpBaseMediaCallStream"><span class="type">TpBaseMediaCallStream</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

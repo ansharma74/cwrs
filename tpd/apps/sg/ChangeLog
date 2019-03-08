@@ -1,0 +1,743 @@
+2005-01-29  Tomas Junnonen  <tomas@fs-security.com>
+
+	* src/wizard.c:
+	- Fixed wizard failing on single interface machines
+
+2005-01-27  Tomas Junnonen  <tomas@fs-security.com>
+
+	* src/statusview.c:
+	- Don't update active connections list when it is hidden,
+	  lowers resource usage on slower machines
+	* src/dhcp-server.c:
+	- Fixed DHCP configuration for non-dhcp3 Debian machines
+	* src/hitview.c:
+	- Distinguish unknown direction from the inbound case
+	* src/netfilter-script.c, scriptwriter.c:
+	- All logging targets go through new chain LOG_FILTER for
+	  guaranteed respect of user filtering settings
+	- LS target renamed LSI, added LSO as a final outbound target
+	- System log level can now be changed from the configuration file
+	- Updated firestarter.sh to be dhcp3 aware
+
+2005-01-16  Tomas Junnonen  <tomas@fs-security.com>
+
+	* src/wizard.c:
+	- Fixed crash on startup on first run
+
+2005-01-11  Tomas Junnonen  <tomas@fs-security.com>
+
+	* src/logread.c:
+	- Fixed crash when reloading the events (Bug 161067)
+	* src/netfilter-script.c:
+	- Allow special casing the services (Bug 161310)
+	- Samba service bundle overrides broadcast block settings
+	* configure.in: Fixed patch gone wrong
+	* src/wizard.c:
+	- Fixed main gui not being shown on wizard completion
+
+2005-01-11  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* configure.in: Add «nb» to ALL_LINGUAS.
+
+2005-01-10  Tomas Junnonen  <tomas@fs-security.com>
+
+	* src/service.c:
+	- Add port 1900 to Samba service bundle
+
+2005-01-09  Tomas Junnonen  <tomas@fs-security.com>
+
+	* src/menus.c, src/xpm/Makefile.am, +src/xpm/icon_start_toolbar.png,
+	  icon_stop_toolbar.png:
+	- New start/stop firewall toolbar icons
+	* src/hitview.c, policyview.c, statusview.c:
+	- Increased padding at the the top of the notebook pages (Bug 161074)
+	* src/util.c:
+	- Try /var/log/kernel if /var/log/messages file not found
+	* src/scriptwriter.c:
+	- Set execute permissions on ip-up.local
+	* src/netfilter-script.c, util.c:
+	- Allow listing multiple ports in a single rule, separated by spaces
+	* src/service.c:
+	- SMB->Samba, include port 445 as part of the service
+
+2005-01-07  Tomas Junnonen  <tomas@fs-security.com>
+
+	* src/netfilter-script.c:
+	- Enabled state check in outbound chain
+	* src/firestarter.c:
+	- Fixed external interface still being listed when in
+	  reality the internal interface is the one failing
+
+2005-01-06  Tomas Junnonen  <tomas@fs-security.com>
+
+	* src/netfilter-script.c:
+	- Extend connection tracking to the privileged ports
+	* scripts/non-routables:
+	- Following netblocks have been allocated: 71/8 and 72/8
+	* firestarter.schemas.in, src/netfilter-script.c,
+	  preferences.c/glade/h, scriptwriter.c:
+	- The non-routables check is now an option and disabled by default
+	* src/dhcp-server.c:
+	- Added support for dhcp3
+	* src/scriptwriter.c, wizard.c/h:
+	- Give the user the choice not to start the firewall on wizard
+	  completion
+
+2004-12-13  Tomas Junnonen  <majix@sci.fi>
+
+	* src/netfilter-script.c:
+	- Log traffic that fall of the default chains
+
+2004-12-12  Tomas Junnonen  <majix@sci.fi>
+
+	* src/scriptwriter.c:
+	- Require bash
+	* firestarter.schemas.in, src/netfilter-script.c, preferences.c/h,
+	  preferences.glade, scriptwriter.c:
+	- Separate controls for blocking internal and external network
+	  broadcasts (Bug 160481)
+	* src/netfilter-script.c:
+	- Forward rules only apply to traffic from the Internet
+	* src/firestarter.c, scriptwriter.c/h:
+	- Automatically generate a new firewall when upgrading to a newer
+	  version
+
+2004-11-29  Tomas Junnonen  <majix@sci.fi>
+
+	* src/statusview.c:
+	- Fixed crash on active connection lookup when the entry has
+	  already disappeared from the list (Bug 158003)
+	* src/scriptwriter.c:
+	- Fixed crash on save in wizard (Bug 159537)
+	* src/service.c:
+	- Fixed /etc/services lookups failing
+	* src/statusview.c:
+	- Only resolve service name for new connection entries
+
+2004-11-28  Tomas Junnonen  <majix@sci.fi>
+
+	* src/netfilter-script.c:
+	- Handle the case where a broadcast address is not applicable
+	* src/preferences.c, scriptwriter.c/h:
+	- Fixed PPP and DHCP hooks and the DHCP configuration not being
+	  written unless enabled from the wizard
+	* src/scriptwriter.c:
+	- Fixed DHCP hook not being removed if client is not running
+	* src/preferences.c, scriptwriter.c, wizard.c:
+	- Fixed DHCP configuration being overwritten (Bug 159419)
+	* src/policyview.c, util.c:
+	- Fixed commas in rules crashing the program, better checking
+	  for valid port and host inputs (Bug 159307)
+	* src/service.c:
+	- Fixed unknown service not being translated (Bug 158001)
+	* src/hitview.c:
+	- Fixed direction field of events not being translated (Bug 158001)
+
+2004-11-26  Tomas Junnonen  <majix@sci.fi>
+
+	* src/scriptwriter.c:
+	- Fixed dhcp client configurations not being written
+	  except for systems using dhclient
+	- Fixed broadcast filtering being hardcoded to eth0 (oops)
+
+2004-11-24  Tomas Junnonen  <majix@sci.fi>
+
+	* src/menus.c, preferences.c, wizard.c:
+	- Fixed manual urls
+	* src/preferences.c, preferences.glade:
+	- Disabled the system service option
+
+2004-11-17  Tomas Junnonen  <majix@sci.fi>
+
+	* src/policy-view.c:
+	- Try to suggest an internal port range from the service
+	  when forwarding
+	* HACKING, README, src/menus.c, netfilter-script.c,
+	  preferences.c, wizard.c:
+	- The homepage and manual is now at http://www.fs-security.com
+
+2004-11-11  Tomas Junnonen  <majix@sci.fi>
+	* src/wizard.c:
+	- Marked strings for translation (Bug 157897)
+	* src/firestarter.c:
+	- Fixed command line help not being translated (Bug 157897)
+	* src/menus.c:
+	- Fixed menu entries not being translated (Bug 157897)
+
+2004-11-10  Tomas Junnonen  <majix@sci.fi>
+
+	* src/logread.c:
+	- Fixed crash on failed protocol name lookup
+
+2004-11-02  Tomas Junnonen  <majix@sci.fi>
+
+	* src/scriptwriter.c:
+	- Allow firewall to be stopped even if network is down
+	- Flush nat and mangle tables when stopping firewall
+	* src/scriptwriter.c, netfilter-script.c:
+	- Fixed forwarding a port range not working when internal
+	  port destination was also a range
+	* src/netfilter-script.c:
+	- Removed unnecessary ttl check (Bug 156693)
+
+2004-10-08  Tomas Junnonen  <majix@sci.fi>
+
+	* src/menus.c, policyview.c:
+	- Fixed misspellings (Bug 154622)
+
+2004-10-05  Tomas Junnonen  <majix@sci.fi>
+
+	* src/menus.c:
+	- Mark menu texts for localization
+
+2004-09-17  Tomas Junnonen  <majix@sci.fi>
+
+	* src/netfilter-script.c:
+	- Allow access to the configuration and the predefined
+	  variables in user-pre and user-post
+
+2004-09-15  Tomas Junnonen  <majix@sci.fi>
+
+	* src/netfilter-script.c:
+	- Moved forwarding from inbound/setup to firewall
+	* src/policyview.c:
+	- Fixed forwarding rules not being removed properly when
+	  apply pressed
+	- Show script output on policy group reload
+	* src/firestarter.c:
+	- Show script output when firewall operations fail
+
+2004-09-13  Tomas Junnonen  <majix@sci.fi>
+
+	* src/policyview.c:
+	- Fixed rules created from the events page being malformed
+	- Fixed the apply button being active when creating new rules
+	  from the events page
+	* src/netfilter-script.c, scriptwriter.c:
+	- Fixed forward rule parameters not being properly scrubbed
+
+2004-09-12  Tomas Junnonen  <majix@sci.fi>
+
+	* src/firestarter.c:
+	- Firewall script output now printed to stdout
+	* src/policyview.c/h, preferences.c, preferences.glade, util.c:
+	- Controls specific to NAT environments are now disabled for
+	  single NIC machines or when NAT has been disabled
+	* src/preferences.c:
+	- Validate supplied DHCP configuration
+	* src/firestarter.c, policyview.c, preferences.c, util.c/h:
+	- New HIG style error dialogs
+	- Validate DHCP configuration in the preferences
+	- Validate user entered data in the rule creation dialogs
+	* src/netfilter-script.c:
+	- Hostnames can now once again be used in all rules
+	* src/policyview.c:
+	- Update the service name as the user types the port number
+	* src/netfilter-script.c:
+	- Put limits on logging of events
+	* src/preferences.c:
+	- Suppress libglade warnings
+
+2004-09-11  Tomas Junnonen  <majix@sci.fi>
+
+	* src/netfilter-script.c, src/policyview.c:
+	- Restored service forwarding functionality
+	- Fixed bug where a new rule could overwrite an existing one
+	* src/statusview.c:
+	- Fix crash caused by freeing invalid memory
+	- Fix column rendering glitch on resize
+	* src/util.c, statusview.c, logread.c:
+	- Fixed a file descriptor leak and a few memory leaks
+	* src/gui.c, tray.c:
+	- Switched tray icon to single click mode for show and hide
+
+2004-09-10  Tomas Junnonen  <majix@sci.fi>
+
+	* src/gui.h, statusview.c/h:
+	- The active connections list now also includes the name of the
+	  program that created the socket
+ 	* src/hitview.c:
+	- Fixed crash when using accelerator key for looking up hostnames
+	* src/netfilter-script.c:
+	- Fixed ICMP traffic from local network being blocked
+	- Fixed services running on high ports on the firewall host being
+	  blocked
+	 * src/netfilter-script.c, preferences.c/h, preferences.glade,
+	   scriptwriter.c:
+	 - Separated ICMP echo into request and reply parts in the preferences
+
+2004-09-05  Tomas Junnonen  <majix@sci.fi>
+
+	* +src/preferences.glade, Makefile.am, firestarter.c, gui.c,
+	  hitview.c, menus.c, policyview.c, preferences.c/h, scriptwriter.c,
+	  util.c/h, wizard-choices.c, wizard.c/h:
+	- New preferences dialog
+	* configure.in:
+	- New libglade requirement
+	* firestarter.schemas.in:
+	- New preferences for new dialog
+	* src/eggtrayicon.c/h:
+	- New tray icon code from GNOME CVS
+	* src/gui.c, preferences.c, tray.c/h:
+	- New tray icons
+	- Ability to add and remove the tray icon based on preferences
+	* src/policyview.c, preferences.c, service.c, util.c, wizard.c:
+	- Fix GtkTreeIter leakage
+	* src/gui.c, hitview.c, tray.c:
+	- Clear tray hit icon on events tab focus or events list click
+
+2004-09-03  Tomas Junnonen  <majix@sci.fi>
+
+	* src/scriptwriter.c:
+	- Fixed problem with return values on interface failure
+
+2004-09-02  Tomas Junnonen  <majix@sci.fi>
+
+	* src/gui.c, policyview.c/h, statusview.c:
+	- Switched from GtkExpanders to a GtkCombo for the policy groups
+	- Re-enabled resizing of the main window
+	* src/scripwriter.c:
+	- Reverted dhcp/ppp hook to a single line
+
+2004-08-30  Tomas Junnonen  <majix@sci.fi>
+
+	* src/hitview.c/h, menus.c/h, statusview.c/h:
+	- Added context menu to active connections list
+	- Added ability to lookup hostnames in the connections list
+	- Doing a lookup on an event now resolves all IPs in one go
+	- Fixed rendering glitch in events list when columns resized
+	* src/netfilter-script.c, scriptwriter.c:
+	- Fixed some NAT-specific rules being reached even when NAT
+	  disabled
+	- Fixed DHCP server starting if it had been configured
+	  previously even if NAT has since been disabled
+	* src/policyview.c:
+	- Added the option to attach a comment to each rule
+	* src/menus.c, savelog.c/h:
+	- Use the new GtkFileChooserDialog when saving the events
+	* src/policyview.c:
+	- Fixed rule dialogs being accidentally destroyed
+	* -ipchains.init, -netfilter.init, +fedora.init, Makefile.am:
+	- New init script for Fedora Core, removed old broken scripts
+	* src/policyview.c:
+	- Don't show comments in TreeViews for now
+	- Edit the selected rule on doubleclick
+	* firestarter.spec.in:
+	- New spec file from Fedora Extras, by Phillip Compton
+
+2004-08-29  Tomas Junnonen  <majix@sci.fi>
+
+	* src/logread.c, netfilter-script.c, policyview.c, service.c/h,
+	  statusview.c:
+	- Reworked network service identification
+	- Finished the service selector for the rule creation dialogs, ports
+	  are now suggested based on the selected service names
+	* src/preferences.c/h, wizard-choices.c, wizard.c/h:
+	- Removed the services page in the wizard
+	- Simplified the NAT page a bit
+	* src/statusview.c, util.c/h, wizard-choices.c, wizard.c/h:
+	- Replaced the wizard interface entry widgets with GtkCombos
+	- Show device descriptions instead of raw interface names
+	- Validate choices on NAT page
+	* src/netfilter-script.c, policyview.c, scriptwriter.c:
+	- Data files are now in CSV format
+	* src/firestarter.c, policyview.c/h:
+	- First time in restrictive outbound mode allow: DNS, HTTP, DHCP
+	  so the user doesn't lock himself out
+	* src/netfilter-script.c:
+	- Fix LAN to firewall traffic being blocked instead of being
+	  matched against the policy
+
+2004-08-28  Tomas Junnonen  <majix@sci.fi>
+
+	* +src/xpm/icon_unlocked.png, +icon_locked.png, +icon_locked_large.png
+	  src/firestarter.c/h, menus.c, scriptwriter.c, statusview.c/h,
+	  tray.c:
+	- "Halt" operation replaced by "Lock Firewall"
+	- Stateful lock/unlock button on status tab toolbar
+	* src/firestarter.h, hitview.c/h, menus.c/h, netfilter-script.c,
+	  policyview.c/h, scriptwriter.c/h, util.c/h:
+	- Implemented the context menu for the Events list
+
+2004-08-27  Tomas Junnonen  <majix@sci.fi>
+
+	* src/menus.c/h, policyview.c/h:
+	- Implemented editing of existing rules in the policy tab
+	* -src/parse.c/h, firestarter.h, hitview.c/h, logread.c/h,
+	  menus.c, netfilter-script.c, parse.c/h, preferences.h,
+	  util.c:
+	- New Events column: direction
+	- syslog entries prefixed with name of policy group that
+	  generated the hit
+	- Outbound counters on Status tab enabled
+
+2004-08-26  Tomas Junnonen  <majix@sci.fi>
+
+	* src/netfilter-script.c, scriptwriter.c:
+	- Re-enabled DHCP server and ICMP filter functionality
+	(ICMP filtering GUI is broken for now until Preferences rewrite)
+
+2004-08-23  Tomas Junnonen  <majix@sci.fi>
+
+	* firestarter.schemas.in, src/policyview.c, preferences.h:
+	- Added option to instantly apply any changes to policy
+
+2004-08-22  Tomas Junnonen  <majix@sci.fi>
+
+	* src/firestarter.c, netfilter-script.c, policyview.c, preferences.c,
+	  scriptwriter.c/h, wizard.c:
+	- Split firewall.sh into firestarter.sh control script and
+	  firewall main script
+	- Script can now be started, stopped and halted like an init script
+	- The Firestarter configuration is now saved to
+	  /etc/firestarter/configuration separate of the main script
+	- The firewall script is no longer custom generated based on choices
+	  but instead branches at runtime
+	- The firewall can now be refreshed in smaller chunks for rapid
+	  policy changes
+	- Moved to g_spawn API for script actions
+
+2004-08-21  Tomas Junnonen  <majix@sci.fi>
+
+	* src/firestarter.c, gui.c, hitview.c/h, logread.c, menus.c/h,
+	  policyview.c/h, statusview.c/h:
+	- New action for canceling the events list reload operation
+	- Stateful buttons on toolbar: Stop/Start firewall and Reload/Cancel
+	  events.
+	- Actions enabled only when applicable in current context
+	* src/hitview.c:
+	- Added header above events list for consistency
+
+2004-08-20  Tomas Junnonen  <majix@sci.fi>
+
+	* src/gui.c/h, hitview.c, menus.c/h, policyview.c/h:
+	- New menus and toolbars based on the GTK 2.4 Action API
+	- One toolbar per tab in the interface
+
+2004-08-19  Tomas Junnonen  <majix@sci.fi>
+
+	* +policyview.c/h, -src/modrules.c/h, -ruleview.c/h,
+	  firestarter.schemas.in, src/gui.c/h, hitview.c, menus.c,
+	  netfilter-script.c, parse.c, preferences.h, scriptwriter.c,
+	  statusview.c:
+	- New Policy tab replaces old Rules tab
+	- Major changes to firewall script to implement the new policy system
+	- Split sysctl from the firewall script
+	- Blocking broadcast by default
+
+2004-08-12  Tomas Junnonen  <majix@sci.fi>
+
+	* src/netfilter-script.c:
+	- Deprecated STOP variable, LR & LD chains renamed LS
+	* src/firestarter.h, menus.c, modrules.c/h, netfilter-script.c
+	  parse.c/h, ruleview.c, scriptwriter.c, util.c:
+	- Removed option to explicitly block hosts or ports, new actions
+	  to directly disable logging of events on specific host and port
+	  matches in the LS chain accomplish the same goal much more
+	  intuitively
+
+2004-08-10  Tomas Junnonen  <majix@sci.fi>
+
+	* src/statusview.c/h:
+	- Mark closed connections in a different color
+
+2004-08-08  Tomas Junnonen  <majix@sci.fi>
+
+	* src/hitview.c/h:
+	- "Serious" hit classification
+	- Colors for different event types: Normal, Broadcast and Serious
+
+2004-08-06  Tomas Junnonen  <majix@sci.fi>
+
+	* configure.in
+	- Bump GTK+ requirement to 2.4.0
+	* configure.in:
+	- Fixed intltool support files not being added by autogen.sh
+	* src/hitview.c/h:
+	- Read the system log asynchronously during the reload operation
+	  using gnome-vfs. Patch by Rene Vahtel.
+	* src/hitview.c/h, logread.c/h:
+	- Timeout fired syslog reading is done asynchronously. Patch by
+	  Rene Vahtel.
+	* configure.in:
+	- Added GNOME-VFS requirement
+
+2004-08-05  Tomas Junnonen  <majix@sci.fi>
+
+	* +src/statusview.c/h, +src/xpm/icon_start_*, +src/xpm/icon_stop_*,
+	  firestarter.c/h, gui.c, hitview.c, logread.c, menus.c, modrules.c,
+	  preferences.c, scriptwriter.c, service.c, tray.c/h, wizard.c:
+	- New tab in main interface: Status
+	   - Firewall status indicator
+	   - Event counters
+	   - Network statistics
+	   - Active connections view
+	- Hits and Rules renamed Events and Policy respectively
+	- New firewall start and stop state icons
+	* -postinstall:
+	- The postinstall script has been deprecated
+
+2004-07-03  Tomas Junnonen  <majix@sci.fi>
+
+	* +src/dhcp-server.c/h, firestarter.c, netfilter-script.c, menus.c,
+	  preferences.c/h, ruleview.c, scriptwriter.c/h, util.c/h,
+	  wizard-choices.c, wizard.c/h, firestarter.schemas.in:
+	- New feature of configuring a DHCP server in the wizard for local
+	  networks when using NAT
+	- Minor cleanups in surrounding code
+
+2004-07-02  Tomas Junnonen  <majix@sci.fi>
+
+	* src/hitview.c:
+	- Reset redundancy filter when clearing hitlist
+	* src/parse.c, service.c/h:
+	- The ICMP type field of log entries is now converted into
+	  service names
+	* src/preferences.c, wizard.c/h:
+	- Removed the option to manually specify the internal IP range
+
+2004-06-18  Tomas Junnonen  <majix@sci.fi>
+
+	* src/firestarter.c, gui.c/h, scriptwriter.c:
+	- Added new --start-hidden command line option
+	- Added error dialog for when iptables is missing from kernel
+
+2004-06-17  Tomas Junnonen  <majix@sci.fi>
+
+	* src/netfilter-script:
+	- Reworked module loader, no more error messages when
+          netfilter system compiled into kernel statically
+	- Netfilter capabilities checks for iptables, logging, nat,
+	  mangle, ipv4optsstrip support. Other candidates: dnat, snat
+        - General cleanups, added timestamp to generated script
+	* src/utils.c: Removed explicit modprobing of ip_tables module
+
+2004-05-15  Tomas Junnonen  <majix@sci.fi>
+
+	* scripts/non-routables:
+	- Following netblocks have been allocated to APNIC:
+	  58/8 and 59/8
+
+2004-05-03  Tomas Junnonen  <majix@sci.fi>
+
+	* src/scriptwriter.c, netfilter-script.c:
+	- Added support for user pre and post scripts in main firewall
+	  script.
+	* firestarter.schemas.in:
+	- Added missing /apps/firestarter/firewall/deny_packets GConf key
+
+2004-04-28  Tomas Junnonen  <majix@sci.fi>
+
+	* src/scriptwriter.c:
+	- Fixed location of dhcpcd files on Slackware (patch by Rene Vahtel)
+
+2004-04-26  Tomas Junnonen  <majix@sci.fi>
+
+	* src/netfilter-script.c:
+	- Reversed check for ipt_ipv4optsstrip, only create rule if
+	  module is successfully loaded
+	- Added ipt_ipv4optsstrip to module autoloader
+	- Added /dev/null redirects for optional modules not likely
+	  to be installed: bsd_comp, ppp_deflate, ipt_ipv4optsstrip
+	- Turned off martian address logging, until some solution to
+	  to the console flooding can be found
+
+2004-04-25  Tomas Junnonen  <majix@sci.fi>
+
+	* firestarter.desktop.in: Added more data to desktop entry
+	* pixmaps/firestarter.png, src/xpm/logo.png: New icon and logo
+	* src/firestarter.c, gui.c/h, scriptwriter.c/h, wizard.c:
+	Force the wizard to run if the firewall script is empty.
+	Fixes an issue where a script of size 0 can be left after a package
+	uninstall followed by a reinstall.
+	* src/util.c:
+	- Fixed syslog location check still using gnome_conf and not GConf
+	- Removed Slackware specific syslog location (patch by Rene Vahtel)
+	* src/netfilter-script.c:
+	- The INVALID match now works for outgoing packets, so
+	  we jigger the rulesets a bit for them (Paul Drain)
+	- Add the IPV4OPTSSTRIP target for PREROUTING (Paul Drain)
+	- Moved the policy changes to the start of the script, and make
+	  the FORWARD chain default to block, even if you do not use
+	  multiple networks (Paul Drain)
+	- Removed the UNCLEAN matches, which no longer exist under 2.6.x
+	  and whose functionality will be replaced by tighter matching in
+	  the SANITY chain (Paul Drain)
+	- Removed LRTCP target, this should be applied to the SANITY
+	  chain when deciding upon policy for NEW connections, not 'anything
+	  that matches -p tcp' (Paul Drain)
+	- Removed all rules using LRTCP
+	- Fixed some syntax problems with if clauses
+	- Fixed Catch All Rule not logging packets
+	- Fixed policy on input, output and forward
+	- Removed confusing and unused STOP=DENY|REJECT statement
+	  STOP is now always either LD or LR
+
+2004-04-24  Tomas Junnonen  <majix@sci.fi>
+
+	* src/netfilter-script.c:
+	Split non-routable tests into a separate chain, fixes
+	problem with communicating with machines on LAN.
+	(patch by Peter Harvey).
+
+2004-04-23  Tomas Junnonen  <majix@sci.fi>
+
+	* src/netfilter-script.c:
+	Set FIN timeout to 30 seconds, fixed keepalive comment
+	(patch by Manuel J. Galan Moreno).
+	* src/menus.c, firestarter.schemas.in.h:
+	Fixed two typos (Bug 140056)
+	
+2004-04-03  Tomas Junnonen  <majix@sci.fi>
+
+	* scripts/non-routables:
+	Following netblocks have been allocated by IANA:
+	[70|83|84|85|86|87|88]/8
+	* src/netfilter-script.c:
+	- TTL matching on the OUTBOUND match should be done after
+	packets have been marked as valid, not before.
+	(patch by Paul Drain).	
+
+2004-04-02  Tomas Junnonen  <majix@sci.fi>
+
+	* src/preferences.c/h, src/firestarter.c:
+	Added check to ensure proper gconf schema is installed
+	* src/util.c:
+	"Sombody else's problem" filter now uses external device
+	IP instead of IP resolved from hostname
+	* src/netfilter.c:
+	Lowered log level to keep hits from being echoed on console
+	* src/scriptwriter.c:
+	Set default path in script hook, fixes pppd problems (Boris Huisgen)
+
+2004-04-01  Gareth Owen  <gowen72@yahoo.com>
+
+	* configure.in: Added en_GB to ALL_LINGUAS
+
+2004-03-20  Guntupalli Karunakar  <karunakar@freedomink.org>
+
+        * configure.in: Added "pa" (Punjabi) to ALL_LINGUAS.
+
+2004-02-28  Adam Weinberger  <adamw@FreeBSD.org>
+
+	* configure.in: Added 'en_CA' (Canadian English) to ALL_LINGUAS.
+
+2004-02-01  Robert Sedak  <robert.sedak@sk.htnet.hr>
+
+        * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
+
+2004-01-13  Laurent Dhima  <laurenti@alblinux.net>
+
+	* configure.in: Added "sq" to ALL_LINGUAS.
+
+2003-12-18  Tomas Junnonen <majix@sci.fi>
+
+	* postinstall:
+	- Fixed kernel detection (closes bug 123837)
+	- Removed PAM code, uses the new external files
+
+2003-08-12  Tomas Junnonen <majix@sci.fi>
+
+	* firestarter.spec.in, firestarter.pam, firestarter.console:
+	- New spec file from Phillip Compton (from the Fedora project)
+	- Split pam files from spec
+
+2003-07-29  Tomas Junnonen <majix@sci.fi>
+
+	* src/util.c: Fixed linux 2.6 kernels not being treated as
+	netfilter capable, patch by Mark Bidewell
+
+2003-07-12  Tomas Junnonen <majix@sci.fi>
+
+	* src/tray.c: Fixed Firestarter crash in KDE3 when contents
+	of system tray changes, patch by Hetfield
+
+2003-06-26  Miloslav Trmac  <mitr@volny.cz>
+
+	* configure.in: Added cs (Czech) to ALL_LINGUAS.
+
+2003-06-24  Tomas Junnonen <majix@sci.fi>
+
+	* src/netfilter-script.c: Garbage catchers for all external
+	file readers
+	* src/service.c: Update list of known services (Brian Hurley)
+	* src/netfilter-script.c,preferences.c/h,wizard-choices.c,wizard.c/h:
+	Added PPTP as a system service in the wizard (Brian Hurley)
+
+2003-06-23  Tomas Junnonen <majix@sci.fi>
+
+	* scripts/non-routables, src/netfilter-script.c:
+	Moved list of non-routable networks to an external file
+	* src/firestarter.c,netfilter-script.c,preferences.c/h,util.c:
+	Always autodetect system tool paths if needed, removed preference
+	setting to force detection
+	* src/util.c:
+	Detect Slackware and use /var/log/syslog instead of messages
+
+2003-05-20  Danilo Šegan  <dsegan@gmx.net>
+
+	* configure.in: Added "sr" and "sr@Latn" to ALL_LINGUAS.
+
+2003-03-06  Tomas Junnonen <majix@sci.fi>
+
+	* src/preferences.c:
+	  Fixed deny/reject setting not working
+	  Toggles no longer instantly update on gconf db changes
+	* src/wizard.c:
+	  ToS and ICMP filtering is no longer shown in the wizard, only
+	  in the preferences
+	* src/netfilter-script.c:
+	  Fixed comments in resolv.conf causing parsing errors
+
+2003-03-04  Tomas Junnonen <majix@sci.fi>
+
+	* src/util.c: Fix segfault when resolving names, from Olivier Abad
+
+2003-02-17  Abel Cheung  <maddog@linux.org.hk>
+
+	* configure.in: Don't generate schemas file here, otherwise it's not
+	  translated.
+	* Makefile.am: Add desktop rule, and remove some already distributed
+	  files from EXTRA_DIST.
+	* firestarter.desktop: --> firestarter.desktop.in
+
+2003-02-17  Abel Cheung  <maddog@linux.org.hk>
+
+	* configure.in: Added "lv" to ALL_LINGUAS.
+
+2003-02-07  Tomas Junnonen <majix@sci.fi>
+
+	* src/firestarter.c,gui.c,hitview.c,menus.c,netfilter-script.c
+	preferences.c,ruleview.c,scriptwriter.c,util.c,wizard-choices.c,
+	wizard.c:
+	Ported settings system to GConf
+	* Makefile.am, configure.in, firestarter.schemas.in:
+	Added Firestarter configuration schema file
+	* src/netfilter-script.c,netfilter-script.h,preferences.c,
+	scriptwriter.c,scriptwriter.h,wizard.c:
+	Allow regeneration of scripts from preferences, without the wizard.
+	* src/firestarter.c, scriptwriter.c:
+	Added command line option to regenerate scripts
+
+2003-01-26  Tomas Junnonen <majix@sci.fi>
+
+	* src/netfilter-script.c:
+	Fixed "unary operator expected" error for empty lines in resolv.conf
+
+2003-01-25  Tomas Junnonen <majix@sci.fi>
+
+	* src/modrules.c, src/preferences.c, src/wizard.c:
+	Do not restart the firewall when making changes to rules or
+	preferences in a stopped state.
+
+	* src/hitview.c, src/logread.c:
+	Shorten the log line identification pattern to allow metalog
+	and syslog-ng entries to work.
+
+	* src/firestarter.c:
+	Fixed the command-line help output not being translated properly
+
+2003-01-23
+
+	Firestarter enters the GOME CVS. 
+	See ChangeLog-0.9.1 for earlier entries.

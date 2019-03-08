@@ -1,0 +1,591 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpTLSCertificate</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-client.html" title="Client-side proxies">
+<link rel="prev" href="telepathy-glib-room-info.html" title="TpRoomInfo">
+<link rel="next" href="TpTLSCertificateRejection.html" title="TpTLSCertificateRejection">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-room-info.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-client.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="TpTLSCertificateRejection.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#TpTLSCertificate.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#TpTLSCertificate.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#TpTLSCertificate.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#TpTLSCertificate.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="TpTLSCertificate"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="TpTLSCertificate.top_of_page"></a>TpTLSCertificate</span></h2>
+<p>TpTLSCertificate — proxy object for a server or peer's TLS certificate</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="TpTLSCertificate.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+                    <a class="link" href="TpTLSCertificate.html#TpTLSCertificate-struct" title="TpTLSCertificate">TpTLSCertificate</a>;
+<span class="returnvalue">void</span>                <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-init-known-interfaces" title="tp_tls_certificate_init_known_interfaces ()">tp_tls_certificate_init_known_interfaces</a>
+                                                        (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="returnvalue">TpTLSCertificate</span></a> *  <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-new" title="tp_tls_certificate_new ()">tp_tls_certificate_new</a>              (<em class="parameter"><code><a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> *conn_or_chan</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+#define             <a class="link" href="TpTLSCertificate.html#TP-TLS-CERTIFICATE-FEATURE-CORE:CAPS" title="TP_TLS_CERTIFICATE_FEATURE_CORE">TP_TLS_CERTIFICATE_FEATURE_CORE</a>
+<a class="link" href="TpTLSCertificateRejection.html" title="TpTLSCertificateRejection"><span class="returnvalue">TpTLSCertificateRejection</span></a> * <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-get-rejection" title="tp_tls_certificate_get_rejection ()">tp_tls_certificate_get_rejection</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>);
+<a class="link" href="TpTLSCertificateRejection.html" title="TpTLSCertificateRejection"><span class="returnvalue">TpTLSCertificateRejection</span></a> * <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-get-nth-rejection" title="tp_tls_certificate_get_nth_rejection ()">tp_tls_certificate_get_nth_rejection</a>
+                                                        (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-accept-async" title="tp_tls_certificate_accept_async ()">tp_tls_certificate_accept_async</a>     (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-accept-finish" title="tp_tls_certificate_accept_finish ()">tp_tls_certificate_accept_finish</a>    (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-add-rejection" title="tp_tls_certificate_add_rejection ()">tp_tls_certificate_add_rejection</a>    (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpTLSCertificateRejectReason" title="enum TpTLSCertificateRejectReason"><span class="type">TpTLSCertificateRejectReason</span></a> reason</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *dbus_error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-GVariant.html#GVariant"><span class="type">GVariant</span></a> *details</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-reject-async" title="tp_tls_certificate_reject_async ()">tp_tls_certificate_reject_async</a>     (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-reject-finish" title="tp_tls_certificate_reject_finish ()">tp_tls_certificate_reject_finish</a>    (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-get-cert-type" title="tp_tls_certificate_get_cert_type ()">tp_tls_certificate_get_cert_type</a>    (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-get-cert-data" title="tp_tls_certificate_get_cert_data ()">tp_tls_certificate_get_cert_data</a>    (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>);
+<a class="link" href="telepathy-glib-enums.html#TpTLSCertificateState" title="enum TpTLSCertificateState"><span class="returnvalue">TpTLSCertificateState</span></a> <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-get-state" title="tp_tls_certificate_get_state ()">tp_tls_certificate_get_state</a>      (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpTLSCertificate.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="telepathy-glib-proxy.html#TpProxy">TpProxy</a>
+         +----TpTLSCertificate
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpTLSCertificate.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="TpTLSCertificate.html#TpTLSCertificate--cert-data" title='The "cert-data" property'>cert-data</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>*            : Read
+  "<a class="link" href="TpTLSCertificate.html#TpTLSCertificate--cert-type" title='The "cert-type" property'>cert-type</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read
+  "<a class="link" href="TpTLSCertificate.html#TpTLSCertificate--parent" title='The "parent" property'>parent</a>"                   <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a>*              : Read / Write / Construct Only
+  "<a class="link" href="TpTLSCertificate.html#TpTLSCertificate--state" title='The "state" property'>state</a>"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+</pre>
+</div>
+<div class="refsect1">
+<a name="TpTLSCertificate.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> is a <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> subclass for TLSCertificate objects,
+used in Channel.Type.ServerTLSConnection.
+</p>
+</div>
+<div class="refsect1">
+<a name="TpTLSCertificate.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpTLSCertificate-struct"></a><h3>TpTLSCertificate</h3>
+<pre class="programlisting">typedef struct _TpTLSCertificate TpTLSCertificate;</pre>
+<p>
+A <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> subclass representing a server or peer's TLS certificate
+being presented for acceptance/rejection.
+</p>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-tls-certificate-init-known-interfaces"></a><h3>tp_tls_certificate_init_known_interfaces ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_tls_certificate_init_known_interfaces
+                                                        (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Ensure that the known interfaces for TpTLSCertificate have been set up.
+This is done automatically when necessary, but for correct
+overriding of library interfaces by local extensions, you should
+call this function before calling
+<a class="link" href="telepathy-glib-proxy-subclass.html#tp-proxy-or-subclass-hook-on-interface-add" title="tp_proxy_or_subclass_hook_on_interface_add ()"><code class="function">tp_proxy_or_subclass_hook_on_interface_add()</code></a> with first argument
+<code class="literal">TP_TYPE_TLS_CERTIFICATE</code>.
+</p>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-tls-certificate-new"></a><h3>tp_tls_certificate_new ()</h3>
+<pre class="programlisting"><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="returnvalue">TpTLSCertificate</span></a> *  tp_tls_certificate_new              (<em class="parameter"><code><a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a> *conn_or_chan</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>conn_or_chan</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> or <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> parent for this object, whose
+invalidation will also result in invalidation of the returned object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object_path</code></em> :</span></p></td>
+<td>the object path of this TLS certificate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> used to return an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is returned, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new TLS certificate proxy. Prepare the
+feature <a class="link" href="TpTLSCertificate.html#TP-TLS-CERTIFICATE-FEATURE-CORE:CAPS" title="TP_TLS_CERTIFICATE_FEATURE_CORE"><code class="literal">TP_TLS_CERTIFICATE_FEATURE_CORE</code></a> to make it useful. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TP-TLS-CERTIFICATE-FEATURE-CORE:CAPS"></a><h3>TP_TLS_CERTIFICATE_FEATURE_CORE</h3>
+<pre class="programlisting">#define             TP_TLS_CERTIFICATE_FEATURE_CORE</pre>
+<p>
+Expands to a call to a function that returns a quark representing the
+core functionality of a <a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a>.
+</p>
+<p>
+When this feature is prepared, the basic properties of the
+object have been retrieved and are available for use:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><a class="link" href="TpTLSCertificate.html#TpTLSCertificate--cert-type" title='The "cert-type" property'><span class="type">"cert-type"</span></a></li>
+<li class="listitem"><a class="link" href="TpTLSCertificate.html#TpTLSCertificate--cert-data" title='The "cert-data" property'><span class="type">"cert-data"</span></a></li>
+<li class="listitem"><a class="link" href="TpTLSCertificate.html#TpTLSCertificate--state" title='The "state" property'><span class="type">"state"</span></a></li>
+</ul></div>
+<p>
+</p>
+<p>
+In addition, <span class="type">":state"</span> will be emitted if the state changes.
+</p>
+<p>
+One can ask for a feature to be prepared using the
+<a class="link" href="telepathy-glib-proxy.html#tp-proxy-prepare-async" title="tp_proxy_prepare_async ()"><code class="function">tp_proxy_prepare_async()</code></a> function, and waiting for it to callback.
+</p>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-tls-certificate-get-rejection"></a><h3>tp_tls_certificate_get_rejection ()</h3>
+<pre class="programlisting"><a class="link" href="TpTLSCertificateRejection.html" title="TpTLSCertificateRejection"><span class="returnvalue">TpTLSCertificateRejection</span></a> * tp_tls_certificate_get_rejection
+                                                        (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>);</pre>
+<p>
+If this certificate has been rejected, return a <a class="link" href="TpTLSCertificateRejection.html" title="TpTLSCertificateRejection"><span class="type">TpTLSCertificateRejection</span></a>
+indicating the first rejection reason (by convention,
+the most important).
+</p>
+<p>
+If you want to list all the things that are wrong with the certificate
+(for instance, it might be self-signed and also have expired)
+you can call <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-get-nth-rejection" title="tp_tls_certificate_get_nth_rejection ()"><code class="function">tp_tls_certificate_get_nth_rejection()</code></a>, increasing <em class="parameter"><code>n</code></em> until
+it returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a TLS certificate</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="TpTLSCertificateRejection.html" title="TpTLSCertificateRejection"><span class="type">TpTLSCertificateRejection</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-tls-certificate-get-nth-rejection"></a><h3>tp_tls_certificate_get_nth_rejection ()</h3>
+<pre class="programlisting"><a class="link" href="TpTLSCertificateRejection.html" title="TpTLSCertificateRejection"><span class="returnvalue">TpTLSCertificateRejection</span></a> * tp_tls_certificate_get_nth_rejection
+                                                        (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n</code></em>);</pre>
+<p>
+If this certificate has been rejected and <em class="parameter"><code>n</code></em> is less than the number of
+rejection reasons, return a <a class="link" href="TpTLSCertificateRejection.html" title="TpTLSCertificateRejection"><span class="type">TpTLSCertificateRejection</span></a> representing the
+<em class="parameter"><code>n</code></em>th rejection reason (starting from 0).
+</p>
+<p>
+With <em class="parameter"><code>n</code></em> == 0 this is equivalent to <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-get-rejection" title="tp_tls_certificate_get_rejection ()"><code class="function">tp_tls_certificate_get_rejection()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a TLS certificate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>the rejection reason to return; if 0, return the same thing as
+<code class="function">tp_tls_certificate_get_detailed_rejection()</code>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="TpTLSCertificateRejection.html" title="TpTLSCertificateRejection"><span class="type">TpTLSCertificateRejection</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-tls-certificate-accept-async"></a><h3>tp_tls_certificate_accept_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_tls_certificate_accept_async     (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Accept this certificate, asynchronously. In or after <em class="parameter"><code>callback</code></em>,
+you may call <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-accept-finish" title="tp_tls_certificate_accept_finish ()"><code class="function">tp_tls_certificate_accept_finish()</code></a> to check the result.
+</p>
+<p>
+<span class="type">":state"</span> will also be emitted when the connection manager
+signals that the certificate has been accepted.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a TLS certificate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>called on success or failure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data for the callback</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-tls-certificate-accept-finish"></a><h3>tp_tls_certificate_accept_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_tls_certificate_accept_finish    (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Check the result of <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-accept-async" title="tp_tls_certificate_accept_async ()"><code class="function">tp_tls_certificate_accept_async()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a TLS certificate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>the result passed to the callback by
+<a class="link" href="TpTLSCertificate.html#tp-tls-certificate-accept-async" title="tp_tls_certificate_accept_async ()"><code class="function">tp_tls_certificate_accept_async()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>used to raise an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if acceptance was successful</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-tls-certificate-add-rejection"></a><h3>tp_tls_certificate_add_rejection ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_tls_certificate_add_rejection    (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpTLSCertificateRejectReason" title="enum TpTLSCertificateRejectReason"><span class="type">TpTLSCertificateRejectReason</span></a> reason</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *dbus_error</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-GVariant.html#GVariant"><span class="type">GVariant</span></a> *details</code></em>);</pre>
+<p>
+Add a pending reason for rejection. The first call to this method is
+considered "most important". After calling this method as many times
+as are required, call <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-reject-async" title="tp_tls_certificate_reject_async ()"><code class="function">tp_tls_certificate_reject_async()</code></a> to reject the
+certificate.
+</p>
+<p>
+If <em class="parameter"><code>details</code></em> is a floating reference (see <a href="http://library.gnome.org/devel/glib/unstable/glib-GVariant.html#g-variant-ref-sink"><code class="function">g_variant_ref_sink()</code></a>),
+ownership of <em class="parameter"><code>details</code></em> is taken by this function. This means
+you can pass the result of <a href="http://library.gnome.org/devel/glib/unstable/glib-GVariant.html#g-variant-new"><code class="function">g_variant_new()</code></a> or <a href="http://library.gnome.org/devel/glib/unstable/glib-GVariant.html#g-variant-new-parsed"><code class="function">g_variant_new_parsed()</code></a>
+directly to this function without additional reference-count management.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a TLS certificate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reason</code></em> :</span></p></td>
+<td>the reason for rejection</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dbus_error</code></em> :</span></p></td>
+<td>a D-Bus error name such as <a class="link" href="telepathy-glib-errors.html#TP-ERROR-STR-CERT-REVOKED:CAPS" title="TP_ERROR_STR_CERT_REVOKED"><code class="literal">TP_ERROR_STR_CERT_REVOKED</code></a>, or
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to derive one from <em class="parameter"><code>reason</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>details</code></em> :</span></p></td>
+<td>a variant of type
+<a href="http://library.gnome.org/devel/glib/unstable/glib-GVariantType.html#G-VARIANT-TYPE-VARDICT:CAPS"><code class="literal">G_VARIANT_TYPE_VARDICT</code></a> containing the details of the rejection, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-tls-certificate-reject-async"></a><h3>tp_tls_certificate_reject_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_tls_certificate_reject_async     (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Reject this certificate, asynchronously.
+</p>
+<p>
+Before calling this method, you must call
+<a class="link" href="TpTLSCertificate.html#tp-tls-certificate-add-rejection" title="tp_tls_certificate_add_rejection ()"><code class="function">tp_tls_certificate_add_rejection()</code></a> at least once, to set the reason(s)
+for rejection (for instance, a certificate might be both self-signed and
+expired).
+</p>
+<p>
+In or after <em class="parameter"><code>callback</code></em>,
+you may call <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-reject-finish" title="tp_tls_certificate_reject_finish ()"><code class="function">tp_tls_certificate_reject_finish()</code></a> to check the result.
+</p>
+<p>
+<span class="type">":state"</span> will also be emitted when the connection manager
+signals that the certificate has been rejected.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a TLS certificate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>called on success or failure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data for the callback</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-tls-certificate-reject-finish"></a><h3>tp_tls_certificate_reject_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_tls_certificate_reject_finish    (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Check the result of <a class="link" href="TpTLSCertificate.html#tp-tls-certificate-reject-async" title="tp_tls_certificate_reject_async ()"><code class="function">tp_tls_certificate_reject_async()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a TLS certificate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>result</code></em> :</span></p></td>
+<td>the result passed to the callback by
+<a class="link" href="TpTLSCertificate.html#tp-tls-certificate-reject-async" title="tp_tls_certificate_reject_async ()"><code class="function">tp_tls_certificate_reject_async()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>used to raise an error if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if rejection was successful</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-tls-certificate-get-cert-type"></a><h3>tp_tls_certificate_get_cert_type ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       tp_tls_certificate_get_cert_type    (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>);</pre>
+<p>
+Return the <a class="link" href="TpTLSCertificate.html#TpTLSCertificate--cert-type" title='The "cert-type" property'><span class="type">"cert-type"</span></a> property
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="TpTLSCertificate.html#TpTLSCertificate--cert-type" title='The "cert-type" property'><span class="type">"cert-type"</span></a> property</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-tls-certificate-get-cert-data"></a><h3>tp_tls_certificate_get_cert_data ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         tp_tls_certificate_get_cert_data    (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>);</pre>
+<p>
+Return the <a class="link" href="TpTLSCertificate.html#TpTLSCertificate--cert-data" title='The "cert-data" property'><span class="type">"cert-data"</span></a> property
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="TpTLSCertificate.html#TpTLSCertificate--cert-data" title='The "cert-data" property'><span class="type">"cert-data"</span></a> property. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Override the parsed C type with given type"><span class="acronym">type</span></acronym> GLib.PtrArray][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GLib.Bytes]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-tls-certificate-get-state"></a><h3>tp_tls_certificate_get_state ()</h3>
+<pre class="programlisting"><a class="link" href="telepathy-glib-enums.html#TpTLSCertificateState" title="enum TpTLSCertificateState"><span class="returnvalue">TpTLSCertificateState</span></a> tp_tls_certificate_get_state      (<em class="parameter"><code><a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a> *self</code></em>);</pre>
+<p>
+Return the <a class="link" href="TpTLSCertificate.html#TpTLSCertificate--state" title='The "state" property'><span class="type">"state"</span></a> property
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>a <a class="link" href="TpTLSCertificate.html" title="TpTLSCertificate"><span class="type">TpTLSCertificate</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value of <a class="link" href="TpTLSCertificate.html#TpTLSCertificate--state" title='The "state" property'><span class="type">"state"</span></a> property</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="TpTLSCertificate.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="TpTLSCertificate--cert-data"></a><h3>The <code class="literal">"cert-data"</code> property</h3>
+<pre class="programlisting">  "cert-data"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a>*            : Read</pre>
+<p>
+The raw data of the certificate or certificate chain, represented
+as a <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of <a href="http://library.gnome.org/devel/glib/unstable/glib-Byte-Arrays.html#GBytes"><span class="type">GBytes</span></a>. It should be interpreted
+according to <a class="link" href="TpTLSCertificate.html#TpTLSCertificate--cert-type" title='The "cert-type" property'><span class="type">"cert-type"</span></a>.
+</p>
+<p>
+The first certificate in this array is the server's certificate,
+followed by its issuer, followed by the issuer's issuer and so on.
+</p>
+<p>
+For "x509" certificates, each certificate is an X.509 certificate in
+binary (DER) format.
+</p>
+<p>
+For "pgp" certificates, each certificate is a binary OpenPGP key.
+</p>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpTLSCertificate--cert-type"></a><h3>The <code class="literal">"cert-type"</code> property</h3>
+<pre class="programlisting">  "cert-type"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read</pre>
+<p>
+The type of the certificate, typically either "x509" or "pgp".
+</p>
+<p>Default value: NULL</p>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpTLSCertificate--parent"></a><h3>The <code class="literal">"parent"</code> property</h3>
+<pre class="programlisting">  "parent"                   <a class="link" href="telepathy-glib-proxy.html#TpProxy"><span class="type">TpProxy</span></a>*              : Read / Write / Construct Only</pre>
+<p>
+A <a class="link" href="telepathy-glib-connection.html#TpConnection"><span class="type">TpConnection</span></a> or <a class="link" href="telepathy-glib-channel.html#TpChannel"><span class="type">TpChannel</span></a> which owns this TLS certificate. If the
+parent object is invalidated, the certificate is also invalidated, and
+this property is set to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpTLSCertificate--state"></a><h3>The <code class="literal">"state"</code> property</h3>
+<pre class="programlisting">  "state"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>
+The state of this TLS certificate as a <a class="link" href="telepathy-glib-enums.html#TpTLSCertificateState" title="enum TpTLSCertificateState"><span class="type">TpTLSCertificateState</span></a>,
+initially <a class="link" href="telepathy-glib-enums.html#TP-TLS-CERTIFICATE-STATE-PENDING:CAPS"><code class="literal">TP_TLS_CERTIFICATE_STATE_PENDING</code></a>.
+</p>
+<p>
+<span class="type">":state"</span> will be emitted when this changes.
+</p>
+<p>Allowed values: &lt;= 2</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.19.0</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

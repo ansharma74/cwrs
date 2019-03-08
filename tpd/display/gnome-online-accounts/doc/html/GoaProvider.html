@@ -1,0 +1,817 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GoaProvider</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<link rel="home" href="index.html" title="GNOME Online Accounts Reference Manual">
+<link rel="up" href="ch07.html" title="Core">
+<link rel="prev" href="goa-Utilities.html" title="Utilities">
+<link rel="next" href="GoaOAuthProvider.html" title="GoaOAuthProvider">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="goa-Utilities.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch07.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GNOME Online Accounts Reference Manual</th>
+<td><a accesskey="n" href="GoaOAuthProvider.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GoaProvider.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GoaProvider.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GoaProvider.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GoaProvider"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GoaProvider.top_of_page"></a>GoaProvider</span></h2>
+<p>GoaProvider — Abstract base class for providers</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GoaProvider.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="GoaProvider.html#GoaProvider-struct" title="GoaProvider">GoaProvider</a>;
+struct              <a class="link" href="GoaProvider.html#GoaProviderClass" title="struct GoaProviderClass">GoaProviderClass</a>;
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="GoaProvider.html#goa-provider-get-provider-type" title="goa_provider_get_provider_type ()">goa_provider_get_provider_type</a>      (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="GoaProvider.html#goa-provider-get-provider-name" title="goa_provider_get_provider_name ()">goa_provider_get_provider_name</a>      (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> *object</code></em>);
+<a href="http://library.gnome.org/devel/gio/unstable/GIcon.html"><span class="returnvalue">GIcon</span></a> *             <a class="link" href="GoaProvider.html#goa-provider-get-provider-icon" title="goa_provider_get_provider_icon ()">goa_provider_get_provider_icon</a>      (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> *object</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GoaProvider.html#goa-provider-build-object" title="goa_provider_build_object ()">goa_provider_build_object</a>           (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaObject.html#GoaObjectSkeleton"><span class="type">GoaObjectSkeleton</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Key-value-file-parser.html#GKeyFile"><span class="type">GKeyFile</span></a> *key_file</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *group</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> just_added</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a class="link" href="GoaObject.html" title="GoaObject"><span class="returnvalue">GoaObject</span></a> *         <a class="link" href="GoaProvider.html#goa-provider-add-account" title="goa_provider_add_account ()">goa_provider_add_account</a>            (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaClient.html" title="GoaClient"><span class="type">GoaClient</span></a> *client</code></em>,
+                                                         <em class="parameter"><code><a href="http://developer.gnome.org/gtk2/GtkDialog.html"><span class="type">GtkDialog</span></a> *dialog</code></em>,
+                                                         <em class="parameter"><code><a href="http://developer.gnome.org/gtk2/GtkBox.html"><span class="type">GtkBox</span></a> *vbox</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GoaProvider.html#goa-provider-refresh-account" title="goa_provider_refresh_account ()">goa_provider_refresh_account</a>        (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaClient.html" title="GoaClient"><span class="type">GoaClient</span></a> *client</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://developer.gnome.org/gtk2/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GoaProvider.html#goa-provider-show-account" title="goa_provider_show_account ()">goa_provider_show_account</a>           (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaClient.html" title="GoaClient"><span class="type">GoaClient</span></a> *client</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://developer.gnome.org/gtk2/GtkBox.html"><span class="type">GtkBox</span></a> *vbox</code></em>,
+                                                         <em class="parameter"><code><a href="http://developer.gnome.org/gtk2/GtkGrid.html"><span class="type">GtkGrid</span></a> *left</code></em>,
+                                                         <em class="parameter"><code><a href="http://developer.gnome.org/gtk2/GtkGrid.html"><span class="type">GtkGrid</span></a> *right</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GoaProvider.html#goa-provider-ensure-credentials" title="goa_provider_ensure_credentials ()">goa_provider_ensure_credentials</a>     (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GoaProvider.html#goa-provider-ensure-credentials-finish" title="goa_provider_ensure_credentials_finish ()">goa_provider_ensure_credentials_finish</a>
+                                                        (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *out_expires_in</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *res</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GoaProvider.html#goa-provider-ensure-credentials-sync" title="goa_provider_ensure_credentials_sync ()">goa_provider_ensure_credentials_sync</a>
+                                                        (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *out_expires_in</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="GoaProvider.html#goa-provider-get-credentials-generation" title="goa_provider_get_credentials_generation ()">goa_provider_get_credentials_generation</a>
+                                                        (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>);
+#define             <a class="link" href="GoaProvider.html#GOA-PROVIDER-EXTENSION-POINT-NAME:CAPS" title="GOA_PROVIDER_EXTENSION_POINT_NAME">GOA_PROVIDER_EXTENSION_POINT_NAME</a>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="GoaProvider.html#goa-provider-get-all" title="goa_provider_get_all ()">goa_provider_get_all</a>                (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="GoaProvider.html" title="GoaProvider"><span class="returnvalue">GoaProvider</span></a> *       <a class="link" href="GoaProvider.html#goa-provider-get-for-provider-type" title="goa_provider_get_for_provider_type ()">goa_provider_get_for_provider_type</a>  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *provider_type</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GoaProvider.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----GoaProvider
+         +----<a class="link" href="GoaOAuthProvider.html" title="GoaOAuthProvider">GoaOAuthProvider</a>
+         +----<a class="link" href="GoaOAuth2Provider.html" title="GoaOAuth2Provider">GoaOAuth2Provider</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="GoaProvider.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> is the base type for all providers.
+</p>
+</div>
+<div class="refsect1">
+<a name="GoaProvider.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GoaProvider-struct"></a><h3>GoaProvider</h3>
+<pre class="programlisting">typedef struct _GoaProvider GoaProvider;</pre>
+<p>
+The <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> structure contains only private data and should
+only be accessed using the provided API.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GoaProviderClass"></a><h3>struct GoaProviderClass</h3>
+<pre class="programlisting">struct GoaProviderClass {
+  GObjectClass parent_class;
+
+  /* pure virtual */
+  const gchar *(*get_provider_type) (GoaProvider        *provider);
+  gchar       *(*get_provider_name) (GoaProvider        *provider,
+                                     GoaObject          *object);
+  GIcon       *(*get_provider_icon) (GoaProvider        *provider,
+                                     GoaObject          *object);
+  GoaObject   *(*add_account)       (GoaProvider        *provider,
+                                     GoaClient          *client,
+                                     GtkDialog          *dialog,
+                                     GtkBox             *vbox,
+                                     GError            **error);
+  gboolean     (*refresh_account)   (GoaProvider        *provider,
+                                     GoaClient          *client,
+                                     GoaObject          *object,
+                                     GtkWindow          *parent,
+                                     GError            **error);
+  gboolean     (*build_object)      (GoaProvider        *provider,
+                                     GoaObjectSkeleton  *object,
+                                     GKeyFile           *key_file,
+                                     const gchar        *group,
+                                     GDBusConnection    *connection,
+                                     gboolean            just_added,
+                                     GError            **error);
+  /* virtual but with default implementation */
+  gboolean (*ensure_credentials_sync) (GoaProvider         *provider,
+                                       GoaObject           *object,
+                                       gint                *out_expires_in,
+                                       GCancellable        *cancellable,
+                                       GError             **error);
+  void     (*show_account)            (GoaProvider         *provider,
+                                       GoaClient           *client,
+                                       GoaObject           *object,
+                                       GtkBox              *vbox,
+                                       GtkGrid             *left,
+                                       GtkGrid             *right);
+  guint    (*get_credentials_generation) (GoaProvider   *provider);
+};
+</pre>
+<p>
+Class structure for <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> <em class="structfield"><code><a name="GoaProviderClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>The parent class.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GoaProviderClass.get-provider-type"></a>get_provider_type</code></em> ()</span></p></td>
+<td>Virtual function for <a class="link" href="GoaProvider.html#goa-provider-get-provider-type" title="goa_provider_get_provider_type ()"><code class="function">goa_provider_get_provider_type()</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GoaProviderClass.get-provider-name"></a>get_provider_name</code></em> ()</span></p></td>
+<td>Virtual function for <a class="link" href="GoaProvider.html#goa-provider-get-provider-name" title="goa_provider_get_provider_name ()"><code class="function">goa_provider_get_provider_name()</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GoaProviderClass.get-provider-icon"></a>get_provider_icon</code></em> ()</span></p></td>
+<td>Virtual function for <a class="link" href="GoaProvider.html#goa-provider-get-provider-icon" title="goa_provider_get_provider_icon ()"><code class="function">goa_provider_get_provider_icon()</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GoaProviderClass.add-account"></a>add_account</code></em> ()</span></p></td>
+<td>Virtual function for <a class="link" href="GoaProvider.html#goa-provider-add-account" title="goa_provider_add_account ()"><code class="function">goa_provider_add_account()</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GoaProviderClass.refresh-account"></a>refresh_account</code></em> ()</span></p></td>
+<td>Virtual function for <a class="link" href="GoaProvider.html#goa-provider-refresh-account" title="goa_provider_refresh_account ()"><code class="function">goa_provider_refresh_account()</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GoaProviderClass.build-object"></a>build_object</code></em> ()</span></p></td>
+<td>Virtual function for <a class="link" href="GoaProvider.html#goa-provider-build-object" title="goa_provider_build_object ()"><code class="function">goa_provider_build_object()</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GoaProviderClass.ensure-credentials-sync"></a>ensure_credentials_sync</code></em> ()</span></p></td>
+<td>Virtual function for <a class="link" href="GoaProvider.html#goa-provider-ensure-credentials-sync" title="goa_provider_ensure_credentials_sync ()"><code class="function">goa_provider_ensure_credentials_sync()</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GoaProviderClass.show-account"></a>show_account</code></em> ()</span></p></td>
+<td></td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GoaProviderClass.get-credentials-generation"></a>get_credentials_generation</code></em> ()</span></p></td>
+<td>Virtual function for <a class="link" href="GoaProvider.html#goa-provider-get-credentials-generation" title="goa_provider_get_credentials_generation ()"><code class="function">goa_provider_get_credentials_generation()</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-provider-get-provider-type"></a><h3>goa_provider_get_provider_type ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       goa_provider_get_provider_type      (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>);</pre>
+<p>
+Gets the type of <em class="parameter"><code>provider</code></em>.
+</p>
+<p>
+This is a pure virtual method - a subclass must provide an
+implementation.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>provider</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A string owned by <em class="parameter"><code>provider</code></em>, do not free. <span class="annotation">[<a href="http://foldoc.org/transfer%20none"><span class="acronym">transfer none</span></a>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-provider-get-provider-name"></a><h3>goa_provider_get_provider_name ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             goa_provider_get_provider_name      (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> *object</code></em>);</pre>
+<p>
+Gets a name for <em class="parameter"><code>provider</code></em> and <em class="parameter"><code>object</code></em> that is suitable for display
+in an user interface. The returned value may depend on <em class="parameter"><code>object</code></em> (if
+it's not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>) - for example, hosted accounts might return a
+different name.
+</p>
+<p>
+This is a pure virtual method - a subclass must provide an
+implementation.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>provider</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> for an account. <span class="annotation">[<a href="http://foldoc.org/allow-none"><span class="acronym">allow-none</span></a>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A string that should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a>. <span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-provider-get-provider-icon"></a><h3>goa_provider_get_provider_icon ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gio/unstable/GIcon.html"><span class="returnvalue">GIcon</span></a> *             goa_provider_get_provider_icon      (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> *object</code></em>);</pre>
+<p>
+Gets an icon for <em class="parameter"><code>provider</code></em> and <em class="parameter"><code>object</code></em> that is suitable for display
+in an user interface. The returned value may depend on <em class="parameter"><code>object</code></em> -
+for example, hosted accounts might return a different icon.
+</p>
+<p>
+This is a virtual method with a default implementation that returns
+a <a href="http://library.gnome.org/devel/gio/unstable/GThemedIcon.html"><span class="type">GThemedIcon</span></a> with fallbacks constructed from the name
+<code class="literal">goa-account-TYPE</code> where <code class="literal">TYPE</code>
+is the return value of <a class="link" href="GoaProvider.html#goa-provider-get-provider-type" title="goa_provider_get_provider_type ()"><code class="function">goa_provider_get_provider_type()</code></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>provider</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> for an account.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>An icon that should be freed with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a>. <span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-provider-build-object"></a><h3>goa_provider_build_object ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            goa_provider_build_object           (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaObject.html#GoaObjectSkeleton"><span class="type">GoaObjectSkeleton</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Key-value-file-parser.html#GKeyFile"><span class="type">GKeyFile</span></a> *key_file</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *group</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> just_added</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+This method is called when construction account <a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a>
+from configuration data - it basically provides a way to add
+provider-specific information.
+</p>
+<p>
+The passed in <em class="parameter"><code>object</code></em> will have a <a class="link" href="GoaAccount.html" title="GoaAccount"><span class="type">GoaAccount</span></a> interface
+set. Implementations should validate and use data from <em class="parameter"><code>key_file</code></em> to
+add more interfaces to <em class="parameter"><code>object</code></em>.
+</p>
+<p>
+Note that this may be called on already exported objects - for
+example on configuration files reload.
+</p>
+<p>
+This is a pure virtual method - a subclass must provide an
+implementation.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>provider</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>The <a class="link" href="GoaObject.html#GoaObjectSkeleton"><span class="type">GoaObjectSkeleton</span></a> that is being built.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key_file</code></em> :</span></p></td>
+<td>The <a href="http://library.gnome.org/devel/glib/unstable/glib-Key-value-file-parser.html#GKeyFile"><span class="type">GKeyFile</span></a> with configuation data.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>The group in <em class="parameter"><code>key_file</code></em> to get data from.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection</code></em> :</span></p></td>
+<td>The <a href="http://library.gnome.org/devel/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a> used by the daemon to connect to the message bus.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>just_added</code></em> :</span></p></td>
+<td>Whether the account was newly created or being updated.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Return location for error or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if data was valid, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if <em class="parameter"><code>error</code></em> is set.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-provider-add-account"></a><h3>goa_provider_add_account ()</h3>
+<pre class="programlisting"><a class="link" href="GoaObject.html" title="GoaObject"><span class="returnvalue">GoaObject</span></a> *         goa_provider_add_account            (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaClient.html" title="GoaClient"><span class="type">GoaClient</span></a> *client</code></em>,
+                                                         <em class="parameter"><code><a href="http://developer.gnome.org/gtk2/GtkDialog.html"><span class="type">GtkDialog</span></a> *dialog</code></em>,
+                                                         <em class="parameter"><code><a href="http://developer.gnome.org/gtk2/GtkBox.html"><span class="type">GtkBox</span></a> *vbox</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+This method brings up the user interface necessary to create a new
+account on <em class="parameter"><code>client</code></em> of the type for <em class="parameter"><code>provider</code></em>, interacts with the
+user to get all information needed and creates the account.
+</p>
+<p>
+The passed in <em class="parameter"><code>dialog</code></em> widget is guaranteed to be visible with <em class="parameter"><code>vbox</code></em>
+being empty and the only visible widget in <em class="parameter"><code>dialog</code></em>'s content
+area. The dialog has exactly one action widget, a cancel button
+with response id GTK_RESPONSE_CANCEL. Implementations are free to
+add additional action widgets, as needed.
+</p>
+<p>
+If an account was successfully created, a <a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> for the
+created account is returned. If <em class="parameter"><code>dialog</code></em> is dismissed, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is
+returned and <em class="parameter"><code>error</code></em> is set to <a class="link" href="goa-GoaError.html#GOA-ERROR-DIALOG-DISMISSED:CAPS"><code class="literal">GOA_ERROR_DIALOG_DISMISSED</code></a>. If an
+account couldn't be created then <em class="parameter"><code>error</code></em> is set. In some cases,
+for example, when the credentials could not be stored in the
+keyring, a <a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> can be returned even if <em class="parameter"><code>error</code></em> is set.
+</p>
+<p>
+The caller will always show an error dialog if <em class="parameter"><code>error</code></em> is set unless
+the error is <a class="link" href="goa-GoaError.html#GOA-ERROR-DIALOG-DISMISSED:CAPS"><code class="literal">GOA_ERROR_DIALOG_DISMISSED</code></a>.
+</p>
+<p>
+Implementations should run the default main loop while
+interacting with the user and may do so using e.g. <a href="http://developer.gnome.org/gtk2/GtkDialog.html#gtk-dialog-run"><code class="function">gtk_dialog_run()</code></a>
+on <em class="parameter"><code>dialog</code></em>.
+</p>
+<p>
+This is a pure virtual method - a subclass must provide an
+implementation.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>provider</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>client</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaClient.html" title="GoaClient"><span class="type">GoaClient</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dialog</code></em> :</span></p></td>
+<td>A <a href="http://developer.gnome.org/gtk2/GtkDialog.html"><span class="type">GtkDialog</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>vbox</code></em> :</span></p></td>
+<td>A vertically oriented <a href="http://developer.gnome.org/gtk2/GtkBox.html"><span class="type">GtkBox</span></a> to put content in.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Return location for error or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The <a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> for the created account (must be relased
+with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a>) or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>error</code></em> is set.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-provider-refresh-account"></a><h3>goa_provider_refresh_account ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            goa_provider_refresh_account        (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaClient.html" title="GoaClient"><span class="type">GoaClient</span></a> *client</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://developer.gnome.org/gtk2/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+This method brings up the user interface necessary for refreshing
+the credentials for the account specified by <em class="parameter"><code>object</code></em>. This
+typically involves having the user log in to the account again.
+</p>
+<p>
+Implementations should use <em class="parameter"><code>parent</code></em> (unless <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>) as the transient
+parent of any created windows/dialogs.
+</p>
+<p>
+Implementations should run the default main loop while
+interacting with the user.
+</p>
+<p>
+This is a pure virtual method - a subclass must provide an
+implementation.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>provider</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>client</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaClient.html" title="GoaClient"><span class="type">GoaClient</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> with a <a class="link" href="GoaAccount.html" title="GoaAccount"><span class="type">GoaAccount</span></a> interface.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>Transient parent of dialogs or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<a href="http://foldoc.org/allow-none"><span class="acronym">allow-none</span></a>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Return location for error or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the account has been refreshed, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if <em class="parameter"><code>error</code></em>
+is set.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-provider-show-account"></a><h3>goa_provider_show_account ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                goa_provider_show_account           (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaClient.html" title="GoaClient"><span class="type">GoaClient</span></a> *client</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://developer.gnome.org/gtk2/GtkBox.html"><span class="type">GtkBox</span></a> *vbox</code></em>,
+                                                         <em class="parameter"><code><a href="http://developer.gnome.org/gtk2/GtkGrid.html"><span class="type">GtkGrid</span></a> *left</code></em>,
+                                                         <em class="parameter"><code><a href="http://developer.gnome.org/gtk2/GtkGrid.html"><span class="type">GtkGrid</span></a> *right</code></em>);</pre>
+<p>
+Method used to add widgets in the control panel for the account
+represented by <em class="parameter"><code>object</code></em>.
+</p>
+<p>
+This is a virtual method with an implementation that (currently)
+does nothing. A subclass should chain up (before adding their own
+widgets to <em class="parameter"><code>vbox</code></em> and <em class="parameter"><code>table</code></em>) if they want to expose such
+functionality.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>provider</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>client</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaClient.html" title="GoaClient"><span class="type">GoaClient</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> with a <a class="link" href="GoaAccount.html" title="GoaAccount"><span class="type">GoaAccount</span></a> interface.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>vbox</code></em> :</span></p></td>
+<td>A vertically oriented <a href="http://developer.gnome.org/gtk2/GtkBox.html"><span class="type">GtkBox</span></a> to put content in.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-provider-ensure-credentials"></a><h3>goa_provider_ensure_credentials ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                goa_provider_ensure_credentials     (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Ensures that credentials for <em class="parameter"><code>object</code></em> are still valid.
+</p>
+<p>
+When the result is ready, <em class="parameter"><code>callback</code></em> will be called in the the <GTKDOCLINK HREF="g-main-context-push-thread-default">thread-default main
+loop</GTKDOCLINK> this function was called from. You can then call
+<a class="link" href="GoaProvider.html#goa-provider-ensure-credentials-finish" title="goa_provider_ensure_credentials_finish ()"><code class="function">goa_provider_ensure_credentials_finish()</code></a> to get the result
+of the operation.
+</p>
+<p>
+This is a virtual method where the default implementation simply
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>provider</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> with a <a class="link" href="GoaAccount.html" title="GoaAccount"><span class="type">GoaAccount</span></a> interface.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>A <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<a href="http://foldoc.org/allow-none"><span class="acronym">allow-none</span></a>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>The function to call when the request is satisfied.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>Pointer to pass to <em class="parameter"><code>callback</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-provider-ensure-credentials-finish"></a><h3>goa_provider_ensure_credentials_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            goa_provider_ensure_credentials_finish
+                                                        (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *out_expires_in</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *res</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Finishes an operation started with <a class="link" href="GoaProvider.html#goa-provider-ensure-credentials" title="goa_provider_ensure_credentials ()"><code class="function">goa_provider_ensure_credentials()</code></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>provider</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_expires_in</code></em> :</span></p></td>
+<td>Return location for how long the expired credentials are good for (0 if unknown) or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<a href="http://foldoc.org/out"><span class="acronym">out</span></a>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>res</code></em> :</span></p></td>
+<td>A <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> obtained from the <a href="http://library.gnome.org/devel/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> passed to <a class="link" href="GoaProvider.html#goa-provider-ensure-credentials" title="goa_provider_ensure_credentials ()"><code class="function">goa_provider_ensure_credentials()</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Return location for error or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the credentials for the passed <a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> are valid, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if <em class="parameter"><code>error</code></em> is set.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-provider-ensure-credentials-sync"></a><h3>goa_provider_ensure_credentials_sync ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            goa_provider_ensure_credentials_sync
+                                                        (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *out_expires_in</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Like <a class="link" href="GoaProvider.html#goa-provider-ensure-credentials" title="goa_provider_ensure_credentials ()"><code class="function">goa_provider_ensure_credentials()</code></a> but blocks the
+calling thread until an answer is received.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>provider</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> with a <a class="link" href="GoaAccount.html" title="GoaAccount"><span class="type">GoaAccount</span></a> interface.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_expires_in</code></em> :</span></p></td>
+<td>Return location for how long the expired credentials are good for (0 if unknown) or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<a href="http://foldoc.org/out"><span class="acronym">out</span></a>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cancellable</code></em> :</span></p></td>
+<td>A <a href="http://library.gnome.org/devel/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<a href="http://foldoc.org/allow-none"><span class="acronym">allow-none</span></a>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Return location for error or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the credentials for the passed <a class="link" href="GoaObject.html" title="GoaObject"><span class="type">GoaObject</span></a> are valid, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if <em class="parameter"><code>error</code></em> is set.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-provider-get-credentials-generation"></a><h3>goa_provider_get_credentials_generation ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               goa_provider_get_credentials_generation
+                                                        (<em class="parameter"><code><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> *provider</code></em>);</pre>
+<p>
+Gets the generation of credentials being used for the provider.
+</p>
+<p>
+Implementations should bump this number when changes are introduced
+that may render existing credentials unusable.
+</p>
+<p>
+For example, if an additional scope is requested (e.g. access to
+contacts data) while obtaining credentials, then this number needs
+to be bumped since existing credentials are not good for the added
+scope.
+</p>
+<p>
+This is a virtual method where the default implementation returns
+0.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>provider</code></em> :</span></p></td>
+<td>A <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The current generation of credentials.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GOA-PROVIDER-EXTENSION-POINT-NAME:CAPS"></a><h3>GOA_PROVIDER_EXTENSION_POINT_NAME</h3>
+<pre class="programlisting">#define GOA_PROVIDER_EXTENSION_POINT_NAME "goa-backend-provider"
+</pre>
+<p>
+Extension point for <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> implementations.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-provider-get-all"></a><h3>goa_provider_get_all ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             goa_provider_get_all                (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Looks up the <a class="link" href="GoaProvider.html#GOA-PROVIDER-EXTENSION-POINT-NAME:CAPS" title="GOA_PROVIDER_EXTENSION_POINT_NAME"><code class="literal">GOA_PROVIDER_EXTENSION_POINT_NAME</code></a> extension
+point and returns a newly created <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> for each
+provider type encountered.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A list
+of element providers that should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#g-list-free"><code class="function">g_list_free()</code></a>
+after each element has been freed with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a>. <span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>][<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a> GoaProvider]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="goa-provider-get-for-provider-type"></a><h3>goa_provider_get_for_provider_type ()</h3>
+<pre class="programlisting"><a class="link" href="GoaProvider.html" title="GoaProvider"><span class="returnvalue">GoaProvider</span></a> *       goa_provider_get_for_provider_type  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *provider_type</code></em>);</pre>
+<p>
+Looks up the <a class="link" href="GoaProvider.html#GOA-PROVIDER-EXTENSION-POINT-NAME:CAPS" title="GOA_PROVIDER_EXTENSION_POINT_NAME"><code class="literal">GOA_PROVIDER_EXTENSION_POINT_NAME</code></a> extension
+point and returns a newly created <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> for
+<em class="parameter"><code>provider_type</code></em>, if any.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>provider_type</code></em> :</span></p></td>
+<td>A provider type.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A <a class="link" href="GoaProvider.html" title="GoaProvider"><span class="type">GoaProvider</span></a> (that must be freed
+with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a>) or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if not found. <span class="annotation">[<a href="http://foldoc.org/transfer%20full"><span class="acronym">transfer full</span></a>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

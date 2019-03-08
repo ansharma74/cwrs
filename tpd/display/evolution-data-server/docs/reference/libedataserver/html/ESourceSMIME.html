@@ -1,0 +1,611 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESourceSMIME</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
+<link rel="up" href="ch02.html" title="Data Source Extensions">
+<link rel="prev" href="ESourceSecurity.html" title="ESourceSecurity">
+<link rel="next" href="ESourceTaskList.html" title="ESourceTaskList">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ESourceSecurity.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Utilities (libedataserver)</th>
+<td><a accesskey="n" href="ESourceTaskList.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ESourceSMIME.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#ESourceSMIME.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#ESourceSMIME.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#ESourceSMIME.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="ESourceSMIME"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESourceSMIME.top_of_page"></a>ESourceSMIME</span></h2>
+<p>ESourceSMIME — <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> extension for S/MIME settings</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ESourceSMIME.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;libedataserver/libedataserver.h&gt;
+
+struct              <a class="link" href="ESourceSMIME.html#ESourceSMIME-struct" title="struct ESourceSMIME">ESourceSMIME</a>;
+#define             <a class="link" href="ESourceSMIME.html#E-SOURCE-EXTENSION-SMIME:CAPS" title="E_SOURCE_EXTENSION_SMIME">E_SOURCE_EXTENSION_SMIME</a>
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESourceSMIME.html#e-source-smime-get-encryption-certificate" title="e_source_smime_get_encryption_certificate ()">e_source_smime_get_encryption_certificate</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESourceSMIME.html#e-source-smime-dup-encryption-certificate" title="e_source_smime_dup_encryption_certificate ()">e_source_smime_dup_encryption_certificate</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceSMIME.html#e-source-smime-set-encryption-certificate" title="e_source_smime_set_encryption_certificate ()">e_source_smime_set_encryption_certificate</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *encryption_certificate</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceSMIME.html#e-source-smime-get-encrypt-by-default" title="e_source_smime_get_encrypt_by_default ()">e_source_smime_get_encrypt_by_default</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceSMIME.html#e-source-smime-set-encrypt-by-default" title="e_source_smime_set_encrypt_by_default ()">e_source_smime_set_encrypt_by_default</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> encrypt_by_default</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceSMIME.html#e-source-smime-get-encrypt-to-self" title="e_source_smime_get_encrypt_to_self ()">e_source_smime_get_encrypt_to_self</a>  (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceSMIME.html#e-source-smime-set-encrypt-to-self" title="e_source_smime_set_encrypt_to_self ()">e_source_smime_set_encrypt_to_self</a>  (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> encrypt_to_self</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESourceSMIME.html#e-source-smime-get-signing-algorithm" title="e_source_smime_get_signing_algorithm ()">e_source_smime_get_signing_algorithm</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESourceSMIME.html#e-source-smime-dup-signing-algorithm" title="e_source_smime_dup_signing_algorithm ()">e_source_smime_dup_signing_algorithm</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceSMIME.html#e-source-smime-set-signing-algorithm" title="e_source_smime_set_signing_algorithm ()">e_source_smime_set_signing_algorithm</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *signing_algorithm</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESourceSMIME.html#e-source-smime-get-signing-certificate" title="e_source_smime_get_signing_certificate ()">e_source_smime_get_signing_certificate</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESourceSMIME.html#e-source-smime-dup-signing-certificate" title="e_source_smime_dup_signing_certificate ()">e_source_smime_dup_signing_certificate</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceSMIME.html#e-source-smime-set-signing-certificate" title="e_source_smime_set_signing_certificate ()">e_source_smime_set_signing_certificate</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *signing_certificate</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceSMIME.html#e-source-smime-get-sign-by-default" title="e_source_smime_get_sign_by_default ()">e_source_smime_get_sign_by_default</a>  (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceSMIME.html#e-source-smime-set-sign-by-default" title="e_source_smime_set_sign_by_default ()">e_source_smime_set_sign_by_default</a>  (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sign_by_default</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceSMIME.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="ESourceExtension.html" title="ESourceExtension">ESourceExtension</a>
+         +----ESourceSMIME
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceSMIME.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="ESourceSMIME.html#ESourceSMIME--encrypt-by-default" title='The "encrypt-by-default" property'>encrypt-by-default</a>"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct
+  "<a class="link" href="ESourceSMIME.html#ESourceSMIME--encrypt-to-self" title='The "encrypt-to-self" property'>encrypt-to-self</a>"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct
+  "<a class="link" href="ESourceSMIME.html#ESourceSMIME--encryption-certificate" title='The "encryption-certificate" property'>encryption-certificate</a>"   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct
+  "<a class="link" href="ESourceSMIME.html#ESourceSMIME--sign-by-default" title='The "sign-by-default" property'>sign-by-default</a>"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct
+  "<a class="link" href="ESourceSMIME.html#ESourceSMIME--signing-algorithm" title='The "signing-algorithm" property'>signing-algorithm</a>"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct
+  "<a class="link" href="ESourceSMIME.html#ESourceSMIME--signing-certificate" title='The "signing-certificate" property'>signing-certificate</a>"      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceSMIME.description"></a><h2>Description</h2>
+<p>
+The <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> extension tracks Secure/Multipurpose Internet Mail
+Extensions (S/MIME) settings to be applied to outgoing mail messages.
+</p>
+<p>
+Access the extension as follows:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc ppc">#include &lt;libedataserver/libedataserver.h&gt;</span>
+
+ESourceSMIME <span class="gtkdoc opt">*</span>extension<span class="gtkdoc opt">;</span>
+
+extension <span class="gtkdoc opt">=</span> <span class="function"><a href="ESource.html#e-source-get-extension">e_source_get_extension</a></span> <span class="gtkdoc opt">(</span>source<span class="gtkdoc opt">,</span> E_SOURCE_EXTENSION_SMIME<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="ESourceSMIME.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="ESourceSMIME-struct"></a><h3>struct ESourceSMIME</h3>
+<pre class="programlisting">struct ESourceSMIME;</pre>
+<p>
+Contains only private data that should be read and manipulated using the
+functions below.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="E-SOURCE-EXTENSION-SMIME:CAPS"></a><h3>E_SOURCE_EXTENSION_SMIME</h3>
+<pre class="programlisting">#define E_SOURCE_EXTENSION_SMIME "Secure MIME (S/MIME)"
+</pre>
+<p>
+Pass this extension name to <a class="link" href="ESource.html#e-source-get-extension" title="e_source_get_extension ()"><code class="function">e_source_get_extension()</code></a> to access
+<a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>.  This is also used as a group name in key files.
+</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-smime-get-encryption-certificate"></a><h3>e_source_smime_get_encryption_certificate ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_smime_get_encryption_certificate
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);</pre>
+<p>
+Returns the S/MIME certificate name used to encrypt messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the certificate name used to encrypt messages</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-smime-dup-encryption-certificate"></a><h3>e_source_smime_dup_encryption_certificate ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_smime_dup_encryption_certificate
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);</pre>
+<p>
+Thread-safe variation of <a class="link" href="ESourceSMIME.html#e-source-smime-get-encryption-certificate" title="e_source_smime_get_encryption_certificate ()"><code class="function">e_source_smime_get_encryption_certificate()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em> from multiple threads.
+</p>
+<p>
+The returned string should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-allocated copy of <a class="link" href="ESourceSMIME.html#ESourceSMIME--encryption-certificate" title='The "encryption-certificate" property'><span class="type">"encryption-certificate"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-smime-set-encryption-certificate"></a><h3>e_source_smime_set_encryption_certificate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_smime_set_encryption_certificate
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *encryption_certificate</code></em>);</pre>
+<p>
+Sets the certificate name used to encrypt messages.
+</p>
+<p>
+The internal copy of <em class="parameter"><code>encryption_certificate</code></em> is automatically stripped
+of leading and trailing whitespace.  If the resulting string is empty,
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is set instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>encryption_certificate</code></em> :</span></p></td>
+<td>the certificate name used to encrypt
+messages, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-smime-get-encrypt-by-default"></a><h3>e_source_smime_get_encrypt_by_default ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_smime_get_encrypt_by_default
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);</pre>
+<p>
+Returns whether to encrypt outgoing messages by default using S/MIME
+software such as Mozilla Network Security Services (NSS).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether to encrypt outgoing messages by default</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-smime-set-encrypt-by-default"></a><h3>e_source_smime_set_encrypt_by_default ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_smime_set_encrypt_by_default
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> encrypt_by_default</code></em>);</pre>
+<p>
+Sets whether to encrypt outgoing messages by default using S/MIME
+software such as Mozilla Network Security Services (NSS).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>encrypt_by_default</code></em> :</span></p></td>
+<td>whether to encrypt outgoing messages by default</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-smime-get-encrypt-to-self"></a><h3>e_source_smime_get_encrypt_to_self ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_smime_get_encrypt_to_self  (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);</pre>
+<p>
+Returns whether to "encrypt-to-self" when sending encrypted messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether to "encrypt-to-self"</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-smime-set-encrypt-to-self"></a><h3>e_source_smime_set_encrypt_to_self ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_smime_set_encrypt_to_self  (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> encrypt_to_self</code></em>);</pre>
+<p>
+Sets whether to "encrypt-to-self" when sending encrypted messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>encrypt_to_self</code></em> :</span></p></td>
+<td>whether to "encrypt-to-self"</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-smime-get-signing-algorithm"></a><h3>e_source_smime_get_signing_algorithm ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_smime_get_signing_algorithm
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);</pre>
+<p>
+Returns the name of the hash algorithm used to digitally sign outgoing
+messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the signing algorithm for outgoing messages</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-smime-dup-signing-algorithm"></a><h3>e_source_smime_dup_signing_algorithm ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_smime_dup_signing_algorithm
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);</pre>
+<p>
+Thread-safe variation of <a class="link" href="ESourceSMIME.html#e-source-smime-get-signing-algorithm" title="e_source_smime_get_signing_algorithm ()"><code class="function">e_source_smime_get_signing_algorithm()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em> from multiple threads.
+</p>
+<p>
+The returned string should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-allocated copy of <a class="link" href="ESourceSMIME.html#ESourceSMIME--signing-algorithm" title='The "signing-algorithm" property'><span class="type">"signing-algorithm"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-smime-set-signing-algorithm"></a><h3>e_source_smime_set_signing_algorithm ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_smime_set_signing_algorithm
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *signing_algorithm</code></em>);</pre>
+<p>
+Sets the name of the hash algorithm used to digitally sign outgoing
+messages.
+</p>
+<p>
+The internal copy of <em class="parameter"><code>signing_algorithm</code></em> is automatically stripped of
+leading and trailing whitespace.  If the resulting string is empty,
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is set instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>signing_algorithm</code></em> :</span></p></td>
+<td>the signing algorithm for outgoing
+messages, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-smime-get-signing-certificate"></a><h3>e_source_smime_get_signing_certificate ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_smime_get_signing_certificate
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);</pre>
+<p>
+Returns the S/MIME certificate name used to sign messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the certificate name used to sign messages</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-smime-dup-signing-certificate"></a><h3>e_source_smime_dup_signing_certificate ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_smime_dup_signing_certificate
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);</pre>
+<p>
+Thread-safe variation of <a class="link" href="ESourceSMIME.html#e-source-smime-get-signing-certificate" title="e_source_smime_get_signing_certificate ()"><code class="function">e_source_smime_get_signing_certificate()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em> from multiple threads.
+</p>
+<p>
+The returned string should be freed with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-allocated copy of <a class="link" href="ESourceSMIME.html#ESourceSMIME--signing-certificate" title='The "signing-certificate" property'><span class="type">"signing-certificate"</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-smime-set-signing-certificate"></a><h3>e_source_smime_set_signing_certificate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_smime_set_signing_certificate
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *signing_certificate</code></em>);</pre>
+<p>
+Sets the S/MIME certificate name used to sign messages.
+</p>
+<p>
+The internal copy of <em class="parameter"><code>signing_certificate</code></em> is automatically stripped
+of leading and trailing whitespace.  If the resulting string is empty,
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is set instead.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>signing_certificate</code></em> :</span></p></td>
+<td>the certificate name used to sign
+messages, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-smime-get-sign-by-default"></a><h3>e_source_smime_get_sign_by_default ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_smime_get_sign_by_default  (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>);</pre>
+<p>
+Returns whether to digitally sign outgoing messages by default using
+S/MIME software such as Mozilla Network Security Services (NSS).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether to sign outgoing messages by default</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-smime-set-sign-by-default"></a><h3>e_source_smime_set_sign_by_default ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_smime_set_sign_by_default  (<em class="parameter"><code><a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a> *extension</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sign_by_default</code></em>);</pre>
+<p>
+Sets whether to digitally sign outgoing messages by default using
+S/MIME software such as Mozilla Network Security Services (NSS).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSMIME.html" title="ESourceSMIME"><span class="type">ESourceSMIME</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sign_by_default</code></em> :</span></p></td>
+<td>whether to sign outgoing messages by default</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ESourceSMIME.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="ESourceSMIME--encrypt-by-default"></a><h3>The <code class="literal">"encrypt-by-default"</code> property</h3>
+<pre class="programlisting">  "encrypt-by-default"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct</pre>
+<p>Encrypt outgoing messages by default.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceSMIME--encrypt-to-self"></a><h3>The <code class="literal">"encrypt-to-self"</code> property</h3>
+<pre class="programlisting">  "encrypt-to-self"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct</pre>
+<p>Always encrypt to myself.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceSMIME--encryption-certificate"></a><h3>The <code class="literal">"encryption-certificate"</code> property</h3>
+<pre class="programlisting">  "encryption-certificate"   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct</pre>
+<p>S/MIME certificate for encrypting messages.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceSMIME--sign-by-default"></a><h3>The <code class="literal">"sign-by-default"</code> property</h3>
+<pre class="programlisting">  "sign-by-default"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct</pre>
+<p>Sign outgoing messages by default.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceSMIME--signing-algorithm"></a><h3>The <code class="literal">"signing-algorithm"</code> property</h3>
+<pre class="programlisting">  "signing-algorithm"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct</pre>
+<p>Hash algorithm used to sign messages.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceSMIME--signing-certificate"></a><h3>The <code class="literal">"signing-certificate"</code> property</h3>
+<pre class="programlisting">  "signing-certificate"      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct</pre>
+<p>S/MIME certificate for signing messages.</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

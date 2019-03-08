@@ -1,0 +1,60 @@
+<div id="events" data-direction="<%= params[:direction] %>" data-sort="<%= params[:sort] %>" class='grid_12 boxit' data-action='<%= params[:action] %>' data-page='<%= params[:page].to_i %>'>
+	
+	<%= form_tag mass_update_events_path do %>
+	
+	<%= hidden_field_tag :selected_events, [] %>
+	
+	<ul class='table'>
+		
+		<li class='header'>
+			<div class='row <%= 'geoip' if geoip? %> <%= 'sessions' if @session_view %>'>
+        <div class='small'>
+          <%= check_box_tag 'event-select-all', nil, false, :class => 'event-select-all' %>
+        </div>
+
+        <div class='small'>&nbsp;</div>
+        
+        <div class='small'>
+          <%= sortable(:sig_priority, 'Sev.')%>
+        </div>
+
+        <div class='sensor'>
+          <%= sortable(:sid, 'Sensor')%>
+        </div>
+        
+        <div class='address'>
+          <%= sortable(:ip_src, 'Source IP')%>
+        </div>
+        
+        <div class='address'>
+          <%= sortable(:ip_dst, 'Destination IP')%>
+        </div>
+        
+        <div class='signature'>
+          <%= sortable((@session_view ? :signature : :sig_name), 'Event Signature')%>
+        </div>
+
+        <div class='timestamp'>
+          <%= sortable(:timestamp, 'Timestamp')%>
+        </div>
+
+        <% if @session_view %>
+          <div class='session-count'>
+            <%= sortable(:number_of_events, 'Sessions')%>
+          </div>
+        <% end %>
+
+			</div>
+		</li>
+		
+		<div class='content'>
+      <%= render @events %>
+		</div>
+		
+	</ul>
+	
+	<% end %>
+	
+	<%= pager(@events, request.fullpath) %>
+	
+</div>

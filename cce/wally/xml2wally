@@ -1,0 +1,111 @@
+#!/usr/bin/php
+<?php
+/*
+ * AWS Wally
+ * 
+ * Copyright (c) 2010 Cezar Lucan cezar.lucan@aws-dms.com
+ * Licensed under GPL license.
+ * http://www.aws-dms.com
+ *
+ * Date: 2010-10-31
+ */
+ 
+include_once 'defaults.php';
+
+function procExecute($command)
+	{
+	$retValue = 
+		array(
+			"STDOUT"=>'',
+			"STDERR"=>'',
+			"SUCCES"=>'', //// 0 succes 1 eroare
+			"STATUS"
+		     );
+	
+	$descriptorspec = array(
+	   0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
+	   1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
+	   2 => array("pipe","w")
+	);
+	
+	$process = proc_open("bash", $descriptorspec, $pipes);
+		fwrite($pipes[0], $command);
+	fclose($pipes[0]);
+	
+	//STDOUT:
+	    while (!feof($pipes[1])) {
+	        $retValue["STDOUT"].= fgets($pipes[1], 1024);}
+	    fclose($pipes[1]);
+	//STDERR:
+	    while (!feof($pipes[2])) {
+	        $retValue["STDERR"].= fgets($pipes[2], 1024);}
+	    fclose($pipes[2]);
+	//STATUS
+		$retValue["STATUS"] = proc_get_status($process);
+	//SUCCES
+		$retValue["SUCCES"] = proc_close($process);
+	return $retValue;
+	}
+
+
+if($argv[1] && file_exists($argv[1]))
+	{
+									//'IPTABLESFLUSH'
+									//Reset Default Policies
+									procExecute("sudo ".AWS_WALLY_IPTABLES." -P INPUT ACCEPT");
+									procExecute("sudo ".AWS_WALLY_IPTABLES." -P FORWARD ACCEPT");
+									procExecute("sudo ".AWS_WALLY_IPTABLES." -P OUTPUT ACCEPT");
+									
+									procExecute("sudo ".AWS_WALLY_IPTABLES." -t nat -P PREROUTING ACCEPT");
+									procExecute("sudo ".AWS_WALLY_IPTABLES." -t nat -P POSTROUTING ACCEPT");
+									procExecute("sudo ".AWS_WALLY_IPTABLES." -t nat -P OUTPUT ACCEPT");
+									
+					 				procExecute("sudo ".AWS_WALLY_IPTABLES." -t mangle -P FORWARD ACCEPT");
+					 				procExecute("sudo ".AWS_WALLY_IPTABLES." -t mangle -P INPUT ACCEPT");
+									procExecute("sudo ".AWS_WALLY_IPTABLES." -t mangle -P POSTROUTING ACCEPT");
+									procExecute("sudo ".AWS_WALLY_IPTABLES." -t mangle -P PREROUTING ACCEPT");
+									procExecute("sudo ".AWS_WALLY_IPTABLES." -t mangle -P OUTPUT ACCEPT");
+									//Flush all rules
+									procExecute("sudo ".AWS_WALLY_IPTABLES." -F");
+									procExecute("sudo ".AWS_WALLY_IPTABLES." -t nat -F");
+									procExecute("sudo ".AWS_WALLY_IPTABLES." -t mangle -F");
+									//Erase all non-default chains
+									procExecute("sudo ".AWS_WALLY_IPTABLES." -X");
+									procExecute("sudo ".AWS_WALLY_IPTABLES." -t nat -X");
+									procExecute("sudo ".AWS_WALLY_IPTABLES." -t mangle -X");
+
+									$file = ".dumping-iptablesfromxmlconsole.out";
+									
+									//iptables version
+									$version = procExecute("sudo ".AWS_WALLY_IPTABLES." -V");
+									$version["STDOUT"] = str_replace(" ","-",$version["STDOUT"]);
+									$version["STDOUT"] = trim($version["STDOUT"],"\r..\n..\t");
+									
+									$xmldoc = new DOMDocument("1.0","UTF-8");
+									$xmldoc->loadXML(file_get_contents($argv[1]));
+									$xsl = new DOMDocument;
+									$xsl->load('xsl/iptables-actionfix.xsl');
+									$proc = new XSLTProcessor;
+									$proc->importStyleSheet($xsl);
+										
+									$buffer = $proc->transformToXML($xmldoc);
+									
+									$xmldoc = new DOMDocument("1.0","UTF-8");
+									$xmldoc->loadXML($buffer);
+									$xsl = new DOMDocument;
+									$xsl->load('xsl/'.$version["STDOUT"].'.xsl');
+									$proc = new XSLTProcessor;
+									$proc->importStyleSheet($xsl);
+										
+									$buffer = $proc->transformToXML($xmldoc);
+									
+									if(get_magic_quotes_gpc())
+											file_put_contents($file,stripslashes($buffer));
+										else
+											file_put_contents($file,$buffer);
+									
+									echo $buffer;
+									$out = procExecute("cat ".$file." | sudo ".AWS_WALLY_IPTABLES_RESTORE);
+									unlink($file);
+	}
+?>

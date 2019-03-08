@@ -1,0 +1,729 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TpMessageMixin</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="telepathy-glib API Reference Manual">
+<link rel="up" href="ch-service-base.html" title="Service-side implementation">
+<link rel="prev" href="telepathy-glib-TpGroupMixin.html" title="TpGroupMixin">
+<link rel="next" href="TpMessage.html" title="TpMessage">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="telepathy-glib-TpGroupMixin.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch-service-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">telepathy-glib API Reference Manual</th>
+<td><a accesskey="n" href="TpMessage.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#telepathy-glib-TpMessageMixin.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#telepathy-glib-TpMessageMixin.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="telepathy-glib-TpMessageMixin"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="telepathy-glib-TpMessageMixin.top_of_page"></a>TpMessageMixin</span></h2>
+<p>TpMessageMixin — a mixin implementation of the text channel type and the
+ Messages interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="telepathy-glib-TpMessageMixin.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;telepathy-glib/telepathy-glib.h&gt;
+
+struct              <a class="link" href="telepathy-glib-TpMessageMixin.html#TpMessageMixin" title="struct TpMessageMixin">TpMessageMixin</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="telepathy-glib-TpMessageMixin.html#TpMessageMixinSendImpl" title="TpMessageMixinSendImpl ()">*TpMessageMixinSendImpl</a>)           (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpMessageSendingFlags" title="enum TpMessageSendingFlags"><span class="type">TpMessageSendingFlags</span></a> flags</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-finalize" title="tp_message_mixin_finalize ()">tp_message_mixin_finalize</a>           (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-implement-sending" title="tp_message_mixin_implement_sending ()">tp_message_mixin_implement_sending</a>  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpMessageMixin.html#TpMessageMixinSendImpl" title="TpMessageMixinSendImpl ()"><span class="type">TpMessageMixinSendImpl</span></a> send</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_types</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="telepathy-glib-enums.html#TpChannelTextMessageType" title="enum TpChannelTextMessageType"><span class="type">TpChannelTextMessageType</span></a> *types</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpMessagePartSupportFlags" title="enum TpMessagePartSupportFlags"><span class="type">TpMessagePartSupportFlags</span></a> message_part_support_flags</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpDeliveryReportingSupportFlags" title="enum TpDeliveryReportingSupportFlags"><span class="type">TpDeliveryReportingSupportFlags</span></a> delivery_reporting_support_flags</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> * const *supported_content_types</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-init" title="tp_message_mixin_init ()">tp_message_mixin_init</a>               (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> offset</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *connection</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-init-dbus-properties" title="tp_message_mixin_init_dbus_properties ()">tp_message_mixin_init_dbus_properties</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *cls</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-messages-iface-init" title="tp_message_mixin_messages_iface_init ()">tp_message_mixin_messages_iface_init</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-get-dbus-property" title="tp_message_mixin_get_dbus_property ()">tp_message_mixin_get_dbus_property</a>  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> interface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> unused</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-sent" title="tp_message_mixin_sent ()">tp_message_mixin_sent</a>               (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpMessageSendingFlags" title="enum TpMessageSendingFlags"><span class="type">TpMessageSendingFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *token</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-set-rescued" title="tp_message_mixin_set_rescued ()">tp_message_mixin_set_rescued</a>        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-take-received" title="tp_message_mixin_take_received ()">tp_message_mixin_take_received</a>      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-has-pending-messages" title="tp_message_mixin_has_pending_messages ()">tp_message_mixin_has_pending_messages</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> *first_sender</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-clear" title="tp_message_mixin_clear ()">tp_message_mixin_clear</a>              (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-text-iface-init" title="tp_message_mixin_text_iface_init ()">tp_message_mixin_text_iface_init</a>    (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);
+
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="telepathy-glib-TpMessageMixin.html#TpMessageMixinSendChatStateImpl" title="TpMessageMixinSendChatStateImpl ()">*TpMessageMixinSendChatStateImpl</a>)  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelChatState" title="enum TpChannelChatState"><span class="type">TpChannelChatState</span></a> state</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-chat-state-iface-init" title="tp_message_mixin_chat_state_iface_init ()">tp_message_mixin_chat_state_iface_init</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-change-chat-state" title="tp_message_mixin_change_chat_state ()">tp_message_mixin_change_chat_state</a>  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> member</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelChatState" title="enum TpChannelChatState"><span class="type">TpChannelChatState</span></a> state</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-implement-send-chat-state" title="tp_message_mixin_implement_send_chat_state ()">tp_message_mixin_implement_send_chat_state</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpMessageMixin.html#TpMessageMixinSendChatStateImpl" title="TpMessageMixinSendChatStateImpl ()"><span class="type">TpMessageMixinSendChatStateImpl</span></a> send_chat_state</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-maybe-send-gone" title="tp_message_mixin_maybe_send_gone ()">tp_message_mixin_maybe_send_gone</a>    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpMessageMixin.description"></a><h2>Description</h2>
+<p>
+This mixin can be added to a channel GObject class to implement the
+text channel type (with the Messages interface) in a general way.
+The channel class should also have a <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinClass" title="TpDBusPropertiesMixinClass"><span class="type">TpDBusPropertiesMixinClass</span></a>.
+</p>
+<p>
+To use the messages mixin, include a <a class="link" href="telepathy-glib-TpMessageMixin.html#TpMessageMixin" title="struct TpMessageMixin"><span class="type">TpMessageMixin</span></a> somewhere in your
+instance structure, and call <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-init" title="tp_message_mixin_init ()"><code class="function">tp_message_mixin_init()</code></a> from your
+constructor function, and <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-finalize" title="tp_message_mixin_finalize ()"><code class="function">tp_message_mixin_finalize()</code></a> from your dispose
+or finalize function. In the class_init function, call
+<a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-init-dbus-properties" title="tp_message_mixin_init_dbus_properties ()"><code class="function">tp_message_mixin_init_dbus_properties()</code></a> to hook this mixin into the D-Bus
+properties mixin class. Finally, include the following in the fourth
+argument of <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-DEFINE-TYPE-WITH-CODE:CAPS"><code class="function">G_DEFINE_TYPE_WITH_CODE()</code></a>:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS">G_IMPLEMENT_INTERFACE</a></span> <span class="gtkdoc opt">(</span>TP_TYPE_SVC_CHANNEL_TYPE_TEXT<span class="gtkdoc opt">,</span>
+  tp_message_mixin_text_iface_init<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS">G_IMPLEMENT_INTERFACE</a></span> <span class="gtkdoc opt">(</span>TP_TYPE_SVC_CHANNEL_INTERFACE_MESSAGES<span class="gtkdoc opt">,</span>
+  tp_message_mixin_messages_iface_init<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+To support sending messages, you must call
+<a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-implement-sending" title="tp_message_mixin_implement_sending ()"><code class="function">tp_message_mixin_implement_sending()</code></a> in the constructor function. If you do
+not, any attempt to send a message will fail with NotImplemented.
+</p>
+<p>
+To support chat state, you must call
+<a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-implement-send-chat-state" title="tp_message_mixin_implement_send_chat_state ()"><code class="function">tp_message_mixin_implement_send_chat_state()</code></a> in the constructor function, and
+include the following in the fourth argument of <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-DEFINE-TYPE-WITH-CODE:CAPS"><code class="function">G_DEFINE_TYPE_WITH_CODE()</code></a>:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#G-IMPLEMENT-INTERFACE:CAPS">G_IMPLEMENT_INTERFACE</a></span> <span class="gtkdoc opt">(</span>TP_TYPE_SVC_CHANNEL_INTERFACE_CHAT_STATE<span class="gtkdoc opt">,</span>
+  tp_message_mixin_chat_state_iface_init<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpMessageMixin.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TpMessageMixin"></a><h3>struct TpMessageMixin</h3>
+<pre class="programlisting">struct TpMessageMixin {
+};
+</pre>
+<p>
+Structure to be included in the instance structure of objects that
+use this mixin. Initialize it with <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-init" title="tp_message_mixin_init ()"><code class="function">tp_message_mixin_init()</code></a>.
+</p>
+<p>
+There are no public fields.
+</p>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpMessageMixinSendImpl"></a><h3>TpMessageMixinSendImpl ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*TpMessageMixinSendImpl)           (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpMessageSendingFlags" title="enum TpMessageSendingFlags"><span class="type">TpMessageSendingFlags</span></a> flags</code></em>);</pre>
+<p>
+Signature of a virtual method which may be implemented to allow messages
+to be sent. It must arrange for <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-sent" title="tp_message_mixin_sent ()"><code class="function">tp_message_mixin_sent()</code></a> to be called when
+the message has submitted or when message submission has failed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>An instance of the implementation that uses this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>An outgoing message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>flags with which to send the message</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-finalize"></a><h3>tp_message_mixin_finalize ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_mixin_finalize           (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);</pre>
+<p>
+Free resources held by the text mixin.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object with this mixin.</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-implement-sending"></a><h3>tp_message_mixin_implement_sending ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_mixin_implement_sending  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpMessageMixin.html#TpMessageMixinSendImpl" title="TpMessageMixinSendImpl ()"><span class="type">TpMessageMixinSendImpl</span></a> send</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_types</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="telepathy-glib-enums.html#TpChannelTextMessageType" title="enum TpChannelTextMessageType"><span class="type">TpChannelTextMessageType</span></a> *types</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpMessagePartSupportFlags" title="enum TpMessagePartSupportFlags"><span class="type">TpMessagePartSupportFlags</span></a> message_part_support_flags</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpDeliveryReportingSupportFlags" title="enum TpDeliveryReportingSupportFlags"><span class="type">TpDeliveryReportingSupportFlags</span></a> delivery_reporting_support_flags</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> * const *supported_content_types</code></em>);</pre>
+<p>
+Set the callback used to implement SendMessage, and the types of message
+that can be sent. This must be called from the init, constructor or
+constructed callback, after <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-init" title="tp_message_mixin_init ()"><code class="function">tp_message_mixin_init()</code></a>, and may only be called
+once per object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>An instance of the implementation that uses this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>send</code></em> :</span></p></td>
+<td>An implementation of <code class="function">SendMessage()</code>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_types</code></em> :</span></p></td>
+<td>Number of supported message types</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>types</code></em> :</span></p></td>
+<td>
+<em class="parameter"><code>n_types</code></em> supported message types</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message_part_support_flags</code></em> :</span></p></td>
+<td>Flags indicating what message part structures
+are supported</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>delivery_reporting_support_flags</code></em> :</span></p></td>
+<td>Flags indicating what kind of delivery
+reports are supported</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>supported_content_types</code></em> :</span></p></td>
+<td>The supported content types</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-init"></a><h3>tp_message_mixin_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_mixin_init               (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> offset</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a> *connection</code></em>);</pre>
+<p>
+Initialize the mixin. Should be called from the implementation's
+instance init function or constructor like so:
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-init">tp_message_mixin_init</a></span> <span class="gtkdoc opt">((</span>GObject <span class="gtkdoc opt">*)</span> self<span class="gtkdoc opt">,</span>
+    <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#G-STRUCT-OFFSET:CAPS">G_STRUCT_OFFSET</a></span> <span class="gtkdoc opt">(</span>SomeObject<span class="gtkdoc opt">,</span> message_mixin<span class="gtkdoc opt">),</span>
+    self<span class="gtkdoc opt">-&gt;</span>connection<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An instance of the implementation that uses this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>The byte offset of the TpMessageMixin within the object structure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection</code></em> :</span></p></td>
+<td>A <a class="link" href="TpBaseConnection.html" title="TpBaseConnection"><span class="type">TpBaseConnection</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-init-dbus-properties"></a><h3>tp_message_mixin_init_dbus_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_mixin_init_dbus_properties
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *cls</code></em>);</pre>
+<p>
+Set up a <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinClass" title="TpDBusPropertiesMixinClass"><span class="type">TpDBusPropertiesMixinClass</span></a> to use this mixin's implementation
+of the Messages interface's properties.
+</p>
+<p>
+This uses <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-get-dbus-property" title="tp_message_mixin_get_dbus_property ()"><code class="function">tp_message_mixin_get_dbus_property()</code></a> as the property getter
+and sets a list of the supported properties for it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>cls</code></em> :</span></p></td>
+<td>The class of an object with this mixin</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-messages-iface-init"></a><h3>tp_message_mixin_messages_iface_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_mixin_messages_iface_init
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);</pre>
+<p>
+Fill in this mixin's Messages method implementations in the given interface
+vtable.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>g_iface</code></em> :</span></p></td>
+<td>A pointer to the <a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessagesClass" title="TpSvcChannelInterfaceMessagesClass"><span class="type">TpSvcChannelInterfaceMessagesClass</span></a> in an object
+class</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface_data</code></em> :</span></p></td>
+<td>Ignored</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-get-dbus-property"></a><h3>tp_message_mixin_get_dbus_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_mixin_get_dbus_property  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> interface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> unused</code></em>);</pre>
+<p>
+An implementation of <a class="link" href="telepathy-glib-dbus-properties-mixin.html#TpDBusPropertiesMixinGetter" title="TpDBusPropertiesMixinGetter ()"><span class="type">TpDBusPropertiesMixinGetter</span></a> which assumes that
+the <em class="parameter"><code>object</code></em> has the messages mixin. It can only be used for the Messages
+interface.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>An object with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interface</code></em> :</span></p></td>
+<td>Must be <a class="link" href="telepathy-glib-interfaces.html#TP-IFACE-QUARK-CHANNEL-INTERFACE-MESSAGES:CAPS" title="TP_IFACE_QUARK_CHANNEL_INTERFACE_MESSAGES"><code class="literal">TP_IFACE_QUARK_CHANNEL_INTERFACE_MESSAGES</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>A quark representing the D-Bus property name, either
+"PendingMessages", "SupportedContentTypes" or "MessagePartSupportFlags"</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>A GValue pre-initialized to the right type, into which to put
+the value</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>unused</code></em> :</span></p></td>
+<td>Ignored</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-sent"></a><h3>tp_message_mixin_sent ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_mixin_sent               (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpMessageSendingFlags" title="enum TpMessageSendingFlags"><span class="type">TpMessageSendingFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *token</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);</pre>
+<p>
+Indicate to the message mixin that message submission to the IM server has
+succeeded or failed. This should be called as soon as the CM determines
+it's theoretically possible to send the message (e.g. the parameters are
+supported and correct).
+</p>
+<p>
+After this function is called, <em class="parameter"><code>message</code></em> will have been freed, and must not
+be dereferenced.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>An object implementing the Text and Messages interfaces with this
+mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>The outgoing message</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>The flags used when sending the message, which may be a subset of
+those passed to the <a class="link" href="telepathy-glib-TpMessageMixin.html#TpMessageMixinSendImpl" title="TpMessageMixinSendImpl ()"><span class="type">TpMessageMixinSendImpl</span></a> implementation if not all are
+supported, or 0 on error.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>token</code></em> :</span></p></td>
+<td>A token representing the sent message (see the Telepathy D-Bus API
+specification), or an empty string if no suitable identifier is available,
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on error</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on success, or the error with which message submission failed</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-set-rescued"></a><h3>tp_message_mixin_set_rescued ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_mixin_set_rescued        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);</pre>
+<p>
+Mark all pending messages as having been "rescued" from a channel that
+previously closed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object with this mixin</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-take-received"></a><h3>tp_message_mixin_take_received ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               tp_message_mixin_take_received      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="TpMessage.html" title="TpMessage"><span class="type">TpMessage</span></a> *message</code></em>);</pre>
+<p>
+Receive a message into the pending messages queue, where it will stay
+until acknowledged, and emit the Received and ReceivedMessage signals. Also
+emit the SendError signal if the message is a failed delivery report.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>a channel with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>the message. Its ownership is claimed by the message
+mixin, so it must no longer be modified or freed</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the message ID</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-has-pending-messages"></a><h3>tp_message_mixin_has_pending_messages ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            tp_message_mixin_has_pending_messages
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> *first_sender</code></em>);</pre>
+<p>
+Return whether the channel <em class="parameter"><code>obj</code></em> has unacknowledged messages. If so, and
+<em class="parameter"><code>first_sender</code></em> is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, the handle of the sender of the first message
+is placed in it, without incrementing the handle's reference count.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>An object with this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_sender</code></em> :</span></p></td>
+<td>If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, used to store the sender of the oldest pending
+message</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if there are pending messages</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-clear"></a><h3>tp_message_mixin_clear ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_mixin_clear              (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *obj</code></em>);</pre>
+<p>
+Clear the pending message queue, deleting all messages without emitting
+PendingMessagesRemoved.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>An object with this mixin</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-text-iface-init"></a><h3>tp_message_mixin_text_iface_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_mixin_text_iface_init    (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);</pre>
+<p>
+Fill in this mixin's Text method implementations in the given interface
+vtable.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>g_iface</code></em> :</span></p></td>
+<td>A pointer to the <a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeTextClass" title="TpSvcChannelTypeTextClass"><span class="type">TpSvcChannelTypeTextClass</span></a> in an object class</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface_data</code></em> :</span></p></td>
+<td>Ignored</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.7.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TpMessageMixinSendChatStateImpl"></a><h3>TpMessageMixinSendChatStateImpl ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*TpMessageMixinSendChatStateImpl)  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelChatState" title="enum TpChannelChatState"><span class="type">TpChannelChatState</span></a> state</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Signature of a virtual method which may be implemented to allow sending chat
+state.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>an instance of the implementation that uses this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>state</code></em> :</span></p></td>
+<td>a <a class="link" href="telepathy-glib-enums.html#TpChannelChatState" title="enum TpChannelChatState"><span class="type">TpChannelChatState</span></a> to be send</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to fill</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-chat-state-iface-init"></a><h3>tp_message_mixin_chat_state_iface_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_mixin_chat_state_iface_init
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> g_iface</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> iface_data</code></em>);</pre>
+<p>
+Fill in this mixin's ChatState method implementations in the given interface
+vtable.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>g_iface</code></em> :</span></p></td>
+<td>A pointer to the <a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceChatStateClass" title="TpSvcChannelInterfaceChatStateClass"><span class="type">TpSvcChannelInterfaceChatStateClass</span></a> in an object
+class</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iface_data</code></em> :</span></p></td>
+<td>Ignored</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-change-chat-state"></a><h3>tp_message_mixin_change_chat_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_mixin_change_chat_state  (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-handle.html#TpHandle" title="TpHandle"><span class="type">TpHandle</span></a> member</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-enums.html#TpChannelChatState" title="enum TpChannelChatState"><span class="type">TpChannelChatState</span></a> state</code></em>);</pre>
+<p>
+Change the current chat state of <em class="parameter"><code>member</code></em> to be <em class="parameter"><code>state</code></em>. This emits
+ChatStateChanged signal and update ChatStates property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>an instance of the implementation that uses this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>member</code></em> :</span></p></td>
+<td>a member of this chat</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>state</code></em> :</span></p></td>
+<td>the new state to set</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-implement-send-chat-state"></a><h3>tp_message_mixin_implement_send_chat_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_mixin_implement_send_chat_state
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="telepathy-glib-TpMessageMixin.html#TpMessageMixinSendChatStateImpl" title="TpMessageMixinSendChatStateImpl ()"><span class="type">TpMessageMixinSendChatStateImpl</span></a> send_chat_state</code></em>);</pre>
+<p>
+Set the callback used to implement SetChatState. This must be called from the
+init, constructor or constructed callback, after <a class="link" href="telepathy-glib-TpMessageMixin.html#tp-message-mixin-init" title="tp_message_mixin_init ()"><code class="function">tp_message_mixin_init()</code></a>,
+and may only be called once per object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>an instance of the implementation that uses this mixin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>send_chat_state</code></em> :</span></p></td>
+<td>send our chat state</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="tp-message-mixin-maybe-send-gone"></a><h3>tp_message_mixin_maybe_send_gone ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                tp_message_mixin_maybe_send_gone    (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>);</pre>
+<p>
+Send <a class="link" href="telepathy-glib-enums.html#TP-CHANNEL-CHAT-STATE-GONE:CAPS"><span class="type">TP_CHANNEL_CHAT_STATE_GONE</span></a> if needed. This should be called on private
+chats when channel is closed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>An instance of the implementation that uses this mixin</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.19.0</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="telepathy-glib-TpMessageMixin.see-also"></a><h2>See Also</h2>
+<a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelTypeText"><span class="type">TpSvcChannelTypeText</span></a>, <a class="link" href="telepathy-glib-svc-channel-text.html#TpSvcChannelInterfaceMessages"><span class="type">TpSvcChannelInterfaceMessages</span></a>,
+ <a class="link" href="telepathy-glib-dbus-properties-mixin.html" title="TpDBusPropertiesMixin">TpDBusPropertiesMixin</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>
